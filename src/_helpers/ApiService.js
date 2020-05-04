@@ -1,7 +1,21 @@
 import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('auth._token.local');
-axios.defaults.headers.common['Accept'] = 'application/json';
+const auth = localStorage.getItem('_auth') ? JSON.parse(localStorage.getItem('_auth')) : ''
+
+axios.defaults.headers.common['Accept'] = 'application/json'
+axios.defaults.headers.common['Content-Type'] = 'application/json'
+axios.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`
+
+// set token
+export const setToken = async () => {
+  axios.interceptors.request.use(async (request) => {
+    const auth = await localStorage.getItem('_auth') ? await JSON.parse(localStorage.getItem('_auth')) : null
+    if(auth) {
+      request.headers.common['Authorization'] = `Bearer ${auth.token}`
+    }
+    return request
+  })
+}
 
 // Request Method for dynamic method
 export const request = (method, url, payload = {}, headers = {}) => {

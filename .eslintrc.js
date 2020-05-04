@@ -19,6 +19,7 @@ module.exports = {
     }],
     'vue/script-indent': ['warn', 2, { 
       'baseIndent': 1,
+      'switchCase': 1,
     }],
     'vue/html-indent': ['warn', 2, {
       'attribute': 1,
@@ -80,6 +81,9 @@ module.exports = {
       'non-void-html-element-start-tag-with-trailing-solidus': false,
       'x-invalid-end-tag': true,
       'x-invalid-namespace': true
+    }],
+    'vue/attribute-hyphenation': ['warn', 'never', {
+      'ignore': []
     }]
   },
   'overrides': [

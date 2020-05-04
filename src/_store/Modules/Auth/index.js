@@ -4,27 +4,39 @@ export default {
   state: () => ({
     auth: {
       isAuth: false,
+      token: '',
       data: {}
     },
   }),
   getters: {
-    AUTH_USER(state) {
+    AUTH_USER(state) 
+    {
       return state.auth;
     },
   },
   mutations: {
-    SET_AUTH_USER(state, payload) {
+    SET_AUTH_USER(state, payload) 
+    {
       state.auth = payload;
     },
   },
   actions: {
-    async LOGIN(context, payload) {
+    async LOGIN(context, payload) 
+    {
       try {
         const { data } = await post('auth/login', payload)
-        console.log('data', data)
         return data
-      } catch (error) {
-        
+      } catch (err) {
+        throw err
+      }
+    },
+    async LOGOUT(context, payload) 
+    {
+      try {
+        const { data } = await post('auth/logout')
+        return data
+      } catch (err) {
+        throw err
       }
     }
   },

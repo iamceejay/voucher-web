@@ -7,7 +7,7 @@
       :name="id"
       :type="type"
       class="input-field"
-      :v-bind:class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
+      :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
       :value="value"
       @input="onUpdateField()"
     />

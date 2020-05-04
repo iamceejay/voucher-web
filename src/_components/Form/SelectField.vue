@@ -8,7 +8,7 @@
       :id="id"
       ref="inputField"
       class="input-field"
-      :v-bind:class="{ 'text-red-500 border-red-500': errors.length > 0 }"
+      :class="{ 'text-red-500 border-red-500': errors.length > 0 }"
       :name="id"
       :value="(typeof value.value != 'undefined') ? value.value : value "
       @change="onUpdateField()"

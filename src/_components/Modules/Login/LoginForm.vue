@@ -26,25 +26,27 @@
         />
       </div>
       <div class="flex justify-between">
-        <button
-          type="submit"
-          class="ml-auto text-sm font-bold py-2 px-4 rounded focus:outline-none focus:shadow-none"
+        <Button
+          class="ml-auto py-2"
           :disabled="submitting"
-          @click="onSubmit()"
-        >
-          Sign in
-        </button>
+          :isLoading="submitting"
+          label="Login"
+          @onClick="onSubmit()"
+        />
       </div>
     </form>
   </div>
 </template>
 <script>
+  import { setToken } from '_helpers/ApiService'
   import InputField from '_components/Form/InputField';
+  import Button from '_components/Button';
 
   export default {
     name: 'LoginForm',
     components: {
-      InputField
+      InputField,
+      Button
     },
     data() {
       return {
@@ -63,14 +65,31 @@
       }
     },
     mounted() {
-      // console.log('this.$store.state naio', this.AUTH_USER)
     },
     methods: {
-      async onSubmit() {
-        this.submitting = true
-        const data = await this.$store.dispatch('LOGIN')
-        console.log('data 2', data)
-        this.submitting = false
+      async onSubmit() 
+      {
+        try {
+          this.submitting = true
+          this.errorMessages = []
+          const { token, user } = await this.$store.dispatch('LOGIN', this.loginForm)
+          await setToken()
+          const auth = {
+            isAuth: true,
+            token,
+            data: user,
+          }
+          this.$store.commit('SET_AUTH_USER', auth)
+          localStorage.setItem('_auth', JSON.stringify(auth))
+          this.submitting = false
+          this.$router.push('/dashboard')
+        } catch (err) {
+          this.submitting = false
+          if(err.response?.status === 422) {
+            this.errorMessages = err.response.data.errors
+          }
+          console.log('err', err)
+        }
       }
     }
   };

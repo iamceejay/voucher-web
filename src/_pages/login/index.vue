@@ -15,7 +15,7 @@
 <script>
   import LoginForm from '_components/Modules/Login/LoginForm';
   export default {
-    name: 'Login',
+    name: 'Dashboard',
     components: {
       LoginForm
     }
