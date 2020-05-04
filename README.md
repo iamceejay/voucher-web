@@ -2,14 +2,12 @@
 
 ## Project setup
 ```
-<ul>
-    <li>type this command in the cmd to clone "git clone https://github.com/knedio/voucher-web"</li>
-    <li>cd voucher-web</li>
-    <li>yarn install</li>
-    <li>make a copy of .env.example and rename it to .env</li>
-    <li>change the .env according to your setup</li>
-    <li>yarn serve</li>
-</ul>
+1. type this command in the cmd to clone "git clone https://github.com/knedio/voucher-web"
+2. cd voucher-web
+3. yarn install
+4. make a copy of .env.example and rename it to .env
+5. change the .env according to your setup
+6. yarn serve
 ```
 
 ### Compiles and hot-reloads for development
