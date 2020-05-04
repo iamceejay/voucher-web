@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-  import InputField from "_components/Form/InputField";
+  import InputField from '_components/Form/InputField';
 
   export default {
     name: 'LoginForm',
@@ -49,15 +49,22 @@
     data() {
       return {
         submitting: false,
-        error: "",
+        error: '',
         errorMessages: [],
         loginForm: {
-          email: "",
-          password: ""
+          email: '',
+          password: ''
         }
       };
     },
-    mounted() {},
+    computed: {
+      AUTH_USER() {
+        return this.$store.getters.AUTH_USER;
+      }
+    },
+    mounted() {
+      console.log('AUTH_USER naio', AUTH_USER)
+    },
     methods: {
       onSubmit() {
         
@@ -65,7 +72,7 @@
     }
   };
 </script>
-<style lang="css" scoped>
+<style lang='css' scoped>
   .container {
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.175);
     border-radius: 8px;

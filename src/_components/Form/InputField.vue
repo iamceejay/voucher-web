@@ -2,36 +2,55 @@
   <div id="input-field-component">
     <label class="block text-left text-gray-700 text-sm font-bold mb-0">{{ label }}</label>
     <input
-      class="input-field"
-      ref="inputField"
-      :value="value"
-      @input="onUpdateField()"
       :id="id"
+      ref="inputField"
       :name="id"
       :type="type"
-      v-bind:class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
+      class="input-field"
+      :v-bind:class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
+      :value="value"
+      @input="onUpdateField()"
     />
     <ErrorMessage :errors="errors" />
   </div>
 </template>
-<style lang="css" scoped>
-</style>
 <script>
-import ErrorMessage from "./FieldErrorMessage";
+  import ErrorMessage from './FieldErrorMessage'
 
-export default {
-  props: ['id', 'type', 'label', 'value', 'errors'],
-  components: {
-    ErrorMessage
-  },
-  data() {
-    return {};
-  },
-  mounted() {},
-  methods: {
-    onUpdateField() {
-      this.$emit("input", this.$refs.inputField.value);
+  export default {
+    components: {
+      ErrorMessage
+    },
+    props: {
+      id: {
+        type: [Number, String],
+        default: null
+      }, type: {
+        type: String,
+        default: ''
+      }, label: {
+        type: String,
+        default: ''
+      }, value: {
+        type: String,
+        default: ''
+      }, errors: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
+    },
+    data() {
+      return {};
+    },
+    mounted() {},
+    methods: {
+      onUpdateField() {
+        this.$emit('input', this.$refs.inputField.value);
+      }
     }
   }
-};
 </script>
+<style lang='css' scoped>
+</style>

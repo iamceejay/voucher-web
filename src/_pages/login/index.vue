@@ -3,7 +3,7 @@
     <div class="flex flex-1 justify-center items-center flex-col">
       <div class="container">
         <div class="header-container">
-          Login
+          Voucher
         </div>
         <div class="content-container">
           <LoginForm />
@@ -21,7 +21,7 @@
     }
   }
 </script>
-<style lang="css" scoped>
+<style lang='css' scoped>
   .container {
     /* margin-top: -100px; */
     width: 40%;

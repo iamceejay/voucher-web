@@ -1,4 +1,4 @@
-# vue-js-standard
+# Voucher
 
 ## Project setup
 ```
@@ -22,4 +22,4 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-# vue-js-standard
+# Voucher
