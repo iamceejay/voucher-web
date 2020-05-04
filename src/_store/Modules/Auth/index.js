@@ -1,3 +1,5 @@
+import { post, get } from '_helpers/ApiService'
+
 export default {
   state: () => ({
     auth: {
@@ -16,6 +18,14 @@ export default {
     },
   },
   actions: {
-
+    async LOGIN(context, payload) {
+      try {
+        const { data } = await post('auth/login', payload)
+        console.log('data', data)
+        return data
+      } catch (error) {
+        
+      }
+    }
   },
 }

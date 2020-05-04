@@ -63,11 +63,14 @@
       }
     },
     mounted() {
-      console.log('AUTH_USER naio', AUTH_USER)
+      // console.log('this.$store.state naio', this.AUTH_USER)
     },
     methods: {
-      onSubmit() {
-        
+      async onSubmit() {
+        this.submitting = true
+        const data = await this.$store.dispatch('LOGIN')
+        console.log('data 2', data)
+        this.submitting = false
       }
     }
   };
