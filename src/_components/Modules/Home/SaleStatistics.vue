@@ -9,7 +9,7 @@
         :key="`stat-${index}`"
         class="h-24 w-32 border rounded m-2 p-2 text-center"
       >
-        <div class="text-xs px-2">
+        <div class="text-xs px-2 h-12">
           {{ stat.title }}
         </div>
         <div class="text-lg font-semibold">
