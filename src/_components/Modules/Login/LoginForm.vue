@@ -82,11 +82,13 @@
           this.$store.commit('SET_AUTH_USER', auth)
           localStorage.setItem('_auth', JSON.stringify(auth))
           this.submitting = false
-          this.$router.push('/dashboard')
+          this.$router.push('/home')
         } catch (err) {
           this.submitting = false
           if(err.response?.status === 422) {
             this.errorMessages = err.response.data.errors
+          } else if(err.response?.status === 404) {
+            this.error = err.response.data.message
           }
           console.log('err', err)
         }

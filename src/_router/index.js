@@ -2,9 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '_store';
 import guest from './_middleware/guest'
+import auth from './_middleware/auth'
 import middlewarePipeline from './_middleware/middlewarePipeline'
-import Dashboard from '_pages/dashboard'
-import Login from '_pages/login'
+import Login from '_pages/Login'
+import Home from '_pages/Home'
+import MyVouchers from '_pages/MyVouchers'
+import OrdersEarnings from '_pages/OrdersEarnings'
+import Profile from '_pages/Profile'
+import Redemptions from '_pages/Redemptions'
+import Scanner from '_pages/Scanner'
+import ScannerUsers from '_pages/ScannerUsers'
+import PageNotFound from '_pages/Errors/PageNotFound'
 Vue.use(Router);
 
 const router = new Router({
@@ -19,17 +27,66 @@ const router = new Router({
         middleware: [ guest ]
       } 
     },{ 
-      path: '/', 
+      path: '', 
       component: Login,
       meta: {
         middleware: [ guest ]
       } 
     },{ 
-      path: '/dashboard', 
-      name: 'dashboard', 
-      component: Dashboard,
+      path: '/home', 
+      name: 'home', 
+      component: Home,
       meta: {
-        // middleware: [IsAuth]
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/my-vouchers', 
+      name: 'my-vouchers', 
+      component: MyVouchers,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/scanner', 
+      name: 'scanner', 
+      component: Scanner,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/orders-earnings', 
+      name: 'orders-earnings', 
+      component: OrdersEarnings,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/redemptions', 
+      name: 'redemptions', 
+      component: Redemptions,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/profile-settings', 
+      name: 'profile-settings', 
+      component: Profile,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/scanner-users', 
+      name: 'scanner-users', 
+      component: ScannerUsers,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '*', 
+      name: '404', 
+      component: PageNotFound,
+      meta: {
+        middleware: [ auth ]
       } 
     },
   ],

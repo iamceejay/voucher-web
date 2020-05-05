@@ -5,8 +5,8 @@
   >
     <button
       :type="type"
-      class="text-sm rounded focus:outline-none focus:shadow-none border-1 w-20 py-1"
-      :class="[bg]"
+      class="text-sm focus:outline-none focus:shadow-none border-1 py-1"
+      :class="[bg, size, round]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
     >
@@ -31,6 +31,10 @@
         type: String,
         default: 'primary'
       },
+      round: {
+        type: String,
+        default: 'rounded'
+      },
       label: {
         type: String,
         default: ''
@@ -42,6 +46,10 @@
       isLoading: {
         type: Boolean,
         default: false
+      },
+      size: {
+        type: String,
+        default: 'w-20'
       }
     },
     data() {
@@ -55,12 +63,13 @@
     methods: {
       onSetVariant()
       {
+        console.log('this.variant', this.variant)
         switch (this.variant) {
           case 'success':
             this.bg = 'bg-yellow-400 text-white'
             break
           case 'info':
-            this.bg = 'bg-grey-400 text-black'
+            this.bg = 'bg-gray-500 text-black'
             break
           case 'danger':
             this.bg = 'bg-red-600 text-white'

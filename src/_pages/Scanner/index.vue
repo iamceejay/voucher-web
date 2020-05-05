@@ -1,28 +1,27 @@
 <template>
-  <div class="flex items-stretch h-screen">
-    <div class="flex flex-1 justify-center items-center flex-col">
-      <div class="container">
-        <div class="header-container">
-          Dashboard
-          <Button
-            class="py-2 justify-center"
-            :disabled="submitting"
-            :isLoading="submitting"
-            label="Logout"
-            @onClick="onLogout()"
-          />
+  <MainLayout>
+    <template #content>
+      <div class="flex items-stretch h-screen">
+        <div class="flex flex-1 justify-center items-center flex-col">
+          <div class="container">
+            <div class="header-container">
+              Scanner
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </MainLayout>
 </template>
 <script>
   import Button from '_components/Button';
+  import MainLayout from '_layouts';
 
   export default {
     name: 'Dashboard',
     components: {
-      Button
+      Button,
+      MainLayout
     },
     data() {
       return {

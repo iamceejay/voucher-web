@@ -26,6 +26,9 @@ module.exports = {
             rootPathPrefix: '_helpers',
             rootPathSuffix: 'src/_helpers',
           },{
+            rootPathPrefix: '_layouts',
+            rootPathSuffix: 'src/_layouts',
+          },{
             rootPathPrefix: '_store',
             rootPathSuffix: 'src/_store',
           },
