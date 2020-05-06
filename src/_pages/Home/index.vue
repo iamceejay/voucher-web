@@ -1,20 +1,21 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex items-stretch h-screen">
+      <div class="flex">
         <div class="flex flex-1 flex-col">
           <div class="flex flex-col">
             <span class="font-bold text-lg">Hi Company!</span>
             <Button
               class="py-2"
               label="Scan Voucher"
-              size="w-64"
+              size="w-64 py-2"
               variant="info"
               round="rounded-full"
             />
           </div>
           <div>
             <SaleStatistics />
+            <Quicklinks />
           </div>
         </div>
       </div>
@@ -24,6 +25,7 @@
 <script>
   import Button from '_components/Button';
   import SaleStatistics from '_components/Modules/Home/SaleStatistics';
+  import Quicklinks from '_components/Modules/Home/Quicklinks';
   import MainLayout from '_layouts';
 
   export default {
@@ -31,7 +33,8 @@
     components: {
       Button,
       MainLayout,
-      SaleStatistics
+      SaleStatistics,
+      Quicklinks
     },
     data() {
       return {

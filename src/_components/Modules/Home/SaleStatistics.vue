@@ -3,25 +3,18 @@
     <div class="font-bold text-lg py-2">
       Sales Statistics
     </div>
-    <div class="flex flex-wrap">
-      <div
-        v-for="(stat, index) in stats"
-        :key="`stat-${index}`"
-        class="h-24 w-32 border rounded m-2 p-2 text-center"
-      >
-        <div class="text-xs px-2 h-12">
-          {{ stat.title }}
-        </div>
-        <div class="text-lg font-semibold">
-          {{ stat.value }}
-        </div>
-      </div>
-    </div>
+    <StatisticList 
+      :data="stats"
+    />
   </div>
 </template>
 <script>
+  import StatisticList from '_components/List/Modules/StatisticList/'
+
   export default {
-    components: {},
+    components: {
+      StatisticList,
+    },
     props: [],
     data() {
       return {

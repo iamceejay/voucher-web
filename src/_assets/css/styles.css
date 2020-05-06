@@ -2,10 +2,12 @@
     width: 100%;
     color: rgba(0, 0, 0, 0.75);
     line-height: 1.50;
-    border-color: #ccc;
-    border-bottom-width: 1px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
     -webkit-appearance: none;
     background-color: transparent;
+    padding: 6px 15px;
+    font-size: 12px;
     /* margin-bottom: 0.25rem; */
 }
 .input-field:focus, .input-field:hover {

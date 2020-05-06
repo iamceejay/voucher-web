@@ -1,12 +1,20 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex items-stretch h-screen">
-        <div class="flex flex-1 justify-center items-center flex-col">
-          <div class="container">
-            <div class="header-container">
-              My Voucher
-            </div>
+      <div class="flex">
+        <div class="flex flex-1 flex-col">
+          <div class="flex flex-col">
+            <span class="font-bold text-lg">My Vouchers!</span>
+            <Button
+              class="py-2"
+              label="Create new voucher"
+              size="w-full sm:w-64 py-2"
+              variant="info"
+              round="rounded-full"
+            />
+          </div>
+          <div>
+            <VoucherList />
           </div>
         </div>
       </div>
@@ -15,13 +23,15 @@
 </template>
 <script>
   import Button from '_components/Button';
+  import VoucherList from '_components/List/Modules/VoucherList/';
   import MainLayout from '_layouts';
 
   export default {
-    name: 'Dashboard',
+    name: 'MyVouchers',
     components: {
       Button,
-      MainLayout
+      MainLayout,
+      VoucherList
     },
     data() {
       return {

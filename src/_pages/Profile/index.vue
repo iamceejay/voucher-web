@@ -1,27 +1,58 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex items-stretch h-screen">
-        <div class="flex flex-1 justify-center items-center flex-col">
-          <div class="container">
-            <div class="header-container">
-              Profile and Settings
+      <div class="flex">
+        <div class="w-full flex flex-col">
+          <div class="font-bold text-lg py-2">
+            Profile & Settings
+          </div>
+          <div class="flex flex-wrap">
+            <div class="w-full md:w-1/2 order-1">
+              <div class="font-bold text-sm pt-2">
+                Profile Info
+              </div>
+              <ProfileForm />
+            </div>
+            <div class="w-full md:w-1/2 order-2 md:order-3">
+              <div class="font-bold text-sm pt-2">
+                Company Info
+              </div>
+              <CompanyForm />
+            </div>
+            <div class="w-full md:w-1/2 order-3 md:order-2">
+              <div class="font-bold text-sm pt-2">
+                Payout Info
+              </div>
+              <PayoutForm />
             </div>
           </div>
+          <Button
+            class="py-2 mx-2"
+            label="Save"
+            size="w-full sm:w-64 py-2"
+            variant="info"
+            round="rounded-full"
+          />
         </div>
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import Button from '_components/Button';
   import MainLayout from '_layouts';
+  import Button from '_components/Button';
+  import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
+  import CompanyForm from '_components/Modules/Profile/Form/CompanyForm';
+  import PayoutForm from '_components/Modules/Profile/Form/PayoutForm';
 
   export default {
-    name: 'Dashboard',
+    name: 'Profile',
     components: {
-      Button,
-      MainLayout
+      MainLayout,
+      ProfileForm,
+      CompanyForm,
+      PayoutForm,
+      Button
     },
     data() {
       return {

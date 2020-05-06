@@ -13,6 +13,13 @@
       :value="(typeof value.value != 'undefined') ? value.value : value "
       @change="onUpdateField()"
     >
+      <option 
+        value="" 
+        selected 
+        disabled
+      >
+        Choose here
+      </option>
       <option
         v-for="(option, index) in options"
         :key="`${id}-${index}`"

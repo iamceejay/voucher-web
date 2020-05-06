@@ -1,27 +1,26 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex items-stretch h-screen">
-        <div class="flex flex-1 justify-center items-center flex-col">
-          <div class="container">
-            <div class="header-container">
-              Orders and Earnings
-            </div>
-          </div>
+      <div class="flex">
+        <div class="flex flex-1 flex-col">
+          <Earnings />
+          <Orders />
         </div>
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import Button from '_components/Button';
   import MainLayout from '_layouts';
+  import Earnings from '_components/Modules/OrdersEarnings/Earnings';
+  import Orders from '_components/Modules/OrdersEarnings/Orders';
 
   export default {
     name: 'Dashboard',
     components: {
-      Button,
-      MainLayout
+      MainLayout,
+      Earnings,
+      Orders
     },
     data() {
       return {

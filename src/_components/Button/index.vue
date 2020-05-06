@@ -5,7 +5,7 @@
   >
     <button
       :type="type"
-      class="text-sm focus:outline-none focus:shadow-none border-1 py-1"
+      class="text-sm focus:outline-none focus:shadow-none border-1"
       :class="[bg, size, round]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
@@ -14,7 +14,10 @@
         v-if="isLoading"
         class="sm-spinner m-auto" 
       />
-      <span v-else>
+      <span 
+        v-else
+        :class="[fontSize]"
+      >
         {{ label }}
       </span>
     </button>
@@ -49,7 +52,11 @@
       },
       size: {
         type: String,
-        default: 'w-20'
+        default: 'w-20 py-1'
+      },
+      fontSize: {
+        type: String,
+        default: 'font-base'
       }
     },
     data() {
@@ -63,7 +70,6 @@
     methods: {
       onSetVariant()
       {
-        console.log('this.variant', this.variant)
         switch (this.variant) {
           case 'success':
             this.bg = 'bg-yellow-400 text-white'

@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex items-stretch h-screen">
+      <div class="flex">
         <div class="flex flex-1 justify-center items-center flex-col">
           <div class="container">
             <div class="header-container">

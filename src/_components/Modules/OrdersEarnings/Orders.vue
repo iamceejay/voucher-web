@@ -1,43 +1,33 @@
 <template>
-  <MainLayout>
-    <template #content>
-      <div class="flex">
-        <div class="w-full flex flex-col">
-          <div class="font-bold text-lg py-2">
-            Redemptions
-          </div>
-          <OrderList 
-            :data="redemptions"
-            role="seller"
-          />
-        </div>
-      </div>
-    </template>
-  </MainLayout>
+  <div class="w-full flex flex-col">
+    <div class="font-bold text-lg py-2">
+      Orders
+    </div>
+    <OrderList 
+      :data="orders"
+    />
+  </div>
 </template>
 <script>
-  import Button from '_components/Button';
-  import MainLayout from '_layouts';
   import OrderList from '_components/List/Modules/OrderList/'
 
   export default {
     components: {
-      MainLayout,
       OrderList,
     },
     props: [],
     data() {
       return {
-        redemptions: [],
+        orders: [],
       };
     },
     mounted() {
-      this.onSetRedemptions()
+      this.onSetOrders()
     },
     methods: {
-      onSetRedemptions()
+      onSetOrders()
       {
-        this.redemptions = [
+        this.orders = [
           {
             name: 'Voucher Name',
             orderNo: '123123',

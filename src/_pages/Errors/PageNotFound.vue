@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-stretch h-screen">
+  <div class="flex">
     <div class="flex flex-1 justify-center items-center flex-col">
       <p>
         <span class="font-bold text-base">Sorry!</span> 
