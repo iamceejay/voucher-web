@@ -11,6 +11,7 @@
         v-for="(voucher, index) in VOUCHERS"
         :key="`voucher-${index}`"
         :data="voucher"
+        class="m-2"
       />
     </div>
   </div>

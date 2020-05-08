@@ -1,10 +1,13 @@
 <template>
-  <div 
-    class="flex border rounded card-container m-2"
+  <div
+    id="voucher-card"
+    class="flex border rounded card-container bg-color"
     :class="{'flip': isFlip}"
+    :style="{ '--bgColor': bg }"
   >
     <CardInfo
       v-if="!isAction"
+      :class="`${ data.isDarkText ? 'text-black' : 'text-white' }`"
       :data="data"
       @onFlip="onFlip()"
     />
@@ -28,7 +31,18 @@
       data: {
         type: Object,
         default: null
-      }
+      },
+      bg: {
+        type: String,
+        default: '#fff'
+      },
+      bgImg: {
+        type: String,
+        default: ''
+      }, isFlippable: {
+        type: Boolean,
+        default: true
+      },
     },
     data() {
       return {
@@ -36,12 +50,24 @@
         isFlip: false,
       };
     },
+    watch: {
+      bgImg(newVal)
+      {
+        const card = document.getElementById('voucher-card')
+        if(card) {
+          card.style.backgroundImage = `url('${newVal}')`
+          card.style.backgroundSize = `320px 260px`
+        }
+      }
+    },
     mounted() {},
     methods: {
       onFlip()
       {
-        this.isFlip = !this.isFlip
-        this.isAction = !this.isAction
+        if(this.isFlippable) {
+          this.isFlip = !this.isFlip
+          this.isAction = !this.isAction
+        }
       },
     }
   }
@@ -80,6 +106,9 @@
     margin-top: -10px;
     margin-left: 9px;
     font-size: 9px;
+  }
+  .bg-color {
+    background-color: var(--bgColor);
   }
   @media only screen and (max-width: 640px) {
     .card-container {

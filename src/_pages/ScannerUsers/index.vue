@@ -1,54 +1,65 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex">
-        <div class="flex flex-1 justify-center items-center flex-col">
-          <div class="container">
-            <div class="header-container">
-              Scanner Users
-            </div>
-          </div>
+      <div class="w-full flex flex-col">
+        <div class="font-bold text-lg py-2">
+          Scanner Users
         </div>
+        <ScannerUserList 
+          :data="scannerList"
+        />
+        <router-link to="/scanner-users/new">
+          <Button
+            class="py-2 w-full md:w-1/2"
+            label="Add new user"
+            size="w-full py-1"
+            variant="info"
+            round="rounded-full"
+            fontSize="text-xs"
+          />
+        </router-link>
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import Button from '_components/Button';
-  import MainLayout from '_layouts';
+  import Button from '_components/Button'
+  import MainLayout from '_layouts'
+  import ScannerUserList from '_components/List/Modules/ScannerUserList'
 
   export default {
     name: 'Dashboard',
     components: {
+      MainLayout,
       Button,
-      MainLayout
+      ScannerUserList
     },
     data() {
       return {
-        submitting: false
+        scannerList: []
       }
     },
     mounted() {
-
+      this.onSetScannerList()
     },
     methods: {
-      async onLogout()
+      onSetScannerList()
       {
-        try {
-          this.submitting = true
-          const data = await this.$store.dispatch('LOGOUT')
-          this.$store.commit('SET_AUTH_USER', {
-            isAuth: false,
-            token: '',
-            data: {},
-          })
-          localStorage.removeItem('_auth')
-          this.submitting = false
-          this.$router.push('/login')
-        } catch (err) {
-          this.submitting = false
-          console.log('err', err)
-        }
+        this.scannerList = [
+          {
+            firstName: 'Mike',
+            lastName: 'Jhonson',
+          },{
+            firstName: 'Chris',
+            lastName: 'Jhonson',
+          },{
+            firstName: 'Jasper',
+            lastName: 'Jhonson',
+          },{
+            firstName: 'Joe',
+            lastName: 'Jhonson',
+          }
+        ];
       }
     }
   }

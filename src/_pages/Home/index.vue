@@ -5,13 +5,15 @@
         <div class="flex flex-1 flex-col">
           <div class="flex flex-col">
             <span class="font-bold text-lg">Hi Company!</span>
-            <Button
-              class="py-2"
-              label="Scan Voucher"
-              size="w-64 py-2"
-              variant="info"
-              round="rounded-full"
-            />
+            <router-link to="/scanner">
+              <Button
+                class="py-2"
+                label="Scan Voucher"
+                size="w-64 py-2"
+                variant="info"
+                round="rounded-full"
+              />
+            </router-link>
           </div>
           <div>
             <SaleStatistics />

@@ -8,105 +8,126 @@ export default {
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
       {
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
       {
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
       {
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
       {
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
       {
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
       {
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
         customNote: '',
-        validDate: {
-          start: '12.04.2020',
-          end: '30.04.2020',
-        },
+        validDates: [
+          {
+            start: '2020-05-09',
+            end: '2020-05-09',
+          }
+        ],
         validDay: ['Mon', 'Tues', 'Wed'],
         expiryDate: '12.04.2023',
-        type: 'value',
+        isQuantityBased: true,
         value: 15000,
-        quantity: 0
+        quantity: 0,
+        isDarkText: true, 
       },
     ]
   }),

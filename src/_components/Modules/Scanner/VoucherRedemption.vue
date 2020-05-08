@@ -1,0 +1,73 @@
+<template>
+  <div class="flex flex-col self-center w-full">
+    <InputField
+      id="text"
+      v-model="voucherForm.value"
+      type="text"
+      class="w-full md:w-1/2 m-auto mt-4"
+      placeholder="Enter value of redemption."
+    />
+    <Button
+      class="pt-1 mt-2 mx-2 justify-center"
+      label="Redeem voucher"
+      size="mt-1 w-full md:w-1/2 py-2"
+      variant="info"
+      round="rounded-full"
+      @onClick="onRedeem()"
+    />
+    <Button
+      class="pt-1 mx-2 justify-center"
+      label="Cancel"
+      size="m-1 w-full md:w-1/2 py-2"
+      variant="info"
+      round="rounded-full"
+      @onClick="$emit('onSetVoucher', null)"
+    />
+  </div>
+</template>
+<script>
+  import Button from "_components/Button";
+  import InputField from "_components/Form/InputField";
+
+  export default {
+    components: {
+      Button,
+      InputField
+    },
+    props: [],
+    data() {
+      return {
+        voucherForm: {
+          value: ""
+        }
+      };
+    },
+    mounted() {},
+    methods: {
+      onRedeem() {
+        if(this.voucherForm.value != '') {
+          this.$swal({
+            title: 'Confirm the redemption of the voucher.',
+            text: `Value: ${this.voucherForm.value}€`,
+            showCancelButton: true,
+            confirmButtonColor: '#6C757D',
+            cancelButtonColor: '#AF0000',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+          }).then((result) => {
+            if(result.value){
+              this.$swal({
+                icon: 'success',
+                title: 'The voucher was redeemed!',
+                confirmButtonColor: '#6C757D',
+              });
+              this.$emit('onSetVoucher', '')
+            }   
+          });
+        }
+      }
+    }
+  }
+</script>
+<style lang="css" scoped>
+</style>

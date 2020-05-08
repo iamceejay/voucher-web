@@ -1,22 +1,25 @@
 <template>
   <div id="input-field-component">
-    <label 
-      v-if="label != ''"
-      class="block text-left text-gray-700 text-sm font-bold mb-0"
-    >
+    <label class="block text-left text-gray-700 text-sm font-bold mb-0">
       {{ label }}
     </label>
-    <input
-      :id="id"
-      ref="inputField"
-      :name="id"
-      :type="type"
-      class="input-field"
-      :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
-      :value="value"
-      :placeholder="placeholder"
-      @input="onUpdateField()"
-    />
+    <div
+      v-for="(row, index) in data"
+      :key="`${row}-${index}`"
+      class=" flex items-center"
+    >
+      <input 
+        :id="`${row}-${index}`"
+        v-model="checkboxValue"
+        :name="name"
+        :value="row"
+        type="checkbox"
+        @change="onUpdateField()"
+      />
+      <label class="text-xs p-1">
+        {{ row.substring(0,3) }}
+      </label>
+    </div>
     <ErrorMessage :errors="errors" />
   </div>
 </template>
@@ -31,18 +34,23 @@
       id: {
         type: [Number, String],
         default: null
+      }, name: {
+        type: String,
+        default: ''
       }, type: {
         type: String,
         default: ''
       }, label: {
         type: String,
         default: ''
-      }, placeholder: {
-        type: String,
-        default: ''
       }, value: {
         type: String,
         default: ''
+      }, data: {
+        type: Array,
+        default() {
+          return []
+        }
       }, errors: {
         type: Array,
         default() {
@@ -51,12 +59,14 @@
       },
     },
     data() {
-      return {};
+      return {
+        checkboxValue: []
+      }
     },
     mounted() {},
     methods: {
       onUpdateField() {
-        this.$emit('input', this.$refs.inputField.value);
+        this.$emit('onChange', this.checkboxValue);
       }
     }
   }

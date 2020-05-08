@@ -1,6 +1,11 @@
 <template>
   <div id="text-area-field-component">
-    <label class="block text-left text-gray-700 text-sm font-bold mb-0">{{ label }}</label>
+    <label 
+      v-if="label != ''"
+      class="block text-left text-gray-700 text-sm font-bold mb-0"
+    >
+      {{ label }}
+    </label>
     <textarea
       :id="id"
       ref="inputField"
@@ -9,6 +14,8 @@
       class="input-field"
       :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
       :value="value"
+      :maxlength="max"
+      :placeholder="placeholder"
       @input="onUpdateField()"
     />
     <ErrorMessage :errors="errors" />
@@ -25,7 +32,13 @@
       id: {
         type: [Number, String],
         default: null
+      }, max: {
+        type: Number,
+        default: null
       }, label: {
+        type: String,
+        default: ''
+      }, placeholder: {
         type: String,
         default: ''
       }, value: {

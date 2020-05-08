@@ -7,11 +7,13 @@ import middlewarePipeline from './_middleware/middlewarePipeline'
 import Login from '_pages/Login/'
 import Home from '_pages/Home/'
 import MyVouchers from '_pages/MyVouchers/'
+import NewVoucher from '_pages/MyVouchers/New'
 import OrdersEarnings from '_pages/OrdersEarnings/'
 import Profile from '_pages/Profile/'
 import Redemptions from '_pages/Redemptions/'
 import Scanner from '_pages/Scanner/'
 import ScannerUsers from '_pages/ScannerUsers/'
+import ScannerUserNew from '_pages/ScannerUsers/New'
 import PageNotFound from '_pages/Errors/PageNotFound'
 Vue.use(Router);
 
@@ -47,6 +49,13 @@ const router = new Router({
         middleware: [ auth ]
       } 
     },{ 
+      path: '/vouchers/new', 
+      name: 'vouchers-new', 
+      component: NewVoucher,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
       path: '/scanner', 
       name: 'scanner', 
       component: Scanner,
@@ -78,6 +87,13 @@ const router = new Router({
       path: '/scanner-users', 
       name: 'scanner-users', 
       component: ScannerUsers,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/scanner-users/new', 
+      name: 'scanner-users-new', 
+      component: ScannerUserNew,
       meta: {
         middleware: [ auth ]
       } 

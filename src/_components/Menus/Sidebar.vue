@@ -148,7 +148,9 @@
           this.isLoggingOut = false
           this.$router.push('/login')
         } catch (err) {
-          this.submisLoggingOutitting = false
+          localStorage.removeItem('_auth')
+          this.isLoggingOut = false
+          this.$router.push('/login')
           console.log('err', err)
         }
       }

@@ -3,10 +3,10 @@
     <div class="card-header">
       <div class="flex flex-col">
         <div class="text-base">
-          {{ data.name }}
+          {{ data.name || 'Voucher Name' }}
         </div>
         <div class="text-xs font-semibold">
-          {{ data.companyName }}
+          {{ data.companyName || 'Company Name' }}
         </div>
       </div>
       <img 
@@ -17,26 +17,31 @@
     </div>
     <div class="card-content">
       <div class="w-9/12 text-xs text-justify h-24">
-        {{ data.description }}
+        {{ data.description || 'Voucher Description' }}
       </div>
       <div class="w-full flex flex-row">
         <div class="w-9/12">
           <div class="text-xs">
-            <span>
-              Valid on {{ `${data.validDate.start} to ${data.validDate.end}` }}
-            </span>
+            <div v-if="data.validDates.length > 0">
+              <span
+                v-for="(date, index) in data.validDates"
+                :key="`date-${index}`"
+              >
+                Valid on {{ `${date.start} to ${date.end}` }}
+              </span>
+            </div>
             <div v-if="data.validDay.length > 0">
               Valid on 
               <span 
                 v-for="(day, index) in data.validDay"
                 :key="`day-${index}`"
               >
-                {{ `${day}${ (data.validDay.length != (index+1)) ? ',' : '' }` }}
+                {{ `${day.substring(0,3)}${ (data.validDay.length != (index+1)) ? ',' : '' }` }}
               </span>
             </div>
           </div>
           <div class="text-base font-semibold">
-            {{ (data.type == 'value' ? 'Value' : 'Quantity') }}-base
+            {{ (data.isQuantityBased ? 'Quantity' : 'Value') }}-based
           </div>
         </div>
         <div 
@@ -87,13 +92,13 @@
     margin-left: auto;
   }
   .card-qr {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     margin-left: auto;
   }
   .qr-text {
-    margin-top: -10px;
-    margin-right: 10px;
+    margin-top: 2px;
+    margin-right: 6px;
     font-size: 9px;
   }
 </style>

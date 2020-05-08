@@ -1,84 +1,50 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex">
-        <div class="flex flex-1 justify-center items-center flex-col">
-          <div class="container">
-            <div class="header-container">
-              Scanner
-            </div>
-          </div>
+      <div class="w-full flex flex-col">
+        <div class="font-bold text-lg py-2">
+          Voucher Scanner
         </div>
+        <VoucherScanner 
+          v-if="!qr"
+          @onSetVoucher="onSetVoucher"
+        />
+        <VoucherRedemption 
+          v-if="qr"
+          @onSetVoucher="onSetVoucher"
+        />
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import Button from '_components/Button';
   import MainLayout from '_layouts';
-
+  import VoucherScanner from '_components/Modules/Scanner/VoucherScanner'
+  import VoucherRedemption from '_components/Modules/Scanner/VoucherRedemption'
+  
   export default {
     name: 'Dashboard',
     components: {
-      Button,
-      MainLayout
+      MainLayout,
+      VoucherScanner,
+      VoucherRedemption
     },
     data() {
       return {
-        submitting: false
+        qr: null
       }
     },
     mounted() {
 
     },
     methods: {
-      async onLogout()
+      onSetVoucher(data)
       {
-        try {
-          this.submitting = true
-          const data = await this.$store.dispatch('LOGOUT')
-          this.$store.commit('SET_AUTH_USER', {
-            isAuth: false,
-            token: '',
-            data: {},
-          })
-          localStorage.removeItem('_auth')
-          this.submitting = false
-          this.$router.push('/login')
-        } catch (err) {
-          this.submitting = false
-          console.log('err', err)
-        }
+        console.log('data')
+        this.qr = data
       }
     }
   }
 </script>
 <style lang='css' scoped>
-  .container {
-    /* margin-top: -100px; */
-    width: 40%;
-  }
-  .header-container {
-    font-size: 28px;
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  .content-container {
-  }
-  @media only screen and (max-width: 599px) {
-    .container {
-      width: 90% !important;
-    }
-  }
-  @media only screen and (max-width: 767px) {
-    .container {
-      width: 60%;
-    }
-  }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .container {
-      width: 50%;
-    }
-  }
 </style>

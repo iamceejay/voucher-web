@@ -4,20 +4,24 @@
       Quicklinks
     </div>
     <div class="flex flex-col">
-      <Button
-        class="py-2"
-        label="Show my vouchers"
-        size="w-64 py-2"
-        variant="info"
-        round="rounded-full"
-      />
-      <Button
-        class="py-2"
-        label="Create new voucher"
-        size="w-64 py-2"
-        variant="info"
-        round="rounded-full"
-      />
+      <router-link to="/my-vouchers">
+        <Button
+          class="py-2"
+          label="Show my vouchers"
+          size="w-64 py-2"
+          variant="info"
+          round="rounded-full"
+        />
+      </router-link>
+      <router-link to="/vouchers/new">
+        <Button
+          class="py-2"
+          label="Create new voucher"
+          size="w-64 py-2"
+          variant="info"
+          round="rounded-full"
+        />
+      </router-link>
     </div>
   </div>
 </template>
