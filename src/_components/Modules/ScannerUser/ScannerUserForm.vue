@@ -24,7 +24,7 @@
         <InputField
           id="password"
           v-model="userForm.password"
-          type="text"
+          type="password"
           class="m-2"
           placeholder="Password"
           rules="required"

@@ -5,7 +5,7 @@
   >
     <a 
       href="javascript:void(0)" 
-      class="menu-toggle" 
+      :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
       @click="onHideSidebar()"
     >
       <i class="fas fa-bars text-base" />
@@ -133,6 +133,7 @@
       },
       onHideSidebar() {
         this.hideSidebar = !this.hideSidebar;
+        this.$emit('onHide', !this.hideSidebar)
       },
       async onLogout()
       {
@@ -175,4 +176,10 @@
     box-shadow: 3px 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     position: relative;
   }
+  @media only screen and (max-width: 640px) {
+    .menu-toggle.hide {
+      color: #fff;
+    }
+  }
+
 </style>

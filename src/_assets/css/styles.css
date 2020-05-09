@@ -57,7 +57,7 @@
 }
 @media only screen and (max-width: 640px) {
     .main-container {
-        width: 500px;
+        /* width: 500px; */
     }
 }
 @keyframes spin {
