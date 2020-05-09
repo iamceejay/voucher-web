@@ -16,6 +16,7 @@
           variant="info"
           round="rounded-full"
           fontSize="text-xs"
+          @onClick="onDelete(data)"
         />
       </div>
     </div>
@@ -42,7 +43,30 @@
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      onDelete(data)
+      {
+        this.$swal({
+          title: 'Delete User Scanner',
+          text: `Are you sure you want to delete this user?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then((result) => {
+          if(result.value){
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Deleting the user.',
+              confirmButtonColor: '#6C757D',
+            });
+            this.$emit('onSetVoucher', '')
+          }   
+        });
+      }
+    }
   }
 </script>
 <style lang="css" scoped>
