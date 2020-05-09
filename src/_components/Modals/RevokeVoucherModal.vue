@@ -61,6 +61,12 @@
         value: ''
       }
     },
+    watch: {
+      onShowModal()
+      {
+        this.value = ''
+      }
+    },
     mounted() {
     },
     methods: {
@@ -68,6 +74,7 @@
       {
         if( !isValid ) {
           this.$emit('onClose')
+          this.value = ''
         }
       }
     }

@@ -2,25 +2,34 @@
   <div class="flex flex-col self-center w-full">
     <div class="w-full md:w-1/2 m-auto">
       <QrcodeStream 
-        @decode="onDecode" 
+        @decode="$emit('onSetVoucher', $event)" 
         @init="onInit" 
       />
     </div>
-    <InputField
-      id="text"
-      v-model="voucherForm.qr"
-      type="text"
-      class="w-full md:w-1/2 m-auto mt-4"
-      placeholder="Enter voucher code manually..."
-    />
-    <Button
-      class="py-1 mt-2 justify-center"
-      label="Enter voucher code"
-      size="w-full md:w-1/2 py-2"
-      variant="info"
-      round="rounded-full"
-      @onClick="onDecode(voucherForm.qr)"
-    />
+    
+    <ValidationObserver v-slot="{ handleSubmit, invalid }">
+      <form 
+        class="w-full flex flex-col"
+        @submit.prevent="handleSubmit(onDecode(invalid))"
+      >
+        <InputField
+          id="text"
+          v-model="voucherForm.qr"
+          type="text"
+          class="w-full md:w-1/2 m-auto mt-4"
+          placeholder="Enter voucher code manually..."
+          rules="required"
+        />
+        <Button
+          class="py-1 mt-2 justify-center"
+          label="Enter voucher code"
+          size="w-full md:w-1/2 py-2"
+          variant="info"
+          round="rounded-full"
+          type="submit"
+        />
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 <script>
@@ -45,10 +54,10 @@
     mounted() {
     },
     methods: {
-      onDecode (result) {
-        console.log('result', result)
-        this.voucherForm.qr = result
-        this.$emit('onSetVoucher', result)
+      onDecode ( isValid ) {
+        if( !isValid ) {
+          this.$emit('onSetVoucher', this.voucherForm.qr)
+        }
       },
       async onInit (promise) {
         try {
