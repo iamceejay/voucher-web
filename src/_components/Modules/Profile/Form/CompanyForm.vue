@@ -2,6 +2,7 @@
   <div class="flex flex-col w-full">
     <InputField
       id="company_name"
+      v-model="profileForm.companyName"
       type="text"
       class="m-2"
       label="Company Name"
@@ -46,7 +47,10 @@
     },
     data() {
       return {
-      };
+        profileForm: {
+          companyName: '',
+        }
+      }
     },
     mounted() {
     },

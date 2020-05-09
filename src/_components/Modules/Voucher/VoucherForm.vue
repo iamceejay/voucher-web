@@ -72,14 +72,9 @@
               rules="required"
             />
             <SelectField
-<<<<<<< HEAD
               id="category"
               v-model="voucherForm.category"
               class="px-2 py-1 w-full md:w-1/2"
-=======
-              id="month"
-              class="px-2 w-full md:w-1/2"
->>>>>>> e5ddb2677f48e089f545537ccc51f97e3add675a
               label="Category"
               :options="CATEGORIES"
               rules="required"
@@ -92,11 +87,7 @@
               :data="voucherForm.validDay"
               @onChange="voucherForm.validDay = $event"
             />
-<<<<<<< HEAD
-            <div class="w-full md:w-1/2">
-=======
-            <div class="mb-5">
->>>>>>> e5ddb2677f48e089f545537ccc51f97e3add675a
+            <div class="w-full md:w-1/2 mb-5">
               <div class="flex flex-row">
                 <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
                   Valid from ... to ...

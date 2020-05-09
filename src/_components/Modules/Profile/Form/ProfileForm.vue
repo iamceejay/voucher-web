@@ -37,7 +37,7 @@
     <InputField
       id="password"
       v-model="profileForm.password"
-      type="text"
+      type="password"
       class="m-2"
       label="Password"
       rules="required"

@@ -34,7 +34,7 @@
               type="submit"
               class="py-2 mx-2"
               label="Save"
-              size="w-full sm:w-64 py-2"
+              size="w-full sm:w-1/2 py-2"
               variant="info"
               round="rounded-full"
             />
@@ -72,7 +72,12 @@
       onSubmit( isValid )
       {
         if( !isValid ) {
-          console.log('valid', isValid)
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Updating the profile.',
+            confirmButtonColor: '#6C757D',
+          });
         }
       }
     }

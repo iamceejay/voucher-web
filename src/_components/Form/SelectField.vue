@@ -3,7 +3,6 @@
     id="select-field-component" 
     class="w-full mb-5"
   >
-    <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">{{ label }}</label>
     <ValidationProvider 
       :name="id" 
       :rules="rules"
