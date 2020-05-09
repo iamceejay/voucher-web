@@ -4,7 +4,7 @@
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
-      <div class="flex flex-col w-full items-center mb-4">
+      <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
           :data="voucherForm"
           :bg="voucherForm.bg.hex"
@@ -162,7 +162,6 @@
           </div>
         </div>
         <Button
-          class="p-2"
           :label="`${ data && data.id ? 'Update' : 'Save' } voucher`"
           size="w-full md:w-1/2 py-3"
           round="rounded-full"
