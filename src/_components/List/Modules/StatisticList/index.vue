@@ -5,14 +5,14 @@
       :key="`stat-${index}`"
       class="w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
     >
-      <div class="m-2 p-2 border rounded text-center">
-        <div class="text-xl font-bold font-display text-gray-900">
+      <div class="m-2 p-2 border border-gray-900 rounded text-center">
+        <div class="text-xl my-3 font-bold font-display text-gray-900">
           {{ row.value }}
         </div>
-        <div class="text-sm mt-3 font-body font-bold text-gray-900 capitalize">
+        <div class="text-sm font-body font-bold text-gray-900 uppercase">
           {{ row.type }}
         </div>
-        <div class="text-xs mb-3 font-body font-semibold text-gray-700 uppercase">
+        <div class="text-xs mb-3 font-body font-semibold text-gray-700 lowercase">
           {{ row.title }}
         </div>
       </div>
