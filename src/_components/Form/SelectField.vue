@@ -3,7 +3,7 @@
     id="select-field-component" 
     class="w-full"
   >
-    <label class="block text-left text-gray-700 text-sm font-bold mb-0">{{ label }}</label>
+    <label class="block text-left text-gray-900 text-sm font-semibold mb-0 font-body">{{ label }}</label>
     <select
       :id="id"
       ref="inputField"

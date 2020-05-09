@@ -1,6 +1,6 @@
 <template>
   <div id="input-field-component">
-    <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+    <label class="block text-left text-gray-900 text-sm font-semibold mb-0 font-body">
       {{ label }}
     </label>
     <div
@@ -16,7 +16,7 @@
         type="checkbox"
         @change="onUpdateField()"
       />
-      <label class="text-xs p-1">
+      <label class="text-xs p-1 font-bold text-gray-900 font-body">
         {{ row.substring(0,3) }}
       </label>
     </div>

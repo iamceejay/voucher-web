@@ -20,7 +20,7 @@
           Pick a background color or upload photo
         </div>
         <div class="flex flex-row flex-wrap w-full">
-          <div class="w-full md:w-1/2 mb-2">
+          <div class="w-full md:w-1/2 mb-3">
             <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
               Background color
             </span>
@@ -66,14 +66,14 @@
             <TextAreaField
               id="description"
               v-model="voucherForm.description"
-              class="px-2 py-1 w-full md:w-1/2"
+              class="px-2 w-full md:w-1/2"
               placeholder="Voucher Description"
               :max="128"
               rules="required"
             />
             <SelectField
               id="month"
-              class="px-2 py-1 w-full md:w-1/2"
+              class="px-2 w-full md:w-1/2"
               label="Category"
             />
             <CheckboxField
