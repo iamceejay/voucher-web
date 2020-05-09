@@ -121,15 +121,15 @@
                 />
               </div>
             </div>
-            <div class="m-1 w-full flex flex-col">
-              <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+            <div class="m-1 w-full flex flex-col mb-5">
+              <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
                 Voucher Type
               </label>
               <div class="mx-2 mt-2 w-full flex flex-row">
                 <toggle-button 
                   v-model="voucherForm.isQuantityBased"
                 />
-                <span class="ml-2 text-sm">Value based / Quantity based</span>
+                <span class="ml-2 text-sm font-bold text-gray-900 font-body">Value based / Quantity based</span>
               </div>
             </div>
             <InputField
@@ -164,8 +164,7 @@
         <Button
           class="p-2"
           :label="`${ data && data.id ? 'Update' : 'Save' } voucher`"
-          size="w-full md:w-1/2 py-2"
-          variant="info"
+          size="w-full md:w-1/2 py-3"
           round="rounded-full"
           type="submit"
         />
