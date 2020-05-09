@@ -8,7 +8,7 @@
       :rules="rules"
     >
       <template #default="{ errors }">
-        <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-display">
+        <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
           {{ label }}
         </label>
         <vSelect

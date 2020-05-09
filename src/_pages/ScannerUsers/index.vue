@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div class="w-full flex flex-col">
-        <div class="font-bold text-lg py-2">
+        <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
           Scanner Users
         </div>
         <ScannerUserList 
@@ -12,8 +12,7 @@
           <Button
             class="py-2 w-full md:w-1/2"
             label="Add new user"
-            size="w-full py-1"
-            variant="info"
+            size="w-full py-3"
             round="rounded-full"
             fontSize="text-xs"
           />
