@@ -55,6 +55,9 @@
 .modal-backdrop {
     opacity:0.5 !important;
 }
+.mx-icon-calendar, .mx-icon-clear {
+    margin-top: 3px;
+}
 @media only screen and (max-width: 640px) {
     .main-container {
         /* width: 500px; */

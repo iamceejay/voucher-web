@@ -3,39 +3,37 @@
     id="select-field-component" 
     class="w-full"
   >
-    <label class="block text-left text-gray-700 text-sm font-bold mb-0">{{ label }}</label>
-    <select
-      :id="id"
-      ref="inputField"
-      class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
-      :class="{ 'text-red-500 border-red-500': errors.length > 0 }"
-      :name="id"
-      :value="(typeof value.value != 'undefined') ? value.value : value "
-      @change="onUpdateField()"
+    <ValidationProvider 
+      :name="id" 
+      :rules="rules"
     >
-      <option 
-        value="" 
-        selected 
-        disabled
-      >
-        Choose here
-      </option>
-      <option
-        v-for="(option, index) in options"
-        :key="`${id}-${index}`"
-        :value="(typeof option.value != 'undefined') ? option.value : option"
-      >
-        {{ option.text || option }}
-      </option>
-    </select>
-    <ErrorMessage :errors="errors" />
+      <template #default="{ errors }">
+        <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+          {{ label }}
+        </label>
+        <vSelect
+          :id="id"
+          ref="inputField"
+          :name="id"
+          class="mt-2"
+          :class="{ 'text-red-500 border-red-500': errors.length > 0 }"
+          :options="options" 
+          :value="value"
+          @input="onUpdateField"
+        />
+        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+      </template>
+    </ValidationProvider>
   </div>
 </template>
 <script>
   import ErrorMessage from './FieldErrorMessage';
-
+  import vSelect from 'vue-select'
+  import 'vue-select/dist/vue-select.css';
+  
   export default {
     components: {
+      vSelect,
       ErrorMessage
     },
     
@@ -43,21 +41,23 @@
       id: {
         type: [Number, String],
         default: null
-      }, type: {
-        type: String,
-        default: ''
       }, label: {
         type: String,
         default: ''
       }, value: {
-        type: String,
-        default: ''
+        type: Object,
+        default() {
+          return null
+        }
       }, options: {
         type: Array,
         default() {
           return []
         }
-      }, errors: {
+      }, rules: {
+        type: String,
+        default: ''
+      }, errorMessages: {
         type: Array,
         default() {
           return []
@@ -68,20 +68,27 @@
       return {};
     },
     watch: {
-      value() {}
     },
     mounted() {},
     methods: {
-      onUpdateField() {
-        let val = this.$refs.inputField.value;
-        let inputValue =
-          typeof this.value.value != 'undefined'
-            ? this.options.filter(option => option.value == val)[0]
-            : val;
-        this.$emit('input', inputValue);
+      onUpdateField(data) {
+        this.$emit('input', data);
       }
     }
   }
 </script>
-<style lang='css' scoped>
+<style lang='css'>
+  .v-select .vs__dropdown-toggle {
+    border-radius: 25px;
+  }
+  .vs__search, .vs__search:focus {
+    padding: 0px !important;
+  }
+  .vs--open .vs__dropdown-toggle {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .v-select .vs__selected-options {
+    padding: 2px 14px 2px;
+  }
 </style>

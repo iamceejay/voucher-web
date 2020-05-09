@@ -2,6 +2,24 @@ import { post, get } from '_helpers/ApiService'
 
 export default {
   state: () => ({
+    categories: [
+      {
+        id: 1,
+        label: 'Book'
+      },{
+        id: 2,
+        label: 'Mall'
+      },{
+        id: 3,
+        label: 'Hotel'
+      },{
+        id: 4,
+        label: 'Restaurant'
+      },{
+        id: 5,
+        label: 'Gadgets'
+      },
+    ],
     vouchers: [
       {
         id: 1,
@@ -15,7 +33,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -36,7 +54,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -57,7 +75,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -78,7 +96,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -99,7 +117,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -120,7 +138,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -141,7 +159,7 @@ export default {
             end: '2020-05-09',
           }
         ],
-        validDay: ['Mon', 'Tues', 'Wed'],
+        validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 15000,
@@ -156,6 +174,9 @@ export default {
     VOUCHERS(state) {
       return state.vouchers;
     },
+    CATEGORIES(state) {
+      return state.categories;
+    },
   },
   mutations: {
     SET_VOUCHERS(state, payload) {
@@ -165,7 +186,6 @@ export default {
   actions: {
     ADD_VOUCHER( { commit, state }, payload )
     {
-      console.log('payload', payload)
       commit('SET_VOUCHERS', [
         ...state.vouchers,
         {

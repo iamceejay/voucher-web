@@ -4,11 +4,11 @@
       {{ label }}
     </label>
     <div
-      v-for="(row, index) in data"
+      v-for="(row, index) in options"
       :key="`${row}-${index}`"
       class=" flex items-center mx-2"
     >
-      <input 
+      <input
         :id="`${row}-${index}`"
         v-model="checkboxValue"
         :name="name"
@@ -51,6 +51,11 @@
         default() {
           return []
         }
+      }, options: {
+        type: Array,
+        default() {
+          return []
+        }
       }, errors: {
         type: Array,
         default() {
@@ -63,7 +68,14 @@
         checkboxValue: []
       }
     },
-    mounted() {},
+    watch: {
+      data() {
+        this.checkboxValue = this.data
+      }
+    },
+    mounted() {
+      this.checkboxValue = this.data
+    },
     methods: {
       onUpdateField() {
         this.$emit('onChange', this.checkboxValue);

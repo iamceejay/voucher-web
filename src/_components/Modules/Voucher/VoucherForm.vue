@@ -72,18 +72,22 @@
               rules="required"
             />
             <SelectField
-              id="month"
+              id="category"
+              v-model="voucherForm.category"
               class="px-2 py-1 w-full md:w-1/2"
               label="Category"
+              :options="CATEGORIES"
+              rules="required"
             />
             <CheckboxField
               label="Valid on following days"
               class="mx-2"
-              name="'validDay'"
-              :data="week"
+              name="validDay"
+              :options="week"
+              :data="voucherForm.validDay"
               @onChange="voucherForm.validDay = $event"
             />
-            <div>
+            <div class="w-full md:w-1/2">
               <div class="flex flex-row">
                 <label class="block text-left text-gray-700 text-sm font-bold mb-0">
                   Valid from ... to ...
@@ -91,7 +95,7 @@
                 <a 
                   href="javascript:void(0)"
                   class="ml-2"
-                  @click="onAddValidDate()"
+                  @click="onActionDate('add')"
                 >
                   <i class="fas fa-plus-circle text-base" />
                 </a>
@@ -101,24 +105,35 @@
                 :key="`date-${index}`"
                 class="flex flex-row"
               >
-                <DatePicker
-                  v-model="voucherForm.validDates[index].start"
-                  inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
-                  class="m-1"
-                  format="YYYY-MM-DD"
-                  type="date"
-                  placeholder="Start date"
-                  valueType="format"
-                />
-                <DatePicker
-                  v-model="voucherForm.validDates[index].end"
-                  inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
-                  class="m-1"
-                  format="YYYY-MM-DD"
-                  type="date"
-                  placeholder="End date"
-                  valueType="format"
-                />
+                <div class="flex flex-row w-11/12">
+                  <!-- <DatePicker
+                    v-model="voucherForm.validDates[index].start"
+                    inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
+                    class="m-1 w-1/2"
+                    format="YYYY-MM-DD"
+                    type="date"
+                    placeholder="Start date"
+                    valueType="format"
+                  /> -->
+                  <DatePickerField
+                    v-model="voucherForm.validDates[index].start"
+                    class="m-1 w-1/2"
+                    rules="required"
+                  />
+                  <DatePickerField
+                    v-model="voucherForm.validDates[index].end"
+                    class="m-1 w-1/2"
+                    rules="required"
+                  />
+                </div>
+                <a 
+                  v-if="voucherForm.validDates.length > 1"
+                  href="javascript:void(0)"
+                  class="flex mt-6 w-1/12 justify-center"
+                  @click="onActionDate('delete', index)"
+                >
+                  <i class="fas fa-trash text-red-900 text-base" />
+                </a>
               </div>
             </div>
             <div class="m-1 w-full flex flex-col">
@@ -176,6 +191,7 @@
 <script>
   import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
   import InputField from '_components/Form/InputField'
+  import DatePickerField from '_components/Form/DatePickerField'
   import Button from '_components/Button'
   import TextAreaField from '_components/Form/TextAreaField'
   import SelectField from '_components/Form/SelectField'
@@ -190,6 +206,7 @@
     components: {
       Button,
       InputField,
+      DatePickerField,
       VoucherCard,
       Material,
       ToggleButton,
@@ -242,6 +259,12 @@
         week: getWeek,
       }
     },
+    computed: {
+      CATEGORIES()
+      {
+        return this.$store.getters.CATEGORIES
+      }
+    },
     watch: {
       data(newVal)
       {
@@ -280,12 +303,16 @@
           this.voucherForm.bgImage = ''
         }
       },
-      onAddValidDate()
+      onActionDate( action, index = null )
       {
-        this.voucherForm.validDates.push({
-          start: '',
-          end: '',
-        })
+        if( action === 'add' ) {
+          this.voucherForm.validDates.push({
+            start: '',
+            end: '',
+          })
+        } else {
+          this.voucherForm.validDates = this.voucherForm.validDates.filter( (date, i) => i != index)
+        }
       },
       onSetForm()
       {
@@ -311,6 +338,7 @@
               b: 255 
             }
           },
+          category: null,
           bgImage: '',
           isDarkText: true,
           validDay: [],
