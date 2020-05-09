@@ -5,7 +5,7 @@
       @submit.prevent
     >
       <div v-if="error" class="text-center mb-2">
-        <span class="text-red-500 bold">{{ error }}</span>
+        <span class="text-red-500 font-bold font-body">{{ error }}</span>
       </div>
       <div>
         <InputField
@@ -97,10 +97,4 @@
   };
 </script>
 <style lang='css' scoped>
-  .container {
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.175);
-    border-radius: 8px;
-    border: 1px solid rgba(204, 204, 204, 0.6);
-    padding: 20px 35px;
-  }
 </style>

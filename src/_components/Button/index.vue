@@ -5,7 +5,7 @@
   >
     <button
       :type="type"
-      class="text-sm focus:outline-none focus:shadow-none border-1"
+      class="text-sm focus:outline-none focus:shadow-none border-1 font-body"
       :class="[bg, size, round]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
@@ -36,7 +36,7 @@
       },
       round: {
         type: String,
-        default: 'rounded'
+        default: 'rounded-full'
       },
       label: {
         type: String,
@@ -52,7 +52,7 @@
       },
       size: {
         type: String,
-        default: 'w-20 py-1'
+        default: 'w-32 py-3'
       },
       fontSize: {
         type: String,
@@ -81,7 +81,7 @@
             this.bg = 'bg-red-600 text-white'
             break
           default:
-            this.bg = 'bg-blue-600 text-white'
+            this.bg = 'bg-gray-900 text-white'
             break
         }
       }

@@ -1,5 +1,5 @@
 <template>
-  <div id="input-field-component">
+  <div id="input-field-component" class="mb-5">
     <ValidationProvider 
       :name="id" 
       :rules="rules"
@@ -7,7 +7,7 @@
       <template #default="{ errors }">
         <label 
           v-if="label != ''"
-          class="block text-left text-gray-700 text-sm font-bold mb-0"
+          class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
         >
           {{ label }}
         </label>
@@ -16,7 +16,7 @@
           ref="inputField"
           :name="id"
           :type="type"
-          class="input-field"
+          class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
           :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
           :value="value"
           :placeholder="placeholder"
