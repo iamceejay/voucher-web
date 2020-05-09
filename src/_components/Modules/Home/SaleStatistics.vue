@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex flex-col">
-    <div class="font-bold text-lg py-2">
+  <div class="w-full flex flex-col mb-3">
+    <div class="font-bold text-2xl py-2 font-display text-gray-700">
       Sales Statistics
     </div>
     <StatisticList 

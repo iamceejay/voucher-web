@@ -1,7 +1,7 @@
 <template>
   <div 
     v-if="errors && errors.length > 0"
-    id="field-error-message-component" class="text-sm"
+    id="field-error-message-component" class="text-sm mt-1"
   >
     <p 
       v-for="(error,i) in errors"

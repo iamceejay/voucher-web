@@ -1,15 +1,14 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="font-bold text-lg py-2">
+      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900">
         Hi Company!
       </div>
       <router-link to="/scanner">
         <Button
-          class="py-2"
+          class="py-2 my-3"
           label="Scan Voucher"
           size="w-full md:w-64 py-2"
-          variant="info"
           round="rounded-full"
         />
       </router-link>

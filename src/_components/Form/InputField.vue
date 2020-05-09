@@ -16,7 +16,7 @@
           ref="inputField"
           :name="id"
           :type="type"
-          class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
+          class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold font-body"
           :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
           :value="value"
           :placeholder="placeholder"

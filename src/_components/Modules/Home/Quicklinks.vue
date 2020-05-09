@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="font-bold text-lg py-2">
+    <div class="ont-bold text-2xl py-2 font-display text-gray-700">
       Quicklinks
     </div>
     <div class="flex flex-col">
@@ -9,7 +9,6 @@
           class="py-2"
           label="Show my vouchers"
           size="w-full md:w-64 py-2"
-          variant="info"
           round="rounded-full"
         />
       </router-link>
@@ -18,7 +17,6 @@
           class="py-2"
           label="Create new voucher"
           size="w-full md:w-64 py-2"
-          variant="info"
           round="rounded-full"
         />
       </router-link>
