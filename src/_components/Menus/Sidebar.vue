@@ -180,7 +180,7 @@
   @media only screen and (max-width: 640px) {
     .menu-toggle.hide i {
       color: #fff !important;
-      content: '\f00d';
+      content: '\f00d' !important;
     }
   }
 

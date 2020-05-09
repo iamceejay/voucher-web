@@ -10,7 +10,7 @@
       class="w-full flex"
     >
       <div 
-        :class="`main-container p-8 ${isHideSideBar ? 'hide h-screen' : ''}`"
+        :class="`main-container py-12 px-8 ${isHideSideBar ? 'hide h-screen' : ''}`"
       >
         <div
           :class="`${isHideSideBar ? 'hide' : ''}`"
