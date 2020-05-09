@@ -22,10 +22,9 @@
         </div>
         <Button
           v-if="role == 'seller'"
-          class="py-2"
+          class="py-2 mt-3"
           label="Revoke redemption"
-          size="w-full py-1"
-          variant="info"
+          size="w-full py-3"
           round="rounded-full"
           fontSize="text-xs"
           @onClick="onShowModal = true"
