@@ -7,21 +7,29 @@
       <div class="font-bold text-lg py-2 text-center">
         Revoke redemption
       </div>
-      <InputField
-        id="text"
-        v-model="value"
-        type="text"
-        class="w-full md:w-1/2 m-auto mt-4"
-        placeholder="Enter value to put back on voucher"
-      />
-      <Button
-        class="pt-1 mt-2 mx-2 justify-center"
-        label="Revoke voucher"
-        size="mt-1 w-full md:w-1/2 py-2"
-        variant="info"
-        round="rounded-full"
-        @onClick="onRevoke()"
-      />
+      <ValidationObserver v-slot="{ handleSubmit, invalid }">
+        <form 
+          class="w-full flex flex-col"
+          @submit.prevent="handleSubmit(onSubmit(invalid))"
+        >
+          <InputField
+            id="text"
+            v-model="value"
+            type="text"
+            class="w-full md:w-1/2 m-auto mt-4"
+            placeholder="Enter value to put back on voucher"
+            rules="required"
+          />
+          <Button
+            class="pt-1 mt-2 mx-2 justify-center"
+            label="Revoke voucher"
+            size="mt-1 w-full md:w-1/2 py-2"
+            variant="info"
+            round="rounded-full"
+            type="submit"
+          />
+        </form>
+      </ValidationObserver>
     </template>
   </Modal>
 </template>
@@ -56,9 +64,9 @@
     mounted() {
     },
     methods: {
-      onRevoke()
+      onSubmit( isValid )
       {
-        if( this.value != '' ) {
+        if( !isValid ) {
           this.$emit('onClose')
         }
       }
