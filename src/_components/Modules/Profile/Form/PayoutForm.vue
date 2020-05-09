@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col w-full">
     <InputField
-      id="text"
+      id="iban"
       type="text"
       class="m-2"
       label="IBAN"
     />
     <InputField
-      id="text"
+      id="bic"
       type="text"
       class="m-2"
       label="BIC"

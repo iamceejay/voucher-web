@@ -1,23 +1,30 @@
 <template>
   <div id="input-field-component">
-    <label 
-      v-if="label != ''"
-      class="block text-left text-gray-700 text-sm font-bold mb-0"
+    <ValidationProvider 
+      :name="id" 
+      :rules="rules"
     >
-      {{ label }}
-    </label>
-    <input
-      :id="id"
-      ref="inputField"
-      :name="id"
-      :type="type"
-      class="input-field"
-      :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
-      :value="value"
-      :placeholder="placeholder"
-      @input="onUpdateField()"
-    />
-    <ErrorMessage :errors="errors" />
+      <template #default="{ errors }">
+        <label 
+          v-if="label != ''"
+          class="block text-left text-gray-700 text-sm font-bold mb-0"
+        >
+          {{ label }}
+        </label>
+        <input
+          :id="id"
+          ref="inputField"
+          :name="id"
+          :type="type"
+          class="input-field"
+          :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
+          :value="value"
+          :placeholder="placeholder"
+          @input="onUpdateField()"
+        />
+        <ErrorMessage :errors="errors" />
+      </template>
+    </ValidationProvider>
   </div>
 </template>
 <script>
@@ -43,11 +50,10 @@
       }, value: {
         type: String,
         default: ''
-      }, errors: {
-        type: Array,
-        default() {
-          return []
-        }
+      }, 
+      rules: {
+        type: String,
+        default: ''
       },
     },
     data() {

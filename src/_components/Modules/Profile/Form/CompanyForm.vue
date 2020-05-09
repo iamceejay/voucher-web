@@ -1,10 +1,11 @@
 <template>
   <div class="flex flex-col w-full">
     <InputField
-      id="text"
+      id="company_name"
       type="text"
       class="m-2"
       label="Company Name"
+      rules="required"
     />
     <TextAreaField
       id="text"
@@ -12,13 +13,13 @@
       label="Description"
     />
     <InputField
-      id="text"
+      id="company_web_site"
       type="text"
       class="m-2"
       label="Company Website"
     />
     <InputField
-      id="text"
+      id="vat_no"
       type="text"
       class="m-2"
       label="VAT Number"

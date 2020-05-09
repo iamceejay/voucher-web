@@ -2,38 +2,44 @@
   <MainLayout>
     <template #content>
       <div class="flex">
-        <div class="w-full flex flex-col">
-          <div class="font-bold text-lg py-2">
-            Profile & Settings
-          </div>
-          <div class="flex flex-wrap">
-            <div class="w-full md:w-1/2 order-1">
-              <div class="font-bold text-sm pt-2">
-                Profile Info
-              </div>
-              <ProfileForm />
+        <ValidationObserver v-slot="{ handleSubmit, invalid }">
+          <form 
+            class="w-full flex flex-col"
+            @submit.prevent="handleSubmit(onSubmit(invalid))"
+          >
+            <div class="font-bold text-lg py-2">
+              Profile & Settings
             </div>
-            <div class="w-full md:w-1/2 order-2 md:order-3">
-              <div class="font-bold text-sm pt-2">
-                Company Info
+            <div class="flex flex-wrap">
+              <div class="w-full md:w-1/2 order-1">
+                <div class="font-bold text-sm pt-2">
+                  Profile Info
+                </div>
+                <ProfileForm />
               </div>
-              <CompanyForm />
-            </div>
-            <div class="w-full md:w-1/2 order-3 md:order-2">
-              <div class="font-bold text-sm pt-2">
-                Payout Info
+              <div class="w-full md:w-1/2 order-2 md:order-3">
+                <div class="font-bold text-sm pt-2">
+                  Company Info
+                </div>
+                <CompanyForm />
               </div>
-              <PayoutForm />
+              <div class="w-full md:w-1/2 order-3 md:order-2">
+                <div class="font-bold text-sm pt-2">
+                  Payout Info
+                </div>
+                <PayoutForm />
+              </div>
             </div>
-          </div>
-          <Button
-            class="py-2 mx-2"
-            label="Save"
-            size="w-full sm:w-64 py-2"
-            variant="info"
-            round="rounded-full"
-          />
-        </div>
+            <Button
+              type="submit"
+              class="py-2 mx-2"
+              label="Save"
+              size="w-full sm:w-64 py-2"
+              variant="info"
+              round="rounded-full"
+            />
+          </form>
+        </ValidationObserver>
       </div>
     </template>
   </MainLayout>
@@ -63,53 +69,14 @@
 
     },
     methods: {
-      async onLogout()
+      onSubmit( isValid )
       {
-        try {
-          this.submitting = true
-          const data = await this.$store.dispatch('LOGOUT')
-          this.$store.commit('SET_AUTH_USER', {
-            isAuth: false,
-            token: '',
-            data: {},
-          })
-          localStorage.removeItem('_auth')
-          this.submitting = false
-          this.$router.push('/login')
-        } catch (err) {
-          this.submitting = false
-          console.log('err', err)
+        if( !isValid ) {
+          console.log('valid', isValid)
         }
       }
     }
   }
 </script>
 <style lang='css' scoped>
-  .container {
-    /* margin-top: -100px; */
-    width: 40%;
-  }
-  .header-container {
-    font-size: 28px;
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  .content-container {
-  }
-  @media only screen and (max-width: 599px) {
-    .container {
-      width: 90% !important;
-    }
-  }
-  @media only screen and (max-width: 767px) {
-    .container {
-      width: 60%;
-    }
-  }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .container {
-      width: 50%;
-    }
-  }
 </style>
