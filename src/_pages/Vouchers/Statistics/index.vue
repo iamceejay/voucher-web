@@ -1,8 +1,8 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="w-full h-screen flex flex-col mb-4">
-        <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
+      <div class="w-full h-screen flex flex-col">
+        <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
           Voucher Statistics
         </div>
         <StatisticList 
