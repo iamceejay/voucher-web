@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="w-full h-screen flex flex-col">
+      <div class="w-full h-screen flex flex-col mb-4">
         <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
           Voucher Statistics
         </div>
