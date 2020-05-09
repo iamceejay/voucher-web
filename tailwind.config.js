@@ -10,6 +10,10 @@ module.exports = {
         '2xs': '.60rem',
       },
     },
+    fontFamily: {
+      'display': ['Montserrat', 'sans-serif'],
+      'body': ['Nunito', 'sans-serif'],
+    },
   },
   variants: {},
   plugins: [],

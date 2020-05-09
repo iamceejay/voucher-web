@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-1 justify-center items-center h-screen">
     <div class="container">
-      <div class="header-container">
+      <div class="header-container text-4xl font-display mb-10">
         Voucher
       </div>
       <div class="content-container">
@@ -25,7 +25,6 @@
     width: 40%;
   }
   .header-container {
-    font-size: 28px;
     padding: 10px;
     font-weight: bold;
     text-align: center;
