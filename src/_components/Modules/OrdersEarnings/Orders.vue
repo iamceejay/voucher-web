@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="font-bold text-lg py-2">
+    <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
       Orders
     </div>
     <OrderList 

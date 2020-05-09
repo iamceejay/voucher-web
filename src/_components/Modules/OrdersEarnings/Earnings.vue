@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="font-bold text-lg py-2">
+    <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
       Earnings
     </div>
     <StatisticList 
@@ -29,10 +29,12 @@
       {
         this.earnings = [
           {
-            title: 'Vouchers sold total',
+            type: 'Vouchers',
+            title: 'sold total',
             value: '234'
           },{
-            title: 'Earnings total',
+            type: 'Earnings',
+            title: 'total',
             value: '€234,567'
           }
         ]
