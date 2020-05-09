@@ -22,7 +22,7 @@
           :placeholder="placeholder"
           @input="onUpdateField()"
         />
-        <ErrorMessage :errors="errors" />
+        <ErrorMessage :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>
@@ -50,10 +50,14 @@
       }, value: {
         type: [Number, String],
         default: null
-      }, 
-      rules: {
+      }, rules: {
         type: String,
         default: ''
+      }, errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
       },
     },
     data() {

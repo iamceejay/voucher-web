@@ -14,7 +14,7 @@
           class="m-2"
           label="Email Address"
           type="email"
-          :errors="errorMessages.email"
+          :errorMessages="errorMessages.email"
         />
         <InputField
           id="password"
@@ -22,7 +22,7 @@
           class="m-2"
           label="Password"
           type="password"
-          :errors="errorMessages.password"
+          :errorMessages="errorMessages.password"
         />
       </div>
       <div class="flex justify-between">
