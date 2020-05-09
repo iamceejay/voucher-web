@@ -1,11 +1,13 @@
 <template>
-  <div class="flex flex-1 justify-center items-center h-screen">
-    <div class="container">
-      <div class="header-container text-4xl font-display mb-10">
-        Voucher
-      </div>
-      <div class="content-container">
-        <LoginForm />
+  <div class="flex items-stretch h-screen">
+    <div class="flex flex-1 justify-center items-center flex-col">
+      <div class="container">
+        <div class="text-center font-bold text-4xl font-display mb-10">
+          Voucher
+        </div>
+        <div class="content-container">
+          <LoginForm />
+        </div>
       </div>
     </div>
   </div>
@@ -23,11 +25,6 @@
   .container {
     /* margin-top: -100px; */
     width: 40%;
-  }
-  .header-container {
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
   }
   .content-container {
   }
