@@ -73,6 +73,6 @@
     font-family: 'Montserrat', 'sans-serif' !important;
 }
 
-.swal2-text, .swal2-button {
+.swal2-content, .swal2-confirm, .swal2-cancel {
     font-family: 'Nunito', 'sans-serif' !important;
 }
