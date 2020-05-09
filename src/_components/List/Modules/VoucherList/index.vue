@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full flex flex-col">
+  <div class="flex flex-col w-full">
     <div 
       v-if="title != ''"
-      class="font-bold text-lg py-2"
+      class="font-bold text-lg py-2 flex flex-col w-full"
     >
       {{ title }}
     </div>

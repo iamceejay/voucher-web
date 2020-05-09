@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
-    <div class="flex flex-col self-center">
+    <div class="flex flex-col w-full items-center">
       <VoucherCard
-        class="justify-center m-1"
         :data="voucherForm"
         :bg="voucherForm.bg.hex"
         :bgImg="voucherForm.bgImage"
@@ -12,7 +11,7 @@
         Live Preview
       </div>
     </div>
-    <div class="flex flex-col">
+    <div class="w-full flex flex-col">
       <div class="font-semibold">
         Pick a background color or upload photo
       </div>
@@ -21,7 +20,7 @@
           <span class="text-sm m-2">
             Background color
           </span>
-          <div class="w-full sm:w-1/2 m-2">
+          <div class="w-full sm:w-1/2 md:mx-2">
             <Material
               v-model="voucherForm.bg"
             />
@@ -30,7 +29,6 @@
         <div class="w-full md:w-1/2 mt-2">
           <VueFileAgent
             ref="vueFileAgent"
-            class="m-1"
             :theme="'grid'"
             :multiple="false"
             :deletable="true"
@@ -46,35 +44,35 @@
             @delete="onChangeBgImg($event)"
           />
         </div>
-        <div class="mx-2 my-1 w-full flex flex-row">
+        <div class="mx-2 mt-2 w-full flex flex-row">
           <toggle-button 
             v-model="voucherForm.isDarkText"
           />
-          <span class="ml-2 text-base">Light / Dark Text</span>
+          <span class="ml-2 text-sm">Light / Dark Text</span>
         </div>
-        <div class="m-1 w-full">
+        <div class="w-full">
           <InputField
             id="name"
             v-model="voucherForm.name"
             type="text"
-            class="m-2 w-full md:w-1/2"
+            class="px-2 py-1 w-full md:w-1/2"
             placeholder="Voucher Title"
           />
           <TextAreaField
             id="description"
             v-model="voucherForm.description"
-            class="m-2 w-full md:w-1/2"
+            class="px-2 py-1 w-full md:w-1/2"
             placeholder="Voucher Description"
             :max="128"
           />
           <SelectField
             id="month"
-            class="m-2 w-full md:w-1/2"
+            class="px-2 py-1 w-full md:w-1/2"
             label="Category"
           />
           <CheckboxField
             label="Valid on following days"
-            class="m-2"
+            class="mx-2"
             name="'validDay'"
             :data="week"
             @onChange="voucherForm.validDay = $event"
@@ -121,38 +119,38 @@
             <label class="block text-left text-gray-700 text-sm font-bold mb-0">
               Voucher Type
             </label>
-            <div>
+            <div class="mx-2 mt-2 w-full flex flex-row">
               <toggle-button 
                 v-model="voucherForm.isQuantityBased"
               />
-              <span class="ml-2 text-base">Value based / Quantity based</span>
+              <span class="ml-2 text-sm">Value based / Quantity based</span>
             </div>
           </div>
           <InputField
             v-if="voucherForm.isQuantityBased"
             id="isQuantityBased"
             type="text"
-            class="m-2 w-full md:w-1/2"
+            class="px-2 py-1 w-full md:w-1/2"
             label="Voucher Value"
           />
           <InputField
             id="min"
             type="text"
-            class="m-2 w-full md:w-1/2"
+            class="px-2 py-1 w-full md:w-1/2"
             label="Voucher Minimum Value / Quantity"
             placeholder="Min Value"
           />
           <InputField
             id="max"
             type="text"
-            class="m-2 w-full md:w-1/2"
+            class="px-2 py-1 w-full md:w-1/2"
             label="Voucher Maximum Value / Quantity"
             placeholder="Max Value"
           />
         </div>
       </div>
       <Button
-        class="py-2 ml-3"
+        class="p-2"
         label="Save voucher"
         size="w-full md:w-1/2 py-2"
         variant="info"

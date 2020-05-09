@@ -8,7 +8,7 @@
         <Button
           class="py-2"
           label="Show my vouchers"
-          size="w-64 py-2"
+          size="w-full md:w-64 py-2"
           variant="info"
           round="rounded-full"
         />
@@ -17,7 +17,7 @@
         <Button
           class="py-2"
           label="Create new voucher"
-          size="w-64 py-2"
+          size="w-full md:w-64 py-2"
           variant="info"
           round="rounded-full"
         />

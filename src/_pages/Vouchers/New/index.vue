@@ -1,18 +1,10 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex w-full">
-        <div class="flex flex-1 flex-col">
-          <div class="flex flex-col">
-            <span class="font-bold text-lg">
-              {{ ($route.params.id) ? 'Update Voucher' : 'New Voucher' }}
-            </span>
-          </div>
-          <div>
-            <VoucherForm />
-          </div>
-        </div>
+      <div class="font-bold text-lg py-2">
+        {{ ($route.params.id) ? 'Update Voucher' : 'New Voucher' }}
       </div>
+      <VoucherForm />
     </template>
   </MainLayout>
 </template>

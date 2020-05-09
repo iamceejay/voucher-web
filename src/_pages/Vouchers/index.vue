@@ -1,27 +1,21 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex">
-        <div class="flex flex-1 flex-col">
-          <div class="flex flex-col">
-            <span class="font-bold text-lg">Create new voucher</span>
-            <router-link
-              to="vouchers/new"
-            >
-              <Button
-                class="py-2"
-                label="Create new voucher"
-                size="w-full sm:w-64 py-2"
-                variant="info"
-                round="rounded-full"
-              />
-            </router-link>
-          </div>
-          <div>
-            <VoucherList />
-          </div>
-        </div>
+      <div class="font-bold text-lg py-2">
+        Create new voucher
       </div>
+      <router-link
+        to="vouchers/new"
+      >
+        <Button
+          class="p-2"
+          label="Create new voucher"
+          size="w-full sm:w-64 py-2"
+          variant="info"
+          round="rounded-full"
+        />
+      </router-link>
+      <VoucherList />
     </template>
   </MainLayout>
 </template>

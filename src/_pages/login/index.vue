@@ -1,13 +1,11 @@
 <template>
-  <div class="flex">
-    <div class="flex flex-1 justify-center items-center flex-col">
-      <div class="container">
-        <div class="header-container">
-          Voucher
-        </div>
-        <div class="content-container">
-          <LoginForm />
-        </div>
+  <div class="flex flex-1 justify-center items-center h-screen">
+    <div class="container">
+      <div class="header-container">
+        Voucher
+      </div>
+      <div class="content-container">
+        <LoginForm />
       </div>
     </div>
   </div>

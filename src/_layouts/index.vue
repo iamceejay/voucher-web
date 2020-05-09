@@ -4,8 +4,10 @@
     class="w-full flex flex-row"
   >
     <Sidebar />
-    <div class="w-full p-8 flex">
-      <slot name="content" />
+    <div class="w-full flex">
+      <div class="main-container p-8">
+        <slot name="content" />
+      </div>
     </div>
   </div>
 </template>

@@ -6,7 +6,7 @@
     <div
       v-for="(row, index) in data"
       :key="`${row}-${index}`"
-      class=" flex items-center"
+      class=" flex items-center mx-2"
     >
       <input 
         :id="`${row}-${index}`"

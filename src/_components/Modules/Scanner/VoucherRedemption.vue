@@ -8,17 +8,17 @@
       placeholder="Enter value of redemption."
     />
     <Button
-      class="pt-1 mt-2 mx-2 justify-center"
+      class="py-1 mt-2 justify-center"
       label="Redeem voucher"
-      size="mt-1 w-full md:w-1/2 py-2"
+      size="w-full md:w-1/2 py-2"
       variant="info"
       round="rounded-full"
       @onClick="onRedeem()"
     />
     <Button
-      class="pt-1 mx-2 justify-center"
+      class="py-1 justify-center"
       label="Cancel"
-      size="m-1 w-full md:w-1/2 py-2"
+      size="w-full md:w-1/2 py-2"
       variant="info"
       round="rounded-full"
       @onClick="$emit('onSetVoucher', null)"

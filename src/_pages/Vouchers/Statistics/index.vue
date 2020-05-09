@@ -2,14 +2,12 @@
   <MainLayout>
     <template #content>
       <div class="w-full h-screen flex flex-col">
-        <div class="flex flex-col">
-          <span class="font-bold text-lg">Voucher Statistics</span>
+        <div class="font-bold text-lg py-2">
+          Voucher Statistics
         </div>
-        <div>
-          <StatisticList 
-            :data="stats"
-          />
-        </div>
+        <StatisticList 
+          :data="stats"
+        />
       </div>
     </template>
   </MainLayout>

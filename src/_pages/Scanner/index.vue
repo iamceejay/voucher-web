@@ -1,19 +1,17 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="w-full flex flex-col">
-        <div class="font-bold text-lg py-2">
-          Voucher Scanner
-        </div>
-        <VoucherScanner 
-          v-if="!qr"
-          @onSetVoucher="onSetVoucher"
-        />
-        <VoucherRedemption 
-          v-if="qr"
-          @onSetVoucher="onSetVoucher"
-        />
+      <div class="font-bold text-lg py-2">
+        Voucher Scanner
       </div>
+      <VoucherScanner 
+        v-if="!qr"
+        @onSetVoucher="onSetVoucher"
+      />
+      <VoucherRedemption 
+        v-if="qr"
+        @onSetVoucher="onSetVoucher"
+      />
     </template>
   </MainLayout>
 </template>

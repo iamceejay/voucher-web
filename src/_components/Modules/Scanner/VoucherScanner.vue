@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col self-center">
+  <div class="flex flex-col self-center w-full">
     <QrcodeStream 
       class="w-full"
       @decode="onDecode" 
@@ -13,9 +13,9 @@
       placeholder="Enter voucher code manually..."
     />
     <Button
-      class="py-1 mx-2 justify-center"
+      class="py-1 mt-2 justify-center"
       label="Enter voucher code"
-      size="m-2 w-full md:w-1/2 py-2"
+      size="w-full md:w-1/2 py-2"
       variant="info"
       round="rounded-full"
       @onClick="onDecode(voucherForm.qr)"
