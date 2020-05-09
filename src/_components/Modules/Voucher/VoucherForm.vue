@@ -20,7 +20,7 @@
           Pick a background color or upload photo
         </div>
         <div class="flex flex-row flex-wrap w-full">
-          <div class="w-full md:w-1/2 mb-3">
+          <div class="w-full md:w-1/2 mb-5">
             <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
               Background color
             </span>
@@ -30,7 +30,7 @@
               />
             </div>
           </div>
-          <div class="w-full md:w-1/2 mb-3">
+          <div class="w-full md:w-1/2 mb-5">
             <VueFileAgent
               ref="vueFileAgent"
               :theme="'grid'"
@@ -48,7 +48,7 @@
               @delete="onChangeBgImg($event)"
             />
           </div>
-          <div class="mx-2 mb-3 w-full flex flex-row">
+          <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
               v-model="voucherForm.isDarkText"
             />
@@ -83,9 +83,9 @@
               :data="week"
               @onChange="voucherForm.validDay = $event"
             />
-            <div>
+            <div class="mb-5">
               <div class="flex flex-row">
-                <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+                <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
                   Valid from ... to ...
                 </label>
                 <a 

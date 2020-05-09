@@ -1,9 +1,9 @@
 <template>
   <div 
     id="select-field-component" 
-    class="w-full"
+    class="w-full mb-5"
   >
-    <label class="block text-left text-gray-900 text-sm font-semibold mb-0 font-body">{{ label }}</label>
+    <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">{{ label }}</label>
     <select
       :id="id"
       ref="inputField"

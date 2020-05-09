@@ -1,5 +1,5 @@
 <template>
-  <div id="text-area-field-component">
+  <div id="text-area-field-component" class="mb-5">
     <label 
       v-if="label != ''"
       class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
