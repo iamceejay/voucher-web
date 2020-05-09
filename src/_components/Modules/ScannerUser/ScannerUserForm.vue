@@ -2,18 +2,21 @@
   <div class="flex flex-col w-full md:w-1/2">
     <InputField
       id="text"
+      v-model="userForm.username"
       type="text"
       class="m-2"
       placeholder="Username"
     />
     <InputField
       id="text"
+      v-model="userForm.email"
       type="text"
       class="m-2"
       placeholder="Email address"
     />
     <InputField
       id="text"
+      v-model="userForm.password"
       type="text"
       class="m-2"
       placeholder="Password"
@@ -29,6 +32,7 @@
       variant="info"
       round="rounded-full"
       fontSize="text-xs"
+      @onClick="onSubmit()"
     />
     <router-link to="/scanner-users">
       <Button
@@ -55,11 +59,35 @@
     },
     data() {
       return {
-      };
+        userForm: {
+          id: null,
+          username: '',
+          password: '',
+          email: '',
+        }
+      }
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      onSubmit()
+      {
+        this.$store.dispatch('ADD_SCANNER_USER', this.userForm)
+        this.userForm = {
+          id: null,
+          username: '',
+          password: '',
+          email: '',
+        }
+        this.$swal({
+          icon: 'success',
+          title: 'Successful!',
+          text: 'Adding new user.',
+          confirmButtonColor: '#6C757D',
+        });
+        this.$router.push('/scanner-users')
+      }
+    }
   }
 </script>
 <style lang="css" scoped>

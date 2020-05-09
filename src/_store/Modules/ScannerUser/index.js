@@ -5,20 +5,24 @@ export default {
     scannerUsers: [
       {
         id: 1,
-        firstName: 'Mike',
-        lastName: 'Jhonson',
+        username: 'Mike',
+        password: 'Jhonson',
+        email: 'mike@gmail.com'
       }, {
         id: 2,
-        firstName: 'Chris',
-        lastName: 'Jhonson',
+        username: 'Chris',
+        password: 'Jhonson',
+        email: 'chris@gmail.com'
       }, {
         id: 3,
-        firstName: 'Jasper',
-        lastName: 'Jhonson',
+        username: 'Jasper',
+        password: 'Jhonson',
+        email: 'jasper@gmail.com'
       }, {
         id: 4,
-        firstName: 'Joe',
-        lastName: 'Jhonson',
+        username: 'Joe',
+        password: 'Jhonson',
+        email: 'joe@gmail.com'
       }
     ],
   }),
@@ -33,6 +37,16 @@ export default {
     },
   },
   actions: {
+    ADD_SCANNER_USER( { commit, state }, payload )
+    {
+      commit('SET_SCANNER_USERS', [
+        ...state.scannerUsers,
+        {
+          id: ++state.scannerUsers.length,
+          ...payload,
+        }
+      ])
+    },
     DELETE_SCANNER_USER( { commit, state }, payload )
     {
       console.log('payload', payload)

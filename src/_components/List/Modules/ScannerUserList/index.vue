@@ -6,7 +6,7 @@
       class="w-full md:w-1/2 flex flex-row"
     >
       <div class="w-4/5 text-sm px-5 py-2">
-        {{ `${index+1}. ${row.firstName} ${row.lastName}` }}
+        {{ `${index+1}. ${row.username}` }}
       </div>
       <div class="w-1/5">
         <Button
