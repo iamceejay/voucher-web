@@ -7,24 +7,24 @@
             class="w-full flex flex-col"
             @submit.prevent="handleSubmit(onSubmit(invalid))"
           >
-            <div class="font-bold text-lg py-2">
+            <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-4">
               Profile & Settings
             </div>
             <div class="flex flex-wrap">
-              <div class="w-full md:w-1/2 order-1">
-                <div class="font-bold text-sm pt-2">
+              <div class="w-full md:w-1/2 order-1 mb-5">
+                <div class="font-bold mb-3 text-gray-700 font-display text-2xl">
                   Profile Info
                 </div>
                 <ProfileForm />
               </div>
-              <div class="w-full md:w-1/2 order-2 md:order-3">
-                <div class="font-bold text-sm pt-2">
+              <div class="w-full md:w-1/2 order-2 md:order-3 mb-5">
+                <div class="font-bold mb-3 text-gray-700 font-display text-2xl">
                   Company Info
                 </div>
                 <CompanyForm />
               </div>
-              <div class="w-full md:w-1/2 order-3 md:order-2">
-                <div class="font-bold text-sm pt-2">
+              <div class="w-full md:w-1/2 order-3 md:order-2 mb-5">
+                <div class="font-bold mb-3 text-gray-700 font-display text-2xl">
                   Payout Info
                 </div>
                 <PayoutForm />
@@ -32,10 +32,8 @@
             </div>
             <Button
               type="submit"
-              class="py-2 mx-2"
               label="Save"
-              size="w-full sm:w-1/2 py-2"
-              variant="info"
+              size="w-full sm:w-1/2 py-3"
               round="rounded-full"
             />
           </form>
