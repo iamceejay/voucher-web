@@ -11,7 +11,7 @@
       ref="inputField"
       :rows="rows"
       :name="id"
-      class="input-field"
+      class="input-field mt-2 py-2 px-3 rounded-lg text-sm font-semibold"
       :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
       :value="value"
       :maxlength="max"

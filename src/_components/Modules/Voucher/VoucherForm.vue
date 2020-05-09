@@ -103,7 +103,7 @@
               >
                 <DatePicker
                   v-model="voucherForm.validDates[index].start"
-                  inputClass="input-field"
+                  inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
                   class="m-1"
                   format="YYYY-MM-DD"
                   type="date"
@@ -112,7 +112,7 @@
                 />
                 <DatePicker
                   v-model="voucherForm.validDates[index].end"
-                  inputClass="input-field"
+                  inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
                   class="m-1"
                   format="YYYY-MM-DD"
                   type="date"
