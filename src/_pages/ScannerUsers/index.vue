@@ -6,7 +6,7 @@
           Scanner Users
         </div>
         <ScannerUserList 
-          :data="scannerList"
+          :data="SCANNER_USERS"
         />
         <router-link to="/scanner-users/new">
           <Button
@@ -36,31 +36,17 @@
     },
     data() {
       return {
-        scannerList: []
+      }
+    },
+    computed: {
+      SCANNER_USERS()
+      {
+        return this.$store.getters.SCANNER_USERS
       }
     },
     mounted() {
-      this.onSetScannerList()
     },
     methods: {
-      onSetScannerList()
-      {
-        this.scannerList = [
-          {
-            firstName: 'Mike',
-            lastName: 'Jhonson',
-          },{
-            firstName: 'Chris',
-            lastName: 'Jhonson',
-          },{
-            firstName: 'Jasper',
-            lastName: 'Jhonson',
-          },{
-            firstName: 'Joe',
-            lastName: 'Jhonson',
-          }
-        ];
-      }
     }
   }
 </script>

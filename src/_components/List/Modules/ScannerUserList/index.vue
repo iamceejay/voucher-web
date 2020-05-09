@@ -16,7 +16,7 @@
           variant="info"
           round="rounded-full"
           fontSize="text-xs"
-          @onClick="onDelete(data)"
+          @onClick="onDelete(row)"
         />
       </div>
     </div>
@@ -56,6 +56,7 @@
           cancelButtonText: 'Cancel',
         }).then((result) => {
           if(result.value){
+            this.$store.dispatch('DELETE_SCANNER_USER', data)
             this.$swal({
               icon: 'success',
               title: 'Successful!',
