@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900">
+      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
         Hi Company!
       </div>
       <router-link to="/scanner">

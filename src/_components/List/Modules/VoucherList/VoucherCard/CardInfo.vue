@@ -5,7 +5,7 @@
         <div class="text-base font-bold font-display">
           {{ data.name || 'Voucher Name' }}
         </div>
-        <div class="text-xs font-semibold font-body">
+        <div class="text-xs font-bold font-body">
           {{ data.companyName || 'Company Name' }}
         </div>
       </div>
@@ -40,7 +40,7 @@
               </span>
             </div>
           </div>
-          <div class="text-base font-semibold font-body">
+          <div class="text-base font-bold font-body">
             {{ (data.isQuantityBased ? 'Quantity' : 'Value') }}-based
           </div>
         </div>

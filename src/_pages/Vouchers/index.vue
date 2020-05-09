@@ -1,14 +1,14 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900">
+      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
         Create new voucher
       </div>
       <router-link
         to="vouchers/new"
       >
         <Button
-          class="p-2 mt-3 mb-4"
+          class="p-2 mt-3 mb-5"
           label="Create new voucher"
           size="w-full sm:w-64 py-4"
           round="rounded-full"
