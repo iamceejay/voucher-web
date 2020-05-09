@@ -1,7 +1,7 @@
 <template>
   <div 
     id="main-layout-component"
-    class="w-full flex flex-row"
+    class="w-full flex flex-row overflow-auto"
   >
     <Sidebar />
     <div class="w-full flex">
