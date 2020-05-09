@@ -1,8 +1,8 @@
 <template>
-  <div id="text-area-field-component">
+  <div id="text-area-field-component" class="mb-5">
     <label 
       v-if="label != ''"
-      class="block text-left text-gray-700 text-sm font-bold mb-0"
+      class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
     >
       {{ label }}
     </label>
@@ -11,7 +11,7 @@
       ref="inputField"
       :rows="rows"
       :name="id"
-      class="input-field mt-2 py-2 px-3 rounded-lg text-sm font-semibold"
+      class="input-field mt-2 py-2 px-3 rounded-lg text-sm font-semibold font-body"
       :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
       :value="value"
       :maxlength="max"

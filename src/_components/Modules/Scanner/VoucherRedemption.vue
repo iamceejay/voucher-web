@@ -14,18 +14,16 @@
           rules="required"
         />
         <Button
-          class="py-1 mt-2 justify-center"
+          class="py-1 justify-center"
           label="Redeem voucher"
           size="w-full md:w-1/2 py-2"
-          variant="info"
           round="rounded-full"
           type="submit"
         />
         <Button
-          class="py-1 justify-center"
+          class="py-1 mt-1 justify-center"
           label="Cancel"
           size="w-full md:w-1/2 py-2"
-          variant="info"
           round="rounded-full"
           @onClick="$emit('onSetVoucher', null)"
         />

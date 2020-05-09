@@ -4,33 +4,33 @@
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
-      <div class="flex flex-col w-full items-center">
+      <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
           :data="voucherForm"
           :bg="voucherForm.bg.hex"
           :bgImg="voucherForm.bgImage"
           :isFlippable="false"
         />
-        <div class="text-center italic">
+        <div class="text-center font-bold font-body">
           Live Preview
         </div>
       </div>
       <div class="w-full flex flex-col">
-        <div class="font-semibold">
+        <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
           Pick a background color or upload photo
         </div>
         <div class="flex flex-row flex-wrap w-full">
-          <div class="w-full md:w-1/2">
-            <span class="text-sm m-2">
+          <div class="w-full md:w-1/2 mb-5">
+            <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
               Background color
             </span>
-            <div class="w-full sm:w-1/2 md:mx-2">
+            <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
                 v-model="voucherForm.bg"
               />
             </div>
           </div>
-          <div class="w-full md:w-1/2 mt-2">
+          <div class="w-full md:w-1/2 mb-5">
             <VueFileAgent
               ref="vueFileAgent"
               :theme="'grid'"
@@ -48,33 +48,38 @@
               @delete="onChangeBgImg($event)"
             />
           </div>
-          <div class="mx-2 mt-2 w-full flex flex-row mb-1">
+          <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
               v-model="voucherForm.isDarkText"
             />
-            <span class="ml-2 text-sm">Light / Dark Text</span>
+            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Light / Dark Text</span>
           </div>
           <div class="w-full">
             <InputField
               id="name"
               v-model="voucherForm.name"
               type="text"
-              class="px-2 py-1 w-full md:w-1/2"
+              class="px-2 w-full md:w-1/2"
               placeholder="Voucher Title"
               rules="required"
             />
             <TextAreaField
               id="description"
               v-model="voucherForm.description"
-              class="px-2 py-1 w-full md:w-1/2"
+              class="px-2 w-full md:w-1/2"
               placeholder="Voucher Description"
               :max="128"
               rules="required"
             />
             <SelectField
+<<<<<<< HEAD
               id="category"
               v-model="voucherForm.category"
               class="px-2 py-1 w-full md:w-1/2"
+=======
+              id="month"
+              class="px-2 w-full md:w-1/2"
+>>>>>>> e5ddb2677f48e089f545537ccc51f97e3add675a
               label="Category"
               :options="CATEGORIES"
               rules="required"
@@ -87,9 +92,13 @@
               :data="voucherForm.validDay"
               @onChange="voucherForm.validDay = $event"
             />
+<<<<<<< HEAD
             <div class="w-full md:w-1/2">
+=======
+            <div class="mb-5">
+>>>>>>> e5ddb2677f48e089f545537ccc51f97e3add675a
               <div class="flex flex-row">
-                <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+                <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
                   Valid from ... to ...
                 </label>
                 <a 
@@ -136,15 +145,15 @@
                 </a>
               </div>
             </div>
-            <div class="m-1 w-full flex flex-col">
-              <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+            <div class="m-1 w-full flex flex-col mb-5">
+              <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
                 Voucher Type
               </label>
               <div class="mx-2 mt-2 w-full flex flex-row">
                 <toggle-button 
                   v-model="voucherForm.isQuantityBased"
                 />
-                <span class="ml-2 text-sm">Value based / Quantity based</span>
+                <span class="ml-2 text-sm font-bold text-gray-900 font-body">Value based / Quantity based</span>
               </div>
             </div>
             <InputField
@@ -177,10 +186,8 @@
           </div>
         </div>
         <Button
-          class="p-2"
           :label="`${ data && data.id ? 'Update' : 'Save' } voucher`"
-          size="w-full md:w-1/2 py-2"
-          variant="info"
+          size="w-full md:w-1/2 py-3"
           round="rounded-full"
           type="submit"
         />
