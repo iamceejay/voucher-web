@@ -69,10 +69,10 @@
     }
 }
 
-.swal-title {
+.swal2-title {
     font-family: 'Montserrat', 'sans-serif' !important;
 }
 
-.swal-text, .swal-button {
+.swal2-text, .swal2-button {
     font-family: 'Nunito', 'sans-serif' !important;
 }
