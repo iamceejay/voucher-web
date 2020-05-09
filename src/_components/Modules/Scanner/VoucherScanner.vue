@@ -21,9 +21,9 @@
           rules="required"
         />
         <Button
-          class="py-1 mt-1 justify-center"
+          class="py-1 justify-center"
           label="Enter voucher code"
-          size="w-full md:w-1/2 py-2"
+          size="w-full md:w-1/2 py-3"
           round="rounded-full"
           type="submit"
         />
