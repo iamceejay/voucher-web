@@ -27,7 +27,7 @@
                 v-for="(date, index) in data.validDates"
                 :key="`date-${index}`"
               >
-                Valid on {{ `${date.start} to ${date.end}` }}
+                Valid on {{ `${date.start || '...'} to ${date.end || '...'}` }}
               </span>
             </div>
             <div v-if="data.validDay.length > 0">

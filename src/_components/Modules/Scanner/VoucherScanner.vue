@@ -1,10 +1,11 @@
 <template>
   <div class="flex flex-col self-center w-full">
-    <QrcodeStream 
-      class="w-full"
-      @decode="onDecode" 
-      @init="onInit" 
-    />
+    <div class="w-full md:w-1/2 m-auto">
+      <QrcodeStream 
+        @decode="onDecode" 
+        @init="onInit" 
+      />
+    </div>
     <InputField
       id="text"
       v-model="voucherForm.qr"

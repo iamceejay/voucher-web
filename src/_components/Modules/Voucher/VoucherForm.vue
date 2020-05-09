@@ -44,7 +44,7 @@
             @delete="onChangeBgImg($event)"
           />
         </div>
-        <div class="mx-2 mt-2 w-full flex flex-row">
+        <div class="mx-2 mt-2 w-full flex flex-row mb-1">
           <toggle-button 
             v-model="voucherForm.isDarkText"
           />
