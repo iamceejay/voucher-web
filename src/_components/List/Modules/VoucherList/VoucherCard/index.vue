@@ -3,7 +3,7 @@
     id="voucher-card"
     class="flex border rounded card-container bg-color"
     :class="{'flip': isFlip}"
-    :style="{ '--bgColor': bg }"
+    :style="{ '--bgColor': data.bgColor || bg }"
   >
     <CardInfo
       v-if="!isAction"

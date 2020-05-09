@@ -21,6 +21,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
       {
@@ -41,6 +42,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
       {
@@ -61,6 +63,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
       {
@@ -81,6 +84,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
       {
@@ -101,6 +105,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
       {
@@ -121,6 +126,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
       {
@@ -141,6 +147,7 @@ export default {
         value: 15000,
         quantity: 0,
         isDarkText: true,
+        bgColor: '#fff',
         status: 1,
       },
     ]
@@ -158,6 +165,7 @@ export default {
   actions: {
     ADD_VOUCHER( { commit, state }, payload )
     {
+      console.log('payload', payload)
       commit('SET_VOUCHERS', [
         ...state.vouchers,
         {

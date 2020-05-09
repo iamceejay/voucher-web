@@ -1,163 +1,177 @@
 <template>
-  <div class="flex flex-col w-full">
-    <div class="flex flex-col w-full items-center">
-      <VoucherCard
-        :data="voucherForm"
-        :bg="voucherForm.bg.hex"
-        :bgImg="voucherForm.bgImage"
-        :isFlippable="false"
-      />
-      <div class="text-center italic">
-        Live Preview
+  <ValidationObserver v-slot="{ handleSubmit, invalid }">
+    <form 
+      class="flex flex-col w-full"
+      @submit.prevent="handleSubmit(onSubmit(invalid))"
+    >
+      <div class="flex flex-col w-full items-center">
+        <VoucherCard
+          :data="voucherForm"
+          :bg="voucherForm.bg.hex"
+          :bgImg="voucherForm.bgImage"
+          :isFlippable="false"
+        />
+        <div class="text-center italic">
+          Live Preview
+        </div>
       </div>
-    </div>
-    <div class="w-full flex flex-col">
-      <div class="font-semibold">
-        Pick a background color or upload photo
-      </div>
-      <div class="flex flex-row flex-wrap w-full">
-        <div class="w-full md:w-1/2">
-          <span class="text-sm m-2">
-            Background color
-          </span>
-          <div class="w-full sm:w-1/2 md:mx-2">
-            <Material
-              v-model="voucherForm.bg"
+      <div class="w-full flex flex-col">
+        <div class="font-semibold">
+          Pick a background color or upload photo
+        </div>
+        <div class="flex flex-row flex-wrap w-full">
+          <div class="w-full md:w-1/2">
+            <span class="text-sm m-2">
+              Background color
+            </span>
+            <div class="w-full sm:w-1/2 md:mx-2">
+              <Material
+                v-model="voucherForm.bg"
+              />
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 mt-2">
+            <VueFileAgent
+              ref="vueFileAgent"
+              :theme="'grid'"
+              :multiple="false"
+              :deletable="true"
+              :meta="true"
+              :accept="'image/*'"
+              :maxSize="'10MB'"
+              :helpText="' '"
+              :errorText="{
+                type: 'Invalid file type. Only images or zip Allowed',
+                size: 'Files should not exceed 10MB in size',
+              }"
+              @select="onChangeBgImg($event)"
+              @delete="onChangeBgImg($event)"
+            />
+          </div>
+          <div class="mx-2 mt-2 w-full flex flex-row mb-1">
+            <toggle-button 
+              v-model="voucherForm.isDarkText"
+            />
+            <span class="ml-2 text-sm">Light / Dark Text</span>
+          </div>
+          <div class="w-full">
+            <InputField
+              id="name"
+              v-model="voucherForm.name"
+              type="text"
+              class="px-2 py-1 w-full md:w-1/2"
+              placeholder="Voucher Title"
+              rules="required"
+            />
+            <TextAreaField
+              id="description"
+              v-model="voucherForm.description"
+              class="px-2 py-1 w-full md:w-1/2"
+              placeholder="Voucher Description"
+              :max="128"
+              rules="required"
+            />
+            <SelectField
+              id="month"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Category"
+            />
+            <CheckboxField
+              label="Valid on following days"
+              class="mx-2"
+              name="'validDay'"
+              :data="week"
+              @onChange="voucherForm.validDay = $event"
+            />
+            <div>
+              <div class="flex flex-row">
+                <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+                  Valid from ... to ...
+                </label>
+                <a 
+                  href="javascript:void(0)"
+                  class="ml-2"
+                  @click="onAddValidDate()"
+                >
+                  <i class="fas fa-plus-circle text-base" />
+                </a>
+              </div>
+              <div
+                v-for="(date, index) in voucherForm.validDates"
+                :key="`date-${index}`"
+                class="flex flex-row"
+              >
+                <DatePicker
+                  v-model="voucherForm.validDates[index].start"
+                  inputClass="input-field"
+                  class="m-1"
+                  format="YYYY-MM-DD"
+                  type="date"
+                  placeholder="Start date"
+                  valueType="format"
+                />
+                <DatePicker
+                  v-model="voucherForm.validDates[index].end"
+                  inputClass="input-field"
+                  class="m-1"
+                  format="YYYY-MM-DD"
+                  type="date"
+                  placeholder="End date"
+                  valueType="format"
+                />
+              </div>
+            </div>
+            <div class="m-1 w-full flex flex-col">
+              <label class="block text-left text-gray-700 text-sm font-bold mb-0">
+                Voucher Type
+              </label>
+              <div class="mx-2 mt-2 w-full flex flex-row">
+                <toggle-button 
+                  v-model="voucherForm.isQuantityBased"
+                />
+                <span class="ml-2 text-sm">Value based / Quantity based</span>
+              </div>
+            </div>
+            <InputField
+              v-if="voucherForm.isQuantityBased"
+              id="isQuantityBased"
+              v-model="voucherForm.value"
+              type="text"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Voucher Value"
+              rules="required"
+            />
+            <InputField
+              id="min"
+              v-model="voucherForm.minQuantity"
+              type="number"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Voucher Minimum Value / Quantity"
+              placeholder="Min Value"
+              rules="required"
+            />
+            <InputField
+              id="max"
+              v-model="voucherForm.maxQuantity"
+              type="number"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Voucher Maximum Value / Quantity"
+              placeholder="Max Value"
+              rules="required"
             />
           </div>
         </div>
-        <div class="w-full md:w-1/2 mt-2">
-          <VueFileAgent
-            ref="vueFileAgent"
-            :theme="'grid'"
-            :multiple="false"
-            :deletable="true"
-            :meta="true"
-            :accept="'image/*'"
-            :maxSize="'10MB'"
-            :helpText="' '"
-            :errorText="{
-              type: 'Invalid file type. Only images or zip Allowed',
-              size: 'Files should not exceed 10MB in size',
-            }"
-            @select="onChangeBgImg($event)"
-            @delete="onChangeBgImg($event)"
-          />
-        </div>
-        <div class="mx-2 mt-2 w-full flex flex-row mb-1">
-          <toggle-button 
-            v-model="voucherForm.isDarkText"
-          />
-          <span class="ml-2 text-sm">Light / Dark Text</span>
-        </div>
-        <div class="w-full">
-          <InputField
-            id="name"
-            v-model="voucherForm.name"
-            type="text"
-            class="px-2 py-1 w-full md:w-1/2"
-            placeholder="Voucher Title"
-          />
-          <TextAreaField
-            id="description"
-            v-model="voucherForm.description"
-            class="px-2 py-1 w-full md:w-1/2"
-            placeholder="Voucher Description"
-            :max="128"
-          />
-          <SelectField
-            id="month"
-            class="px-2 py-1 w-full md:w-1/2"
-            label="Category"
-          />
-          <CheckboxField
-            label="Valid on following days"
-            class="mx-2"
-            name="'validDay'"
-            :data="week"
-            @onChange="voucherForm.validDay = $event"
-          />
-          <div>
-            <div class="flex flex-row">
-              <label class="block text-left text-gray-700 text-sm font-bold mb-0">
-                Valid from ... to ...
-              </label>
-              <a 
-                href="javascript:void(0)"
-                class="ml-2"
-                @click="onAddValidDate()"
-              >
-                <i class="fas fa-plus-circle text-base" />
-              </a>
-            </div>
-            <div
-              v-for="(date, index) in voucherForm.validDates"
-              :key="`date-${index}`"
-              class="flex flex-row"
-            >
-              <DatePicker
-                v-model="voucherForm.validDates[index].start"
-                inputClass="input-field"
-                class="m-1"
-                format="YYYY-MM-DD"
-                type="date"
-                placeholder="Start date"
-                valueType="format"
-              />
-              <DatePicker
-                v-model="voucherForm.validDates[index].end"
-                inputClass="input-field"
-                class="m-1"
-                format="YYYY-MM-DD"
-                type="date"
-                placeholder="End date"
-                valueType="format"
-              />
-            </div>
-          </div>
-          <div class="m-1 w-full flex flex-col">
-            <label class="block text-left text-gray-700 text-sm font-bold mb-0">
-              Voucher Type
-            </label>
-            <div class="mx-2 mt-2 w-full flex flex-row">
-              <toggle-button 
-                v-model="voucherForm.isQuantityBased"
-              />
-              <span class="ml-2 text-sm">Value based / Quantity based</span>
-            </div>
-          </div>
-          <InputField
-            v-if="voucherForm.isQuantityBased"
-            id="isQuantityBased"
-            type="text"
-            class="px-2 py-1 w-full md:w-1/2"
-            label="Voucher Value"
-          />
-          <InputField
-            id="min"
-            type="text"
-            class="px-2 py-1 w-full md:w-1/2"
-            label="Voucher Minimum Value / Quantity"
-            placeholder="Min Value"
-          />
-          <InputField
-            id="max"
-            type="text"
-            class="px-2 py-1 w-full md:w-1/2"
-            label="Voucher Maximum Value / Quantity"
-            placeholder="Max Value"
-          />
-        </div>
+        <Button
+          class="p-2"
+          label="Save voucher"
+          size="w-full md:w-1/2 py-2"
+          variant="info"
+          round="rounded-full"
+          type="submit"
+        />
       </div>
-      <Button
-        class="p-2"
-        label="Save voucher"
-        size="w-full md:w-1/2 py-2"
-        variant="info"
-        round="rounded-full"
-      />
-    </div>
-  </div>
+    </form>
+  </ValidationObserver>
 </template>
 <script>
   import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
@@ -201,6 +215,7 @@
               b: 255 
             }
           },
+          bgColor: '',
           bgImage: '',
           isDarkText: true,
           validDay: [],
@@ -213,8 +228,10 @@
           customNote: '',
           expiryDate: '12.04.2023',
           isQuantityBased: false,
-          value: 15000,
-          quantity: 0
+          value: 0,
+          minQuantity: 0,
+          maxQuantity: 0,
+          status: true,
         },
         week: getWeek,
       }
@@ -222,6 +239,21 @@
     mounted() {
     },
     methods: {
+      onSubmit( invalid )
+      {
+        if( !invalid ) {
+          this.voucherForm.bgColor = this.voucherForm.bg.hex
+          this.$store.dispatch('ADD_VOUCHER', this.voucherForm)
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Adding new voucher.',
+            confirmButtonColor: '#6C757D',
+          });
+          this.onResetForm()
+          this.$router.push('/vouchers')
+        }
+      },
       onChangeBgImg(data)
       {
         if(data.length > 0) {

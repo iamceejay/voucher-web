@@ -48,8 +48,8 @@
         type: String,
         default: ''
       }, value: {
-        type: String,
-        default: ''
+        type: [Number, String],
+        default: null
       }, 
       rules: {
         type: String,
