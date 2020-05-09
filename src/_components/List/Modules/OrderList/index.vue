@@ -5,17 +5,17 @@
       :key="`stat-${index}`"
       class="w-full sm:w-1/2 md:w-1/4"
     >
-      <div class="flex flex-col m-1 py-2 px-3 border rounded">
+      <div class="flex flex-col m-1 p-3 border border-gray-900 rounded">
         <div class="flex flex-row">
-          <span class="font-semibold text-xs">{{ row.name }}</span>
-          <span class="ml-auto text-xs">{{ `OrderID #${row.orderNo}` }}</span>
+          <span class="font-semibold text-sm text-gray-900 font-display">{{ row.name }}</span>
+          <span class="ml-auto text-xs text-gray-900 font-semibold font-body">{{ `OrderID #${row.orderNo}` }}</span>
         </div>
         <div class="flex flex-row">
-          <div class="text-xs">
+          <div class="text-xs text-gray-900 font-body">
             <div>User: {{ row.user }}</div>
             <div>{{ row.date }}</div>
           </div>
-          <div class="ml-auto text-base font-semibold">
+          <div class="ml-auto text-base font-bold font-display">
             {{ (row.type == 'quantity') ? `${ row.quantity }x / ` : '' }}
             €{{ row.value }}
           </div>

@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <Earnings />
+      <Earnings class="mb-5" />
       <Orders />
     </template>
   </MainLayout>
