@@ -174,6 +174,16 @@ export default {
         }
       ])
     },
+    UPDATE_VOUCHER( { commit, state }, payload )
+    {
+      const newList = state.vouchers.map( vouch => {
+        if(vouch.id == payload.id) {
+          vouch = payload
+        }
+        return vouch
+      });
+      commit('SET_VOUCHERS', newList)
+    },
     DEACTIVATE_VOUCHER( { commit, state }, payload )
     {
       const newList = state.vouchers.map( vouch => {

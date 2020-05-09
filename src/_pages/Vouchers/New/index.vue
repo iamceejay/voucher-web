@@ -4,7 +4,9 @@
       <div class="font-bold text-lg py-2">
         {{ ($route.params.id) ? 'Update Voucher' : 'New Voucher' }}
       </div>
-      <VoucherForm />
+      <VoucherForm 
+        :data="data"
+      />
     </template>
   </MainLayout>
 </template>
@@ -19,13 +21,26 @@
     },
     data() {
       return {
-        submitting: false
+        data: null,
+      }
+    },
+    computed: {
+      VOUCHERS()
+      {
+        return this.$store.getters.VOUCHERS
       }
     },
     mounted() {
-
+      this.onSetVoucher()
     },
     methods: {
+      onSetVoucher()
+      {
+        if( this.$route.params.id ) {
+          this.data = this.VOUCHERS.filter( vouch => vouch.id == this.$route.params.id )[0]
+          console.log('this.data', this.data)
+        }
+      }
     }
   }
 </script>

@@ -163,7 +163,7 @@
         </div>
         <Button
           class="p-2"
-          label="Save voucher"
+          :label="`${ data && data.id ? 'Update' : 'Save' } voucher`"
           size="w-full md:w-1/2 py-2"
           variant="info"
           round="rounded-full"
@@ -200,6 +200,12 @@
       DatePicker
     },
     props: {
+      data: {
+        type: Object,
+        default() {
+          return null
+        },
+      },
     },
     data() {
       return {
@@ -236,18 +242,26 @@
         week: getWeek,
       }
     },
+    watch: {
+      data(newVal)
+      {
+        this.onSetForm()
+      }
+    },
     mounted() {
+      this.onSetForm()
     },
     methods: {
       onSubmit( invalid )
       {
         if( !invalid ) {
           this.voucherForm.bgColor = this.voucherForm.bg.hex
-          this.$store.dispatch('ADD_VOUCHER', this.voucherForm)
+          const url = this.voucherForm.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER'
+          this.$store.dispatch(url, this.voucherForm)
           this.$swal({
             icon: 'success',
             title: 'Successful!',
-            text: 'Adding new voucher.',
+            text: `${this.voucherForm.id ? 'Updating' : 'Adding'} new voucher.`,
             confirmButtonColor: '#6C757D',
           });
           this.onResetForm()
@@ -272,6 +286,16 @@
           start: '',
           end: '',
         })
+      },
+      onSetForm()
+      {
+        if(this.data?.id) {
+          console.log('this.data', this.data)
+          this.voucherForm = {
+            ...this.voucherForm,
+            ...this.data,
+          }
+        }
       },
       onResetForm()
       {

@@ -82,7 +82,7 @@
   }
   .card-container.flip {
     transform: rotateY(360deg);
-    transition: transform 0.8s linear;
+    transition: transform 0.5s linear;
   }
   .card-header {
     display: flex;
