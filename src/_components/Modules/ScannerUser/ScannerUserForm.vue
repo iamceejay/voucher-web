@@ -29,7 +29,7 @@
           placeholder="Password"
           rules="required"
         />
-        <p class="text-center px-10 py-4 text-xs text-gray-700 font-semibold font-body">
+        <p class="text-center px-8 py-4 text-xs text-gray-700 font-semibold font-body">
           A scan user is only allowed to do scans and redeem vouchers.
           All other seller functions are deactivated.
         </p>
