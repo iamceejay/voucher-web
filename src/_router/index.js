@@ -6,14 +6,15 @@ import auth from './_middleware/auth'
 import middlewarePipeline from './_middleware/middlewarePipeline'
 import Login from '_pages/Login/'
 import Home from '_pages/Home/'
-import MyVouchers from '_pages/MyVouchers/'
-import NewVoucher from '_pages/MyVouchers/New'
+import Vouchers from '_pages/Vouchers/'
+import NewVoucher from '_pages/Vouchers/New/'
+import StatisticsVoucher from '_pages/Vouchers/Statistics/'
 import OrdersEarnings from '_pages/OrdersEarnings/'
 import Profile from '_pages/Profile/'
 import Redemptions from '_pages/Redemptions/'
 import Scanner from '_pages/Scanner/'
 import ScannerUsers from '_pages/ScannerUsers/'
-import ScannerUserNew from '_pages/ScannerUsers/New'
+import ScannerUserNew from '_pages/ScannerUsers/New/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 Vue.use(Router);
 
@@ -42,9 +43,9 @@ const router = new Router({
         middleware: [ auth ]
       } 
     },{ 
-      path: '/my-vouchers', 
-      name: 'my-vouchers', 
-      component: MyVouchers,
+      path: '/vouchers', 
+      name: 'vouchers', 
+      component: Vouchers,
       meta: {
         middleware: [ auth ]
       } 
@@ -52,6 +53,20 @@ const router = new Router({
       path: '/vouchers/new', 
       name: 'vouchers-new', 
       component: NewVoucher,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/vouchers/update/:id', 
+      name: 'vouchers-update', 
+      component: NewVoucher,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/vouchers/statistic/:id', 
+      name: 'vouchers-statistic', 
+      component: StatisticsVoucher,
       meta: {
         middleware: [ auth ]
       } 

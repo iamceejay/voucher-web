@@ -4,6 +4,7 @@ export default {
   state: () => ({
     vouchers: [
       {
+        id: 1,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
@@ -22,6 +23,7 @@ export default {
         isDarkText: true, 
       },
       {
+        id: 2,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
@@ -40,6 +42,7 @@ export default {
         isDarkText: true, 
       },
       {
+        id: 3,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
@@ -58,6 +61,7 @@ export default {
         isDarkText: true, 
       },
       {
+        id: 4,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
@@ -76,6 +80,7 @@ export default {
         isDarkText: true, 
       },
       {
+        id: 5,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
@@ -94,6 +99,7 @@ export default {
         isDarkText: true, 
       },
       {
+        id: 6,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
@@ -112,6 +118,7 @@ export default {
         isDarkText: true, 
       },
       {
+        id: 7,
         name: 'Voucher Name',
         companyName: 'Company Name',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',

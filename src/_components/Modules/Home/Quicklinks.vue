@@ -4,7 +4,7 @@
       Quicklinks
     </div>
     <div class="flex flex-col">
-      <router-link to="/my-vouchers">
+      <router-link to="/vouchers">
         <Button
           class="py-2"
           label="Show my vouchers"

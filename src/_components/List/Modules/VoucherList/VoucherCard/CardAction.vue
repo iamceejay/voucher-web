@@ -3,29 +3,33 @@
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3"
     @click="onFlip()"
   >
-    <Button
-      class="py-2 justify-center"
-      label="Edit voucher"
-      size="w-64 py-2"
-      variant="info"
-      round="rounded-full"
-      @onClick="onAction()"
-    />
-    <Button
-      class="py-2 justify-center"
-      label="View statistics"
-      size="w-64 py-2"
-      variant="info"
-      round="rounded-full"
-      @onClick="onAction()"
-    />
+    <router-link :to="`/vouchers/update/${data.id}`">
+      <Button
+        class="py-2 justify-center"
+        label="Edit voucher"
+        size="w-64 py-2"
+        variant="info"
+        round="rounded-full"
+        @onClick="onAction()"
+      />
+    </router-link>
+    <router-link :to="`/vouchers/statistic/${data.id}`">
+      <Button
+        class="py-2 justify-center"
+        label="View statistics"
+        size="w-64 py-2"
+        variant="info"
+        round="rounded-full"
+        @onClick="onAction()"
+      />
+    </router-link>
     <Button
       class="py-2 justify-center"
       label="Deactivate voucher"
       size="w-64 py-2"
       variant="info"
       round="rounded-full"
-      @onClick="onAction()"
+      @onClick="onDeact()"
     />
     <Button
       class="py-2 justify-center"
@@ -33,7 +37,7 @@
       size="w-64 py-2"
       variant="info"
       round="rounded-full"
-      @onClick="onAction()"
+      @onClick="onDelete()"
     />
   </div>
 </template>
@@ -69,6 +73,52 @@
       onAction()
       {
         this.isAction = ++this.isAction
+      },
+      onDelete()
+      {
+        this.isAction = ++this.isAction
+        this.$swal({
+          title: 'Delete Voucher',
+          text: `Are you sure you want to delete this voucher?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then((result) => {
+          if(result.value){
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Deleting the voucher.',
+              confirmButtonColor: '#6C757D',
+            });
+            // this.$emit('onSetVoucher', '')
+          }   
+        });
+      },
+      onDeact()
+      {
+        this.isAction = ++this.isAction
+        this.$swal({
+          title: 'Deactivate Voucher',
+          text: `Are you sure you want to deactivate this voucher?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then((result) => {
+          if(result.value){
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Deactivating the voucher.',
+              confirmButtonColor: '#6C757D',
+            });
+            // this.$emit('onSetVoucher', '')
+          }   
+        });
       },
     }
   }

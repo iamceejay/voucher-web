@@ -1,16 +1,14 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex">
-        <div class="w-full flex flex-col">
-          <div class="font-bold text-lg py-2">
-            Redemptions
-          </div>
-          <OrderList 
-            :data="redemptions"
-            role="seller"
-          />
+      <div class="w-full h-screen flex flex-col">
+        <div class="font-bold text-lg py-2">
+          Redemptions
         </div>
+        <OrderList 
+          :data="redemptions"
+          role="seller"
+        />
       </div>
     </template>
   </MainLayout>

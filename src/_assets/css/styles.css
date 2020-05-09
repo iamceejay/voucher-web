@@ -44,6 +44,9 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear; 
 }
+.modal-backdrop {
+    opacity:0.5 !important;
+}
 @keyframes spin {
     from {
         transform:rotate(0deg);

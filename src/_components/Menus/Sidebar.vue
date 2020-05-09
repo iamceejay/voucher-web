@@ -99,7 +99,7 @@
                   link: '/home'
                 },{
                   title: 'My Vouchers',
-                  link: '/my-vouchers'
+                  link: '/vouchers'
                 },{
                   title: 'Scanner',
                   link: '/scanner'

@@ -28,17 +28,24 @@
           variant="info"
           round="rounded-full"
           fontSize="text-xs"
+          @onClick="onShowModal = true"
+        />
+        <RevokeVoucherModal
+          :onShowModal="onShowModal"
+          @onClose="onShowModal = false"
         />
       </div>
     </div>
   </div>
 </template>
 <script>
-  import Button from '_components/Button'
+  import Button from '_components/Button/'
+  import RevokeVoucherModal from '_components/Modals/RevokeVoucherModal'
 
   export default {
     components: {
       Button,
+      RevokeVoucherModal,
     },
     props: {
       data: {
@@ -54,7 +61,8 @@
     },
     data() {
       return {
-      };
+        onShowModal: false
+      }
     },
     mounted() {
     },
