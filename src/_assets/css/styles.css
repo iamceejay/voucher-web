@@ -5,6 +5,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 1.25rem;
 }
 .input-field {
     width: 100%;

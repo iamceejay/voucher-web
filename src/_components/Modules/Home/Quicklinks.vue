@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="ont-bold text-2xl py-2 font-display text-gray-700">
+    <div class="font-bold text-2xl py-2 font-display text-gray-700">
       Quicklinks
     </div>
     <div class="flex flex-col">

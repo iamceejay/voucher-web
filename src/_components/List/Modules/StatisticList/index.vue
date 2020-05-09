@@ -6,7 +6,7 @@
       class="w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
     >
       <div class="m-2 p-2 border rounded text-center">
-        <div class="text-xs px-2 my-3 font-body text-gray-600">
+        <div class="text-xs px-2 my-3 font-body font-semibold text-gray-600">
           {{ row.title }}
         </div>
         <div class="text-xl font-bold font-display text-gray-900">

@@ -5,7 +5,7 @@
   >
     <button
       :type="type"
-      class="text-sm focus:outline-none focus:shadow-none border-1 font-body text-capitalize"
+      class="text-sm focus:outline-none focus:shadow-none border-1 font-body capitalize"
       :class="[bg, size, round]"
       :disabled="isDisabled"
       @click="$emit('onClick')"

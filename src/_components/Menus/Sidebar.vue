@@ -8,7 +8,7 @@
       :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
       @click="onHideSidebar()"
     >
-      <i class="fas fa-bars text-base" />
+      <i class="fas fa-bars text-base text-2xl text-gray-900" />
     </a>
     <div class="w-64" :class="hideSidebar ? 'hidden' : ''">
       <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
@@ -161,9 +161,10 @@
 
 <style scoped>
   .menu-toggle {
-    right: -35px;
+    right: -50px;
     position: absolute;
     padding: 0.5rem;
+    top: 10px;
   }
   a:hover {
     color: black;
@@ -177,8 +178,9 @@
     position: relative;
   }
   @media only screen and (max-width: 640px) {
-    .menu-toggle.hide {
-      color: #fff;
+    .menu-toggle.hide i {
+      color: #fff !important;
+      content: '\f00d';
     }
   }
 
