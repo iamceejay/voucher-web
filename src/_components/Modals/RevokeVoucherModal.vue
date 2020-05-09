@@ -4,7 +4,7 @@
     @close="$emit('onClose')"
   >
     <template>
-      <div class="font-bold text-lg py-2 text-center">
+      <div class="font-bold text-lg py-2 text-center text-gray-900 text-3xl">
         Revoke redemption
       </div>
       <ValidationObserver v-slot="{ handleSubmit, invalid }">
@@ -21,10 +21,9 @@
             rules="required"
           />
           <Button
-            class="pt-1 mt-2 mx-2 justify-center"
+            class="mx-2 justify-center"
             label="Revoke voucher"
-            size="mt-1 w-full md:w-1/2 py-2"
-            variant="info"
+            size="mt-1 w-full md:w-1/2 py-3"
             round="rounded-full"
             type="submit"
           />
