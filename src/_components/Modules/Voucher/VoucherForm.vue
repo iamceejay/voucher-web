@@ -4,7 +4,7 @@
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
-      <div class="flex flex-col w-full items-center mb-3">
+      <div class="flex flex-col w-full items-center mb-4">
         <VoucherCard
           :data="voucherForm"
           :bg="voucherForm.bg.hex"
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="w-full flex flex-col">
-        <div class="font-semibold text-xl text-gray-700 mb-3">
+        <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
           Pick a background color or upload photo
         </div>
         <div class="flex flex-row flex-wrap w-full">
@@ -24,13 +24,13 @@
             <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
               Background color
             </span>
-            <div class="w-full sm:w-1/2 md:mx-2">
+            <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
                 v-model="voucherForm.bg"
               />
             </div>
           </div>
-          <div class="w-full md:w-1/2 mt-2">
+          <div class="w-full md:w-1/2 mb-3">
             <VueFileAgent
               ref="vueFileAgent"
               :theme="'grid'"
@@ -48,7 +48,7 @@
               @delete="onChangeBgImg($event)"
             />
           </div>
-          <div class="mx-2 mt-2 w-full flex flex-row mb-1">
+          <div class="mx-2 mb-3 w-full flex flex-row">
             <toggle-button 
               v-model="voucherForm.isDarkText"
             />
@@ -59,7 +59,7 @@
               id="name"
               v-model="voucherForm.name"
               type="text"
-              class="px-2 py-1 w-full md:w-1/2"
+              class="px-2 w-full md:w-1/2"
               placeholder="Voucher Title"
               rules="required"
             />
