@@ -23,7 +23,7 @@
         <Button
           class="py-1 justify-center"
           label="Enter voucher code"
-          size="w-full md:w-1/2 py-3"
+          size="w-full md:w-1/2 py-4"
           round="rounded-full"
           type="submit"
         />

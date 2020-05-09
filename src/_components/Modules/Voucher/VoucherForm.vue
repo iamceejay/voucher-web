@@ -4,24 +4,24 @@
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
-      <div class="flex flex-col w-full items-center">
+      <div class="flex flex-col w-full items-center mb-3">
         <VoucherCard
           :data="voucherForm"
           :bg="voucherForm.bg.hex"
           :bgImg="voucherForm.bgImage"
           :isFlippable="false"
         />
-        <div class="text-center italic">
+        <div class="text-center font-bold font-body">
           Live Preview
         </div>
       </div>
       <div class="w-full flex flex-col">
-        <div class="font-semibold">
+        <div class="font-semibold text-xl text-gray-700 mb-3">
           Pick a background color or upload photo
         </div>
         <div class="flex flex-row flex-wrap w-full">
-          <div class="w-full md:w-1/2">
-            <span class="text-sm m-2">
+          <div class="w-full md:w-1/2 mb-2">
+            <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
               Background color
             </span>
             <div class="w-full sm:w-1/2 md:mx-2">
@@ -52,7 +52,7 @@
             <toggle-button 
               v-model="voucherForm.isDarkText"
             />
-            <span class="ml-2 text-sm">Light / Dark Text</span>
+            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Light / Dark Text</span>
           </div>
           <div class="w-full">
             <InputField
