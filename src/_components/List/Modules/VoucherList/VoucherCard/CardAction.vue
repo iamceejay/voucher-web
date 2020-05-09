@@ -8,7 +8,6 @@
         class="py-2 justify-center"
         label="Edit voucher"
         size="w-64 py-2"
-        variant="info"
         round="rounded-full"
         @onClick="onAction()"
       />
@@ -18,7 +17,6 @@
         class="py-2 justify-center"
         label="View statistics"
         size="w-64 py-2"
-        variant="info"
         round="rounded-full"
         @onClick="onAction()"
       />
@@ -27,7 +25,6 @@
       class="py-2 justify-center"
       :label="`${ data.status ? 'Deactivate' : 'Activate' } voucher`"
       size="w-64 py-2"
-      variant="info"
       round="rounded-full"
       @onClick="onDeact(data)"
     />
@@ -35,7 +32,6 @@
       class="py-2 justify-center"
       label="Delete voucer"
       size="w-64 py-2"
-      variant="info"
       round="rounded-full"
       @onClick="onDelete(data)"
     />

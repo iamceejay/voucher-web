@@ -2,7 +2,7 @@
   <div class="flex flex-col w-full">
     <div 
       v-if="title != ''"
-      class="font-bold text-lg py-2 flex flex-col w-full"
+      class="font-bold text-lg py-2 flex flex-col w-full font-display"
     >
       {{ title }}
     </div>

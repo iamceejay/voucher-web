@@ -2,10 +2,10 @@
   <div class="w-full flex flex-col px-4 py-3">
     <div class="card-header">
       <div class="flex flex-col">
-        <div class="text-base">
+        <div class="text-base font-bold font-display">
           {{ data.name || 'Voucher Name' }}
         </div>
-        <div class="text-xs font-semibold">
+        <div class="text-xs font-semibold font-body">
           {{ data.companyName || 'Company Name' }}
         </div>
       </div>
@@ -16,12 +16,12 @@
       />
     </div>
     <div class="card-content">
-      <div class="w-9/12 text-xs text-justify h-24">
+      <div class="w-9/12 text-xs text-justify h-24 font-body">
         {{ data.description || 'Voucher Description' }}
       </div>
       <div class="w-full flex flex-row">
         <div class="w-9/12">
-          <div class="text-xs">
+          <div class="text-xs font-body">
             <div v-if="data.validDates.length > 0">
               <span
                 v-for="(date, index) in data.validDates"
@@ -40,7 +40,7 @@
               </span>
             </div>
           </div>
-          <div class="text-base font-semibold">
+          <div class="text-base font-semibold font-body">
             {{ (data.isQuantityBased ? 'Quantity' : 'Value') }}-based
           </div>
         </div>
@@ -53,7 +53,7 @@
             src="@/_assets/img/default-qr-code.png" 
             alt=""
           />
-          <div class="qr-text font-semibold flex">
+          <div class="qr-text font-semibold flex font-body">
             <span class="ml-auto">Voucher No.</span>
           </div>
         </div>

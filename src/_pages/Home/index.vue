@@ -6,7 +6,7 @@
       </div>
       <router-link to="/scanner">
         <Button
-          class="py-2 my-3"
+          class="py-2 mt-3 mb-4"
           label="Scan Voucher"
           size="w-full md:w-64 py-4"
           round="rounded-full"
