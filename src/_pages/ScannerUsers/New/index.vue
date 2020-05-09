@@ -4,7 +4,9 @@
       <div class="flex w-full">
         <div class="flex flex-1 flex-col">
           <div class="flex flex-col">
-            <span class="font-bold text-lg">Add Scanner User</span>
+            <span class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-4">
+              Add Scanner User
+            </span>
           </div>
           <div>
             <ScanerUserForm />

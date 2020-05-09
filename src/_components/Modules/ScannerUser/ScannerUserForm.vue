@@ -9,7 +9,7 @@
           id="username"
           v-model="userForm.username"
           type="text"
-          class="m-2"
+          class="mx-2"
           placeholder="Username"
           rules="required"
         />
@@ -17,7 +17,7 @@
           id="email"
           v-model="userForm.email"
           type="email"
-          class="m-2"
+          class="mx-2"
           placeholder="Email address"
           rules="required|email"
         />
@@ -25,11 +25,11 @@
           id="password"
           v-model="userForm.password"
           type="password"
-          class="m-2"
+          class="mx-2"
           placeholder="Password"
           rules="required"
         />
-        <p class="text-center px-12 py-4">
+        <p class="text-center px-12 py-4 text-xs text-gray-700 font-semibold font-body">
           A scan user is only allowed to do scans and redeem vouchers.
           All other seller functions are deactivated.
         </p>
@@ -37,8 +37,7 @@
           type="submit"
           class="py-2"
           label="Save"
-          size="w-full py-1"
-          variant="info"
+          size="w-full py-3"
           round="rounded-full"
           fontSize="text-xs"
         />
@@ -46,8 +45,7 @@
           <Button
             class="py-2"
             label="Cancel"
-            size="w-full py-1"
-            variant="info"
+            size="w-full py-3"
             round="rounded-full"
             fontSize="text-xs"
           />
