@@ -11,7 +11,7 @@
       <i class="fas fa-bars text-base" />
     </a>
     <div class="w-64" :class="hideSidebar ? 'hidden' : ''">
-      <div class="h-16 justify-center items-center text-lg font-bold flex">
+      <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
         Hi Company!
       </div>
       <ul class="list-reset scroll mt-5">
@@ -23,7 +23,7 @@
           <div class="pl-5 block hover:border-purple-900 ">
             <router-link 
               :to="menu.link"
-              class="text-black hover:no-underline font-medium hover:font-semibold hover:font-black border-gray-black"
+              class="text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body"
             >
               {{ menu.title }}
             </router-link>
@@ -33,7 +33,7 @@
           <div class="pl-5 block hover:border-purple-900 ">
             <a
               href="javascript:void(0)"
-              class="text-black hover:no-underline font-medium hover:font-semibold hover:font-black border-gray-black"
+              class="text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body"
               @click="onLogout()"
             >
               <div
