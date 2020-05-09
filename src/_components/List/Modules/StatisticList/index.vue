@@ -6,11 +6,14 @@
       class="w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
     >
       <div class="m-2 p-2 border rounded text-center">
-        <div class="text-xs px-2 my-3 font-body font-semibold text-gray-600">
-          {{ row.title }}
-        </div>
         <div class="text-xl font-bold font-display text-gray-900">
           {{ row.value }}
+        </div>
+        <div class="text-sm mt-3 font-body font-bold text-gray-900 capitalize">
+          {{ row.type }}
+        </div>
+        <div class="text-xs mb-3 font-body font-semibold text-gray-700 uppercase">
+          {{ row.title }}
         </div>
       </div>
     </div>

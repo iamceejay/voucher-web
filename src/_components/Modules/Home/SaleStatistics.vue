@@ -29,28 +29,36 @@
       {
         this.stats = [
           {
-            title: 'Vouchers sold this day',
+            type: 'Voucher',
+            title: 'sold this day',
             value: '15'
           },{
-            title: 'Earnings this day',
+            type: 'Earnings',
+            title: 'this day',
             value: '€13,456'
           },{
-            title: 'Vouchers sold this week',
+            type: 'Voucher',
+            title: 'sold this week',
             value: '23'
           },{
-            title: 'Earnings this week',
+            type: 'Earnings',
+            title: 'this week',
             value: '€34,567'
           },{
-            title: 'Vouchers sold this month',
+            type: 'Voucher',
+            title: 'sold this month',
             value: '123'
           },{
-            title: 'Earnings this month',
+            type: 'Earnings',
+            title: 'this month',
             value: '€123,456'
           },{
-            title: 'Vouchers sold total',
+            type: 'Voucher',
+            title: 'sold total',
             value: '234'
           },{
-            title: 'Earnings total',
+            type: 'Earnings',
+            title: 'total',
             value: '234,456'
           },
         ]

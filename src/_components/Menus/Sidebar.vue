@@ -180,6 +180,8 @@
   @media only screen and (max-width: 640px) {
     .menu-toggle.hide i {
       color: #fff !important;
+    }
+    .menu-toggle.hide .fa-bars:before {
       content: '\f00d' !important;
     }
   }
