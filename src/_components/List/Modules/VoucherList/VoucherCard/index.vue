@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`voucher-card-${ (data && data.id) ? data.id : 0 }`"
-    class="flex border border-gray-900 rounded card-container bg-color"
+    class="flex border border-gray-900 rounded card-container bg-color mb-3"
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': data.bgColor || bg }"
   >
