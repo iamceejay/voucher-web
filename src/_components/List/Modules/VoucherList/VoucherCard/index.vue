@@ -1,6 +1,6 @@
 <template>
   <div
-    id="voucher-card"
+    :id="`voucher-card-${ (data && data.id) ? data.id : 0 }`"
     class="flex border rounded card-container bg-color"
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': data.bgColor || bg }"
@@ -51,16 +51,16 @@
       };
     },
     watch: {
-      bgImg(newVal)
+      'data.bgImage'(newVal, oldVal)
       {
-        const card = document.getElementById('voucher-card')
-        if(card) {
-          card.style.backgroundImage = `url('${newVal}')`
-          card.style.backgroundSize = `320px 260px`
-        }
+        this.onSetBgImage(newVal)
       }
     },
-    mounted() {},
+    mounted() {
+      if(this.data?.bgImage) {
+        this.onSetBgImage(this.data.bgImage)
+      }
+    },
     methods: {
       onFlip()
       {
@@ -69,6 +69,12 @@
           this.isAction = !this.isAction
         }
       },
+      onSetBgImage(value)
+      {
+        const card = document.getElementById(`voucher-card-${ (this.data && this.data.id) ? this.data.id : 0 }`)
+        card.style.backgroundImage = `url('${value}')`
+        card.style.backgroundSize = `320px 260px`
+      }
     }
   }
 </script>

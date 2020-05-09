@@ -41,6 +41,7 @@
       }
     },
     created() {
+      console.log('data', this.data)
     },
     methods: {
     }
