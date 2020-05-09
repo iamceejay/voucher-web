@@ -241,6 +241,36 @@
           end: '',
         })
       },
+      onResetForm()
+      {
+        this.voucherForm = {
+          name: '',
+          companyName: 'Company Name',
+          description: '',
+          bg: {
+            hex: '#fff',
+            rgb: { 
+              r: 255, 
+              g: 255, 
+              b: 255 
+            }
+          },
+          bgImage: '',
+          isDarkText: true,
+          validDay: [],
+          validDates: [
+            {
+              start: '2020-05-09',
+              end: '2020-05-09',
+            }
+          ],
+          customNote: '',
+          expiryDate: '12.04.2023',
+          isQuantityBased: false,
+          value: 15000,
+          quantity: 0
+        }
+      }
     }
   }
 </script>

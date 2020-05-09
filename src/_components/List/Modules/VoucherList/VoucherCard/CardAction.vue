@@ -25,11 +25,11 @@
     </router-link>
     <Button
       class="py-2 justify-center"
-      label="Deactivate voucher"
+      :label="`${ data.status ? 'Deactivate' : 'Activate' } voucher`"
       size="w-64 py-2"
       variant="info"
       round="rounded-full"
-      @onClick="onDeact()"
+      @onClick="onDeact(data)"
     />
     <Button
       class="py-2 justify-center"
@@ -37,7 +37,7 @@
       size="w-64 py-2"
       variant="info"
       round="rounded-full"
-      @onClick="onDelete()"
+      @onClick="onDelete(data)"
     />
   </div>
 </template>
@@ -74,7 +74,7 @@
       {
         this.isAction = ++this.isAction
       },
-      onDelete()
+      onDelete(data)
       {
         this.isAction = ++this.isAction
         this.$swal({
@@ -87,17 +87,19 @@
           cancelButtonText: 'Cancel',
         }).then((result) => {
           if(result.value){
+            this.$store.dispatch('DELETE_VOUCHER', data)
             this.$swal({
               icon: 'success',
               title: 'Successful!',
               text: 'Deleting the voucher.',
               confirmButtonColor: '#6C757D',
             });
+            this.$emit('onFlip')
             // this.$emit('onSetVoucher', '')
           }   
         });
       },
-      onDeact()
+      onDeact(data)
       {
         this.isAction = ++this.isAction
         this.$swal({
@@ -116,6 +118,7 @@
               text: 'Deactivating the voucher.',
               confirmButtonColor: '#6C757D',
             });
+            this.$store.dispatch('DEACTIVATE_VOUCHER', data)
             // this.$emit('onSetVoucher', '')
           }   
         });

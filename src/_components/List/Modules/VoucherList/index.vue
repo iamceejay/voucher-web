@@ -8,7 +8,7 @@
     </div>
     <div class="flex flex-wrap">
       <VoucherCard
-        v-for="(voucher, index) in VOUCHERS"
+        v-for="(voucher, index) in data"
         :key="`voucher-${index}`"
         :data="voucher"
         class="m-2"
@@ -27,17 +27,17 @@
       title: {
         type: String,
         default: ''
+      },
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
       }
     },
     data() {
       return {
         
-      }
-    },
-    computed: {
-      VOUCHERS()
-      {
-        return this.$store.getters.VOUCHERS
       }
     },
     created() {

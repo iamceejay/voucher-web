@@ -15,7 +15,9 @@
           round="rounded-full"
         />
       </router-link>
-      <VoucherList />
+      <VoucherList 
+        :data="VOUCHERS"
+      />
     </template>
   </MainLayout>
 </template>
@@ -36,28 +38,16 @@
         submitting: false
       }
     },
+    computed: {
+      VOUCHERS()
+      {
+        return this.$store.getters.VOUCHERS
+      }
+    },
     mounted() {
 
     },
     methods: {
-      async onLogout()
-      {
-        try {
-          this.submitting = true
-          const data = await this.$store.dispatch('LOGOUT')
-          this.$store.commit('SET_AUTH_USER', {
-            isAuth: false,
-            token: '',
-            data: {},
-          })
-          localStorage.removeItem('_auth')
-          this.submitting = false
-          this.$router.push('/login')
-        } catch (err) {
-          this.submitting = false
-          console.log('err', err)
-        }
-      }
     }
   }
 </script>
