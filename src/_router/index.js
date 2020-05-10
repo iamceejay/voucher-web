@@ -15,7 +15,9 @@ import Redemptions from '_pages/Redemptions/'
 import Scanner from '_pages/Scanner/'
 import ScannerUsers from '_pages/ScannerUsers/'
 import ScannerUserNew from '_pages/ScannerUsers/New/'
+import Cart from '_pages/Cart/'
 import PageNotFound from '_pages/Errors/PageNotFound'
+
 Vue.use(Router);
 
 const router = new Router({
@@ -109,6 +111,13 @@ const router = new Router({
       path: '/scanner-users/new', 
       name: 'scanner-users-new', 
       component: ScannerUserNew,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/cart', 
+      name: 'cart', 
+      component: Cart,
       meta: {
         middleware: [ auth ]
       } 

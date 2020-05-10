@@ -6,15 +6,16 @@
     <Sidebar 
       @onHide="isHideSideBar = $event"
     />
-    <div 
-      class="w-full flex"
-    >
-      <div 
-        :class="`main-container py-16 px-8 ${isHideSideBar ? 'hide h-screen' : ''}`"
-      >
-        <div
-          :class="`${isHideSideBar ? 'hide' : ''}`"
-        >
+    <div class="w-full flex">
+      <div :class="`main-container py-16 px-8 ${isHideSideBar ? 'hide h-screen' : ''}`">
+        <div :class="`${isHideSideBar ? 'hide' : ''}`">
+          <router-link 
+            v-if="role === 'user'"
+            class="cart-icon"
+            to="/cart"
+          >
+            <i class="fas fa-shopping-cart text-base text-2xl text-gray-900" />
+          </router-link>
           <slot name="content" />
         </div>
       </div>
@@ -30,15 +31,31 @@
     props: [],
     data() {
       return {
-        isHideSideBar: false
+        isHideSideBar: false,
+        role: null
+      }
+    },
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      }
+    },
+    watch: {
+      AUTH_USER(newVal)
+      {
+        this.onSetRole()
       }
     },
     mounted() {
-
+      this.onSetRole()
     },
     methods: {
-      test(){
-        console.log('test')
+      onSetRole()
+      {
+        if( this.AUTH_USER?.data?.user_role ) {
+          this.role = this.AUTH_USER.data.user_role.role.name
+        }
       }
     }
   }
@@ -46,6 +63,11 @@
 <style lang="css" scoped>
   .main-container.hide {
     transition: all 0.6s;
+  }
+  .cart-icon {
+    position: absolute;
+    top: 16px;
+    right: 24px;
   }
   @media only screen and (max-width: 640px) {
     .main-container.hide {

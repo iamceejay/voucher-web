@@ -31,7 +31,7 @@ export default {
         id: 1,
         name: 'Voucher Name 1',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -41,9 +41,9 @@ export default {
         ],
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
-        isQuantityBased: true,
+        isQuantityBased: false,
         value: 1000,
-        quantity: 0,
+        quantity: 4,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 1,
@@ -55,7 +55,7 @@ export default {
         id: 2,
         name: 'Voucher Name 2',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -67,7 +67,7 @@ export default {
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 3000,
-        quantity: 0,
+        quantity: 5,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 0,
@@ -79,7 +79,7 @@ export default {
         id: 3,
         name: 'Voucher Name 3',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -91,7 +91,7 @@ export default {
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 1500,
-        quantity: 0,
+        quantity: 4,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 1,
@@ -103,7 +103,7 @@ export default {
         id: 4,
         name: 'Voucher Name 4',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -113,9 +113,9 @@ export default {
         ],
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
-        isQuantityBased: true,
+        isQuantityBased: false,
         value: 5000,
-        quantity: 0,
+        quantity: 10,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 0,
@@ -127,7 +127,7 @@ export default {
         id: 5,
         name: 'Voucher Name 5',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -137,9 +137,9 @@ export default {
         ],
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
-        isQuantityBased: true,
+        isQuantityBased: false,
         value: 100,
-        quantity: 0,
+        quantity: 7,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 1,
@@ -151,7 +151,7 @@ export default {
         id: 6,
         name: 'Voucher Name 6',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -163,7 +163,7 @@ export default {
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 1400,
-        quantity: 0,
+        quantity: 8,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 0,
@@ -175,7 +175,7 @@ export default {
         id: 7,
         name: 'Voucher Name 7',
         companyName: 'Company Name',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
         customNote: '',
         validDates: [
           {
@@ -187,7 +187,7 @@ export default {
         expiryDate: '12.04.2023',
         isQuantityBased: true,
         value: 600,
-        quantity: 0,
+        quantity: 3,
         isDarkText: true,
         bgColor: '#fff',
         isPopular: 1,

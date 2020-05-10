@@ -16,7 +16,7 @@
       />
     </div>
     <div class="card-content">
-      <div class="w-9/12 text-xs text-justify h-24 font-body">
+      <div class="w-9/12 text-xs text-justify h-32 font-body">
         {{ data.description || 'Voucher Description' }}
       </div>
       <div class="w-full flex flex-row">
@@ -41,7 +41,11 @@
             </div>
           </div>
           <div class="text-base font-bold font-body">
-            {{ (data.isQuantityBased ? 'Quantity' : 'Value') }}-based
+            {{
+              ( role === 'seller' ) 
+                ? `${data.isQuantityBased ? 'Quantity' : 'Value'}-based`
+                : `${data.isQuantityBased ? `${data.quantity}x` : `€${data.value}`}`
+            }}
           </div>
         </div>
         <div 
@@ -78,10 +82,33 @@
       }
     },
     data() {
-      return {};
+      return {
+        role: null
+      }
     },
-    mounted() {},
-    methods: {}
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      }
+    },
+    watch: {
+      AUTH_USER(newVal)
+      {
+        this.onSetRole()
+      }
+    },
+    mounted() {
+      this.onSetRole()
+    },
+    methods: {
+      onSetRole()
+      {
+        if( this.AUTH_USER?.data?.user_role ) {
+          this.role = this.AUTH_USER.data.user_role.role.name
+        }
+      }
+    }
   }
 </script>
 <style lang="css" scoped>

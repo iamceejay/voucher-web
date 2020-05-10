@@ -86,7 +86,7 @@
 <style lang="css" scoped>
   .card-container {
     width: 320px;
-    height: 260px;
+    height: 290px;
     border-radius: 6px;
     transform: rotateY(0deg);
     transition: transform 0.8s linear;
