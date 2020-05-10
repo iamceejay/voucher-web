@@ -45,6 +45,7 @@
           </div>
         </div>
         <div 
+          v-if="withQR"
           :class="`w-1/4 ${ isFlippable ? 'cursor-pointer' : ''}`"
           @click="$emit('onFlip')"
         >
@@ -68,8 +69,10 @@
       data: {
         type: Object,
         default: null
-      },
-      isFlippable: {
+      }, isFlippable: {
+        type: Boolean,
+        default: true
+      }, withQR: {
         type: Boolean,
         default: true
       }

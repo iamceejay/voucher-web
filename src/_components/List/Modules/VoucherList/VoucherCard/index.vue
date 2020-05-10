@@ -10,6 +10,7 @@
       :class="`${ data.isDarkText ? 'text-black' : 'text-white' }`"
       :data="data"
       :isFlippable="isFlippable"
+      :withQR="withQR"
       @onFlip="onFlip()"
     />
     <CardAction
@@ -43,7 +44,10 @@
       }, isFlippable: {
         type: Boolean,
         default: true
-      },
+      }, withQR: {
+        type: Boolean,
+        default: true
+      }
     },
     data() {
       return {

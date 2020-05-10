@@ -50,6 +50,7 @@
         v-for="(voucher, index) in tempData"
         :key="`voucher-${index}`"
         :data="voucher"
+        :withQR="withQR"
         class="m-2"
       />
     </div>
@@ -95,6 +96,9 @@
       }, withFilter: {
         type: Boolean,
         default: false
+      }, withQR: {
+        type: Boolean,
+        default: true
       }
     },
     data() {

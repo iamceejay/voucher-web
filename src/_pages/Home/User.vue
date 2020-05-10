@@ -24,6 +24,7 @@
       class="mb-3"
       title="Vouchers"
       :data="VOUCHERS"
+      :withQR="false"
     />
   </div>
 </template>
