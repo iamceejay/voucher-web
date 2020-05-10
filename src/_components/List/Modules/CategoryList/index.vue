@@ -1,0 +1,51 @@
+<template>
+  <div class="flex flex-col w-full">
+    <Header2 
+      v-if="title != ''"
+      :label="title"
+    />
+    <div 
+      class="flex flex-wrap justify-center sm:justify-start"
+    >
+      <CategoryCard
+        v-for="(categ, index) in data"
+        :key="`categ-${index}`"
+        :data="categ"
+        class="m-2"
+      />
+    </div>
+  </div>
+</template>
+<script>
+  import CategoryCard from './CategoryCard'
+  import Header2 from '_components/Headers/Header2';
+
+  export default {
+    components: {
+      CategoryCard,
+      Header2,
+    },
+    props: {
+      title: {
+        type: String,
+        default: ''
+      }, data: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
+    },
+    data() {
+      return {
+        
+      }
+    },
+    created() {
+    },
+    methods: {
+    }
+  }
+</script>
+<style lang="css" scoped>
+</style>

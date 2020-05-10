@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col">
-    <Header1 label="Quicklinks" />
+    <Header2 label="Quicklinks" />
     <div class="flex flex-col">
       <router-link to="/vouchers">
         <Button
@@ -23,12 +23,12 @@
 </template>
 <script>
   import Button from '_components/Button';
-  import Header1 from '_components/Headers/Header1';
+  import Header2 from '_components/Headers/Header2';
 
   export default {
     components: {
       Button,
-      Header1,
+      Header2,
     },
     props: [],
     data() {

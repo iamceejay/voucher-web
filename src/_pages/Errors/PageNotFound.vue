@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div class="flex flex-1 justify-center items-center flex-col">
+    <div class="flex flex-1 justify-center items-center flex-col h-screen">
       <p>
         <span class="font-bold text-base">Sorry!</span> 
         The page you've access is not available.

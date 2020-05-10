@@ -61,15 +61,14 @@
               type="text"
               class="px-2 w-full md:w-1/2"
               placeholder="Voucher Title"
-              rules="required"
+              rules="required|max:30"
             />
             <TextAreaField
               id="description"
               v-model="voucherForm.description"
               class="px-2 w-full md:w-1/2"
               placeholder="Voucher Description"
-              :max="128"
-              rules="required"
+              rules="required|max:250"
             />
             <SelectField
               id="category"
@@ -93,6 +92,7 @@
                   Valid from ... to ...
                 </label>
                 <a 
+                  v-if="voucherForm.validDates.length < 4"
                   href="javascript:void(0)"
                   class="ml-2"
                   @click="onActionDate('add')"

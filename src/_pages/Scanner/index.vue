@@ -38,7 +38,6 @@
     methods: {
       onSetVoucher(data)
       {
-        console.log('data')
         this.qr = data
       }
     }

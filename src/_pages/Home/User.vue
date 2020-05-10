@@ -8,31 +8,35 @@
       class="m-2"
       placeholder="Search here ..."
     />
-    <div class="w-full flex flex-col mb-3">
-      <Header1 label="Featured Vouchers" />
-      <VoucherList
-        :data="VOUCHERS"
-        type="feature"
-      />
-    </div>
-    <SaleStatistics />
-    <Quicklinks />
+    <VoucherList
+      class="mb-3"
+      title="Featured Vouchers"
+      :data="VOUCHERS"
+      type="feature"
+    />
+    <CategoryList
+      class="mb-3"
+      title="Categories"
+      :data="CATEGORIES"
+    />
+    <VoucherList
+      :withFilter="true"
+      class="mb-3"
+      title="Vouchers"
+      :data="VOUCHERS"
+    />
   </div>
 </template>
 <script>
   import SearchInputField from '_components/Form/SearchInputField';
   import VoucherList from '_components/List/Modules/VoucherList/';
-  import SaleStatistics from '_components/Modules/Home/SaleStatistics';
-  import Quicklinks from '_components/Modules/Home/Quicklinks';
-  import Header1 from '_components/Headers/Header1';
+  import CategoryList from '_components/List/Modules/CategoryList/';
 
   export default {
     components: {
       SearchInputField,
       VoucherList,
-      SaleStatistics,
-      Quicklinks,
-      Header1
+      CategoryList,
     },
     data() {
       return {
@@ -46,6 +50,10 @@
       VOUCHERS()
       {
         return this.$store.getters.VOUCHERS
+      },
+      CATEGORIES()
+      {
+        return this.$store.getters.CATEGORIES
       }
     },
     mounted() {

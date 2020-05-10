@@ -156,13 +156,13 @@
                   isChildShow: false
                 },{
                   title: 'My Wallet',
-                  link: '/home'
+                  link: '/wallet'
                 },{
                   title: 'Profile & Settings',
                   link: '/profile-settings'
                 },{
                   title: 'Orders',
-                  link: '/home'
+                  link: '/orders'
                 },
               ]
               break;

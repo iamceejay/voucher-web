@@ -1,23 +1,29 @@
 import { post, get } from '_helpers/ApiService'
+import moment from 'moment'
 
 export default {
   state: () => ({
     categories: [
       {
         id: 1,
-        label: 'Book'
+        label: 'Book',
+        icon: 'fa-book'
       },{
         id: 2,
-        label: 'Mall'
+        label: 'Mall',
+        icon: 'fa-building'
       },{
         id: 3,
-        label: 'Hotel'
+        label: 'Hotel',
+        icon: 'fa-building'
       },{
         id: 4,
-        label: 'Restaurant'
+        label: 'Restaurant',
+        icon: 'fa-building'
       },{
         id: 5,
-        label: 'Gadgets'
+        label: 'Gadgets',
+        icon: 'fa-mobile'
       },
     ],
     vouchers: [
@@ -36,10 +42,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 1000,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 1,
+        created_at: moment().local().subtract(7, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
       {
@@ -57,10 +65,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 3000,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 0,
+        created_at: moment().local().subtract(6, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
       {
@@ -78,10 +88,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 1500,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 1,
+        created_at: moment().local().subtract(5, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
       {
@@ -99,10 +111,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 5000,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 0,
+        created_at: moment().local().subtract(4, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
       {
@@ -120,10 +134,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 100,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 1,
+        created_at: moment().local().subtract(3, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
       {
@@ -141,10 +157,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 1400,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 0,
+        created_at: moment().local().subtract(2, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
       {
@@ -162,10 +180,12 @@ export default {
         validDay: ['Monday', 'Sunday'],
         expiryDate: '12.04.2023',
         isQuantityBased: true,
-        value: 15000,
+        value: 600,
         quantity: 0,
         isDarkText: true,
         bgColor: '#fff',
+        isPopular: 1,
+        created_at: moment().local().subtract(1, 'day').format('YYYY-MM-DD'),
         status: 1,
       },
     ]

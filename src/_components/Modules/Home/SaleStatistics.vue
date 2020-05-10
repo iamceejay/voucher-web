@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col mb-3">
-    <Header1 label="Sales Statistics" />
+    <Header2 label="Sales Statistics" />
     <StatisticList 
       :data="stats"
     />
@@ -8,12 +8,12 @@
 </template>
 <script>
   import StatisticList from '_components/List/Modules/StatisticList/'
-  import Header1 from '_components/Headers/Header1';
+  import Header2 from '_components/Headers/Header2';
 
   export default {
     components: {
       StatisticList,
-      Header1,
+      Header2,
     },
     props: [],
     data() {
