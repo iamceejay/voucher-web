@@ -1,8 +1,6 @@
 <template>
   <div class="w-full flex flex-col mb-3">
-    <div class="font-bold text-2xl py-2 font-display text-gray-700">
-      Sales Statistics
-    </div>
+    <Header1 label="Sales Statistics" />
     <StatisticList 
       :data="stats"
     />
@@ -10,10 +8,12 @@
 </template>
 <script>
   import StatisticList from '_components/List/Modules/StatisticList/'
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       StatisticList,
+      Header1,
     },
     props: [],
     data() {
