@@ -16,6 +16,9 @@ import Scanner from '_pages/Scanner/'
 import ScannerUsers from '_pages/ScannerUsers/'
 import ScannerUserNew from '_pages/ScannerUsers/New/'
 import Cart from '_pages/Cart/'
+import Wallet from '_pages/Wallet/'
+import VoucherCategory from '_pages/Vouchers/Category/'
+import Orders from '_pages/Orders/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 
 Vue.use(Router);
@@ -118,6 +121,27 @@ const router = new Router({
       path: '/cart', 
       name: 'cart', 
       component: Cart,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/wallet', 
+      name: 'wallet', 
+      component: Wallet,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/orders', 
+      name: 'orders', 
+      component: Orders,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/vouchers/category/:id', 
+      name: 'vouchers-category', 
+      component: VoucherCategory,
       meta: {
         middleware: [ auth ]
       } 

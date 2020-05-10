@@ -3,7 +3,7 @@
     <template #content>
       <Header2 
         class="flex justify-center"
-        label="Voucher Category Page"
+        label="Orders Page"
       />
     </template>
   </MainLayout>
