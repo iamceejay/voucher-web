@@ -11,7 +11,7 @@
     <VoucherList
       class="mb-3"
       title="Featured Vouchers"
-      :data="VOUCHERS"
+      :data="featuredVouchers"
       type="feature"
     />
     <CategoryList
@@ -40,6 +40,7 @@
     },
     data() {
       return {
+        featuredVouchers: []
       }
     },
     computed: {
@@ -57,9 +58,13 @@
       }
     },
     mounted() {
-
+      this.onFetchFeaturedVouchers()
     },
     methods: {
+      onFetchFeaturedVouchers()
+      {
+        this.featuredVouchers = this.VOUCHERS.filter( vouch => vouch.isFeatured )
+      }
     }
   }
 </script>
