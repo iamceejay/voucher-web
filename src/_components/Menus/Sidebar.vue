@@ -12,7 +12,12 @@
     </a>
     <div class="w-64" :class="hideSidebar ? 'hidden' : ''">
       <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
-        Hi Company!
+        Hi {{ 
+          AUTH_USER.data &&
+            AUTH_USER.data.user_role.role.name === 'seller'
+            ? 'Company'
+            : AUTH_USER.data.detail.firstName
+        }}!
       </div>
       <ul class="list-reset scroll mt-5">
         <li 

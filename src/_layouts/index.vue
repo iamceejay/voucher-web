@@ -14,7 +14,7 @@
             class="cart-icon"
             to="/cart"
           >
-            <i class="fas fa-shopping-cart text-base text-2xl text-gray-900" />
+            <i class="fas fa-shopping-cart text-base text-2xl" />
           </router-link>
           <slot name="content" />
         </div>
@@ -67,7 +67,8 @@
   .cart-icon {
     position: absolute;
     top: 16px;
-    right: 24px;
+    right: 40px;
+    color: rgb(26, 32, 44);;
   }
   @media only screen and (max-width: 640px) {
     .main-container.hide {
