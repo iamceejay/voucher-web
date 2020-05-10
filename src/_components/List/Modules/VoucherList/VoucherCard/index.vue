@@ -9,6 +9,7 @@
       v-if="!isAction"
       :class="`${ data.isDarkText ? 'text-black' : 'text-white' }`"
       :data="data"
+      :isFlippable="isFlippable"
       @onFlip="onFlip()"
     />
     <CardAction

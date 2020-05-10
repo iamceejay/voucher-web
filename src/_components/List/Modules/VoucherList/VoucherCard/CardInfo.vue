@@ -45,7 +45,7 @@
           </div>
         </div>
         <div 
-          class="w-1/4 cursor-pointer"
+          :class="`w-1/4 ${ isFlippable ? 'cursor-pointer' : ''}`"
           @click="$emit('onFlip')"
         >
           <img 
@@ -68,6 +68,10 @@
       data: {
         type: Object,
         default: null
+      },
+      isFlippable: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
