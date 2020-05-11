@@ -171,6 +171,13 @@
                 },
               ]
               break;
+            case 4:
+              this.menus = [
+                {
+                  title: 'Home',
+                  link: '/home'
+                }
+              ]
             default:
               break;
           }
@@ -211,20 +218,22 @@
         try {
           this.isLoggingOut = true
           const data = await this.$store.dispatch('LOGOUT')
-          this.$store.commit('SET_AUTH_USER', {
-            isAuth: false,
-            token: '',
-            data: {},
-          })
-          localStorage.removeItem('_auth')
-          this.isLoggingOut = false
-          this.$router.push('/login')
+          this.onRemoveAuth()
         } catch (err) {
-          localStorage.removeItem('_auth')
-          this.isLoggingOut = false
-          this.$router.push('/login')
-          console.log('err', err)
+          this.onRemoveAuth()
+          console.log('err tests', err)
         }
+      },
+      onRemoveAuth()
+      {
+        localStorage.removeItem('_auth')
+        this.$store.commit('SET_AUTH_USER', {
+          isAuth: false,
+          token: '',
+          data: {},
+        })
+        this.isLoggingOut = false
+        this.$router.push('/login')
       }
     }
   };

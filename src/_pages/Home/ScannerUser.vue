@@ -1,28 +1,23 @@
 <template>
-  <MainLayout>
-    <template #content>
-      <Header1 label="Voucher Scanner" />
-      <VoucherScanner 
-        v-if="!qr"
-        @onSetVoucher="onSetVoucher"
-      />
-      <VoucherRedemption 
-        v-if="qr"
-        @onSetVoucher="onSetVoucher"
-      />
-    </template>
-  </MainLayout>
+  <div class="flex flex-col w-full">
+    <Header1 label="Voucher Scanner" />
+    <VoucherScanner 
+      v-if="!qr"
+      @onSetVoucher="onSetVoucher"
+    />
+    <VoucherRedemption 
+      v-if="qr"
+      @onSetVoucher="onSetVoucher"
+    />
+  </div>
 </template>
 <script>
-  import MainLayout from '_layouts';
   import VoucherScanner from '_components/Modules/Scanner/VoucherScanner'
   import VoucherRedemption from '_components/Modules/Scanner/VoucherRedemption'
   import Header1 from '_components/Headers/Header1'
   
   export default {
-    name: 'Dashboard',
     components: {
-      MainLayout,
       VoucherScanner,
       VoucherRedemption,
       Header1
@@ -32,8 +27,13 @@
         qr: null
       }
     },
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
+    },
     mounted() {
-
     },
     methods: {
       onSetVoucher(data)

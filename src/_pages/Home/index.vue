@@ -7,6 +7,9 @@
       <UserHome 
         v-if="role === 'user'"
       />
+      <ScannerUserHome 
+        v-if="role === 'scanner'"
+      />
     </template>
   </MainLayout>
 </template>
@@ -14,6 +17,7 @@
   import MainLayout from '_layouts';
   import SellerHome from './Seller'
   import UserHome from './User'
+  import ScannerUserHome from './ScannerUser'
 
   export default {
     name: 'Home',
@@ -21,6 +25,7 @@
       MainLayout,
       SellerHome,
       UserHome,
+      ScannerUserHome,
     },
     data() {
       return {
