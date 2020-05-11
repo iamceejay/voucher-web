@@ -16,7 +16,9 @@
           AUTH_USER.data &&
             AUTH_USER.data.user_role.role.name === 'seller'
             ? 'Company'
-            : AUTH_USER.data.detail.firstName
+            : AUTH_USER.data.user_role.role.name === 'scanner'
+              ? AUTH_USER.data.username
+              : AUTH_USER.data.detail.firstName
         }}!
       </div>
       <ul class="list-reset scroll mt-5">
