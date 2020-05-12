@@ -17,7 +17,10 @@
                 </div>
                 <ProfileForm />
               </div>
-              <div class="w-full md:w-1/2 order-2 md:order-3 mb-5">
+              <div
+                v-if="role == 'seller'" 
+                class="w-full md:w-1/2 order-2 md:order-3 mb-5"
+              >
                 <div class="font-bold mb-3 text-gray-700 font-display text-2xl">
                   Company Info
                 </div>
@@ -60,11 +63,24 @@
     },
     data() {
       return {
+        role: null,
         submitting: false
       }
     },
-    mounted() {
-
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      }
+    },
+    watch: {
+      AUTH_USER(newVal)
+      {
+        this.onSetRole()
+      },
+    },
+    created() {
+      this.onSetRole()
     },
     methods: {
       onSubmit( isValid )
@@ -77,7 +93,13 @@
             confirmButtonColor: '#6C757D',
           });
         }
-      }
+      },
+      onSetRole()
+      {
+        if( this.AUTH_USER?.data?.user_role ) {
+          this.role = this.AUTH_USER.data.user_role.role.name
+        }
+      },
     }
   }
 </script>

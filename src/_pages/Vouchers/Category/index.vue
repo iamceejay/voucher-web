@@ -68,7 +68,6 @@
       this.onSetRole()
       this.onFetchFeaturedVouchers()
       this.onFetchCategory()
-      console.log('this.$route.params.id', this.$route.params.id)
     },
     methods: {
       onFetchCategory()
