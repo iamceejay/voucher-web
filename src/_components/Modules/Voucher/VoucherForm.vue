@@ -27,6 +27,7 @@
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
                 v-model="voucherForm.bg"
+                @input="onChangeBgColor"
               />
             </div>
           </div>
@@ -106,15 +107,6 @@
                 class="flex flex-row"
               >
                 <div class="flex flex-row w-11/12">
-                  <!-- <DatePicker
-                    v-model="voucherForm.validDates[index].start"
-                    inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
-                    class="m-1 w-1/2"
-                    format="YYYY-MM-DD"
-                    type="date"
-                    placeholder="Start date"
-                    valueType="format"
-                  /> -->
                   <DatePickerField
                     v-model="voucherForm.validDates[index].start"
                     class="m-1 w-1/2"
@@ -288,6 +280,10 @@
           this.onResetForm()
           this.$router.push('/vouchers')
         }
+      },
+      onChangeBgColor( { hex } )
+      {
+        this.voucherForm.bgColor = hex
       },
       onChangeBgImg(data)
       {
