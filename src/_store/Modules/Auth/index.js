@@ -5,7 +5,7 @@ export default {
     auth: {
       isAuth: false,
       token: '',
-      data: {}
+      data: null
     },
   }),
   getters: {

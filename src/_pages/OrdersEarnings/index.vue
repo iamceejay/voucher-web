@@ -35,7 +35,7 @@
           this.$store.commit('SET_AUTH_USER', {
             isAuth: false,
             token: '',
-            data: {},
+            data: null,
           })
           localStorage.removeItem('_auth')
           this.submitting = false

@@ -13,12 +13,13 @@
     <div class="w-64" :class="hideSidebar ? 'hidden' : ''">
       <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
         Hi {{ 
-          AUTH_USER.data &&
-            AUTH_USER.data.user_role.role.name === 'seller'
-            ? 'Company'
-            : AUTH_USER.data.user_role.role.name === 'scanner'
-              ? AUTH_USER.data.username
-              : AUTH_USER.data.detail.firstName
+          (role && AUTH_USER.data) && (
+            role === 'seller'
+              ? 'Company'
+              : role === 'scanner'
+                ? AUTH_USER.data.username
+                : AUTH_USER.data.detail.firstName
+          )
         }}!
       </div>
       <ul class="list-reset scroll mt-5">
@@ -83,6 +84,7 @@
       return {
         isLoggingOut: false,
         hideSidebar: false,
+        role: null,
         apiBaseURL: '',
         window_width: 0,
         menus: []
@@ -101,11 +103,14 @@
     watch: {
       AUTH_USER(newVal, oldVal)
       {
+        console.log('newVal', newVal)
+        this.onSetRole()
         this.onSetMenusByRole()
       }
     },
     created() {
       this.onSetMenusByRole()
+      this.onSetRole()
       // Listen browser width
       this.$nextTick(function() {
         window.addEventListener('resize', this.getWindowWidth)
@@ -215,6 +220,12 @@
         this.hideSidebar = !this.hideSidebar;
         this.$emit('onHide', !this.hideSidebar)
       },
+      onSetRole()
+      {
+        if( this.AUTH_USER?.data?.user_role ) {
+          this.role = this.AUTH_USER.data.user_role.role.name
+        }
+      },
       async onLogout()
       {
         try {
@@ -232,7 +243,7 @@
         this.$store.commit('SET_AUTH_USER', {
           isAuth: false,
           token: '',
-          data: {},
+          data: null,
         })
         this.isLoggingOut = false
         this.$router.push('/login')
