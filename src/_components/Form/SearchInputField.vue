@@ -5,12 +5,10 @@
       :rules="rules"
     >
       <template #default="{ errors }">
-        <label 
+        <Header5
           v-if="label != ''"
-          class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
-        >
-          {{ label }}
-        </label>
+          :label="label"
+        />
         <div class="w-full flex flex-row relative">
           <input
             :id="id"
@@ -34,10 +32,12 @@
 </template>
 <script>
   import ErrorMessage from './FieldErrorMessage'
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
-      ErrorMessage
+      ErrorMessage,
+      Header5
     },
     props: {
       id: {

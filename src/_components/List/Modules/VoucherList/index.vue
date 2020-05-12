@@ -7,41 +7,22 @@
       v-if="title != ''"
       :label="title"
     />
-    <div
+    <VoucherFilter 
       v-if="withFilter"
-      class="w-full flex flex-row"
-    >
-      <Button
-        :key="`isNewest-${isNewest}`"
-        class="py-2 px-1 w-full md:w-40"
-        label="Newest"
-        size="w-full md:w-40 py-1"
-        round="rounded-full"
-        fontSize="text-xs"
-        :variant="`${ !isNewest ? 'primary' : 'info' }`"
-        @onClick="onFilter('newest')"
-      />
-      <Button
-        :key="`isPopular-${isPopular}`"
-        class="py-2 px-1 w-full md:w-40"
-        label="Most Popular"
-        size="w-full md:w-40 py-1"
-        round="rounded-full"
-        fontSize="text-xs"
-        :variant="`${ !isPopular ? 'primary' : 'info' }`"
-        @onClick="onFilter('popular')"
-      />
-      <Button
-        :key="`isLowest-${isLowest}`"
-        class="py-2 px-1 w-full md:w-40"
-        :label="`${ !isLowest ? 'Lowest' : 'Highest' } Price`"
-        size="w-full md:w-40 py-1"
-        round="rounded-full"
-        fontSize="text-xs"
-        :variant="`${ !isLowest ? 'primary' : 'info' }`"
-        @onClick="onFilter('lowest')"
-      />
-    </div>
+      :filterLabel="filterLabel"
+      :isCategory="isCategory"
+      :isRegion="isRegion"
+      :isPrice="isPrice"
+      @onFilter="onFilter"
+    />
+    <VoucherSort 
+      v-if="withSort"
+      :sortLabel="sortLabel"
+      :isNewest="isNewest"
+      :isPopular="isPopular"
+      :isLowest="isLowest"
+      @onFilter="onFilter"
+    />
     <div 
       v-if="type === 'standard'"
       class="flex flex-wrap justify-center sm:justify-start"
@@ -70,8 +51,9 @@
 <script>
   import VoucherCard from './VoucherCard/'
   import FeatureVoucherCard from './FeatureVoucherCard/'
+  import VoucherSort from './VoucherFilter/Sort'
+  import VoucherFilter from './VoucherFilter/Filter'
   import Header2 from '_components/Headers/Header2';
-  import Button from '_components/Button/'
   import moment from 'moment';
 
   export default {
@@ -79,7 +61,8 @@
       VoucherCard,
       FeatureVoucherCard,
       Header2,
-      Button,
+      VoucherSort,
+      VoucherFilter,
     },
     props: {
       title: {
@@ -93,6 +76,15 @@
       }, type: {
         type: String,
         default: 'standard'
+      }, sortLabel: {
+        type: String,
+        default: ''
+      }, withSort: {
+        type: Boolean,
+        default: false
+      }, filterLabel: {
+        type: String,
+        default: ''
       }, withFilter: {
         type: Boolean,
         default: false
@@ -106,8 +98,15 @@
         isPopular: false,
         isNewest: false,
         isLowest: false,
+        isCategory: false,
+        isRegion: false,
+        isPrice: false,
         tempData: [],
-        listIndex: 0
+        listIndex: 0,
+        filterForm: {
+          categories: [],
+          price: null,
+        },
       }
     },
     watch: {
@@ -120,8 +119,10 @@
       this.tempData = this.data
     },
     methods: {
-      onFilter( action )
+      onFilter( data )
       {
+        const action = data[0]
+        let value = data.length > 1 ? data[1] : null
         switch ( action ) {
           case 'newest':
             this.isNewest = !this.isNewest
@@ -142,6 +143,50 @@
             this.tempData = this.tempData.sort((a, b) => {
               return !this.isLowest ? (a.value - b.value) : (b.value - a.value)
             })
+            break
+          case 'category':
+            if( value ) {
+
+            } else {
+              this.isCategory = !this.isCategory
+            }
+            // if( value || this.isPrice ) {
+            //   this.isCategory = true
+            //   this.filterForm.categories = value
+            //   value = value || []
+            //   this.tempData = value.length > 0 || this.isPrice
+            //     ? this.data.filter( row => {
+            //       const priceCon = this.isPrice && this.filterForm.price
+            //         ? row.value >= this.filterForm.price.from && row.value <= this.filterForm.price.to
+            //         : true
+            //       const categCon = value.length > 0 
+            //         ? value.includes(row.category.label)
+            //         : true
+            //       return ( categCon && priceCon)
+            //     })
+            //     : this.data
+            // } else {
+            //   this.filterForm.categories = []
+            //   this.isCategory = !this.isCategory
+            //   this.tempData = this.data
+            // }
+            break
+          case 'region':
+            this.isRegion = !this.isRegion
+            break
+          case 'price':
+            this.isPrice = !this.isPrice
+
+            // if( value ) {
+            //   this.filterForm.price = value
+            //   this.tempData = value
+            //     ? this.data.filter( row => row.value >= value.from && row.value <= value.to )
+            //     : this.data
+            // } else {
+            //   this.filterForm.price = null
+            //   this.isPrice = !this.isPrice
+            //   this.tempData = this.data
+            // }
             break
           default:
             break

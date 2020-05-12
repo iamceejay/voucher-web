@@ -5,20 +5,19 @@
       :rules="rules"
     >
       <template #default="{ errors }">
-        <label 
+        <Header5
           v-if="label != ''"
-          class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
-        >
-          {{ label }}
-        </label>
+          :label="label"
+        />
         <input
           :id="id"
           ref="inputField"
           :name="id"
           :type="type"
-          class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold font-body"
-          :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
+          class="input-field mt-2 px-3 rounded-full text-sm font-semibold font-body"
+          :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
           :value="value"
+          min="0"
           :placeholder="placeholder"
           @input="onUpdateField()"
         />
@@ -29,10 +28,12 @@
 </template>
 <script>
   import ErrorMessage from './FieldErrorMessage'
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
-      ErrorMessage
+      ErrorMessage,
+      Header5
     },
     props: {
       id: {
@@ -58,7 +59,10 @@
         default() {
           return []
         }
-      },
+      }, inputContainer: {
+        type: String,
+        default: 'py-2'
+      }
     },
     data() {
       return {};

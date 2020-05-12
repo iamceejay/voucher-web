@@ -3,11 +3,13 @@
     <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
       Hi {{ AUTH_USER.data.detail && AUTH_USER.data.detail.firstName }}!
     </div>
-    <SearchInputField
-      id="search-here"
-      class="m-2"
-      placeholder="Search here ..."
-    />
+    <router-link to="/vouchers/search">
+      <SearchInputField
+        id="search-here"
+        class="m-2"
+        placeholder="Search here ..."
+      />
+    </router-link>
     <VoucherList
       class="mb-3"
       title="Featured Vouchers"

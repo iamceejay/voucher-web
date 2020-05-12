@@ -5,12 +5,10 @@
       :rules="rules"
     >
       <template #default="{ errors }">
-        <label 
+        <Header5
           v-if="label != ''"
-          class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
-        >
-          {{ label }}
-        </label>
+          :label="label"
+        />
         <DatePicker
           v-model="date"
           class=" w-full"
@@ -29,11 +27,13 @@
 <script>
   import ErrorMessage from './FieldErrorMessage'
   import DatePicker from 'vue2-datepicker'
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
       ErrorMessage,
-      DatePicker
+      DatePicker,
+      Header5
     },
     props: {
       id: {

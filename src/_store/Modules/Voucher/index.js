@@ -50,6 +50,11 @@ export default {
         isFeatured: 1,
         created_at: moment().local().subtract(7, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 1,
+          label: 'Book',
+          icon: 'fa-book'
+        }
       },
       {
         id: 2,
@@ -74,6 +79,11 @@ export default {
         isFeatured: 0,
         created_at: moment().local().subtract(6, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 2,
+          label: 'Mall',
+          icon: 'fa-building'
+        }
       },
       {
         id: 3,
@@ -98,6 +108,11 @@ export default {
         isFeatured: 0,
         created_at: moment().local().subtract(5, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 3,
+          label: 'Hotel',
+          icon: 'fa-building'
+        }
       },
       {
         id: 4,
@@ -122,6 +137,11 @@ export default {
         isFeatured: 1,
         created_at: moment().local().subtract(4, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 2,
+          label: 'Mall',
+          icon: 'fa-building'
+        }
       },
       {
         id: 5,
@@ -146,6 +166,11 @@ export default {
         isFeatured: 0,
         created_at: moment().local().subtract(3, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 1,
+          label: 'Book',
+          icon: 'fa-book'
+        }
       },
       {
         id: 6,
@@ -170,6 +195,11 @@ export default {
         isFeatured: 0,
         created_at: moment().local().subtract(2, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 3,
+          label: 'Hotel',
+          icon: 'fa-building'
+        }
       },
       {
         id: 7,
@@ -194,6 +224,11 @@ export default {
         isFeatured: 1,
         created_at: moment().local().subtract(1, 'day').format('YYYY-MM-DD'),
         status: 1,
+        category: {
+          id: 1,
+          label: 'Book',
+          icon: 'fa-book'
+        }
       },
     ]
   }),
@@ -243,9 +278,7 @@ export default {
     },
     DELETE_VOUCHER( { commit, state }, payload )
     {
-      console.log('payload', payload)
       const newList = state.vouchers.filter( vouch => vouch.id != payload.id);
-      console.log('newList', newList)
       commit('SET_VOUCHERS', newList)
     }
   },

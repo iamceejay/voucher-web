@@ -85,6 +85,7 @@
               name="validDay"
               :options="week"
               :data="voucherForm.validDay"
+              :limitLabel="3"
               @onChange="voucherForm.validDay = $event"
             />
             <div class="w-full md:w-1/2 mb-5">

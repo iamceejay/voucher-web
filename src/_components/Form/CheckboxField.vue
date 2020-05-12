@@ -1,8 +1,9 @@
 <template>
   <div id="input-field-component" class="mb-5">
-    <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
-      {{ label }}
-    </label>
+    <Header5
+      v-if="label != ''"
+      :label="label"
+    />
     <div
       v-for="(row, index) in options"
       :key="`${row}-${index}`"
@@ -17,7 +18,7 @@
         @change="onUpdateField()"
       />
       <label class="text-xs p-1 font-bold text-gray-900 font-body">
-        {{ row.substring(0,3) }}
+        {{ limitLabel > 0 ? row.substring(0,limitLabel) : row }}
       </label>
     </div>
     <ErrorMessage :errors="errors" />
@@ -25,10 +26,12 @@
 </template>
 <script>
   import ErrorMessage from './FieldErrorMessage'
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
-      ErrorMessage
+      ErrorMessage,
+      Header5
     },
     props: {
       id: {
@@ -46,6 +49,9 @@
       }, value: {
         type: String,
         default: ''
+      }, limitLabel: {
+        type: Number,
+        default: 0
       }, data: {
         type: Array,
         default() {

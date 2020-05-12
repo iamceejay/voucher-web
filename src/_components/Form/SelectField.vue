@@ -8,9 +8,10 @@
       :rules="rules"
     >
       <template #default="{ errors }">
-        <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
-          {{ label }}
-        </label>
+        <Header5
+          v-if="label != ''"
+          :label="label"
+        />
         <vSelect
           :id="id"
           ref="inputField"
@@ -28,13 +29,15 @@
 </template>
 <script>
   import ErrorMessage from './FieldErrorMessage';
+  import Header5 from '_components/Headers/Header5';
   import vSelect from 'vue-select'
   import 'vue-select/dist/vue-select.css';
   
   export default {
     components: {
       vSelect,
-      ErrorMessage
+      ErrorMessage,
+      Header5
     },
     
     props: {

@@ -19,6 +19,7 @@ import Cart from '_pages/Cart/'
 import Wallet from '_pages/Wallet/'
 import VoucherCategory from '_pages/Vouchers/Category/'
 import Orders from '_pages/Orders/'
+import VoucherSearch from '_pages/Vouchers/Search/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 
 Vue.use(Router);
@@ -142,6 +143,13 @@ const router = new Router({
       path: '/vouchers/category/:id', 
       name: 'vouchers-category', 
       component: VoucherCategory,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/vouchers/search', 
+      name: 'vouchers-search', 
+      component: VoucherSearch,
       meta: {
         middleware: [ auth ]
       } 

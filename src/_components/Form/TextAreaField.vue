@@ -1,11 +1,9 @@
 <template>
   <div id="text-area-field-component" class="mb-5">
-    <label 
+    <Header5
       v-if="label != ''"
-      class="block text-left text-gray-900 text-sm font-bold mb-0 font-body"
-    >
-      {{ label }}
-    </label>
+      :label="label"
+    />
     <textarea
       :id="id"
       ref="inputField"
@@ -23,10 +21,12 @@
 </template>
 <script>
   import ErrorMessage from './FieldErrorMessage'
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
-      ErrorMessage
+      ErrorMessage,
+      Header5
     },
     props: {
       id: {

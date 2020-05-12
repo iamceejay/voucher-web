@@ -1,5 +1,5 @@
 <template>
-  <div class="font-bold py-2 text-4xl font-display text-gray-900 capitalize mb-3">
+  <div class="font-semibold text-lg py-1 font-display text-gray-700">
     {{ label }}
   </div>
 </template>
