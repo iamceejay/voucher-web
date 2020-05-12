@@ -1,9 +1,9 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
-        {{ ($route.params.id) ? 'Update Voucher' : 'New Voucher' }}
-      </div>
+      <Header1
+        :label="`${($route.params.id) ? 'Update Voucher' : 'New Voucher'}`"
+      />
       <VoucherForm 
         :data="data"
       />
@@ -13,11 +13,13 @@
 <script>
   import VoucherForm from '_components/Modules/Voucher/VoucherForm';
   import MainLayout from '_layouts';
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       MainLayout,
-      VoucherForm
+      VoucherForm,
+      Header1,
     },
     data() {
       return {

@@ -1,8 +1,8 @@
 <template>
   <div class="w-full flex flex-col">
-    <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
-      Orders
-    </div>
+    <Header1
+      label="Orders"
+    />
     <OrderList 
       :data="orders"
     />
@@ -10,10 +10,12 @@
 </template>
 <script>
   import OrderList from '_components/List/Modules/OrderList/'
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       OrderList,
+      Header1,
     },
     props: [],
     data() {

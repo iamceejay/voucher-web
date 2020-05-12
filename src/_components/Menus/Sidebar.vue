@@ -199,7 +199,9 @@
       onSelectMenu(menu, index)
       {
         if(!menu.child) {
-          this.$router.push(menu.link)
+          if( this.$route.path != menu.link ) {
+            this.$router.push(menu.link)
+          }
         } else {
           const menuIcon = document.getElementById(`dropdown-${index}`).classList
           const icon = {

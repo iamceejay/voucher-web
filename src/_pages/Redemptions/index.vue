@@ -1,9 +1,9 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
-        Redemptions
-      </div>
+      <Header1
+        label="Redemptions"
+      />
       <OrderList 
         :data="redemptions"
         role="seller"
@@ -15,11 +15,13 @@
   import Button from '_components/Button';
   import MainLayout from '_layouts';
   import OrderList from '_components/List/Modules/OrderList/'
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       MainLayout,
       OrderList,
+      Header1,
     },
     props: [],
     data() {

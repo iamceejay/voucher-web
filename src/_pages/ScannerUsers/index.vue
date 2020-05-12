@@ -2,9 +2,9 @@
   <MainLayout>
     <template #content>
       <div class="w-full flex flex-col">
-        <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-3">
-          Scanner Users
-        </div>
+        <Header1
+          label="Scanner Users"
+        />
         <ScannerUserList 
           :data="SCANNER_USERS"
         />
@@ -25,13 +25,15 @@
   import Button from '_components/Button'
   import MainLayout from '_layouts'
   import ScannerUserList from '_components/List/Modules/ScannerUserList'
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     name: 'Dashboard',
     components: {
       MainLayout,
       Button,
-      ScannerUserList
+      ScannerUserList,
+      Header1,
     },
     data() {
       return {
