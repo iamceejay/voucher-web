@@ -1,9 +1,9 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
-        Create new voucher
-      </div>
+      <Header1
+        label="Create new voucher"
+      />
       <router-link
         to="vouchers/new"
       >
@@ -24,13 +24,15 @@
   import Button from '_components/Button';
   import VoucherList from '_components/List/Modules/VoucherList/';
   import MainLayout from '_layouts';
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     name: 'Vouchers',
     components: {
       Button,
       MainLayout,
-      VoucherList
+      VoucherList,
+      Header1
     },
     data() {
       return {

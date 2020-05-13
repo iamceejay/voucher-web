@@ -2,9 +2,9 @@
   <MainLayout>
     <template #content>
       <div class="flex flex-col w-full">
-        <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
-          Search
-        </div>
+        <Header1
+          label="Search"
+        />
         <SearchInputField
           id="search-here"
           v-model="search"
@@ -27,6 +27,7 @@
 </template>
 <script>
   import MainLayout from "_layouts";
+  import Header1 from '_components/Headers/Header1';
   import SearchInputField from '_components/Form/SearchInputField';
   import VoucherList from '_components/List/Modules/VoucherList/';
 
@@ -34,6 +35,7 @@
     name: "Home",
     components: {
       MainLayout,
+      Header1,
       SearchInputField,
       VoucherList,
     },

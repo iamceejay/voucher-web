@@ -7,9 +7,9 @@
             class="w-full flex flex-col"
             @submit.prevent="handleSubmit(onSubmit(invalid))"
           >
-            <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize mb-4">
-              Profile & Settings
-            </div>
+            <Header1
+              label="Profile & Settings"
+            />
             <div class="flex flex-wrap">
               <div class="w-full md:w-1/2 order-1 mb-5">
                 <div class="font-bold mb-3 text-gray-700 font-display text-2xl">
@@ -51,6 +51,7 @@
   import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
   import CompanyForm from '_components/Modules/Profile/Form/CompanyForm';
   import PayoutForm from '_components/Modules/Profile/Form/PayoutForm';
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     name: 'Profile',
@@ -59,7 +60,8 @@
       ProfileForm,
       CompanyForm,
       PayoutForm,
-      Button
+      Button,
+      Header1
     },
     data() {
       return {

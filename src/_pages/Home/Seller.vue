@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col w-full">
-    <div class="font-bold text-lg py-2 text-4xl font-display text-gray-900 capitalize">
-      Hi Company!
-    </div>
+    <Header1
+      label="Hi Company!"
+    />
     <router-link to="/scanner">
       <Button
         class="py-2 mt-3 mb-4"
@@ -20,9 +20,11 @@
   import SaleStatistics from '_components/Modules/Home/SaleStatistics';
   import Quicklinks from '_components/Modules/Home/Quicklinks';
   import MainLayout from '_layouts';
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
+      Header1,
       Button,
       SaleStatistics,
       Quicklinks
