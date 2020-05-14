@@ -3,6 +3,10 @@ import Router from 'vue-router'
 import store from '_store';
 import guest from './_middleware/guest'
 import auth from './_middleware/auth'
+import authUser from './_middleware/authUser'
+import authSeller from './_middleware/authSeller'
+import authUS from './_middleware/authUS'
+import authSSU from './_middleware/authSSU'
 import middlewarePipeline from './_middleware/middlewarePipeline'
 import Login from '_pages/Login/'
 import Home from '_pages/Home/'
@@ -23,6 +27,7 @@ import VoucherSearch from '_pages/Vouchers/Search/'
 import VoucherSendEmail from '_pages/Vouchers/SendEmail/'
 import VoucherTransfer from '_pages/Vouchers/Transfer/'
 import PageNotFound from '_pages/Errors/PageNotFound'
+import UserNotAllowed from '_pages/Errors/UserNotAllowed'
 
 Vue.use(Router);
 
@@ -55,124 +60,131 @@ const router = new Router({
       name: 'vouchers', 
       component: Vouchers,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/vouchers/new', 
       name: 'vouchers-new', 
       component: NewVoucher,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/vouchers/update/:id', 
       name: 'vouchers-update', 
       component: NewVoucher,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/vouchers/statistic/:id', 
       name: 'vouchers-statistic', 
       component: StatisticsVoucher,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/scanner', 
       name: 'scanner', 
       component: Scanner,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSSU ]
       } 
     },{ 
       path: '/orders-earnings', 
       name: 'orders-earnings', 
       component: OrdersEarnings,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/redemptions', 
       name: 'redemptions', 
       component: Redemptions,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/profile-settings', 
       name: 'profile-settings', 
       component: Profile,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUS ]
       } 
     },{ 
       path: '/scanner-users', 
       name: 'scanner-users', 
       component: ScannerUsers,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/scanner-users/new', 
       name: 'scanner-users-new', 
       component: ScannerUserNew,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authSeller ]
       } 
     },{ 
       path: '/cart', 
       name: 'cart', 
       component: Cart,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/wallet', 
       name: 'wallet', 
       component: Wallet,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/orders', 
       name: 'orders', 
       component: Orders,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/vouchers/category/:id', 
       name: 'vouchers-category', 
       component: VoucherCategory,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/vouchers/search', 
       name: 'vouchers-search', 
       component: VoucherSearch,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/vouchers/send-email/:id', 
       name: 'vouchers-send-email', 
       component: VoucherSendEmail,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/vouchers/transfer/:id', 
       name: 'vouchers-transfer', 
       component: VoucherTransfer,
       meta: {
-        middleware: [ auth ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '*', 
       name: '404', 
       component: PageNotFound,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/error/not-allowed', 
+      name: 'not-allowed', 
+      component: UserNotAllowed,
       meta: {
         middleware: [ auth ]
       } 

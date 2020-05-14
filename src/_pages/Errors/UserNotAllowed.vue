@@ -3,7 +3,7 @@
     <div class="flex flex-1 justify-center items-center flex-col h-screen">
       <p class="text-2xl">
         <span class="font-bold">Sorry!</span> 
-        The page you've access is not available.
+        You're not allowed to access that page. <br />
       </p>
       <p>
         <router-link 
@@ -18,7 +18,7 @@
 </template>
 <script>
   export default {
-    name: 'PageNotFound',
+    name: 'UserNotAllowed',
     components: {
     },
     data() {
