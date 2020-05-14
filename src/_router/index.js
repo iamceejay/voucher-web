@@ -45,7 +45,7 @@ const router = new Router({
       } 
     },{ 
       path: '', 
-      component: Login,
+      component: Home,
       meta: {
         middleware: [ guest ]
       } 
@@ -209,6 +209,7 @@ router.beforeEach((to, from, next) => {
     to,
     from,
     next,
+    router,
     store
   }
   return middleware[0]({
