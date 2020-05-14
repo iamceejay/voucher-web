@@ -14,7 +14,12 @@
       @onFlip="onFlip()"
     />
     <CardAction
-      v-else
+      v-if="isAction && role === 'seller'"
+      :data="data"
+      @onFlip="onFlip()"
+    />
+    <CardUserAction
+      v-if="isAction && role === 'user'"
       :data="data"
       @onFlip="onFlip()"
     />
@@ -23,22 +28,25 @@
 <script>
   import CardInfo from './CardInfo'
   import CardAction from './CardAction'
+  import CardUserAction from './CardUserAction'
 
   export default {
     components: {
       CardInfo,
-      CardAction
+      CardAction,
+      CardUserAction
     },
     props: {
       data: {
         type: Object,
         default: null
-      },
-      bg: {
+      }, bg: {
         type: String,
         default: '#fff'
-      },
-      bgImg: {
+      }, role: {
+        type: String,
+        default: 'seller'
+      }, bgImg: {
         type: String,
         default: ''
       }, isFlippable: {
@@ -89,7 +97,7 @@
     height: 290px;
     border-radius: 6px;
     transform: rotateY(0deg);
-    transition: transform 0.8s linear;
+    transition: transform 0.5s linear;
   }
   .card-container.flip {
     transform: rotateY(360deg);

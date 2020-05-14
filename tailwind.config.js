@@ -9,6 +9,9 @@ module.exports = {
       fontSize: {
         '2xs': '.60rem',
       },
+      textColor: {
+        'primary': 'rgb(26, 32, 44)',
+      }
     },
     fontFamily: {
       'display': ['Montserrat', 'sans-serif'],

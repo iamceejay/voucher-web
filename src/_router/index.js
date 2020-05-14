@@ -20,6 +20,8 @@ import Wallet from '_pages/Wallet/'
 import VoucherCategory from '_pages/Vouchers/Category/'
 import Orders from '_pages/Orders/'
 import VoucherSearch from '_pages/Vouchers/Search/'
+import VoucherSendEmail from '_pages/Vouchers/SendEmail/'
+import VoucherTransfer from '_pages/Vouchers/Transfer/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 
 Vue.use(Router);
@@ -150,6 +152,20 @@ const router = new Router({
       path: '/vouchers/search', 
       name: 'vouchers-search', 
       component: VoucherSearch,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/vouchers/send-email/:id', 
+      name: 'vouchers-send-email', 
+      component: VoucherSendEmail,
+      meta: {
+        middleware: [ auth ]
+      } 
+    },{ 
+      path: '/vouchers/transfer/:id', 
+      name: 'vouchers-transfer', 
+      component: VoucherTransfer,
       meta: {
         middleware: [ auth ]
       } 

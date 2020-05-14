@@ -3,7 +3,7 @@
     <template #content>
       <div class="flex flex-col w-full">
         <Header1
-          label="Search"
+          label="My Wallet"
         />
         <SearchInputField
           id="search-here"
@@ -13,13 +13,8 @@
         />
         <VoucherList
           class="mb-3"
-          title="Vouchers"
-          sortLabel="Sort by:"
-          :withSort="true"
-          filterLabel="Filter by:"
-          :withFilter="true"
+          :role="role"
           :data="VOUCHERS"
-          :withQR="false"
         />
       </div>
     </template>
@@ -32,7 +27,6 @@
   import VoucherList from '_components/List/Modules/VoucherList/';
 
   export default {
-    name: "Home",
     components: {
       MainLayout,
       Header1,

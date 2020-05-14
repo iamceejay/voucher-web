@@ -19,6 +19,8 @@
           :value="value"
           min="0"
           :placeholder="placeholder"
+          :disabled="disabled"
+          :readonly="readonly"
           @input="onUpdateField()"
         />
         <ErrorMessage :errors="[...errors, ...errorMessages]" />
@@ -62,6 +64,12 @@
       }, inputContainer: {
         type: String,
         default: 'py-2'
+      }, disabled: {
+        type: Boolean,
+        default: false
+      }, readonly: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

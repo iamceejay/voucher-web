@@ -28,7 +28,6 @@
     },
     watch: {
       show(newVal) {
-        console.log('newVal', newVal)
         const body = document.querySelector('body').classList
         if (newVal) {
           body.add('overflow-hidden')

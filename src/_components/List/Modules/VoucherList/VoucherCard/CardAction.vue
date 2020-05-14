@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="w-full flex flex-col cursor-pointer self-center px-4 py-3"
+    class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full justify-center"
     @click="onFlip()"
   >
     <router-link :to="`/vouchers/update/${data.id}`">
@@ -9,7 +9,6 @@
         label="Edit voucher"
         size="w-64 py-2"
         round="rounded-full"
-        @onClick="onAction()"
       />
     </router-link>
     <router-link :to="`/vouchers/statistic/${data.id}`">
@@ -18,7 +17,6 @@
         label="View statistics"
         size="w-64 py-2"
         round="rounded-full"
-        @onClick="onAction()"
       />
     </router-link>
     <Button

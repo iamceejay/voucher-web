@@ -32,7 +32,6 @@
   import VoucherList from '_components/List/Modules/VoucherList/';
 
   export default {
-    name: "Home",
     components: {
       MainLayout,
       Header1,

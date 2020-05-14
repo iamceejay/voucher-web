@@ -12,8 +12,23 @@
         </div>
         <div class="flex flex-row">
           <div class="text-xs text-gray-900 font-body">
-            <div>User: {{ row.user }}</div>
+            <div v-if="role != 'user'">
+              User: {{ row.user }}
+            </div>
             <div>{{ row.date }}</div>
+            <div v-if="role == 'user'">
+              <a 
+                id="link" 
+                href="file.txt" 
+                download hidden 
+              />
+              <a 
+                href="javascript:void(0)"
+                @click="onGenerateInvoice()"
+              >
+                <i class="fas fa-file-invoice text-black text-lg" />
+              </a>
+            </div>
           </div>
           <div class="ml-auto text-xl font-bold font-display">
             {{ (row.type == 'quantity') ? `${ row.quantity }x / ` : '' }}
@@ -65,7 +80,21 @@
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      onGenerateInvoice()
+      {
+        let processing = this.$swal({
+          title: 'Processing Request',
+          text: 'Please wait ...',
+          allowOutsideClick: false,
+          showConfirmButton: false
+        })
+        setTimeout( () => {
+          document.getElementById('link').click()
+          processing.close()
+        }, 2000)
+      }
+    }
   }
 </script>
 <style lang="css" scoped>

@@ -31,6 +31,7 @@
         v-for="(voucher, index) in tempData"
         :key="`voucher-${index}`"
         :data="voucher"
+        :role="role"
         :withQR="withQR"
         class="m-2"
       />
@@ -73,6 +74,9 @@
         default() {
           return []
         }
+      }, role: {
+        type: String,
+        default: 'seller'
       }, type: {
         type: String,
         default: 'standard'
