@@ -70,7 +70,7 @@
       },
       role: {
         type: String,
-        default: 'user'
+        default: 'seller'
       }
     },
     data() {
