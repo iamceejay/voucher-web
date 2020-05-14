@@ -9,6 +9,7 @@ import authUS from './_middleware/authUS'
 import authSSU from './_middleware/authSSU'
 import middlewarePipeline from './_middleware/middlewarePipeline'
 import Login from '_pages/Login/'
+import Register from '_pages/Register/'
 import Home from '_pages/Home/'
 import Vouchers from '_pages/Vouchers/'
 import NewVoucher from '_pages/Vouchers/New/'
@@ -49,11 +50,17 @@ const router = new Router({
         middleware: [ guest ]
       } 
     },{ 
+      path: '/register', 
+      name: 'register', 
+      component: Register,
+      meta: {
+        middleware: [ guest ]
+      } 
+    },{ 
       path: '/home', 
       name: 'home', 
       component: Home,
       meta: {
-        middleware: [ auth ]
       } 
     },{ 
       path: '/vouchers', 

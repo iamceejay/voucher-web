@@ -1,22 +1,27 @@
 <template>
-  <div class="flex items-stretch h-screen">
-    <div class="flex flex-1 justify-center items-center flex-col">
-      <div class="container">
-        <div class="text-center font-bold text-4xl font-display mb-10">
-          Voucher
-        </div>
-        <div class="content-container">
-          <LoginForm />
+  <MainLayout>
+    <template #content>
+      <div class="flex flex-1 justify-center items-center flex-col">
+        <div class="container">
+          <div class="text-center font-bold text-4xl font-display mb-10">
+            Voucher
+          </div>
+          <div class="content-container">
+            <LoginForm />
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </MainLayout>
 </template>
 <script>
+  import MainLayout from "_layouts";
   import LoginForm from '_components/Modules/Login/LoginForm';
+
   export default {
     name: 'Login',
     components: {
+      MainLayout,
       LoginForm
     }
   }

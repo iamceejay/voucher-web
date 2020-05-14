@@ -26,7 +26,7 @@
         <li 
           v-for="(menu, index) in menus"
           :key="`menu-${index}`"
-          class="border-t block flex flex-col text-black font-semibold font-body cursor-pointer"
+          :class="`border-t block flex flex-col text-black font-semibold font-body cursor-pointer ${ menu.borderB && 'border-b' }`"
           @click="onSelectMenu(menu, index)"
         >
           <div class="flex flex-row pl-5 py-2">
@@ -55,7 +55,10 @@
             </li>
           </ul>
         </li>
-        <li class="border-t py-2 border-b">
+        <li 
+          v-if="AUTH_USER.isAuth"
+          class="border-t py-2 border-b"
+        >
           <div class="pl-5 block hover:border-purple-900 ">
             <a
               href="javascript:void(0)"
@@ -103,7 +106,6 @@
     watch: {
       AUTH_USER(newVal, oldVal)
       {
-        console.log('newVal', newVal)
         this.onSetRole()
         this.onSetMenusByRole()
       }
@@ -188,6 +190,20 @@
             default:
               break;
           }
+        } else {
+          this.menus = [
+            {
+              title: 'Home',
+              link: '/home'
+            }, {
+              title: 'Login',
+              link: '/login',
+            }, {
+              title: 'Register',
+              link: '/register',
+              borderB: true,
+            }, 
+          ]
         }
       },
       getWindowWidth() {

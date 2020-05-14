@@ -1,6 +1,9 @@
 <template>
   <MainLayout>
     <template #content>
+      <GuestHome 
+        v-if="role === null"
+      />
       <SellerHome 
         v-if="role === 'seller'"
       />
@@ -17,6 +20,7 @@
   import MainLayout from '_layouts';
   import SellerHome from './Seller'
   import UserHome from './User'
+  import GuestHome from './Guest'
   import ScannerUserHome from './ScannerUser'
 
   export default {
@@ -25,6 +29,7 @@
       MainLayout,
       SellerHome,
       UserHome,
+      GuestHome,
       ScannerUserHome,
     },
     data() {
