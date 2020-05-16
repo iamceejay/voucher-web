@@ -189,7 +189,6 @@
   import CheckboxField from '_components/Form/CheckboxField'
   import { Material } from 'vue-color'
   import { ToggleButton } from 'vue-js-toggle-button'
-  import DatePicker from 'vue2-datepicker'
   import 'vue2-datepicker/index.css'
   import { getWeek } from '_helpers/DefaultValues'
 
@@ -205,7 +204,6 @@
       TextAreaField,
       SelectField,
       CheckboxField,
-      DatePicker
     },
     props: {
       data: {

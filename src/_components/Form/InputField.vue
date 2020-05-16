@@ -9,6 +9,12 @@
           v-if="label != ''"
           :label="label"
         />
+        <span 
+          v-if="note != ''"
+          class="text-xs font-semibold"
+        >
+          {{ note }}
+        </span>
         <input
           :id="id"
           ref="inputField"
@@ -45,6 +51,9 @@
         type: String,
         default: ''
       }, label: {
+        type: String,
+        default: ''
+      }, note: {
         type: String,
         default: ''
       }, placeholder: {

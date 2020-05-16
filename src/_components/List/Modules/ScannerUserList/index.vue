@@ -64,7 +64,7 @@
             });
             this.$emit('onSetVoucher', '')
           }   
-        });
+        })
       }
     }
   }

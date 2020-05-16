@@ -3,27 +3,28 @@
     <template #content>
       <div class="flex flex-col w-full">
         <Header1
-          label="Cart"
+          label="My Cart"
         />
-        <VoucherList
+        <CartList
           class="mb-3"
           :role="role"
-          :data="VOUCHERS"
+          :data="CARTS"
+          @onDelete="onDelete"
         />
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import MainLayout from "_layouts";
+  import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
-  import VoucherList from '_components/List/Modules/VoucherList/';
+  import CartList from '_components/List/Modules/CartList/';
 
   export default {
     components: {
       MainLayout,
       Header1,
-      VoucherList,
+      CartList,
     },
     data() {
       return {
@@ -35,9 +36,9 @@
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
-      VOUCHERS()
+      CARTS()
       {
-        return this.$store.getters.VOUCHERS
+        return this.$store.getters.CARTS
       },
     },
     watch: {
@@ -49,6 +50,16 @@
       this.onSetRole();
     },
     methods: {
+      async onDelete( data )
+      {
+        await this.$store.dispatch('DELETE_CART', data)
+        this.$swal({
+          icon: 'success',
+          title: 'Successful!',
+          text: 'Deleting the voucher from the cart.',
+          confirmButtonColor: '#6C757D',
+        })
+      },
       onSetRole() {
         if (this.AUTH_USER?.data?.user_role) {
           this.role = this.AUTH_USER.data.user_role.role.name;

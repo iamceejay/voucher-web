@@ -27,6 +27,9 @@ import Orders from '_pages/Orders/'
 import VoucherSearch from '_pages/Vouchers/Search/'
 import VoucherSendEmail from '_pages/Vouchers/SendEmail/'
 import VoucherTransfer from '_pages/Vouchers/Transfer/'
+import VoucherDetail from '_pages/Vouchers/Detail/'
+import SellerDetail from '_pages/Seller/Detail/'
+import Payment from '_pages/Payment/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 import UserNotAllowed from '_pages/Errors/UserNotAllowed'
 
@@ -178,6 +181,27 @@ const router = new Router({
       path: '/vouchers/transfer/:id', 
       name: 'vouchers-transfer', 
       component: VoucherTransfer,
+      meta: {
+        middleware: [ auth, authUser ]
+      } 
+    },{ 
+      path: '/vouchers/:id', 
+      name: 'vouchers-detail', 
+      component: VoucherDetail,
+      meta: {
+        middleware: [ auth, authUser ]
+      } 
+    },{ 
+      path: '/seller/:id', 
+      name: 'seller-detail', 
+      component: SellerDetail,
+      meta: {
+        middleware: [ auth, authUser ]
+      } 
+    },{ 
+      path: '/payment', 
+      name: 'payment', 
+      component: Payment,
       meta: {
         middleware: [ auth, authUser ]
       } 

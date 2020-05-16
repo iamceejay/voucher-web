@@ -5,7 +5,7 @@
   >
     <button
       :type="type"
-      class="text-sm focus:outline-none focus:shadow-none border-1 font-body capitalize"
+      class="text-sm focus:outline-none focus:shadow-none border-1 font-body"
       :class="[bg, size, round]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
@@ -18,6 +18,7 @@
         v-else
         :class="[fontSize]"
       >
+        <i v-if="icon != ''" :class="`fas fa-${icon}`" />
         {{ label }}
       </span>
     </button>
@@ -39,6 +40,10 @@
         default: 'rounded-full'
       },
       label: {
+        type: String,
+        default: ''
+      },
+      icon: {
         type: String,
         default: ''
       },

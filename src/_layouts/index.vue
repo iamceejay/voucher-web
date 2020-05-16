@@ -11,9 +11,12 @@
         <div :class="`${isHideSideBar ? 'hide' : ''}`">
           <router-link 
             v-if="role === 'user'"
-            class="cart-icon"
+            class="cart-icon relative"
             to="/cart"
           >
+            <div class="cart-count">
+              {{ CARTS.length }}
+            </div>
             <i class="fas fa-shopping-cart text-base text-2xl" />
           </router-link>
           <slot name="content" />
@@ -39,6 +42,10 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
+      },
+      CARTS()
+      {
+        return this.$store.getters.CARTS
       }
     },
     watch: {
@@ -69,6 +76,17 @@
     top: 16px;
     right: 40px;
     color: rgb(26, 32, 44);;
+  }
+  .cart-count {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    border-radius: 50%;
+    text-align: center;
+    background: #ccc;
+    top: -8px;
+    right: -8px;
   }
   @media only screen and (max-width: 640px) {
     .main-container.hide {

@@ -11,27 +11,29 @@
           class="m-2"
           placeholder="Search for vouchers ..."
         />
-        <VoucherList
+        <CartList
           class="mb-3"
           :role="role"
-          :data="VOUCHERS"
+          :data="WALLETS"
+          :isCart="false"
+          :withQR="true"
         />
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import MainLayout from "_layouts";
+  import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
   import SearchInputField from '_components/Form/SearchInputField';
-  import VoucherList from '_components/List/Modules/VoucherList/';
+  import CartList from '_components/List/Modules/CartList/';
 
   export default {
     components: {
       MainLayout,
       Header1,
       SearchInputField,
-      VoucherList,
+      CartList,
     },
     data() {
       return {
@@ -43,9 +45,9 @@
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
-      VOUCHERS()
+      WALLETS()
       {
-        return this.$store.getters.VOUCHERS
+        return this.$store.getters.WALLETS
       },
     },
     watch: {

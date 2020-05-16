@@ -1,5 +1,5 @@
 <template>
-  <div class="font-semibold text-lg py-1 font-display text-gray-700">
+  <div class="font-semibold text-base md:text-lg py-1 font-display text-gray-700">
     {{ label }}
   </div>
 </template>

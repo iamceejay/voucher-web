@@ -3,7 +3,7 @@
     <div
       v-for="(row, index) in data"
       :key="`stat-${index}`"
-      class="w-full sm:w-1/2 md:w-1/4"
+      class="w-full sm:w-1/2 md:w-1/4 order-container"
     >
       <div class="flex flex-col m-1 p-3 border border-gray-900 rounded mb-3">
         <div class="flex flex-row">
@@ -98,4 +98,7 @@
   }
 </script>
 <style lang="css" scoped>
+  .order-container {
+    min-width: 300px;
+  }
 </style>

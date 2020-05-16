@@ -1,7 +1,10 @@
 <template>
   <div class="w-full flex flex-col px-4 py-3">
     <div class="card-header">
-      <div class="flex flex-col">
+      <div 
+        class="flex flex-col cursor-pointer"
+        @click="onClickHeader()"
+      >
         <div class="text-base font-bold font-display">
           {{ data.name || 'Voucher Name' }}
         </div>
@@ -102,6 +105,14 @@
       this.onSetRole()
     },
     methods: {
+      onClickHeader()
+      {
+        if( this.role === 'user' ) {
+          this.$router.push(`/vouchers/${this.data.id}`)
+        } else {
+          this.$emit('onFlip')
+        }
+      },
       onSetRole()
       {
         if( this.AUTH_USER?.data?.user_role ) {

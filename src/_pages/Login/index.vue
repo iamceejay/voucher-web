@@ -15,7 +15,7 @@
   </MainLayout>
 </template>
 <script>
-  import MainLayout from "_layouts";
+  import MainLayout from '_layouts';
   import LoginForm from '_components/Modules/Login/LoginForm';
 
   export default {

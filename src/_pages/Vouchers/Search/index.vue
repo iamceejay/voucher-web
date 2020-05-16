@@ -26,7 +26,7 @@
   </MainLayout>
 </template>
 <script>
-  import MainLayout from "_layouts";
+  import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
   import SearchInputField from '_components/Form/SearchInputField';
   import VoucherList from '_components/List/Modules/VoucherList/';
