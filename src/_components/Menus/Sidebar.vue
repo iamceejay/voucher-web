@@ -215,9 +215,12 @@
       onSelectMenu(menu, index)
       {
         if(!menu.child) {
+          console.log('this.$route.path', this.$route.path)
+          console.log('menu.link', menu.link)
           if( this.$route.path != menu.link ) {
             this.$router.push(menu.link)
           }
+          this.onHideSidebar()
         } else {
           const menuIcon = document.getElementById(`dropdown-${index}`).classList
           const icon = {
@@ -252,7 +255,6 @@
           this.onRemoveAuth()
         } catch (err) {
           this.onRemoveAuth()
-          console.log('err tests', err)
         }
       },
       onRemoveAuth()
