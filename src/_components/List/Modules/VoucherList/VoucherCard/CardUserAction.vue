@@ -36,13 +36,12 @@
       >
         <i class="fas fa-user-circle" />
       </router-link>
-      <a
+      <router-link 
         class="p-2 text-lg text-primary ml-auto" 
-        href="javascript:void(0)"
-        @click="onAction()"
+        :to="`/vouchers/personalized/${data.id}`"
       >
         <i class="fas fa-pen" />
-      </a>
+      </router-link>
     </div>
   </div>
 </template>

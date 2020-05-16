@@ -28,6 +28,7 @@ import VoucherSearch from '_pages/Vouchers/Search/'
 import VoucherSendEmail from '_pages/Vouchers/SendEmail/'
 import VoucherTransfer from '_pages/Vouchers/Transfer/'
 import VoucherDetail from '_pages/Vouchers/Detail/'
+import VoucherPersonalized from '_pages/Vouchers/Personalized/'
 import SellerDetail from '_pages/Seller/Detail/'
 import Payment from '_pages/Payment/'
 import PageNotFound from '_pages/Errors/PageNotFound'
@@ -188,6 +189,13 @@ const router = new Router({
       path: '/vouchers/:id', 
       name: 'vouchers-detail', 
       component: VoucherDetail,
+      meta: {
+        middleware: [ auth, authUser ]
+      } 
+    },{ 
+      path: '/vouchers/personalized/:id', 
+      name: 'vouchers-personalized', 
+      component: VoucherPersonalized,
       meta: {
         middleware: [ auth, authUser ]
       } 
