@@ -108,7 +108,11 @@
       onClickHeader()
       {
         if( this.role === 'user' ) {
-          this.$router.push(`/vouchers/${this.data.id}`)
+          if( this.withQR ) {
+            this.$emit('onFlip')
+          } else {
+            this.$router.push(`/vouchers/${this.data.id}`)
+          }
         } else {
           this.$emit('onFlip')
         }
