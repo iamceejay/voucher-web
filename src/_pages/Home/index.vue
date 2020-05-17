@@ -13,6 +13,9 @@
       <ScannerUserHome 
         v-if="role === 'scanner'"
       />
+      <AdminHome 
+        v-if="role === 'admin'"
+      />
     </template>
   </MainLayout>
 </template>
@@ -21,6 +24,7 @@
   import SellerHome from './Seller'
   import UserHome from './User'
   import GuestHome from './Guest'
+  import AdminHome from './Admin'
   import ScannerUserHome from './ScannerUser'
 
   export default {
@@ -29,6 +33,7 @@
       MainLayout,
       SellerHome,
       UserHome,
+      AdminHome,
       GuestHome,
       ScannerUserHome,
     },

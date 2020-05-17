@@ -125,6 +125,30 @@
         if(this.AUTH_USER.isAuth) {
           switch ( this.AUTH_USER.data.user_role.role_id ) {
             case 1:
+              this.menus = [
+                {
+                  title: 'Home',
+                  link: '/home'
+                }, {
+                  title: 'Manage Users',
+                  link: '/users'
+                }, {
+                  title: 'Payout Management',
+                  link: '/payout'
+                }, {
+                  title: 'Add/Edit Categories',
+                  link: '/category'
+                }, {
+                  title: 'Add/Edit Templates (BG Images)',
+                  link: '/template'
+                }, {
+                  title: 'Global Settings',
+                  link: '/settings'
+                }, {
+                  title: 'Add Featured Vouchers',
+                  link: '/featured-vouchers'
+                }, 
+              ]
               break;
             case 2:
               this.menus = [
@@ -187,6 +211,7 @@
                   link: '/home'
                 }
               ]
+              break
             default:
               break;
           }

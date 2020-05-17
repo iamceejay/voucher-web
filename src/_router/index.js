@@ -4,6 +4,7 @@ import store from '_store';
 import guest from './_middleware/guest'
 import auth from './_middleware/auth'
 import authUser from './_middleware/authUser'
+import authAdmin from './_middleware/authAdmin'
 import authSeller from './_middleware/authSeller'
 import authUS from './_middleware/authUS'
 import authSSU from './_middleware/authSSU'
@@ -30,6 +31,12 @@ import VoucherTransfer from '_pages/Vouchers/Transfer/'
 import VoucherDetail from '_pages/Vouchers/Detail/'
 import VoucherPersonalized from '_pages/Vouchers/Personalized/'
 import SellerDetail from '_pages/Seller/Detail/'
+import VoucherManageFeature from '_pages/Vouchers/ManageFeature/'
+import Settings from '_pages/Settings/'
+import Category from '_pages/Category/'
+import Payout from '_pages/Payout/'
+import Template from '_pages/Template/'
+import Users from '_pages/Users/'
 import Payment from '_pages/Payment/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 import UserNotAllowed from '_pages/Errors/UserNotAllowed'
@@ -212,6 +219,55 @@ const router = new Router({
       component: Payment,
       meta: {
         middleware: [ auth, authUser ]
+      } 
+    },{ 
+      path: '/featured-vouchers', 
+      name: 'featured-vouchers', 
+      component: VoucherManageFeature,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/settings', 
+      name: 'settings', 
+      component: Settings,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/payment', 
+      name: 'payment', 
+      component: Payment,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/category', 
+      name: 'category', 
+      component: Category,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/payout', 
+      name: 'payout', 
+      component: Payout,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/template', 
+      name: 'template', 
+      component: Template,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/users', 
+      name: 'users', 
+      component: Users,
+      meta: {
+        middleware: [ auth, authAdmin ]
       } 
     },{ 
       path: '*', 
