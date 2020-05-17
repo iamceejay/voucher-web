@@ -3,6 +3,7 @@ import moment from 'moment'
 
 export default {
   state: () => ({
+    wallet: null,
     wallets: [
       {
         id: 1,
@@ -10,6 +11,7 @@ export default {
         user_id: 3,
         value: "2",
         isPaid: true,
+        personalized: null,
         voucher: {
           id: 8,
           name: 'Voucher Name 8',
@@ -66,6 +68,7 @@ export default {
         user_id: 3,
         value: "222",
         isPaid: true,
+        personalized: null,
         voucher: {
           id: 9,
           name: 'Voucher Name 9',
@@ -117,19 +120,31 @@ export default {
           }
         }
       }
-    ]
+    ],
   }),
   getters: {
+    WALLET(state) {
+      return state.wallet
+    },
     WALLETS(state) {
-      return state.wallets;
+      return state.wallets
     },
   },
   mutations: {
+    SET_WALLET(state, payload) {
+      state.wallet = payload;
+    },
     SET_WALLETS(state, payload) {
       state.wallets = payload;
     },
   },
   actions: {
+    async FETCH_WALLET( { commit, state }, payload )
+    {
+      const data = state.wallets.filter( row => row.id == payload )[0]
+      await commit('SET_WALLET', data)
+      return data
+    },
     async ADD_WALLET( { commit, state }, payload )
     {
       const data = {
@@ -150,6 +165,7 @@ export default {
         }
         return row
       });
+      commit('SET_WALLET', payload)
       commit('SET_WALLETS', newList)
     },
     DELETE_WALLET( { commit, state }, payload )

@@ -19,8 +19,22 @@
       />
     </div>
     <div class="card-content">
-      <div class="w-9/12 text-xs text-justify h-32 font-body">
-        {{ data.description || 'Voucher Description' }}
+      <div class="w-full flex flex-row">
+        <div :class="`${data.personalized && data.personalized.picture ? 'w-3/5' : 'w-9/12'}`">
+          <div class="text-xs text-justify card-description font-body">
+            {{ data.description || 'Voucher Description' }}
+          </div>
+          <div v-if="data.personalized" class="text-xs text-justify h-12 font-body">
+            {{ data.personalized.note || 'Voucher Note' }}
+          </div>
+        </div>
+        <div v-if="data.personalized && data.personalized.picture" class="w-2/5">
+          <img 
+            style="width: 120px; height: 80px;"
+            :src="data.personalized.picture" 
+            alt=""
+          />
+        </div>
       </div>
       <div class="w-full flex flex-row">
         <div class="w-9/12">
@@ -127,6 +141,9 @@
   }
 </script>
 <style lang="css" scoped>
+  .card-description {
+    min-width: 10rem;
+  }
   .card-header {
     display: flex;
     flex-direction: row;

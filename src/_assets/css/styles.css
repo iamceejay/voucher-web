@@ -58,6 +58,12 @@
 .mx-icon-calendar, .mx-icon-clear {
     margin-top: 3px;
 }
+.scroll-horizontal {
+    width:100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+}
 @media only screen and (max-width: 640px) {
     .main-container {
         /* width: 500px; */

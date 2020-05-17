@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
-    <div class="flex flex-1 justify-center items-center flex-col h-screen">
-      <p class="text-2xl">
+    <div class="flex flex-1 justify-center items-center flex-col h-screen p-5">
+      <p class="text-base md:text-2xl">
         <span class="font-bold">Sorry!</span> 
         The page you've access is not available.
       </p>

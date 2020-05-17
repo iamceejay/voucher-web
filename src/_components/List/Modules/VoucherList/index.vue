@@ -38,7 +38,7 @@
     </div>
     <div 
       v-if="type === 'feature'"
-      class="flex flex-wrap justify-center sm:justify-start"
+      class="scroll-horizontal scroll"
     >
       <FeatureVoucherCard
         v-for="(voucher, index) in tempData"

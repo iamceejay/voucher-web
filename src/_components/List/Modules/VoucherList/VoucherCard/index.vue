@@ -3,11 +3,11 @@
     :id="`voucher-card-${ (data && data.id) ? data.id : 0 }`"
     class="flex border border-gray-900 rounded card-container bg-color mb-3"
     :class="{'flip': isFlip}"
-    :style="{ '--bgColor': data.bgColor || bg }"
+    :style="{ '--bgColor': data.bgColor }"
   >
     <CardInfo
       v-if="!isAction"
-      :class="`${ data.isDarkText ? 'text-black' : 'text-white' }`"
+      :class="[ onGetTextColor() ]"
       :data="data"
       :isFlippable="isFlippable"
       :withQR="withQR"
@@ -21,6 +21,7 @@
     <CardUserAction
       v-if="isAction && role === 'user'"
       :data="data"
+      :otherData="otherData"
       @onFlip="onFlip()"
     />
   </div>
@@ -38,6 +39,9 @@
     },
     props: {
       data: {
+        type: Object,
+        default: null
+      }, otherData: {
         type: Object,
         default: null
       }, bg: {
@@ -67,10 +71,27 @@
       'data.bgImage'(newVal, oldVal)
       {
         this.onSetBgImage(newVal)
-      }
+      },
+      'data.personalized.template'(newVal, oldVal)
+      {
+        if( newVal && newVal.length > 0 ) {
+          const tem = newVal.filter( row => row.status )
+          if( tem.length > 0 ) {
+            this.onSetBgImage( tem[0].path )
+          }
+        }
+      },
     },
     mounted() {
-      if(this.data?.bgImage) {
+      if(this.data.personalized?.template) {
+        const template = this.data.personalized.template
+        if( template && template.length > 0 ) {
+          const tem = template.filter( row => row.status )
+          if( tem.length > 0 ) {
+            this.onSetBgImage( tem[0].path )
+          }
+        }
+      } else if(this.data?.bgImage) {
         this.onSetBgImage(this.data.bgImage)
       }
     },
@@ -81,6 +102,16 @@
           this.isFlip = !this.isFlip
           this.isAction = !this.isAction
         }
+      },
+      onGetTextColor()
+      {
+        let color = ''
+        if( this.data.personalized ) {
+          color = this.data.personalized.isDarkText ? 'text-black' : 'text-white'
+        } else {
+          color = this.data.isDarkText ? 'text-black' : 'text-white'
+        }
+        return color
       },
       onSetBgImage(value)
       {
@@ -94,10 +125,12 @@
 <style lang="css" scoped>
   .card-container {
     width: 320px;
-    height: 290px;
+    min-height: 330px;
     border-radius: 6px;
     transform: rotateY(0deg);
     transition: transform 0.5s linear;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .card-container.flip {
     transform: rotateY(360deg);

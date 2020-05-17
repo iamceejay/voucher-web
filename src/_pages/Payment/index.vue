@@ -5,7 +5,7 @@
         <Header1
           label="Payment Method"
         />
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full md:w-1/2">
           <ValidationObserver v-slot="{ handleSubmit, invalid }">
             <form 
               class="w-full flex flex-col"
@@ -46,18 +46,18 @@
                 />
                 <span class="text-xs ml-1"> Save card for later payments </span>
               </div>
-              <div class="flex flex-col self-center mt-5 w-full">
-                <span class="text-lg font-bold self-center">
+              <div class="flex flex-col mt-5 w-full">
+                <span class="text-lg font-bold text-center">
                   Price
                 </span>
-                <span class="text-lg font-bold self-center">
+                <span class="text-lg font-bold text-center">
                   €{{ totalPrice }}
                 </span>
                 <Button
                   type="submit"
-                  class="py-2 mx-2"
+                  class="py-2 mx-2 justify-center"
                   label="Pay Now"
-                  size="w-full py-3"
+                  size="w-full py-3 md:w-1/2"
                   round="rounded-full"
                   fontSize="text-sm"
                 />

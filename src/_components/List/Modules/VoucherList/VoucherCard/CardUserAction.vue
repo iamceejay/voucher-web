@@ -11,7 +11,7 @@
       />
       <span class="text-center text-xs font-semibold">Voucher No.</span>
     </div>
-    <div class="flex flex-row w-full">
+    <div class="flex flex-row w-full mt-5">
       <a 
         id="link" 
         href="file.txt" 
@@ -38,7 +38,7 @@
       </router-link>
       <router-link 
         class="p-2 text-lg text-primary ml-auto" 
-        :to="`/vouchers/personalized/${data.id}`"
+        :to="`/vouchers/personalized/${ otherData ? otherData.id : data.id}`"
       >
         <i class="fas fa-pen" />
       </router-link>
@@ -54,7 +54,10 @@
       data: {
         type: Object,
         default: null
-      }
+      }, otherData: {
+        type: Object,
+        default: null
+      },
     },
     data() {
       return {

@@ -1,12 +1,14 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1
-        label="Personalized Voucher"
-      />
-      <PersonalizedForm 
-        :data="data"
-      />
+      <div v-if="!isLoading" class="w-full flex flex-col">
+        <Header1
+          label="Personalized Voucher"
+        />
+        <PersonalizedForm 
+          :data="WALLET"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>
@@ -23,24 +25,28 @@
     },
     data() {
       return {
+        isLoading: true,
         data: null,
       }
     },
     computed: {
-      VOUCHERS()
+      WALLET()
       {
-        return this.$store.getters.VOUCHERS
+        return this.$store.getters.WALLET
       }
     },
     mounted() {
-      this.onSetVoucher()
+      (async() => {
+        this.isLoading = true
+        await this.FETCH_WALLET()
+        this.isLoading = false
+      })()
     },
     methods: {
-      onSetVoucher()
+      async FETCH_WALLET()
       {
         if( this.$route.params.id ) {
-          this.data = this.VOUCHERS.filter( vouch => vouch.id == this.$route.params.id )[0]
-          console.log('this.data', this.data)
+          await this.$store.dispatch('FETCH_WALLET', this.$route.params.id)
         }
       }
     }

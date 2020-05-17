@@ -1,12 +1,12 @@
 <template>
   <div 
-    class="flex flex-col m-2 py-2 px-3 border border-gray-900 rounded bg-color text-center w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
+    class="m-2 py-2 px-3 border border-gray-900 rounded bg-color text-center card-container w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
     :style="{ '--bgColor': data.bgColor }"
     :class="`${ data.isDarkText ? 'text-black' : 'text-white' }`"
   >
     <div class="px-2 self-center">
       <img 
-        class="w-32 h-10"
+        class="w-32 h-10 m-auto"
         src="@/_assets/img/company-default-logo.png" 
         alt=""
       />
@@ -42,5 +42,9 @@
 <style lang="css" scoped>
   .bg-color {
     background-color: var(--bgColor);
+  }
+  .card-container {
+    display: inline-block;
+    min-width: 200px;
   }
 </style>

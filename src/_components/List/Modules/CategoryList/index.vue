@@ -5,7 +5,7 @@
       :label="title"
     />
     <div 
-      class="flex flex-wrap justify-center sm:justify-start"
+      class="scroll-horizontal scroll"
     >
       <CategoryCard
         v-for="(categ, index) in data"

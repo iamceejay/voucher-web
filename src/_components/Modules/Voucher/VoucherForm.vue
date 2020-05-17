@@ -7,8 +7,6 @@
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
           :data="voucherForm"
-          :bg="voucherForm.bg.hex"
-          :bgImg="voucherForm.bgImage"
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">

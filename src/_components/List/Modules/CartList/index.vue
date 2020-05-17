@@ -1,52 +1,55 @@
 <template>
-  <div  class="flex flex-col w-full">
+  <div class="flex flex-col w-full">
     <Header2 
       v-if="title != ''"
       :label="title"
     />
-    <div
-      v-for="(row, index) in data"
-      :key="`voucher-${index}`"
-      class="flex flex-col w-full"
-    >
-      <VoucherCard
-        :data="row.voucher"
-        :role="role"
-        :withQR="withQR"
-        class="m-2"
-      />
-      <div class="flex flex-col self-center h-12">
-        <div class="flex flex-row">
-          <span class="text-sm font-bold self-center">
-            {{ 
-              row.voucher.isQuantityBased 
-                ? 'Price per voucher: ' 
-                : 'Quantity: '
-            }}
-          </span>
-          <span class="text-sm font-semibold ml-2 self-center">
-            {{ `${onGetSymbol(row.voucher.isQuantityBased)} ${row.value}` }}
-          </span>
-        </div>
-        <div v-if="isCart" class="flex flex-row">
-          <span class="text-sm font-semibold ml-2 self-center">
-            {{ `= €${onGetTotal(row)}` }}
-          </span>
-          <a 
-            href="javascript:void(0)"
-            class="text-red-900 ml-2 self-center"
-            @click="onDelete(row)"
-          >
-            <i class="fas fa-trash text-sm" />
-          </a>
+    <div class="flex flex-wrap w-full">
+      <div
+        v-for="(row, index) in data"
+        :key="`voucher-${index}`"
+        class="flex flex-col card-container m-2"
+      >
+        <VoucherCard
+          class=""
+          :data="row.voucher"
+          :otherData="row"
+          :role="role"
+          :withQR="withQR"
+        />
+        <div class="flex flex-col h-12 self-center">
+          <div class="flex flex-row">
+            <span class="text-sm font-bold">
+              {{ 
+                row.voucher.isQuantityBased 
+                  ? 'Price per voucher: ' 
+                  : 'Quantity: '
+              }}
+            </span>
+            <span class="text-sm font-semibold ml-2">
+              {{ `${onGetSymbol(row.voucher.isQuantityBased)} ${row.value}` }}
+            </span>
+          </div>
+          <div v-if="isCart" class="flex flex-row">
+            <span class="text-sm font-semibold ml-2">
+              {{ `= €${onGetTotal(row)}` }}
+            </span>
+            <a 
+              href="javascript:void(0)"
+              class="text-red-900 ml-2"
+              @click="onDelete(row)"
+            >
+              <i class="fas fa-trash text-sm" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    <div v-if="isCart && data.length > 0" class="flex flex-col self-center mt-5 w-full">
-      <span class="text-lg font-bold self-center">
+    <div v-if="isCart && data.length > 0" class="flex flex-col mt-5 w-full sm:w-1/2 md:w-1/4 self-center">
+      <span class="text-lg font-bold text-center">
         Price
       </span>
-      <span class="text-lg font-bold self-center">
+      <span class="text-lg font-bold text-center">
         €{{ totalPrice }}
       </span>
       <Button
@@ -144,4 +147,7 @@
   }
 </script>
 <style lang="css" scoped>
+  .card-container {
+    width: 320px;
+  }
 </style>
