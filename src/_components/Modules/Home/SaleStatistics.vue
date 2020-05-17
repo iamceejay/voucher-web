@@ -1,19 +1,17 @@
 <template>
   <div class="w-full flex flex-col mb-3">
-    <Header2 label="Sales Statistics" />
     <StatisticList 
+      title="Sales Statistics"
       :data="stats"
     />
   </div>
 </template>
 <script>
   import StatisticList from '_components/List/Modules/StatisticList/'
-  import Header2 from '_components/Headers/Header2';
 
   export default {
     components: {
       StatisticList,
-      Header2,
     },
     props: [],
     data() {

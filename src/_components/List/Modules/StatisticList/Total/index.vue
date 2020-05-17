@@ -8,7 +8,7 @@
       <div
         v-for="(row, index) in data"
         :key="`stat-${index}`"
-        class="w-1/2 md:w-1/4	lg:w-1/5"
+        class="w-full md:w-1/2 lg:w-1/5"
       >
         <div class="m-2 p-2 border border-gray-900 rounded text-center card-container">
           <div class="text-xl my-3 font-bold font-display text-gray-900">
