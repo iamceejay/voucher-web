@@ -117,7 +117,7 @@
       {
         const card = document.getElementById(`voucher-card-${ (this.data && this.data.id) ? this.data.id : 0 }`)
         card.style.backgroundImage = `url('${value}')`
-        card.style.backgroundSize = `320px 260px`
+        card.style.backgroundSize = `cover`
       }
     }
   }
