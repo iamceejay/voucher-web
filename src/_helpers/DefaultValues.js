@@ -38,7 +38,7 @@ export const getAllMonths = [
     value: 11,
     text: 'December'
   },
-];
+]
 
 export const getWeek = [
   'Sunday',
@@ -48,7 +48,155 @@ export const getWeek = [
   'Thursday',
   'Friday',
   'Saturday',
-];
+]
+
+export const users = [
+  {
+    id: 1,
+    email: 'john@gmail.com',
+    username: 'john123',
+    user_role: 1,
+    detail: {
+      user_id: 1,
+      firstName: 'John',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 1,
+      role_id: 2,
+      role: {
+        id: 2,
+        name: 'seller'
+      }
+    }
+  }, {
+    id: 2,
+    email: 'luka@gmail.com',
+    username: 'luka123',
+    user_role: 2,
+    detail: {
+      user_id: 2,
+      firstName: 'Luka',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 2,
+      role_id: 2,
+      role: {
+        id: 2,
+        name: 'seller'
+      }
+    }
+  }, {
+    id: 3,
+    email: 'ben@gmail.com',
+    username: 'ben123',
+    user_role: 3,
+    detail: {
+      user_id: 3,
+      firstName: 'Ben',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 3,
+      role_id: 2,
+      role: {
+        id: 2,
+        name: 'seller'
+      }
+    }
+  }, {
+    id: 4,
+    email: 'lea@gmail.com',
+    username: 'lea123',
+    user_role: 4,
+    detail: {
+      user_id: 4,
+      firstName: 'Lea',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 4,
+      role_id: 2,
+      role: {
+        id: 2,
+        name: 'seller'
+      }
+    }
+  }, {
+    id: 5,
+    email: 'elias@gmail.com',
+    username: 'elias123',
+    user_role: 5,
+    detail: {
+      user_id: 5,
+      firstName: 'Elias',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 5,
+      role_id: 3,
+      role: {
+        id: 3,
+        name: 'user'
+      }
+    }
+  }, {
+    id: 6,
+    email: 'jonas@gmail.com',
+    username: 'jonas123',
+    user_role: 6,
+    detail: {
+      user_id: 6,
+      firstName: 'Jonas',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 6,
+      role_id: 3,
+      role: {
+        id: 3,
+        name: 'user'
+      }
+    }
+  }, {
+    id: 7,
+    email: 'leon@gmail.com',
+    username: 'leon123',
+    user_role: 7,
+    detail: {
+      user_id: 7,
+      firstName: 'Loen',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 7,
+      role_id: 3,
+      role: {
+        id: 3,
+        name: 'user'
+      }
+    }
+  }, {
+    id: 8,
+    email: 'anna@gmail.com',
+    username: 'anna123',
+    user_role: 8,
+    detail: {
+      user_id: 8,
+      firstName: 'Anna',
+      lastName: 'Joe',
+    },
+    user_role: {
+      id: 8,
+      role_id: 3,
+      role: {
+        id: 3,
+        name: 'user'
+      }
+    }
+  }, 
+]
 
 export const vouchers = [
   {
@@ -81,7 +229,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'
@@ -131,7 +279,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'
@@ -181,7 +329,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'
@@ -231,7 +379,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'
@@ -281,7 +429,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'
@@ -331,7 +479,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'
@@ -381,7 +529,7 @@ export const vouchers = [
       user: {
         id: 2,
         detail: {
-          fristName: 'Chris',
+          firstName: 'Chris',
           lastName: 'Joe',
           address: 'Germany',
           region: 'X'

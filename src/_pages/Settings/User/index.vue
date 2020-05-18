@@ -6,6 +6,9 @@
           label="Global Settings"
         />
       </div>
+      <div class="font-semibold text-lg px-2">
+        Username | Company Name
+      </div>
       <PayoutForm />
     </template>
   </MainLayout>

@@ -91,7 +91,7 @@
             this.$emit('onFlip')
             // this.$emit('onSetVoucher', '')
           }   
-        });
+        })
       },
       onDeact(data)
       {

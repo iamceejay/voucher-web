@@ -7,6 +7,7 @@ import ScannerUser from './Modules/ScannerUser/'
 import Cart from './Modules/Cart/'
 import Seller from './Modules/Seller/'
 import Wallet from './Modules/Wallet/'
+import User from './Modules/User/'
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     Cart,
     Seller,
     Wallet,
+    User,
   }
 })

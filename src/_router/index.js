@@ -33,6 +33,7 @@ import VoucherPersonalized from '_pages/Vouchers/Personalized/'
 import SellerDetail from '_pages/Seller/Detail/'
 import VoucherManageFeature from '_pages/Vouchers/ManageFeature/'
 import Settings from '_pages/Settings/'
+import SettingUser from '_pages/Settings/User/'
 import Category from '_pages/Category/'
 import Payout from '_pages/Payout/'
 import Template from '_pages/Template/'
@@ -231,6 +232,13 @@ const router = new Router({
       path: '/settings', 
       name: 'settings', 
       component: Settings,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/settings/user/:id', 
+      name: 'settings-user', 
+      component: SettingUser,
       meta: {
         middleware: [ auth, authAdmin ]
       } 

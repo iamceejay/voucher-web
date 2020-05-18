@@ -42,7 +42,7 @@ export default {
             user: {
               id: 2,
               detail: {
-                fristName: 'Chris',
+                firstName: 'Chris',
                 lastName: 'Joe',
                 address: 'Germany',
                 region: 'X'
@@ -99,7 +99,7 @@ export default {
             user: {
               id: 2,
               detail: {
-                fristName: 'Chris',
+                firstName: 'Chris',
                 lastName: 'Joe',
                 address: 'Germany',
                 region: 'X'
