@@ -24,6 +24,22 @@
           <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" />
         </div>
       </template>
+      <template #photo_="props">
+        <div class="flex justify-center">
+          <img 
+            v-if="props.rowData.photo != ''"
+            style="width: 120px; height: 130px;"
+            :src="props.rowData.photo" 
+            alt=""
+          />
+          <img 
+            v-else
+            style="width: 120px; height: 80px;"
+            src="@/_assets/img/no-image-available.jpg" 
+            alt=""
+          />
+        </div>
+      </template>
     </vuetable>
     <Pagination
       ref="pagination"

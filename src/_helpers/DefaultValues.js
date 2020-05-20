@@ -69,6 +69,35 @@ export const categories = [
   },
 ]
 
+export const templates = [
+  {
+    id: 1,
+    name: 'Book',
+    photo: '',
+    status: 1
+  },{
+    id: 2,
+    name: 'Mall',
+    photo: '',
+    status: 1
+  },{
+    id: 3,
+    name: 'Hotel',
+    photo: '',
+    status: 1
+  },{
+    id: 4,
+    name: 'Restaurant',
+    photo: '',
+    status: 1
+  },{
+    id: 5,
+    name: 'Gadgets',
+    photo: '',
+    status: 1
+  },
+]
+
 export const getWeek = [
   'Sunday',
   'Monday',

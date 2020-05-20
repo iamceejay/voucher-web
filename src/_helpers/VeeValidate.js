@@ -9,11 +9,13 @@ import {
   min_value,
   max_value,
   numeric,
+  image,
 } from 'vee-validate/dist/rules';
 
 extend('integer', integer);
 extend('between', between);
 extend('numeric', numeric);
+extend('image', image);
 extend('required', {
   ...required,
   message: 'This field is required.'

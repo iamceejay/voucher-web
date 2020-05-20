@@ -71,7 +71,8 @@
         fields: [
           {
             name: 'sequence_',
-            title: '#',
+            title: '',
+            dataClass: 'text-center'
           }, {
             name: 'label',
             title: 'Category Name',
