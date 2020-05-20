@@ -136,16 +136,16 @@
                   title: 'Payout Management',
                   link: '/payout'
                 }, {
-                  title: 'Add/Edit Categories',
+                  title: 'Categories',
                   link: '/category'
                 }, {
-                  title: 'Add/Edit Templates (BG Images)',
+                  title: 'Templates',
                   link: '/template'
                 }, {
                   title: 'Global Settings',
                   link: '/settings'
                 }, {
-                  title: 'Add Featured Vouchers',
+                  title: 'Featured Vouchers',
                   link: '/featured-vouchers'
                 }, 
               ]
