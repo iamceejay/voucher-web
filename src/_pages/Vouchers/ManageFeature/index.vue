@@ -21,20 +21,13 @@
         >
           <template #customActions="props">
             <div class="flex flex-row justify-center">
-              <!-- <a 
-                class="text-xs text-indigo-500 underline text-center mx-2" 
-                href="javascript:void(0)"
-                @click="onEdit(props.data)"
-              >
-                <i class="fas fa-pen" />
-              </a>
               <a 
-                class="text-xs text-red-900 underline text-center mx-2" 
+                class="text-lg text-red-900 underline text-center mx-2" 
                 href="javascript:void(0)"
-                @click="onDelete(props.data)"
+                @click="onChange(props.data)"
               >
-                <i class="fas fa-trash" />
-              </a> -->
+                <i :class="`${ props.data.isFeatured ? 'fas' : 'far' } fa-check-circle`" />
+              </a>
             </div>
           </template>
         </Table>
@@ -68,7 +61,7 @@
             title: '',
             dataClass: 'text-center'
           }, {
-            name: 'name',
+            name: 'voucher_',
             title: 'Voucher Name',
           }, {
             name: 'actions',
@@ -102,11 +95,11 @@
         // this.onShowModal = !this.onShowModal
         // this.voucher = data
       },
-      async onDelete(data)
+      async onChange(data)
       {
         this.$swal({
-          title: 'Delete Feature',
-          text: `Are you sure you want to delete this featured voucher?`,
+          title: `Featured Voucher`,
+          text: `Are you sure you want to ${ data.isFeatured ? 'remove' : 'add' } this to featured vouchers?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -114,11 +107,17 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.dispatch('DELETE_CATEGORY', data)
+            const newData = this.VOUCHERS.map( row => {
+              if( row.id == data.id ) {
+                row.isFeatured = !row.isFeatured
+              }
+              return row
+            })
+            await this.$store.commit('SET_VOUCHERS', newData)
             this.$swal({
               icon: 'success',
               title: 'Successful!',
-              text: 'Deleting the featured voucher.',
+              text: `${ !data.isFeatured ? 'Removing' : 'Adding' } from the featured voucher.`,
               confirmButtonColor: '#6C757D',
             })
           }   

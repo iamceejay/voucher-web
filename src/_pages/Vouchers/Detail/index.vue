@@ -23,7 +23,10 @@
             />
           </router-link>
         </div>
-        <ValidationObserver v-slot="{ handleSubmit, invalid }">
+        <ValidationObserver
+          v-if="role != 'admin'"
+          v-slot="{ handleSubmit, invalid }"
+        >
           <form 
             class="flex flex-col w-full mt-8"
             @submit.prevent="handleSubmit(onSubmit(invalid))"
@@ -76,6 +79,7 @@
     },
     data() {
       return {
+        role: null,
         voucher: null,
         voucherForm: {
           id: null,
@@ -109,6 +113,7 @@
       }
     },
     mounted() {
+      this.onSetRole()
       this.onFetchVoucher()
     },
     methods: {
@@ -177,6 +182,11 @@
       {
         this.voucher = this.VOUCHERS.filter( vouch => vouch.id == this.$route.params.id )[0]
         this.symbol = this.voucher.isQuantityBased ? 'x' : '€'
+      },
+      onSetRole() {
+        if (this.AUTH_USER?.data?.user_role) {
+          this.role = this.AUTH_USER.data.user_role.role.name;
+        }
       }
     }
   }

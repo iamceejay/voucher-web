@@ -128,7 +128,11 @@
             this.$router.push(`/vouchers/${this.data.id}`)
           }
         } else {
-          this.$emit('onFlip')
+          if( this.role == 'admin' ) {
+            this.$router.push(`/vouchers/${this.data.id}`)
+          } else {
+            this.$emit('onFlip')
+          }
         }
       },
       onSetRole()

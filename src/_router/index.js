@@ -198,7 +198,7 @@ const router = new Router({
       name: 'vouchers-detail', 
       component: VoucherDetail,
       meta: {
-        middleware: [ auth, authUser ]
+        middleware: [ auth, authUser, authAdmin ]
       } 
     },{ 
       path: '/vouchers/personalized/:id', 
@@ -212,7 +212,7 @@ const router = new Router({
       name: 'seller-detail', 
       component: SellerDetail,
       meta: {
-        middleware: [ auth, authUser ]
+        middleware: [ auth, authUser, authAdmin ]
       } 
     },{ 
       path: '/payment', 
