@@ -64,6 +64,9 @@
             name: 'voucher_',
             title: 'Voucher Name',
           }, {
+            name: 'voucher_feature_',
+            title: 'Status',
+          }, {
             name: 'actions',
             title: 'Actions',
           }
@@ -98,7 +101,7 @@
       async onChange(data)
       {
         this.$swal({
-          title: `Featured Voucher`,
+          title: `${ data.isFeatured ? 'Removing' : 'Adding' } Featured Voucher`,
           text: `Are you sure you want to ${ data.isFeatured ? 'remove' : 'add' } this to featured vouchers?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',

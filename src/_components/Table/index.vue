@@ -24,6 +24,11 @@
           <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" />
         </div>
       </template>
+      <template #voucher_feature_="props">
+        <span class="flex justify-center">
+          {{ props.rowData.isFeatured ? 'Featured' : 'Not Featured' }} 
+        </span>
+      </template>
       <template #voucher_="props">
         <div class="flex">
           <router-link :to="`/vouchers/${props.rowData.id}`">
