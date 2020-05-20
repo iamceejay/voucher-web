@@ -40,6 +40,35 @@ export const getAllMonths = [
   },
 ]
 
+export const categories = [
+  {
+    id: 1,
+    label: 'Book',
+    icon: 'fa-book',
+    status: 1
+  },{
+    id: 2,
+    label: 'Mall',
+    icon: 'fa-building',
+    status: 1
+  },{
+    id: 3,
+    label: 'Hotel',
+    icon: 'fa-building',
+    status: 1
+  },{
+    id: 4,
+    label: 'Restaurant',
+    icon: 'fa-building',
+    status: 1
+  },{
+    id: 5,
+    label: 'Gadgets',
+    icon: 'fa-mobile',
+    status: 1
+  },
+]
+
 export const getWeek = [
   'Sunday',
   'Monday',

@@ -13,6 +13,17 @@
       <template #actions="props">
         <slot name="customActions" :data="props.rowData" />
       </template>
+      <template #sequence_="props">
+        {{ props.rowIndex + 1 }}
+      </template>
+      <template #icon_="props">
+        <div class="flex">
+          <span>
+            {{ props.rowData.icon }} 
+          </span>
+          <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" />
+        </div>
+      </template>
     </vuetable>
     <Pagination
       ref="pagination"

@@ -4,37 +4,11 @@ import moment from 'moment'
 
 export default {
   state: () => ({
-    categories: [
-      {
-        id: 1,
-        label: 'Book',
-        icon: 'fa-book'
-      },{
-        id: 2,
-        label: 'Mall',
-        icon: 'fa-building'
-      },{
-        id: 3,
-        label: 'Hotel',
-        icon: 'fa-building'
-      },{
-        id: 4,
-        label: 'Restaurant',
-        icon: 'fa-building'
-      },{
-        id: 5,
-        label: 'Gadgets',
-        icon: 'fa-mobile'
-      },
-    ],
     vouchers
   }),
   getters: {
     VOUCHERS(state) {
       return state.vouchers;
-    },
-    CATEGORIES(state) {
-      return state.categories;
     },
   },
   mutations: {

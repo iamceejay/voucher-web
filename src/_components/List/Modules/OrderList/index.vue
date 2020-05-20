@@ -54,7 +54,7 @@
 </template>
 <script>
   import Button from '_components/Button/'
-  import RevokeVoucherModal from '_components/Modals/RevokeVoucherModal'
+  import RevokeVoucherModal from '_components/Modals/Modules/RevokeVoucherModal'
 
   export default {
     components: {
