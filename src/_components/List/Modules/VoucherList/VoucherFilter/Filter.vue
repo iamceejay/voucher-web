@@ -38,7 +38,7 @@
       />
     </div>
     <div class="flex flex-col md:flex-row">
-      <CheckboxField
+      <MultipleCheckboxField
         v-if="isCategory"
         label="Select categories: "
         class="mx-2 mr-5"
@@ -100,7 +100,7 @@
   </div>
 </template>
 <script>
-  import CheckboxField from '_components/Form/CheckboxField'
+  import MultipleCheckboxField from '_components/Form/MultipleCheckboxField'
   import Button from '_components/Button/'
   import Header4 from '_components/Headers/Header4';
   import Header5 from '_components/Headers/Header5';
@@ -111,7 +111,7 @@
       Button,
       Header4,
       Header5,
-      CheckboxField,
+      MultipleCheckboxField,
       InputField,
     },
     props: {

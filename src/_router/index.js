@@ -11,6 +11,8 @@ import authSSU from './_middleware/authSSU'
 import middlewarePipeline from './_middleware/middlewarePipeline'
 import Login from '_pages/Login/'
 import Register from '_pages/Register/'
+import RegisterSeller from '_pages/Register/Seller/'
+import RegisterBuyer from '_pages/Register/Buyer/'
 import Home from '_pages/Home/'
 import Vouchers from '_pages/Vouchers/'
 import NewVoucher from '_pages/Vouchers/New/'
@@ -65,6 +67,20 @@ const router = new Router({
       path: '/register', 
       name: 'register', 
       component: Register,
+      meta: {
+        middleware: [ guest ]
+      } 
+    },{ 
+      path: '/register/seller', 
+      name: 'register-seller', 
+      component: RegisterSeller,
+      meta: {
+        middleware: [ guest ]
+      } 
+    },{ 
+      path: '/register/buyer', 
+      name: 'register-buyer', 
+      component: RegisterBuyer,
       meta: {
         middleware: [ guest ]
       } 

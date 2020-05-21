@@ -2,15 +2,19 @@
   <div class="flex flex-col w-full">
     <InputField
       id="iban"
+      v-model="form.iban"
       type="text"
       class="m-2"
       label="IBAN"
+      rules="required"
     />
     <InputField
       id="bic"
+      v-model="form.bic"
       type="text"
       class="m-2"
       label="BIC"
+      rules="required"
     />
   </div>
 </template>
@@ -25,7 +29,11 @@
     },
     data() {
       return {
-      };
+        form: {
+          iban: '',
+          bic: ''
+        }
+      }
     },
     mounted() {
     },

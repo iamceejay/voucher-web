@@ -77,7 +77,7 @@
               :options="CATEGORIES"
               rules="required"
             />
-            <CheckboxField
+            <MultipleCheckboxField
               label="Valid on following days"
               class="mx-2"
               name="validDay"
@@ -184,7 +184,7 @@
   import Button from '_components/Button'
   import TextAreaField from '_components/Form/TextAreaField'
   import SelectField from '_components/Form/SelectField'
-  import CheckboxField from '_components/Form/CheckboxField'
+  import MultipleCheckboxField from '_components/Form/MultipleCheckboxField'
   import { Material } from 'vue-color'
   import { ToggleButton } from 'vue-js-toggle-button'
   import 'vue2-datepicker/index.css'
@@ -201,7 +201,7 @@
       TextAreaField,
       TextAreaField,
       SelectField,
-      CheckboxField,
+      MultipleCheckboxField,
     },
     props: {
       data: {

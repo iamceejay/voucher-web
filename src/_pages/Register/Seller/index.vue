@@ -1,44 +1,43 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full h-full items-center justify-center">
-        <Header1
-          label="Register as"
+      <div class="flex flex-col w-full h-full">
+        <RegisterStep1 
+          v-if="step == 1"
+          @onChangeStep="onChangeStep"
         />
-        <Button
-          class="w-full justify-center my-2"
-          label="Buyer"
-          size="w-full sm:w-1/2 py-3"
-          round="rounded-full"
-          @onClick="$router.push('/register/buyer')"
+        <RegisterStep2 
+          v-if="step == 2"
+          @onChangeStep="onChangeStep"
         />
-        <Button
-          class="w-full justify-center my-2"
-          label="Seller"
-          size="w-full sm:w-1/2 py-3"
-          round="rounded-full"
-          @onClick="$router.push('/register/seller')"
+        <RegisterStep3 
+          v-if="step == 3"
+          @onChangeStep="onChangeStep"
         />
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import MainLayout from '_layouts';
-  import Button from '_components/Button';
-  import Header1 from '_components/Headers/Header1';
+  import MainLayout from '_layouts'
+  import Button from '_components/Button'
+  import RegisterStep1 from '_components/Modules/Register/Seller/Step1/'
+  import RegisterStep2 from '_components/Modules/Register/Seller/Step2/'
+  import RegisterStep3 from '_components/Modules/Register/Seller/Step3/'
 
   export default {
     name: 'Register',
     components: {
       MainLayout,
-      Button,
-      Header1
+      RegisterStep1,
+      RegisterStep2,
+      RegisterStep3,
     },
     data() {
       return {
         role: null,
-        submitting: false
+        submitting: false,
+        step: 1
       }
     },
     computed: {
@@ -57,6 +56,10 @@
       this.onSetRole()
     },
     methods: {
+      onChangeStep( step )
+      {
+        this.step = step
+      },
       onSubmit( isValid )
       {
         if( !isValid ) {

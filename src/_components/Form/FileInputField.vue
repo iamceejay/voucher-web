@@ -2,7 +2,7 @@
   <div 
     id="input-field-component" 
     :key="`file-input-${fileIndex}`" 
-    class="mb-5"
+    class="mb-5 text-sm"
   >
     <ValidationProvider 
       ref="provider"
@@ -21,7 +21,7 @@
           {{ note }}
         </span>
         <label 
-          class="file-select flex w-full mt-2 px-3 rounded-full text-sm font-semibold font-body justify-center"
+          class="file-select flex w-full mt-2 px-3 rounded-full font-semibold font-body justify-center"
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
         >
           <span v-if="!isMultiple">

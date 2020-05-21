@@ -69,6 +69,22 @@ export const categories = [
   },
 ]
 
+export const regions = [
+  {
+    id: 1,
+    label: 'Oberland',
+    status: 1
+  }, {
+    id: 2,
+    label: 'Innsbruck und Umgebung',
+    status: 1
+  }, {
+    id: 3,
+    label: 'Unterland',
+    status: 1
+  }, 
+]
+
 export const templates = [
   {
     id: 1,

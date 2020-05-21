@@ -1,27 +1,35 @@
 <template>
-  <div id="input-field-component" class="mb-5">
-    <Header5
-      v-if="label != ''"
-      :label="label"
-    />
-    <div
-      v-for="(row, index) in options"
-      :key="`${row}-${index}`"
-      class=" flex items-center mx-2"
+  <div 
+    id="input-checkbox-component"
+    :class="[ container ]"
+  >
+    <ValidationProvider 
+      :name="id" 
+      :rules="rules"
     >
-      <input
-        :id="`${row}-${index}`"
-        v-model="checkboxValue"
-        :name="name"
-        :value="row"
-        type="checkbox"
-        @change="onUpdateField()"
-      />
-      <label class="text-xs p-1 font-bold text-gray-900 font-body">
-        {{ limitLabel > 0 ? row.substring(0,limitLabel) : row }}
-      </label>
-    </div>
-    <ErrorMessage :errors="errors" />
+      <template #default="{ errors }">
+        <Header5
+          v-if="label != ''"
+          :label="label"
+        />
+        <div class=" flex items-center mx-2">
+          <input
+            :id="id"
+            :name="id"
+            :value="value"
+            type="checkbox"
+            @change="onUpdateField"
+          />
+          <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+            {{ limitLabel > 0 ? labelSentence.substring(0,limitLabel) : labelSentence }}
+          </label>
+        </div>
+        <ErrorMessage 
+          class="mx-2" 
+          :errors="[...errors, ...errorMessages]"
+        />
+      </template>
+    </ValidationProvider>
   </div>
 </template>
 <script>
@@ -46,12 +54,18 @@
       }, label: {
         type: String,
         default: ''
-      }, value: {
+      }, labelSentence: {
         type: String,
         default: ''
+      }, value: {
+        type: Boolean,
+        default: false
       }, limitLabel: {
         type: Number,
         default: 0
+      }, container: {
+        type: String,
+        default: 'mb-5'
       }, data: {
         type: Array,
         default() {
@@ -62,7 +76,10 @@
         default() {
           return []
         }
-      }, errors: {
+      }, rules: {
+        type: [String, Object],
+        default: null
+      }, errorMessages: {
         type: Array,
         default() {
           return []
@@ -71,20 +88,21 @@
     },
     data() {
       return {
-        checkboxValue: []
+        checkboxValue: false
       }
     },
     watch: {
       data() {
-        this.checkboxValue = this.data
+        // this.checkboxValue = this.value
       }
     },
     mounted() {
-      this.checkboxValue = this.data
+      // this.checkboxValue = this.value
     },
     methods: {
-      onUpdateField() {
-        this.$emit('onChange', this.checkboxValue);
+      onUpdateField( e ) {
+        this.$emit('input', e.target.value);
+        // this.$emit('onChange', this.checkboxValue);
       }
     }
   }

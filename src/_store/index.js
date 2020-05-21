@@ -10,6 +10,7 @@ import Wallet from './Modules/Wallet/'
 import User from './Modules/User/'
 import Category from './Modules/Category/'
 import Template from './Modules/Template/'
+import Region from './Modules/Region/'
 
 Vue.use(Vuex);
 
@@ -24,5 +25,6 @@ export default new Vuex.Store({
     User,
     Category,
     Template,
+    Region,
   }
 })

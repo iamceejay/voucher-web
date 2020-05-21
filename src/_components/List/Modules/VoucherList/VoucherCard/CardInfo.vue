@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col px-4 py-3">
     <div class="card-header">
       <div 
-        class="flex flex-col cursor-pointer"
+        :class="`flex flex-col ${ role ? 'cursor-pointer' : '' }`"
         @click="onClickHeader()"
       >
         <div class="text-base font-bold font-display">
@@ -121,17 +121,19 @@
     methods: {
       onClickHeader()
       {
-        if( this.role === 'user' ) {
-          if( this.withQR ) {
-            this.$emit('onFlip')
+        if( this.role ) {
+          if( this.role === 'user' ) {
+            if( this.withQR ) {
+              this.$emit('onFlip')
+            } else {
+              this.$router.push(`/vouchers/${this.data.id}`)
+            }
           } else {
-            this.$router.push(`/vouchers/${this.data.id}`)
-          }
-        } else {
-          if( this.role == 'admin' ) {
-            this.$router.push(`/vouchers/${this.data.id}`)
-          } else {
-            this.$emit('onFlip')
+            if( this.role == 'admin' ) {
+              this.$router.push(`/vouchers/${this.data.id}`)
+            } else {
+              this.$emit('onFlip')
+            }
           }
         }
       },

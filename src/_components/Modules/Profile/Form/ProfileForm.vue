@@ -42,6 +42,14 @@
       label="Password"
       rules="required"
     />
+    <InputField
+      id="confirm_password"
+      v-model="profileForm.confirm_password"
+      type="password"
+      class="m-2"
+      label="Repeat Password"
+      rules="required"
+    />
   </div>
 </template>
 <script>
@@ -61,6 +69,7 @@
           surname: '',
           email: '',
           password: '',
+          confirm_password: '',
         }
       }
     },

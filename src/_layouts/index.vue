@@ -8,7 +8,7 @@
     />
     <div class="w-full flex">
       <div :class="`main-container py-16 px-8 ${isHideSideBar ? 'hide h-screen' : ''}`">
-        <div :class="`${isHideSideBar ? 'hide' : ''}`">
+        <div :class="`flex flex-col h-full w-full ${isHideSideBar ? 'hide' : ''}`">
           <router-link 
             v-if="role === 'user'"
             class="cart-icon relative"
