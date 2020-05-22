@@ -3,7 +3,8 @@
     <Header1
       label="Orders"
     />
-    <OrderList 
+    <OrderList
+      :isInvoice="true"
       :data="orders"
     />
   </div>

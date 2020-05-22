@@ -16,7 +16,7 @@
               User: {{ row.user }}
             </div>
             <div>{{ row.date }}</div>
-            <div v-if="role == 'user'">
+            <div v-if="role == 'user' || isInvoice">
               <a 
                 id="link" 
                 href="file.txt" 
@@ -36,7 +36,7 @@
           </div>
         </div>
         <Button
-          v-if="role == 'seller'"
+          v-if="role == 'seller' && !isInvoice"
           class="py-2 mt-3"
           label="Revoke redemption"
           size="w-full py-3"
@@ -67,10 +67,12 @@
         default() {
           return []
         }
-      },
-      role: {
+      }, role: {
         type: String,
         default: 'seller'
+      }, isInvoice: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
