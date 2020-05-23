@@ -1,41 +1,107 @@
-import { post, get } from '_helpers/ApiService'
+import { post, get, put } from '_helpers/ApiService'
 import { vouchers } from '_helpers/DefaultValues'
 import moment from 'moment'
 
+const prefix = 'voucher'
+
 export default {
   state: () => ({
-    vouchers
+    voucher: null,
+    vouchers: [],
+    featuredVouchers: [],
+    newestVouchers: [],
   }),
   getters: {
+    VOUCHER(state) {
+      return state.voucher;
+    },
     VOUCHERS(state) {
       return state.vouchers;
     },
+    FEATURED_VOUCHERS(state) {
+      return state.featuredVouchers;
+    },
+    NEWEST_VOUCHERS(state) {
+      return state.newestVouchers;
+    },
   },
   mutations: {
+    SET_VOUCHER(state, payload) {
+      state.voucher = payload;
+    },
     SET_VOUCHERS(state, payload) {
       state.vouchers = payload;
     },
+    SET_FEATURED_VOUCHERS(state, payload) {
+      state.featuredVouchers = payload;
+    },
+    SET_NEWEST_VOUCHERS(state, payload) {
+      state.newestVouchers = payload;
+    },
   },
   actions: {
-    ADD_VOUCHER( { commit, state }, payload )
+    async FETCH_VOUCHER( { commit, state }, payload )
     {
-      commit('SET_VOUCHERS', [
+      try {
+        const { data } = await get(`${prefix}/${payload}`, {})
+        await commit('SET_VOUCHER', data.voucher)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
+    async FETCH_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}`, {
+          paginate: 15,
+          ...payload
+        })
+        await commit('SET_VOUCHERS', data.vouchers)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
+    async FETCH_FEATURED_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}`, {
+          paginate: 10,
+          featured: true
+        })
+        await commit('SET_FEATURED_VOUCHERS', data.vouchers)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
+    async FETCH_NEWEST_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}`, {
+          paginate: 10,
+          newest: true
+        })
+        await commit('SET_NEWEST_VOUCHERS', data.vouchers)
+        console.log('SET_NEWEST_VOUCHERS', data.vouchers)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
+    async ADD_VOUCHER( { commit, state }, payload )
+    {
+      const { data } = await post(`${prefix}`, payload)
+      await commit('SET_VOUCHERS', [
         ...state.vouchers,
-        {
-          ...payload,
-          id: state.vouchers.length + 1,
-        }
+        data.voucher,
       ])
     },
-    UPDATE_VOUCHER( { commit, state }, payload )
+    async UPDATE_VOUCHER( { commit, state }, payload )
     {
-      const newList = state.vouchers.map( vouch => {
-        if(vouch.id == payload.id) {
-          vouch = payload
-        }
-        return vouch
-      });
-      commit('SET_VOUCHERS', newList)
+      const { data } = await put(`${prefix}/${payload.id}`, payload)
+      return data
     },
     DEACTIVATE_VOUCHER( { commit, state }, payload )
     {

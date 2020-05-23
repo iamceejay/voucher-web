@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <Header1
       label="Vouchers"
     />
     <VoucherList
       class="mb-3"
-      :data="VOUCHERS"
+      :data="VOUCHERS.data"
       :withQR="false"
     />
   </div>
@@ -28,10 +28,24 @@
       {
         return this.$store.getters.VOUCHERS
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
-    mounted() {
+    created() {
+      (async() => {
+        console.log('test guest')
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchVouchers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
+      async onFetchVouchers()
+      {
+        await this.$store.dispatch('FETCH_VOUCHERS')
+      },
     }
   }
 </script>

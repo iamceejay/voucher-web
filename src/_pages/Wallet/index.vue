@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="My Wallet"
         />
@@ -14,7 +14,7 @@
         <CartList
           class="mb-3"
           :role="role"
-          :data="WALLETS"
+          :data="WALLETS.data"
           :isCart="false"
           :withQR="true"
         />
@@ -49,6 +49,10 @@
       {
         return this.$store.getters.WALLETS
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      }
     },
     watch: {
       AUTH_USER(newVal) {
@@ -56,14 +60,25 @@
       }
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onSetRole()
+        await this.onFetchWallets()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
+      async onFetchWallets()
+      {
+        await this.$store.dispatch('FETCH_WALLETS', {
+          user_id: this.AUTH_USER.data.id
+        })
+      },
       onSetRole() {
         if (this.AUTH_USER?.data?.user_role) {
           this.role = this.AUTH_USER.data.user_role.role.name;
         }
-      }
+      },
     }
   }
 </script>

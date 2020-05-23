@@ -20,13 +20,13 @@
           <div class="flex flex-row">
             <span class="text-sm font-bold">
               {{ 
-                row.voucher.isQuantityBased 
+                (row.voucher.type == 'quantity') 
                   ? 'Price per voucher: ' 
                   : 'Quantity: '
               }}
             </span>
             <span class="text-sm font-semibold ml-2">
-              {{ `${onGetSymbol(row.voucher.isQuantityBased)} ${row.value}` }}
+              {{ `${onGetSymbol(row.voucher.type)} ${ (row.voucher.type == 'quantity') ? row.qty : row.value}` }}
             </span>
           </div>
           <div v-if="isCart" class="flex flex-row">
@@ -134,13 +134,13 @@
       onGetTotal(data)
       {
         let value = parseFloat(data.value)
-        let itemValue = parseFloat( data.isQuantityBased ? data.voucher.quantity : data.voucher.value )
+        let itemValue = parseFloat( (data.type == 'quantity') ? data.voucher.qty : data.voucher.value )
         const total = value * itemValue
         return total
       },
-      onGetSymbol(isQuantityBased)
+      onGetSymbol(type)
       {
-        return isQuantityBased ? '€' : 'x'
+        return type == 'quantity' ? '€' : 'x'
       }
     }
   }

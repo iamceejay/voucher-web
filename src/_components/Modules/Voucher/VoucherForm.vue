@@ -6,7 +6,7 @@
     >
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
-          :data="voucherForm"
+          :data="form"
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">
@@ -24,8 +24,7 @@
             </span>
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
-                v-model="voucherForm.bg"
-                @input="onChangeBgColor"
+                @input="onPickColor"
               />
             </div>
           </div>
@@ -49,14 +48,15 @@
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
-              v-model="voucherForm.isDarkText"
+              :value="(form.text_color == 'dark') ? true : false"
+              @change="onChangeTextColor"
             />
             <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Light / Dark Text</span>
           </div>
           <div class="w-full">
             <InputField
-              id="name"
-              v-model="voucherForm.name"
+              id="title"
+              v-model="form.title"
               type="text"
               class="px-2 w-full md:w-1/2"
               placeholder="Voucher Title"
@@ -64,27 +64,27 @@
             />
             <TextAreaField
               id="description"
-              v-model="voucherForm.description"
+              v-model="form.description"
               class="px-2 w-full md:w-1/2"
               placeholder="Voucher Description"
               rules="required|max:250"
             />
             <SelectField
               id="category"
-              v-model="voucherForm.category"
+              v-model="form.category"
               class="px-2 py-1 w-full md:w-1/2"
               label="Category"
-              :options="CATEGORIES"
+              :options="categories"
               rules="required"
             />
             <MultipleCheckboxField
               label="Valid on following days"
               class="mx-2"
-              name="validDay"
+              name="valid_day"
               :options="week"
-              :data="voucherForm.validDay"
+              :data="form.valid_day"
               :limitLabel="3"
-              @onChange="voucherForm.validDay = $event"
+              @onChange="form.valid_day = $event"
             />
             <div class="w-full md:w-1/2 mb-5">
               <div class="flex flex-row">
@@ -92,7 +92,7 @@
                   Valid from ... to ...
                 </label>
                 <a 
-                  v-if="voucherForm.validDates.length < 4"
+                  v-if="form.valid_date.length < 4"
                   href="javascript:void(0)"
                   class="ml-2"
                   @click="onActionDate('add')"
@@ -101,24 +101,24 @@
                 </a>
               </div>
               <div
-                v-for="(date, index) in voucherForm.validDates"
+                v-for="(date, index) in form.valid_date"
                 :key="`date-${index}`"
                 class="flex flex-row"
               >
                 <div class="flex flex-row w-11/12">
                   <DatePickerField
-                    v-model="voucherForm.validDates[index].start"
+                    v-model="form.valid_date[index].start"
                     class="m-1 w-1/2"
                     rules="required"
                   />
                   <DatePickerField
-                    v-model="voucherForm.validDates[index].end"
+                    v-model="form.valid_date[index].end"
                     class="m-1 w-1/2"
                     rules="required"
                   />
                 </div>
                 <a 
-                  v-if="voucherForm.validDates.length > 1"
+                  v-if="form.valid_date.length > 1"
                   href="javascript:void(0)"
                   class="flex mt-6 w-1/12 justify-center"
                   @click="onActionDate('delete', index)"
@@ -131,17 +131,19 @@
               <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
                 Voucher Type
               </label>
+              {{ form.type }}
               <div class="mx-2 mt-2 w-full flex flex-row">
-                <toggle-button 
-                  v-model="voucherForm.isQuantityBased"
+                <toggle-button
+                  :value="(form.type != 'quantity') ? true : false"
+                  @change="onChangeType"
                 />
                 <span class="ml-2 text-sm font-bold text-gray-900 font-body">Value based / Quantity based</span>
               </div>
             </div>
             <InputField
-              v-if="voucherForm.isQuantityBased"
-              id="isQuantityBased"
-              v-model="voucherForm.value"
+              v-if="form.type == 'quantity'"
+              id="type"
+              v-model="form.qty_val"
               type="text"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Value"
@@ -149,7 +151,7 @@
             />
             <InputField
               id="min"
-              v-model="voucherForm.minQuantity"
+              v-model="form.min"
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Minimum Value / Quantity"
@@ -158,7 +160,7 @@
             />
             <InputField
               id="max"
-              v-model="voucherForm.maxQuantity"
+              v-model="form.max"
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Maximum Value / Quantity"
@@ -213,40 +215,41 @@
     },
     data() {
       return {
-        voucherForm: {
-          name: '',
-          companyName: 'Company Name',
+        categories: [],
+        form: {
+          id: null,
+          voucher_category_id: null,
+          seller_id: null,
+          title: '',
           description: '',
-          bg: {
-            hex: '#fff',
-            rgb: { 
-              r: 255, 
-              g: 255, 
-              b: 255 
-            }
-          },
-          bgColor: '',
-          bgImage: '',
-          isDarkText: true,
-          validDay: [],
-          validDates: [
+          background_color: '#fff',
+          text_color: 'dark',
+          background_image: '',
+          valid_day: [],
+          valid_date: [
             {
               start: '2020-05-09',
               end: '2020-05-09',
             }
           ],
           customNote: '',
-          expiryDate: '12.04.2023',
-          isQuantityBased: false,
-          value: 0,
-          minQuantity: 0,
-          maxQuantity: 0,
-          status: true,
+          type: 'value',
+          min: 0,
+          max: 0,
+          qty_val: 0,
+          qty_min: 0,
+          qty_max: 0,
+          val_min: 0,
+          val_max: 0,
         },
         week: getWeek,
       }
     },
     computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
@@ -259,28 +262,56 @@
       }
     },
     mounted() {
+      this.categories = this.CATEGORIES.map( row => {
+        return {
+          id: row.id,
+          label: row.name,
+        }
+      })
       this.onSetForm()
     },
     methods: {
-      onSubmit( invalid )
+      async onSubmit( invalid )
       {
         if( !invalid ) {
-          this.voucherForm.bgColor = this.voucherForm.bg.hex
-          const url = this.voucherForm.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER'
-          this.$store.dispatch(url, this.voucherForm)
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: `${this.voucherForm.id ? 'Updating' : 'Adding'} new voucher.`,
-            confirmButtonColor: '#6C757D',
-          });
-          this.onResetForm()
-          this.$router.push('/vouchers')
+          try {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            this.form.seller_id = this.AUTH_USER.data.id
+            this.form.voucher_category_id = this.form.category.id
+            if( this.form.type == 'value' ) {
+              this.form.val_min = this.form.min
+              this.form.val_max = this.form.max
+            } else {
+              this.form.qty_min = this.form.min
+              this.form.qty_max = this.form.max
+            }
+            const url = this.form.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER'
+            await this.$store.dispatch(url, this.form)
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
+              confirmButtonColor: '#6C757D',
+            });
+            this.onResetForm()
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$router.push('/vouchers')
+          } catch (err) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
         }
       },
-      onChangeBgColor( { hex } )
+      onChangeTextColor(e)
       {
-        this.voucherForm.bgColor = hex
+        this.form.text_color = e.value ? 'dark' : 'light'
+      },
+      onChangeType(e)
+      {
+        this.form.type = e.value ? 'quantity' : 'value'
+      },
+      onPickColor( { hex } )
+      {
+        this.form.background_color = hex
       },
       onChangeBgImg(data)
       {
@@ -288,62 +319,73 @@
           let reader = new FileReader();
           reader.readAsDataURL(data[0].file);
           reader.onload = () => {
-            this.voucherForm.bgImage = reader.result
+            this.form.background_image = reader.result
           }
         } else {
-          this.voucherForm.bgImage = ''
+          this.form.background_image = ''
         }
       },
       onActionDate( action, index = null )
       {
         if( action === 'add' ) {
-          this.voucherForm.validDates.push({
+          this.form.valid_date.push({
             start: '',
             end: '',
           })
         } else {
-          this.voucherForm.validDates = this.voucherForm.validDates.filter( (date, i) => i != index)
+          this.form.valid_date = this.form.valid_date.filter( (date, i) => i != index)
         }
       },
       onSetForm()
       {
         if(this.data?.id) {
-          console.log('this.data', this.data)
-          this.voucherForm = {
-            ...this.voucherForm,
-            ...this.data,
+          this.form = {
+            id: this.data.id,
+            title: this.data.title,
+            description: this.data.description,
+            min: (this.data.type == 'quantity') ? this.data.qty_min : this.data.val_min,
+            max: (this.data.type == 'quantity') ? this.data.qty_max : this.data.val_max,
+            qty_val: this.data.qty_val,
+            valid_date: this.data.valid_date,
+            valid_day: this.data.valid_day,
+            type: this.data.type,
+            category: {
+              id: this.data.voucher_category.id,
+              label: this.data.voucher_category.name
+            },
+            text_color: this.data.text_color,
+            background_color: this.data.background_color,
+            background_image: this.data.background_image,
           }
         }
       },
       onResetForm()
       {
-        this.voucherForm = {
-          name: '',
-          companyName: 'Company Name',
+        this.form = {
+          id: null,
+          voucher_category_id: null,
+          seller_id: null,
+          title: '',
           description: '',
-          bg: {
-            hex: '#fff',
-            rgb: { 
-              r: 255, 
-              g: 255, 
-              b: 255 
-            }
-          },
-          category: null,
-          bgImage: '',
-          isDarkText: true,
-          validDay: [],
-          validDates: [
+          background_color: '#fff',
+          text_color: 'dark',
+          background_image: '',
+          valid_day: [],
+          valid_date: [
             {
               start: '2020-05-09',
               end: '2020-05-09',
             }
           ],
           customNote: '',
-          expiryDate: '12.04.2023',
-          isQuantityBased: false,
-          value: 15000,
-          quantity: 0
+          type: 'value',
+          min: 0,
+          max: 0,
+          qty_val: 0,
+          qty_min: 0,
+          qty_max: 0,
+          val_min: 0,
+          val_max: 0,
         }
       }
     }

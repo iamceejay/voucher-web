@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <Header1
       :label="`Hi ${ AUTH_USER.data.detail && AUTH_USER.data.detail.firstName }!`"
     />
@@ -13,7 +13,7 @@
     <VoucherList
       class="mb-3"
       title="Featured Vouchers"
-      :data="featuredVouchers"
+      :data="FEATURED_VOUCHERS.data"
       :isInline="true"
       :withQR="false"
     />
@@ -26,7 +26,7 @@
       :withFilter="true"
       class="mb-3"
       title="Vouchers"
-      :data="VOUCHERS"
+      :data="VOUCHERS.data"
       :withQR="false"
     />
   </div>
@@ -46,7 +46,6 @@
     },
     data() {
       return {
-        featuredVouchers: []
       }
     },
     computed: {
@@ -58,19 +57,38 @@
       {
         return this.$store.getters.VOUCHERS
       },
+      FEATURED_VOUCHERS()
+      {
+        return this.$store.getters.FEATURED_VOUCHERS
+      },
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
       }
     },
-    mounted() {
-      this.onFetchFeaturedVouchers()
+    created() {
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchVouchers()
+        await this.onFetchFeaturedVouchers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
-      onFetchFeaturedVouchers()
+      async onFetchVouchers()
       {
-        this.featuredVouchers = this.VOUCHERS.filter( vouch => vouch.isFeatured )
-      }
+        console.log('test 1')
+        await this.$store.dispatch('FETCH_VOUCHERS')
+      },
+      async onFetchFeaturedVouchers()
+      {
+        console.log('test 2')
+        await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
+      },
     }
   }
 </script>

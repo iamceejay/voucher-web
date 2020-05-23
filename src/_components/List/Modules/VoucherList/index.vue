@@ -127,76 +127,76 @@
     methods: {
       onFilter( data )
       {
-        const action = data[0]
-        let value = data.length > 1 ? data[1] : null
-        switch ( action ) {
-          case 'newest':
-            this.isNewest = !this.isNewest
-            this.tempData = this.tempData.sort((a, b) => {
-              a = moment(a.created_at).local()
-              b = moment(b.created_at).local()
-              return !this.isNewest ? (a - b) : (b - a)
-            })
-            break
-          case 'popular':
-            this.isPopular = !this.isPopular
-            this.tempData = this.isPopular 
-              ? this.tempData.filter( row => row.isPopular )
-              : this.data
-            break
-          case 'lowest':
-            this.isLowest = !this.isLowest
-            this.tempData = this.tempData.sort((a, b) => {
-              return !this.isLowest ? (a.value - b.value) : (b.value - a.value)
-            })
-            break
-          case 'category':
-            if( value ) {
+        // const action = data[0]
+        // let value = data.length > 1 ? data[1] : null
+        // switch ( action ) {
+        //   case 'newest':
+        //     this.isNewest = !this.isNewest
+        //     this.tempData = this.tempData.sort((a, b) => {
+        //       a = moment(a.created_at).local()
+        //       b = moment(b.created_at).local()
+        //       return !this.isNewest ? (a - b) : (b - a)
+        //     })
+        //     break
+        //   case 'popular':
+        //     this.isPopular = !this.isPopular
+        //     this.tempData = this.isPopular 
+        //       ? this.tempData.filter( row => row.isPopular )
+        //       : this.data
+        //     break
+        //   case 'lowest':
+        //     this.isLowest = !this.isLowest
+        //     this.tempData = this.tempData.sort((a, b) => {
+        //       return !this.isLowest ? (a.value - b.value) : (b.value - a.value)
+        //     })
+        //     break
+        //   case 'category':
+        //     if( value ) {
 
-            } else {
-              this.isCategory = !this.isCategory
-            }
-            // if( value || this.isPrice ) {
-            //   this.isCategory = true
-            //   this.filterForm.categories = value
-            //   value = value || []
-            //   this.tempData = value.length > 0 || this.isPrice
-            //     ? this.data.filter( row => {
-            //       const priceCon = this.isPrice && this.filterForm.price
-            //         ? row.value >= this.filterForm.price.from && row.value <= this.filterForm.price.to
-            //         : true
-            //       const categCon = value.length > 0 
-            //         ? value.includes(row.category.label)
-            //         : true
-            //       return ( categCon && priceCon)
-            //     })
-            //     : this.data
-            // } else {
-            //   this.filterForm.categories = []
-            //   this.isCategory = !this.isCategory
-            //   this.tempData = this.data
-            // }
-            break
-          case 'region':
-            this.isRegion = !this.isRegion
-            break
-          case 'price':
-            this.isPrice = !this.isPrice
+        //     } else {
+        //       this.isCategory = !this.isCategory
+        //     }
+        //     // if( value || this.isPrice ) {
+        //     //   this.isCategory = true
+        //     //   this.filterForm.categories = value
+        //     //   value = value || []
+        //     //   this.tempData = value.length > 0 || this.isPrice
+        //     //     ? this.data.filter( row => {
+        //     //       const priceCon = this.isPrice && this.filterForm.price
+        //     //         ? row.value >= this.filterForm.price.from && row.value <= this.filterForm.price.to
+        //     //         : true
+        //     //       const categCon = value.length > 0 
+        //     //         ? value.includes(row.category.label)
+        //     //         : true
+        //     //       return ( categCon && priceCon)
+        //     //     })
+        //     //     : this.data
+        //     // } else {
+        //     //   this.filterForm.categories = []
+        //     //   this.isCategory = !this.isCategory
+        //     //   this.tempData = this.data
+        //     // }
+        //     break
+        //   case 'region':
+        //     this.isRegion = !this.isRegion
+        //     break
+        //   case 'price':
+        //     this.isPrice = !this.isPrice
 
-            // if( value ) {
-            //   this.filterForm.price = value
-            //   this.tempData = value
-            //     ? this.data.filter( row => row.value >= value.from && row.value <= value.to )
-            //     : this.data
-            // } else {
-            //   this.filterForm.price = null
-            //   this.isPrice = !this.isPrice
-            //   this.tempData = this.data
-            // }
-            break
-          default:
-            break
-        }
+        //     // if( value ) {
+        //     //   this.filterForm.price = value
+        //     //   this.tempData = value
+        //     //     ? this.data.filter( row => row.value >= value.from && row.value <= value.to )
+        //     //     : this.data
+        //     // } else {
+        //     //   this.filterForm.price = null
+        //     //   this.isPrice = !this.isPrice
+        //     //   this.tempData = this.data
+        //     // }
+        //     break
+        //   default:
+        //     break
+        // }
       }
     }
   }

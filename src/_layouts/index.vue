@@ -45,13 +45,73 @@
       CARTS()
       {
         return this.$store.getters.CARTS
-      }
+      }, 
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      }, 
+      IS_PROCESSING()
+      {
+        return this.$store.getters.IS_PROCESSING
+      }, 
     },
     watch: {
       AUTH_USER(newVal)
       {
         this.onSetRole()
-      }
+      },
+      async IS_LOADING(newVal)
+      {
+        if( newVal.status ) {
+          console.log('newVal', newVal)
+          if( newVal.status == 'close' && newVal.data != null && typeof newVal.data == 'object' ) {
+            await newVal.data.close()
+            await this.$store.commit('SET_IS_LOADING', {
+              status: null,
+              data: null
+            })
+          }
+          if( newVal.status == 'processing' && typeof newVal.data == 'object' ) {
+            await newVal.data.close()
+          } 
+          if( newVal.status == 'open' ) {
+            let processing = this.$swal({
+              title: 'Loading!',
+              text: 'Please wait ...',
+              allowOutsideClick: false,
+              showConfirmButton: false
+            })
+            await this.$store.commit('SET_IS_LOADING', {
+              status: 'processing',
+              data: processing
+            })
+          }
+        }
+      },
+      async IS_PROCESSING(newVal)
+      {
+        if( newVal.status ) {
+          if( newVal.status == 'close' && typeof newVal.data == 'object' ) {
+            await newVal.data.close()
+            await this.$store.commit('SET_IS_PROCESSING', {
+              status: null,
+              data: null
+            })
+          }
+          if( newVal.status == 'open' ) {
+            let processing = this.$swal({
+              title: 'Processing!',
+              text: 'Please wait ...',
+              allowOutsideClick: false,
+              showConfirmButton: false
+            })
+            await this.$store.commit('SET_IS_PROCESSING', {
+              status: 'processing',
+              data: processing
+            })
+          }
+        }
+      },
     },
     mounted() {
       this.onSetRole()

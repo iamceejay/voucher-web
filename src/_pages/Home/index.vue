@@ -1,21 +1,23 @@
 <template>
   <MainLayout>
     <template #content>
-      <GuestHome 
-        v-if="role === null"
-      />
-      <SellerHome 
-        v-if="role === 'seller'"
-      />
-      <UserHome 
-        v-if="role === 'user'"
-      />
-      <ScannerUserHome 
-        v-if="role === 'scanner'"
-      />
-      <AdminHome 
-        v-if="role === 'admin'"
-      />
+      <div v-if="!isLoading" class="flex flex-col w-full">
+        <GuestHome 
+          v-if="role === null"
+        />
+        <SellerHome 
+          v-if="role === 'seller'"
+        />
+        <UserHome 
+          v-if="role === 'user'"
+        />
+        <ScannerUserHome 
+          v-if="role === 'scanner'"
+        />
+        <AdminHome 
+          v-if="role === 'admin'"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>
@@ -39,7 +41,8 @@
     },
     data() {
       return {
-        role: null
+        role: null,
+        isLoading: true,
       }
     },
     computed: {
@@ -49,20 +52,25 @@
       }
     },
     watch: {
-      AUTH_USER(newVal)
+      async AUTH_USER(newVal)
       {
-        this.onSetRole()
+        this.isLoading = true
+        await this.onSetRole()
+        this.isLoading = false
       }
     },
     mounted() {
-      this.onSetRole()
+      (async() => {
+        this.isLoading = true
+        await this.onSetRole()
+        this.isLoading = false
+      })()
     },
     methods: {
-      onSetRole()
+      async onSetRole()
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
-        }
+        let auth = await localStorage.getItem('_auth') 
+        this.role = auth ? JSON.parse(auth).data.user_role.role.name : null
       }
     }
   }

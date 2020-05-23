@@ -1,12 +1,14 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1
-        :label="`${($route.params.id) ? 'Update Voucher' : 'New Voucher'}`"
-      />
-      <VoucherForm 
-        :data="data"
-      />
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+        <Header1
+          :label="`${($route.params.id) ? 'Update Voucher' : 'New Voucher'}`"
+        />
+        <VoucherForm 
+          :data="data"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>
@@ -30,17 +32,30 @@
       VOUCHERS()
       {
         return this.$store.getters.VOUCHERS
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
       }
     },
     mounted() {
-      this.onSetVoucher()
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onSetVoucher()
+        await this.onFetchCategories()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
-      onSetVoucher()
+      async onFetchCategories()
+      {
+        await this.$store.dispatch('FETCH_CATEGORIES')
+      },
+      async onSetVoucher()
       {
         if( this.$route.params.id ) {
-          this.data = this.VOUCHERS.filter( vouch => vouch.id == this.$route.params.id )[0]
-          console.log('this.data', this.data)
+          const { voucher } = await this.$store.dispatch('FETCH_VOUCHER', this.$route.params.id)
+          this.data = voucher
         }
       }
     }

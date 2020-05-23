@@ -3,7 +3,7 @@
     :id="`voucher-card-${ (data && data.id) ? data.id : 0 }`"
     class="flex border border-gray-900 rounded card-container bg-color mb-3 flex-shrink-0 mr-3 mt-3"
     :class="{'flip': isFlip}"
-    :style="{ '--bgColor': data.bgColor }"
+    :style="{ '--bgColor': data.background_color }"
   >
     <CardInfo
       v-if="!isAction"
@@ -68,9 +68,11 @@
       };
     },
     watch: {
-      'data.bgImage'(newVal, oldVal)
+      'data.background_image'(newVal, oldVal)
       {
-        this.onSetBgImage(newVal)
+        if( newVal & newVal != '') {
+          this.onSetBgImage(newVal)
+        }
       },
       'data.personalized.template'(newVal, oldVal)
       {
@@ -91,8 +93,8 @@
             this.onSetBgImage( tem[0].path )
           }
         }
-      } else if(this.data?.bgImage) {
-        this.onSetBgImage(this.data.bgImage)
+      } else if(this.data?.background_image) {
+        this.onSetBgImage(this.data.background_image)
       }
     },
     methods: {
@@ -109,7 +111,7 @@
         if( this.data.personalized ) {
           color = this.data.personalized.isDarkText ? 'text-black' : 'text-white'
         } else {
-          color = this.data.isDarkText ? 'text-black' : 'text-white'
+          color = (this.data.text_color == 'dark') ? 'text-black' : 'text-white'
         }
         return color
       },

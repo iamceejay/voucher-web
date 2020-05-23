@@ -103,23 +103,34 @@
       }
     },
     watch: {
-      AUTH_USER(newVal, oldVal)
+      async AUTH_USER(newVal, oldVal)
       {
-        this.onSetRole()
-        this.onSetMenusByRole()
+        await this.onFetchData()
       }
     },
     mounted() {
-      this.onSetMenusByRole()
-      this.onSetRole()
-      // Listen browser width
-      this.$emit('onHide', this.hideSidebar)
-      this.$nextTick(function() {
-        window.addEventListener('resize', this.getWindowWidth)
-        this.getWindowWidth()
-      });
+      (async() => {
+        await this.onFetchData()
+        this.$emit('onHide', this.hideSidebar)
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowWidth)
+          this.getWindowWidth()
+        })
+      })()
     },
     methods: {
+      async onFetchData()
+      {
+        await this.onSetRole()
+        if( this.AUTH_USER.data?.user_role.role_id == 3 ) {
+          await this.onFetchCategories()
+        }
+        await this.onSetMenusByRole()
+      },
+      async onFetchCategories()
+      {
+        await this.$store.dispatch('FETCH_CATEGORIES')
+      },
       onSetMenusByRole()
       {
         if(this.AUTH_USER.isAuth) {
@@ -177,9 +188,10 @@
               ]
               break;
             case 3:
+              console.log('this.CATEGORIES', this.CATEGORIES)
               const categories = this.CATEGORIES.map( categ => {
                 return {
-                  title: categ.label,
+                  title: categ.name,
                   link: `/vouchers/category/${categ.id}`
                 }
               })

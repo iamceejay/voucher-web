@@ -6,10 +6,10 @@
         @click="onClickHeader()"
       >
         <div class="text-base font-bold font-display">
-          {{ data.name || 'Voucher Name' }}
+          {{ data.title || 'Voucher Name' }}
         </div>
         <div class="text-xs font-bold font-body">
-          {{ data.companyName || 'Company Name' }}
+          {{ data.seller && data.seller.company.name || 'Company Name' }}
         </div>
       </div>
       <img 
@@ -21,11 +21,11 @@
     <div class="card-content">
       <div class="w-full flex flex-row">
         <div :class="`${data.personalized && data.personalized.picture ? 'w-3/5' : 'w-9/12'}`">
-          <div class="text-xs text-justify card-description font-body">
+          <div class="text-xs text-justify card-description h-32 font-body">
             {{ data.description || 'Voucher Description' }}
           </div>
-          <div v-if="data.personalized" class="text-xs text-justify h-12 font-body">
-            {{ data.personalized.note || 'Voucher Note' }}
+          <div class="text-xs text-justify h-12 font-body">
+            {{ data.personalized && data.personalized.note || '' }}
           </div>
         </div>
         <div v-if="data.personalized && data.personalized.picture" class="w-2/5">
@@ -39,29 +39,29 @@
       <div class="w-full flex flex-row">
         <div class="w-9/12">
           <div class="text-xs font-body">
-            <div v-if="data.validDates.length > 0">
+            <div v-if="data.valid_date.length > 0">
               <span
-                v-for="(date, index) in data.validDates"
+                v-for="(date, index) in data.valid_date"
                 :key="`date-${index}`"
               >
                 Valid on {{ `${date.start || '...'} to ${date.end || '...'}` }}
               </span>
             </div>
-            <div v-if="data.validDay.length > 0">
+            <div v-if="data.valid_day.length > 0">
               Valid on 
               <span 
-                v-for="(day, index) in data.validDay"
+                v-for="(day, index) in data.valid_day"
                 :key="`day-${index}`"
               >
-                {{ `${day.substring(0,3)}${ (data.validDay.length != (index+1)) ? ',' : '' }` }}
+                {{ `${day.substring(0,3)}${ (data.valid_day.length != (index+1)) ? ',' : '' }` }}
               </span>
             </div>
           </div>
           <div class="text-base font-bold font-body">
             {{
               ( role === 'seller' ) 
-                ? `${data.isQuantityBased ? 'Quantity' : 'Value'}-based`
-                : `${data.isQuantityBased ? `${data.quantity}x` : `€${data.value}`}`
+                ? `${(data.type == 'quantity') ? 'Quantity' : 'Value'}-based`
+                : `${(data.type == 'quantity') ? `${data.qty_val}x` : `€${data.val_min}`}`
             }}
           </div>
         </div>

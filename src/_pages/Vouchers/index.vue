@@ -1,22 +1,24 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1
-        label="Create new voucher"
-      />
-      <router-link
-        to="vouchers/new"
-      >
-        <Button
-          class="p-2 mt-3 mb-5"
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+        <Header1
           label="Create new voucher"
-          size="w-full sm:w-64 py-4"
-          round="rounded-full"
         />
-      </router-link>
-      <VoucherList 
-        :data="VOUCHERS"
-      />
+        <router-link
+          to="vouchers/new"
+        >
+          <Button
+            class="p-2 mt-3 mb-5"
+            label="Create new voucher"
+            size="w-full sm:w-64 py-4"
+            round="rounded-full"
+          />
+        </router-link>
+        <VoucherList 
+          :data="VOUCHERS.data"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>
@@ -40,15 +42,35 @@
       }
     },
     computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
       VOUCHERS()
       {
         return this.$store.getters.VOUCHERS
-      }
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     mounted() {
-
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        if( this.AUTH_USER?.data?.id ) {
+          await this.onFetchVouchers(this.AUTH_USER.data.id)
+        }
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
+      async onFetchVouchers(id)
+      {
+        await this.$store.dispatch('FETCH_VOUCHERS', {
+          seller_id: id
+        })
+      },
     }
   }
 </script>

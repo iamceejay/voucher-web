@@ -1,20 +1,21 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
-          :label="`${ category ? category.label : 'Category Name' }`"
+          :label="`${ CATEGORY ? CATEGORY.name : 'Category Name' }`"
         />
         <VoucherList
           class="mb-3"
           title="Featured Vouchers"
-          :data="featuredVouchers"
+          :data="FEATURED_VOUCHERS.data"
           :withQR="false"
+          :isInline="true"
         />
         <VoucherList
           class="mb-3"
           title="Newest"
-          :data="VOUCHERS"
+          :data="NEWEST_VOUCHERS.data"
           :withQR="false"
         />
       </div>
@@ -36,8 +37,6 @@
     data() {
       return {
         role: null,
-        featuredVouchers: [],
-        category: null,
       }
     },
     computed: {
@@ -49,9 +48,25 @@
       {
         return this.$store.getters.VOUCHERS
       },
+      FEATURED_VOUCHERS()
+      {
+        return this.$store.getters.FEATURED_VOUCHERS
+      },
+      NEWEST_VOUCHERS()
+      {
+        return this.$store.getters.NEWEST_VOUCHERS
+      },
+      CATEGORY()
+      {
+        return this.$store.getters.CATEGORY
+      },
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
       }
     },
     watch: {
@@ -59,20 +74,38 @@
       {
         this.onSetRole()
       },
-      '$route.params.id'()
+      async '$route.params.id'()
       {
-        this.onFetchCategory()
+        await this.onFetchData()
       }
     },
-    created() {
-      this.onSetRole()
-      this.onFetchFeaturedVouchers()
-      this.onFetchCategory()
+    mounted() {
+      (async() => {
+        await this.onFetchData()
+      })()
     },
     methods: {
-      onFetchCategory()
+      async onFetchData()
       {
-        this.category = this.CATEGORIES.filter( categ => categ.id == this.$route.params.id )[0]
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onSetRole()
+        await this.onFetchCategory()
+        await this.onFetchFeaturedVouchers()
+        await this.onFetchNewestVouchers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      },
+      async onFetchFeaturedVouchers()
+      {
+        await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
+      },
+      async onFetchNewestVouchers()
+      {
+        await this.$store.dispatch('FETCH_NEWEST_VOUCHERS')
+        console.log('NEWEST_VOUCHERS', this.NEWEST_VOUCHERS)
+      },
+      async onFetchCategory()
+      {
+        await this.$store.dispatch('FETCH_CATEGORY', this.$route.params.id)
       },
       onSetRole()
       {
@@ -80,10 +113,6 @@
           this.role = this.AUTH_USER.data.user_role.role.name
         }
       },
-      onFetchFeaturedVouchers()
-      {
-        this.featuredVouchers = this.VOUCHERS.filter( vouch => vouch.isFeatured )
-      }
     }
   }
 </script>

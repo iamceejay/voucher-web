@@ -2,12 +2,17 @@ import { post, get } from '_helpers/ApiService'
 import { categories } from '_helpers/DefaultValues'
 import moment from 'moment'
 
+const prefix = 'voucher-category'
+
 export default {
   state: () => ({
-    categories,
+    categories: [],
     category: null
   }),
   getters: {
+    CATEGORY(state) {
+      return state.category;
+    },
     CATEGORIES(state) {
       return state.categories;
     },
@@ -17,13 +22,20 @@ export default {
       state.categories = payload
     },
     SET_CATEGORY(state, payload) {
-      state.categories = payload
+      state.category = payload
     },
   },
   actions: {
     async FETCH_CATEGORY( { commit, state }, payload )
     {
-      await commit('SET_CATEGORY', data)
+      const { data } = await get(`${prefix}/${payload}`, {})
+      await commit('SET_CATEGORY', data.voucher_category)
+      return data
+    },
+    async FETCH_CATEGORIES( { commit, state }, payload )
+    {
+      const { data } = await get(`${prefix}`, {})
+      await commit('SET_CATEGORIES', data.voucher_categories)
       return data
     },
     async ADD_CATEGORY( { commit, state }, payload )
