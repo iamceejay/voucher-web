@@ -345,7 +345,7 @@ export const vouchers = [
     isDarkText: true,
     bgColor: '#fff',
     isPopular: 0,
-    isFeatured: 0,
+    isFeatured: 1,
     created_at: moment().local().subtract(6, 'day').format('YYYY-MM-DD'),
     status: 1,
     seller_id: 2,

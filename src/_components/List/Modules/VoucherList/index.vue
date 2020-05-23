@@ -25,7 +25,7 @@
     />
     <div 
       v-if="type === 'standard'"
-      class="flex flex-wrap justify-center sm:justify-start"
+      :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'flex flex-wrap justify-center sm:justify-start' }`"
     >
       <VoucherCard
         v-for="(voucher, index) in tempData"
@@ -33,7 +33,6 @@
         :data="voucher"
         :role="role"
         :withQR="withQR"
-        class="m-2"
       />
     </div>
     <div 
@@ -95,6 +94,9 @@
       }, withQR: {
         type: Boolean,
         default: true
+      }, isInline: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

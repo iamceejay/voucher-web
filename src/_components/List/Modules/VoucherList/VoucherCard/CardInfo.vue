@@ -123,6 +123,7 @@
       {
         if( this.role ) {
           if( this.role === 'user' ) {
+            console.log('diri nisulod')
             if( this.withQR ) {
               this.$emit('onFlip')
             } else {

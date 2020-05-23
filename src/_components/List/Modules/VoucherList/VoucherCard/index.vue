@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`voucher-card-${ (data && data.id) ? data.id : 0 }`"
-    class="flex border border-gray-900 rounded card-container bg-color mb-3"
+    class="flex border border-gray-900 rounded card-container bg-color mb-3 flex-shrink-0 mr-3 mt-3"
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': data.bgColor }"
   >
@@ -162,7 +162,7 @@
   .bg-color {
     background-color: var(--bgColor);
   }
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 600px) {
     .card-container {
       width: 100%;
     }

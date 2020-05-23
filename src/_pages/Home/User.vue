@@ -3,7 +3,7 @@
     <Header1
       :label="`Hi ${ AUTH_USER.data.detail && AUTH_USER.data.detail.firstName }!`"
     />
-    <router-link to="/vouchers/search">
+    <router-link class="w-full flex" to="/vouchers/search">
       <SearchInputField
         id="search-here"
         class="m-2"
@@ -14,7 +14,8 @@
       class="mb-3"
       title="Featured Vouchers"
       :data="featuredVouchers"
-      type="feature"
+      :isInline="true"
+      :withQR="false"
     />
     <CategoryList
       class="mb-3"

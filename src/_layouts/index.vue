@@ -2,25 +2,24 @@
   <div 
     id="main-layout-component"
     class="w-full flex flex-row overflow-auto"
+    :class="`${ isHideSideBar ? 'hide-sidebar' : 'show-sidebar' }`"
   >
-    <Sidebar 
+    <Sidebar
       @onHide="isHideSideBar = $event"
     />
-    <div class="w-full flex">
-      <div :class="`main-container py-16 px-8 ${isHideSideBar ? 'hide h-screen' : ''}`">
-        <div :class="`flex flex-col h-full w-full ${isHideSideBar ? 'hide' : ''}`">
-          <router-link 
-            v-if="role === 'user'"
-            class="cart-icon relative"
-            to="/cart"
-          >
-            <div class="cart-count">
-              {{ CARTS.length }}
-            </div>
-            <i class="fas fa-shopping-cart text-base text-2xl" />
-          </router-link>
-          <slot name="content" />
-        </div>
+    <div :class="`main-container py-16 px-8`">
+      <div class="flex flex-col h-full w-full m-c">
+        <router-link 
+          v-if="role === 'user'"
+          class="cart-icon relative"
+          to="/cart"
+        >
+          <div class="cart-count">
+            {{ CARTS.length }}
+          </div>
+          <i class="fas fa-shopping-cart text-base text-2xl" />
+        </router-link>
+        <slot name="content" />
       </div>
     </div>
   </div>
@@ -88,12 +87,9 @@
     top: -8px;
     right: -8px;
   }
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 600px) {
     .main-container.hide {
       background: rgba(0, 0, 0, 0.80);
-    }
-    .main-container .hide {
-      display: none !important;
     }
   }
 </style>

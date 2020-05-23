@@ -1,5 +1,5 @@
 <template>
-  <div id="input-field-component" class="mb-5">
+  <div id="input-field-component" class="mb-5 w-full">
     <ValidationProvider 
       :name="id" 
       :rules="rules"

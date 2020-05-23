@@ -1,7 +1,6 @@
 <template>
   <div
-    class="sidebar-container"
-    :class="!hideSidebar ? 'min-h-screen clearfix' : ''"
+    class="sidebar-container flex flex-col min-h-screen clearfix"
   >
     <a 
       href="javascript:void(0)" 
@@ -10,7 +9,7 @@
     >
       <i class="fas fa-bars text-base text-2xl text-gray-900" />
     </a>
-    <div class="w-64" :class="hideSidebar ? 'hidden' : ''">
+    <div :class="hideSidebar ? 'hidden' : ''">
       <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
         Hi {{ 
           (role && AUTH_USER.data) && (
@@ -110,10 +109,11 @@
         this.onSetMenusByRole()
       }
     },
-    created() {
+    mounted() {
       this.onSetMenusByRole()
       this.onSetRole()
       // Listen browser width
+      this.$emit('onHide', this.hideSidebar)
       this.$nextTick(function() {
         window.addEventListener('resize', this.getWindowWidth)
         this.getWindowWidth()
@@ -235,6 +235,7 @@
         this.window_width = document.documentElement.clientWidth;
         if (this.window_width < 767) {
           this.hideSidebar = true;
+          this.$emit('onHide', this.hideSidebar)
         }
       },
       onSelectMenu(menu, index)
@@ -264,7 +265,7 @@
       },
       onHideSidebar() {
         this.hideSidebar = !this.hideSidebar;
-        this.$emit('onHide', !this.hideSidebar)
+        this.$emit('onHide', this.hideSidebar)
       },
       onSetRole()
       {
@@ -315,7 +316,7 @@
     box-shadow: 3px 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     position: relative;
   }
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 600px) {
     .menu-toggle.hide i {
       color: #fff !important;
     }

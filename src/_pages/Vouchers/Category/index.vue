@@ -9,7 +9,7 @@
           class="mb-3"
           title="Featured Vouchers"
           :data="featuredVouchers"
-          type="feature"
+          :withQR="false"
         />
         <VoucherList
           class="mb-3"

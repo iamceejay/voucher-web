@@ -8,10 +8,9 @@
       <div
         v-for="(row, index) in data"
         :key="`voucher-${index}`"
-        class="flex flex-col card-container m-2"
+        class="flex flex-col card-container"
       >
         <VoucherCard
-          class=""
           :data="row.voucher"
           :otherData="row"
           :role="role"
@@ -149,5 +148,10 @@
 <style lang="css" scoped>
   .card-container {
     width: 320px;
+  }
+  @media only screen and (max-width: 600px) {
+    .card-container {
+      width: 100%;
+    }
   }
 </style>
