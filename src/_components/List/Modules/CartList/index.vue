@@ -8,7 +8,7 @@
       <div
         v-for="(row, index) in data"
         :key="`voucher-${index}`"
-        class="flex flex-col card-container"
+        class="flex flex-col card-container mr-3 mb-3"
       >
         <VoucherCard
           :data="row.voucher"
