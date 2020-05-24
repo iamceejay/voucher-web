@@ -10,7 +10,7 @@
     <div :class="`main-container py-16 px-8`">
       <div class="flex flex-col h-full w-full m-c">
         <router-link 
-          v-if="role === 'user'"
+          v-if="AUTH_USER.role && AUTH_USER.role.name === 'user'"
           class="cart-icon relative"
           to="/cart"
         >
@@ -34,7 +34,7 @@
     data() {
       return {
         isHideSideBar: false,
-        role: null
+        isLoading: true,
       }
     },
     computed: {
@@ -58,12 +58,11 @@
     watch: {
       AUTH_USER(newVal)
       {
-        this.onSetRole()
+        // this.onSetRole()
       },
       async IS_LOADING(newVal)
       {
         if( newVal.status ) {
-          console.log('newVal', newVal)
           if( newVal.status == 'close' && newVal.data != null && typeof newVal.data == 'object' ) {
             await newVal.data.close()
             await this.$store.commit('SET_IS_LOADING', {
@@ -114,15 +113,10 @@
       },
     },
     mounted() {
-      this.onSetRole()
+      (async() => {
+      })()
     },
     methods: {
-      onSetRole()
-      {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
-        }
-      }
     }
   }
 </script>

@@ -81,12 +81,10 @@
     methods: {
       async onFetchVouchers()
       {
-        console.log('test 1')
         await this.$store.dispatch('FETCH_VOUCHERS')
       },
       async onFetchFeaturedVouchers()
       {
-        console.log('test 2')
         await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
       },
     }

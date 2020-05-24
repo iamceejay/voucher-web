@@ -1,21 +1,21 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!isLoading" class="flex flex-col w-full">
+      <div class="flex flex-col w-full">
         <GuestHome 
-          v-if="role === null"
+          v-if="AUTH_USER.role.name === null"
         />
         <SellerHome 
-          v-if="role === 'seller'"
+          v-if="AUTH_USER.role.name === 'seller'"
         />
         <UserHome 
-          v-if="role === 'user'"
+          v-if="AUTH_USER.role.name === 'user'"
         />
         <ScannerUserHome 
-          v-if="role === 'scanner'"
+          v-if="AUTH_USER.role.name === 'scanner'"
         />
         <AdminHome 
-          v-if="role === 'admin'"
+          v-if="AUTH_USER.role.name === 'admin'"
         />
       </div>
     </template>
@@ -52,26 +52,12 @@
       }
     },
     watch: {
-      async AUTH_USER(newVal)
-      {
-        this.isLoading = true
-        await this.onSetRole()
-        this.isLoading = false
-      }
     },
     mounted() {
       (async() => {
-        this.isLoading = true
-        await this.onSetRole()
-        this.isLoading = false
       })()
     },
     methods: {
-      async onSetRole()
-      {
-        let auth = await localStorage.getItem('_auth') 
-        this.role = auth ? JSON.parse(auth).data.user_role.role.name : null
-      }
     }
   }
 </script>

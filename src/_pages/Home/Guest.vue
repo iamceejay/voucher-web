@@ -35,7 +35,6 @@
     },
     created() {
       (async() => {
-        console.log('test guest')
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchVouchers()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })

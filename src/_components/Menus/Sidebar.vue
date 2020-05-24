@@ -12,10 +12,10 @@
     <div :class="hideSidebar ? 'hidden' : ''">
       <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
         Hi {{ 
-          (role && AUTH_USER.data) && (
-            role === 'seller'
+          (AUTH_USER.role && AUTH_USER.data) && (
+            AUTH_USER.role.name === 'seller'
               ? 'Company'
-              : role === 'scanner'
+              : AUTH_USER.role.name === 'scanner'
                 ? AUTH_USER.data.username
                 : AUTH_USER.data.detail.firstName
           )
@@ -86,7 +86,6 @@
       return {
         isLoggingOut: false,
         hideSidebar: false,
-        role: null,
         apiBaseURL: '',
         window_width: 0,
         menus: []
@@ -105,7 +104,7 @@
     watch: {
       async AUTH_USER(newVal, oldVal)
       {
-        await this.onFetchData()
+        // await this.onFetchData()
       }
     },
     mounted() {
@@ -121,20 +120,12 @@
     methods: {
       async onFetchData()
       {
-        await this.onSetRole()
-        if( this.AUTH_USER.data?.user_role.role_id == 3 ) {
-          await this.onFetchCategories()
-        }
         await this.onSetMenusByRole()
-      },
-      async onFetchCategories()
-      {
-        await this.$store.dispatch('FETCH_CATEGORIES')
       },
       onSetMenusByRole()
       {
         if(this.AUTH_USER.isAuth) {
-          switch ( this.AUTH_USER.data.user_role.role_id ) {
+          switch ( this.AUTH_USER.role.id ) {
             case 1:
               this.menus = [
                 {
@@ -188,7 +179,6 @@
               ]
               break;
             case 3:
-              console.log('this.CATEGORIES', this.CATEGORIES)
               const categories = this.CATEGORIES.map( categ => {
                 return {
                   title: categ.name,
@@ -253,8 +243,6 @@
       onSelectMenu(menu, index)
       {
         if(!menu.child) {
-          console.log('this.$route.path', this.$route.path)
-          console.log('menu.link', menu.link)
           if( this.$route.path != menu.link ) {
             this.$router.push(menu.link)
           }
@@ -278,12 +266,6 @@
       onHideSidebar() {
         this.hideSidebar = !this.hideSidebar;
         this.$emit('onHide', this.hideSidebar)
-      },
-      onSetRole()
-      {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
-        }
       },
       async onLogout()
       {

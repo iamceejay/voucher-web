@@ -5,6 +5,7 @@ export default {
     auth: {
       isAuth: false,
       token: '',
+      role: null,
       data: null
     },
   }),

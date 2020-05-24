@@ -78,9 +78,13 @@
             isAuth: true,
             token,
             data: user,
+            role: user.user_role.role,
           }
-          this.$store.commit('SET_AUTH_USER', auth)
-          localStorage.setItem('_auth', JSON.stringify(auth))
+          await this.$store.commit('SET_AUTH_USER', auth)
+          await localStorage.setItem('_auth', JSON.stringify(auth))
+          if( auth.role.name == 'user' ) {
+            await this.onFetchCategories()
+          }
           this.submitting = false
           this.$router.push('/home')
         } catch (err) {
@@ -92,7 +96,11 @@
           }
           console.log('err', err)
         }
-      }
+      },
+      async onFetchCategories()
+      {
+        await this.$store.dispatch('FETCH_CATEGORIES')
+      },
     }
   };
 </script>
