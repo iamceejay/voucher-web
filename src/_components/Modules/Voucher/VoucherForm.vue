@@ -24,6 +24,7 @@
             </span>
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
+                v-model="material_color"
                 @input="onPickColor"
               />
             </div>
@@ -215,6 +216,10 @@
     },
     data() {
       return {
+        material_color: { 
+          hex: '#FFF',
+          rgba: { r: 255, g: 255, b: 255, a: 255 },
+        },
         categories: [],
         form: {
           id: null,

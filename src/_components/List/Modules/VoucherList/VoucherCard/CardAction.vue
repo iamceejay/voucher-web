@@ -21,14 +21,14 @@
     </router-link>
     <Button
       class="py-2 justify-center"
-      :label="`${ data.status ? 'Deactivate' : 'Activate' } voucher`"
+      :label="`${ data.is_active ? 'Deactivate' : 'Activate' } voucher`"
       size="w-64 py-2"
       round="rounded-full"
       @onClick="onDeact(data)"
     />
     <Button
       class="py-2 justify-center"
-      label="Delete voucer"
+      label="Delete voucher"
       size="w-64 py-2"
       round="rounded-full"
       @onClick="onDelete(data)"
@@ -79,9 +79,12 @@
           cancelButtonColor: '#AF0000',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
-        }).then((result) => {
+        }).then(async (result) => {
           if(result.value){
-            this.$store.dispatch('DELETE_VOUCHER', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('DELETE_VOUCHER', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            
             this.$swal({
               icon: 'success',
               title: 'Successful!',
@@ -89,33 +92,34 @@
               confirmButtonColor: '#6C757D',
             });
             this.$emit('onFlip')
-            // this.$emit('onSetVoucher', '')
-          }   
+          }
         })
       },
-      onDeact(data)
+      async onDeact(data)
       {
         this.isAction = ++this.isAction
         this.$swal({
-          title: 'Deactivate Voucher',
-          text: `Are you sure you want to deactivate this voucher?`,
+          title: `${ data.is_active ? 'Deactivate' : 'Activate' } Voucher`,
+          text: `Are you sure you want to ${ data.is_active ? 'deactivate' : 'activate' } this voucher?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
-        }).then((result) => {
+        }).then(async (result) => {
           if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('STATUS_UPDATE_VOUCHER', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
               title: 'Successful!',
-              text: 'Deactivating the voucher.',
+              text: `${ data.is_active ? 'Deactivating' : 'Activating' } the voucher.`,
               confirmButtonColor: '#6C757D',
-            });
-            this.$store.dispatch('DEACTIVATE_VOUCHER', data)
-            // this.$emit('onSetVoucher', '')
-          }   
-        });
+            })
+            this.$emit('onFlip')
+          }
+        })
       },
     }
   }

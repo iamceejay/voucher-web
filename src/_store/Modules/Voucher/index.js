@@ -1,4 +1,4 @@
-import { post, get, put } from '_helpers/ApiService'
+import { post, get, put, del } from '_helpers/ApiService'
 import { vouchers } from '_helpers/DefaultValues'
 import moment from 'moment'
 
@@ -103,20 +103,28 @@ export default {
       const { data } = await put(`${prefix}/${payload.id}`, payload)
       return data
     },
-    DEACTIVATE_VOUCHER( { commit, state }, payload )
+    async STATUS_UPDATE_VOUCHER( { commit, state }, payload )
     {
-      const newList = state.vouchers.map( vouch => {
+      const { data } = await post(`${prefix}/update-status/${payload.id}`, {})
+      const newList = state.vouchers.data.map( vouch => {
         if(vouch.id == payload.id) {
-          vouch.status = !vouch.status
+          vouch.is_active = vouch.is_active ? 0 : 1
         }
         return vouch
-      });
-      commit('SET_VOUCHERS', newList)
+      })
+      await commit('SET_VOUCHERS', {
+        ...state.vouchers,
+        data: newList
+      })
     },
-    DELETE_VOUCHER( { commit, state }, payload )
+    async DELETE_VOUCHER( { commit, state }, payload )
     {
-      const newList = state.vouchers.filter( vouch => vouch.id != payload.id);
-      commit('SET_VOUCHERS', newList)
+      const { data } = await del(`${prefix}/${payload.id}`, {})
+      const newList = state.vouchers.data.filter( vouch => vouch.id != payload.id);
+      await commit('SET_VOUCHERS', {
+        ...state.vouchers,
+        data: newList
+      })
     }
   },
 }

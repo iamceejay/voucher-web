@@ -56,10 +56,6 @@
       }, 
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        // this.onSetRole()
-      },
       async IS_LOADING(newVal)
       {
         if( newVal.status ) {
