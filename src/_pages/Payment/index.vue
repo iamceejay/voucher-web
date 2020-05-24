@@ -1,69 +1,22 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!isLoading" class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Payment Method"
         />
         <div class="flex flex-col w-full md:w-1/2">
-          <ValidationObserver v-slot="{ handleSubmit, invalid }">
-            <form 
-              class="w-full flex flex-col"
-              @submit.prevent="handleSubmit(onSubmit(invalid))"
-            >
-              <InputField
-                id="creditNo"
-                v-model="paymentForm.creditNo"
-                type="text"
-                class="mx-2"
-                placeholder="Credit Card Number"
-                rules="required"
-              />
-              <div class="flex flex-row w-full">
-                <InputField
-                  id="date"
-                  v-model="paymentForm.date"
-                  type="text"
-                  class="mx-2 w-3/5"
-                  placeholder="MM / YY"
-                  rules="required"
-                />
-                <InputField
-                  id="cvc"
-                  v-model="paymentForm.cvc"
-                  type="text"
-                  class="mx-2 w-2/5"
-                  placeholder="CVC"
-                  rules="required"
-                />
-              </div>
-              <div class="flex flex-row mx-2">
-                <input 
-                  id="isSave"
-                  v-model="paymentForm.isSave"
-                  class="mt-1"
-                  type="checkbox"
-                />
-                <span class="text-xs ml-1"> Save card for later payments </span>
-              </div>
-              <div class="flex flex-col mt-5 w-full">
-                <span class="text-lg font-bold text-center">
-                  Price
-                </span>
-                <span class="text-lg font-bold text-center">
-                  €{{ totalPrice }}
-                </span>
-                <Button
-                  type="submit"
-                  class="py-2 mx-2 justify-center"
-                  label="Pay Now"
-                  size="w-full py-3 md:w-1/2"
-                  round="rounded-full"
-                  fontSize="text-sm"
-                />
-              </div>
-            </form>
-          </ValidationObserver>
+          <div class="flex flex-col mt-5 w-full">
+            <span class="text-lg font-bold text-center">
+              Price
+            </span>
+            <span class="text-lg font-bold text-center">
+              €{{ totalPrice }}
+            </span>
+          </div>
+          <StripeForm 
+            @onSubmit="onSubmit"
+          />
         </div>
       </div>
     </template>
@@ -73,6 +26,7 @@
   import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
   import InputField from '_components/Form/InputField';
+  import StripeForm from '_components/Form/Modules/StripeForm';
   import Button from '_components/Button'
 
   export default {
@@ -80,12 +34,11 @@
       MainLayout,
       Header1,
       InputField,
+      StripeForm,
       Button,
     },
     data() {
       return {
-        isLoading: true,
-        role: null,
         totalPrice: 0,
         paymentForm: {
           creditNo: '',
@@ -99,79 +52,80 @@
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
-      CARTS()
-      {
-        return this.$store.getters.CARTS
-      },
       WALLETS()
       {
         return this.$store.getters.WALLETS
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      }
     },
     mounted() {
       (async() => {
-        this.isLoading = true
-        await this.onSetRole();
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchWallets()
         await this.onGetTotalPrice()
-        this.isLoading = false
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {
-      onSubmit( invalid )
+      onSubmit( data )
       {
-        if( !invalid ) {
-          this.$swal({
-            title: 'Payment',
-            text: `Are you sure you want to continue this payment?`,
-            showCancelButton: true,
-            confirmButtonColor: '#6C757D',
-            cancelButtonColor: '#AF0000',
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-          }).then((result) => {
-            if(result.value){
-              this.$store.commit('SET_WALLETS', [
-                ...this.WALLETS,
-                ...this.CARTS,
-              ])
-              this.$store.commit('SET_CARTS', [])
-              this.$swal({
-                icon: 'success',
-                title: 'Successful!',
-                text: 'Paying the vouchers.',
-                confirmButtonColor: '#6C757D',
-              })
-              this.$router.push('/wallet')
-            }   
-          })
-        }
+        console.log('data', data)
+        this.$swal({
+          title: 'Payment',
+          text: `Are you sure you want to continue this payment?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then(async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('PAYMENT', {
+              ...data,
+              price: this.totalPrice
+            })
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Paying the vouchers.',
+              confirmButtonColor: '#6C757D',
+            })
+            await this.$store.commit('SET_COUNT_CART', 0)
+            this.$router.push('/wallet')
+          }   
+        })
       },
       onGetTotalPrice()
       {
         this.totalPrice = 0
-        this.CARTS.map( row => {
+        this.WALLETS.map( row => {
           this.totalPrice += this.onGetTotal(row)
         })
       },
       onGetTotal(data)
       {
-        let value = parseFloat(data.value)
-        let itemValue = parseFloat( data.isQuantityBased ? data.voucher.quantity : data.voucher.value )
+        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let itemValue = data.voucher.price_filter
         const total = value * itemValue
         return total
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
-        }
-      }
+      async onFetchWallets()
+      {
+        await this.$store.dispatch('FETCH_WALLETS', {
+          user_id: this.AUTH_USER.data.id,
+          status: 'pending'
+        })
+      },
     }
   }
 </script>
 <style lang='css' scoped>
+
 </style>

@@ -2,19 +2,19 @@
   <MainLayout>
     <template #content>
       <div 
-        v-if="voucher"
+        v-if="!IS_LOADING.status && VOUCHER"
         class="w-full flex flex-col"
       >
         <div class="flex flex-col w-full">
           <VoucherCard
             class="self-center"
-            :data="voucher"
+            :data="VOUCHER"
             :isFlippable="false"
             :withQR="false"
           />
           <router-link 
             class="self-center w-full md:w-1/2"
-            :to="`/seller/${voucher.seller_id}`"
+            :to="`/seller/${VOUCHER.seller_id}`"
           >
             <Button
               label="More info on seller"
@@ -24,7 +24,7 @@
           </router-link>
         </div>
         <ValidationObserver
-          v-if="role != 'admin'"
+          v-if="AUTH_USER.role.name != 'admin'"
           v-slot="{ handleSubmit, invalid }"
         >
           <form 
@@ -33,19 +33,19 @@
           >
             <InputField
               id="name"
-              v-model="voucherForm.value"
+              v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Enter a ${ voucher.isQuantityBased ? `quantity (€${voucher.value}/voucher)` : 'value' }`"
+              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (€${VOUCHER.qty_val}/voucher)` : 'value' }`"
               placeholder="Enter here"
-              :rules="`required|numeric|min_value:${voucher.minVal}|max_value:${voucher.maxVal}`"
-              :note="`Enter a value from ${symbol}${voucher.minVal} to ${symbol}${voucher.maxVal}`"
+              :rules="`required|numeric|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
+              :note="`Enter a value from ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min } to ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :disabled="isAdded ? true : false"
             />
             <div class="flex flex-col mt-3 self-center">
               <span class="text-2xl">Price</span>
               <span class="text-2xl font-bold">
-                €{{ voucherForm.value * ( !voucher.isQuantityBased ? 1 : voucher.value ) }}
+                €{{ form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val ) }}
               </span>
             </div>
             <Button
@@ -55,7 +55,7 @@
               size="w-full py-3"
               round="rounded-full"
               :type="`${ isAdded ? 'button' : 'submit' }`"
-              @onClick="onRemoveCart()"
+              @onClick=" isAdded ? onRemoveCart() : null"
             />
           </form>
         </ValidationObserver>
@@ -79,23 +79,22 @@
     },
     data() {
       return {
-        role: null,
-        voucher: null,
-        voucherForm: {
+        form: {
           id: null,
+          voucher_id: null,
           user_id: null,
           value: null,
-          type: '',
-          voucher: null
+          qty: null,
+          value: null,
         },
         symbol: '',
         isAdded: false,
       }
     },
     computed: {
-      VOUCHERS()
+      VOUCHER()
       {
-        return this.$store.getters.VOUCHERS
+        return this.$store.getters.VOUCHER
       },
       CARTS()
       {
@@ -104,17 +103,23 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
       }
     },
     watch: {
       CARTS(newVal)
       {
-        console.log('CARTS', newVal)
       }
     },
     mounted() {
-      this.onSetRole()
-      this.onFetchVoucher()
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchVoucher()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
       async onSubmit( invalid )
@@ -131,15 +136,29 @@
             cancelButtonText: 'Cancel',
           }).then( async (result) => {
             if(result.value){
-              this.voucherForm.voucher = this.voucher
-              this.voucherForm.user_id = this.AUTH_USER.data.id
-              const data = await this.$store.dispatch('ADD_CART', this.voucherForm)
-              this.voucherForm = data
-              this.isAdded = true
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.form.user_id = this.AUTH_USER.data.id
+              this.form.voucher_id = this.VOUCHER.id
+              if( this.VOUCHER.type == 'quantity' ) {
+                this.form.qty = this.form.value
+                this.form.value = null
+              } else {
+                this.form.value = this.form.value
+              }
+              const data = await this.$store.dispatch('ADD_WALLET', this.form)
+              this.form = {
+                id: null,
+                voucher_id: null,
+                user_id: null,
+                value: null,
+                qty: null,
+                value: null,
+              }
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
                 title: 'Successful!',
-                text: 'Adding the voucher.',
+                text: 'Adding the voucher to the card.',
                 confirmButtonColor: '#6C757D',
               })
             }   
@@ -158,11 +177,11 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
-            const newData = this.CARTS.filter( cart => this.voucherForm.id != cart.id )
+            const newData = this.CARTS.filter( cart => this.form.id != cart.id )
             console.log('newData', newData)
             await this.$store.commit('SET_CARTS', newData)
             this.isAdded = false
-            this.voucherForm = {
+            this.form = {
               id: null,
               user_id: null,
               value: null,
@@ -178,16 +197,11 @@
           }   
         })
       },
-      onFetchVoucher()
+      async onFetchVoucher()
       {
-        this.voucher = this.VOUCHERS.filter( vouch => vouch.id == this.$route.params.id )[0]
-        this.symbol = this.voucher.isQuantityBased ? 'x' : '€'
+        await this.$store.dispatch('FETCH_VOUCHER', this.$route.params.id)
+        this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
-        }
-      }
     }
   }
 </script>

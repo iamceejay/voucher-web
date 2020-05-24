@@ -1,4 +1,4 @@
-import { post, get } from '_helpers/ApiService'
+import { post, get, del } from '_helpers/ApiService'
 import moment from 'moment'
 
 const prefix = 'order'
@@ -7,6 +7,7 @@ export default {
   state: () => ({
     wallet: null,
     wallets: [],
+    countCart: 0,
   }),
   getters: {
     WALLET(state) {
@@ -14,6 +15,9 @@ export default {
     },
     WALLETS(state) {
       return state.wallets
+    },
+    COUNT_CART(state) {
+      return state.countCart
     },
   },
   mutations: {
@@ -23,38 +27,50 @@ export default {
     SET_WALLETS(state, payload) {
       state.wallets = payload;
     },
+    SET_COUNT_CART(state, payload) {
+      state.countCart = payload;
+    },
   },
   actions: {
+    async FETCH_TOTAL_USER_CART( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}/total-user-cart`, {})
+        await commit('SET_COUNT_CART', data.total)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async FETCH_WALLETS( { commit, state }, payload )
     {
       try {
-        const { data } = await get(`${prefix}`, {
-          paginate: 10,
-          // user_id: payload.user_id
-        })
+        const { data } = await get(`${prefix}`, payload)
         await commit('SET_WALLETS', data.orders)
         return data
       } catch (err) {
-        console.log('err', err)
+        throw err
       }
     },
     async FETCH_WALLET( { commit, state }, payload )
     {
-      const data = state.wallets.filter( row => row.id == payload )[0]
-      await commit('SET_WALLET', data)
-      return data
+      try {
+        const data = state.wallets.filter( row => row.id == payload )[0]
+        await commit('SET_WALLET', data)
+        return data
+      } catch (err) {
+        throw err
+      }
     },
     async ADD_WALLET( { commit, state }, payload )
     {
-      const data = {
-        ...payload,
-        id: state.wallets.length + 1,
+      try {
+        const { data } = await post(`${prefix}`, payload)
+        await commit('SET_COUNT_CART', state.countCart + 1)
+        return data
+      } catch (err) {
+        throw err
       }
-      await commit('SET_WALLETS', [
-        ...state.wallets,
-        data
-      ])
-      return data
     },
     UPDATE_WALLET( { commit, state }, payload )
     {
@@ -67,10 +83,24 @@ export default {
       commit('SET_WALLET', payload)
       commit('SET_WALLETS', newList)
     },
-    DELETE_WALLET( { commit, state }, payload )
+    async DELETE_WALLET( { commit, state }, payload )
     {
-      const newList = state.wallets.filter( row => row.id != payload.id);
-      commit('SET_WALLETS', newList)
-    }
+      try {
+        const { data } = await del(`${prefix}/${payload.id}`, {})
+        const newList = state.wallets.filter( row => row.id != payload.id);
+        await commit('SET_WALLETS', newList)
+      } catch (err) {
+        throw err
+      }
+    },
+    async PAYMENT( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/payment`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

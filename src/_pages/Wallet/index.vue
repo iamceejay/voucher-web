@@ -13,7 +13,7 @@
         />
         <CartList
           class="mb-3"
-          :role="role"
+          :role="AUTH_USER.role.name"
           :data="WALLETS.data"
           :isCart="false"
           :withQR="true"
@@ -55,14 +55,10 @@
       }
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      }
     },
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onSetRole()
         await this.onFetchWallets()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
@@ -71,13 +67,10 @@
       async onFetchWallets()
       {
         await this.$store.dispatch('FETCH_WALLETS', {
-          user_id: this.AUTH_USER.data.id
+          paginate: 10,
+          user_id: this.AUTH_USER.data.id,
+          status: 'completed'
         })
-      },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
-        }
       },
     }
   }

@@ -29,7 +29,7 @@
               {{ `${onGetSymbol(row.voucher.type)} ${ (row.voucher.type == 'quantity') ? row.qty : row.value}` }}
             </span>
           </div>
-          <div v-if="isCart" class="flex flex-row">
+          <div v-if="isCart" class="flex flex-row justify-center">
             <span class="text-sm font-semibold ml-2">
               {{ `= €${onGetTotal(row)}` }}
             </span>
@@ -133,8 +133,8 @@
       },
       onGetTotal(data)
       {
-        let value = parseFloat(data.value)
-        let itemValue = parseFloat( (data.type == 'quantity') ? data.voucher.qty : data.voucher.value )
+        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let itemValue = data.voucher.price_filter
         const total = value * itemValue
         return total
       },

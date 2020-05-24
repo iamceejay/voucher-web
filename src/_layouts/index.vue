@@ -15,7 +15,7 @@
           to="/cart"
         >
           <div class="cart-count">
-            {{ CARTS.length }}
+            {{ COUNT_CART }}
           </div>
           <i class="fas fa-shopping-cart text-base text-2xl" />
         </router-link>
@@ -42,9 +42,9 @@
       {
         return this.$store.getters.AUTH_USER
       },
-      CARTS()
+      COUNT_CART()
       {
-        return this.$store.getters.CARTS
+        return this.$store.getters.COUNT_CART
       }, 
       IS_LOADING()
       {
