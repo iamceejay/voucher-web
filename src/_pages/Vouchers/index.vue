@@ -67,9 +67,13 @@
     methods: {
       async onFetchVouchers(id)
       {
-        await this.$store.dispatch('FETCH_VOUCHERS', {
-          seller_id: id
-        })
+        try {
+          await this.$store.dispatch('FETCH_VOUCHERS', {
+            seller_id: id
+          })
+        } catch (err) {
+          console.log('err', err)
+        }
       },
     }
   }

@@ -43,7 +43,11 @@
     methods: {
       async onFetchVouchers()
       {
-        await this.$store.dispatch('FETCH_VOUCHERS')
+        try {
+          await this.$store.dispatch('FETCH_VOUCHERS')
+        } catch (err) {
+          console.log('err', err)
+        }
       },
     }
   }

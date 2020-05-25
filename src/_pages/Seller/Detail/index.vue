@@ -1,12 +1,12 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!isLoading" class="w-full flex flex-col">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <div class="w-full flex flex-col">
           <div class="flex flex-row">
             <Header1
               class="pb-0"
-              :label="`${ SELLER.detail.companyName }`"
+              :label="`${ USER.company.name }`"
             />
             <img 
               class="w-32 h-10 ml-auto"
@@ -15,30 +15,30 @@
             />
           </div>
           <p class="text-sm font-bold ml-2">
-            {{ `${SELLER.user.detail.firstName} ${SELLER.user.detail.lastName}` }}
+            {{ `${USER.detail.firstName} ${USER.detail.lastName}` }}
           </p>
           <p class="text-xs font-semibold ml-2">
-            {{ SELLER.user.detail.address }}
+            {{ USER.detail.address }}
           </p>
           <p class="text-xs font-semibold ml-2">
-            Region {{ SELLER.user.detail.region }}
+            Region {{ USER.detail.region || '' }}
           </p>
           <a 
             class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2" 
-            :href="`${SELLER.detail.webUrl}`"
+            :href="`${USER.company.url}`"
             target="_blank"
           >
-            {{ SELLER.detail.webUrl.replace(/(^\w+:|^)\/\//, '') }}
+            {{ USER.company.url.replace(/(^\w+:|^)\/\//, '') }}
           </a>
           <div class="mt-4 ml-2">
-            {{ SELLER.detail.description }}
+            {{ USER.company.description }}
           </div>
         </div>
         <div class="w-full flex flex-col">
           <VoucherList
             title="All vouchers"
             class="mb-3"
-            :data="SELLER.vouchers"
+            :data="VOUCHERS.data"
             :withQR="false"
           />
         </div>
@@ -60,7 +60,6 @@
     },
     data() {
       return {
-        role: null,
         isLoading: true,
       }
     },
@@ -69,40 +68,51 @@
       {
         return this.$store.getters.AUTH_USER
       },
-      SELLER()
+      VOUCHERS()
       {
-        return this.$store.getters.SELLER
-      }
+        return this.$store.getters.VOUCHERS
+      },
+      USER()
+      {
+        console.log('return this.$store.getters.USER', this.$store.getters.USER)
+        return this.$store.getters.USER
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
-      SELLER(newVal)
-      {
-        console.log('newVal seller', newVal)
-      }
     },
     mounted() {
       (async() => {
-        this.isLoading = true
-        await this.onSetRole()
-        await this.FETCH_SELLER()
-        this.isLoading = false
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchUser()
+        await this.onFetchVouchers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {
-      onSetRole()
+      async onFetchUser()
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        try {
+          const data = await this.$store.dispatch('FETCH_USER', {
+            id: this.$route.params.id
+          })
+        } catch (err) {
+          console.log('err', err)
         }
       },
-      async FETCH_SELLER()
+      async onFetchVouchers()
       {
-        this.$store.dispatch('FETCH_SELLER', this.$route.params.id)
-      }
+        try {
+          await this.$store.dispatch('FETCH_VOUCHERS', {
+            seller_id: this.$route.params.id
+          })
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>

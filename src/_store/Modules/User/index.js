@@ -2,21 +2,26 @@ import { post, get } from '_helpers/ApiService'
 import { users } from '_helpers/DefaultValues'
 import moment from 'moment'
 
+const prefix = 'user'
+
 export default {
   state: () => ({
     users: [],
     user: null
   }),
   getters: {
+    USER(state) {
+      return state.user;
+    },
     USERS(state) {
       return state.users;
     },
   },
   mutations: {
-    SET_USERS(state, payload) {
-      state.users = payload
-    },
     SET_USER(state, payload) {
+      state.user = payload
+    },
+    SET_USERS(state, payload) {
       state.users = payload
     },
   },
@@ -28,8 +33,15 @@ export default {
     },
     async FETCH_USER( { commit, state }, payload )
     {
-      await commit('SET_USER', data)
-      return data
+      try {
+        const { data } = await get(`${prefix}/${payload.id}`, {
+          ...payload.params
+        })
+        await commit('SET_USER', data.user)
+        return data
+      } catch (err) {
+        throw err
+      }
     },
     async ADD_USER( { commit, state }, payload )
     {
