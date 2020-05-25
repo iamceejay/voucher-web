@@ -8,7 +8,10 @@
       @onHide="isHideSideBar = $event"
     />
     <div :class="`main-container py-16 px-8`">
-      <div class="flex flex-col h-full w-full m-c">
+      <div 
+        id="infinite-scroll" 
+        class="flex flex-col h-full w-full m-c"
+      >
         <router-link 
           v-if="AUTH_USER.role && AUTH_USER.role.name === 'user'"
           class="cart-icon relative"
@@ -53,6 +56,10 @@
       IS_PROCESSING()
       {
         return this.$store.getters.IS_PROCESSING
+      }, 
+      IS_INFINITE_LOAD()
+      {
+        return this.$store.getters.IS_INFINITE_LOAD
       }, 
     },
     watch: {
@@ -110,9 +117,24 @@
     },
     mounted() {
       (async() => {
+        this.onScroll()
       })()
     },
     methods: {
+      onScroll()
+      {
+        let self = this
+        document.onscroll = async () => {
+          if( !self.IS_LOADING.status && !self.IS_PROCESSING.status && self.IS_INFINITE_LOAD ) {
+            const listElm = document.querySelector('#infinite-scroll')
+            const doc = document.documentElement
+            if( listElm && doc.scrollTop + window.innerHeight == doc.scrollHeight )
+            {
+              await self.$store.commit('SET_IS_LOAD_MORE', true)
+            }
+          }
+        }
+      },
     }
   }
 </script>

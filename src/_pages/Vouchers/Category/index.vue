@@ -8,7 +8,7 @@
         <VoucherList
           class="mb-3"
           title="Featured Vouchers"
-          :data="FEATURED_VOUCHERS.data"
+          :data="FEATURED_VOUCHERS"
           :withQR="false"
           :isInline="true"
         />
@@ -36,7 +36,10 @@
     },
     data() {
       return {
-        role: null,
+        params: {
+          page: 1,
+          paginate: 5,
+        }
       }
     },
     computed: {
@@ -67,50 +70,84 @@
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
-      }
+      },
+      IS_LOAD_MORE()
+      {
+        return this.$store.getters.IS_LOAD_MORE
+      },
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
       async '$route.params.id'()
       {
         await this.onFetchData()
-      }
+      },
+      async IS_LOAD_MORE(newVal)
+      {
+        if( newVal ) {
+          await this.onLoadData({
+            ...this.params,
+            page: this.params.page + 1
+          })
+          await this.$store.commit('SET_IS_LOAD_MORE', false)
+        }
+      },
     },
     mounted() {
       (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_NEWEST_VOUCHERS', [])
         await this.onFetchData()
+      })()
+    },
+    beforeDestroy () {
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', false)
       })()
     },
     methods: {
       async onFetchData()
       {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onSetRole()
         await this.onFetchCategory()
         await this.onFetchFeaturedVouchers()
         await this.onFetchNewestVouchers()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       },
+      async onLoadData( data )
+      {
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        this.params = {
+          ...this.params,
+          ...data
+        }
+        await this.onFetchNewestVouchers()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
       async onFetchFeaturedVouchers()
       {
-        await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
+        try {
+          await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
+        } catch (err) {
+          console.log('err', err)
+        }
       },
       async onFetchNewestVouchers()
       {
-        await this.$store.dispatch('FETCH_NEWEST_VOUCHERS')
-        console.log('NEWEST_VOUCHERS', this.NEWEST_VOUCHERS)
+        try {
+          const data = await this.$store.dispatch('FETCH_NEWEST_VOUCHERS', this.params)
+          if( data.vouchers.next_page_url == null ) {
+            await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+          }
+        } catch (err) {
+          console.log('err', err)
+        }
       },
       async onFetchCategory()
       {
-        await this.$store.dispatch('FETCH_CATEGORY', this.$route.params.id)
-      },
-      onSetRole()
-      {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        try {
+          await this.$store.dispatch('FETCH_CATEGORY', this.$route.params.id)
+        } catch (err) {
+          console.log('err', err)
         }
       },
     }

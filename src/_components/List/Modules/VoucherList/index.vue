@@ -10,18 +10,18 @@
     <VoucherFilter 
       v-if="withFilter"
       :filterLabel="filterLabel"
-      :isCategory="isCategory"
-      :isRegion="isRegion"
-      :isPrice="isPrice"
+      :isCategory="params.isCategory"
+      :isRegion="params.isRegion"
+      :isPrice="params.isPrice"
       @onFilter="onFilter"
     />
     <VoucherSort 
       v-if="withSort"
       :sortLabel="sortLabel"
-      :isNewest="isNewest"
-      :isPopular="isPopular"
-      :isLowest="isLowest"
-      @onFilter="onFilter"
+      :isNewest="params.isNewest"
+      :isMostPopular="params.isMostPopular"
+      :isLowestPrice="params.isLowestPrice"
+      @onFilter="onSort"
     />
     <div 
       v-if="type === 'standard'"
@@ -101,12 +101,14 @@
     },
     data() {
       return {
-        isPopular: false,
-        isNewest: false,
-        isLowest: false,
-        isCategory: false,
-        isRegion: false,
-        isPrice: false,
+        params: {
+          isMostPopular: false,
+          isNewest: false,
+          isCategory: false,
+          isRegion: false,
+          isLowestPrice: false,
+          isPrice: null,
+        },
         tempData: [],
         listIndex: 0,
         filterForm: {
@@ -125,8 +127,19 @@
       this.tempData = this.data
     },
     methods: {
+      onSort( data )
+      {
+        this.params = {
+          ...this.params,
+          [data]: !this.params[data]
+        }
+        console.log('this.params', this.params)
+        this.$emit('onChange', this.params)
+      },
       onFilter( data )
       {
+        console.log('data', data)
+        // this.params
         // const action = data[0]
         // let value = data.length > 1 ? data[1] : null
         // switch ( action ) {
@@ -139,9 +152,9 @@
         //     })
         //     break
         //   case 'popular':
-        //     this.isPopular = !this.isPopular
-        //     this.tempData = this.isPopular 
-        //       ? this.tempData.filter( row => row.isPopular )
+        //     this.isMostPopular = !this.isMostPopular
+        //     this.tempData = this.isMostPopular 
+        //       ? this.tempData.filter( row => row.isMostPopular )
         //       : this.data
         //     break
         //   case 'lowest':
@@ -156,13 +169,13 @@
         //     } else {
         //       this.isCategory = !this.isCategory
         //     }
-        //     // if( value || this.isPrice ) {
+        //     // if( value || this.isLowestPrice ) {
         //     //   this.isCategory = true
         //     //   this.filterForm.categories = value
         //     //   value = value || []
-        //     //   this.tempData = value.length > 0 || this.isPrice
+        //     //   this.tempData = value.length > 0 || this.isLowestPrice
         //     //     ? this.data.filter( row => {
-        //     //       const priceCon = this.isPrice && this.filterForm.price
+        //     //       const priceCon = this.isLowestPrice && this.filterForm.price
         //     //         ? row.value >= this.filterForm.price.from && row.value <= this.filterForm.price.to
         //     //         : true
         //     //       const categCon = value.length > 0 
@@ -181,7 +194,7 @@
         //     this.isRegion = !this.isRegion
         //     break
         //   case 'price':
-        //     this.isPrice = !this.isPrice
+        //     this.isLowestPrice = !this.isLowestPrice
 
         //     // if( value ) {
         //     //   this.filterForm.price = value
@@ -190,7 +203,7 @@
         //     //     : this.data
         //     // } else {
         //     //   this.filterForm.price = null
-        //     //   this.isPrice = !this.isPrice
+        //     //   this.isLowestPrice = !this.isLowestPrice
         //     //   this.tempData = this.data
         //     // }
         //     break

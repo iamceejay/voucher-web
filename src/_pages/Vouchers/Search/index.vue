@@ -3,7 +3,7 @@
     <template #content>
       <div class="flex flex-col w-full">
         <Header1
-          label="Search"
+          label="Search Voucher"
         />
         <SearchInputField
           id="search-here"
@@ -13,13 +13,14 @@
         />
         <VoucherList
           class="mb-3"
-          title="Vouchers"
           sortLabel="Sort by:"
           :withSort="true"
           filterLabel="Filter by:"
           :withFilter="true"
-          :data="VOUCHERS"
+          :data="VOUCHERS.data"
           :withQR="false"
+          listId="search-voucher-list"
+          @onChange="onFetchData"
         />
       </div>
     </template>
@@ -40,8 +41,16 @@
     },
     data() {
       return {
-        role: null,
-        search: ''
+        search: '',
+        params: {
+          page: 1,
+          paginate: 5,
+          isNewest: false,
+          isMostPopular: false,
+          isLowestPrice: false,
+          isPrice: null,
+          isLoading: false,
+        }
       };
     },
     computed: {
@@ -52,21 +61,63 @@
       {
         return this.$store.getters.VOUCHERS
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+      IS_LOAD_MORE()
+      {
+        return this.$store.getters.IS_LOAD_MORE
+      },
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      }
+      async IS_LOAD_MORE(newVal)
+      {
+        if( newVal ) {
+          await this.onFetchData({
+            ...this.params,
+            page: this.params.page + 1
+          })
+          await this.$store.commit('SET_IS_LOAD_MORE', false)
+        }
+      },
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchVouchers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
+    },
+    beforeDestroy () {
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+      })()
     },
     methods: {
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchData( data )
+      {
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        this.params = {
+          ...this.params,
+          ...data
         }
-      }
+        await this.onFetchVouchers()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
+      async onFetchVouchers()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
+          if( data.vouchers.next_page_url == null ) {
+            await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+          }
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>

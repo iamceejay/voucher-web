@@ -14,27 +14,27 @@
         round="rounded-full"
         fontSize="text-xs"
         :variant="`${ !isNewest ? 'primary' : 'info' }`"
-        @onClick="$emit('onFilter', ['newest'])"
+        @onClick="$emit('onFilter', ['isNewest'])"
       />
       <Button
-        :key="`isPopular-${isPopular}`"
+        :key="`isMostPopular-${isMostPopular}`"
         class="py-2 px-1 w-full md:w-40"
         label="Most Popular"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"
-        :variant="`${ !isPopular ? 'primary' : 'info' }`"
-        @onClick="$emit('onFilter', ['popular'])"
+        :variant="`${ !isMostPopular ? 'primary' : 'info' }`"
+        @onClick="$emit('onFilter', ['isMostPopular'])"
       />
       <Button
-        :key="`isLowest-${isLowest}`"
+        :key="`isLowestPrice-${isLowestPrice}`"
         class="py-2 px-1 w-full md:w-40"
-        :label="`${ !isLowest ? 'Lowest' : 'Highest' } Price`"
+        :label="`${ !isLowestPrice ? 'Lowest' : 'Lowest' } Price`"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"
-        :variant="`${ !isLowest ? 'primary' : 'info' }`"
-        @onClick="$emit('onFilter', ['lowest'])"
+        :variant="`${ !isLowestPrice ? 'primary' : 'info' }`"
+        @onClick="$emit('onFilter', ['isLowestPrice'])"
       />
     </div>
   </div>
@@ -52,13 +52,13 @@
       sortLabel: {
         type: String,
         default: ''
-      }, isPopular: {
+      }, isMostPopular: {
         type: Boolean,
         default: false
       }, isNewest: {
         type: Boolean,
         default: false
-      }, isLowest: {
+      }, isLowestPrice: {
         type: Boolean,
         default: false
       },

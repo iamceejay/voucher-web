@@ -1,5 +1,6 @@
 import { post, get, put, del } from '_helpers/ApiService'
 import { vouchers } from '_helpers/DefaultValues'
+import { mergeList } from '_helpers/CustomFunction'
 import moment from 'moment'
 
 const prefix = 'voucher'
@@ -57,8 +58,20 @@ export default {
           paginate: 15,
           ...payload
         })
-        await commit('SET_VOUCHERS', data.vouchers)
+        await commit('SET_VOUCHERS', mergeList( state.vouchers, data.vouchers ))
         return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
+    async FETCH_SEARCH_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/search`, payload)
+
+        await commit('SET_VOUCHERS', mergeList( state.vouchers, data.vouchers ))
+        return data
+
       } catch (err) {
         console.log('err', err)
       }
@@ -67,7 +80,7 @@ export default {
     {
       try {
         const { data } = await get(`${prefix}`, {
-          paginate: 10,
+          // paginate: 10,
           featured: true
         })
         await commit('SET_FEATURED_VOUCHERS', data.vouchers)
@@ -81,10 +94,10 @@ export default {
       try {
         const { data } = await get(`${prefix}`, {
           paginate: 10,
-          newest: true
+          newest: true,
+          ...payload,
         })
-        await commit('SET_NEWEST_VOUCHERS', data.vouchers)
-        console.log('SET_NEWEST_VOUCHERS', data.vouchers)
+        await commit('SET_NEWEST_VOUCHERS', mergeList( state.newestVouchers, data.vouchers ))
         return data
       } catch (err) {
         console.log('err', err)
