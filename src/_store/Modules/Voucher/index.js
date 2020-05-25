@@ -63,6 +63,16 @@ export default {
         console.log('err', err)
       }
     },
+    async FETCH_SEARCH_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/search`, payload)
+        // await commit('SET_VOUCHERS', data.vouchers)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
     async FETCH_FEATURED_VOUCHERS( { commit, state }, payload )
     {
       try {
