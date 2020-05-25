@@ -37,7 +37,6 @@
     },
     data() {
       return {
-        role: null,
         search: '',
         params: {
           page: 1,
@@ -45,7 +44,7 @@
           user_id: null,
           status: 'completed'
         }
-      };
+      }
     },
     computed: {
       AUTH_USER() {
