@@ -13,7 +13,7 @@
         class="flex flex-col h-full w-full m-c"
       >
         <router-link 
-          v-if="AUTH_USER.role && AUTH_USER.role.name === 'user'"
+          v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name === 'user'"
           class="cart-icon relative"
           to="/cart"
         >
