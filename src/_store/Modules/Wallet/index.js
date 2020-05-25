@@ -47,7 +47,8 @@ export default {
     {
       try {
         const { data } = await get(`${prefix}`, payload)
-        await commit('SET_WALLETS', mergeList( state.wallets, data.orders ))
+        const newList = (payload.paginate) ? mergeList( state.wallets, data.orders ) : data.orders
+        await commit('SET_WALLETS', newList)
         return data
       } catch (err) {
         throw err
