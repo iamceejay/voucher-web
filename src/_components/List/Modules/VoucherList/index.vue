@@ -25,22 +25,15 @@
     />
     <div 
       v-if="type === 'standard'"
-      class="flex flex-col w-full"
+      :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'flex flex-wrap justify-center sm:justify-start' }`"
     >
-      <InfiniteLoad
-        :id="listId"
-        :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'flex flex-wrap justify-center sm:justify-start overflow-y-auto scroll' }`"
-      >
-        <template #content>
-          <VoucherCard
-            v-for="(voucher, index) in tempData"
-            :key="`voucher-${index}`"
-            :data="voucher"
-            :role="role"
-            :withQR="withQR"
-          />
-        </template>
-      </InfiniteLoad>
+      <VoucherCard
+        v-for="(voucher, index) in tempData"
+        :key="`voucher-${index}`"
+        :data="voucher"
+        :role="role"
+        :withQR="withQR"
+      />
     </div>
     <div 
       v-if="type === 'feature'"
@@ -60,8 +53,7 @@
   import FeatureVoucherCard from './FeatureVoucherCard/'
   import VoucherSort from './VoucherFilter/Sort'
   import VoucherFilter from './VoucherFilter/Filter'
-  import Header2 from '_components/Headers/Header2'
-  import InfiniteLoad from '_components/List/InfiniteLoad'
+  import Header2 from '_components/Headers/Header2';
   import moment from 'moment';
 
   export default {
@@ -71,13 +63,9 @@
       Header2,
       VoucherSort,
       VoucherFilter,
-      InfiniteLoad,
     },
     props: {
-      listId: {
-        type: String,
-        default: 'voucher-list'
-      }, title: {
+      title: {
         type: String,
         default: ''
       }, data: {
@@ -139,11 +127,6 @@
       this.tempData = this.data
     },
     methods: {
-      onLoad( $state )
-      {
-        console.log('yawa')
-        $state.loaded()
-      },
       onSort( data )
       {
         this.params = {

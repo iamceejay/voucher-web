@@ -1,4 +1,5 @@
 import { post, get, del } from '_helpers/ApiService'
+import { mergeList } from '_helpers/CustomFunction'
 import moment from 'moment'
 
 const prefix = 'order'
@@ -46,7 +47,7 @@ export default {
     {
       try {
         const { data } = await get(`${prefix}`, payload)
-        await commit('SET_WALLETS', data.orders)
+        await commit('SET_WALLETS', mergeList( state.wallets, data.orders ))
         return data
       } catch (err) {
         throw err

@@ -2,7 +2,7 @@
   <div :id="id">
     <slot name="content" />
     <transition name="fade">
-      <div v-show="loading" class="loading">
+      <div v-show="testLoad" class="loading">
         <span class="fa fa-spinner fa-spin" /> Loading
       </div>
     </transition>
@@ -26,7 +26,9 @@
       }
     },
     data() {
-      return {}
+      return {
+        testLoad: false
+      }
     },
     mounted() {
       this.onScroll()
@@ -38,15 +40,15 @@
         document.onscroll = () => {
           const listElm = document.querySelector(`#${self.id}`)
           const doc = document.documentElement
-          if(self.isInfiniteLoad && listElm && doc.scrollTop + window.innerHeight == doc.scrollHeight && !loading)
+          if(self.isInfiniteLoad && listElm && doc.scrollTop + window.innerHeight == doc.scrollHeight && !self.testLoad)
           {
             self.loadMore()
           }
         }
       },
-      loadMore () 
+      async loadMore () 
       {
-        console.log('load more data')
+        await this.$emit('onLoadMore')
       }
     },
   }
