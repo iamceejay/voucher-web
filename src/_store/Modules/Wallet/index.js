@@ -115,5 +115,16 @@ export default {
         throw err
       }
     },
+    async DOWNLOAD_WALLET( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/download-voucher`, {
+          id: payload
+        })
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

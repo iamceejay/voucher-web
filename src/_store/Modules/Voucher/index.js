@@ -106,10 +106,10 @@ export default {
     async ADD_VOUCHER( { commit, state }, payload )
     {
       const { data } = await post(`${prefix}`, payload)
-      await commit('SET_VOUCHERS', [
-        ...state.vouchers,
-        data.voucher,
-      ])
+      // await commit('SET_VOUCHERS', [
+      //   ...state.vouchers,
+      //   data.voucher,
+      // ])
     },
     async UPDATE_VOUCHER( { commit, state }, payload )
     {

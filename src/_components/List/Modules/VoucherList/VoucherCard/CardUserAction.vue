@@ -20,7 +20,7 @@
       <a
         class="p-2 text-lg text-primary" 
         href="javascript:void(0)"
-        @click="onGenerateVoucher()"
+        @click="onGenerateVoucher(data.id)"
       >
         <i class="fas fa-download" />
       </a>
@@ -79,19 +79,27 @@
       {
         this.isAction = ++this.isAction
       },
-      onGenerateVoucher()
+      async onGenerateVoucher( order_id )
       {
-        this.isAction = ++this.isAction
-        let processing = this.$swal({
-          title: 'Processing Request',
-          text: 'Please wait ...',
-          allowOutsideClick: false,
-          showConfirmButton: false
-        })
-        setTimeout( () => {
-          document.getElementById('link').click()
-          processing.close()
-        }, 2000)
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          this.isAction = ++this.isAction
+          let processing = this.$swal({
+            title: 'Processing Request',
+            text: 'Please wait ...',
+            allowOutsideClick: false,
+            showConfirmButton: false
+          })
+          await this.$store.dispatch('DOWNLOAD_WALLET', order_id)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          
+        }
+        // setTimeout( () => {
+        //   document.getElementById('link').click()
+        //   processing.close()
+        // }, 2000)
       },
     }
   }
