@@ -54,6 +54,17 @@ export default {
         throw err
       }
     },
+    async FETCH_SEARCH_WALLETS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/search`, payload)
+        const newList = (payload.paginate) ? mergeList( state.wallets, data.orders ) : data.orders
+        await commit('SET_WALLETS', newList)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async FETCH_WALLET( { commit, state }, payload )
     {
       try {

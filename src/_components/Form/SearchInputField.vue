@@ -13,13 +13,13 @@
           <input
             :id="id"
             ref="inputField"
+            v-model="keyword"
             :name="id"
             :type="type"
             class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold font-body"
             :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
             :value="value"
             :placeholder="placeholder"
-            @input="onUpdateField()"
           />
           <span class="search-icon">
             <i class="fas fa-search" />
@@ -66,12 +66,39 @@
       },
     },
     data() {
-      return {};
+      return {
+        keyword: ''
+      }
     },
-    mounted() {},
+    watch: {
+      value( newVal )
+      {
+        this.keyword = newVal
+      }
+    },
+    mounted() {
+      let input = document.getElementById(this.id);
+      let timeout = null;
+      let self = this
+      input.addEventListener('keyup', function (e) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          console.log('Input Value:', e.target.value)
+          self.$emit('input', e.target.value)
+        }, 1000);
+      });
+    },
     methods: {
       onUpdateField() {
-        this.$emit('input', this.$refs.inputField.value);
+        // let input = document.getElementById(this.id);
+        // let timeout = null;
+        // input.addEventListener('keyup', function (e) {
+        //   clearTimeout(timeout);
+        //   timeout = setTimeout(function () {
+        //     console.log('Input Value:', e.target.value);
+        //   }, 3000);
+        // });
+        // this.$emit('input', this.$refs.inputField.value);
       }
     }
   }

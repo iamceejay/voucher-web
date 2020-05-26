@@ -11,8 +11,8 @@
         label="Orders"
       />
       <OrderList 
-        :role="role"
-        :data="orders"
+        :role="AUTH_USER.role.name"
+        :data="WALLETS.data"
       />
     </template>
   </MainLayout>
@@ -33,33 +33,83 @@
     },
     data() {
       return {
-        role: null,
         orders: [],
         stats: [],
+        params: {
+          page: 1,
+          paginate: 5,
+          user_id: null,
+          status: 'completed'
+        }
       }
     },
     computed: {
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
-      }
+      },
+      WALLETS()
+      {
+        return this.$store.getters.WALLETS
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+      IS_LOAD_MORE()
+      {
+        return this.$store.getters.IS_LOAD_MORE
+      },
     },
     watch: {
-      AUTH_USER(newVal)
+      async IS_LOAD_MORE(newVal)
       {
-        this.onSetRole()
-      }
+        if( newVal ) {
+          await this.onLoadData({
+            ...this.params,
+            page: this.params.page + 1
+          })
+          await this.$store.commit('SET_IS_LOAD_MORE', false)
+        }
+      },
     },
     mounted() {
-      this.onSetRole()
-      this.onSetStats()
-      this.onSetOrders()
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_WALLETS', [])
+        this.params.user_id = this.AUTH_USER.data.id
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchWallets()
+        await this.onSetStats()
+        await this.onSetOrders()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
+    },
+    beforeDestroy () {
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+      })()
     },
     methods: {
-      onSetRole()
+      async onLoadData( data )
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        this.params = {
+          ...this.params,
+          ...data
+        }
+        await this.onFetchWallets()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
+      async onFetchWallets()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_WALLETS', this.params)
+          if( data.orders.next_page_url == null ) {
+            await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+          }
+        } catch (err) {
+          console.log('err', err)
         }
       },
       onSetStats()

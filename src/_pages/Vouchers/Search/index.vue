@@ -7,9 +7,11 @@
         />
         <SearchInputField
           id="search-here"
-          v-model="search"
+          v-model="params.keyword"
+          :value="params.keyword"
           class="m-2"
           placeholder="Search for vouchers ..."
+          @input="onSearchData($event, 'search')"
         />
         <VoucherList
           class="mb-3"
@@ -21,6 +23,8 @@
           :withQR="false"
           listId="search-voucher-list"
           @onChange="onFetchData"
+          @onFilter="onSearchData($event, 'filter')"
+          @onSort="onSearchData($event, 'sort')"
         />
       </div>
     </template>
@@ -43,6 +47,7 @@
       return {
         search: '',
         params: {
+          keyword: '',
           page: 1,
           paginate: 5,
           isNewest: false,
@@ -97,12 +102,31 @@
       })()
     },
     methods: {
+      async onSearchData( data = null, action )
+      {
+        if ( action == 'sort' ) {
+          this.params.keyword = ''
+        }
+        let params = ( action == 'sort' || action == 'filter' )
+          ? {
+            ...this.params,
+            ...data,
+            page: 1
+          }
+          : {
+            ...this.params,
+            page: 1
+          }
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.onFetchData(params)
+      },
       async onFetchData( data )
       {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         this.params = {
           ...this.params,
-          ...data
+          ...data,
         }
         await this.onFetchVouchers()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

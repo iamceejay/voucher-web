@@ -7,9 +7,10 @@
         />
         <SearchInputField
           id="search-here"
-          v-model="search"
+          v-model="params.keyword"
           class="m-2"
           placeholder="Search for vouchers ..."
+          @input="onLoadData($event, true)"
         />
         <CartList
           class="mb-3"
@@ -39,6 +40,7 @@
       return {
         search: '',
         params: {
+          keyword: '',
           page: 1,
           paginate: 5,
           user_id: null,
@@ -81,7 +83,7 @@
         await this.$store.commit('SET_WALLETS', [])
         this.params.user_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchWallets()
+        await this.onFetchSearchWallets()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -91,20 +93,24 @@
       })()
     },
     methods: {
-      async onLoadData( data )
+      async onLoadData( data, fromSearch = false )
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         this.params = {
           ...this.params,
-          ...data
+          ...data,
+          page: (this.params.keyword != '') ? 1 : data.page
         }
-        await this.onFetchWallets()
+        if( fromSearch ) {
+          await this.$store.commit('SET_WALLETS', [])
+        }
+        await this.onFetchSearchWallets()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
       },
-      async onFetchWallets()
+      async onFetchSearchWallets()
       {
         try {
-          const data = await this.$store.dispatch('FETCH_WALLETS', this.params)
+          const data = await this.$store.dispatch('FETCH_SEARCH_WALLETS', this.params)
           if( data.orders.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }

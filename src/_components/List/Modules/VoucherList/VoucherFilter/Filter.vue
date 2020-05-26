@@ -14,7 +14,7 @@
         round="rounded-full"
         fontSize="text-xs"
         :variant="`${ !isCategory ? 'primary' : 'info' }`"
-        @onClick="$emit('onFilter', ['category'])"
+        @onClick="isCategory = !isCategory"
       />
       <Button
         :key="`isRegion-${isRegion}`"
@@ -24,7 +24,7 @@
         round="rounded-full"
         fontSize="text-xs"
         :variant="`${ !isRegion ? 'primary' : 'info' }`"
-        @onClick="$emit('onFilter', ['region'])"
+        @onClick="isRegion = !isRegion"
       />
       <Button
         :key="`isPrice-${isPrice}`"
@@ -34,7 +34,7 @@
         round="rounded-full"
         fontSize="text-xs"
         :variant="`${ !isPrice ? 'primary' : 'info' }`"
-        @onClick="$emit('onFilter', ['price'])"
+        @onClick="isPrice = !isPrice"
       />
     </div>
     <div class="flex flex-col md:flex-row">
@@ -42,9 +42,19 @@
         v-if="isCategory"
         label="Select categories: "
         class="mx-2 mr-5"
+        style="margin-bottom: 5px;"
         name="categories"
         :options="categories"
         @onChange="onChangeCategory"
+      />
+      <MultipleCheckboxField
+        v-if="isRegion"
+        label="Select regions: "
+        class="mx-2 mr-5"
+        style="margin-bottom: 5px;"
+        name="regions"
+        :options="regions"
+        @onChange="onChangeRegion"
       />
       <div
         v-if="isPrice"
@@ -85,18 +95,19 @@
                 @input="onChangePrice"
               />
             </div>
-            <Button
-              class="px-3 w-32"
-              type="submit"
-              label="Apply filter"
-              size="w-full"
-              round="rounded-full"
-              fontSize="text-xs"
-            />
           </form>
         </ValidationObserver>
       </div>
     </div>
+    <Button
+      v-if="isCategory || isRegion || isPrice"
+      class="px-2 w-32 mb-3"
+      label="Apply filter"
+      size="w-full"
+      round="rounded-full"
+      fontSize="text-xs"
+      @onClick="onFilter"
+    />
   </div>
 </template>
 <script>
@@ -118,21 +129,27 @@
       filterLabel: {
         type: String,
         default: ''
-      }, isRegion: {
-        type: Boolean,
-        default: false
-      }, isCategory: {
-        type: Boolean,
-        default: false
-      }, isPrice: {
-        type: Boolean,
-        default: false
-      },
+      }
+      // , isRegion: {
+      //   type: Boolean,
+      //   default: false
+      // }, isCategory: {
+      //   type: Boolean,
+      //   default: false
+      // }, isPrice: {
+      //   type: Boolean,
+      //   default: false
+      // },
     },
     data() {
       return {
+        isCategory: false,
+        isRegion: false,
+        isPrice: false,
         categories: [],
+        regions: [],
         selectedCategories: [],
+        selectedRegions: [],
         price: {
           from: 0,
           to: 0,
@@ -143,7 +160,11 @@
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
-      }
+      },
+      REGIONS()
+      {
+        return this.$store.getters.REGIONS
+      },
     },
     watch: {
       isCategory(newVal)
@@ -164,10 +185,15 @@
       CATEGORIES()
       {
         this.onSetCategories()
+      },
+      REGIONS()
+      {
+        this.onSetRegions()
       }
     },
     mounted() {
       this.onSetCategories()
+      this.onSetRegions()
     },
     methods: {
       onFilterPrice( invalid )
@@ -188,16 +214,40 @@
       },
       onChangeCategory(data)
       {
+        console.log('data', data)
         this.selectedCategories = data;
-        this.$emit('onFilter', [
-          'category',
-          data
-        ])
+        // this.$emit('onFilter', [
+        //   'category',
+        //   data
+        // ])
+      },
+      onChangeRegion(data)
+      {
+        this.selectedRegions = data;
+        // this.$emit('onFilter', [
+        //   'region',
+        //   data
+        // ])
+      },
+      onFilter()
+      {
+        const data = {
+          isCategory: !this.isCategory ? null : this.selectedCategories,
+          isRegion: !this.isRegion ? null : this.selectedRegions,
+          isPrice: !this.isPrice ? null : this.price,
+        }
+        console.log('data', data)
+        this.$emit('onFilter', data)
       },
       onSetCategories()
       {
-        this.categories = this.CATEGORIES.map( categ => categ.label )
-      }
+        console.log('this', this.CATEGORIES)
+        this.categories = this.CATEGORIES.map( row => row.name)
+      },
+      onSetRegions()
+      {
+        this.regions = this.REGIONS.map( row => row.label)
+      },
     }
   }
 </script>

@@ -1,3 +1,8 @@
+import moment from 'moment'
+
+export const formatDate = (date , format='DD.MM.YYYY') => {
+  return moment(date).local().format(format)
+}
 
 export const mergeList = ( array1, array2 ) => {
   const data = ( array1?.data?.length > 0 ) 

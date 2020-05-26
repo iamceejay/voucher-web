@@ -104,9 +104,9 @@
         params: {
           isMostPopular: false,
           isNewest: false,
+          isLowestPrice: false,
           isCategory: false,
           isRegion: false,
-          isLowestPrice: false,
           isPrice: null,
         },
         tempData: [],
@@ -131,14 +131,17 @@
       {
         this.params = {
           ...this.params,
+          isMostPopular: false,
+          isNewest: false,
+          isLowestPrice: false,
           [data]: !this.params[data]
         }
-        console.log('this.params', this.params)
-        this.$emit('onChange', this.params)
+        this.$emit('onSort', this.params)
       },
       onFilter( data )
       {
-        console.log('data', data)
+        this.$emit('onFilter', data)
+        
         // this.params
         // const action = data[0]
         // let value = data.length > 1 ? data[1] : null
