@@ -45,7 +45,15 @@ export default {
     },
     async ADD_USER( { commit, state }, payload )
     {
-      return data
+
+      try {
+        const { data } = await post(`auth/register`, payload)
+        await commit('SET_USER', data.user)
+        return data
+      } catch (err) {
+        throw err
+      }
+
     },
     UPDATE_USER( { commit, state }, payload )
     {

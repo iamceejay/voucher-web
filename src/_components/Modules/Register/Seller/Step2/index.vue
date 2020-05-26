@@ -12,6 +12,8 @@
       />
       <CompanyForm
         class="w-full md:w-1/2 my-5"
+        :errorMessages="errorMessages"
+        @onChange="onChange"
       />
       <Button
         type="submit"
@@ -33,10 +35,24 @@
       Button,
       Header2
     },
+    props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
     data() {
       return {
-        role: null,
-        submitting: false
+        submitting: false,
+        form: {
+          name: '',
+          description: '',
+          url: '',
+          logo: '',
+          region: '',
+        }
       }
     },
     computed: {
@@ -46,25 +62,30 @@
       }
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
     },
     created() {
-      this.onSetRole()
     },
     methods: {
       onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$emit('onChangeStep', 3)
+          this.$emit('onChangeStep', {
+            step: 3,
+            form: {
+              company: {
+                ...this.form,
+                region: this.form.region_id.label,
+                region_id: this.form.region_id.id
+              }
+            }
+          })
         }
       },
-      onSetRole()
+      onChange( data )
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        this.form = {
+          ...this.form,
+          ...data
         }
       },
     }

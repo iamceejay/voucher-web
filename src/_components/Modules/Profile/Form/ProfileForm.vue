@@ -2,53 +2,65 @@
   <div class="flex flex-col w-full">
     <InputField
       id="username"
-      v-model="profileForm.username"
+      v-model="form.username"
       type="text"
       class="m-2"
       label="Username"
-      rules="required"
+      rules="required|unique:users,username"
+      :errorMessages="errorMessages.username"
+      @input="onChange"
     />
     <div class="flex flex-row">
       <InputField
-        id="name"
-        v-model="profileForm.name"
+        id="firstName"
+        v-model="form.firstName"
         type="text"
         class="w-full sm:w-1/2 m-2"
         label="Name"
         rules="required"
+        :errorMessages="errorMessages.firstName"
+        @input="onChange"
       />
       <InputField
-        id="surname"
-        v-model="profileForm.surname"
+        id="lastName"
+        v-model="form.lastName"
         type="text"
         class="w-full sm:w-1/2 m-2"
         label="Surname"
         rules="required"
+        :errorMessages="errorMessages.lastName"
+        @input="onChange"
       />
     </div>
     <InputField
       id="email"
-      v-model="profileForm.email"
+      v-model="form.email"
       type="text"
       class="m-2"
       label="Email address"
-      rules="required|email"
+      rules="required|email|unique:users,email"
+      :errorMessages="errorMessages.email"
+      @input="onChange"
     />
     <InputField
       id="password"
-      v-model="profileForm.password"
+      v-model="form.password"
       type="password"
       class="m-2"
       label="Password"
-      rules="required"
+      rules="required|min:8|max:16"
+      :errorMessages="errorMessages.password"
+      @input="onChange"
     />
     <InputField
-      id="confirm_password"
-      v-model="profileForm.confirm_password"
+      id="confirmPassword"
+      v-model="form.confirmPassword"
       type="password"
       class="m-2"
       label="Repeat Password"
-      rules="required"
+      rules="required|min:8|max:16|password:@password"
+      :errorMessages="errorMessages.confirmPassword"
+      @input="onChange"
     />
   </div>
 </template>
@@ -60,22 +72,40 @@
       InputField,
     },
     props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     data() {
       return {
-        profileForm: {
+        form: {
           username: '',
-          name: '',
-          surname: '',
+          firstName: '',
+          lastName: '',
           email: '',
           password: '',
-          confirm_password: '',
+          confirmPassword: '',
+          company: {
+            name: '',
+            description: '',
+            url: '',
+            logo: '',
+            region_id: '',
+          }
         }
       }
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      onChange()
+      {
+        this.$emit('onChange', this.form)
+      }
+    }
   }
 </script>
 <style lang="css" scoped>

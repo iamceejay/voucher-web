@@ -12,6 +12,8 @@
       />
       <PayoutForm
         class="w-full md:w-1/2 "
+        :errorMessages="errorMessages"
+        @onChange="onChange"
       />
       <Header2
         label="Legal"
@@ -62,9 +64,16 @@
       Button,
       Header2
     },
+    props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
     data() {
       return {
-        role: null,
         submitting: false,
         form: {
           dataPrivacy: false,
@@ -80,31 +89,24 @@
       }
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
     },
     created() {
-      this.onSetRole()
     },
     methods: {
       onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$swal({
-            icon: 'success',
-            title: 'Thank you!',
-            text: 'We have recieved your registration application. As soon as you are verified, this message will be removed and you will be able to see your seller dashboard.',
-            confirmButtonColor: '#6C757D',
+          this.$emit('onChangeStep', {
+            step: 'done',
+            form: this.form
           })
-          this.$router.push('/home')
         }
       },
-      onSetRole()
+      onChange( data )
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        this.form = {
+          ...this.form,
+          ...data
         }
       },
     }

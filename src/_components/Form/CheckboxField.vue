@@ -48,9 +48,6 @@
       }, name: {
         type: String,
         default: ''
-      }, type: {
-        type: String,
-        default: ''
       }, label: {
         type: String,
         default: ''
@@ -66,16 +63,6 @@
       }, container: {
         type: String,
         default: 'mb-5'
-      }, data: {
-        type: Array,
-        default() {
-          return []
-        }
-      }, options: {
-        type: Array,
-        default() {
-          return []
-        }
       }, rules: {
         type: [String, Object],
         default: null
@@ -101,7 +88,7 @@
     },
     methods: {
       onUpdateField( e ) {
-        this.$emit('input', e.target.value);
+        this.$emit('input', e.target.checked );
         // this.$emit('onChange', this.checkboxValue);
       }
     }

@@ -19,11 +19,12 @@
           </p>
           <ProfileForm
             class="w-full md:w-1/2 my-5"
+            :errorMessages="errorMessages"
+            @onChange="onChange"
           />
           <CheckboxField
             id="dataPrivacy"
             v-model="form.dataPrivacy"
-            type="text"
             container="mx-2 mb-0"
             labelSentence="I accept the Data Privacy guidelines."
             :rules="{ required: { allowFalse: false } }"
@@ -65,9 +66,17 @@
     },
     data() {
       return {
-        role: null,
         submitting: false,
+        errorMessages: [],
         form: {
+          role_id: 3,
+          region_id: null,
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
           dataPrivacy: false,
           terms: false,
         }
@@ -80,31 +89,38 @@
       }
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
     },
     created() {
-      this.onSetRole()
     },
     methods: {
-      onSubmit( isValid )
+      async onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: 'Creating an account.',
-            confirmButtonColor: '#6C757D',
-          })
-          this.$router.push('/login')
+          try {
+            this.errorMessages = []
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            const data = await this.$store.dispatch('ADD_USER', this.form)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Creating an account.',
+              confirmButtonColor: '#6C757D',
+            })
+            this.$router.push('/login')
+          } catch (err) {
+            if( err?.response?.status == 422 ) {
+              this.errorMessages = err.response.data.errors
+            }
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
         }
       },
-      onSetRole()
+      onChange( data )
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        this.form = {
+          ...this.form,
+          ...data
         }
       },
     }

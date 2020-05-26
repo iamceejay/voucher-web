@@ -17,6 +17,8 @@
       </p>
       <ProfileForm
         class="w-full md:w-1/2 my-5"
+        :errorMessages="errorMessages"
+        @onChange="onChange"
       />
       <Button
         type="submit"
@@ -30,20 +32,33 @@
 <script>
   import Button from '_components/Button';
   import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
-  import PayoutForm from '_components/Modules/Profile/Form/PayoutForm';
   import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       ProfileForm,
-      PayoutForm,
       Button,
       Header1
     },
+    props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
     data() {
       return {
-        role: null,
-        submitting: false
+        submitting: false,
+        form: {
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        }
       }
     },
     computed: {
@@ -52,26 +67,23 @@
         return this.$store.getters.AUTH_USER
       }
     },
-    watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
-    },
     created() {
-      this.onSetRole()
     },
     methods: {
       onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$emit('onChangeStep', 2)
+          this.$emit('onChangeStep', {
+            step: 2,
+            form: this.form
+          })
         }
       },
-      onSetRole()
+      onChange( data )
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        this.form = {
+          ...this.form,
+          ...data
         }
       },
     }

@@ -283,6 +283,10 @@
         this.$store.commit('SET_AUTH_USER', {
           isAuth: false,
           token: '',
+          role: {
+            id: null,
+            name: null,
+          },
           data: null,
         })
         this.isLoggingOut = false

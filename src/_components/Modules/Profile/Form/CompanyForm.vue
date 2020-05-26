@@ -7,6 +7,8 @@
       class="m-2"
       label="Company Name"
       rules="required"
+      :errorMessages="errorMessages.name"
+      @input="onChange"
     />
     <TextAreaField
       id="text"
@@ -14,14 +16,18 @@
       class="m-2"
       label="Description"
       rules="max:254"
+      :errorMessages="errorMessages.description"
+      @input="onChange"
     />
     <InputField
       id="company_web_site"
-      v-model="form.companyWebSite"
+      v-model="form.url"
       type="text"
       class="m-2"
       label="Company Website"
       rules="required"
+      :errorMessages="errorMessages.url"
+      @input="onChange"
     />
     <FileInputField
       id="icon"
@@ -35,11 +41,13 @@
     />
     <SelectField
       id="month"
-      v-model="form.region"
+      v-model="form.region_id"
       :options="REGIONS"
       class="m-2"
       label="Region"
       rules="required"
+      :errorMessages="errorMessages.region_id"
+      @input="onChange"
     />
   </div>
 </template>
@@ -57,13 +65,19 @@
       FileInputField,
     },
     props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     data() {
       return {
         form: {
           name: '',
           description: '',
-          companyWebSite: '',
+          url: '',
           logo: '',
           region: '',
         }
@@ -78,6 +92,10 @@
     mounted() {
     },
     methods: {
+      onChange()
+      {
+        this.$emit('onChange', this.form)
+      },
       onChangeBgImg(data)
       {
         if(data.length > 0) {

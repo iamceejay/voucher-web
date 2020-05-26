@@ -59,6 +59,12 @@
       Button,
     },
     props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     data() {
       return {

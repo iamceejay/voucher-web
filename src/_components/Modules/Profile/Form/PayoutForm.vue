@@ -7,6 +7,8 @@
       class="m-2"
       label="IBAN"
       rules="required"
+      :errorMessages="errorMessages.lastName"
+      @input="onChange"
     />
     <InputField
       id="bic"
@@ -15,6 +17,8 @@
       class="m-2"
       label="BIC"
       rules="required"
+      :errorMessages="errorMessages.lastName"
+      @input="onChange"
     />
   </div>
 </template>
@@ -26,6 +30,12 @@
       InputField,
     },
     props: {
+      errorMessages: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
     },
     data() {
       return {
@@ -37,7 +47,12 @@
     },
     mounted() {
     },
-    methods: {}
+    methods: {
+      onChange()
+      {
+        this.$emit('onChange', this.form)
+      }
+    }
   }
 </script>
 <style lang="css" scoped>

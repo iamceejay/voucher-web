@@ -35,9 +35,20 @@
     },
     data() {
       return {
-        role: null,
         submitting: false,
-        step: 1
+        step: 1,
+        form: {
+          role_id: 2,
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          iban: '',
+          bic: '',
+          company: null,
+        }
       }
     },
     computed: {
@@ -47,34 +58,48 @@
       }
     },
     watch: {
-      AUTH_USER(newVal)
-      {
-        this.onSetRole()
-      },
     },
     created() {
-      this.onSetRole()
     },
     methods: {
-      onChangeStep( step )
+      onChangeStep({ step, form })
       {
-        this.step = step
-      },
-      onSubmit( isValid )
-      {
-        if( !isValid ) {
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: 'Updating the profile.',
-            confirmButtonColor: '#6C757D',
-          });
+        this.onChange(form)
+        if( step == 'done' ) {
+          this.onSubmit()
+        } else {
+          this.step = step
         }
       },
-      onSetRole()
+      onChange( data )
       {
-        if( this.AUTH_USER?.data?.user_role ) {
-          this.role = this.AUTH_USER.data.user_role.role.name
+        this.form = {
+          ...this.form,
+          ...data
+        }
+        console.log('onChange', this.form)
+      },
+      async onSubmit( isValid )
+      {
+        if( !isValid ) {
+          try {
+            this.errorMessages = []
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            const data = await this.$store.dispatch('ADD_USER', this.form)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Thank you!',
+              text: 'We have recieved your registration application. As soon as you are verified, this message will be removed and you will be able to see your seller dashboard.',
+              confirmButtonColor: '#6C757D',
+            })
+            this.$router.push('/home')
+          } catch (err) {
+            if( err?.response?.status == 422 ) {
+              this.errorMessages = err.response.data.errors
+            }
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
         }
       },
     }
