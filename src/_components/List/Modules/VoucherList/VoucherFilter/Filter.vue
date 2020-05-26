@@ -241,7 +241,6 @@
       },
       onSetCategories()
       {
-        console.log('this', this.CATEGORIES)
         this.categories = this.CATEGORIES.map( row => row.name)
       },
       onSetRegions()
