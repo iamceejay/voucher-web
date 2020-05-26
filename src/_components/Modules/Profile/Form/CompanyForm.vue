@@ -15,7 +15,7 @@
       v-model="form.description"
       class="m-2"
       label="Description"
-      rules="max:254"
+      rules="max:800"
       :errorMessages="errorMessages.description"
       @input="onChange"
     />
@@ -35,7 +35,6 @@
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
       label="Company Logo"
-      rules="required"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
     />
@@ -70,6 +69,12 @@
         default() {
           return []
         }
+      },
+      data: {
+        type: Object,
+        default() {
+          return null
+        }
       }
     },
     data() {
@@ -89,7 +94,14 @@
         return this.$store.getters.REGIONS
       }
     },
+    watch: {
+      data(newVal)
+      {
+        this.onSetForm()
+      }
+    },
     mounted() {
+      this.onSetForm()
     },
     methods: {
       onChange()
@@ -106,6 +118,15 @@
           }
         } else {
           // this.voucherForm.bgImage = ''
+        }
+      },
+      onSetForm()
+      {
+        if( this.data ) {
+          this.form = {
+            ...this.form,
+            ...this.data.company
+          }
         }
       },
     }

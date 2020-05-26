@@ -12,6 +12,7 @@ import Category from './Modules/Category/'
 import Template from './Modules/Template/'
 import Region from './Modules/Region/'
 import Alert from './Modules/Alert/'
+import UserStripe from './Modules/UserStripe/'
 
 Vue.use(Vuex);
 
@@ -28,5 +29,6 @@ export default new Vuex.Store({
     Template,
     Region,
     Alert,
+    UserStripe,
   }
 })

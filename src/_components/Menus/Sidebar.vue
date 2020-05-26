@@ -56,22 +56,17 @@
         </li>
         <li 
           v-if="AUTH_USER.isAuth"
-          class="border-t py-2 border-b"
+          class="border-t py-2 border-b cursor-pointer"
+          @click="onLogout()"
         >
-          <div class="pl-5 block hover:border-purple-900 ">
-            <a
-              href="javascript:void(0)"
-              class="text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body"
-              @click="onLogout()"
-            >
-              <div
-                v-if="isLoggingOut"
-                class="sm-spinner m-auto" 
-              />
-              <span v-else>
-                Logout
-              </span>
-            </a>
+          <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
+            <div
+              v-if="isLoggingOut"
+              class="sm-spinner m-auto" 
+            />
+            <span v-else>
+              Logout
+            </span>
           </div>
         </li>
       </ul>
@@ -124,6 +119,18 @@
       },
       onSetMenusByRole()
       {
+        const profileChild = [
+          {
+            title: 'Info',
+            link: '/profile-info'
+          },{
+            title: 'Payment',
+            link: '/profile-payment'
+          },{
+            title: 'Settings',
+            link: '/profile-settings'
+          },
+        ]
         if(this.AUTH_USER.isAuth) {
           switch ( this.AUTH_USER.role.id ) {
             case 1:
@@ -171,7 +178,9 @@
                   link: '/redemptions'
                 },{
                   title: 'Profile & Settings',
-                  link: '/profile-settings'
+                  link: '',
+                  isChildShow: false,
+                  child: profileChild,
                 },{
                   title: 'Scanner Users',
                   link: '/scanner-users'
@@ -199,7 +208,9 @@
                   link: '/wallet'
                 },{
                   title: 'Profile & Settings',
-                  link: '/profile-settings'
+                  link: '',
+                  isChildShow: false,
+                  child: profileChild,
                 },{
                   title: 'Orders',
                   link: '/orders'

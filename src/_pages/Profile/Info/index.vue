@@ -1,0 +1,189 @@
+<template>
+  <MainLayout>
+    <template #content>
+      <div class="flex flex-col w-full">
+        <ValidationObserver v-slot="{ handleSubmit, invalid }">
+          <form 
+            class="w-full flex flex-col"
+            @submit.prevent="handleSubmit(onSubmit(invalid))"
+          >
+            <div class="flex flex-wrap w-full">
+              <div class="w-full md:w-1/2 order-1">
+                <Header2 label="Profile Info" />
+                <ProfileForm
+                  :data="form"
+                  :errorMessages="errorMessages"
+                  @onChange="onChange"
+                />
+              </div>
+              <div
+                v-if="AUTH_USER.role.name == 'seller'" 
+                class="w-full md:w-1/2 order-2 md:order-3 mt-5"
+              >
+                <Header2 label="Company Info" />
+                <CompanyForm
+                  :data="form"
+                  :errorMessages="errorMessages"
+                  @onChange="onChange({
+                    ...form,
+                    company: $event
+                  })"
+                />
+              </div>
+              <div
+                v-if="AUTH_USER.role.name == 'seller'" 
+                class="w-full md:w-1/2 order-3 md:order-2 mt-5"
+              >
+                <Header2 label="Payout Info" />
+                <PayoutForm
+                  :data="form"
+                  :errorMessages="errorMessages"
+                  @onChange="onChange"
+                />
+              </div>
+            </div>
+            <Button
+              type="submit"
+              label="Save"
+              size="w-full md:w-1/2 py-3 mx-2 mt-1"
+              round="rounded-full"
+            />
+          </form>
+        </ValidationObserver>
+      </div>
+    </template>
+  </MainLayout>
+</template>
+<script>
+  import MainLayout from '_layouts';
+  import Button from '_components/Button';
+  import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
+  import CompanyForm from '_components/Modules/Profile/Form/CompanyForm';
+  import PayoutForm from '_components/Modules/Profile/Form/PayoutForm';
+  import Header2 from '_components/Headers/Header2';
+
+  export default {
+    name: 'Profile',
+    components: {
+      MainLayout,
+      ProfileForm,
+      CompanyForm,
+      PayoutForm,
+      Button,
+      Header2
+    },
+    data() {
+      return {
+        errorMessages: [],
+        form: {
+          id: null,
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          address: '',
+          zip_code: '',
+          iban: '',
+          bic: '',
+          company: null,
+        }
+      }
+    },
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
+      REGIONS()
+      {
+        return this.$store.getters.REGIONS
+      },
+    },
+    watch: {
+    },
+    mounted() {
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchUser()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
+    },
+    methods: {
+      async onSubmit( isValid )
+      {
+        if( !isValid ) {
+          try {
+            this.errorMessages = []
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            if( this.AUTH_USER.role.name == 'seller' ) {
+              this.form.company.region = this.form.company.region_id.label
+            }
+            const data = await this.$store.dispatch('UPDATE_USER', this.form)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Updating your info.',
+              confirmButtonColor: '#6C757D',
+            })
+          } catch (err) {
+            if( err?.response?.status == 422 ) {
+              this.errorMessages = err.response.data.errors
+            }
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
+        }
+      },
+      onChange( data )
+      {
+        this.form = {
+          ...this.form,
+          ...data
+        }
+      },
+      async onFetchUser()
+      {
+        try {
+          const { user } = await this.$store.dispatch('FETCH_USER', this.AUTH_USER.data)
+
+          let params = {
+            id: user.id,
+            username: user.username,
+            firstName: user.detail.firstName,
+            lastName: user.detail.lastName,
+            email: user.email,
+            address: user.detail.address,
+            zip_code: user.detail.zip_code,
+            iban: user.detail.iban,
+            bic: user.detail.bic,
+            company: null
+          }
+
+          
+          if( this.AUTH_USER.role.name == 'seller' ) {
+            const region = this.REGIONS.filter( row => user.company.region == row.label)
+            console.log('region', region)
+            params = {
+              ...params,
+              company: {
+                name: user.company.name,
+                description: user.company.description,
+                url: user.company.url,
+                logo: user.company.logo,
+                region: user.company.region,
+                region_id: region ? region[0] : '',
+              },
+            }
+          }
+          this.form = params
+          console.log('this.form', this.form)
+        } catch (err) {
+          console.log('err', err)
+        }
+      }
+    }
+  }
+</script>
+<style lang='css' scoped>
+</style>

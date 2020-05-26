@@ -15,11 +15,16 @@
         We will then review your entry, which can take up to 3 days. We will
         contact you as soon as you are approved.
       </p>
-      <ProfileForm
-        class="w-full md:w-1/2 my-5"
-        :errorMessages="errorMessages"
-        @onChange="onChange"
-      />
+      <div class="flex flex-col w-full md:w-1/2 my-5">
+        <ProfileForm
+          :errorMessages="errorMessages"
+          @onChange="onChange"
+        />
+        <SettingsForm
+          :errorMessages="errorMessages"
+          @onChange="onChange"
+        />
+      </div>
       <Button
         type="submit"
         label="Next Step >"
@@ -32,11 +37,13 @@
 <script>
   import Button from '_components/Button';
   import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
+  import SettingsForm from '_components/Modules/Profile/Form/SettingsForm';
   import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       ProfileForm,
+      SettingsForm,
       Button,
       Header1
     },

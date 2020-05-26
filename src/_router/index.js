@@ -19,6 +19,9 @@ import NewVoucher from '_pages/Vouchers/New/'
 import StatisticsVoucher from '_pages/Vouchers/Statistics/'
 import OrdersEarnings from '_pages/OrdersEarnings/'
 import Profile from '_pages/Profile/'
+import ProfileInfo from '_pages/Profile/Info/'
+import ProfilePayment from '_pages/Profile/Payment/'
+import ProfileSettings from '_pages/Profile/Settings/'
 import Redemptions from '_pages/Redemptions/'
 import Scanner from '_pages/Scanner/'
 import ScannerUsers from '_pages/ScannerUsers/'
@@ -140,9 +143,23 @@ const router = new Router({
         middleware: [ auth, authSeller ]
       } 
     },{ 
+      path: '/profile-info', 
+      name: 'profile-info', 
+      component: ProfileInfo,
+      meta: {
+        middleware: [ auth, authUS ]
+      } 
+    },{ 
+      path: '/profile-payment', 
+      name: 'profile-payment', 
+      component: ProfilePayment,
+      meta: {
+        middleware: [ auth, authUS ]
+      } 
+    },{ 
       path: '/profile-settings', 
       name: 'profile-settings', 
-      component: Profile,
+      component: ProfileSettings,
       meta: {
         middleware: [ auth, authUS ]
       } 

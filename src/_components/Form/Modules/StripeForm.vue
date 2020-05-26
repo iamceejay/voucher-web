@@ -7,7 +7,7 @@
     >
       <div id="card-element" class="mt-1 mb-2" />
       <div id="card-errors" class="mb-3 text-red-500 font-semibold font-body text-sm" />
-      <div class="flex flex-row mx-2">
+      <div v-if="isPay" class="flex flex-row mx-2">
         <input 
           id="is_save"
           v-model="paymentForm.is_save"
@@ -19,7 +19,7 @@
       <Button
         type="submit"
         class="py-2 justify-center"
-        label="Pay Now"
+        :label="`${ isPay ? 'Pay Now' : 'Save' }`"
         size="w-full py-3"
         round="rounded-full"
         fontSize="text-sm"
@@ -33,7 +33,13 @@
   export default {
     components: {
       Button
-    },    
+    },
+    props: {
+      isPay: {
+        type: Boolean,
+        default: true
+      },
+    },
     data() {
       return {
         paymentForm: {
@@ -63,7 +69,6 @@
     },
     mounted() {
       // Create a Stripe client.
-      console.log('process.env.VUE_APP_STRIPE_PUB_KEY', process.env.VUE_APP_STRIPE_PUB_KEY)
       const stripe = Stripe(process.env.VUE_APP_STRIPE_PUB_KEY)
       // Create an instance of Elements.
       const elements = stripe.elements()
@@ -98,7 +103,7 @@
 
           try {
             let source_id = ''
-            if( this.paymentForm.is_save ) {
+            if( this.paymentForm.is_save || !this.isPay ) {
               const { source } = await stripe.createSource(card, cust_info)
               source_id = source.id
             }
@@ -120,43 +125,6 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             console.log(error)
           }
-          // if (error) {
-          //   // Inform the user if there was an error
-          //   await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          //   const errorElement = document.getElementById('card-errors');
-          //   if(errorElement) errorElement.textContent = error.message;
-          // } else {
-          //   // Send the source to your server
-          //   await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          //   // Send the token to your server.
-          //   console.log('result', source)
-          //   self.$emit('onSubmit', {
-          //     is_save: this.paymentForm.is_save,
-          //     token: source.id
-          //   })
-          // }
-          
-          // stripe.createToken(card).then( async(result) => {
-          //   if (result.error) {
-          //     await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          //     // Inform the user if there was an error.
-          //     const errorElement = document.getElementById('card-errors')
-          //     if(errorElement) errorElement.textContent = result.error.message;
-          //   } else {
-          //     await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          //     // Send the token to your server.
-          //     console.log('result', result)
-          //     self.$emit('onSubmit', {
-          //       is_save: this.paymentForm.is_save,
-          //       token: result.token.id
-          //     })
-          //   }
-          // })
-
-
-
-
-
         })
       }
     },

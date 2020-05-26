@@ -17,11 +17,16 @@
             Please fill out the registration form below to
             register for the app.
           </p>
-          <ProfileForm
-            class="w-full md:w-1/2 my-5"
-            :errorMessages="errorMessages"
-            @onChange="onChange"
-          />
+          <div class="flex flex-col w-full md:w-1/2 my-5">
+            <ProfileForm
+              :errorMessages="errorMessages"
+              @onChange="onChange"
+            />
+            <SettingsForm
+              :errorMessages="errorMessages"
+              @onChange="onChange"
+            />
+          </div>
           <CheckboxField
             id="dataPrivacy"
             v-model="form.dataPrivacy"
@@ -52,6 +57,7 @@
   import MainLayout from '_layouts';
   import Button from '_components/Button';
   import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
+  import SettingsForm from '_components/Modules/Profile/Form/SettingsForm';
   import Header1 from '_components/Headers/Header1';
   import CheckboxField from '_components/Form/CheckboxField';
 
@@ -60,6 +66,7 @@
     components: {
       MainLayout,
       ProfileForm,
+      SettingsForm,
       Button,
       CheckboxField,
       Header1
@@ -75,6 +82,8 @@
           firstName: '',
           lastName: '',
           email: '',
+          address: '',
+          zip_code: '',
           password: '',
           confirmPassword: '',
           dataPrivacy: false,

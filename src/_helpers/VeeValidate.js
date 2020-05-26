@@ -23,6 +23,7 @@ const isUnique = ( value, data ) => {
     },
     model: data[0],
     entity: data[1],
+    id: data[2] || '',
   }
   return post('auth/unique', params).then( ({ data } ) => {
     // this.validating = false

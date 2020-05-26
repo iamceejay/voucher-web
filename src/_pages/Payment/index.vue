@@ -74,7 +74,6 @@
     methods: {
       onSubmit( data )
       {
-        console.log('data', data)
         this.$swal({
           title: 'Payment',
           text: `Are you sure you want to continue this payment?`,

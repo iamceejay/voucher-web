@@ -6,7 +6,6 @@
       type="text"
       class="m-2"
       label="IBAN"
-      rules="required"
       :errorMessages="errorMessages.lastName"
       @input="onChange"
     />
@@ -16,7 +15,6 @@
       type="text"
       class="m-2"
       label="BIC"
-      rules="required"
       :errorMessages="errorMessages.lastName"
       @input="onChange"
     />
@@ -35,6 +33,12 @@
         default() {
           return []
         }
+      },
+      data: {
+        type: Object,
+        default() {
+          return null
+        }
       }
     },
     data() {
@@ -45,13 +49,30 @@
         }
       }
     },
+    watch: {
+      data(newVal)
+      {
+        this.onSetForm()
+      }
+    },
     mounted() {
+      this.onSetForm()
     },
     methods: {
       onChange()
       {
         this.$emit('onChange', this.form)
-      }
+      },
+      onSetForm()
+      {
+        if( this.data ) {
+          this.form = {
+            ...this.form,
+            iban: this.data.iban,
+            bic: this.data.bic
+          }
+        }
+      },
     }
   }
 </script>
