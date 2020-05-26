@@ -57,11 +57,12 @@
               </span>
             </div>
           </div>
-          <div class="text-base font-bold font-body">
+          <div class="text-sm font-bold font-body">
+            {{ `${(data.type == 'quantity') ? 'Quantity' : 'Value'}-based` }}
+          </div>
+          <div v-if="role != 'seller'" class="text-sm font-bold font-body">
             {{
-              ( role === 'seller' ) 
-                ? `${(data.type == 'quantity') ? 'Quantity' : 'Value'}-based`
-                : `${(data.type == 'quantity') ? `${data.qty_val}x` : `€${data.val_min}`}`
+              `${(data.type == 'quantity') ? `${data.qty_val}x (€${data.qty_min} - €${data.qty_max})` : `€${data.val_min} - €${data.val_max}`}`
             }}
           </div>
           <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32 text-center self-center">

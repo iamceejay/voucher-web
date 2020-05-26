@@ -28,7 +28,7 @@ export const request = (method, url, payload = {}, headers = {}) => {
 }
 
 // GET Method
-export const get = (url, payload = {}, headers = {}) => {
+export const get = (url, payload = {}, headers = {}, other = {}) => {
   return axios({
     headers,
     method: 'GET',

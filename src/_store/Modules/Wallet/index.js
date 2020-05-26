@@ -120,8 +120,13 @@ export default {
       try {
         const { data } = await post(`${prefix}/download-voucher`, {
           id: payload
-        })
-        return data
+        }, {}, {responseType: 'arraybuffer'})
+
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `voucher.pdf`
+        link.click()
       } catch (err) {
         throw err
       }
