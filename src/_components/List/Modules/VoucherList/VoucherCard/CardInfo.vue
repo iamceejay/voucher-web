@@ -37,8 +37,8 @@
         </div>
       </div>
       <div class="w-full flex flex-row">
-        <div class="w-9/12">
-          <div class="text-xs font-body">
+        <div class="w-9/12 flex flex-col">
+          <div class="text-xs font-body ">
             <div v-if="data.valid_date.length > 0">
               <span
                 v-for="(date, index) in data.valid_date"
@@ -64,11 +64,14 @@
                 : `${(data.type == 'quantity') ? `${data.qty_val}x` : `€${data.val_min}`}`
             }}
           </div>
+          <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32 text-center self-center">
+            {{ otherData.sent_via == 'email' && 'Sent by Email' }}
+          </div>
         </div>
         <div 
           v-if="withQR"
-          :class="`w-1/4 ${ isFlippable ? 'cursor-pointer' : ''}`"
-          @click="$emit('onFlip')"
+          :class="`w-1/4 ${ isFlippable && (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : ''}`"
+          @click="(otherData && otherData.sent_via ) ? '' : $emit('onFlip')"
         >
           <img 
             class="card-qr mt-1"
@@ -88,6 +91,9 @@
     components: {},
     props: {
       data: {
+        type: Object,
+        default: null
+      }, otherData: {
         type: Object,
         default: null
       }, isFlippable: {

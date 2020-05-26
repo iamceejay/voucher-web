@@ -126,5 +126,14 @@ export default {
         throw err
       }
     },
+    async SEND_WALLET( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/send-voucher-pdf`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

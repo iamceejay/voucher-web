@@ -84,17 +84,10 @@
         try {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           this.isAction = ++this.isAction
-          let processing = this.$swal({
-            title: 'Processing Request',
-            text: 'Please wait ...',
-            allowOutsideClick: false,
-            showConfirmButton: false
-          })
           await this.$store.dispatch('DOWNLOAD_WALLET', order_id)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          
         }
         // setTimeout( () => {
         //   document.getElementById('link').click()

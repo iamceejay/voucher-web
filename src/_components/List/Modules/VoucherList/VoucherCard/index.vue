@@ -11,6 +11,7 @@
       :data="data"
       :isFlippable="isFlippable"
       :withQR="withQR"
+      :otherData="otherData"
       @onFlip="onFlip()"
     />
     <CardAction

@@ -68,7 +68,7 @@
     data() {
       return {
         emailForm: {
-          id: '',
+          id: null,
           email: '',
           subject: '',
           text: '',
@@ -76,23 +76,32 @@
       }
     },
     mounted() {
+      this.emailForm.id = this.$route.params.id
     },
     methods: {
-      onSubmit( isValid )
+      async onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: 'Sending the voucher via email.',
-            confirmButtonColor: '#6C757D',
-          });
-          this.emailForm = {
-            email: '',
-            subject: '',
-            text: '',
+          try {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('SEND_WALLET', this.emailForm)
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Sending the voucher via email.',
+              confirmButtonColor: '#6C757D',
+            });
+            this.emailForm = {
+              id: null,
+              email: '',
+              subject: '',
+              text: '',
+            }
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$router.push('/wallet')
+          } catch (err) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
-          this.$router.push('/wallet')
         }
       }
     }
