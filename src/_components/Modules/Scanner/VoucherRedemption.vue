@@ -6,9 +6,9 @@
         @submit.prevent="handleSubmit(onSubmit(invalid))"
       >
         <InputField
-          id="text"
-          v-model="voucherForm.value"
-          type="text"
+          id="value"
+          v-model="form.value"
+          type="number"
           class="w-full md:w-1/2 m-auto mt-4"
           placeholder="Enter value of redemption."
           rules="required"
@@ -43,33 +43,57 @@
     props: [],
     data() {
       return {
-        voucherForm: {
-          value: ""
+        form: {
+          value: null
         }
       };
     },
+    computed: {
+      QR_CODE()
+      {
+        return this.$store.getters.QR_CODE
+      },
+    },
     mounted() {},
     methods: {
-      onSubmit(invalid) {
+      async onSubmit(invalid) {
         if( !invalid ) {
           this.$swal({
             title: 'Confirm the redemption of the voucher.',
-            text: `Value: ${this.voucherForm.value}€`,
+            text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? 'Value: €' : 'Quantity: x' }${this.form.value}`,
             showCancelButton: true,
             confirmButtonColor: '#6C757D',
             cancelButtonColor: '#AF0000',
             confirmButtonText: 'Confirm',
             cancelButtonText: 'Cancel',
-          }).then((result) => {
+          }).then( async (result) => {
             if(result.value){
-              this.$swal({
-                icon: 'success',
-                title: 'The voucher was redeemed!',
-                confirmButtonColor: '#6C757D',
-              });
-              this.$emit('onSetVoucher', '')
+              try {
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+                await this.$store.dispatch('ADD_REDEMPTION', {
+                  order_id: this.QR_CODE.order_id,
+                  value: this.form.value,
+                })
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                this.$swal({
+                  icon: 'success',
+                  title: 'The voucher was redeemed!',
+                  confirmButtonColor: '#6C757D',
+                });
+                await this.$store.commit('SET_QR_CODE', null)
+              } catch (err) {
+                if( err?.response?.status == 422 ) {
+                  this.$swal({
+                    icon: 'warning',
+                    title: 'Warning!',
+                    text: err.response.data.message,
+                    confirmButtonColor: '#6C757D',
+                  })
+                }
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              }
             }   
-          });
+          })
         }
       }
     }

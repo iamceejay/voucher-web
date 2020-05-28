@@ -3,11 +3,11 @@
     <template #content>
       <Header1 label="Voucher Scanner" />
       <VoucherScanner 
-        v-if="!qr"
+        v-if="!QR_CODE"
         @onSetVoucher="onSetVoucher"
       />
       <VoucherRedemption 
-        v-if="qr"
+        v-if="QR_CODE"
         @onSetVoucher="onSetVoucher"
       />
     </template>
@@ -32,13 +32,40 @@
         qr: null
       }
     },
+    computed: {
+      QR_CODE()
+      {
+        return this.$store.getters.QR_CODE
+      },
+    },
     mounted() {
-
+      (async() => {
+        await this.$store.commit('SET_QR_CODE', null)
+      })()
     },
     methods: {
-      onSetVoucher(data)
+      async onSetVoucher(data)
       {
-        this.qr = data
+        try {
+          if( data && data !='' ) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('SCAN_QR', {
+              url: data
+            })
+            this.qr = data
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
+        } catch (err) {
+          if( err?.response?.status == 422 ) {
+            this.$swal({
+              icon: 'warning',
+              title: 'Warning!',
+              text: err.response.data.message,
+              confirmButtonColor: '#6C757D',
+            })
+          }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        }
       }
     }
   }

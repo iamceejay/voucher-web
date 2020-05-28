@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="w-full flex flex-col">
+      <div v-if="!IS_LOADING.status" class="w-full flex flex-col">
         <Header1
           label="Scanner Users"
         />
@@ -40,14 +40,38 @@
       }
     },
     computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
       SCANNER_USERS()
       {
         return this.$store.getters.SCANNER_USERS
-      }
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     mounted() {
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchScannerUsers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
+      async onFetchScannerUsers()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_SCANNER_USERS', {
+            seller_id: this.AUTH_USER.id
+          })
+
+        } catch (err) {
+          console.log('err', err)
+        }
+      }
     }
   }
 </script>

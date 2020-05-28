@@ -13,6 +13,9 @@ import Template from './Modules/Template/'
 import Region from './Modules/Region/'
 import Alert from './Modules/Alert/'
 import UserStripe from './Modules/UserStripe/'
+import UserVoucher from './Modules/UserVoucher/'
+import QrCode from './Modules/QrCode/'
+import Redemption from './Modules/Redemption/'
 
 Vue.use(Vuex);
 
@@ -30,5 +33,8 @@ export default new Vuex.Store({
     Region,
     Alert,
     UserStripe,
+    UserVoucher,
+    QrCode,
+    Redemption,
   }
 })

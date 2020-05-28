@@ -54,6 +54,15 @@ export default {
         throw err
       }
     },
+    async FETCH_WALLET_STAT( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async FETCH_SEARCH_WALLETS( { commit, state }, payload )
     {
       try {
@@ -68,8 +77,8 @@ export default {
     async FETCH_WALLET( { commit, state }, payload )
     {
       try {
-        const data = state.wallets.filter( row => row.id == payload )[0]
-        await commit('SET_WALLET', data)
+        const { data } = await get(`${prefix}/${payload}`, {})
+        await commit('SET_WALLET', data.order)
         return data
       } catch (err) {
         throw err

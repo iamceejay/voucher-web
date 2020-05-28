@@ -20,18 +20,18 @@
     </div>
     <div class="card-content">
       <div class="w-full flex flex-row">
-        <div :class="`${data.personalized && data.personalized.picture ? 'w-3/5' : 'w-9/12'}`">
+        <div :class="`${otherData && otherData.user_voucher && otherData.user_voucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
           <div class="text-xs text-justify card-description h-32 font-body">
             {{ data.description || 'Voucher Description' }}
           </div>
           <div class="text-xs text-justify h-12 font-body">
-            {{ data.personalized && data.personalized.note || '' }}
+            {{ otherData && otherData.user_voucher && otherData.user_voucher.note || '' }}
           </div>
         </div>
-        <div v-if="data.personalized && data.personalized.picture" class="w-2/5">
+        <div v-if="otherData && otherData.user_voucher && otherData.user_voucher.custom_image" class="w-2/5 p-1">
           <img 
             style="width: 120px; height: 80px;"
-            :src="data.personalized.picture" 
+            :src="otherData.user_voucher.custom_image" 
             alt=""
           />
         </div>
@@ -70,17 +70,24 @@
           </div>
         </div>
         <div 
-          v-if="withQR"
-          :class="`w-1/4 ${ isFlippable && (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : ''}`"
+          v-if="withQR && otherData && otherData.qr"
+          :class="`w-1/4 flex flex-col ${ isFlippable && (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : ''}`"
           @click="(otherData && otherData.sent_via ) ? '' : $emit('onFlip')"
         >
-          <img 
+          <QrcodeVue
+            class="card-qr"
+            :value="otherData.qr.url" 
+            :size="50" 
+            level="H" 
+          />
+          <!-- <img
+            v-else
             class="card-qr mt-1"
             src="@/_assets/img/default-qr-code.png" 
             alt=""
-          />
-          <div class="qr-text font-semibold flex font-body">
-            <span class="ml-auto">Voucher No.</span>
+          /> -->
+          <div class="qr-text ml-auto font-semibold flex font-body">
+            <span class="">Voucher No.</span>
           </div>
         </div>
       </div>
@@ -88,8 +95,12 @@
   </div>
 </template>
 <script>
+  import QrcodeVue from 'qrcode.vue'
+  
   export default {
-    components: {},
+    components: {
+      QrcodeVue,
+    },
     props: {
       data: {
         type: Object,
@@ -172,13 +183,12 @@
     margin-left: auto;
   }
   .card-qr {
-    width: 65px;
-    height: 65px;
     margin-left: auto;
+    /* margin: 0px 15px; */
   }
   .qr-text {
     margin-top: 2px;
-    margin-right: 6px;
+    /* margin-right: 6px; */
     font-size: 9px;
   }
 </style>

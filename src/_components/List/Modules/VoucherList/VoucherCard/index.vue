@@ -75,7 +75,7 @@
           this.onSetBgImage(newVal)
         }
       },
-      'data.personalized.template'(newVal, oldVal)
+      'otherData.user_voucher.template'(newVal, oldVal)
       {
         if( newVal && newVal.length > 0 ) {
           const tem = newVal.filter( row => row.status )
@@ -84,10 +84,15 @@
           }
         }
       },
+      'otherData.user_voucher.text_color'(newVal, oldVal)
+      {
+        console.log('teest')
+        this.onGetTextColor()
+      },
     },
     mounted() {
-      if(this.data.personalized?.template) {
-        const template = this.data.personalized.template
+      if(this.otherData?.user_voucher?.template) {
+        const template = this.otherData.user_voucher.template
         if( template && template.length > 0 ) {
           const tem = template.filter( row => row.status )
           if( tem.length > 0 ) {
@@ -109,8 +114,8 @@
       onGetTextColor()
       {
         let color = ''
-        if( this.data.personalized ) {
-          color = this.data.personalized.isDarkText ? 'text-black' : 'text-white'
+        if( this.otherData?.user_voucher?.text_color != null  ) {
+          color = (this.otherData.user_voucher.text_color == 'dark') ? 'text-black' : 'text-white'
         } else {
           color = (this.data.text_color == 'dark') ? 'text-black' : 'text-white'
         }

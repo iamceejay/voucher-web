@@ -3,12 +3,18 @@
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full"
     @click="onFlip()"
   >
-    <div class="flex flex-col w-full">
-      <img 
+    <div v-if="otherData && otherData.qr" class="flex flex-col w-full">
+      <QrcodeVue
+        class="self-center m-2"
+        :value="otherData.qr.url" 
+        :size="180" 
+        level="H" 
+      />
+      <!-- <img 
         class="card-qr self-center"
         src="@/_assets/img/default-qr-code.png" 
         alt=""
-      />
+      /> -->
       <span class="text-center text-xs font-semibold">Voucher No.</span>
     </div>
     <div class="flex flex-row w-full mt-5">
@@ -46,9 +52,11 @@
   </div>
 </template>
 <script>
+  import QrcodeVue from 'qrcode.vue'
 
   export default {
     components: {
+      QrcodeVue,
     },
     props: {
       data: {
@@ -107,8 +115,9 @@
     padding: 8px 0px;
   }
   .card-qr {
-    width: 200px;
-    height: 200px;
+    /* margin-left: auto; */
+    /* width: 200px; */
+    /* height: 200px; */
   }
   .qr-text {
     margin-top: -10px;

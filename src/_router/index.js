@@ -154,7 +154,7 @@ const router = new Router({
       name: 'profile-payment', 
       component: ProfilePayment,
       meta: {
-        middleware: [ auth, authUS ]
+        middleware: [ auth, authUser ]
       } 
     },{ 
       path: '/profile-settings', 

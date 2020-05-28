@@ -1,12 +1,11 @@
 import { post, get } from '_helpers/ApiService'
-import { userStripes } from '_helpers/DefaultValues'
 import moment from 'moment'
 
 const prefix = 'user-stripe'
 
 export default {
   state: () => ({
-    userStripes,
+    userStripes: [],
     userStripe: null
   }),
   getters: {
@@ -31,7 +30,6 @@ export default {
     async ADD_USER_STRIPE( { commit, state }, payload )
     {
       try {
-        console.log('payload test', payload)
         const { data } = await post(`${prefix}`, payload)
         return data
       } catch (err) {

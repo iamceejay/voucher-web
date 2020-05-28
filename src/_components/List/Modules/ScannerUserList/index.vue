@@ -6,7 +6,7 @@
       class="w-full md:w-1/2 flex flex-row"
     >
       <div class="w-4/5 text-sm px-5 py-2 text-gray-900 font-semibold font-body">
-        {{ `${index+1}. ${row.username}` }}
+        {{ `${index+1}. ${row.scanner.username}` }}
       </div>
       <div class="w-1/5">
         <Button
@@ -43,7 +43,7 @@
     mounted() {
     },
     methods: {
-      onDelete(data)
+      async onDelete(data)
       {
         this.$swal({
           title: 'Delete User Scanner',
@@ -53,9 +53,9 @@
           cancelButtonColor: '#AF0000',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
-        }).then((result) => {
+        }).then(async (result) => {
           if(result.value){
-            this.$store.dispatch('DELETE_SCANNER_USER', data)
+            await this.$store.dispatch('DELETE_SCANNER_USER', data)
             this.$swal({
               icon: 'success',
               title: 'Successful!',

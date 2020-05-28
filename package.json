@@ -12,6 +12,7 @@
     "babel-plugin-root-import": "^6.5.0",
     "core-js": "^3.6.4",
     "moment": "^2.25.3",
+    "qrcode.vue": "^1.7.0",
     "vee-validate": "^3.3.0",
     "vue": "^2.6.11",
     "vue-color": "^2.7.1",

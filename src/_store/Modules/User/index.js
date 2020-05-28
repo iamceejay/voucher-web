@@ -35,7 +35,7 @@ export default {
     {
       try {
         const { data } = await get(`${prefix}/${payload.id}`, {
-          ...payload.params
+          ...payload
         })
         await commit('SET_USER', data.user)
         return data

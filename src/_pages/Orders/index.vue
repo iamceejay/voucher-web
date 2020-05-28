@@ -80,7 +80,7 @@
         this.params.user_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()
-        await this.onSetStats()
+        await this.onFetchUser()
         await this.onSetOrders()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
@@ -112,17 +112,30 @@
           console.log('err', err)
         }
       },
-      onSetStats()
+
+      async onFetchUser()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_USER', {
+            id: this.AUTH_USER.data.id,
+            with_stat: true
+          })
+          this.onSetStats(data)
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      onSetStats({ voucher_used, vouchers_bought })
       {
         this.stats = [
           {
             type: 'Vouchers used',
             title: '',
-            value: '23'
+            value: voucher_used
           },{
             type: 'Vouchers bought',
             title: '',
-            value: '€13,456'
+            value: `€${vouchers_bought}`
           }
         ]
       },

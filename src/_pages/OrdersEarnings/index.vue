@@ -1,21 +1,32 @@
 <template>
   <MainLayout>
     <template #content>
-      <Earnings class="mb-5" />
-      <Header1
-        label="Orders"
-      />
-      <OrderList 
-        :isInvoice="true"
-        :data="WALLETS.data"
-      />
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+        <div class="w-full flex flex-col mb-5">
+          <Header1
+            label="Earnings"
+          />
+          <StatisticList 
+            :data="earnings"
+          />
+        </div>
+        <div class="w-full flex flex-col mb-5">
+          <Header1
+            label="Orders"
+          />
+          <OrderList 
+            :isInvoice="true"
+            :data="WALLETS.data"
+          />
+        </div>
+      </div>
     </template>
   </MainLayout>
 </template>
 <script>
   import MainLayout from '_layouts';
-  import Earnings from '_components/Modules/OrdersEarnings/Earnings';
   import OrderList from '_components/List/Modules/OrderList/'
+  import StatisticList from '_components/List/Modules/StatisticList/'
   import Header1 from '_components/Headers/Header1';
   import Orders from '_components/Modules/OrdersEarnings/Orders';
 
@@ -23,13 +34,14 @@
     name: 'Dashboard',
     components: {
       MainLayout,
-      Earnings,
       OrderList,
+      StatisticList,
       Header1,
     },
     data() {
       return {
         submitting: false,
+        earnings: [],
         params: {
           page: 1,
           paginate: 5,
@@ -75,8 +87,7 @@
         this.params.seller_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()
-        await this.onSetStats()
-        await this.onSetOrders()
+        await this.onFetchWalletStat()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -86,6 +97,20 @@
       })()
     },
     methods: {
+      onSetEarnings({ voucher_total, total_earnings })
+      {
+        this.earnings = [
+          {
+            type: 'Vouchers',
+            title: 'sold total',
+            value: voucher_total
+          },{
+            type: 'Earnings',
+            title: 'total',
+            value: `€${total_earnings}`
+          }
+        ]
+      },
       async onLoadData( data )
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -103,6 +128,19 @@
           if( data.orders.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchWalletStat()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_WALLET_STAT', {
+            seller_id: this.AUTH_USER.data.id,
+            with_stat: true,
+            status: 'completed'
+          })
+          await this.onSetEarnings(data)
         } catch (err) {
           console.log('err', err)
         }

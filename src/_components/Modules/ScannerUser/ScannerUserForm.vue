@@ -7,27 +7,27 @@
       >
         <InputField
           id="username"
-          v-model="userForm.username"
+          v-model="form.username"
           type="text"
           class="mx-2"
           placeholder="Username"
-          rules="required"
+          :rules="`required|unique:users,username,${form.id}`"
         />
         <InputField
           id="email"
-          v-model="userForm.email"
+          v-model="form.email"
           type="email"
           class="mx-2"
           placeholder="Email address"
-          rules="required|email"
+          :rules="`required|email|unique:users,email,${form.id}`"
         />
         <InputField
           id="password"
-          v-model="userForm.password"
+          v-model="form.password"
           type="password"
           class="mx-2"
           placeholder="Password"
-          rules="required"
+          rules="required|min:8|max:16"
         />
         <p class="text-center px-8 py-4 text-xs text-gray-700 font-semibold font-body">
           A scan user is only allowed to do scans and redeem vouchers.
@@ -67,7 +67,7 @@
     },
     data() {
       return {
-        userForm: {
+        form: {
           id: null,
           username: '',
           password: '',
@@ -78,23 +78,30 @@
     mounted() {
     },
     methods: {
-      onSubmit( isValid )
+      async onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$store.dispatch('ADD_SCANNER_USER', this.userForm)
-          this.userForm = {
-            id: null,
-            username: '',
-            password: '',
-            email: '',
+          try {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('ADD_SCANNER_USER', this.form)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.form = {
+              id: null,
+              username: '',
+              password: '',
+              email: '',
+            }
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Adding new user.',
+              confirmButtonColor: '#6C757D',
+            });
+            this.$router.push('/scanner-users')
+          } catch (err) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            console.log('err', err)
           }
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: 'Adding new user.',
-            confirmButtonColor: '#6C757D',
-          });
-          this.$router.push('/scanner-users')
         }
       }
     }

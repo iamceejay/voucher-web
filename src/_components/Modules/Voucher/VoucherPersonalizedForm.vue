@@ -6,8 +6,9 @@
     >
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
-          v-if="voucher"
-          :data="voucher"
+          v-if="data && data.voucher"
+          :data="data.voucher"
+          :otherData="otherData"
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">
@@ -42,7 +43,7 @@
                 @delete="onChangeBgImg($event)"
               />
               <div 
-                v-for="(tem, index) in personalizedForm.template"
+                v-for="(tem, index) in form.template"
                 :key="`tem-${index}`"
                 :class="`template-image m-1 relative ${ tem.status ? 'active' : '' }`"
               >
@@ -62,37 +63,37 @@
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
-              v-model="personalizedForm.isDarkText"
-              @change="onChangeForm"
+              :value="(form.text_color == 'dark') ? true : false"
+              @change="onChangeTextColor"
             />
             <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Light / Dark Text</span>
           </div>
           <div class="w-full">
             <TextAreaField
               id="description"
-              v-model="personalizedForm.note"
+              v-model="form.note"
               class="px-2 w-full md:w-1/2"
               placeholder="Add custom note to voucher"
-              rules="required|max:65"
+              rules="max:65"
               @input="onChangeForm"
             />
           </div>
           <div class="w-full md:w-1/2 mb-5">
             <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-              {{ `${ personalizedForm.picture ? 'Update' : 'Add another' } Picture` }}
+              {{ `${ form.custom_image ? 'Update' : 'Add another' } Picture` }}
             </div>
-            <div v-if="personalizedForm.picture" class="flex flex-col">
+            <div v-if="form.custom_image" class="flex flex-col px-2">
               <img 
                 style="width: 120px; height: 80px;"
-                :src="personalizedForm.picture" 
+                :src="form.custom_image" 
                 alt=""
               />
               <Button
                 label="Change"
                 fontSize="text-xs"
-                size="w-16 py-0"
+                size="w-16 py-0 mt-1"
                 round="rounded-full"
-                @onClick="personalizedForm.picture = ''"
+                @onClick="form.custom_image = ''"
               />
             </div>
             <VueFileAgent
@@ -149,7 +150,7 @@
     },
     data() {
       return {
-        voucher: null,
+        otherData: null,
         fileRecords: [],
         settings: {
           focusOnSelect: true,
@@ -161,11 +162,12 @@
           slidesToScroll: 1,
           touchThreshold: 5
         },
-        personalizedForm: {
+        form: {
+          order_id: null,
           template: [],
-          isDarkText: true,
+          text_color: true,
           note: '',
-          picture: ''
+          custom_image: ''
         },
       }
     },
@@ -178,31 +180,39 @@
         this.onSetForm()
       },
     },
-    mounted() {
+    created() {
       this.onSetForm()
     },
     methods: {
-      onSubmit( invalid )
+      async onSubmit( invalid )
       {
         if( !invalid ) {
-          this.$store.dispatch('UPDATE_WALLET', {
-            ...this.data,
-            voucher: {
-              ...this.data.voucher,
-              personalized: this.personalizedForm
-            }
-          })
-          this.$router.push('/wallet')
+          try {
+            this.form.order_id = this.data.id
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('UPDATE_USER_VOUCHER', this.form)
+            this.$router.push('/wallet')
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          } catch (error) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
         }
       },
       onSetForm()
       {
+        this.otherData = this.data
         if(this.data?.id) {
-          this.voucher = this.data.voucher
-          if( !this.data.voucher.personalized ) {
-            this.personalizedForm.isDarkText = this.data.voucher.isDarkText
+          if( !this.otherData.user_voucher ) {
+            this.form.text_color = this.data.voucher.text_color
           } else {
-            this.personalizedForm = this.data.voucher.personalized
+            this.form.order_id = this.data.id
+            const { text_color, note } = this.otherData.user_voucher
+            this.form = {
+              template: [],
+              text_color: (text_color != null) ? text_color : this.data.voucher.text_color,
+              note,
+              custom_image: ''
+            }
           }
         }
       },
@@ -218,9 +228,14 @@
           cancelButtonText: 'Cancel',
         }).then((result) => {
           if(result.value){
-            this.personalizedForm.template = this.personalizedForm.template.filter( (row,i) => i != index)
+            this.form.template = this.form.template.filter( (row,i) => i != index)
           }   
         })
+      },
+      onChangeTextColor(e)
+      {
+        this.form.text_color = e.value ? 'dark' : 'light'
+        this.onChangeForm()
       },
       onAddPicture(data)
       {
@@ -228,18 +243,21 @@
           let reader = new FileReader();
           reader.readAsDataURL(data[0].file);
           reader.onload = () => {
-            this.personalizedForm.picture = reader.result
+            this.form.custom_image = reader.result
             this.onChangeForm()
           }
         } else {
-          this.personalizedForm.picture = ''
+          this.form.custom_image = ''
         }
       },
       onChangeForm()
       {
-        this.voucher = {
-          ...this.voucher,
-          personalized: this.personalizedForm
+        this.otherData = {
+          ...this.otherData,
+          user_voucher: {
+            ...this.otherData.user_voucher,
+            ...this.form
+          }
         }
       },
       onChangeBgImg(data)
@@ -249,11 +267,11 @@
           reader.readAsDataURL(data[0].file);
           reader.onload = () => {
             this.fileRecords = []
-            const oldTemp = this.personalizedForm.template.map( temp => ({
+            const oldTemp = this.form.template.map( temp => ({
               path: temp.path,
               status: 0
             }))
-            this.personalizedForm.template = [
+            this.form.template = [
               ...oldTemp,
               {
                 path: reader.result,

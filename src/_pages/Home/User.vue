@@ -28,6 +28,7 @@
       title="Vouchers"
       :data="VOUCHERS.data"
       :withQR="false"
+      @onFilter="onSearchData($event, 'filter')"
     />
   </div>
 </template>
@@ -47,8 +48,14 @@
     data() {
       return {
         params: {
+          keyword: '',
           page: 1,
           paginate: 5,
+          isNewest: false,
+          isMostPopular: false,
+          isLowestPrice: false,
+          isPrice: null,
+          isLoading: false,
         }
       }
     },
@@ -82,7 +89,7 @@
       async IS_LOAD_MORE(newVal)
       {
         if( newVal ) {
-          await this.onLoadData({
+          await this.onFetchData({
             ...this.params,
             page: this.params.page + 1
           })
@@ -106,12 +113,32 @@
       })()
     },
     methods: {
-      async onLoadData( data )
+      
+      async onSearchData( data = null, action )
       {
+        if ( action == 'sort' ) {
+          this.params.keyword = ''
+        }
+        let params = ( action == 'sort' || action == 'filter' )
+          ? {
+            ...this.params,
+            ...data,
+            page: 1
+          }
+          : {
+            ...this.params,
+            page: 1
+          }
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.onFetchData(params)
+      },
+      async onFetchData( data )
+      {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         this.params = {
           ...this.params,
-          ...data
+          ...data,
         }
         await this.onFetchVouchers()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -119,7 +146,7 @@
       async onFetchVouchers()
       {
         try {
-          const data = await this.$store.dispatch('FETCH_VOUCHERS', this.params)
+          const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }

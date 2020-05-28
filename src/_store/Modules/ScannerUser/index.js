@@ -1,30 +1,10 @@
-import { post, get } from '_helpers/ApiService'
+import { post, get, del } from '_helpers/ApiService'
+
+const prefix = 'scanner-user'
 
 export default {
   state: () => ({
-    scannerUsers: [
-      {
-        id: 1,
-        username: 'Mike',
-        password: 'Jhonson',
-        email: 'mike@gmail.com'
-      }, {
-        id: 2,
-        username: 'Chris',
-        password: 'Jhonson',
-        email: 'chris@gmail.com'
-      }, {
-        id: 3,
-        username: 'Jasper',
-        password: 'Jhonson',
-        email: 'jasper@gmail.com'
-      }, {
-        id: 4,
-        username: 'Joe',
-        password: 'Jhonson',
-        email: 'joe@gmail.com'
-      }
-    ],
+    scannerUsers: [],
   }),
   getters: {
     SCANNER_USERS(state) {
@@ -37,21 +17,38 @@ export default {
     },
   },
   actions: {
-    ADD_SCANNER_USER( { commit, state }, payload )
+    async FETCH_SCANNER_USERS( { commit, state }, payload )
     {
-      commit('SET_SCANNER_USERS', [
-        ...state.scannerUsers,
-        {
-          id: ++state.scannerUsers.length,
-          ...payload,
-        }
-      ])
+      try {
+        const { data } = await get(`${prefix}`, payload)
+        await commit('SET_SCANNER_USERS', data.scanner_users)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
     },
-    DELETE_SCANNER_USER( { commit, state }, payload )
+    async ADD_SCANNER_USER( { commit, state }, payload )
     {
-      console.log('payload', payload)
-      const newList = state.scannerUsers.filter( user => user.id != payload.id);
-      commit('SET_SCANNER_USERS', newList)
+      try {
+        const { data } = await post(`${prefix}`, payload)
+        // await commit('SET_SCANNER_USERS', [
+        //   ...state.scannerUsers,
+        //   data.scanner_user
+        // ])
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async DELETE_SCANNER_USER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await del(`${prefix}/${payload.id}`, {})
+        const newList = state.scannerUsers.filter( row => row.id != payload.id);
+        await commit('SET_SCANNER_USERS', newList)
+      } catch (err) {
+        throw err
+      }
     }
   },
 }

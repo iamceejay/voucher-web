@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!isLoading" class="w-full flex flex-col">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Personalized Voucher"
         />
@@ -25,7 +25,6 @@
     },
     data() {
       return {
-        isLoading: true,
         data: null,
       }
     },
@@ -33,17 +32,21 @@
       WALLET()
       {
         return this.$store.getters.WALLET
-      }
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     mounted() {
       (async() => {
-        this.isLoading = true
-        await this.FETCH_WALLET()
-        this.isLoading = false
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchWallet()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {
-      async FETCH_WALLET()
+      async onFetchWallet()
       {
         if( this.$route.params.id ) {
           await this.$store.dispatch('FETCH_WALLET', this.$route.params.id)

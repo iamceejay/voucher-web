@@ -5,7 +5,7 @@
         label="Redemptions"
       />
       <OrderList 
-        :data="redemptions"
+        :data="WALLETS.data"
         role="seller"
       />
     </template>
@@ -24,81 +24,86 @@
       Header1,
     },
     props: [],
+    
     data() {
       return {
-        redemptions: [],
-      };
+        submitting: false,
+        earnings: [],
+        params: {
+          page: 1,
+          paginate: 5,
+          seller_id: null,
+          status: 'completed'
+        }
+      }
+    },
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
+      WALLETS()
+      {
+        return this.$store.getters.WALLETS
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+      IS_LOAD_MORE()
+      {
+        return this.$store.getters.IS_LOAD_MORE
+      },
+    },
+    watch: {
+      async IS_LOAD_MORE(newVal)
+      {
+        if( newVal ) {
+          await this.onLoadData({
+            ...this.params,
+            page: this.params.page + 1
+          })
+          await this.$store.commit('SET_IS_LOAD_MORE', false)
+        }
+      },
     },
     mounted() {
-      this.onSetRedemptions()
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_WALLETS', [])
+        this.params.seller_id = this.AUTH_USER.data.id
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchWallets()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
+    },
+    beforeDestroy () {
+      (async() => {
+        await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+      })()
     },
     methods: {
-      onSetRedemptions()
+      async onLoadData( data )
       {
-        this.redemptions = [
-          {
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'value',
-            value: 234
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'quantity',
-            value: 15,
-            quantity: 3,
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'value',
-            value: 234
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'quantity',
-            value: 15,
-            quantity: 3,
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'value',
-            value: 234
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'quantity',
-            value: 15,
-            quantity: 3,
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'value',
-            value: 234
-          },{
-            name: 'Voucher Name',
-            orderNo: '123123',
-            user: 'Jasper1',
-            date: '31.05.2020',
-            type: 'quantity',
-            value: 15,
-            quantity: 3,
-          },
-        ]
-      }
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        this.params = {
+          ...this.params,
+          ...data
+        }
+        await this.onFetchWallets()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
+      async onFetchWallets()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_WALLETS', this.params)
+          if( data.orders.next_page_url == null ) {
+            await this.$store.commit('SET_IS_INFINITE_LOAD', false)
+          }
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>

@@ -98,12 +98,15 @@
       {
         return this.$store.getters.REGIONS
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchUser()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })

@@ -119,18 +119,25 @@
       },
       onSetMenusByRole()
       {
-        const profileChild = [
+        let profileChild = [
           {
             title: 'Info',
             link: '/profile-info'
-          },{
-            title: 'Payment',
-            link: '/profile-payment'
           },{
             title: 'Settings',
             link: '/profile-settings'
           },
         ]
+
+        if( this.AUTH_USER.role.id == 3 ) {
+          profileChild = [
+            ...profileChild,
+            {
+              title: 'Payment',
+              link: '/profile-payment'
+            }
+          ]
+        }
         if(this.AUTH_USER.isAuth) {
           switch ( this.AUTH_USER.role.id ) {
             case 1:
