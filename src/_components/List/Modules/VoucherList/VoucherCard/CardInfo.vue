@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col px-4 py-3">
     <div class="card-header">
       <div 
-        :class="`flex flex-col ${ role ? 'cursor-pointer' : '' }`"
+        :class="`flex flex-col ${ role && (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : '' }`"
         @click="onClickHeader()"
       >
         <div class="text-base font-bold font-display">
@@ -65,8 +65,10 @@
               `${(data.type == 'quantity') ? `${data.qty_val}x (€${data.qty_min} - €${data.qty_max})` : `€${data.val_min} - €${data.val_max}`}`
             }}
           </div>
-          <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32 text-center self-center">
-            {{ otherData.sent_via == 'email' && 'Sent by Email' }}
+          <div class="text-center self-center h-4">
+            <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
+              {{ otherData.sent_via == 'email' ? 'Sent by Email' : 'Transferred' }}
+            </div>
           </div>
         </div>
         <div 
@@ -143,7 +145,9 @@
         if( this.role ) {
           if( this.role === 'user' ) {
             if( this.withQR ) {
-              this.$emit('onFlip')
+              if( !otherData || (otherData && !otherData.sent_via) ) {
+                this.$emit('onFlip')
+              }
             } else {
               this.$router.push(`/vouchers/${this.data.id}`)
             }
@@ -151,7 +155,9 @@
             if( this.role == 'admin' ) {
               this.$router.push(`/vouchers/${this.data.id}`)
             } else {
-              this.$emit('onFlip')
+              if( !otherData || (otherData && !otherData.sent_via) ) {
+                this.$emit('onFlip')
+              }
             }
           }
         }

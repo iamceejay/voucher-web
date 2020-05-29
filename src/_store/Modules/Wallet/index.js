@@ -130,11 +130,27 @@ export default {
         const { data } = await post(`${prefix}/download-voucher`, {
           id: payload
         }, {}, {responseType: 'arraybuffer'})
-
+        const date = moment().local().format('Y-m-d')
         let blob = new Blob([data], { type: 'application/pdf' })
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = `voucher.pdf`
+        link.download = `voucher-${date}.pdf`
+        link.click()
+      } catch (err) {
+        throw err
+      }
+    },
+    async DOWNLOAD_INVOICE( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/download-invoice`, {
+          id: payload
+        }, {}, {responseType: 'arraybuffer'})
+        const date = moment().local().format('Y-m-d')
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `invoice${date}.pdf`
         link.click()
       } catch (err) {
         throw err
@@ -144,6 +160,24 @@ export default {
     {
       try {
         const { data } = await post(`${prefix}/send-voucher-pdf`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async TRANSFER_WALLET( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`transfer/transfer-send-mail`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async TRANSFERRING_WALLET( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`transfer`, payload)
         return data
       } catch (err) {
         throw err

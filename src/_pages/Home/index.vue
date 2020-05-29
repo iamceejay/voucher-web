@@ -54,8 +54,7 @@
     watch: {
     },
     mounted() {
-      (async() => {
-      })()
+      
     },
     methods: {
     }

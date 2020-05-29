@@ -3,11 +3,11 @@
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full"
     @click="onFlip()"
   >
-    <div v-if="otherData && otherData.qr" class="flex flex-col w-full">
+    <div v-if="otherData && otherData.qr" class="flex flex-col w-full my-6">
       <QrcodeVue
         class="self-center m-2"
         :value="otherData.qr.url" 
-        :size="180" 
+        :size="183" 
         level="H" 
       />
       <!-- <img 
@@ -97,10 +97,6 @@
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
-        // setTimeout( () => {
-        //   document.getElementById('link').click()
-        //   processing.close()
-        // }, 2000)
       },
     }
   }

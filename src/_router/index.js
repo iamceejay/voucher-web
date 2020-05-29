@@ -44,6 +44,7 @@ import Payout from '_pages/Payout/'
 import Template from '_pages/Template/'
 import Users from '_pages/Users/'
 import Payment from '_pages/Payment/'
+import Transfer from '_pages/Transfer/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 import UserNotAllowed from '_pages/Errors/UserNotAllowed'
 
@@ -310,6 +311,13 @@ const router = new Router({
       meta: {
         middleware: [ auth, authAdmin ]
       } 
+    },{ 
+      path: '/transfer/:id', 
+      name: 'transfer', 
+      component: Transfer,
+      // meta: {
+      //   middleware: [ auth, authAdmin ]
+      // } 
     },{ 
       path: '*', 
       name: '404', 

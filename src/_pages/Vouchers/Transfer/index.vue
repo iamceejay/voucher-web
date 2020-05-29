@@ -13,7 +13,7 @@
             >
               <InputField
                 id="email"
-                v-model="emailForm.email"
+                v-model="form.email"
                 type="email"
                 class="w-full md:w-1/2 m-auto mt-4"
                 placeholder="Email address"
@@ -46,7 +46,7 @@
           />
           <InputField
             id="clipboard"
-            v-model="clipboard"
+            v-model="form.link"
             type="text"
             class="w-full md:w-1/2 m-auto mt-4"
             placeholder=""
@@ -88,15 +88,16 @@
     },
     data() {
       return {
-        emailForm: {
+        form: {
           id: '',
           email: '',
+          link: '',
         },
         clipboard: ''
       }
     },
     mounted() {
-      this.clipboard = `http://staging.paypeople.de/api/voucher/transfer/${ this.$route.params.id }`
+      this.form.link = `${process.env.VUE_APP_WEB_URL}/transfer/${ this.$route.params.id }`
     },
     methods: {
       onConfirmation()
@@ -120,16 +121,24 @@
       {
         if( !isValid ) {
           if( await this.onConfirmation() ) {
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Sending the voucher via email.',
-              confirmButtonColor: '#6C757D',
-            });
-            this.emailForm = {
-              email: '',
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('TRANSFER_WALLET', this.form)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$router.push('/wallet')
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             }
-            this.$router.push('/wallet')
+            // this.$swal({
+            //   icon: 'success',
+            //   title: 'Successful!',
+            //   text: 'Sending the voucher via email.',
+            //   confirmButtonColor: '#6C757D',
+            // });
+            // this.form = {
+            //   email: '',
+            // }
+            // this.$router.push('/wallet')
           }
         }
       },

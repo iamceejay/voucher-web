@@ -23,7 +23,18 @@
     components: {
       MainLayout,
       LoginForm
-    }
+    },
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      }
+    },
+    mounted() {
+      
+    },
+    methods: {
+    },
   }
 </script>
 <style lang='css' scoped>

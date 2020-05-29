@@ -24,7 +24,7 @@
               />
               <a 
                 href="javascript:void(0)"
-                @click="onGenerateInvoice()"
+                @click="onGenerateInvoice(row.customer_invoice_id)"
               >
                 <i class="fas fa-file-invoice text-black text-lg" />
               </a>
@@ -87,19 +87,16 @@
       {
         return formatDate(date)
       },
-      onGenerateInvoice()
+      async onGenerateInvoice( id )
       {
-        let processing = this.$swal({
-          title: 'Processing Request',
-          text: 'Please wait ...',
-          allowOutsideClick: false,
-          showConfirmButton: false
-        })
-        setTimeout( () => {
-          document.getElementById('link').click()
-          processing.close()
-        }, 2000)
-      }
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch('DOWNLOAD_INVOICE', id)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        }
+      },
     }
   }
 </script>

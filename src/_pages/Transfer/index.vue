@@ -1,0 +1,93 @@
+<template>
+  <MainLayout>
+    <template #content>
+      <div class="flex flex-col w-full">
+        <Header1
+          label=""
+        />
+      </div>
+    </template>
+  </MainLayout>
+</template>
+<script>
+  import MainLayout from '_layouts';
+  import Header1 from '_components/Headers/Header1';
+
+  export default {
+    components: {
+      MainLayout,
+      Header1,
+    },
+    data() {
+      return {
+      }
+    },
+    computed: {
+      AUTH_USER() {
+        return this.$store.getters.AUTH_USER;
+      },
+    },
+    mounted() {
+      (async() => {
+        if( !this.AUTH_USER.isAuth ) {
+          this.$swal({
+            icon: 'warning',
+            title: 'Warning!',
+            text: 'Please login first and revisit the url again. Thank you.',
+            showCancelButton: false,
+            confirmButtonColor: '#6C757D',
+            confirmButtonText: 'Confirm',
+          }).then(async (result) => {
+            if(result.value){
+              this.$router.push('/login')
+            }
+          })
+        } else {
+          await this.onTransferringWallet()
+        }
+      })()
+    },
+    methods: {
+      async onTransferringWallet()
+      {
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch('TRANSFERRING_WALLET', {
+            id: this.$route.params.id
+          })
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'The voucher is successfully transfered. Thank you!',
+            showCancelButton: false,
+            confirmButtonColor: '#6C757D',
+            confirmButtonText: 'Confirm',
+          }).then(async (result) => {
+            if(result.value){
+              this.$router.push('/home')
+            }
+          })
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (err) {
+          if( err?.response?.status == 422 ) {
+            this.$swal({
+              icon: 'warning',
+              title: 'Warning!',
+              text: err.response.data.message,
+              showCancelButton: false,
+              confirmButtonColor: '#6C757D',
+              confirmButtonText: 'Confirm',
+            }).then(async (result) => {
+              if(result.value){
+                this.$router.push('/home')
+              }
+            })
+          }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        }
+      }
+    }
+  }
+</script>
+<style lang='css' scoped>
+</style>
