@@ -7,28 +7,27 @@
       <div class="font-bold text-lg py-2 text-center text-gray-900 text-3xl">
         Revoke redemption
       </div>
-      <ValidationObserver v-slot="{ handleSubmit, invalid }">
-        <form 
-          class="w-full flex flex-col"
-          @submit.prevent="handleSubmit(onSubmit(invalid))"
-        >
-          <InputField
-            id="text"
-            v-model="value"
-            type="text"
-            class="w-full md:w-1/2 m-auto mt-4"
-            placeholder="Enter value to put back on voucher"
-            rules="required"
-          />
-          <Button
-            class="mx-2 justify-center"
-            label="Revoke voucher"
-            size="mt-1 w-full md:w-1/2 py-3"
-            round="rounded-full"
-            type="submit"
-          />
-        </form>
-      </ValidationObserver>
+      <!-- <ValidationObserver v-slot="{ handleSubmit, invalid }"> -->
+      <form 
+        class="w-full flex flex-col"
+      >
+        <!-- <InputField
+          id="text"
+          v-model="value"
+          type="text"
+          class="w-full md:w-1/2 m-auto mt-4"
+          placeholder="Enter value to put back on voucher"
+          rules="required"
+        /> -->
+        <Button
+          class="mx-2 justify-center"
+          label="Revoke voucher"
+          size="mt-1 w-full md:w-1/2 py-3"
+          round="rounded-full"
+          @onClick="onSubmit"
+        />
+      </form>
+      <!-- </ValidationObserver> -->
     </template>
   </Modal>
 </template>
@@ -53,6 +52,10 @@
       onShowModal: {
         type: Boolean,
         default: false
+      },
+      id: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -69,11 +72,20 @@
     mounted() {
     },
     methods: {
-      onSubmit( isValid )
+      async onSubmit( isValid )
       {
         if( !isValid ) {
-          this.$emit('onClose')
-          this.value = ''
+          try {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('REVOKE_REDEMPTION', {
+              id: this.id
+            })
+            this.$emit('onClose')
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          } catch (err) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
+          // this.value = ''
         }
       }
     }

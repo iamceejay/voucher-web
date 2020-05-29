@@ -4,8 +4,8 @@
       <Header1
         label="Redemptions"
       />
-      <OrderList 
-        :data="WALLETS.data"
+      <RedemptionList 
+        :data="REDEMPTIONS.data"
         role="seller"
       />
     </template>
@@ -14,13 +14,13 @@
 <script>
   import Button from '_components/Button';
   import MainLayout from '_layouts';
-  import OrderList from '_components/List/Modules/OrderList/'
+  import RedemptionList from '_components/List/Modules/OrderList/Redemption'
   import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
       MainLayout,
-      OrderList,
+      RedemptionList,
       Header1,
     },
     props: [],
@@ -42,9 +42,9 @@
       {
         return this.$store.getters.AUTH_USER
       },
-      WALLETS()
+      REDEMPTIONS()
       {
-        return this.$store.getters.WALLETS
+        return this.$store.getters.REDEMPTIONS
       },
       IS_LOADING()
       {
@@ -70,7 +70,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_INFINITE_LOAD', true)
-        await this.$store.commit('SET_WALLETS', [])
+        await this.$store.commit('SET_REDEMPTIONS', [])
         this.params.seller_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()
@@ -96,8 +96,8 @@
       async onFetchWallets()
       {
         try {
-          const data = await this.$store.dispatch('FETCH_WALLETS', this.params)
-          if( data.orders.next_page_url == null ) {
+          const data = await this.$store.dispatch('FETCH_REDEMPTIONS', this.params)
+          if( data.redemptions.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }
         } catch (err) {

@@ -155,9 +155,7 @@
             if( this.role == 'admin' ) {
               this.$router.push(`/vouchers/${this.data.id}`)
             } else {
-              if( !otherData || (otherData && !otherData.sent_via) ) {
-                this.$emit('onFlip')
-              }
+              this.$emit('onFlip')
             }
           }
         }

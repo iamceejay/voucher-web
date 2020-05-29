@@ -6,9 +6,10 @@
       class="w-full sm:w-1/2 md:w-1/4 order-container"
     >
       <CardOrder 
-        :isInvoice="isInvoice"
+        :data="row.order"
+        :otherData="row"
         :role="role"
-        :data="row"
+        :isRedemption="true"
       />
     </div>
   </div>
