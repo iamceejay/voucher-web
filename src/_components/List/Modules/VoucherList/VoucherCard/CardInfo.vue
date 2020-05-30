@@ -39,7 +39,7 @@
       <div class="w-full flex flex-row">
         <div class="w-9/12 flex flex-col">
           <div class="text-xs font-body ">
-            <div v-if="data.valid_date.length > 0">
+            <div v-if="data.valid_date && data.valid_date.length > 0">
               <span
                 v-for="(date, index) in data.valid_date"
                 :key="`date-${index}`"
@@ -47,7 +47,7 @@
                 Valid on {{ `${date.start || '...'} to ${date.end || '...'}` }}
               </span>
             </div>
-            <div v-if="data.valid_day.length > 0">
+            <div v-if="data.valid_day && data.valid_day.length > 0" class="h-8">
               Valid on 
               <span 
                 v-for="(day, index) in data.valid_day"
@@ -135,7 +135,7 @@
         this.onSetRole()
       }
     },
-    mounted() {
+    created() {
       this.onSetRole()
     },
     methods: {

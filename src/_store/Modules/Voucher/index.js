@@ -1,6 +1,6 @@
 import { post, get, put, del } from '_helpers/ApiService'
 import { vouchers } from '_helpers/DefaultValues'
-import { mergeList } from '_helpers/CustomFunction'
+import { mergeList, toFormData } from '_helpers/CustomFunction'
 import moment from 'moment'
 
 const prefix = 'voucher'
@@ -113,7 +113,8 @@ export default {
     },
     async UPDATE_VOUCHER( { commit, state }, payload )
     {
-      const { data } = await put(`${prefix}/${payload.id}`, payload)
+      const formData = toFormData(payload)
+      const { data } = await post(`${prefix}/${payload.id}`, formData)
       return data
     },
     async STATUS_UPDATE_VOUCHER( { commit, state }, payload )

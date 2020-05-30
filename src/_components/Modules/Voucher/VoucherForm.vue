@@ -2,10 +2,11 @@
   <ValidationObserver v-slot="{ handleSubmit, invalid }">
     <form 
       class="flex flex-col w-full"
-      @submit.prevent="handleSubmit(onSubmit(invalid))"
+      @submit.prevent="handleSubmit(onSubmit)"
     >
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
+          :key="`vform-${formIndex}`"
           :data="form"
           :isFlippable="false"
         />
@@ -30,8 +31,22 @@
             </div>
           </div>
           <div class="w-full md:w-1/2 mb-5">
+            <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
+              Background image
+            </span>
+            <Button
+              v-if="form.id && form.background_image != ''"
+              class="mt-2 mx-2"
+              label="Change/Remove"
+              fontSize="text-xs"
+              size="w-32 py-1"
+              round="rounded-full"
+              @onClick="onRemoveBg"
+            />
             <VueFileAgent
+              v-else
               ref="vueFileAgent"
+              class="mt-2 mx-2"
               :theme="'grid'"
               :multiple="false"
               :deletable="true"
@@ -85,7 +100,7 @@
               :options="week"
               :data="form.valid_day"
               :limitLabel="3"
-              @onChange="form.valid_day = $event"
+              @onChange="test"
             />
             <div class="w-full md:w-1/2 mb-5">
               <div class="flex flex-row">
@@ -157,7 +172,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Minimum Value / Quantity"
               placeholder="Min Value"
-              rules="required"
+              rules="required|min_value:0.001"
             />
             <InputField
               id="max"
@@ -166,7 +181,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Maximum Value / Quantity"
               placeholder="Max Value"
-              rules="required"
+              rules="required|min_value:0.001"
             />
           </div>
         </div>
@@ -192,6 +207,7 @@
   import { ToggleButton } from 'vue-js-toggle-button'
   import 'vue2-datepicker/index.css'
   import { getWeek } from '_helpers/DefaultValues'
+  import { toFormData } from '_helpers/CustomFunction'
 
   export default {
     components: {
@@ -216,6 +232,7 @@
     },
     data() {
       return {
+        formIndex: 0,
         material_color: { 
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
@@ -237,7 +254,6 @@
               end: '2020-05-09',
             }
           ],
-          customNote: '',
           type: 'value',
           min: 0,
           max: 0,
@@ -246,8 +262,10 @@
           qty_max: 0,
           val_min: 0,
           val_max: 0,
+          remove_bg: false,
         },
         week: getWeek,
+        background_image: null,
       }
     },
     computed: {
@@ -266,7 +284,7 @@
         this.onSetForm()
       }
     },
-    mounted() {
+    created() {
       this.categories = this.CATEGORIES.map( row => {
         return {
           id: row.id,
@@ -276,34 +294,38 @@
       this.onSetForm()
     },
     methods: {
-      async onSubmit( invalid )
+      test( e )
       {
-        if( !invalid ) {
-          try {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            this.form.seller_id = this.AUTH_USER.data.id
-            this.form.voucher_category_id = this.form.category.id
-            if( this.form.type == 'value' ) {
-              this.form.val_min = this.form.min
-              this.form.val_max = this.form.max
-            } else {
-              this.form.qty_min = this.form.min
-              this.form.qty_max = this.form.max
-            }
-            const url = this.form.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER'
-            await this.$store.dispatch(url, this.form)
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
-              confirmButtonColor: '#6C757D',
-            });
-            this.onResetForm()
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$router.push('/vouchers')
-          } catch (err) {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        this.form.valid_day = e
+        console.log('test e', e)
+      },
+      async onSubmit()
+      {
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          this.form.seller_id = this.AUTH_USER.data.id
+          this.form.voucher_category_id = this.form.category.id
+          if( this.form.type == 'value' ) {
+            this.form.val_min = this.form.min
+            this.form.val_max = this.form.max
+          } else {
+            this.form.qty_min = this.form.min
+            this.form.qty_max = this.form.max
           }
+          this.form.background_image = this.background_image
+          const url = this.form.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER'
+          await this.$store.dispatch(url, this.form)
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
+            confirmButtonColor: '#6C757D',
+          });
+          this.onResetForm()
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$router.push('/vouchers')
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       onChangeTextColor(e)
@@ -321,14 +343,23 @@
       onChangeBgImg(data)
       {
         if(data.length > 0) {
+          this.background_image = data[0].file
           let reader = new FileReader();
           reader.readAsDataURL(data[0].file);
           reader.onload = () => {
             this.form.background_image = reader.result
+            this.formIndex = this.formIndex + 1
           }
         } else {
           this.form.background_image = ''
+          this.background_image = null
         }
+      },
+      onRemoveBg()
+      {
+        this.form.background_image = ''
+        this.form.remove_bg = true
+        this.formIndex = this.formIndex + 1
       },
       onActionDate( action, index = null )
       {
@@ -352,7 +383,7 @@
             max: (this.data.type == 'quantity') ? this.data.qty_max : this.data.val_max,
             qty_val: this.data.qty_val,
             valid_date: this.data.valid_date,
-            valid_day: this.data.valid_day,
+            valid_day: this.data.valid_day || [],
             type: this.data.type,
             category: {
               id: this.data.voucher_category.id,
@@ -362,6 +393,7 @@
             background_color: this.data.background_color,
             background_image: this.data.background_image,
           }
+          this.formIndex = this.formIndex + 1
         }
       },
       onResetForm()
@@ -382,7 +414,6 @@
               end: '2020-05-09',
             }
           ],
-          customNote: '',
           type: 'value',
           min: 0,
           max: 0,
@@ -414,8 +445,9 @@
   .vue-file-agent .file-preview-new:before {
     background: #fff !important;
   }
-  .vue-file-agent.file-input-wrapper {
-    border: 1px solid #aaa !important;
+  div.vue-file-agent.file-input-wrapper {
+    border: 0 !important;
     border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12), 0 2px 5px rgba(0,0,0,.16);
   }
 </style>

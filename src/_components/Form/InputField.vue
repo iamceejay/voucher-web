@@ -23,10 +23,10 @@
           class="input-field mt-2 px-3 rounded-full text-sm font-semibold font-body"
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
           :value="value"
-          min="0"
           :placeholder="placeholder"
           :disabled="disabled"
           :readonly="readonly"
+          step="any"
           @input="onUpdateField()"
         />
         <ErrorMessage :errors="[...errors, ...errorMessages]" />
