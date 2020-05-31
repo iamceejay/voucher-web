@@ -19,6 +19,9 @@
         />
       </div>
     </div>
+    <div v-if="data.length <= 0" class="py-2 text-lg">
+      No data found.
+    </div>
   </div>
 </template>
 <script>

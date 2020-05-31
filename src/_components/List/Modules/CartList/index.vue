@@ -43,6 +43,9 @@
           </div>
         </div>
       </div>
+      <div v-if="data.length <= 0" class="py-2 text-lg">
+        No data found.
+      </div>
     </div>
     <div v-if="isCart && data.length > 0" class="flex flex-col mt-5 w-full sm:w-1/2 md:w-1/4 self-center">
       <span class="text-lg font-bold text-center">
