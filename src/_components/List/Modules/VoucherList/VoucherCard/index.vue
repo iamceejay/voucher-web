@@ -91,19 +91,9 @@
       },
     },
     mounted() {
-      if( this.otherData?.user_voucher?.template?.image ) {
-        
-        const tem = this.otherData.user_voucher.template.filter( row => row.status)
-        const bg = (template.length > 0) ? tem[0].path : this.otherData.user_voucher.template.image
-        this.onSetBgImage( bg )
-      } else if( this.otherData?.user_voucher?.template ) {
+      if( this.otherData?.user_voucher?.template ) {
         const template = this.otherData.user_voucher.template
-        if( template && template.length > 0 ) {
-          const tem = template.filter( row => row.status )
-          if( tem.length > 0 ) {
-            this.onSetBgImage( tem[0].path )
-          }
-        }
+        this.onSetBgImage( template.image )
       } else if(this.data?.background_image) {
         this.onSetBgImage(this.data.background_image)
       }

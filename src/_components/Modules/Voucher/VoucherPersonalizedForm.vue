@@ -27,7 +27,6 @@
             >
               <VueFileAgent
                 ref="vueFileAgent"
-                v-model="fileRecords"
                 class="template-container m-1 relative"
                 :theme="'grid'"
                 :multiple="false"
@@ -44,7 +43,7 @@
                 @delete="onChangeBgImg($event)"
               />
               <div 
-                v-for="(tem, index) in form.template"
+                v-for="(tem, index) in form.templates"
                 :key="`tem-${index}`"
                 :class="`template-image m-1 relative ${ tem.status ? 'active' : '' }`"
               >
@@ -57,7 +56,7 @@
                 </a>
                 <img
                   class="cursor-pointer"
-                  :src="(tem.id) ? `${api_base_url}/storage/${tem.path}` : tem.path" 
+                  :src="(tem.id) ? `${api_base_url}/storage/${tem.image}` : tem.image" 
                   alt=""
                   @click="onSelectTemplate(index)"
                 />
@@ -88,15 +87,15 @@
             <div v-if="form.custom_image" class="flex flex-col px-2">
               <img 
                 style="width: 120px; height: 80px;"
-                :src="form.custom_image" 
+                :src="onSetCustomImage('set', form.custom_image)" 
                 alt=""
               />
               <Button
-                label="Change"
+                label="Change / Remove"
                 fontSize="text-xs"
-                size="w-16 py-0 mt-1"
+                size="w-32 py-0 mt-1"
                 round="rounded-full"
-                @onClick="form.custom_image = ''"
+                @onClick="onSetCustomImage('delete', form.custom_image)"
               />
             </div>
             <VueFileAgent
@@ -157,21 +156,12 @@
         otherData: null,
         template_id: null,
         formIndex: 0,
-        fileRecords: [],
-        settings: {
-          focusOnSelect: true,
-          infinite: true,
-          slidesToShow: 1,
-          speed: 500,
-          slidesPerRow: 1,
-          edgeFriction: 0.35,
-          slidesToScroll: 1,
-          touchThreshold: 5
-        },
+        custom_image: null,
         form: {
           order_id: null,
-          template: [],
+          templates: [],
           text_color: true,
+          is_custom_remove: false,
           note: '',
           custom_image: ''
         },
@@ -198,7 +188,8 @@
       {
         try {
           this.form.order_id = this.data.id
-          this.form.template = this.form.template.filter( row => {
+          this.form.custom_image = this.custom_image
+          this.form.templates = this.form.templates.filter( row => {
             if( !row.id ) {
               return {
                 attachment: row.attachment,
@@ -221,14 +212,21 @@
       {
         this.otherData = this.data
         if( this.TEMPLATES ) {
-          this.form.template = []
-          this.form.template = this.TEMPLATES.map( row => {
-            return {
-              id: row.id,
-              path: row.image,
-              status: 0,
+          this.form.templates = []
+          let templates = []
+          this.TEMPLATES.map( row => {
+            if( !this.otherData || this.otherData?.user_voucher?.template?.id != row.id ) {
+              templates = [
+                ...templates,
+                {
+                  id: row.id,
+                  image: row.image,
+                  status: 0,
+                }
+              ]
             }
           })
+          this.form.templates = templates
         }
         if(this.data?.id) {
           if( !this.otherData.user_voucher ) {
@@ -237,20 +235,20 @@
             this.form.order_id = this.data.id
             const { text_color, note } = this.otherData.user_voucher
             this.form = {
-              template: [
-                ...this.form.template
+              templates: [
+                ...this.form.templates
               ],
               text_color: (text_color != null) ? text_color : this.data.voucher.text_color,
               note,
-              custom_image: ''
+              custom_image: this.otherData.user_voucher.custom_image
             }
             if( this.otherData.user_voucher.template ) {
               const template = this.otherData.user_voucher.template
-              this.form.template = [
-                ...this.form.template,
+              this.form.templates = [
+                ...this.form.templates,
                 {
                   id: template.id,
-                  path: template.image,
+                  image: template.image,
                   status: 1,
                 }
               ]
@@ -271,9 +269,20 @@
           cancelButtonText: 'Cancel',
         }).then((result) => {
           if(result.value){
-            this.form.template = this.form.template.filter( (row,i) => i != index)
+            this.form.templates = this.form.templates.filter( (row,i) => i != index)
           }   
         })
+      },
+      onSetCustomImage(action, value)
+      {
+        if( action == 'set' ) {
+          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+        } else {
+          this.form.custom_image = ''
+          this.form.is_custom_remove = true
+          this.otherData.user_voucher.custom_image = ''
+          this.formIndex = this.formIndex + 1
+        }
       },
       onChangeTextColor(e)
       {
@@ -287,21 +296,26 @@
           reader.readAsDataURL(data[0].file);
           reader.onload = () => {
             this.form.custom_image = reader.result
+            this.custom_image = data[0].file
             this.onChangeForm()
           }
         } else {
           this.form.custom_image = ''
+          this.custom_image = null
         }
       },
       onSelectTemplate(index)
       {
-        this.form.template = this.form.template.map( (row, i) => {
+        let selected = null
+        this.form.templates = this.form.templates.map( (row, i) => {
           row.status = 0
           if(i == index) {
             row.status = 1
+            selected = row
           }
           return row
         })
+        this.otherData.user_voucher.template = selected
         this.formIndex = this.formIndex + 1
       },
       onChangeForm()
@@ -313,6 +327,7 @@
             ...this.form
           }
         }
+        this.formIndex = this.formIndex + 1
       },
       onChangeBgImg(data)
       {
@@ -320,20 +335,20 @@
           let reader = new FileReader();
           reader.readAsDataURL(data[0].file);
           reader.onload = () => {
-            this.fileRecords = []
-            const oldTemp = this.form.template.map( temp => ({
+            const oldTemp = this.form.templates.map( temp => ({
               ...temp,
               status: 0
             }))
-            console.log('oldTemp', oldTemp)
-            this.form.template = [
+            const selected = {
+              attachment: data[0].file,
+              image: reader.result,
+              status: 1
+            }
+            this.form.templates = [
               ...oldTemp,
-              {
-                attachment: data[0].file,
-                path: reader.result,
-                status: 1
-              }
+              selected
             ]
+            this.otherData.user_voucher.template = selected
             this.onChangeForm()
           }
         }

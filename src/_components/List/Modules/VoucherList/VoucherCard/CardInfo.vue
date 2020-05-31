@@ -21,7 +21,7 @@
     <div class="card-content">
       <div class="w-full flex flex-row">
         <div :class="`${otherData && otherData.user_voucher && otherData.user_voucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
-          <div class="text-xs text-justify card-description h-32 font-body">
+          <div class="text-xs text-justify card-description h-40 font-body">
             {{ data.description || 'Voucher Description' }}
           </div>
           <div class="text-xs text-justify h-12 font-body">
@@ -31,7 +31,7 @@
         <div v-if="otherData && otherData.user_voucher && otherData.user_voucher.custom_image" class="w-2/5 p-1">
           <img 
             style="width: 120px; height: 80px;"
-            :src="otherData.user_voucher.custom_image" 
+            :src="onSetCustomImage(otherData.user_voucher.custom_image)" 
             alt=""
           />
         </div>
@@ -159,6 +159,10 @@
             }
           }
         }
+      },
+      onSetCustomImage( value)
+      {
+        return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
       },
       onSetRole()
       {
