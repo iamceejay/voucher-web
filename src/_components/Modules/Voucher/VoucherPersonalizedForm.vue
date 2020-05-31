@@ -2,11 +2,12 @@
   <ValidationObserver v-slot="{ handleSubmit, invalid }">
     <form 
       class="flex flex-col w-full"
-      @submit.prevent="handleSubmit(onSubmit(invalid))"
+      @submit.prevent="handleSubmit(onSubmit)"
     >
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
           v-if="data && data.voucher"
+          :key="`vform-${formIndex}`"
           :data="data.voucher"
           :otherData="otherData"
           :isFlippable="false"
@@ -54,9 +55,11 @@
                 >
                   <i class="fas fa-times text-red-900" />
                 </a>
-                <img 
-                  :src="tem.path" 
+                <img
+                  class="cursor-pointer"
+                  :src="(tem.id) ? `${api_base_url}/storage/${tem.path}` : tem.path" 
                   alt=""
+                  @click="onSelectTemplate(index)"
                 />
               </div>
             </div>
@@ -150,7 +153,10 @@
     },
     data() {
       return {
+        api_base_url: '',
         otherData: null,
+        template_id: null,
+        formIndex: 0,
         fileRecords: [],
         settings: {
           focusOnSelect: true,
@@ -172,7 +178,10 @@
       }
     },
     computed: {
-      
+      TEMPLATES()
+      {
+        return this.$store.getters.TEMPLATES
+      },
     },
     watch: {
       data(newVal)
@@ -181,26 +190,46 @@
       },
     },
     created() {
+      this.api_base_url = process.env.VUE_APP_API_BASE_URL
       this.onSetForm()
     },
     methods: {
-      async onSubmit( invalid )
+      async onSubmit()
       {
-        if( !invalid ) {
-          try {
-            this.form.order_id = this.data.id
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('UPDATE_USER_VOUCHER', this.form)
-            this.$router.push('/wallet')
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          } catch (error) {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          }
+        try {
+          this.form.order_id = this.data.id
+          this.form.template = this.form.template.filter( row => {
+            if( !row.id ) {
+              return {
+                attachment: row.attachment,
+                status: row.status,
+              }
+            }
+            if( row.id && row.status ) {
+              this.form.template_id = row.id
+            }
+          })
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch('UPDATE_USER_VOUCHER', this.form)
+          this.$router.push('/wallet')
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (error) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       onSetForm()
       {
         this.otherData = this.data
+        if( this.TEMPLATES ) {
+          this.form.template = []
+          this.form.template = this.TEMPLATES.map( row => {
+            return {
+              id: row.id,
+              path: row.image,
+              status: 0,
+            }
+          })
+        }
         if(this.data?.id) {
           if( !this.otherData.user_voucher ) {
             this.form.text_color = this.data.voucher.text_color
@@ -208,13 +237,27 @@
             this.form.order_id = this.data.id
             const { text_color, note } = this.otherData.user_voucher
             this.form = {
-              template: [],
+              template: [
+                ...this.form.template
+              ],
               text_color: (text_color != null) ? text_color : this.data.voucher.text_color,
               note,
               custom_image: ''
             }
+            if( this.otherData.user_voucher.template ) {
+              const template = this.otherData.user_voucher.template
+              this.form.template = [
+                ...this.form.template,
+                {
+                  id: template.id,
+                  path: template.image,
+                  status: 1,
+                }
+              ]
+            }
           }
         }
+        this.formIndex = this.formIndex + 1
       },
       onDeleteTemplate( index )
       {
@@ -250,6 +293,17 @@
           this.form.custom_image = ''
         }
       },
+      onSelectTemplate(index)
+      {
+        this.form.template = this.form.template.map( (row, i) => {
+          row.status = 0
+          if(i == index) {
+            row.status = 1
+          }
+          return row
+        })
+        this.formIndex = this.formIndex + 1
+      },
       onChangeForm()
       {
         this.otherData = {
@@ -268,12 +322,14 @@
           reader.onload = () => {
             this.fileRecords = []
             const oldTemp = this.form.template.map( temp => ({
-              path: temp.path,
+              ...temp,
               status: 0
             }))
+            console.log('oldTemp', oldTemp)
             this.form.template = [
               ...oldTemp,
               {
+                attachment: data[0].file,
                 path: reader.result,
                 status: 1
               }

@@ -1,4 +1,5 @@
 import { post, get, put } from '_helpers/ApiService'
+import { mergeList, toFormData } from '_helpers/CustomFunction'
 import moment from 'moment'
 
 const prefix = 'user-voucher'
@@ -40,8 +41,8 @@ export default {
     {
       // payload id is order id
       try {
-        console.log('payload', payload)
-        const { data } = await put(`${prefix}/${payload.order_id}`, payload)
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}/${payload.order_id}`, formData)
         await commit('SET_WALLET', data.order)
         return data
       } catch (err) {

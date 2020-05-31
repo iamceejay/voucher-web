@@ -145,7 +145,7 @@
         if( this.role ) {
           if( this.role === 'user' ) {
             if( this.withQR ) {
-              if( !otherData || (otherData && !otherData.sent_via) ) {
+              if( (!this.otherData || (this.otherData && !this.otherData.sent_via)) ) {
                 this.$emit('onFlip')
               }
             } else {

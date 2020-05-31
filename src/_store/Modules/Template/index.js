@@ -2,9 +2,11 @@ import { post, get } from '_helpers/ApiService'
 import { templates } from '_helpers/DefaultValues'
 import moment from 'moment'
 
+const prefix = 'template'
+
 export default {
   state: () => ({
-    templates,
+    templates: [],
     template: null
   }),
   getters: {
@@ -21,6 +23,16 @@ export default {
     },
   },
   actions: {
+    async FETCH_TEMPLATES( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}`, {})
+        await commit('SET_TEMPLATES', data.templates)
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
     async FETCH_TEMPLATE( { commit, state }, payload )
     {
       await commit('SET_TEMPLATE', data)

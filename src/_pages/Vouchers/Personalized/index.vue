@@ -42,6 +42,7 @@
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallet()
+        await this.onFetchTemplates()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -49,9 +50,21 @@
       async onFetchWallet()
       {
         if( this.$route.params.id ) {
-          await this.$store.dispatch('FETCH_WALLET', this.$route.params.id)
+          try {
+            await this.$store.dispatch('FETCH_WALLET', this.$route.params.id)
+          } catch (err) {
+            console.log('err', err)
+          }
         }
-      }
+      },
+      async onFetchTemplates()
+      {
+        try {
+          await this.$store.dispatch('FETCH_TEMPLATES')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>

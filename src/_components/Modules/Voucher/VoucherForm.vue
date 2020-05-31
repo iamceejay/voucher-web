@@ -100,7 +100,7 @@
               :options="week"
               :data="form.valid_day"
               :limitLabel="3"
-              @onChange="test"
+              @onChange="form.valid_day = $event"
             />
             <div class="w-full md:w-1/2 mb-5">
               <div class="flex flex-row">
@@ -294,11 +294,6 @@
       this.onSetForm()
     },
     methods: {
-      test( e )
-      {
-        this.form.valid_day = e
-        console.log('test e', e)
-      },
       async onSubmit()
       {
         try {

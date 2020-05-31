@@ -24,7 +24,6 @@ export const toFormData = (data) => {
   try {
     Object.keys(data).map( (key,index) => {
       if (Array.isArray(data[key]) && data[key].length > 0) {
-        console.log('data[key] ', data[key])
         for( let i = 0; i < data[key].length; i++ ){
           if(!(data[key][i] instanceof File) && typeof data[key][i] === 'object') {
             Object.keys(data[key][i]).map( (key2,index2) => {
