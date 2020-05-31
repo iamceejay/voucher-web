@@ -14,8 +14,8 @@ module.exports = {
       }
     },
     fontFamily: {
-      'display': ['Montserrat', 'sans-serif'],
-      'body': ['Nunito', 'sans-serif'],
+      'display': ['Manrope', 'sans-serif'],
+      'body': ['Manrope', 'sans-serif'],
     },
   },
   variants: {},
