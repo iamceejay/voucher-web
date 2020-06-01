@@ -54,11 +54,16 @@ export default {
     async FETCH_VOUCHERS( { commit, state }, payload )
     {
       try {
-        const { data } = await get(`${prefix}`, {
-          paginate: 15,
-          ...payload
-        })
-        await commit('SET_VOUCHERS', mergeList( state.vouchers, data.vouchers ))
+        let withParams = payload?.noParams ? false : true
+        let params = {}
+        if( withParams ) {
+          params = {
+            paginate: 15,
+            ...payload
+          }
+        }
+        const { data } = await get(`${prefix}`, params)
+        await commit('SET_VOUCHERS', withParams ? mergeList( state.vouchers, data.vouchers ) : data.vouchers )
         return data
       } catch (err) {
         console.log('err', err)
@@ -113,9 +118,13 @@ export default {
     },
     async UPDATE_VOUCHER( { commit, state }, payload )
     {
-      const formData = toFormData(payload)
-      const { data } = await post(`${prefix}/${payload.id}`, formData)
-      return data
+      try {
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}/${payload.id}`, formData)
+        return data
+      } catch (err) {
+        throw e
+      }
     },
     async STATUS_UPDATE_VOUCHER( { commit, state }, payload )
     {
@@ -130,6 +139,17 @@ export default {
         ...state.vouchers,
         data: newList
       })
+    },
+    async FEATURE_UPDATE_VOUCHER( { commit, state }, payload )
+    {
+      const { data } = await post(`${prefix}/update-feature/${payload.id}`, {})
+      const newList = state.vouchers.map( vouch => {
+        if(vouch.id == payload.id) {
+          vouch.is_featured = vouch.is_featured ? 0 : 1
+        }
+        return vouch
+      })
+      await commit('SET_VOUCHERS', newList)
     },
     async DELETE_VOUCHER( { commit, state }, payload )
     {

@@ -1,62 +1,68 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1
-        label="User Management"
-      />
-      <div class="flex flex-col w-full p-2">
-        <SearchInputField
-          id="search-user"
-          class=""
-          placeholder="Search for users..."
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+        <Header1
+          label="User Management"
         />
-        <div class="flex flex-row btn-switch m-2 w-full md:w-1/2 lg:w-4/12">
-          <a 
-            class="btn btn-left"
-            :class="(type == 'user') ? 'active' : ''"
-            href="javascript:void(2)"
-            @click="onChangeTab('user')"
+        <div class="flex flex-col w-full p-2">
+          <SearchInputField
+            id="search-user"
+            v-model="params.keyword"
+            :value="params.keyword"
+            class="m-2"
+            placeholder="Search for users..."
+            @input="onChangeTab(params.role)"
+          />
+          <div class="flex flex-row btn-switch m-2 w-full md:w-1/2 lg:w-4/12">
+            <a 
+              class="btn btn-left"
+              :class="(params.role == 'user') ? 'active' : ''"
+              href="javascript:void(2)"
+              @click="onChangeTab('user')"
+            >
+              Users
+            </a>
+            <a 
+              class="btn btn-right"
+              :class="(params.role == 'seller') ? 'active' : ''"
+              href="javascript:void(2)"
+              @click="onChangeTab('seller')"
+            >
+              Sellers
+            </a>
+          </div>
+          <Table
+            class="mt-3"
+            :fields="fields"
+            :data="USERS"
           >
-            Users
-          </a>
-          <a 
-            class="btn btn-right"
-            :class="(type == 'seller') ? 'active' : ''"
-            href="javascript:void(2)"
-            @click="onChangeTab('seller')"
-          >
-            Sellers
-          </a>
+            <template #customActions="props">
+              <div class="flex flex-col">
+                <a 
+                  class="text-xs text-indigo-500 underline text-center" 
+                  href="javascript:void(0)"
+                >
+                  Take {{ params.role }} role
+                </a>
+                <router-link
+                  v-if="params.role == 'seller'"
+                  :to="`/settings/user/${props.data.id}`"
+                  class="text-xs text-indigo-500 underline text-center" 
+                >
+                  Payout setings
+                </router-link>
+                <a 
+                  class="text-xs text-indigo-500 underline text-center" 
+                  href="javascript:void(0)"
+                  @click="onDelete(props.data)"
+                >
+                  Delete
+                </a>
+              </div>
+            </template>
+          </Table>
         </div>
-        <Table
-          class="mt-3"
-          :fields="fields"
-          :data="USERS"
-        >
-          <template #customActions="props">
-            <div class="flex flex-col">
-              <a 
-                class="text-xs text-indigo-500 underline text-center" 
-                href="javascript:void(0)"
-              >
-                Take {{ type }} role
-              </a>
-              <router-link
-                :to="`/settings/user/${props.data.id}`"
-                class="text-xs text-indigo-500 underline text-center" 
-              >
-                Payout setings
-              </router-link>
-              <a 
-                class="text-xs text-indigo-500 underline text-center" 
-                href="javascript:void(0)"
-                @click="onDelete(props.data)"
-              >
-                Delete
-              </a>
-            </div>
-          </template>
-        </Table>
       </div>
     </template>
   </MainLayout>
@@ -77,8 +83,10 @@
     data() {
       return {
         tableIndex: 0,
-        role: null,
-        type: 'user',
+        params: {
+          keyword: '',
+          role: 'user',
+        },
         fields: [
           {
             name: 'username',
@@ -104,6 +112,10 @@
       USERS() {
         return this.$store.getters.USERS;
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
       AUTH_USER(newVal) {
@@ -112,8 +124,9 @@
     },
     mounted() {
       (async() => {
-        await this.onSetRole()
-        await this.FETCH_USER_BY_ROLE()
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchUserFilter()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {
@@ -129,8 +142,9 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
             await this.$store.dispatch('DELETE_USER', data)
-            // this.tableIndex = this.tableIndex + 1
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
               title: 'Successful!',
@@ -140,20 +154,21 @@
           }   
         })
       },
-      async onChangeTab( type )
+      async onChangeTab( role )
       {
-        this.type = type
-        await this.FETCH_USER_BY_ROLE()
+        this.params.role = role
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        await this.onFetchUserFilter()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchUserFilter()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_USER_FILTER', this.params)
+        } catch (err) {
+          console.log('err', err)
         }
       },
-      async FETCH_USER_BY_ROLE()
-      {
-        await this.$store.dispatch('FETCH_USER_BY_ROLE', this.type)
-      }
     }
   }
 </script>

@@ -26,23 +26,23 @@
       </template>
       <template #voucher_feature_="props">
         <span class="flex justify-center">
-          {{ props.rowData.isFeatured ? 'Featured' : 'Not Featured' }} 
+          {{ props.rowData.is_featured ? 'Featured' : 'Not Featured' }} 
         </span>
       </template>
       <template #voucher_="props">
         <div class="flex">
           <router-link :to="`/vouchers/${props.rowData.id}`">
-            {{ props.rowData.name }} 
+            {{ props.rowData.title }} 
           </router-link>
-          <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" />
+          <!-- <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" /> -->
         </div>
       </template>
       <template #photo_="props">
         <div class="flex justify-center">
           <img 
-            v-if="props.rowData.photo != ''"
+            v-if="props.rowData.image != ''"
             style="width: 120px; height: 130px;"
-            :src="props.rowData.photo" 
+            :src="onSetPhoto(props.rowData.image)" 
             alt=""
           />
           <img 
@@ -98,6 +98,14 @@
     mounted() {
     },
     methods: {
+      onSetPhoto(value)
+      {
+        console.log('value', value)
+        if( value != '' ) {
+          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+        }
+        return ''
+      },
       onPaginationData(paginationData) {
         this.$refs.pagination.setPaginationData(paginationData);
       },

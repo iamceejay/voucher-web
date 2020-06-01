@@ -3,7 +3,7 @@
     <template #content>
       <div class="flex flex-col w-full">
         <Header1
-          label="Payment Management"
+          label="Payout Management"
         />
         <Table
           class="mt-3"

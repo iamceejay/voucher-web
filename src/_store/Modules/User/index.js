@@ -1,4 +1,4 @@
-import { post, get, put } from '_helpers/ApiService'
+import { post, get, put, del } from '_helpers/ApiService'
 import { users } from '_helpers/DefaultValues'
 import moment from 'moment'
 
@@ -26,10 +26,15 @@ export default {
     },
   },
   actions: {
-    async FETCH_USER_BY_ROLE( { commit, state }, type )
+    async FETCH_USER_FILTER( { commit, state }, payload )
     {
-      const newUsers = users.filter( row => row.user_role.role.name == type )
-      await commit('SET_USERS', newUsers)
+      try {
+        const { data } = await get(`${prefix}/user-filter`, payload)
+        await commit('SET_USERS', data.users)
+        return data
+      } catch (err) {
+        throw err
+      }
     },
     async FETCH_USER( { commit, state }, payload )
     {
@@ -73,8 +78,13 @@ export default {
     },
     async DELETE_USER( { commit, state }, payload )
     {
-      const newUsers = state.users.filter( row => row.id != payload.id )
-      await commit('SET_USERS', newUsers)
+      try {
+        const { data } = await del(`${prefix}/${payload.id}`, {})
+        const newList = state.users.filter( row => row.id != payload.id);
+        await commit('SET_USERS', newList)
+      } catch (err) {
+        throw err
+      }
     },
     async CHANGE_PASSWORD( { commit, state }, payload )
     {

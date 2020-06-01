@@ -1,5 +1,6 @@
 import { post, get } from '_helpers/ApiService'
 import { templates } from '_helpers/DefaultValues'
+import { toFormData } from '_helpers/CustomFunction'
 import moment from 'moment'
 
 const prefix = 'template'
@@ -40,27 +41,36 @@ export default {
     },
     async ADD_TEMPLATE( { commit, state }, payload )
     {
-      const data = {
-        ...payload,
-        id: state.templates.length + 1,
-        status: 1
+      try {
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}`, formData)
+        await commit('SET_TEMPLATES', [
+          ...state.templates,
+          data.template
+        ])
+        return data
+      } catch (err) {
+        throw e
       }
-      await commit('SET_TEMPLATES', [
-        ...state.templates,
-        data
-      ])
       return data
     },
-    UPDATE_TEMPLATE( { commit, state }, payload )
+    async UPDATE_TEMPLATE( { commit, state }, payload )
     {
-      const newData = state.templates.map( row => {
-        if( row.id == payload.id ) {
-          row.label = payload.label
-          row.icon = payload.icon
-        }
-        return row
-      })
-      commit('SET_TEMPLATES', newData)
+      try {
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}/${payload.id}`, formData)
+        const newList = state.templates.map( row => {
+          if( row.id == payload.id ) {
+            row = data.template
+          }
+          return row
+        })
+        await commit('SET_TEMPLATES', newList)
+        return data
+      } catch (err) {
+        throw e
+      }
+      return data
     },
     async DELETE_TEMPLATE( { commit, state }, payload )
     {

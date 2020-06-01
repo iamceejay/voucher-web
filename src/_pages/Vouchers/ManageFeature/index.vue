@@ -1,18 +1,10 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Featured Vouchers"
         />
-        <!-- <Button
-          class="py-2 mt-3"
-          label="Add Feature"
-          size="w-32 py-1"
-          round="rounded-full"
-          fontSize="text-xs"
-          @onClick="onEdit(null)"
-        /> -->
         <Table
           class="mt-3"
           :fields="fields"
@@ -26,7 +18,7 @@
                 href="javascript:void(0)"
                 @click="onChange(props.data)"
               >
-                <i :class="`${ props.data.isFeatured ? 'fas' : 'far' } fa-check-circle`" />
+                <i :class="`${ props.data.is_featured ? 'fas' : 'far' } fa-check-circle`" />
               </a>
             </div>
           </template>
@@ -39,18 +31,15 @@
   import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
   import Table from '_components/Table';
-  import Button from '_components/Button/'
 
   export default {
     components: {
       MainLayout,
       Header1,
-      Button,
       Table,
     },
     data() {
       return {
-        role: null,
         voucher: null,
         onShowModal: false,
         search: '',
@@ -80,17 +69,22 @@
       VOUCHERS() {
         return this.$store.getters.VOUCHERS;
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      },
       VOUCHERS() {
         this.tableIndex = this.tableIndex + 1
       },
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchVouchers()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
       async onEdit( data )
@@ -101,8 +95,8 @@
       async onChange(data)
       {
         this.$swal({
-          title: `${ data.isFeatured ? 'Removing' : 'Adding' } Featured Voucher`,
-          text: `Are you sure you want to ${ data.isFeatured ? 'remove' : 'add' } this to featured vouchers?`,
+          title: `${ data.is_featured ? 'Removing' : 'Adding' } Featured Voucher`,
+          text: `Are you sure you want to ${ data.is_featured ? 'remove' : 'add' } this to featured vouchers?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -110,27 +104,33 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
-            const newData = this.VOUCHERS.map( row => {
-              if( row.id == data.id ) {
-                row.isFeatured = !row.isFeatured
-              }
-              return row
-            })
-            await this.$store.commit('SET_VOUCHERS', newData)
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: `${ !data.isFeatured ? 'Removing' : 'Adding' } from the featured voucher.`,
-              confirmButtonColor: '#6C757D',
-            })
+            try {
+              console.log('test naio')
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('FEATURE_UPDATE_VOUCHER', data)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'Successful!',
+                text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the featured voucher.`,
+                confirmButtonColor: '#6C757D',
+              })
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            }
           }   
         })
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchVouchers()
+      {
+        try {
+          await this.$store.dispatch('FETCH_VOUCHERS', {
+            noParams: true
+          })
+        } catch (err) {
+          console.log('err', err)
         }
-      }
+      },
     }
   }
 </script>

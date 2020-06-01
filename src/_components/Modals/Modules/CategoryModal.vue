@@ -7,14 +7,14 @@
       <div class="font-bold text-lg py-2 text-center text-gray-900 text-3xl">
         Category
       </div>
-      <ValidationObserver v-slot="{ handleSubmit, invalid }">
+      <ValidationObserver v-slot="{ handleSubmit }">
         <form 
           class="w-full flex flex-col"
-          @submit.prevent="handleSubmit(onSubmit(invalid))"
+          @submit.prevent="handleSubmit(onSubmit)"
         >
           <InputField
-            id="label"
-            v-model="form.label"
+            id="name"
+            v-model="form.name"
             type="text"
             class="w-full m-auto mt-4"
             label="Category Name"
@@ -71,7 +71,7 @@
         value: '',
         form: {
           id: null,
-          label: '',
+          name: '',
           icon: '',
         },
       }
@@ -87,17 +87,21 @@
       this.onSetForm()
     },
     methods: {
-      async onSubmit( isValid )
+      async onSubmit()
       {
-        if( !isValid ) {
+        try {
           const url = this.form.id ? 'UPDATE_CATEGORY' : 'ADD_CATEGORY'
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           await this.$store.dispatch(url, this.form)
           this.$emit('onClose')
           this.form = {
             id: null,
-            label: '',
+            name: '',
             icon: '',
           }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       onSetForm()
@@ -108,7 +112,7 @@
           :
             {
               id: null,
-              label: '',
+              name: '',
               icon: '',
             }
       },

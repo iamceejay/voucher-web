@@ -1,12 +1,14 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Global Settings"
         />
+        <PayoutForm
+          :data="GLOBAL_SETTING"
+        />
       </div>
-      <PayoutForm />
     </template>
   </MainLayout>
 </template>
@@ -23,29 +25,41 @@
     },
     data() {
       return {
-        role: null,
-        search: ''
       };
     },
     computed: {
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+      GLOBAL_SETTING()
+      {
+        return this.$store.getters.GLOBAL_SETTING
+      },
     },
     watch: {
       AUTH_USER(newVal) {
-        this.onSetRole();
       }
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchGlobalSetting()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchGlobalSetting()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_GLOBAL_SETTING', 1)
+        } catch (err) {
+          console.log('err', err)
         }
-      }
+      },
     }
   }
 </script>

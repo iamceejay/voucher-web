@@ -7,10 +7,10 @@
       <div class="font-bold text-lg py-2 text-center text-gray-900 text-3xl">
         Template
       </div>
-      <ValidationObserver v-slot="{ handleSubmit, invalid }">
+      <ValidationObserver v-slot="{ handleSubmit }">
         <form 
           class="w-full flex flex-col"
-          @submit.prevent="handleSubmit(onSubmit(invalid))"
+          @submit.prevent="handleSubmit(onSubmit)"
         >
           <InputField
             id="name"
@@ -21,20 +21,20 @@
             placeholder="Entere here"
             rules="required"
           />
-          <div v-if="form.photo && form.photo != ''" class="flex w-full">
+          <div v-if="form.image && form.image != ''" class="flex w-full">
             <img 
               style="width: 180px; height: 190px;"
-              :src="form.photo" 
+              :src="onSetImage('set', form.image)" 
               alt=""
             />
           </div>
           <FileInputField
             id="icon"
-            v-model="form.photo"
+            v-model="form.image"
             class="w-full m-auto"
             inputContainer="py-2 w-full md:w-2/5"
             label=""
-            rules="required"
+            :rules="`${ !form.id ? 'required' : '' }`"
             :isMultiple="false"
             accept=".jpeg,.png,.jpg"
           />
@@ -82,7 +82,7 @@
         form: {
           id: null,
           name: '',
-          photo: null,
+          image: null,
         },
       }
     },
@@ -92,7 +92,7 @@
         this.value = ''
         this.onSetForm()
       },
-      'form.photo'(newVal)
+      'form.image'(newVal)
       {
         this.onBase64(newVal)
       }
@@ -101,17 +101,23 @@
       this.onSetForm()
     },
     methods: {
-      async onSubmit( isValid )
+      async onSubmit()
       {
-        if( !isValid ) {
+        try {
           const url = this.form.id ? 'UPDATE_TEMPLATE' : 'ADD_TEMPLATE'
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          this.form.image = this.img
           await this.$store.dispatch(url, this.form)
           this.$emit('onClose')
           this.form = {
             id: null,
             name: '',
-            photo: null,
+            image: null,
           }
+          this.img = ''
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       async onChangeFile(data)
@@ -120,8 +126,8 @@
         reader.readAsDataURL(data);
         reader.onload = async () => {
             
-          this.form.photo = reader.result
-          // console.log('this.form.photo', this.form.photo)
+          this.form.image = reader.result
+          // console.log('this.form.image', this.form.image)
         }
       },
       onBase64(data)
@@ -132,14 +138,23 @@
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = async () => {
-              this.form.photo = reader.result
+              this.form.image = reader.result
+              this.img = data[0]
             }
           }
         }
       },
+      onSetImage(action, value)
+      {
+        if( action == 'set' ) {
+          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+        } else {
+          this.form.image = ''
+          this.img = ''
+        }
+      },
       onSetForm()
       {
-        console.log('this.data', this.data)
         this.form = this.data?.id 
           ? 
             this.data
@@ -147,7 +162,7 @@
             {
               id: null,
               name: '',
-              photo: '',
+              image: '',
             }
       },
     }

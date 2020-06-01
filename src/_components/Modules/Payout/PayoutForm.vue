@@ -1,37 +1,37 @@
 <template>
   <div class="flex flex-col w-full">
-    <ValidationObserver v-slot="{ handleSubmit, invalid }">
+    <ValidationObserver v-slot="{ handleSubmit }">
       <form 
         class="flex flex-col w-full md:w-1/2"
-        @submit.prevent="handleSubmit(onSubmit(invalid))"
+        @submit.prevent="handleSubmit(onSubmit)"
       >
         <InputField
-          id="days"
-          v-model="payoutForm.days"
+          id="payout_schedule"
+          v-model="form.payout_schedule"
           type="text"
           class="m-2"
           label="Payout schedule (days)"
           rules="required"
         />
         <InputField
-          id="commisionPercent"
-          v-model="payoutForm.commisionPercent"
+          id="sales_commission_percentage"
+          v-model="form.sales_commission_percentage"
           type="text"
           class="m-2"
           label="Sales Commission in %"
           rules="required"
         />
         <InputField
-          id="commisionDollar"
-          v-model="payoutForm.commisionDollar"
+          id="sales_commission_euro"
+          v-model="form.sales_commission_euro"
           type="text"
           class="m-2"
           label="Sales Commission in €"
           rules="required"
         />
         <InputField
-          id="voucherMin"
-          v-model="payoutForm.voucherMin"
+          id="minimum_voucher_value"
+          v-model="form.minimum_voucher_value"
           type="text"
           class="m-2"
           label="Minimum Voucher Value in €"
@@ -59,45 +59,55 @@
       Button,
     },
     props: {
+      data: {
+        type: Object,
+        default: null
+      },
     },
     data() {
       return {
-        payoutForm: {
-          days: '',
-          commisionPercent: '',
-          commisionDollar: '',
-          voucherMin: '',
+        form: {
+          payout_schedule: '',
+          sales_commission_percentage: '',
+          sales_commission_euro: '',
+          minimum_voucher_value: '',
         }
+      }
+    },
+    watch: {
+      data()
+      {
+        this.onSetData()
       }
     },
     mounted() {
+      this.onSetData()
     },
     methods: {
-      onSubmit( invalid )
+      async onSubmit()
       {
-        if( !invalid ) {
-          let processing = this.$swal({
-            title: 'Processing Request',
-            text: 'Please wait ...',
-            allowOutsideClick: false,
-            showConfirmButton: false
+        try {
+          const url = this.form.id ? 'UPDATE_GLOBAL_SETTING' : 'ADD_GLOBAL_SETTING'
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch(url, this.form)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Saving the settings.',
+            confirmButtonColor: '#6C757D',
           })
-          setTimeout( () => {
-            this.payoutForm = {
-              days: '',
-              commisionPercent: '',
-              commisionDollar: '',
-              voucherMin: '',
-            }
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Saving the settings.',
-              confirmButtonColor: '#6C757D',
-            })
-          }, 2000)
+        } catch (err) {
+          
         }
-      }
+      },
+      onSetData()
+      {
+        console.log('this.data', this.data)
+        if( this.data ) {
+          this.form = this.data
+        }
+      },
     }
   }
 </script>

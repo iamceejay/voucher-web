@@ -1,4 +1,4 @@
-import { post, get } from '_helpers/ApiService'
+import { put, post, get, del } from '_helpers/ApiService'
 import { categories } from '_helpers/DefaultValues'
 import moment from 'moment'
 
@@ -40,6 +40,16 @@ export default {
     },
     async ADD_CATEGORY( { commit, state }, payload )
     {
+      try {
+        const { data } = await post(`${prefix}`, payload)
+        await commit('SET_CATEGORIES', [
+          ...state.categories,
+          data.voucher_category
+        ])
+        return data
+      } catch (err) {
+        throw e
+      }
       const data = {
         ...payload,
         id: state.categories.length + 1,
@@ -51,21 +61,31 @@ export default {
       ])
       return data
     },
-    UPDATE_CATEGORY( { commit, state }, payload )
+    async UPDATE_CATEGORY( { commit, state }, payload )
     {
-      const newData = state.categories.map( row => {
-        if( row.id == payload.id ) {
-          row.label = payload.label
-          row.icon = payload.icon
-        }
-        return row
-      })
-      commit('SET_CATEGORIES', newData)
+      try {
+        const { data } = await put(`${prefix}/${payload.id}`, payload)
+        const newList = state.categories.map( row => {
+          if( row.id == payload.id ) {
+            row = data.voucher_category
+          }
+          return row
+        })
+        await commit('SET_CATEGORIES', newList)
+        return data
+      } catch (err) {
+        throw e
+      }
     },
     async DELETE_CATEGORY( { commit, state }, payload )
     {
-      const newData = state.categories.filter( row => row.id != payload.id )
-      await commit('SET_CATEGORIES', newData)
+      try {
+        const { data } = await del(`${prefix}/${payload.id}`, {})
+        const newList = state.categories.filter( row => row.id != payload.id);
+        await commit('SET_CATEGORIES', newList)
+      } catch (err) {
+        throw err
+      }
     }
   },
 }

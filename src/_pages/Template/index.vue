@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Templates"
         />
@@ -63,7 +63,6 @@
     },
     data() {
       return {
-        role: null,
         template: null,
         onShowModal: false,
         search: '',
@@ -94,18 +93,26 @@
       TEMPLATES() {
         return this.$store.getters.TEMPLATES;
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
       AUTH_USER(newVal) {
         this.onSetRole();
       },
-      TEMPLATES() {
+      TEMPLATES(newVal) {
+        console.log('newVal', newVal)
         this.tableIndex = this.tableIndex + 1
-        console.log('TEMPLATES', this.TEMPLATES)
       },
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchTemplates()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },  
     methods: {
       async onEdit( data )
@@ -135,11 +142,14 @@
           }   
         })
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchTemplates()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_TEMPLATES')
+        } catch (err) {
+          console.log('err', err)
         }
-      }
+      },
     }
   }
 </script>

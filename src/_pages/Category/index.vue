@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Manage Category"
         />
@@ -63,7 +63,6 @@
     },
     data() {
       return {
-        role: null,
         category: null,
         onShowModal: false,
         search: '',
@@ -74,7 +73,7 @@
             title: '',
             dataClass: 'text-center'
           }, {
-            name: 'label',
+            name: 'name',
             title: 'Category Name',
           }, {
             name: 'icon_',
@@ -93,18 +92,22 @@
       CATEGORIES() {
         return this.$store.getters.CATEGORIES;
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      },
       CATEGORIES() {
         this.tableIndex = this.tableIndex + 1
-        console.log('CATEGORIES', this.CATEGORIES)
       },
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchCategories()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
       async onEdit( data )
@@ -124,7 +127,9 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
             await this.$store.dispatch('DELETE_CATEGORY', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
               title: 'Successful!',
@@ -134,11 +139,14 @@
           }   
         })
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchCategories()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_CATEGORIES')
+        } catch (err) {
+          console.log('err', err)
         }
-      }
+      },
     }
   }
 </script>
