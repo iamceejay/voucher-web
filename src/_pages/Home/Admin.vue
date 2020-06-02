@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <Header1
       label="Admin Home"
     />
@@ -30,39 +30,60 @@
       }
     },
     computed: {
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     mounted() {
-      this.onSetStats()
-      this.onSetTotalStats()
+      (async() => {
+        await this.$store.commit('SET_WALLETS', [])
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchWalletStat()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
-      onSetStats()
+      async onFetchWalletStat()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_WALLET_STAT', {
+            with_stat: true,
+            status: 'completed'
+          })
+          await this.onSetStats(data)
+          await this.onSetTotalStats()
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      onSetStats(data)
       {
         this.stats = [
           {
             type: 'Vouchers',
             title: 'sold total',
-            value: '15'
+            value: data.voucher_total
           },{
             type: 'Commision',
             title: 'earnings total',
-            value: '€13,456'
+            value: `€${data.total_earnings}`
           },{
             type: 'Vouchers',
             title: 'sold / month',
-            value: '23'
+            value: data.voucher_month
           },{
             type: 'Commision',
             title: 'earnings / month',
-            value: '€34,567'
+            value: `€${data.monthly_earnings}`
           },{
             type: 'Vouchers',
             title: 'sold / week',
-            value: '123'
+            value: data.voucher_week
           },{
             type: 'Commision',
             title: 'earnings / week',
-            value: '€123,456'
+            value: `€${data.weekly_earnings}`
           },
         ]
       },

@@ -17,6 +17,8 @@ import UserVoucher from './Modules/UserVoucher/'
 import QrCode from './Modules/QrCode/'
 import Redemption from './Modules/Redemption/'
 import GlobalSetting from './Modules/GlobalSetting/'
+import UserSetting from './Modules/UserSetting/'
+import SellerInvoice from './Modules/SellerInvoice/'
 
 Vue.use(Vuex);
 
@@ -38,5 +40,7 @@ export default new Vuex.Store({
     QrCode,
     Redemption,
     GlobalSetting,
+    UserSetting,
+    SellerInvoice,
   }
 })

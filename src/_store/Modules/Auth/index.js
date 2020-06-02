@@ -22,6 +22,7 @@ export default {
     SET_AUTH_USER(state, payload) 
     {
       state.auth = payload;
+      console.log('payload', payload)
     },
   },
   actions: {
@@ -38,6 +39,15 @@ export default {
     {
       try {
         const { data } = await post('auth/logout')
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async CHANGE_ROLE( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post('auth/change-role', payload)
         return data
       } catch (err) {
         throw err

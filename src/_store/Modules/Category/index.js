@@ -28,15 +28,23 @@ export default {
   actions: {
     async FETCH_CATEGORY( { commit, state }, payload )
     {
-      const { data } = await get(`${prefix}/${payload}`, {})
-      await commit('SET_CATEGORY', data.voucher_category)
-      return data
+      try {
+        const { data } = await get(`${prefix}/${payload}`, {})
+        await commit('SET_CATEGORY', data.voucher_category)
+        return data
+      } catch (err) {
+        throw e
+      }
     },
     async FETCH_CATEGORIES( { commit, state }, payload )
     {
-      const { data } = await get(`${prefix}`, {})
-      await commit('SET_CATEGORIES', data.voucher_categories)
-      return data
+      try {
+        const { data } = await get(`${prefix}`, {})
+        await commit('SET_CATEGORIES', data.voucher_categories)
+        return data
+      } catch (err) {
+        throw e
+      }
     },
     async ADD_CATEGORY( { commit, state }, payload )
     {

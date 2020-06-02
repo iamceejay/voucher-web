@@ -7,6 +7,7 @@
         />
         <PayoutForm
           :data="GLOBAL_SETTING"
+          @onSubmit="onSubmit"
         />
       </div>
     </template>
@@ -52,6 +53,23 @@
       })()
     },
     methods: {
+      async onSubmit( data )
+      {
+        try {
+          const url = data.id ? 'UPDATE_GLOBAL_SETTING' : 'ADD_GLOBAL_SETTING'
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch(url, data)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Saving the settings.',
+            confirmButtonColor: '#6C757D',
+          })
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
       async onFetchGlobalSetting()
       {
         try {

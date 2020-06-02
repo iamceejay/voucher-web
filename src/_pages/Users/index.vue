@@ -42,6 +42,7 @@
                 <a 
                   class="text-xs text-indigo-500 underline text-center" 
                   href="javascript:void(0)"
+                  @click="onChangeRole(props.data)"
                 >
                   Take {{ params.role }} role
                 </a>
@@ -72,6 +73,7 @@
   import Header1 from '_components/Headers/Header1';
   import SearchInputField from '_components/Form/SearchInputField';
   import Table from '_components/Table';
+  import { setToken } from '_helpers/ApiService'
 
   export default {
     components: {
@@ -118,9 +120,6 @@
       },
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      }, 
     },
     mounted() {
       (async() => {
@@ -130,6 +129,43 @@
       })()
     },
     methods: {
+      async onChangeRole(data)
+      {
+        const fullName = `${data.detail.firstName} ${data.detail.lastName}`
+        this.$swal({
+          title: 'Change Role',
+          text: `You are about to logout and login in ${fullName} credentials. Continue?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then( async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            const { token, user } = await this.$store.dispatch('CHANGE_ROLE', {
+              user_id: data.id
+            })
+            const auth = {
+              isAuth: true,
+              token,
+              data: user,
+              role: user.user_role.role,
+              admin: this.AUTH_USER.data
+            }
+            await this.$store.commit('SET_AUTH_USER', auth)
+            await localStorage.setItem('_auth', JSON.stringify(auth))
+            if( auth.role.name == 'user' ) {
+              await this.onFetchCategories()
+              await this.onFetchTotalUserCart()
+            }
+            await setToken()
+            this.submitting = false
+            this.$router.push('/home')
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }   
+        })
+      },
       async onDelete(data)
       {
         this.$swal({
@@ -160,6 +196,22 @@
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         await this.onFetchUserFilter()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
+      async onFetchCategories()
+      {
+        try {
+          await this.$store.dispatch('FETCH_CATEGORIES')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchTotalUserCart()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_TOTAL_USER_CART')
+        } catch (err) {
+          console.log('err', err)
+        }
       },
       async onFetchUserFilter()
       {

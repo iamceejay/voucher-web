@@ -73,7 +73,6 @@
           this.submitting = true
           this.errorMessages = []
           const { token, user } = await this.$store.dispatch('LOGIN', this.loginForm)
-          await setToken()
           const auth = {
             isAuth: true,
             token,
@@ -86,6 +85,7 @@
             await this.onFetchCategories()
             await this.onFetchTotalUserCart()
           }
+          await setToken()
           this.submitting = false
           this.$router.push('/home')
         } catch (err) {

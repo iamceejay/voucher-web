@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
           label="Payout Management"
         />
@@ -64,8 +64,6 @@
     },
     data() {
       return {
-        role: null,
-        search: '',
         data: [
           {
             id: 1,
@@ -114,14 +112,20 @@
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      }
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_WALLETS', [])
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchSellerInvoices()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
       onDownloadInvoices(  )
@@ -206,11 +210,14 @@
           }   
         })
       },
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onFetchSellerInvoices()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_SELLER_INVOICES')
+        } catch (err) {
+          console.log('err', err)
         }
-      }
+      },
     }
   }
 </script>

@@ -53,16 +53,6 @@ export default {
       } catch (err) {
         throw e
       }
-      const data = {
-        ...payload,
-        id: state.global_settings.length + 1,
-        status: 1
-      }
-      await commit('SET_GLOBAL_SETTINGS', [
-        ...state.global_settings,
-        data
-      ])
-      return data
     },
     async UPDATE_GLOBAL_SETTING( { commit, state }, payload )
     {

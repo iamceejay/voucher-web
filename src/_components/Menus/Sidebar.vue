@@ -9,7 +9,13 @@
     >
       <i class="fas fa-bars text-base text-2xl text-gray-900" />
     </a>
-    <div :class="hideSidebar ? 'hidden' : ''">
+    <div
+      class="flex flex-col w-full h-full"
+      :class="hideSidebar ? 'hidden' : ''"
+    >
+      <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
+        {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
+      </div>
       <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
         Hi {{ 
           (AUTH_USER.role && AUTH_USER.data) && (
@@ -315,6 +321,9 @@
 </script>
 
 <style scoped>
+  .admin-container {
+    background-color: #1a202c;
+  }
   .menu-toggle {
     right: -50px;
     position: absolute;

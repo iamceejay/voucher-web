@@ -1,15 +1,18 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
         <Header1
-          label="Global Settings"
+          label="Payout Settings"
+        />
+        <div class="font-semibold text-lg px-2">
+          {{ USER.username || 'USERNAME' }} | {{ USER.company.name || 'COMPANY NAME' }}
+        </div>
+        <PayoutForm
+          :data="USER_SETTING"
+          @onSubmit="onSubmit"
         />
       </div>
-      <div class="font-semibold text-lg px-2">
-        Username | Company Name
-      </div>
-      <PayoutForm />
     </template>
   </MainLayout>
 </template>
@@ -26,29 +29,72 @@
     },
     data() {
       return {
-        role: null,
-        search: ''
       };
     },
     computed: {
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
-    },
-    watch: {
-      AUTH_USER(newVal) {
-        this.onSetRole();
-      }
+      USER() {
+        return this.$store.getters.USER;
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+      USER_SETTING()
+      {
+        return this.$store.getters.USER_SETTING
+      },
     },
     mounted() {
-      this.onSetRole();
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchUser()
+        await this.onFetchUserSetting()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
-      onSetRole() {
-        if (this.AUTH_USER?.data?.user_role) {
-          this.role = this.AUTH_USER.data.user_role.role.name;
+      async onSubmit( data )
+      {
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch('ADD_USER_SETTING', {
+            ...data,
+            user_id: this.$route.params.id
+          })
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Saving the settings.',
+            confirmButtonColor: '#6C757D',
+          })
+        } catch (err) {
+          console.log('err', err)
         }
-      }
+      },
+      async onFetchUser()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_USER', {
+            id: this.$route.params.id
+          })
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchUserSetting()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_USER_SETTING_BY_USER', {
+            user_id: this.$route.params.id
+          })
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>

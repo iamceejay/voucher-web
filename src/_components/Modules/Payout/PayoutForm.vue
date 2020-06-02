@@ -86,24 +86,10 @@
     methods: {
       async onSubmit()
       {
-        try {
-          const url = this.form.id ? 'UPDATE_GLOBAL_SETTING' : 'ADD_GLOBAL_SETTING'
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          await this.$store.dispatch(url, this.form)
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: 'Saving the settings.',
-            confirmButtonColor: '#6C757D',
-          })
-        } catch (err) {
-          
-        }
+        await this.$emit('onSubmit', this.form)
       },
       onSetData()
       {
-        console.log('this.data', this.data)
         if( this.data ) {
           this.form = this.data
         }
