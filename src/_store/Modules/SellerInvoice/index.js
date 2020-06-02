@@ -58,16 +58,6 @@ export default {
       } catch (err) {
         throw e
       }
-      const data = {
-        ...payload,
-        id: state.seller_invoices.length + 1,
-        status: 1
-      }
-      await commit('SET_SELLER_INVOICES', [
-        ...state.seller_invoices,
-        data
-      ])
-      return data
     },
     async UPDATE_SELLER_INVOICE( { commit, state }, payload )
     {
@@ -94,6 +84,15 @@ export default {
       } catch (err) {
         throw err
       }
-    }
+    },
+    async SEND_SELLER_INVOICE( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}/send-invoice/${payload.id}`)
+        return data
+      } catch (err) {
+        throw e
+      }
+    },
   },
 }

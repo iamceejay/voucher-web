@@ -8,7 +8,7 @@
         <Table
           class="mt-3"
           :fields="fields"
-          :data="data"
+          :data="SELLER_INVOICES"
         >
           <template #customActions="props">
             <div class="flex flex-col">
@@ -22,7 +22,7 @@
               <a 
                 class="text-xs text-indigo-500 underline text-center" 
                 href="javascript:void(0)"
-                @click="onSendInvoice()"
+                @click="onSendInvoice(props.data)"
               >
                 Send Invoice
               </a>
@@ -93,13 +93,14 @@
         ],
         fields: [
           {
-            name: 'companyName',
+            name: 'company.name',
             title: 'Company Name',
           }, {
-            name: 'payout',
+            name: 'commission',
             title: 'Payout(€)',
+            dataClass: 'text-right'
           }, {
-            name: 'bank',
+            name: 'company.seller.detail.iban',
             title: 'Bank Data(IBAN)',
           }, {
             name: 'actions',
@@ -115,6 +116,10 @@
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
+      },
+      SELLER_INVOICES()
+      {
+        return this.$store.getters.SELLER_INVOICES
       },
     },
     watch: {
@@ -201,6 +206,9 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('SEND_SELLER_INVOICE', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
               title: 'Successful!',
