@@ -20,7 +20,7 @@
         </div>
         <div class="flex flex-row flex-wrap w-full">
           <div class="w-full md:w-1/2 mb-5">
-            <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
+            <span class="font-semibold text-sm font-display text-gray-700 mx-2">
               Background color
             </span>
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="w-full md:w-1/2 mb-5">
-            <span class="text-sm m-2 font-bold font-body text-gray-900 capitalize">
+            <span class="font-semibold text-sm font-display text-gray-700 mx-2">
               Background image
             </span>
             <Button
@@ -67,7 +67,7 @@
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
             />
-            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Light / Dark Text</span>
+            <span class="ml-2 font-semibold text-sm font-display text-gray-700">Light / Dark Text</span>
           </div>
           <div class="w-full">
             <InputField
@@ -102,9 +102,9 @@
               :limitLabel="3"
               @onChange="form.valid_day = $event"
             />
-            <div class="w-full md:w-1/2 mb-5">
+            <div class="w-full md:w-1/2 mb-5 mx-2">
               <div class="flex flex-row">
-                <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
+                <label class="font-semibold text-sm font-display text-gray-700">
                   Valid from ... to ...
                 </label>
                 <a 
@@ -143,17 +143,26 @@
                 </a>
               </div>
             </div>
+            <InputField
+              v-if="!form.id"
+              id="expiry_date"
+              v-model="form.expiry_date"
+              type="number"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Years of Expiry (4-10 years)"
+              placeholder=""
+              rules="required|min_value:4|max_value:10"
+            />
             <div class="m-1 w-full flex flex-col mb-5">
-              <label class="block text-left text-gray-900 text-sm font-bold mb-0 font-body">
+              <label class="font-semibold text-sm font-display text-gray-700">
                 Voucher Type
               </label>
-              {{ form.type }}
               <div class="mx-2 mt-2 w-full flex flex-row">
                 <toggle-button
                   :value="(form.type != 'quantity') ? true : false"
                   @change="onChangeType"
                 />
-                <span class="ml-2 text-sm font-bold text-gray-900 font-body">Value based / Quantity based</span>
+                <span class="ml-2 font-semibold text-sm font-display text-gray-700">Value based / Quantity based</span>
               </div>
             </div>
             <InputField
@@ -257,6 +266,7 @@
           type: 'value',
           min: 0,
           max: 0,
+          expiry_date: 0,
           qty_val: 0,
           qty_min: 0,
           qty_max: 0,
@@ -297,7 +307,7 @@
       async onSubmit()
       {
         try {
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          // await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           this.form.seller_id = this.AUTH_USER.data.id
           this.form.voucher_category_id = this.form.category.id
           if( this.form.type == 'value' ) {

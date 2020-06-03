@@ -26,7 +26,7 @@
           :placeholder="placeholder"
           :disabled="disabled"
           :readonly="readonly"
-          step="any"
+          :step="step"
           @input="onUpdateField()"
         />
         <ErrorMessage :errors="[...errors, ...errorMessages]" />
@@ -65,6 +65,9 @@
       }, rules: {
         type: String,
         default: ''
+      }, step: {
+        type: [String, Number],
+        default: 'any'
       }, errorMessages: {
         type: Array,
         default() {

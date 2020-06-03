@@ -112,7 +112,6 @@
           console.log('err', err)
         }
       },
-
       async onFetchUser()
       {
         try {

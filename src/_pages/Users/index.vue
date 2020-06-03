@@ -40,6 +40,14 @@
             <template #customActions="props">
               <div class="flex flex-col">
                 <a 
+                  v-if="params.role == 'seller' && !props.data.isActivated"
+                  class="text-xs text-indigo-500 underline text-center" 
+                  href="javascript:void(0)"
+                  @click="onActivateUser(props.data)"
+                >
+                  Activate
+                </a>
+                <a 
                   class="text-xs text-indigo-500 underline text-center" 
                   href="javascript:void(0)"
                   @click="onChangeRole(props.data)"
@@ -185,6 +193,30 @@
               icon: 'success',
               title: 'Successful!',
               text: 'Deleting the user.',
+              confirmButtonColor: '#6C757D',
+            });
+          }   
+        })
+      },
+      async onActivateUser(data)
+      {
+        this.$swal({
+          title: 'Activate User',
+          text: `Are you sure you want to activate this user?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then( async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('UPDATE_USER_STATUS', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Activating the user.',
               confirmButtonColor: '#6C757D',
             });
           }   

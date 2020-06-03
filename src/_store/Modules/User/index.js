@@ -1,5 +1,5 @@
 import { post, get, put, del } from '_helpers/ApiService'
-import { users } from '_helpers/DefaultValues'
+import { toFormData } from '_helpers/CustomFunction'
 import moment from 'moment'
 
 const prefix = 'user'
@@ -51,7 +51,11 @@ export default {
     async ADD_USER( { commit, state }, payload )
     {
       try {
-        const { data } = await post(`auth/register`, payload)
+        if( payload.company && typeof payload.company.logo == 'string' ) {
+          payload.company.logo = ''
+        }
+        const formData = toFormData(payload)
+        const { data } = await post(`auth/register`, formData)
         await commit('SET_USER', data.user)
         return data
       } catch (err) {
@@ -61,8 +65,11 @@ export default {
     async UPDATE_USER( { commit, state }, payload )
     {
       try {
-        console.log('payload', payload)
-        const { data } = await put(`${prefix}/${payload.id}`, payload)
+        if( payload.company && typeof payload.company.logo == 'string' ) {
+          payload.company.logo = ''
+        }
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}/${payload.id}`, formData)
         let auth = await JSON.parse(localStorage.getItem('_auth'))
         auth = {
           ...auth,
@@ -80,8 +87,8 @@ export default {
     {
       try {
         const { data } = await del(`${prefix}/${payload.id}`, {})
-        const newList = state.users.filter( row => row.id != payload.id);
-        await commit('SET_USERS', newList)
+        const newData = state.users.filter( row => row.id != payload.id);
+        await commit('SET_USERS', newData)
       } catch (err) {
         throw err
       }
@@ -94,7 +101,22 @@ export default {
       } catch (err) {
         throw err
       }
-
+    },
+    async UPDATE_USER_STATUS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await put(`${prefix}/user-status/${payload.id}`, payload)
+        const newData = state.users.map( row => {
+          if( row.id == payload.id ) {
+            row.isActivated = !row.isActivated
+          }
+          return row
+        })
+        await commit('SET_USERS', newData)
+        return data
+      } catch (err) {
+        throw err
+      }
     },
   },
 }

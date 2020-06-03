@@ -22,7 +22,6 @@ export default {
     SET_AUTH_USER(state, payload) 
     {
       state.auth = payload;
-      console.log('payload', payload)
     },
   },
   actions: {

@@ -14,7 +14,27 @@
               €{{ totalPrice }}
             </span>
           </div>
+          <div v-if="is_save" class="flex flex-col">
+            <Button
+              variant="info"
+              class="py-2 justify-center"
+              label="New Card Number"
+              size="w-full py-3"
+              round="rounded-full"
+              fontSize="text-sm"
+              @onClick="is_save = false"
+            /> 
+            <Button
+              class="py-2 justify-center"
+              label="Pay Now"
+              size="w-full py-3"
+              round="rounded-full"
+              fontSize="text-sm"
+              @onClick="onSubmit"
+            />   
+          </div>
           <StripeForm 
+            v-else
             @onSubmit="onSubmit"
           />
         </div>
@@ -25,7 +45,6 @@
 <script>
   import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
-  import InputField from '_components/Form/InputField';
   import StripeForm from '_components/Form/Modules/StripeForm';
   import Button from '_components/Button'
 
@@ -33,24 +52,21 @@
     components: {
       MainLayout,
       Header1,
-      InputField,
       StripeForm,
       Button,
     },
     data() {
       return {
         totalPrice: 0,
-        paymentForm: {
-          creditNo: '',
-          date: '',
-          cvc: '',
-          isSave: false
-        }
+        is_save: false,
       };
     },
     computed: {
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
+      },
+      USER() {
+        return this.$store.getters.USER;
       },
       WALLETS()
       {
@@ -67,6 +83,10 @@
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()
+        await this.onFetchUser()
+        if( this.USER?.stripe?.is_save ) {
+          this.is_save =  true
+        }
         await this.onGetTotalPrice()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
@@ -86,6 +106,7 @@
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
             await this.$store.dispatch('PAYMENT', {
+              is_save: this.is_save,
               ...data,
               price: this.totalPrice
             })
@@ -114,6 +135,16 @@
         let itemValue = data.voucher.price_filter
         const total = value * itemValue
         return total
+      },
+      async onFetchUser()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_USER', {
+            id: this.AUTH_USER.data.id,
+          })
+        } catch (err) {
+          console.log('err', err)
+        }
       },
       async onFetchWallets()
       {

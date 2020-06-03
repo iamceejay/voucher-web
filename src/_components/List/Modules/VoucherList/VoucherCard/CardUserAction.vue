@@ -7,7 +7,7 @@
       <QrcodeVue
         class="self-center m-2"
         :value="otherData.qr.url" 
-        :size="183" 
+        :size="185" 
         level="H" 
       />
       <!-- <img 
@@ -17,7 +17,7 @@
       /> -->
       <span class="text-center text-xs font-semibold">Voucher No.</span>
     </div>
-    <div class="flex flex-row w-full mt-5">
+    <div class="flex flex-row w-full mt-16">
       <a 
         id="link" 
         href="file.txt" 

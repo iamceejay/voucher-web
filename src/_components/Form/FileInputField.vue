@@ -92,7 +92,7 @@
         type: Boolean,
         default: false
       }, value: {
-        type: [Array, Object, String, FileList],
+        type: [Array, Object, String, FileList, File],
         default() {
           return null
         }

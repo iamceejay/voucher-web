@@ -73,9 +73,9 @@
               data: null
             })
           }
-          if( newVal.status == 'processing' && typeof newVal.data == 'object' ) {
-            await newVal.data.close()
-          } 
+          // if( newVal.status == 'processing' && typeof newVal.data == 'object' ) {
+          //   await newVal.data.close()
+          // } 
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
               title: 'Loading!',

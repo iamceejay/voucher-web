@@ -124,7 +124,6 @@ export default {
   },
   mutations: {
     SET_CARTS(state, payload) {
-      console.log('payload', payload)
       state.carts = payload;
     },
   },

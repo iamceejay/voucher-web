@@ -8,8 +8,16 @@
               class="pb-0"
               :label="`${ USER.company.name }`"
             />
+
+            <img
+              v-if="USER && USER.company.logo"
+              class="w-32 h-12 ml-auto"
+              :src="onSetImage(USER.company.logo)" 
+              alt=""
+            />
             <img 
-              class="w-32 h-10 ml-auto"
+              v-else
+              class="w-32 h-12 ml-auto"
               src="@/_assets/img/company-default-logo.png" 
               alt=""
             />
@@ -112,6 +120,10 @@
         } catch (err) {
           console.log('err', err)
         }
+      },
+      onSetImage(value)
+      {
+        return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
       },
     }
   }

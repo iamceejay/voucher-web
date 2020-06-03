@@ -1,13 +1,15 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1
-        label="Redemptions"
-      />
-      <RedemptionList 
-        :data="REDEMPTIONS.data"
-        role="seller"
-      />
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+        <Header1
+          label="Redemptions"
+        />
+        <RedemptionList 
+          :data="REDEMPTIONS.data"
+          role="seller"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>

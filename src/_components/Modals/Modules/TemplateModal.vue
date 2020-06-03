@@ -21,7 +21,7 @@
             placeholder="Entere here"
             rules="required"
           />
-          <div v-if="form.image && form.image != ''" class="flex w-full">
+          <div v-if="form.image && form.image != ''" class="flex w-full mx-2">
             <img 
               style="width: 180px; height: 190px;"
               :src="onSetImage('set', form.image)" 
@@ -125,7 +125,6 @@
         let reader = new FileReader();
         reader.readAsDataURL(data);
         reader.onload = async () => {
-            
           this.form.image = reader.result
           // console.log('this.form.image', this.form.image)
         }

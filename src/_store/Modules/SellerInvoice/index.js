@@ -39,7 +39,7 @@ export default {
     async FETCH_SELLER_INVOICES( { commit, state }, payload )
     {
       try {
-        const { data } = await get(`${prefix}`, {})
+        const { data } = await get(`${prefix}`, payload)
         await commit('SET_SELLER_INVOICES', data.seller_invoices)
         return data
       } catch (err) {
@@ -63,13 +63,13 @@ export default {
     {
       try {
         const { data } = await put(`${prefix}/${payload.id}`, payload)
-        const newList = state.seller_invoices.map( row => {
+        const newData = state.seller_invoices.map( row => {
           if( row.id == payload.id ) {
             row = data.seller_invoice
           }
           return row
         })
-        await commit('SET_SELLER_INVOICES', newList)
+        await commit('SET_SELLER_INVOICES', newData)
         return data
       } catch (err) {
         throw e
@@ -79,8 +79,8 @@ export default {
     {
       try {
         const { data } = await del(`${prefix}/${payload.id}`, {})
-        const newList = state.seller_invoices.filter( row => row.id != payload.id);
-        await commit('SET_SELLER_INVOICES', newList)
+        const newData = state.seller_invoices.filter( row => row.id != payload.id);
+        await commit('SET_SELLER_INVOICES', newData)
       } catch (err) {
         throw err
       }
@@ -89,6 +89,13 @@ export default {
     {
       try {
         const { data } = await get(`${prefix}/send-invoice/${payload.id}`)
+        const newData = state.seller_invoices.map( row => {
+          if( row.id == payload.id ) {
+            row.email_sent = !row.email_sent
+          }
+          return row
+        })
+        await commit('SET_SELLER_INVOICES', newData)
         return data
       } catch (err) {
         throw e

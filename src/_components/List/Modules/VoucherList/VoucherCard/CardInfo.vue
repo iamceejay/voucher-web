@@ -12,7 +12,14 @@
           {{ data.seller && data.seller.company.name || 'Company Name' }}
         </div>
       </div>
+      <img
+        v-if="data.seller && data.seller.company.logo"
+        class="card-logo"
+        :src="onSetImage(data.seller.company.logo)" 
+        alt=""
+      />
       <img 
+        v-else
         class="card-logo"
         src="@/_assets/img/company-default-logo.png" 
         alt=""
@@ -88,8 +95,13 @@
             src="@/_assets/img/default-qr-code.png" 
             alt=""
           /> -->
-          <div class="qr-text ml-auto font-semibold flex font-body">
-            <span class="">Voucher No.</span>
+          <div class="qr-text ml-auto font-semibold flex flex-col font-body">
+            <div class="">
+              Voucher No.
+            </div>
+            <div v-if="otherData && otherData.qr" class="">
+              {{ otherData.qr.url }}
+            </div>
           </div>
         </div>
       </div>
@@ -161,6 +173,10 @@
         }
       },
       onSetCustomImage( value)
+      {
+        return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+      },
+      onSetImage(value)
       {
         return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
       },

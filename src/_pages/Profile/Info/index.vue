@@ -2,10 +2,10 @@
   <MainLayout>
     <template #content>
       <div class="flex flex-col w-full">
-        <ValidationObserver v-slot="{ handleSubmit, invalid }">
+        <ValidationObserver v-slot="{ handleSubmit }">
           <form 
             class="w-full flex flex-col"
-            @submit.prevent="handleSubmit(onSubmit(invalid))"
+            @submit.prevent="handleSubmit(onSubmit)"
           >
             <div class="flex flex-wrap w-full">
               <div class="w-full md:w-1/2 order-1">
@@ -113,29 +113,30 @@
       })()
     },
     methods: {
-      async onSubmit( isValid )
+      async onSubmit()
       {
-        if( !isValid ) {
-          try {
-            this.errorMessages = []
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            if( this.AUTH_USER.role.name == 'seller' ) {
+        try {
+          this.errorMessages = []
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          if( this.AUTH_USER.role.name == 'seller' ) {
+            if( this.form?.company?.region_id ) {
               this.form.company.region = this.form.company.region_id.label
+              delete this.form.company.region_id; 
             }
-            const data = await this.$store.dispatch('UPDATE_USER', this.form)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Updating your info.',
-              confirmButtonColor: '#6C757D',
-            })
-          } catch (err) {
-            if( err?.response?.status == 422 ) {
-              this.errorMessages = err.response.data.errors
-            }
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
+          const data = await this.$store.dispatch('UPDATE_USER', this.form)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Updating your info.',
+            confirmButtonColor: '#6C757D',
+          })
+        } catch (err) {
+          if( err?.response?.status == 422 ) {
+            this.errorMessages = err.response.data.errors
+          }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       onChange( data )
@@ -166,7 +167,6 @@
           
           if( this.AUTH_USER.role.name == 'seller' ) {
             const region = this.REGIONS.filter( row => user.company.region == row.label)
-            console.log('region', region)
             params = {
               ...params,
               company: {
@@ -180,7 +180,6 @@
             }
           }
           this.form = params
-          console.log('this.form', this.form)
         } catch (err) {
           console.log('err', err)
         }

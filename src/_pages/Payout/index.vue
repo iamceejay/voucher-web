@@ -5,20 +5,31 @@
         <Header1
           label="Payout Management"
         />
+        <SearchInputField
+          id="search-payout"
+          v-model="params.keyword"
+          :value="params.keyword"
+          class="m-2"
+          placeholder="Search for payout..."
+          @input="onSearch()"
+        />
         <Table
-          class="mt-3"
+          class="mt-3 mx-2"
           :fields="fields"
           :data="SELLER_INVOICES"
         >
           <template #customActions="props">
             <div class="flex flex-col">
-              <a 
+              <!-- <a 
                 :class="`text-xs text-center ${ props.data.isCompleted ? 'pointer-events-none cursor-default text-gray-700' : 'text-indigo-500 underline' }`" 
                 href="javascript:void(0)"
                 @click="onMarkComplete(props.data)"
               >
                 {{ props.data.isCompleted ? 'Completed' : 'Mark as complete' }}
-              </a>
+              </a> -->
+              <div v-if="props.data.email_sent" class="text-xs text-center text-gray-700">
+                Completed
+              </div>
               <a 
                 class="text-xs text-indigo-500 underline text-center" 
                 href="javascript:void(0)"
@@ -29,7 +40,7 @@
             </div>
           </template>
         </Table>
-        <div class="flex flex-col w-full mt-5">
+        <!-- <div class="flex flex-col w-full mt-5">
           <Button
             class="mx-2 justify-center"
             label="Download all invoices (PDF)"
@@ -44,7 +55,7 @@
             round="rounded-full"
             @onClick="onDownloadPayouts()"
           />
-        </div>
+        </div> -->
       </div>
     </template>
   </MainLayout>
@@ -54,6 +65,7 @@
   import Header1 from '_components/Headers/Header1';
   import Table from '_components/Table';
   import Button from '_components/Button/'
+  import SearchInputField from '_components/Form/SearchInputField';
 
   export default {
     components: {
@@ -61,36 +73,13 @@
       Header1,
       Table,
       Button,
+      SearchInputField,
     },
     data() {
       return {
-        data: [
-          {
-            id: 1,
-            companyName: 'Jasper Poly',
-            payout: 385949,
-            bank: 'AT12 1234 1234 1234',
-            isCompleted: true,
-          }, {
-            id: 2,
-            companyName: 'Ivan Dukic',
-            payout: 293490,
-            bank: 'AT12 1234 1234 1234',
-            isCompleted: false,
-          }, {
-            id: 3,
-            companyName: 'Jeremias Fuchs',
-            payout: 482354,
-            bank: 'AT12 1234 1234 1234',
-            isCompleted: false,
-          }, {
-            id: 4,
-            companyName: 'The Dude',
-            payout: 23909,
-            bank: 'AT12 1234 1234 1234',
-            isCompleted: false,
-          }, 
-        ],
+        params: {
+          keyword: '',
+        },
         fields: [
           {
             name: 'company.name',
@@ -218,10 +207,16 @@
           }   
         })
       },
+      async onSearch( data, fromSearch = false )
+      {
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        await this.onFetchSellerInvoices()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
       async onFetchSellerInvoices()
       {
         try {
-          const data = await this.$store.dispatch('FETCH_SELLER_INVOICES')
+          const data = await this.$store.dispatch('FETCH_SELLER_INVOICES', this.params)
         } catch (err) {
           console.log('err', err)
         }

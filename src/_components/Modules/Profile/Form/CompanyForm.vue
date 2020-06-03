@@ -29,6 +29,16 @@
       :errorMessages="errorMessages.url"
       @input="onChange"
     />
+    <div 
+      v-if="logo && logo != ''" 
+      class="flex w-full mx-2"
+    >
+      <img 
+        style="width: 180px; height: 80px;"
+        :src="onSetImage('set', logo)" 
+        alt=""
+      />
+    </div>
     <FileInputField
       id="icon"
       v-model="form.logo"
@@ -37,6 +47,7 @@
       label="Company Logo"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
+      @input="onChangeLogo"
     />
     <SelectField
       id="month"
@@ -79,6 +90,7 @@
     },
     data() {
       return {
+        logo: '',
         form: {
           name: '',
           description: '',
@@ -108,21 +120,37 @@
       {
         this.$emit('onChange', this.form)
       },
-      onChangeBgImg(data)
+      onChangeLogo(data)
       {
         if(data.length > 0) {
           let reader = new FileReader();
-          reader.readAsDataURL(data[0].file);
+          reader.readAsDataURL(data[0]);
           reader.onload = () => {
-            // this.voucherForm.bgImage = reader.result
+            this.form.logo = data[0]
+            this.logo = reader.result
+            this.onChange()
           }
         } else {
-          // this.voucherForm.bgImage = ''
+          this.logo = ''
+          this.form.logo = ''
+          this.onChange()
+        }
+      },
+      onSetImage(action, value)
+      {
+        if( action == 'set' ) {
+          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+        } else {
+          this.form.logo = ''
+          this.logo = ''
         }
       },
       onSetForm()
       {
-        if( this.data ) {
+        if( this.data?.company ) {
+          if( typeof this.data?.company?.logo == 'string' ) {
+            this.logo = this.data.company.logo
+          }
           this.form = {
             ...this.form,
             ...this.data.company
