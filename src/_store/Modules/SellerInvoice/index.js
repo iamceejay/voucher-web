@@ -36,6 +36,15 @@ export default {
         throw e
       }
     },
+    async FETCH_COMMISSION_STAT( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}/commission-stats`, {})
+        return data
+      } catch (err) {
+        throw e
+      }
+    },
     async FETCH_SELLER_INVOICES( { commit, state }, payload )
     {
       try {
