@@ -1,17 +1,13 @@
 <template>
   <div 
     id="main-layout-component"
-    class="w-full flex flex-col overflow-auto relative"
+    class="w-full flex flex-row overflow-auto"
     :class="`${ isHideSideBar ? 'hide-sidebar' : 'show-sidebar' }`"
   >
     <Sidebar
-      :class="isHideSideBar ? 'hidden' : ''"
       @onHide="isHideSideBar = $event"
     />
-    <HeaderNavMenu 
-      @onHide="isHideSideBar = $event"
-    />
-    <div :class="`w-full pb-16 min-h-screen`">
+    <div :class="`main-container py-16 px-8`">
       <div 
         id="infinite-scroll" 
         class="flex flex-col h-full w-full m-c"
@@ -24,7 +20,7 @@
           <div class="cart-count">
             {{ COUNT_CART }}
           </div>
-          <i class="fas fa-shopping-cart text-base text-lg" />
+          <i class="fas fa-shopping-cart text-base text-2xl" />
         </router-link>
         <slot name="content" />
       </div>
@@ -33,12 +29,9 @@
 </template>
 <script>
   import Sidebar from '_components/Menus/Sidebar'
-  import HeaderNavMenu from '_components/Menus/HeaderNavMenu'
-
   export default {
     components: {
-      Sidebar,
-      HeaderNavMenu
+      Sidebar
     },
     props: [],
     data() {
@@ -157,9 +150,9 @@
   }
   .cart-count {
     position: absolute;
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
     border-radius: 50%;
     text-align: center;
     background: #ccc;

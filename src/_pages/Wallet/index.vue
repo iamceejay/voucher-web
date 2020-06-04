@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
         <Header1
           label="My Wallet"
         />

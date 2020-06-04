@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
         <Header1
           label="User Management"
         />
@@ -33,7 +33,7 @@
             </a>
           </div>
           <Table
-            class="mt-3"
+            class="mt-3 mx-2"
             :fields="fields"
             :data="USERS"
           >

@@ -25,7 +25,7 @@
           label="Cancel"
           size="w-full md:w-1/2 py-2"
           round="rounded-full"
-          @onClick="$emit('onSetVoucher', null)"
+          @onClick="$store.commit('SET_QR_CODE', null)"
         />
       </form>
     </ValidationObserver>

@@ -1,80 +1,56 @@
 <template>
-  <div
-    class="sidebar-container sm:hidden flex flex-col min-h-screen clearfix h-full"
-  >
-    <!-- <a 
+  <div class="w-full flex flex-row nav-container">
+    <div class="flex self-center nav-logo">
+      <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span>
+    </div>
+    <a 
       href="javascript:void(0)" 
-      :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
+      :class="`flex flex-col sm:hidden menu-toggle self-center ${!hideSidebar ? 'hide' : ''}`" 
       @click="onHideSidebar()"
     >
-      <i class="fas fa-bars text-base text-2xl text-gray-900" />
-    </a> -->
-    <div
-      class="flex flex-col w-full h-full"
-    >
-      <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
-        {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
-      </div>
-      <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
-        Hi {{ 
-          (AUTH_USER.role && AUTH_USER.data) && (
-            AUTH_USER.role.name === 'seller'
-              ? 'Company'
-              : AUTH_USER.role.name === 'scanner'
-                ? AUTH_USER.data.username
-                : AUTH_USER.data.detail.firstName
-          )
-        }}!
-      </div>
-      <ul class="list-reset scroll mt-5">
-        <li 
-          v-for="(menu, index) in menus"
-          :key="`menu-${index}`"
-          :class="`border-t block flex flex-col text-black font-semibold font-body cursor-pointer ${ menu.borderB && 'border-b' }`"
-          @click="onSelectMenu(menu, index)"
+      <i class="fas fa-bars text-base text-lg text-gray-900" />
+    </a>
+    <div class="hidden sm:flex flex-row self-center nav-menu mr-10">
+      <a 
+        v-for="(menu, index) in menus"
+        :key="`menu-${index}`"
+        href="javascript:void(0)" 
+        class="menu-item"
+        @click="onSelectMenu(menu, index)"
+      >
+        {{ menu.title }}
+        <span 
+          v-if="menu.child"
+          class="ml-3"
         >
-          <div class="flex flex-row pl-5 py-2">
-            {{ menu.title }}
-            <span 
-              v-if="menu.child"
-              class="ml-auto mr-3"
-            >
-              <i
-                :id="`dropdown-${index}`"
-                class="fas fa-caret-down text-base" 
-              />
-            </span>
-          </div>
-          <ul
-            v-if="menu.child && menu.isChildShow"
-            class="list-reset scroll"
+          <i
+            :id="`dropdown-${index}`"
+            class="fas fa-caret-down text-base" 
+          />
+        </span>
+        <div
+          v-if="menu.child && menu.isChildShow"
+          class="dropdown-menu flex flex-col"
+        >
+          <a
+            v-for="(child, cIndex) in menu.child"
+            :key="`child-${cIndex}`"
+            href="javascript:void(0)"
+            class="dropdown-item"
+            @click="onSelectMenu(child, cIndex)"
           >
-            <li 
-              v-for="(child, cIndex) in menu.child"
-              :key="`child-${cIndex}`"
-              class="border-t py-2 pl-5 block flex text-black font-semibold font-body cursor-pointer"
-              @click="onSelectMenu(child, cIndex)"
-            >
-              <span class="ml-3">{{ child.title }}</span>
-            </li>
-          </ul>
-        </li>
-        <li 
-          v-if="AUTH_USER.isAuth"
-          class="border-t py-2 border-b cursor-pointer"
-          @click="onLogout()"
-        >
-          <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
-            <div
-              v-if="isLoggingOut"
-              class="sm-spinner m-auto" 
-            />
-            <span v-else>
-              Logout
-            </span>
-          </div>
-        </li>
-      </ul>
+            {{ child.title }}
+          </a>
+        </div>
+      </a>
+      <a
+        v-if="AUTH_USER.isAuth"
+        href="javascript:void(0)" 
+        class="menu-item"
+        @click="onLogout()"
+      >
+        Logout
+      </a>
     </div>
   </div>
 </template>
@@ -343,29 +319,51 @@
     }
   };
 </script>
-
-<style scoped>
-  .admin-container {
-    background-color: #1a202c;
+<style lang="css" scoped>
+  .nav-container {
+    /* border: 1px solid #ccc; */
+    height: 50px;
+  }
+  .nav-container .nav-logo {
+    padding: 0px 20px;
+    font-weight: bold;
+  }
+  .nav-logo .logo-text-1 {
+    color: #1f1f1f;
+  }
+  .nav-logo .logo-text-2 {
+    color: #ff5563;
+  }
+  .nav-container .nav-menu {
+    padding: 0px 20px;
+    margin-left: auto;
+  }
+  .nav-menu .menu-item {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 0px 15px;
+    position: relative;
+  }
+  .nav-menu .menu-item .dropdown-menu {
+    position: absolute;
+    background: #f5f5f5;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    min-width: 160px;
+    padding: 10px 0px;
+  }
+  .dropdown-menu .dropdown-item {
+    padding: 10px 15px;
   }
   .menu-toggle {
-    right: -50px;
-    position: absolute;
-    padding: 0.5rem;
-    top: 10px;
-  }
-  a:hover {
-    color: black;
-  }
-  .profile-image .round-image {
-    min-width: 60px;
-    height: 60px;
-  }
-  .sidebar-container {
-    box-shadow: 3px 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    position: absolute;
-    z-index: 1;
-    background: #fff;
+    /* right: 0; */
+    /* position: absolute; */
+    /* top: 10px; */
+    margin-left: auto;
+    padding: 10px;
+    margin-right: 0px;
+    font-size: 12px;
   }
   @media only screen and (max-width: 600px) {
     .menu-toggle.hide i {
@@ -375,5 +373,4 @@
       content: '\f00d' !important;
     }
   }
-
 </style>

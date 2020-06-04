@@ -1,4 +1,4 @@
-import { post, get, put, del } from '_helpers/ApiService'
+import { post, get, put, del, patch } from '_helpers/ApiService'
 import { toFormData } from '_helpers/CustomFunction'
 import moment from 'moment'
 
@@ -96,7 +96,7 @@ export default {
     async CHANGE_PASSWORD( { commit, state }, payload )
     {
       try {
-        const { data } = await put(`${prefix}/change-password/${payload.id}`, payload)
+        const { data } = await patch(`${prefix}/change-password/${payload.id}`, payload)
         return data
       } catch (err) {
         throw err

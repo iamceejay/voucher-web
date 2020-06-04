@@ -1,66 +1,77 @@
 <template>
-  <MainLayout>
-    <template #content>
-      <div class="flex flex-col w-full px-8">
-        <Header1
-          label="Search Voucher"
-        />
-        <SearchInputField
-          id="search-here"
-          v-model="params.keyword"
-          :value="params.keyword"
-          class="m-2"
-          placeholder="Search for vouchers ..."
-          @input="onSearchData($event, 'search')"
-        />
-        <VoucherList
-          class="mb-3"
-          sortLabel="Sort by:"
-          :withSort="true"
-          filterLabel="Filter by:"
-          :withFilter="true"
-          :data="VOUCHERS.data"
-          :withQR="false"
-          listId="search-voucher-list"
-          @onChange="onFetchData"
-          @onFilter="onSearchData($event, 'filter')"
-          @onSort="onSearchData($event, 'sort')"
-        />
-      </div>
-    </template>
-  </MainLayout>
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
+    <GuestHeader />
+    <GuestContent />
+    <div class="flex flex-col px-8 mt-4">
+      <VoucherList
+        class="mb-3"
+        title="Featured Vouchers"
+        :data="FEATURED_VOUCHERS"
+        :isInline="true"
+        :withQR="false"
+      />
+      <CategoryList
+        class="mb-3"
+        title="Categories"
+        :data="CATEGORIES"
+      />
+    </div>
+    <GuestSellerContent />
+    <div class="flex flex-col px-8 mt-4">
+      <VoucherList
+        class="mb-3"
+        title="Newest"
+        :data="VOUCHERS.data"
+        sortLabel="Sort by:"
+        :withSort="true"
+        filterLabel="Filter by:"
+        :withFilter="true"
+        :withQR="false"
+        listId="search-voucher-list"
+        @onChange="onFetchData"
+        @onFilter="onSearchData($event, 'filter')"
+        @onSort="onSearchData($event, 'sort')"
+      />
+    </div>
+  </div>
 </template>
 <script>
-  import MainLayout from '_layouts';
-  import Header1 from '_components/Headers/Header1';
-  import SearchInputField from '_components/Form/SearchInputField';
-  import VoucherList from '_components/List/Modules/VoucherList/';
+  import VoucherList from '_components/List/Modules/VoucherList/'
+  import CategoryList from '_components/List/Modules/CategoryList/'
+  import GuestHeader from './GuestHeader'
+  import GuestContent from './GuestContent'
+  import GuestSellerContent from './GuestSellerContent'
 
   export default {
     components: {
-      MainLayout,
-      Header1,
-      SearchInputField,
+      GuestHeader,
+      GuestContent,
+      GuestSellerContent,
       VoucherList,
+      CategoryList,
     },
     data() {
       return {
-        search: '',
         params: {
           keyword: '',
           page: 1,
           paginate: 5,
-          isNewest: false,
+          isNewest: true,
           isMostPopular: false,
           isLowestPrice: false,
           isPrice: null,
           isLoading: false,
         }
-      };
+      }
     },
     computed: {
-      AUTH_USER() {
-        return this.$store.getters.AUTH_USER;
+      CATEGORIES()
+      {
+        return this.$store.getters.CATEGORIES
+      },
+      FEATURED_VOUCHERS()
+      {
+        return this.$store.getters.FEATURED_VOUCHERS
       },
       VOUCHERS()
       {
@@ -90,9 +101,13 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_INFINITE_LOAD', true)
-        await this.$store.commit('SET_VOUCHERS', [])
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchVouchers()
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.$store.commit('SET_FEATURED_VOUCHERS', [])
+        await this.$store.commit('SET_CATEGORIES', [])
+        await this.onFetchNewestVouchers()
+        await this.onFetchFeaturedVouchers()
+        await this.onFetchCategories()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -128,16 +143,32 @@
           ...this.params,
           ...data,
         }
-        await this.onFetchVouchers()
+        await this.onFetchNewestVouchers()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
       },
-      async onFetchVouchers()
+      async onFetchNewestVouchers()
       {
         try {
           const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchCategories()
+      {
+        try {
+          await this.$store.dispatch('FETCH_CATEGORIES')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchFeaturedVouchers()
+      {
+        try {
+          await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
         } catch (err) {
           console.log('err', err)
         }

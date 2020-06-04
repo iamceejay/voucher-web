@@ -85,6 +85,9 @@
           case 'danger':
             this.bg = 'bg-red-600 text-white'
             break
+          case 'white':
+            this.bg = 'bg-white text-black'
+            break
           default:
             this.bg = 'bg-gray-900 text-white'
             break

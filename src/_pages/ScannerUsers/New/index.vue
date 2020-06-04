@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex w-full">
+      <div class="flex w-full px-8">
         <div class="flex flex-1 flex-col">
           <div class="flex flex-col">
             <Header1

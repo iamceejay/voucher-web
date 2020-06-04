@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
     <Header1
       :label="`Hi ${ AUTH_USER.data.detail && AUTH_USER.data.detail.firstName }!`"
     />

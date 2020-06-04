@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full h-full items-center justify-center">
+      <div class="flex flex-col w-full h-full items-center justify-center px-8">
         <Header1
           label="Register as"
         />

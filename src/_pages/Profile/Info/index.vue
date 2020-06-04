@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
         <ValidationObserver v-slot="{ handleSubmit }">
           <form 
             class="w-full flex flex-col"

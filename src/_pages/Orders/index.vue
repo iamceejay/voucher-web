@@ -1,19 +1,21 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1
-        label="Statistics"
-      />
-      <StatisticList 
-        :data="stats"
-      />
-      <Header1
-        label="Orders"
-      />
-      <OrderList 
-        :role="AUTH_USER.role.name"
-        :data="WALLETS.data"
-      />
+      <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
+        <Header1
+          label="Statistics"
+        />
+        <StatisticList 
+          :data="stats"
+        />
+        <Header1
+          label="Orders"
+        />
+        <OrderList 
+          :role="AUTH_USER.role.name"
+          :data="WALLETS.data"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>

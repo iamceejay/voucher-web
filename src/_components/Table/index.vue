@@ -29,6 +29,11 @@
           {{ props.rowData.is_featured ? 'Featured' : 'Not Featured' }} 
         </span>
       </template>
+      <template #order_reverse_="props">
+        <span class="flex justify-center">
+          {{ props.rowData.reversed ? 'Reversed' : 'Not Reversed' }} 
+        </span>
+      </template>
       <template #voucher_="props">
         <div class="flex">
           <router-link :to="`/vouchers/${props.rowData.id}`">

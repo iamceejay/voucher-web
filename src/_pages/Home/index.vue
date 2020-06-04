@@ -25,7 +25,7 @@
   import MainLayout from '_layouts';
   import SellerHome from './Seller'
   import UserHome from './User'
-  import GuestHome from './Guest'
+  import GuestHome from './Guest/'
   import AdminHome from './Admin'
   import ScannerUserHome from './ScannerUser'
 

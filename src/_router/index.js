@@ -6,6 +6,7 @@ import auth from './_middleware/auth'
 import authUser from './_middleware/authUser'
 import authAdmin from './_middleware/authAdmin'
 import authSeller from './_middleware/authSeller'
+import authGU from './_middleware/authGU'
 import authUS from './_middleware/authUS'
 import authSSU from './_middleware/authSSU'
 import middlewarePipeline from './_middleware/middlewarePipeline'
@@ -43,6 +44,7 @@ import Category from '_pages/Category/'
 import Payout from '_pages/Payout/'
 import Template from '_pages/Template/'
 import Users from '_pages/Users/'
+import ManageOrders from '_pages/Orders/Manage/'
 import Payment from '_pages/Payment/'
 import Transfer from '_pages/Transfer/'
 import PageNotFound from '_pages/Errors/PageNotFound'
@@ -204,14 +206,14 @@ const router = new Router({
       name: 'vouchers-category', 
       component: VoucherCategory,
       meta: {
-        middleware: [ auth, authUser ]
+        middleware: [ authGU ]
       } 
     },{ 
       path: '/vouchers/search', 
       name: 'vouchers-search', 
       component: VoucherSearch,
       meta: {
-        middleware: [ auth, authUser ]
+        middleware: [ authGU ]
       } 
     },{ 
       path: '/vouchers/send-email/:id', 
@@ -308,6 +310,13 @@ const router = new Router({
       path: '/users', 
       name: 'users', 
       component: Users,
+      meta: {
+        middleware: [ auth, authAdmin ]
+      } 
+    },{ 
+      path: '/manage-orders', 
+      name: 'manage-orders', 
+      component: ManageOrders,
       meta: {
         middleware: [ auth, authAdmin ]
       } 

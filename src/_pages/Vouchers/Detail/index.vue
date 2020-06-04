@@ -3,7 +3,7 @@
     <template #content>
       <div 
         v-if="!IS_LOADING.status && VOUCHER"
-        class="w-full flex flex-col"
+        class="w-full flex flex-col px-8"
       >
         <div class="flex flex-col w-full">
           <VoucherCard
@@ -25,11 +25,11 @@
         </div>
         <ValidationObserver
           v-if="AUTH_USER.role.name != 'admin'"
-          v-slot="{ handleSubmit, invalid }"
+          v-slot="{ handleSubmit }"
         >
           <form 
             class="flex flex-col w-full mt-8"
-            @submit.prevent="handleSubmit(onSubmit(invalid))"
+            @submit.prevent="handleSubmit(onSubmit)"
           >
             <InputField
               id="name"
@@ -122,48 +122,45 @@
       })()
     },
     methods: {
-      async onSubmit( invalid )
+      async onSubmit()
       {
-        if( !invalid ) {
-          
-          this.$swal({
-            title: 'Add to cart',
-            text: `Are you sure you want to add this to the cart?`,
-            showCancelButton: true,
-            confirmButtonColor: '#6C757D',
-            cancelButtonColor: '#AF0000',
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-          }).then( async (result) => {
-            if(result.value){
-              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              this.form.user_id = this.AUTH_USER.data.id
-              this.form.voucher_id = this.VOUCHER.id
-              if( this.VOUCHER.type == 'quantity' ) {
-                this.form.qty = this.form.value
-                this.form.value = null
-              } else {
-                this.form.value = this.form.value
-              }
-              const data = await this.$store.dispatch('ADD_WALLET', this.form)
-              this.form = {
-                id: null,
-                voucher_id: null,
-                user_id: null,
-                value: null,
-                qty: null,
-                value: null,
-              }
-              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              this.$swal({
-                icon: 'success',
-                title: 'Successful!',
-                text: 'Adding the voucher to the card.',
-                confirmButtonColor: '#6C757D',
-              })
-            }   
-          })
-        }
+        this.$swal({
+          title: 'Add to cart',
+          text: `Are you sure you want to add this to the cart?`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then( async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            this.form.user_id = this.AUTH_USER.data.id
+            this.form.voucher_id = this.VOUCHER.id
+            if( this.VOUCHER.type == 'quantity' ) {
+              this.form.qty = this.form.value
+              this.form.value = null
+            } else {
+              this.form.value = this.form.value
+            }
+            const data = await this.$store.dispatch('ADD_WALLET', this.form)
+            this.form = {
+              id: null,
+              voucher_id: null,
+              user_id: null,
+              value: null,
+              qty: null,
+              value: null,
+            }
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Successful!',
+              text: 'Adding the voucher to the card.',
+              confirmButtonColor: '#6C757D',
+            })
+          }   
+        })
       },
       async onRemoveCart()
       {

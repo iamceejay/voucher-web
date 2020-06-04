@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="w-full h-screen flex flex-col">
+      <div class="w-full h-screen flex flex-col px-8">
         <Header1
           label="Voucher Statistics"
         />

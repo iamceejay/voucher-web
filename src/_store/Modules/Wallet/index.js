@@ -115,6 +115,21 @@ export default {
         throw err
       }
     },
+    async REVERSE_WALLET( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/reverse-order`, payload)
+        const newList = state.wallets.map( row => {
+          if( row.id == payload.id ) {
+            row.reversed = !row.reversed
+          }
+          return row
+        });
+        await commit('SET_WALLETS', newList)
+      } catch (err) {
+        throw err
+      }
+    },
     async PAYMENT( { commit, state }, payload )
     {
       try {

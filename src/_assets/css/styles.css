@@ -70,11 +70,12 @@
     width: 0px !important;
 }
 @media only screen and (max-width: 600px) {
-    .show-sidebar .main-container {
+    .show-sidebar {
         background: rgba(0, 0, 0, 0.80);
     }
-    .show-sidebar .main-container .m-c {
+    .show-sidebar .m-c {
         display: none;
+        height: 100vh;
     }
     .main-container {
         width: 25%;

@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full">
+      <div class="flex flex-col w-full px-8">
         <div class="flex flex-col w-1/2">
           <Header2
             label="Payment Info"

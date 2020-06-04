@@ -1,15 +1,17 @@
 <template>
   <MainLayout>
     <template #content>
-      <Header1 label="Voucher Scanner" />
-      <VoucherScanner 
-        v-if="!QR_CODE"
-        @onSetVoucher="onSetVoucher"
-      />
-      <VoucherRedemption 
-        v-if="QR_CODE"
-        @onSetVoucher="onSetVoucher"
-      />
+      <div class="flex flex-col w-full px-8">
+        <Header1 label="Voucher Scanner" />
+        <VoucherScanner 
+          v-if="!QR_CODE"
+          @onSetVoucher="onSetVoucher"
+        />
+        <VoucherRedemption 
+          v-if="QR_CODE"
+          @onSetVoucher="onSetVoucher"
+        />
+      </div>
     </template>
   </MainLayout>
 </template>
