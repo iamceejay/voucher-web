@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <GuestHeader />
     <GuestContent />
     <div class="flex flex-col px-8 mt-4">
