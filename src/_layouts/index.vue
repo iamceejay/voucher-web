@@ -146,6 +146,9 @@
   }
 </script>
 <style lang="css" scoped>
+  #main-layout-component {
+    max-width: 1200px;
+  }
   .main-container.hide {
     transition: all 0.6s;
   }
