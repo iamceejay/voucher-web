@@ -1,7 +1,11 @@
 <template>
   <div class="w-full flex flex-row nav-container">
     <div class="flex self-center nav-logo">
-      <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span>
+      <img 
+        src="@/_assets/img/logo.png" 
+        alt=""
+      />
+      <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
     </div>
     <a 
       href="javascript:void(0)" 
@@ -327,6 +331,9 @@
   .nav-container .nav-logo {
     padding: 0px 20px;
     font-weight: bold;
+  }
+  .nav-logo img {
+    width: 100px;
   }
   .nav-logo .logo-text-1 {
     color: #1f1f1f;

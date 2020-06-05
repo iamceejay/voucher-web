@@ -15,8 +15,13 @@
       <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
         {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
       </div>
-      <div class="h-16 justify-center items-center text-2xl font-bold flex font-display">
-        Hi {{ 
+      <div class="h-24 justify-center items-center text-2xl font-bold flex font-display">
+        <img
+          class="logo"
+          src="@/_assets/img/logo.png" 
+          alt=""
+        />
+        <!-- Hi {{ 
           (AUTH_USER.role && AUTH_USER.data) && (
             AUTH_USER.role.name === 'seller'
               ? 'Company'
@@ -24,9 +29,9 @@
                 ? AUTH_USER.data.username
                 : AUTH_USER.data.detail.firstName
           )
-        }}!
+        }}! -->
       </div>
-      <ul class="list-reset scroll mt-5">
+      <ul class="list-reset scroll">
         <li 
           v-for="(menu, index) in menus"
           :key="`menu-${index}`"
@@ -345,6 +350,9 @@
 </script>
 
 <style scoped>
+  .logo {
+    width: 140px;
+  }
   .admin-container {
     background-color: #1a202c;
   }
