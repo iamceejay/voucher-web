@@ -1,10 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div 
-        v-if="!IS_LOADING.status && VOUCHER"
-        class="w-full flex flex-col px-8"
-      >
+      <div v-if="!IS_LOADING.status && VOUCHER" class="w-full flex flex-col px-8">
         <div class="flex flex-col w-full">
           <VoucherCard
             class="self-center"
@@ -196,8 +193,14 @@
       },
       async onFetchVoucher()
       {
-        await this.$store.dispatch('FETCH_VOUCHER', this.$route.params.id)
-        this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
+        try {
+          await this.$store.dispatch('FETCH_VOUCHER', {
+            id: this.$route.params.id
+          })
+          this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
+        } catch (err) {
+          console.log('err', err)
+        }
       },
     }
   }

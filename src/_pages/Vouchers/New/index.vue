@@ -49,13 +49,24 @@
     methods: {
       async onFetchCategories()
       {
-        await this.$store.dispatch('FETCH_CATEGORIES')
+        try {
+          await this.$store.dispatch('FETCH_CATEGORIES')
+        } catch (err) {
+          console.log('err', err)
+        }
       },
       async onSetVoucher()
       {
         if( this.$route.params.id ) {
-          const { voucher } = await this.$store.dispatch('FETCH_VOUCHER', this.$route.params.id)
-          this.data = voucher
+          try {
+            const { voucher } = await this.$store.dispatch('FETCH_VOUCHER', {
+              id: this.$route.params.id
+            })
+            console.log('voucher', voucher)
+            this.data = voucher
+          } catch (err) {
+            console.log('err', err)
+          }
         }
       }
     }

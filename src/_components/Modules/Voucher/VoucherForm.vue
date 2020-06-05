@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, invalid }">
+  <ValidationObserver v-slot="{ handleSubmit }">
     <form 
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit)"
@@ -35,7 +35,7 @@
               Background image
             </span>
             <Button
-              v-if="form.id && form.background_image != ''"
+              v-if="form && form.id && form.background_image != ''"
               class="mt-2 mx-2"
               label="Change/Remove"
               fontSize="text-xs"

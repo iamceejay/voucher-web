@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="w-full h-screen flex flex-col px-8">
+      <div v-if="!IS_LOADING.status " class="w-full flex flex-col px-8">
         <Header1
           label="Voucher Statistics"
         />
@@ -29,45 +29,67 @@
         stats: []
       }
     },
+    computed: {
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      }
+    },
     mounted() {
-      this.onSetStats()
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchVoucher()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
-      onSetStats()
+      async onFetchVoucher()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_VOUCHER', {
+            id: this.$route.params.id,
+            with_stat: true
+          })
+          await this.onSetStats(data)
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      onSetStats(data)
       {
         this.stats = [
           {
             type: 'Vouchers',
             title: 'sold this day',
-            value: '15'
+            value: data.daily_voucher_sold
           },{
             type: 'Earnings',
             title: 'this day',
-            value: '€13,456'
+            value: `€${data.daily_earnings}`
           },{
             type: 'Vouchers',
             title: 'sold this week',
-            value: '23'
+            value: data.weekly_voucher_sold
           },{
             type: 'Earnings',
             title: 'this week',
-            value: '€34,567'
+            value: `€${data.weekly_earnings}`
           },{
             type: 'Vouchers',
             title: 'sold this month',
-            value: '123'
+            value: data.monthly_voucher_sold
           },{
             type: 'Earnings',
             title: 'this month',
-            value: '€123,456'
+            value: `€${data.montyly_earnings}`
           },{
             type: 'Vouchers',
             title: 'sold total',
-            value: '234'
+            value: data.voucher_total
           },{
             type: 'Earnings',
             title: 'total',
-            value: '234,456'
+            value: `€${data.total_earnings}`
           },
         ]
       }

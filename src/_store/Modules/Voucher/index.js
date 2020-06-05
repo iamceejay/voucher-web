@@ -44,7 +44,7 @@ export default {
     async FETCH_VOUCHER( { commit, state }, payload )
     {
       try {
-        const { data } = await get(`${prefix}/${payload}`, {})
+        const { data } = await get(`${prefix}/${payload.id}`, payload)
         await commit('SET_VOUCHER', data.voucher)
         return data
       } catch (err) {
