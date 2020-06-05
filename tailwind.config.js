@@ -10,7 +10,11 @@ module.exports = {
         '2xs': '.60rem',
       },
       textColor: {
-        'primary': 'rgb(26, 32, 44)',
+        'primary': '#1f1f1f',
+      },
+      colors: {
+        'peach': '#ff5563',
+        'dirty': '#f7f6f6'
       }
     },
     fontFamily: {

@@ -85,8 +85,8 @@
           // } 
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              title: 'Loading!',
-              text: 'Please wait ...',
+              title: 'Loading',
+              text: 'Please wait',
               allowOutsideClick: false,
               showConfirmButton: false
             })
@@ -147,7 +147,6 @@
 </script>
 <style lang="css" scoped>
   #main-layout-component {
-    max-width: 1200px;
     margin: 0 auto;
   }
   .main-container.hide {

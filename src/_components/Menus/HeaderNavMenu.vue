@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-row nav-container">
+  <div class="content-container w-full flex flex-row nav-container">
     <div class="flex self-center nav-logo">
       <img 
         src="@/_assets/img/logo.png" 
@@ -19,7 +19,7 @@
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
         href="javascript:void(0)" 
-        class="menu-item"
+        class="menu-item font-bold font-display hover:text-peach"
         @click="onSelectMenu(menu, index)"
       >
         {{ menu.title }}
@@ -40,7 +40,7 @@
             v-for="(child, cIndex) in menu.child"
             :key="`child-${cIndex}`"
             href="javascript:void(0)"
-            class="dropdown-item"
+            class="dropdown-item font-bold font-display"
             @click="onSelectMenu(child, cIndex)"
           >
             {{ child.title }}
@@ -50,7 +50,7 @@
       <a
         v-if="AUTH_USER.isAuth"
         href="javascript:void(0)" 
-        class="menu-item"
+        class="menu-item font-bold font-display hover:text-peach"
         @click="onLogout()"
       >
         Logout
@@ -326,7 +326,7 @@
 <style lang="css" scoped>
   .nav-container {
     /* border: 1px solid #ccc; */
-    height: 50px;
+    height: 80px;
   }
   .nav-container .nav-logo {
     padding: 0px 20px;
@@ -346,8 +346,7 @@
     margin-left: auto;
   }
   .nav-menu .menu-item {
-    font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     padding: 0px 15px;
     position: relative;
   }

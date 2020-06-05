@@ -150,9 +150,15 @@
 }
 
 .swal2-title {
-    font-family: 'Montserrat', 'sans-serif' !important;
+    font-family: 'Manrope', 'sans-serif' !important;
+    font-weight: 700 !important;
 }
 
 .swal2-content, .swal2-confirm, .swal2-cancel {
-    font-family: 'Nunito', 'sans-serif' !important;
+    font-family: 'Manrope', 'sans-serif' !important;
+}
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }

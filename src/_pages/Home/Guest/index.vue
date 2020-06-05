@@ -2,7 +2,7 @@
   <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <GuestHeader />
     <GuestContent />
-    <div class="flex flex-col px-8 mt-4">
+    <div class="content-container flex flex-col py-6">
       <VoucherList
         class="mb-3"
         title="Featured Vouchers"
@@ -17,7 +17,7 @@
       />
     </div>
     <GuestSellerContent />
-    <div class="flex flex-col px-8 mt-4">
+    <div class="content-container flex flex-col py-6">
       <VoucherList
         class="mb-3"
         title="Newest"

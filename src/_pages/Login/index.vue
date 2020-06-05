@@ -4,7 +4,7 @@
       <div class="flex flex-1 justify-center items-center flex-col">
         <div class="container">
           <div class="text-center font-bold text-4xl font-display mb-10">
-            Voucher
+            Login
           </div>
           <div class="content-container">
             <LoginForm />

@@ -5,7 +5,7 @@
   >
     <button
       :type="type"
-      class="text-sm focus:outline-none focus:shadow-none border-1 font-body"
+      class="text-sm focus:outline-none focus:shadow-none border-1 font-display font-bold"
       :class="[bg, size, round]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
@@ -89,7 +89,7 @@
             this.bg = 'bg-white text-black'
             break
           default:
-            this.bg = 'bg-gray-900 text-white'
+            this.bg = 'bg-peach text-white'
             break
         }
       }

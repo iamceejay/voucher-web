@@ -1,18 +1,20 @@
 <template>
-  <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center">
-    <div
-      v-for="(item, index) in items"
-      :key="`item-${index}`"
-      class="content-item w-full sm:w-1/2 md:w-1/2 lg:w-3/12"
-    >
-      <div class="text-5xl">
-        <i :class="item.icon" />
-      </div>
-      <div class="font-bold text-lg">
-        {{ item.title }}
-      </div>
-      <div class="text-sm">
-        {{ item.content }}
+  <div class="bg-peach">
+    <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center">
+      <div
+        v-for="(item, index) in items"
+        :key="`item-${index}`"
+        class="content-item w-full sm:w-1/2 md:w-1/2 lg:w-3/12"
+      >
+        <div class="text-5xl">
+          <i :class="item.icon" />
+        </div>
+        <div class="font-bold font-display text-lg">
+          {{ item.title }}
+        </div>
+        <div class="text-sm font-body">
+          {{ item.content }}
+        </div>
       </div>
     </div>
   </div>
@@ -50,8 +52,7 @@
 </script>
 <style lang="css" scoped>
   .content-container {
-    background: #ff5563;
-    padding: 20px 40px;
+    padding: 30px 40px;
     justify-content: center;
   }
   .content-item {

@@ -1,21 +1,23 @@
 <template>
-  <div class="header-container flex flex-col items-center">
-    <div class="font-bold text-lg w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
-      Lorem ipsum dolor sit amet
+  <div class="bg-dirty">
+    <div class="content-container header-container flex flex-col items-center">
+      <div class="font-display font-bold text-3xl w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
+        Lorem ipsum dolor sit amet
+      </div>
+      <div class="font-body text-lg w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+      </div>
+      <router-link 
+        class="flex flex-col sm:w-11/12 md:w-6/12 lg:w-5/12" 
+        to="/vouchers/search"
+      >
+        <SearchInputField
+          id="search-voucher"
+          class="m-2 w-full" 
+          placeholder=""
+        />
+      </router-link>
     </div>
-    <div class="text-sm w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisis sed odio morbi quis commodo odio.
-    </div>
-    <router-link 
-      class="flex flex-col sm:w-11/12 md:w-6/12 lg:w-5/12" 
-      to="/vouchers/search"
-    >
-      <SearchInputField
-        id="search-voucher"
-        class="m-2 w-full" 
-        placeholder=""
-      />
-    </router-link>
   </div>
 </template>
 <script>
@@ -37,8 +39,7 @@
 </script>
 <style lang="css" scoped>
   .header-container {
-    background: #f5f5f5;
-    padding: 60px;
+    padding: 80px 0;
     justify-content: center;
     text-align: center;
   }
