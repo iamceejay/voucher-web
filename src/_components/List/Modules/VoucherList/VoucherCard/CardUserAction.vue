@@ -26,25 +26,25 @@
       <a
         class="p-2 text-lg text-primary" 
         href="javascript:void(0)"
-        @click="onGenerateVoucher(data.id)"
+        @click="onGenerateVoucher(otherData.id)"
       >
         <i class="fas fa-download" />
       </a>
       <router-link 
         class="p-2 text-lg text-primary" 
-        :to="`/vouchers/send-email/${data.id}`"
+        :to="`/vouchers/send-email/${otherData.id}`"
       >
         <i class="fas fa-envelope" />
       </router-link>
       <router-link 
         class="p-2 text-lg text-primary" 
-        :to="`/vouchers/transfer/${data.id}`"
+        :to="`/vouchers/transfer/${otherData.id}`"
       >
         <i class="fas fa-user-circle" />
       </router-link>
       <router-link 
         class="p-2 text-lg text-primary ml-auto" 
-        :to="`/vouchers/personalized/${ otherData ? otherData.id : data.id}`"
+        :to="`/vouchers/personalized/${ otherData.id}`"
       >
         <i class="fas fa-pen" />
       </router-link>
