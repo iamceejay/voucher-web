@@ -24,11 +24,6 @@
       </div>
     </div>
     <div class="flex flex-row w-full mt-12">
-      <a 
-        id="link" 
-        href="file.txt" 
-        download hidden 
-      />
       <a
         class="p-2 text-lg text-primary" 
         href="javascript:void(0)"

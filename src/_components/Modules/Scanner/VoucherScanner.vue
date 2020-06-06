@@ -2,15 +2,16 @@
   <div class="flex flex-col self-center w-full">
     <div class="w-full md:w-1/2 m-auto">
       <QrcodeStream 
+        :track="true"
         @decode="$emit('onSetVoucher', $event)" 
-        @init="onInit" 
+        @init="onInit"
       />
     </div>
     
-    <ValidationObserver v-slot="{ handleSubmit, invalid }">
+    <ValidationObserver v-slot="{ handleSubmit }">
       <form 
         class="w-full flex flex-col"
-        @submit.prevent="handleSubmit(onDecode(invalid))"
+        @submit.prevent="handleSubmit(onDecode)"
       >
         <InputField
           id="text"
@@ -53,10 +54,9 @@
     mounted() {
     },
     methods: {
-      onDecode ( isValid ) {
-        if( !isValid ) {
-          this.$emit('onSetVoucher', this.voucherForm.qr)
-        }
+      onDecode () {
+        console.log('this.voucherForm.qr', this.voucherForm.qr)
+        this.$emit('onSetVoucher', this.voucherForm.qr)
       },
       async onInit (promise) {
         try {

@@ -91,12 +91,7 @@
       },
     },
     mounted() {
-      if( this.otherData?.user_voucher?.template ) {
-        const template = this.otherData.user_voucher.template
-        this.onSetBgImage( template.image )
-      } else if(this.data?.background_image) {
-        this.onSetBgImage(this.data.background_image)
-      }
+      this.onSetBgImage( this.onGetBg() )
     },
     methods: {
       onFlip()
@@ -104,6 +99,7 @@
         if(this.isFlippable) {
           this.isFlip = !this.isFlip
           this.isAction = !this.isAction
+          this.onSetBgImage( this.isFlip ? '' : this.onGetBg() )
         }
       },
       onGetTextColor()
@@ -116,8 +112,19 @@
         }
         return color
       },
+      onGetBg() {
+        let bg = '';
+        if( this.otherData?.user_voucher?.template ) {
+          const template = this.otherData.user_voucher.template
+          bg = template.image
+        } else if(this.data?.background_image) {
+          bg = this.data.background_image
+        }
+        return bg
+      },
       onSetBgImage(value)
       {
+        console.log('value', value)
         const card = document.getElementById(`voucher-card-${ (this.data && this.data.id) ? this.data.id : 0 }`)
         const bg = (this.data && this.data.id && (value.search('base64') < 0)) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         card.style.backgroundImage = `url('${bg}')`

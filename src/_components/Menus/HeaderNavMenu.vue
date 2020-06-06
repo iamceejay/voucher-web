@@ -293,7 +293,6 @@
           if( this.$route.path != menu.link ) {
             this.$router.push(menu.link)
           }
-          this.onHideSidebar()
         } else {
           const menuIcon = document.getElementById(`dropdown-${index}`).classList
           const icon = {
