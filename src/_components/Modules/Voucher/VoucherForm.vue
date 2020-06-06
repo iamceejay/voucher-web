@@ -94,27 +94,46 @@
               rules="required"
             />
             <MultipleCheckboxField
-              label="Valid on following days"
               class="mx-2"
               name="valid_day"
               :options="week"
               :data="form.valid_day"
               :limitLabel="3"
               @onChange="form.valid_day = $event"
-            />
+            >
+              <template #label_>
+                <div class="flex flex-row">
+                  <Header5
+                    label="Valid on following days"
+                  />
+                  <div class="tooltip ml-1">
+                    <i class="fas fa-info-circle text-base text-gray-700" />
+                    <span class="tooltiptext">
+                      This will give a restriction to redeem the voucher depending to the day given.
+                    </span>
+                  </div>
+                </div>
+              </template>
+            </MultipleCheckboxField>
             <div class="w-full md:w-1/2 mb-5 mx-2">
               <div class="flex flex-row">
                 <label class="font-semibold text-sm font-display text-gray-700">
                   Valid from ... to ...
+                  <div class="tooltip ml-1">
+                    <i class="fas fa-info-circle text-base" />
+                    <span class="tooltiptext">
+                      This will give a restriction to redeem the voucher depending to the date given.
+                    </span>
+                  </div>
+                  <a 
+                    v-if="form.valid_date.length < 4"
+                    href="javascript:void(0)"
+                    class="ml-2"
+                    @click="onActionDate('add')"
+                  >
+                    <i class="fas fa-plus-circle text-base text-black" />
+                  </a>
                 </label>
-                <a 
-                  v-if="form.valid_date.length < 4"
-                  href="javascript:void(0)"
-                  class="ml-2"
-                  @click="onActionDate('add')"
-                >
-                  <i class="fas fa-plus-circle text-base" />
-                </a>
               </div>
               <div
                 v-for="(date, index) in form.valid_date"
@@ -126,15 +145,16 @@
                     v-model="form.valid_date[index].start"
                     class="m-1 w-1/2"
                     rules="required"
+                    placeholder="Start date"
                   />
                   <DatePickerField
                     v-model="form.valid_date[index].end"
                     class="m-1 w-1/2"
                     rules="required"
+                    placeholder="End date"
                   />
                 </div>
                 <a 
-                  v-if="form.valid_date.length > 1"
                   href="javascript:void(0)"
                   class="flex mt-6 w-1/12 justify-center"
                   @click="onActionDate('delete', index)"
@@ -206,6 +226,7 @@
 </template>
 <script>
   import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import Header5 from '_components/Headers/Header5';
   import InputField from '_components/Form/InputField'
   import DatePickerField from '_components/Form/DatePickerField'
   import Button from '_components/Button'
@@ -220,6 +241,7 @@
 
   export default {
     components: {
+      Header5,
       Button,
       InputField,
       DatePickerField,
@@ -257,12 +279,7 @@
           text_color: 'dark',
           background_image: '',
           valid_day: [],
-          valid_date: [
-            {
-              start: '2020-05-09',
-              end: '2020-05-09',
-            }
-          ],
+          valid_date: [],
           type: 'value',
           min: 0,
           max: 0,
@@ -273,6 +290,7 @@
           val_min: 0,
           val_max: 0,
           remove_bg: false,
+          seller: null
         },
         week: getWeek,
         background_image: null,
@@ -307,7 +325,7 @@
       async onSubmit()
       {
         try {
-          // await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           this.form.seller_id = this.AUTH_USER.data.id
           this.form.voucher_category_id = this.form.category.id
           if( this.form.type == 'value' ) {
@@ -379,6 +397,9 @@
       },
       onSetForm()
       {
+        if( this.AUTH_USER.isAuth ) {
+          this.form.seller = this.AUTH_USER.data
+        }
         if(this.data?.id) {
           this.form = {
             id: this.data.id,
@@ -387,7 +408,7 @@
             min: (this.data.type == 'quantity') ? this.data.qty_min : this.data.val_min,
             max: (this.data.type == 'quantity') ? this.data.qty_max : this.data.val_max,
             qty_val: this.data.qty_val,
-            valid_date: this.data.valid_date,
+            valid_date: this.data.valid_date || [],
             valid_day: this.data.valid_day || [],
             type: this.data.type,
             category: {
@@ -397,6 +418,7 @@
             text_color: this.data.text_color,
             background_color: this.data.background_color,
             background_image: this.data.background_image,
+            seller: this.AUTH_USER.data
           }
           this.formIndex = this.formIndex + 1
         }

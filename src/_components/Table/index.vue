@@ -105,7 +105,6 @@
     methods: {
       onSetPhoto(value)
       {
-        console.log('value', value)
         if( value != '' ) {
           return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         }

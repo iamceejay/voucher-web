@@ -4,6 +4,7 @@
       v-if="label != ''"
       :label="label"
     />
+    <slot name="label_" />
     <div
       v-for="(row, index) in options"
       :key="`${row}-${index}`"

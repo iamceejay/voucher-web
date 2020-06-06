@@ -2,10 +2,10 @@
   <MainLayout>
     <template #content>
       <div class="content-container flex flex-col w-full px-8">
-        <ValidationObserver v-slot="{ handleSubmit, invalid }">
+        <ValidationObserver v-slot="{ handleSubmit }">
           <form 
             class="flex flex-col w-1/2"
-            @submit.prevent="handleSubmit(onSubmit(invalid))"
+            @submit.prevent="handleSubmit(onSubmit)"
           >
             <Header2 label="Settings" />
             <div class="flex flex-col w-full">
@@ -86,32 +86,35 @@
       this.form.id =  this.AUTH_USER.data.id
     },
     methods: {
-      async onSubmit( isValid )
+      async onSubmit()
       {
-        if( !isValid ) {
-          try {
-            this.errorMessages = []
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            const data = await this.$store.dispatch('CHANGE_PASSWORD', this.form)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.form = {
-              id: null,
-              current_password: '',
-              new_password: '',
-              repeat_password: '',
-            }
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Updating the password.',
-              confirmButtonColor: '#6C757D',
-            })
-          } catch (err) {
-            if( err?.response?.status == 422 ) {
-              this.errorMessages = err.response.data.errors
-            }
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        try {
+          this.errorMessages = []
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          const data = await this.$store.dispatch('CHANGE_PASSWORD', this.form)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.form = {
+            id: null,
+            current_password: '',
+            new_password: '',
+            repeat_password: '',
           }
+          let confirm = this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Updating the password.',
+            allowOutsideClick: false,
+            showConfirmButton: false
+          })
+          setTimeout(() => {
+            confirm.close()
+            this.$router.push('/home')
+          }, 1000)
+        } catch (err) {
+          if( err?.response?.status == 422 ) {
+            this.errorMessages = err.response.data.errors
+          }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
     }

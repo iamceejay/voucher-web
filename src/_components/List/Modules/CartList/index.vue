@@ -16,7 +16,7 @@
           :role="role"
           :withQR="withQR"
         />
-        <div class="flex flex-col h-12 self-center">
+        <div v-if="withCartDetail" class="flex flex-col h-12 self-center">
           <div class="flex flex-row">
             <span class="text-sm font-bold">
               {{ 
@@ -97,6 +97,9 @@
       }, withQR: {
         type: Boolean,
         default: false
+      }, withCartDetail: {
+        type: Boolean,
+        default: true
       },
     },
     data() {

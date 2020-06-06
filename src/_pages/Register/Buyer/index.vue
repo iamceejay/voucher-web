@@ -31,17 +31,41 @@
             id="dataPrivacy"
             v-model="form.dataPrivacy"
             container="mx-2 mb-0"
-            labelSentence="I accept the Data Privacy guidelines."
             :rules="{ required: { allowFalse: false } }"
-          />
+          >
+            <template #labelSentence_>
+              <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+                I accept the 
+                <a 
+                  class="text-blue-700" 
+                  href="" 
+                  target="_blank"
+                >
+                  Data Privacy guidelines.
+                </a>
+              </label>
+            </template>
+          </CheckboxField>
           <CheckboxField
             id="terms"
             v-model="form.terms"
             type="text"
             container="mx-2 mb-5"
-            labelSentence="I accept the Terms of Services."
             :rules="{ required: { allowFalse: false } }"
-          />
+          >
+            <template #labelSentence_>
+              <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+                I accept the 
+                <a 
+                  class="text-blue-700" 
+                  href="" 
+                  target="_blank"
+                >
+                  Terms of Services.
+                </a>
+              </label>
+            </template>
+          </CheckboxField>
           <Button
             type="submit"
             label="Complete Registration"

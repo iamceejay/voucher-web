@@ -18,6 +18,7 @@
           :data="WALLETS.data"
           :isCart="false"
           :withQR="true"
+          :withCartDetail="false"
         />
       </div>
     </template>

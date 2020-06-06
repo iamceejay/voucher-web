@@ -115,10 +115,15 @@
               icon: 'success',
               title: 'Successful!',
               text: 'Paying the vouchers.',
+              showCancelButton: false,
               confirmButtonColor: '#6C757D',
+              confirmButtonText: 'Confirm',
+            }).then(async (result) => {
+              if(result.value){
+                await this.$store.commit('SET_COUNT_CART', 0)
+                this.$router.push('/wallet')
+              }
             })
-            await this.$store.commit('SET_COUNT_CART', 0)
-            this.$router.push('/wallet')
           }   
         })
       },

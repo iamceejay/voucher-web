@@ -21,7 +21,7 @@
           </router-link>
         </div>
         <ValidationObserver
-          v-if="AUTH_USER.role.name != 'admin'"
+          v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
           v-slot="{ handleSubmit }"
         >
           <form 

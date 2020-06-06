@@ -296,7 +296,7 @@ export const vouchers = [
     bgColor: '#fff',
     isPopular: 1,
     isFeatured: 1,
-    created_at: moment().local().subtract(7, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(7, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {
@@ -346,7 +346,7 @@ export const vouchers = [
     bgColor: '#fff',
     isPopular: 0,
     isFeatured: 1,
-    created_at: moment().local().subtract(6, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(6, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {
@@ -396,7 +396,7 @@ export const vouchers = [
     bgColor: '#fff',
     isPopular: 1,
     isFeatured: 0,
-    created_at: moment().local().subtract(5, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(5, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {
@@ -446,7 +446,7 @@ export const vouchers = [
     bgColor: '#010101',
     isPopular: 0,
     isFeatured: 1,
-    created_at: moment().local().subtract(4, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(4, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {
@@ -496,7 +496,7 @@ export const vouchers = [
     bgColor: '#010101',
     isPopular: 1,
     isFeatured: 0,
-    created_at: moment().local().subtract(3, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(3, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {
@@ -546,7 +546,7 @@ export const vouchers = [
     bgColor: '#ccc',
     isPopular: 0,
     isFeatured: 0,
-    created_at: moment().local().subtract(2, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(2, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {
@@ -596,7 +596,7 @@ export const vouchers = [
     bgColor: '#808080',
     isPopular: 1,
     isFeatured: 1,
-    created_at: moment().local().subtract(1, 'day').format('YYYY-MM-DD'),
+    created_at: moment().local().subtract(1, 'day').format('DD.MM.YYYY'),
     status: 1,
     seller_id: 2,
     seller: {

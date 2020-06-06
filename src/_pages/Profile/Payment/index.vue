@@ -51,12 +51,17 @@
           const data = await this.$store.dispatch('ADD_USER_STRIPE', value)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.key = this.key + 1
-          this.$swal({
+          let confirm = this.$swal({
             icon: 'success',
             title: 'Successful!',
             text: 'Updating your payment info.',
-            confirmButtonColor: '#6C757D',
+            allowOutsideClick: false,
+            showConfirmButton: false
           })
+          setTimeout(() => {
+            confirm.close()
+            this.$router.push('/home')
+          }, 1000)
         } catch (err) {
           console.log('err', err)
           if( err?.response?.status == 422 ) {

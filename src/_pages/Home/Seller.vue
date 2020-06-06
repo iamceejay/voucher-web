@@ -1,7 +1,7 @@
 <template>
   <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
     <Header1
-      label="Hi Company!"
+      :label="`Hi ${AUTH_USER.isAuth ? AUTH_USER.data.company.name : 'Company'}!`"
     />
     <router-link to="/scanner">
       <Button
@@ -54,6 +54,7 @@
     },
     mounted() {
       (async() => {
+        console.log('AUTH_USER', this.AUTH_USER)
         this.params.seller_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()

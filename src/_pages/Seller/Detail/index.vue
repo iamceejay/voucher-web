@@ -8,19 +8,20 @@
               class="pb-0"
               :label="`${ USER.company.name }`"
             />
-
-            <img
-              v-if="USER && USER.company.logo"
-              class="w-32 h-12 ml-auto"
-              :src="onSetImage(USER.company.logo)" 
-              alt=""
-            />
-            <img 
-              v-else
-              class="w-32 h-12 ml-auto"
-              src="@/_assets/img/company-default-logo.png" 
-              alt=""
-            />
+            <div class="self-center ml-auto">
+              <img
+                v-if="USER && USER.company.logo"
+                class="company-logo"
+                :src="onSetImage(USER.company.logo)" 
+                alt=""
+              />
+              <img 
+                v-else
+                class="company-logo"
+                src="@/_assets/img/company-default-logo.png" 
+                alt=""
+              />
+            </div>
           </div>
           <p class="text-sm font-bold ml-2">
             {{ `${USER.detail.firstName} ${USER.detail.lastName}` }}
@@ -60,7 +61,6 @@
   import VoucherList from '_components/List/Modules/VoucherList/'
 
   export default {
-    name: 'Home',
     components: {
       MainLayout,
       Header1,
@@ -137,5 +137,15 @@
     font-size: 0.875rem;
     color: #fff;
     text-align: center;
+  }
+  .company-logo {
+    width: 160px;
+    height: 64px;
+  }
+  @media only screen and (max-width: 600px) {
+    .company-logo {
+      width: 100px;
+      height: 40px;
+    }
   }
 </style>

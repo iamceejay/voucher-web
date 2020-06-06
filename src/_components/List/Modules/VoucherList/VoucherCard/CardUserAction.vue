@@ -23,7 +23,7 @@
         {{ otherData.qr.url }}
       </div>
     </div>
-    <div class="flex flex-row w-full mt-12">
+    <div class="flex flex-row w-full mt-16">
       <a
         class="p-2 text-lg text-primary" 
         href="javascript:void(0)"

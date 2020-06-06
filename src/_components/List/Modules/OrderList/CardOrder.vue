@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="ml-auto text-xl font-bold font-display">
-        {{ (data.voucher.type == 'quantity') ? `${ data.qty }x / €${data.voucher.price_filter}` : `€${data.value}` }}
+        {{ (data.voucher.type == 'quantity') ? `${ data.qty }x / ${data.voucher.price_filter}` : `${data.value}` }}
       </div>
     </div>
     <Button

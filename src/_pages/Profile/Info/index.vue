@@ -126,12 +126,17 @@
           }
           const data = await this.$store.dispatch('UPDATE_USER', this.form)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          this.$swal({
+          let confirm = this.$swal({
             icon: 'success',
             title: 'Successful!',
             text: 'Updating your info.',
-            confirmButtonColor: '#6C757D',
+            allowOutsideClick: false,
+            showConfirmButton: false
           })
+          setTimeout(() => {
+            confirm.close()
+            this.$router.push('/home')
+          }, 1000)
         } catch (err) {
           if( err?.response?.status == 422 ) {
             this.errorMessages = err.response.data.errors

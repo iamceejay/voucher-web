@@ -7,6 +7,7 @@ import authUser from './_middleware/authUser'
 import authAdmin from './_middleware/authAdmin'
 import authSeller from './_middleware/authSeller'
 import authGU from './_middleware/authGU'
+import authGUS from './_middleware/authGUS'
 import authUS from './_middleware/authUS'
 import authSSU from './_middleware/authSSU'
 import middlewarePipeline from './_middleware/middlewarePipeline'
@@ -234,7 +235,7 @@ const router = new Router({
       name: 'vouchers-detail', 
       component: VoucherDetail,
       meta: {
-        middleware: [ auth, authUS ]
+        middleware: [ authGUS ]
       } 
     },{ 
       path: '/vouchers/personalized/:id', 
@@ -248,7 +249,7 @@ const router = new Router({
       name: 'seller-detail', 
       component: SellerDetail,
       meta: {
-        middleware: [ auth, authUS ]
+        middleware: [ authGUS ]
       } 
     },{ 
       path: '/payment', 

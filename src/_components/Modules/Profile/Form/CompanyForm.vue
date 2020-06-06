@@ -31,10 +31,10 @@
     />
     <div 
       v-if="logo && logo != ''" 
-      class="flex w-full mx-2"
+      class="flex w-full mx-2 company-logo"
     >
       <img 
-        style="width: 180px; height: 80px;"
+        style="width: 100%; height: auto;"
         :src="onSetImage('set', logo)" 
         alt=""
       />
@@ -45,6 +45,7 @@
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
       label="Company Logo"
+      note="(Note: Based fit is 250px x 100px)"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
       @input="onChangeLogo"
@@ -161,4 +162,9 @@
   }
 </script>
 <style lang="css" scoped>
+  .company-logo {
+    width: 250px;
+    height: 100px;
+    border: 1px solid #ccc;
+  }
 </style>

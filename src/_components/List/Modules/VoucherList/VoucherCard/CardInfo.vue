@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col px-4 py-3">
     <div class="card-header">
       <div 
-        :class="`flex flex-col ${ role && (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : '' }`"
+        :class="`flex flex-col ${ (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : '' }`"
         @click="onClickHeader()"
       >
         <div class="text-base font-bold font-display">
@@ -12,18 +12,20 @@
           {{ data.seller && data.seller.company.name || 'Company Name' }}
         </div>
       </div>
-      <img
-        v-if="data.seller && data.seller.company.logo"
-        class="card-logo"
-        :src="onSetImage(data.seller.company.logo)" 
-        alt=""
-      />
-      <img 
-        v-else
-        class="card-logo"
-        src="@/_assets/img/company-default-logo.png" 
-        alt=""
-      />
+      <div class="self-center ml-auto">
+        <img
+          v-if="data.seller && data.seller.company.logo"
+          class="card-logo"
+          :src="onSetImage(data.seller.company.logo)" 
+          alt=""
+        />
+        <img 
+          v-else
+          class="card-logo"
+          src="@/_assets/img/company-default-logo.png" 
+          alt=""
+        />
+      </div>
     </div>
     <div class="card-content">
       <div class="w-full flex flex-row">
@@ -51,7 +53,7 @@
                 v-for="(date, index) in data.valid_date"
                 :key="`date-${index}`"
               >
-                Valid on {{ `${date.start || '...'} to ${date.end || '...'}` }}
+                Valid on {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
               </span>
             </div>
             <div v-if="data.valid_day && data.valid_day.length > 0" class="h-8">
@@ -62,6 +64,9 @@
               >
                 {{ `${day.substring(0,3)}${ (data.valid_day.length != (index+1)) ? ',' : '' }` }}
               </span>
+            </div>
+            <div>
+              Expiry: {{ onGetExpiryDate(data) }}
             </div>
           </div>
           <div class="text-sm font-bold font-body">
@@ -110,7 +115,9 @@
 </template>
 <script>
   import QrcodeVue from 'qrcode.vue'
-  
+  import moment from 'moment'
+  import { formatDate } from '_helpers/CustomFunction'
+
   export default {
     components: {
       QrcodeVue,
@@ -151,24 +158,30 @@
       this.onSetRole()
     },
     methods: {
+      formatDate(date)
+      {
+        return formatDate(date)
+      },
+      onGetExpiryDate(data)
+      {
+        let expire = data.expiry_date ? data.expiry_date : 4
+        return moment(data.created_at).local().add(expire, 'year').format('DD.MM.YYYY')
+      },
       onClickHeader()
       {
-        console.log('this.role', this.role)
-        if( this.role ) {
-          if( this.role === 'user' ) {
-            if( this.withQR ) {
-              if( (!this.otherData || (this.otherData && !this.otherData.sent_via)) ) {
-                this.$emit('onFlip')
-              }
-            } else {
-              this.$router.push(`/vouchers/${this.data.id}`)
-            }
-          } else {
-            if( this.role == 'admin' ) {
-              this.$router.push(`/vouchers/${this.data.id}`)
-            } else {
+        if( this.role === 'user' || !this.role ) {
+          if( this.withQR ) {
+            if( (!this.otherData || (this.otherData && !this.otherData.sent_via)) ) {
               this.$emit('onFlip')
             }
+          } else {
+            this.$router.push(`/vouchers/${this.data.id}`)
+          }
+        } else {
+          if( this.role == 'admin' ) {
+            this.$router.push(`/vouchers/${this.data.id}`)
+          } else {
+            this.$emit('onFlip')
           }
         }
       },
@@ -202,9 +215,8 @@
     padding: 8px 0px;
   }
   .card-logo {
-    width: 65px;
-    height: 30px;
-    margin-left: auto;
+    width: 80px;
+    height: 32px;
   }
   .card-qr {
     margin-left: auto;

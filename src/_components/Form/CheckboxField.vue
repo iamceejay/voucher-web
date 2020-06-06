@@ -20,9 +20,10 @@
             type="checkbox"
             @change="onUpdateField"
           />
-          <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+          <label v-if="labelSentence != ''" class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
             {{ limitLabel > 0 ? labelSentence.substring(0,limitLabel) : labelSentence }}
           </label>
+          <slot name="labelSentence_" />
         </div>
         <ErrorMessage 
           class="mx-2" 
