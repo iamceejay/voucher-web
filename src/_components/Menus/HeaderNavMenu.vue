@@ -8,7 +8,7 @@
       >
         <i class="fas fa-bars text-base text-lg text-gray-900" />
       </a>
-      <div class="flex self-center justify-center ml-12">
+      <div class="flex self-center justify-center ml-12 w-full">
         <img
           class="self-center"
           src="@/_assets/img/logo.png" 
