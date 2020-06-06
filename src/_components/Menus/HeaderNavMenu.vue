@@ -22,10 +22,12 @@
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
         href="javascript:void(0)" 
-        class="menu-item font-bold font-display hover:text-peach"
+        class="menu-item font-bold font-display"
         @click="onSelectMenu(menu, index)"
       >
-        {{ menu.title }}
+        <span class="hover:text-peach">
+          {{ menu.title }}
+        </span>
         <span 
           v-if="menu.child"
           class="ml-3"

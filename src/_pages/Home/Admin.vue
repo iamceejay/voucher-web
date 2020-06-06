@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="flex flex-col w-full px-8">
+  <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
     <Header1
       label="Admin Home"
     />

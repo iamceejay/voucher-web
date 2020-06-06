@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status " class="w-full flex flex-col px-8">
+      <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
         <Header1
           label="Voucher Statistics"
         />

@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-col w-full h-full px-8">
+      <div class="content-container flex flex-col w-full h-full px-8">
         <RegisterStep1 
           v-if="step == 1"
           @onChangeStep="onChangeStep"
