@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="flex flex-1 justify-center items-center flex-col">
+      <div class="content-container flex flex-1 justify-center items-center flex-col">
         <div class="container">
           <div class="text-center font-bold text-4xl font-display mb-10">
             Login

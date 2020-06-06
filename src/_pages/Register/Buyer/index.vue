@@ -3,7 +3,7 @@
     <template #content>
       <ValidationObserver 
         v-slot="{ handleSubmit, invalid }"
-        class="flex flex-col w-full h-full px-8"
+        class="content-container flex flex-col w-full h-full px-8"
       >
         <form 
           class="w-full flex flex-col"
