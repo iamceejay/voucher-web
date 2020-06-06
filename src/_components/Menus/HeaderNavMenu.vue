@@ -1,6 +1,6 @@
 <template>
   <div class="content-container w-full flex flex-row nav-container">
-    <div class="flex self-center nav-logo">
+    <div class="flex self-center nav-logo w-full">
       <a 
         href="javascript:void(0)" 
         :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
@@ -8,14 +8,16 @@
       >
         <i class="fas fa-bars text-base text-lg text-gray-900" />
       </a>
-      <img
-        class="self-center"
-        src="@/_assets/img/logo.png" 
-        alt=""
-      />
+      <div class="flex self-center justify-center ml-12 w-full">
+        <img
+          class="self-center"
+          src="@/_assets/img/logo.png" 
+          alt=""
+        />
+      </div>
       <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
     </div>
-    <div class="hidden sm:flex flex-row self-center nav-menu mr-10">
+    <div class="hidden sm:flex flex-row self-center nav-menu">
       <a 
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
@@ -51,22 +53,22 @@
       <a
         v-if="AUTH_USER.isAuth"
         href="javascript:void(0)" 
-        class="menu-item font-bold font-display hover:text-peach"
+        class="menu-item font-bold font-display hover:text-peach" 
         @click="onLogout()"
       >
         Logout
       </a>
-      <router-link 
-        v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
-        class="cart-icon relative"
-        to="/cart"
-      >
-        <div class="cart-count">
-          {{ COUNT_CART }}
-        </div>
-        <i class="fas fa-shopping-cart text-base text-lg" />
-      </router-link>
     </div>
+    <router-link 
+      v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+      class="cart-icon relative self-center"
+      to="/cart"
+    >
+      <div class="cart-count">
+        {{ COUNT_CART }}
+      </div>
+      <i class="fas fa-shopping-cart text-base text-lg" />
+    </router-link>
   </div>
 </template>
 <script>
@@ -357,7 +359,7 @@
     color: #ff5563;
   }
   .nav-container .nav-menu {
-    padding: 0px 20px;
+    padding: 0px 0px;
     margin-left: auto;
   }
   .nav-menu .menu-item {
@@ -387,6 +389,7 @@
   .cart-icon {
     position: relative;
     /* top: 16px; */
+    padding: 0px 15px;
     /* right: 40px; */
     color: rgb(26, 32, 44);;
   }
@@ -399,7 +402,7 @@
     text-align: center;
     background: #ccc;
     top: -8px;
-    right: -8px;
+    right: 5px;
   }
   @media only screen and (max-width: 600px) {
     .menu-toggle.hide i {
@@ -412,9 +415,9 @@
       right: 16px;
     }
     .nav-logo img {
-      width: 40%;
-      height: 40%;
-      margin: 0 auto;
+      width: 100px;
+      height: auto;
+      /* margin: 0 auto; */
       
     }
   }
