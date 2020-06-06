@@ -1,7 +1,7 @@
 <template>
   <div id="login-form-component">
     <form 
-      class="container" 
+      class="container w-full" 
       @submit.prevent
     >
       <div v-if="error" class="text-center mb-2">
