@@ -1,5 +1,6 @@
 <template>
   <div 
+    v-if="otherData"
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full"
     @click="onFlip()"
   >
@@ -7,7 +8,7 @@
       <QrcodeVue
         class="self-center m-2"
         :value="otherData.qr.url" 
-        :size="185" 
+        :size="184" 
         level="H" 
       />
       <!-- <img 
@@ -15,9 +16,14 @@
         src="@/_assets/img/default-qr-code.png" 
         alt=""
       /> -->
-      <span class="text-center text-xs font-semibold">Voucher No.</span>
+      <div class="text-center text-xs font-semibold">
+        Voucher No.
+      </div>
+      <div class="text-center text-xs font-semibold">
+        {{ otherData.qr.url }}
+      </div>
     </div>
-    <div class="flex flex-row w-full mt-16">
+    <div class="flex flex-row w-full mt-12">
       <a 
         id="link" 
         href="file.txt" 
@@ -96,6 +102,12 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'warning',
+            title: 'Warning!',
+            text: 'Something went wrong.',
+            confirmButtonColor: '#6C757D',
+          })
         }
       },
     }
