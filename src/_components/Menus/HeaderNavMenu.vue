@@ -1,6 +1,6 @@
 <template>
   <div class="content-container w-full flex flex-row nav-container">
-    <div class="flex self-center nav-logo w-full">
+    <div class="flex self-center nav-logo">
       <a 
         href="javascript:void(0)" 
         :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
@@ -8,7 +8,7 @@
       >
         <i class="fas fa-bars text-base text-lg text-gray-900" />
       </a>
-      <div class="flex self-center justify-center ml-12 w-full">
+      <div class="flex self-center justify-center ml-12">
         <img
           class="self-center"
           src="@/_assets/img/logo.png" 
@@ -62,7 +62,7 @@
       </a>
     </div>
     <router-link 
-      v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+      v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
       class="cart-icon relative self-center"
       to="/cart"
     >
@@ -80,7 +80,7 @@
     data() {
       return {
         isLoggingOut: false,
-        hideSidebar: false,
+        hideSidebar: true,
         apiBaseURL: '',
         window_width: 0,
         menus: []
@@ -406,7 +406,11 @@
     top: -8px;
     right: 5px;
   }
+
   @media only screen and (max-width: 600px) {
+    .nav-container .nav-logo {
+      width: 100%;
+    }
     .menu-toggle.hide i {
       color: #fff !important;
     }
