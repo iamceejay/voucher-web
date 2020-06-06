@@ -95,6 +95,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.$store.commit('SET_VOUCHERS', [])
         await this.onFetchUser()
         await this.onFetchVouchers()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
