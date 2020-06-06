@@ -1,19 +1,20 @@
 <template>
   <div class="content-container w-full flex flex-row nav-container">
     <div class="flex self-center nav-logo">
-      <img 
+      <a 
+        href="javascript:void(0)" 
+        :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
+        @click="onHideSidebar()"
+      >
+        <i class="fas fa-bars text-base text-lg text-gray-900" />
+      </a>
+      <img
+        class="self-center"
         src="@/_assets/img/logo.png" 
         alt=""
       />
       <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
     </div>
-    <a 
-      href="javascript:void(0)" 
-      :class="`flex flex-col sm:hidden menu-toggle self-center ${!hideSidebar ? 'hide' : ''}`" 
-      @click="onHideSidebar()"
-    >
-      <i class="fas fa-bars text-base text-lg text-gray-900" />
-    </a>
     <div class="hidden sm:flex flex-row self-center nav-menu mr-10">
       <a 
         v-for="(menu, index) in menus"
@@ -55,6 +56,16 @@
       >
         Logout
       </a>
+      <router-link 
+        v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+        class="cart-icon relative"
+        to="/cart"
+      >
+        <div class="cart-count">
+          {{ COUNT_CART }}
+        </div>
+        <i class="fas fa-shopping-cart text-base text-lg" />
+      </router-link>
     </div>
   </div>
 </template>
@@ -79,7 +90,11 @@
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
-      }
+      },
+      COUNT_CART()
+      {
+        return this.$store.getters.COUNT_CART
+      }, 
     },
     watch: {
       async AUTH_USER(newVal, oldVal)
@@ -364,12 +379,27 @@
   }
   .menu-toggle {
     /* right: 0; */
-    /* position: absolute; */
+    position: absolute;
     /* top: 10px; */
-    margin-left: auto;
     padding: 10px;
-    margin-right: 0px;
     font-size: 12px;
+  }
+  .cart-icon {
+    position: relative;
+    /* top: 16px; */
+    /* right: 40px; */
+    color: rgb(26, 32, 44);;
+  }
+  .cart-count {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    border-radius: 50%;
+    text-align: center;
+    background: #ccc;
+    top: -8px;
+    right: -8px;
   }
   @media only screen and (max-width: 600px) {
     .menu-toggle.hide i {
@@ -377,6 +407,15 @@
     }
     .menu-toggle.hide .fa-bars:before {
       content: '\f00d' !important;
+    }
+    .menu-toggle.hide  {
+      right: 16px;
+    }
+    .nav-logo img {
+      width: 40%;
+      height: 40%;
+      margin: 0 auto;
+      
     }
   }
 </style>

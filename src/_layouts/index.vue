@@ -16,16 +16,6 @@
         id="infinite-scroll" 
         class="flex flex-col h-full w-full m-c"
       >
-        <router-link 
-          v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
-          class="cart-icon relative"
-          to="/cart"
-        >
-          <div class="cart-count">
-            {{ COUNT_CART }}
-          </div>
-          <i class="fas fa-shopping-cart text-base text-lg" />
-        </router-link>
         <slot name="content" />
       </div>
     </div>
@@ -52,10 +42,6 @@
       {
         return this.$store.getters.AUTH_USER
       },
-      COUNT_CART()
-      {
-        return this.$store.getters.COUNT_CART
-      }, 
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
@@ -151,23 +137,6 @@
   }
   .main-container.hide {
     transition: all 0.6s;
-  }
-  .cart-icon {
-    position: absolute;
-    top: 16px;
-    right: 40px;
-    color: rgb(26, 32, 44);;
-  }
-  .cart-count {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-    border-radius: 50%;
-    text-align: center;
-    background: #ccc;
-    top: -8px;
-    right: -8px;
   }
   @media only screen and (max-width: 600px) {
     .main-container.hide {
