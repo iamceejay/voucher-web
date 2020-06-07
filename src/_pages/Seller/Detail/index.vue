@@ -82,7 +82,6 @@
       },
       USER()
       {
-        console.log('return this.$store.getters.USER', this.$store.getters.USER)
         return this.$store.getters.USER
       },
       IS_LOADING()

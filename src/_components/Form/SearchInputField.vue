@@ -83,7 +83,6 @@
       input.addEventListener('keyup', function (e) {
         clearTimeout(timeout);
         timeout = setTimeout(function () {
-          console.log('Input Value:', e.target.value)
           self.$emit('input', e.target.value)
         }, 1000);
       });

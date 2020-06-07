@@ -54,7 +54,6 @@
     },
     mounted() {
       (async() => {
-        console.log('AUTH_USER', this.AUTH_USER)
         this.params.seller_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()

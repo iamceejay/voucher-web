@@ -214,7 +214,6 @@
       },
       onChangeCategory(data)
       {
-        console.log('data', data)
         this.selectedCategories = data;
         // this.$emit('onFilter', [
         //   'category',
@@ -236,7 +235,6 @@
           isRegion: !this.isRegion ? null : this.selectedRegions,
           isPrice: !this.isPrice ? null : this.price,
         }
-        console.log('data', data)
         this.$emit('onFilter', data)
       },
       onSetCategories()

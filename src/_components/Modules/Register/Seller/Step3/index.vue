@@ -63,7 +63,7 @@
         v-model="form.commision"
         type="text"
         container="mx-2 mb-5"
-        labelSentence="I accept the standard commission rate of 5% and 1€ per sale."
+        :labelSentence="`I accept the standard commission rate of ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% and ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_euro : '5' }€ per sale.`"
         :rules="{ required: { allowFalse: false } }"
       />
       <Button
@@ -110,7 +110,11 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
-      }
+      },
+      GLOBAL_SETTING()
+      {
+        return this.$store.getters.GLOBAL_SETTING
+      },
     },
     watch: {
     },

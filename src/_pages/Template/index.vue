@@ -103,7 +103,6 @@
         this.onSetRole();
       },
       TEMPLATES(newVal) {
-        console.log('newVal', newVal)
         this.tableIndex = this.tableIndex + 1
       },
     },

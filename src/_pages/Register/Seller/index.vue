@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="content-container flex flex-col w-full h-full px-8">
+      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full h-full px-8">
         <RegisterStep1 
           v-if="step == 1"
           @onChangeStep="onChangeStep"
@@ -55,11 +55,20 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
-      }
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
     },
     watch: {
     },
-    created() {
+    mounted() {
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onFetchGlobalSetting()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
       onChangeStep({ step, form })
@@ -77,7 +86,6 @@
           ...this.form,
           ...data
         }
-        console.log('onChange', this.form)
       },
       async onSubmit( isValid )
       {
@@ -105,6 +113,14 @@
             }
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
+        }
+      },
+      async onFetchGlobalSetting()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_GLOBAL_SETTING', 1)
+        } catch (err) {
+          console.log('err', err)
         }
       },
     }

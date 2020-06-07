@@ -174,7 +174,6 @@
         }).then( async (result) => {
           if(result.value){
             const newData = this.CARTS.filter( cart => this.form.id != cart.id )
-            console.log('newData', newData)
             await this.$store.commit('SET_CARTS', newData)
             this.isAdded = false
             this.form = {

@@ -62,7 +62,6 @@
             const { voucher } = await this.$store.dispatch('FETCH_VOUCHER', {
               id: this.$route.params.id
             })
-            console.log('voucher', voucher)
             this.data = voucher
           } catch (err) {
             console.log('err', err)

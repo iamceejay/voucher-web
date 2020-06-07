@@ -112,7 +112,6 @@
     watch: {
       data(newVal)
       {
-        console.log('nag change newVal', newVal)
       }
     },
     mounted() {},
