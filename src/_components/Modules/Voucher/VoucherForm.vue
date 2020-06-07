@@ -187,7 +187,7 @@
               </label>
               <div class="mx-2 mt-2 w-full flex flex-row">
                 <toggle-button
-                  :value="(form.type != 'quantity') ? true : false"
+                  :value="(form.type == 'quantity') ? true : false"
                   @change="onChangeType"
                 />
                 <span class="ml-2 font-semibold text-sm font-display text-gray-700">Value based / Quantity based</span>

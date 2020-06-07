@@ -73,9 +73,18 @@
             {{ `${(data.type == 'quantity') ? 'Quantity' : 'Value'}-based` }}
           </div>
           <div v-if="role != 'seller'" class="text-sm font-bold font-body">
-            {{
+            <!-- {{
               `${(data.type == 'quantity') ? `${data.qty_val}x (€${data.qty_min} - €${data.qty_max})` : `€${data.val_min} - €${data.val_max}`}`
-            }}
+            }} -->
+            <span v-if="!otherData">
+              {{ `${(data.type == 'quantity') ? `${data.qty_val}x` : `€${data.val_min} - €${data.val_max}`}` }}
+            </span>
+            <span v-else>
+              {{ `${(data.type == 'quantity') ? `${data.qty_val}x (€${otherData.qty})` : `€${otherData.value}`}` }}
+            </span>
+            <!-- <span v-if="otherData">
+              {{ `${(data.type == 'quantity') ? `${otherData.qty_val}x` : ``}` }}
+            </span> -->
           </div>
           <div class="text-center self-center h-4">
             <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">

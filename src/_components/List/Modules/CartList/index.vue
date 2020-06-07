@@ -22,7 +22,7 @@
               {{ 
                 (row.voucher.type == 'quantity') 
                   ? 'Price per voucher: ' 
-                  : 'Quantity: '
+                  : 'Value: '
               }}
             </span>
             <span class="text-sm font-semibold ml-2">
@@ -146,7 +146,7 @@
       },
       onGetSymbol(type)
       {
-        return type == 'quantity' ? '€' : 'x'
+        return type == 'quantity' ? '€' : '€'
       }
     }
   }

@@ -33,10 +33,10 @@
               v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (€${VOUCHER.qty_val}/voucher)` : 'value' }`"
+              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `value (€${form.value}/voucher)` : 'value' }`"
               placeholder="Enter here"
               :rules="`required|numeric|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
-              :note="`Enter a value from ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min } to ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
+              :note="`Value from ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min } to ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :disabled="isAdded ? true : false"
             />
             <div class="flex flex-col mt-3 self-center">
@@ -80,9 +80,8 @@
           id: null,
           voucher_id: null,
           user_id: null,
-          value: null,
+          value: 0,
           qty: null,
-          value: null,
         },
         symbol: '',
         isAdded: false,
@@ -197,7 +196,7 @@
           await this.$store.dispatch('FETCH_VOUCHER', {
             id: this.$route.params.id
           })
-          this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
+          this.symbol = (this.VOUCHER.type == 'quantity') ? '€' : '€'
         } catch (err) {
           console.log('err', err)
         }
