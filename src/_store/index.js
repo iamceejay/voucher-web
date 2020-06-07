@@ -19,6 +19,7 @@ import Redemption from './Modules/Redemption/'
 import GlobalSetting from './Modules/GlobalSetting/'
 import UserSetting from './Modules/UserSetting/'
 import SellerInvoice from './Modules/SellerInvoice/'
+import TransferUrl from './Modules/TransferUrl/'
 
 Vue.use(Vuex);
 
@@ -42,5 +43,6 @@ export default new Vuex.Store({
     GlobalSetting,
     UserSetting,
     SellerInvoice,
+    TransferUrl,
   }
 })

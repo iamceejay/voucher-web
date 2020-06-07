@@ -33,7 +33,7 @@ export default {
         await commit('SET_CATEGORY', data.voucher_category)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async FETCH_CATEGORIES( { commit, state }, payload )
@@ -43,7 +43,7 @@ export default {
         await commit('SET_CATEGORIES', data.voucher_categories)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async ADD_CATEGORY( { commit, state }, payload )
@@ -56,7 +56,7 @@ export default {
         ])
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
       const data = {
         ...payload,
@@ -82,7 +82,7 @@ export default {
         await commit('SET_CATEGORIES', newList)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async DELETE_CATEGORY( { commit, state }, payload )

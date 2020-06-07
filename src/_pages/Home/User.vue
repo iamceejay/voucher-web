@@ -104,6 +104,7 @@
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchVouchers()
         await this.onFetchFeaturedVouchers()
+        await this.onFetchTotalUserCart()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -158,6 +159,14 @@
       {
         try {
           await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchTotalUserCart()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_TOTAL_USER_CART')
         } catch (err) {
           console.log('err', err)
         }

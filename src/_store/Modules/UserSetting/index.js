@@ -32,7 +32,7 @@ export default {
         await commit('SET_USER_SETTING', data.user_settings)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async FETCH_USER_SETTING_BY_USER( { commit, state }, payload )
@@ -42,7 +42,7 @@ export default {
         await commit('SET_USER_SETTING', data.user_setting)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async FETCH_USER_SETTINGS( { commit, state }, payload )
@@ -58,9 +58,8 @@ export default {
         await commit('SET_USER_SETTING', data.user_setting)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
-      return data
     },
     async UPDATE_USER_SETTING( { commit, state }, payload )
     {
@@ -69,7 +68,7 @@ export default {
         await commit('SET_USER_SETTING', data.user_settings)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async DELETE_USER_SETTING( { commit, state }, payload )

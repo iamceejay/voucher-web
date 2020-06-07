@@ -33,7 +33,7 @@ export default {
         await commit('SET_SELLER_INVOICE', data.seller_invoice)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async FETCH_COMMISSION_STAT( { commit, state }, payload )
@@ -42,7 +42,7 @@ export default {
         const { data } = await get(`${prefix}/commission-stats`, {})
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async FETCH_SELLER_INVOICES( { commit, state }, payload )
@@ -52,7 +52,7 @@ export default {
         await commit('SET_SELLER_INVOICES', data.seller_invoices)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async ADD_SELLER_INVOICE( { commit, state }, payload )
@@ -65,7 +65,7 @@ export default {
         ])
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async UPDATE_SELLER_INVOICE( { commit, state }, payload )
@@ -81,7 +81,7 @@ export default {
         await commit('SET_SELLER_INVOICES', newData)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async DELETE_SELLER_INVOICE( { commit, state }, payload )
@@ -107,7 +107,7 @@ export default {
         await commit('SET_SELLER_INVOICES', newData)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
   },

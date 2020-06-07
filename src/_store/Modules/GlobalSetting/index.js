@@ -32,7 +32,7 @@ export default {
         await commit('SET_GLOBAL_SETTING', data.global_settings)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async FETCH_GLOBAL_SETTINGS( { commit, state }, payload )
@@ -51,7 +51,7 @@ export default {
         ])
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async UPDATE_GLOBAL_SETTING( { commit, state }, payload )
@@ -61,7 +61,7 @@ export default {
         await commit('SET_GLOBAL_SETTING', data.global_settings)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async DELETE_GLOBAL_SETTING( { commit, state }, payload )

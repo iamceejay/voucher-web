@@ -1,10 +1,12 @@
 <template>
-  <div class="w-full flex flex-col px-4 py-3">
-    <div class="card-header">
-      <div 
-        :class="`flex flex-col ${ (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : '' }`"
-        @click="onClickHeader()"
-      >
+  <div 
+    :class="`w-full flex flex-col px-4 py-3 ${ (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : '' }`"
+    @click="onClickHeader()"
+  >
+    <div 
+      class="card-header"
+    >
+      <div class="flex flex-col">
         <div class="text-base font-bold font-display">
           {{ data.title || 'Voucher Name' }}
         </div>
@@ -80,7 +82,7 @@
               {{ `${(data.type == 'quantity') ? `${data.qty_val}x` : `€${data.val_min} - €${data.val_max}`}` }}
             </span>
             <span v-else>
-              {{ `${(data.type == 'quantity') ? `${data.qty_val}x (€${otherData.qty})` : `€${otherData.value}`}` }}
+              {{ `${(data.type == 'quantity') ? `€${otherData.qty}` : `€${otherData.value}`}` }}
             </span>
             <!-- <span v-if="otherData">
               {{ `${(data.type == 'quantity') ? `${otherData.qty_val}x` : ``}` }}

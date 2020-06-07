@@ -50,9 +50,8 @@ export default {
         ])
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
-      return data
     },
     async UPDATE_TEMPLATE( { commit, state }, payload )
     {
@@ -68,9 +67,8 @@ export default {
         await commit('SET_TEMPLATES', newList)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
-      return data
     },
     async DELETE_TEMPLATE( { commit, state }, payload )
     {

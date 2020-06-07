@@ -124,7 +124,7 @@ export default {
         const { data } = await post(`${prefix}/${payload.id}`, formData)
         return data
       } catch (err) {
-        throw e
+        throw err     
       }
     },
     async STATUS_UPDATE_VOUCHER( { commit, state }, payload )

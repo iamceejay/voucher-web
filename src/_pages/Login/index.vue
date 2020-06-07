@@ -31,7 +31,9 @@
       }
     },
     mounted() {
-      
+      (async () => {
+        await this.$store.commit('SET_COUNT_CART', 0)
+      })()
     },
     methods: {
     },

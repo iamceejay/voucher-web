@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="content-container w-full h-screen flex flex-col px-8">
+      <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
         <div class="flex flex-col">
           <Header1
             label="Transfer Voucher"
@@ -42,7 +42,7 @@
         </div>
         <div class="flex flex-col">
           <Header1
-            label="Share link"
+            label="Share Link"
           />
           <InputField
             id="clipboard"
@@ -96,8 +96,22 @@
         clipboard: ''
       }
     },
+    computed: {
+      TRANSFER_URL() 
+      {
+        return this.$store.getters.TRANSFER_URL
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+    },
     mounted() {
-      this.form.link = `${process.env.VUE_APP_WEB_URL}/transfer/${ this.$route.params.id }`
+      (async() => {
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.onAddTransferUrl()
+        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+      })()
     },
     methods: {
       onConfirmation()
@@ -156,7 +170,19 @@
             confirmButtonColor: '#6C757D',
           });
         }
-      }
+      },
+      async onAddTransferUrl()
+      {
+        try {
+          const data = await this.$store.dispatch('ADD_TRANSFER_URL', {
+            order_id: this.$route.params.id,
+          })
+
+          this.form.link = `${process.env.VUE_APP_WEB_URL}/transfer/${ data.transfer_url.url_code }`
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>
