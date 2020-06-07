@@ -55,7 +55,6 @@
     },
     methods: {
       onDecode () {
-        console.log('this.voucherForm.qr', this.voucherForm.qr)
         this.$emit('onSetVoucher', this.voucherForm.qr)
       },
       async onInit (promise) {

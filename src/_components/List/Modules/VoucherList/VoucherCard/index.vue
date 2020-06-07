@@ -174,7 +174,7 @@
   }
   @media only screen and (max-width: 600px) {
     .card-container {
-      width: 100%;
+      /* width: 100%; */
     }
   }
 </style>

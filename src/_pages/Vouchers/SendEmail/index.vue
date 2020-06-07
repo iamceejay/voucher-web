@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="content-container w-full h-screen flex flex-col">
+      <div class="content-container w-full h-screen flex flex-col px-8">
         <Header1
           label="Send Voucher"
         />

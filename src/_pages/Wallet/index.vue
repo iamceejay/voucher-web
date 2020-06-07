@@ -8,7 +8,7 @@
         <SearchInputField
           id="search-here"
           v-model="params.keyword"
-          class="m-2"
+          class="my-2"
           placeholder="Search for vouchers ..."
           @input="onLoadData($event, true)"
         />

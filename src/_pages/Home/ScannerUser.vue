@@ -3,6 +3,7 @@
     <Header1 label="Voucher Scanner" />
     <VoucherScanner 
       v-if="!QR_CODE"
+      :key="`s-${sIndex}`"
       @onSetVoucher="onSetVoucher"
     />
     <VoucherRedemption 
@@ -24,6 +25,7 @@
     },
     data() {
       return {
+        sIndex: 0,
         qr: null
       }
     },
@@ -49,6 +51,7 @@
             })
             this.qr = data
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.sIndex = this.sIndex + 1
           }
         } catch (err) {
           if( err?.response?.status == 422 ) {
@@ -60,6 +63,7 @@
             })
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.sIndex = this.sIndex + 1
         }
       }
     }

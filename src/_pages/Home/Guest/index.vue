@@ -1,38 +1,34 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full">
     <GuestHeader />
     <GuestContent />
-    <div class="content-container flex flex-col py-6">
-      <VoucherList
-        class="mb-3"
-        title="Featured Vouchers"
-        :data="FEATURED_VOUCHERS"
-        :isInline="true"
-        :withQR="false"
-      />
-      <CategoryList
-        class="mb-3"
-        title="Categories"
-        :data="CATEGORIES"
-      />
-    </div>
+    <VoucherList
+      class="mb-3 py-6 px-8"
+      title="Featured Vouchers"
+      :data="FEATURED_VOUCHERS"
+      :isInline="true"
+      :withQR="false"
+    />
+    <CategoryList
+      class="mb-3 py-6 px-8"
+      title="Categories"
+      :data="CATEGORIES"
+    />
     <GuestSellerContent />
-    <div class="content-container flex flex-col py-6">
-      <VoucherList
-        class="mb-3"
-        title="Newest"
-        :data="VOUCHERS.data"
-        sortLabel="Sort by:"
-        :withSort="true"
-        filterLabel="Filter by:"
-        :withFilter="true"
-        :withQR="false"
-        listId="search-voucher-list"
-        @onChange="onFetchData"
-        @onFilter="onSearchData($event, 'filter')"
-        @onSort="onSearchData($event, 'sort')"
-      />
-    </div>
+    <VoucherList
+      class="mb-3 py-6 px-8"
+      title="Newest"
+      :data="VOUCHERS.data"
+      sortLabel="Sort by:"
+      :withSort="true"
+      filterLabel="Filter by:"
+      :withFilter="true"
+      :withQR="false"
+      listId="search-voucher-list"
+      @onChange="onFetchData"
+      @onFilter="onSearchData($event, 'filter')"
+      @onSort="onSearchData($event, 'sort')"
+    />
   </div>
 </template>
 <script>
