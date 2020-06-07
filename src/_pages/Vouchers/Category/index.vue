@@ -95,6 +95,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_NEWEST_VOUCHERS', [])
         await this.onFetchData()
       })()

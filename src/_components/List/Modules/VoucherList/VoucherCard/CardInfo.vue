@@ -79,7 +79,7 @@
               `${(data.type == 'quantity') ? `${data.qty_val}x (€${data.qty_min} - €${data.qty_max})` : `€${data.val_min} - €${data.val_max}`}`
             }} -->
             <span v-if="!otherData">
-              {{ `${(data.type == 'quantity') ? `${data.qty_val}x` : `€${data.val_min} - €${data.val_max}`}` }}
+              {{ `${(data.type == 'quantity') ? `€${data.qty_val}` : `€${data.val_min} - €${data.val_max}`}` }}
             </span>
             <span v-else>
               {{ `${(data.type == 'quantity') ? `€${otherData.qty}` : `€${otherData.value}`}` }}
