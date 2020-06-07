@@ -32,14 +32,23 @@
         @input="onChange"
       />
     </div>
+    <InputField
+      id="address"
+      v-model="form.address"
+      type="text"
+      class="m-2"
+      label="Address"
+      :errorMessages="errorMessages.address"
+      @input="onChange"
+    />
     <div class="flex flex-row">
       <InputField
-        id="address"
-        v-model="form.address"
+        id="city"
+        v-model="form.city"
         type="text"
         class="w-full sm:w-1/2 m-2"
-        label="Address"
-        :errorMessages="errorMessages.address"
+        label="City"
+        :errorMessages="errorMessages.city"
         @input="onChange"
       />
       <InputField
@@ -114,6 +123,7 @@
           lastName: '',
           email: '',
           address: '',
+          city: '',
           zip_code: '',
           // password: '',
           // confirmPassword: '',

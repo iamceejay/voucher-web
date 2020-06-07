@@ -107,6 +107,7 @@
           lastName: '',
           email: '',
           address: '',
+          city: '',
           zip_code: '',
           password: '',
           confirmPassword: '',
