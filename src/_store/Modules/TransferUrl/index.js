@@ -29,7 +29,7 @@ export default {
         const { data } = await post(`${prefix}`, payload)
         return data
       } catch (err) {
-        throw err     
+        throw err
       }
     },
     async UPDATE_TRANSFER_URL( { commit, state }, payload )
