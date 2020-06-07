@@ -26,7 +26,7 @@
               }}
             </span>
             <span class="text-sm font-semibold ml-2">
-              {{ `${onGetSymbol(row.voucher.type)} ${ (row.voucher.type == 'quantity') ? row.qty : row.value}` }}
+              {{ `${onGetSymbol(row.voucher.type)} ${ (row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value}` }}
             </span>
           </div>
           <div v-if="isCart" class="flex flex-row justify-center">
@@ -140,8 +140,12 @@
       onGetTotal(data)
       {
         let value = (data.voucher.type == 'quantity') ? data.qty : data.value
-        let itemValue = data.voucher.price_filter
-        const total = value * itemValue
+        let total = value
+
+        if( data.voucher.type == 'quantity' ) {
+          total = value * data.voucher.price_filter
+        }
+        
         return total
       },
       onGetSymbol(type)

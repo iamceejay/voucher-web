@@ -1,9 +1,9 @@
 <template>
   <div
-    :id="`voucher-card-${ (data && data.id) ? data.id : 0 }`"
+    :id="`voucher-card-${ (data || otherData) ? `${ otherData ? otherData.id : data.id }` : 0 }`"
     class="flex border border-gray-900 rounded card-container bg-color mb-3 flex-shrink-0 mr-3 mt-3"
     :class="{'flip': isFlip}"
-    :style="{ '--bgColor': data.background_color }"
+    :style="{ '--bgColor': !isFlip ? data.background_color : '' }"
   >
     <CardInfo
       v-if="!isAction"
@@ -66,6 +66,7 @@
       return {
         isAction: false,
         isFlip: false,
+        vIndex: 0,
       };
     },
     watch: {
@@ -86,7 +87,6 @@
       },
       'otherData.user_voucher.text_color'(newVal, oldVal)
       {
-        console.log('teest')
         this.onGetTextColor()
       },
     },
@@ -124,7 +124,7 @@
       },
       onSetBgImage(value)
       {
-        const card = document.getElementById(`voucher-card-${ (this.data && this.data.id) ? this.data.id : 0 }`)
+        const card = document.getElementById(`voucher-card-${ (this.data || this.otherData) ? `${ this.otherData ? this.otherData.id : this.data.id }` : 0 }`)
         const bg = (this.data && this.data.id && (value.search('base64') < 0)) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         card.style.backgroundImage = `url('${bg}')`
         card.style.backgroundSize = `cover`

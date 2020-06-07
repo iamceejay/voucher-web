@@ -9,6 +9,9 @@
             :isFlippable="false"
             :withQR="false"
           />
+          <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
+            Login or register to purchase a voucher.
+          </div>
           <router-link 
             class="self-center w-full md:w-1/2"
             :to="`/seller/${VOUCHER.seller_id}`"
@@ -33,7 +36,7 @@
               v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `value (€${form.value}/voucher)` : 'value' }`"
+              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (€${VOUCHER.price_filter}/voucher)` : 'value' }`"
               placeholder="Enter here"
               :rules="`required|numeric|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :note="`Value from ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min } to ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
@@ -196,7 +199,7 @@
           await this.$store.dispatch('FETCH_VOUCHER', {
             id: this.$route.params.id
           })
-          this.symbol = (this.VOUCHER.type == 'quantity') ? '€' : '€'
+          this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
         } catch (err) {
           console.log('err', err)
         }

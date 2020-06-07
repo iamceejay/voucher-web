@@ -136,7 +136,7 @@
           },{
             type: 'Vouchers bought',
             title: '',
-            value: `€${vouchers_bought}`
+            value: `${vouchers_bought}`
           }
         ]
       },
