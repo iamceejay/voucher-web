@@ -15,6 +15,7 @@
         <vSelect
           :id="id"
           ref="inputField"
+          :multiple="multiple"
           :name="id"
           class="mt-2"
           :class="{ 'text-red-500 border-red-500': errors.length > 0 }"
@@ -65,7 +66,10 @@
         default() {
           return []
         }
-      },
+      }, multiple: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {};

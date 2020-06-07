@@ -86,6 +86,14 @@
               rules="required|max:250"
             />
             <SelectField
+              id="tax"
+              v-model="form.tax"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Tax (%)"
+              :options="taxes"
+              :multiple="true"
+            />
+            <SelectField
               id="category"
               v-model="form.category"
               class="px-2 py-1 w-full md:w-1/2"
@@ -278,6 +286,7 @@
           background_color: '#fff',
           text_color: 'dark',
           background_image: '',
+          tax: [],
           valid_day: [],
           valid_date: [],
           type: 'value',
@@ -294,6 +303,7 @@
         },
         week: getWeek,
         background_image: null,
+        taxes: [],
       }
     },
     computed: {
@@ -320,6 +330,7 @@
         }
       })
       this.onSetForm()
+      this.onSetTax()
     },
     methods: {
       async onSubmit()
@@ -362,6 +373,15 @@
       onPickColor( { hex } )
       {
         this.form.background_color = hex
+      },
+      onSetTax()
+      {
+        for (let i = 1; i <= 50; i++) {
+          this.taxes = [
+            ...this.taxes,
+            i
+          ]          
+        }
       },
       onChangeBgImg(data)
       {
@@ -410,6 +430,7 @@
             qty_val: this.data.qty_val,
             valid_date: this.data.valid_date || [],
             valid_day: this.data.valid_day || [],
+            tax: this.data.tax || [],
             type: this.data.type,
             category: {
               id: this.data.voucher_category.id,
