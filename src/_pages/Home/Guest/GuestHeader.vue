@@ -1,6 +1,6 @@
 <template>
   <div class="bg-dirty">
-    <div class="content-container header-container flex flex-col items-center">
+    <div class="content-container header-container flex flex-col items-center px-8">
       <div class="font-display font-bold text-3xl w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
         Lorem ipsum dolor sit amet
       </div>
@@ -39,7 +39,7 @@
 </script>
 <style lang="css" scoped>
   .header-container {
-    padding: 80px 0;
+    padding: 80px 2rem;
     justify-content: center;
     text-align: center;
   }
