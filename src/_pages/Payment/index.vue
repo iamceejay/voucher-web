@@ -137,8 +137,12 @@
       onGetTotal(data)
       {
         let value = (data.voucher.type == 'quantity') ? data.qty : data.value
-        let itemValue = data.voucher.price_filter
-        const total = value * itemValue
+        let total = value
+
+        if( data.voucher.type == 'quantity' ) {
+          total = value * data.voucher.price_filter
+        }
+        
         return total
       },
       async onFetchUser()
