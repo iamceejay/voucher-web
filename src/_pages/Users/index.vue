@@ -132,6 +132,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.$store.commit('SET_USERS', [])
         await this.onFetchUserFilter()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()

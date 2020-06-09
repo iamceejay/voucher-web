@@ -101,6 +101,7 @@
       (async() => {
         await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_VOUCHERS', [])
+        await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchVouchers()
         await this.onFetchFeaturedVouchers()

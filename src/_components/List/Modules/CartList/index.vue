@@ -133,9 +133,11 @@
       onGetTotalPrice()
       {
         this.totalPrice = 0
-        this.data.map( row => {
-          this.totalPrice += this.onGetTotal(row)
-        })
+        if( this.data ) {
+          this.data.map( row => {
+            this.totalPrice += this.onGetTotal(row)
+          })
+        }
       },
       onGetTotal(data)
       {

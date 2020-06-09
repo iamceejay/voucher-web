@@ -109,6 +109,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.$store.commit('SET_TEMPLATES', [])
         await this.onFetchTemplates()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()

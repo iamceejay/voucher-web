@@ -72,6 +72,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_WALLETS', [])
         await this.$store.commit('SET_REDEMPTIONS', [])
         this.params.seller_id = this.AUTH_USER.data.id
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
