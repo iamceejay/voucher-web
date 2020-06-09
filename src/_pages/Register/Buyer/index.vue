@@ -38,7 +38,7 @@
                 I accept the 
                 <a 
                   class="text-blue-700" 
-                  href="" 
+                  href="https://verkaufen.epasnets.com/datenschutz" 
                   target="_blank"
                 >
                   Data Privacy guidelines.
@@ -58,7 +58,7 @@
                 I accept the 
                 <a 
                   class="text-blue-700" 
-                  href="" 
+                  href="https://verkaufen.epasnets.com/agb" 
                   target="_blank"
                 >
                   Terms of Services.
