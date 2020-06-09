@@ -39,6 +39,7 @@
         params: {
           page: 1,
           paginate: 5,
+          isCategory: null,
         }
       }
     },
@@ -127,7 +128,9 @@
       async onFetchFeaturedVouchers()
       {
         try {
-          await this.$store.dispatch('FETCH_FEATURED_VOUCHERS')
+          await this.$store.dispatch('FETCH_FEATURED_VOUCHERS', {
+            isCategory: this.params.isCategory
+          })
         } catch (err) {
           console.log('err', err)
         }
@@ -147,6 +150,9 @@
       {
         try {
           await this.$store.dispatch('FETCH_CATEGORY', this.$route.params.id)
+          if( this.CATEGORY ) {
+            this.params.isCategory = [ this.CATEGORY.name ]
+          }
         } catch (err) {
           console.log('err', err)
         }

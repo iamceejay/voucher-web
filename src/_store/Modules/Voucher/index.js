@@ -86,7 +86,8 @@ export default {
       try {
         const { data } = await get(`${prefix}`, {
           // paginate: 10,
-          featured: true
+          featured: true,
+          ...payload
         })
         await commit('SET_FEATURED_VOUCHERS', data.vouchers)
         return data
