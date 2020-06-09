@@ -67,8 +67,8 @@
                 {{ `${day.substring(0,3)}${ (data.valid_day.length != (index+1)) ? ',' : '' }` }}
               </span>
             </div>
-            <div>
-              Expiry: {{ onGetExpiryDate(data) }}
+            <div v-if="otherData">
+              Expiry: {{ onGetExpiryDate(otherData) }}
             </div>
           </div>
           <div class="text-sm font-bold font-body">
@@ -175,7 +175,7 @@
       },
       onGetExpiryDate(data)
       {
-        let expire = data.expiry_date ? data.expiry_date : 4
+        let expire = data.voucher.expiry_date ? data.voucher.expiry_date : 4
         return moment(data.created_at).local().add(expire, 'year').format('DD.MM.YYYY')
       },
       onClickHeader()

@@ -34,7 +34,7 @@
           </p>
           <a 
             class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2" 
-            :href="`${USER.company.url}`"
+            :href="addHttp(USER.company.url)"
             target="_blank"
           >
             {{ USER.company.url.replace(/(^\w+:|^)\/\//, '') }}
@@ -101,6 +101,12 @@
       })()
     },
     methods: {
+      addHttp(url) {
+        if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+          url = "http://" + url;
+        }
+        return url;
+      },
       async onFetchUser()
       {
         try {
