@@ -89,10 +89,30 @@
               id="tax"
               v-model="form.tax"
               class="px-2 py-1 w-full md:w-1/2"
-              label="Tax (%)"
               :options="taxes"
               :multiple="true"
-            />
+              @selected="onChangeTax"
+            >
+              <template #option_="{ option }">
+                <span class="capitalize">{{ `${option.label} ${(option.label != 'not sure' ? '%' : '')}` }}</span>
+              </template>
+              <template #selected_option_="{ option }">
+                <span class="capitalize">{{ `${option.label} ${(option.label != 'not sure' ? '%' : '')}` }}</span>
+              </template>
+              <template #label_>
+                <div class="flex flex-row">
+                  <Header5
+                    label="Tax"
+                  />
+                  <div class="tooltip ml-1">
+                    <i class="fas fa-info-circle text-base text-gray-700" />
+                    <span class="tooltiptext">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </span>
+                  </div>
+                </div>
+              </template>
+            </SelectField>
             <SelectField
               id="category"
               v-model="form.category"
@@ -370,18 +390,27 @@
       {
         this.form.type = e.value ? 'quantity' : 'value'
       },
+      onChangeTax(value)
+      {
+        if( this.form.tax.includes('not sure') && value !== 'not sure' ) {
+          this.$swal({
+            icon: 'warning',
+            title: 'Warning!',
+            text: "Remove 'not sure' option first to select different option.",
+            confirmButtonColor: '#6C757D',
+          })
+          this.form.tax = ['not sure']
+        } else if( value === 'not sure') {
+          this.form.tax = ['not sure']
+        }
+      },
       onPickColor( { hex } )
       {
         this.form.background_color = hex
       },
       onSetTax()
       {
-        for (let i = 1; i <= 50; i++) {
-          this.taxes = [
-            ...this.taxes,
-            i
-          ]          
-        }
+        this.taxes = [ 0, 10, 13, 20, 'not sure' ]
       },
       onChangeBgImg(data)
       {

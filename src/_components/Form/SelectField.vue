@@ -12,6 +12,7 @@
           v-if="label != ''"
           :label="label"
         />
+        <slot name="label_" />
         <vSelect
           :id="id"
           ref="inputField"
@@ -22,7 +23,14 @@
           :options="options" 
           :value="value"
           @input="onUpdateField"
-        />
+        >
+          <template #selected-option="data">
+            <slot name="selected_option_" :option="data" />
+          </template>
+          <template #option="data">
+            <slot name="option_" :option="data" />
+          </template>
+        </vSelect>
         <ErrorMessage :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
@@ -49,7 +57,7 @@
         type: String,
         default: ''
       }, value: {
-        type: Object,
+        type: [Object, Array],
         default() {
           return null
         }
@@ -75,11 +83,20 @@
       return {};
     },
     watch: {
+      value(newVal, oldVal)
+      {
+        let selected = null
+        newVal.map( row => {
+          if( !oldVal.includes( row ) ) {
+            this.$emit('selected', row)
+          }
+        })
+      },
     },
     mounted() {},
     methods: {
       onUpdateField(data) {
-        this.$emit('input', data);
+        this.$emit('input', data)
       }
     }
   }

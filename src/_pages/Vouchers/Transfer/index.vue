@@ -163,12 +163,12 @@
           copyText.select();
           copyText.setSelectionRange(0, 99999);
           document.execCommand('copy');
-          this.$swal({
-            icon: 'success',
-            title: 'Successful!',
-            text: 'Sending the voucher via email.',
-            confirmButtonColor: '#6C757D',
-          });
+          // this.$swal({
+          //   icon: 'success',
+          //   title: 'Successful!',
+          //   text: 'Sending the voucher via email.',
+          //   confirmButtonColor: '#6C757D',
+          // });
         }
       },
       async onAddTransferUrl()
