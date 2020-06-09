@@ -80,6 +80,8 @@
     watch: {
       async '$route.params.id'()
       {
+        await this.$store.commit('SET_FEATURED_VOUCHERS', [])
+        await this.$store.commit('SET_NEWEST_VOUCHERS', [])
         await this.onFetchData()
       },
       async IS_LOAD_MORE(newVal)
