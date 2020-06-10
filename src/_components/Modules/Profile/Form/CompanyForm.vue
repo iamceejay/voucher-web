@@ -50,16 +50,30 @@
       accept=".jpeg,.png,.jpg"
       @input="onChangeLogo"
     />
+    <InputField
+      id="vat_number"
+      v-model="form.vat_number"
+      type="text"
+      class="m-2"
+      label="VAT Number"
+      :errorMessages="errorMessages.vat_number"
+      @input="onChange"
+    />
     <SelectField
       id="month"
       v-model="form.region_id"
       :options="REGIONS"
-      class="m-2"
+      class="my-2 px-2"
       label="Region"
       rules="required"
       :errorMessages="errorMessages.region_id"
       @input="onChange"
     />
+    <div v-if="GLOBAL_SETTING" class="mt-2 mb-4 text-sm text-center">
+      {{
+        `Your commision is ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% and ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_euro : '5' }€ per sale`
+      }}
+    </div>
   </div>
 </template>
 <script>
@@ -98,6 +112,7 @@
           url: '',
           logo: '',
           region: '',
+          vat_number: ''
         }
       }
     },
@@ -105,7 +120,11 @@
       REGIONS()
       {
         return this.$store.getters.REGIONS
-      }
+      },
+      GLOBAL_SETTING()
+      {
+        return this.$store.getters.GLOBAL_SETTING
+      },
     },
     watch: {
       data(newVal)

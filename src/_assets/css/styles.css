@@ -21,6 +21,9 @@
     outline: 0;
     border-color: '#000';
 }
+.input-field:disabled {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 .separator {
     display: flex;
     align-items: center;

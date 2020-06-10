@@ -109,6 +109,8 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.$store.commit('SET_GLOBAL_SETTING', null)
+        await this.onFetchGlobalSetting()
         await this.onFetchUser()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
@@ -183,6 +185,7 @@
                 logo: user.company.logo,
                 region: user.company.region,
                 region_id: region ? region[0] : '',
+                vat_number: user.company.vat_number,
               },
             }
           }
@@ -190,7 +193,15 @@
         } catch (err) {
           console.log('err', err)
         }
-      }
+      },
+      async onFetchGlobalSetting()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_GLOBAL_SETTING', 1)
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   }
 </script>

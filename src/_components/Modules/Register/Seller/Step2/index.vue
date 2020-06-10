@@ -52,6 +52,7 @@
           url: '',
           logo: '',
           region: '',
+          vat_number: '',
         }
       }
     },
@@ -59,7 +60,7 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
-      }
+      },
     },
     watch: {
     },

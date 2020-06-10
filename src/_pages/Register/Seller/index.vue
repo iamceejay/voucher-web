@@ -66,6 +66,7 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+        await this.$store.commit('SET_GLOBAL_SETTING', null)
         await this.onFetchGlobalSetting()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()

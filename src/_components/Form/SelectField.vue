@@ -13,6 +13,13 @@
           :label="label"
         />
         <slot name="label_" />
+        <span 
+          v-if="note != ''"
+          class="text-xs font-semibold"
+        >
+          {{ note }}
+          <slot name="note_" />
+        </span>
         <vSelect
           :id="id"
           ref="inputField"
@@ -22,6 +29,8 @@
           :class="{ 'text-red-500 border-red-500': errors.length > 0 }"
           :options="options" 
           :value="value"
+          :placeholder="placeholder"
+          :disabled="disabled"
           @input="onUpdateField"
         >
           <template #selected-option="data">
@@ -69,12 +78,18 @@
       }, rules: {
         type: String,
         default: ''
+      }, placeholder: {
+        type: String,
+        default: ''
       }, errorMessages: {
         type: Array,
         default() {
           return []
         }
       }, multiple: {
+        type: Boolean,
+        default: false
+      }, disabled: {
         type: Boolean,
         default: false
       }
@@ -85,12 +100,13 @@
     watch: {
       value(newVal, oldVal)
       {
-        let selected = null
-        newVal.map( row => {
-          if( !oldVal.includes( row ) ) {
-            this.$emit('selected', row)
-          }
-        })
+        this.$emit('selected', newVal)
+        // let selected = null
+        // newVal.map( row => {
+        //   if( !oldVal.includes( row ) ) {
+        //     this.$emit('selected', row)
+        //   }
+        // })
       },
     },
     mounted() {},
@@ -113,6 +129,12 @@
     border-bottom-right-radius: 0 !important;
   }
   .v-select .vs__selected-options {
-    padding: 2px 14px 2px;
+    padding: 4px 14px 4px;
+  }
+  .v-select .vs__search {
+    color: #b7c2ce;
+    font-family: Manrope, sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
   }
 </style>

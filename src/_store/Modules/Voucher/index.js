@@ -69,6 +69,24 @@ export default {
         console.log('err', err)
       }
     },
+    async FETCH_SELLER_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        let withParams = payload?.noParams ? false : true
+        let params = {}
+        if( withParams ) {
+          params = {
+            paginate: 15,
+            ...payload
+          }
+        }
+        const { data } = await get(`${prefix}/seller-vouchers`, params)
+        await commit('SET_VOUCHERS', withParams ? mergeList( state.vouchers, data.vouchers ) : data.vouchers )
+        return data
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
     async FETCH_SEARCH_VOUCHERS( { commit, state }, payload )
     {
       try {

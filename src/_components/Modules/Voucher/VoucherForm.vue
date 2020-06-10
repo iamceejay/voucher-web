@@ -85,34 +85,82 @@
               placeholder="Voucher Description"
               rules="required|max:250"
             />
-            <SelectField
-              id="tax"
-              v-model="form.tax"
-              class="px-2 py-1 w-full md:w-1/2"
-              :options="taxes"
-              :multiple="true"
-              @selected="onChangeTax"
-            >
-              <template #option_="{ option }">
-                <span class="capitalize">{{ `${option.label} ${(option.label != 'not sure' ? '%' : '')}` }}</span>
-              </template>
-              <template #selected_option_="{ option }">
-                <span class="capitalize">{{ `${option.label} ${(option.label != 'not sure' ? '%' : '')}` }}</span>
-              </template>
-              <template #label_>
-                <div class="flex flex-row">
-                  <Header5
-                    label="Tax"
-                  />
-                  <div class="tooltip ml-1">
-                    <i class="fas fa-info-circle text-base text-gray-700" />
-                    <span class="tooltiptext">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </span>
+            <div v-if="!form.id" class="flex flex-col w-full">
+              <SelectField
+                id="tax"
+                class="px-2 py-1 w-full md:w-1/2"
+                placeholder="Select tax"
+                :options="taxes"
+                :multiple="true"
+                :disabled="unsure ? true : false"
+                @input="onChangeTax"
+              >
+                <!-- <template #option_="{ option }">
+                  <span class="capitalize">{{ `${option.text}` }}</span>
+                </template>
+                <template #selected_option_="{ option }">
+                  <span class="capitalize">{{ `${option.text}` }}</span>
+                </template> -->
+                <template #label_>
+                  <div class="flex flex-row">
+                    <Header5
+                      label="Tax"
+                    />
+                    <div class="tooltip ml-1">
+                      <i class="fas fa-info-circle text-base text-gray-700" />
+                      <span class="tooltiptext">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      </span>
+                    </div>
                   </div>
+                </template>
+                <template #note_>
+                  <CheckboxField
+                    id="tax-unsure"
+                    v-model="unsure"
+                    container="mb-0"
+                    labelSentence="Check if not sure about the tax."
+                  />
+                </template>
+              </SelectField>
+              <div v-if="form.tax.length > 0" class="flex flex-col w-full">
+                <div class="px-2 font-semibold text-xs font-display text-gray-700 flex flex-row w-full md:w-1/2">
+                  Selected Tax:
                 </div>
-              </template>
-            </SelectField>
+                <div
+                  v-for="(row, index) in form.tax" 
+                  :key="`tax-${index}`"
+                  class="flex flex-row w-full md:w-1/2"
+                >
+                  <InputField
+                    :id="`t-label-${index}`"
+                    :value="form.tax[index].label"
+                    type="text"
+                    class="px-2 w-1/3"
+                    inputContainer="py-1"
+                    placeholder="Tax Label"
+                    :disabled="true"
+                  />
+                  <InputField
+                    :id="`t-value-${index}`"
+                    v-model="form.tax[index].value"
+                    type="number"
+                    class="px-2 w-7/12"
+                    inputContainer="py-1"
+                    placeholder="Tax Value"
+                    :rules="`${ (form.tax.length <= 1) ? '' : 'required' }`"
+                    :disabled="(form.tax.length > 1) ? false : true"
+                  />
+                  <a 
+                    href="javascript:void(0)"
+                    class="flex mt-4 w-1/12 justify-center"
+                    @click="onActionTax('delete', index)"
+                  >
+                    <i class="fas fa-trash text-red-900 text-base" />
+                  </a>
+                </div>
+              </div>
+            </div>
             <SelectField
               id="category"
               v-model="form.category"
@@ -191,7 +239,7 @@
                 </a>
               </div>
             </div>
-            <InputField
+            <!-- <InputField
               v-if="!form.id"
               id="expiry_date"
               v-model="form.expiry_date"
@@ -200,6 +248,15 @@
               label="Years of Expiry (4-10 years)"
               placeholder=""
               rules="required|min_value:4|max_value:10"
+            /> -->
+            <SelectField
+              v-if="!form.id"
+              id="expiry_date"
+              v-model="form.expiry_date"
+              class="px-2 py-1 w-full md:w-1/2"
+              label="Years of Expiry (4-10 years)"
+              :options="expiry"
+              rules="required"
             />
             <div class="m-1 w-full flex flex-col mb-5">
               <label class="font-semibold text-sm font-display text-gray-700">
@@ -256,6 +313,7 @@
   import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
   import Header5 from '_components/Headers/Header5';
   import InputField from '_components/Form/InputField'
+  import CheckboxField from '_components/Form/CheckboxField'
   import DatePickerField from '_components/Form/DatePickerField'
   import Button from '_components/Button'
   import TextAreaField from '_components/Form/TextAreaField'
@@ -272,6 +330,7 @@
       Header5,
       Button,
       InputField,
+      CheckboxField,
       DatePickerField,
       VoucherCard,
       Material,
@@ -291,6 +350,7 @@
     },
     data() {
       return {
+        unsure: false,
         formIndex: 0,
         material_color: { 
           hex: '#FFF',
@@ -324,6 +384,7 @@
         week: getWeek,
         background_image: null,
         taxes: [],
+        expiry: [],
       }
     },
     computed: {
@@ -340,6 +401,12 @@
       data(newVal)
       {
         this.onSetForm()
+      },
+      unsure(newVal)
+      {
+        if( newVal ) {
+          this.form.tax = []
+        }
       }
     },
     created() {
@@ -351,6 +418,7 @@
       })
       this.onSetForm()
       this.onSetTax()
+      this.onSetExpiry()
     },
     methods: {
       async onSubmit()
@@ -390,19 +458,17 @@
       {
         this.form.type = e.value ? 'quantity' : 'value'
       },
-      onChangeTax(value)
+      onChangeTax(data)
       {
-        if( this.form.tax.includes('not sure') && value !== 'not sure' ) {
-          this.$swal({
-            icon: 'warning',
-            title: 'Warning!',
-            text: "Remove 'not sure' option first to select different option.",
-            confirmButtonColor: '#6C757D',
-          })
-          this.form.tax = ['not sure']
-        } else if( value === 'not sure') {
-          this.form.tax = ['not sure']
+        const value = {
+          id: this.form.tax.length + 1,
+          ...data[0]
         }
+        this.form.tax = [
+          ...this.form.tax,
+          value
+        ]
+        console.log('form.tax', this.form.tax)
       },
       onPickColor( { hex } )
       {
@@ -410,7 +476,36 @@
       },
       onSetTax()
       {
-        this.taxes = [ 0, 10, 13, 20, 'not sure' ]
+        this.taxes = [
+          {
+            tax: '0',
+            label: '0%',
+            value: null,
+          }, {
+            tax: '10',
+            label: '10%',
+            value: null,
+          }, {
+            tax: '13',
+            label: '13%',
+            value: null,
+          }, {
+            tax: '20',
+            label: '20%',
+            value: null,
+          }, 
+        ]
+      },
+      onSetExpiry()
+      {
+        let expiry = []
+        for (let i = 4; i <= 10; i++) {
+          expiry = [
+            ...expiry,
+            i
+          ]
+          this.expiry = expiry
+        }
       },
       onChangeBgImg(data)
       {
@@ -432,6 +527,21 @@
         this.form.background_image = ''
         this.form.remove_bg = true
         this.formIndex = this.formIndex + 1
+      },
+      onActionTax( action, index = null )
+      {
+        if( action === 'add' ) {
+          this.form.tax.push({
+            tax: '0',
+            label: '0%',
+            value: null,
+          })
+        } else {
+          this.form.tax = this.form.tax.filter( (row, i) => i != index)
+          if( this.form.tax.length == 1 ) {
+            this.form.tax[0].value = null
+          }
+        }
       },
       onActionDate( action, index = null )
       {

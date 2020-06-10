@@ -13,7 +13,7 @@
       <router-link to="/vouchers/new">
         <Button
           class="py-2"
-          label="Create new voucher"
+          label="Create New Voucher"
           size="w-full md:w-64 py-2"
           round="rounded-full"
         />

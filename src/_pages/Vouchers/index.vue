@@ -3,14 +3,14 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Create new voucher"
+          label="Create New Voucher"
         />
         <router-link
           to="vouchers/new"
         >
           <Button
             class="p-2 mt-3 mb-5"
-            label="Create new voucher"
+            label="Create New Voucher"
             size="w-full sm:w-64 py-4"
             round="rounded-full"
           />
@@ -69,7 +69,7 @@
       async onFetchVouchers(id)
       {
         try {
-          await this.$store.dispatch('FETCH_VOUCHERS', {
+          await this.$store.dispatch('FETCH_SELLER_VOUCHERS', {
             seller_id: id
           })
         } catch (err) {

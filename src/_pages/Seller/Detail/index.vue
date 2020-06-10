@@ -30,7 +30,7 @@
             {{ USER.detail.address }}
           </p>
           <p class="text-xs font-semibold ml-2">
-            Region {{ USER.detail.region || '' }}
+            {{ USER.company.region || '' }}
           </p>
           <a 
             class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2" 
