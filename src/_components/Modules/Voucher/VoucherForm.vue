@@ -372,7 +372,7 @@
           type: 'value',
           min: 0,
           max: 0,
-          expiry_date: 0,
+          expiry_date: null,
           qty_val: 0,
           qty_min: 0,
           qty_max: 0,
