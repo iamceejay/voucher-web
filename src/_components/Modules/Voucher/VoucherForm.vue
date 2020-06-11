@@ -274,7 +274,7 @@
               v-if="form.type == 'quantity'"
               id="type"
               v-model="form.qty_val"
-              type="text"
+              type="number"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Value"
               rules="required"

@@ -58,31 +58,37 @@
       onSetStats(data)
       {
         this.stats = [
+          // {
+          //   type: 'Vouchers',
+          //   title: 'sold this day',
+          //   value: data.daily_voucher_sold
+          // }
+          // ,{
+          //   type: 'Earnings',
+          //   title: 'this day',
+          //   value: `€${data.daily_earnings}`
+          // }
           {
-            type: 'Vouchers',
-            title: 'sold this day',
-            value: data.daily_voucher_sold
-          },{
-            type: 'Earnings',
-            title: 'this day',
-            value: `€${data.daily_earnings}`
-          },{
             type: 'Vouchers',
             title: 'sold this week',
             value: data.weekly_voucher_sold
-          },{
+          }
+          ,{
             type: 'Earnings',
             title: 'this week',
             value: `€${data.weekly_earnings}`
-          },{
-            type: 'Vouchers',
-            title: 'sold this month',
-            value: data.monthly_voucher_sold
-          },{
-            type: 'Earnings',
-            title: 'this month',
-            value: `€${data.montyly_earnings}`
-          },{
+          }
+          // ,{
+          //   type: 'Vouchers',
+          //   title: 'sold this month',
+          //   value: data.monthly_voucher_sold
+          // }
+          // ,{
+          //   type: 'Earnings',
+          //   title: 'this month',
+          //   value: `€${data.montyly_earnings}`
+          // }
+          ,{
             type: 'Vouchers',
             title: 'sold total',
             value: data.voucher_total
@@ -90,7 +96,23 @@
             type: 'Earnings',
             title: 'total',
             value: `€${data.total_earnings}`
-          },
+          },{
+            type: 'Vouchers Redeemed',
+            title: 'this day',
+            value: data.daily_redemptions
+          },{
+            type: 'Vouchers Redeemed',
+            title: 'this week',
+            value: data.weekly_redemptions
+          },{
+            type: 'Vouchers Redeemed',
+            title: 'this month',
+            value: data.monthly_redemptions
+          },{
+            type: 'Vouchers Redeemed',
+            title: 'total',
+            value: data.total_redemptions
+          }
         ]
       }
     }
