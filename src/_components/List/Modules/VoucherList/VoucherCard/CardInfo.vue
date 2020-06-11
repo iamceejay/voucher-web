@@ -84,9 +84,9 @@
             <span v-else>
               {{ 
                 `${(data.type == 'quantity') 
-                  ? `x${otherData.qty}${ !otherData.user_voucher.price_hidden ? ` (€${data.price_filter}/voucher)` : '' }` 
+                  ? `x${otherData.qty}${ otherData.user_voucher && !otherData.user_voucher.price_hidden ? ` (€${data.price_filter}/voucher)` : '' }` 
                   : `€${otherData.value}`}` 
-                }}
+              }}
             </span>
             <!-- <span v-if="otherData">
               {{ `${(data.type == 'quantity') ? `${otherData.qty_val}x` : ``}` }}
