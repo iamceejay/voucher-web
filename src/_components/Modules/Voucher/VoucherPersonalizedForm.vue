@@ -65,6 +65,14 @@
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
+              v-model="form.price_hidden"
+            />
+            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">
+              Show Price / Hide Price
+            </span>
+          </div>
+          <div class="mx-2 mb-5 w-full flex flex-row">
+            <toggle-button 
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
             />
@@ -160,6 +168,7 @@
         form: {
           order_id: null,
           templates: [],
+          price_hidden: true,
           text_color: true,
           is_custom_remove: false,
           note: '',
@@ -240,7 +249,8 @@
               ],
               text_color: (text_color != null) ? text_color : this.data.voucher.text_color,
               note,
-              custom_image: this.otherData.user_voucher.custom_image
+              custom_image: this.otherData.user_voucher.custom_image,
+              price_hidden: this.otherData.user_voucher.price_hidden
             }
             if( this.otherData.user_voucher.template ) {
               const template = this.otherData.user_voucher.template
