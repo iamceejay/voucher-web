@@ -85,7 +85,7 @@
             name: 'company.name',
             title: 'Company Name',
           }, {
-            name: 'commission',
+            name: 'payout',
             title: 'Payout(€)',
             dataClass: 'text-right'
           }, {

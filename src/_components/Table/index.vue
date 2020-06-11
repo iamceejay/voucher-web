@@ -16,6 +16,9 @@
       <template #sequence_="props">
         {{ props.rowIndex + 1 }}
       </template>
+      <template #created_date_="props">
+        {{ formatDate(props.rowData.created_at) }}
+      </template>
       <template #icon_="props">
         <div class="flex">
           <span>
@@ -70,6 +73,7 @@
   import Vuetable from 'vuetable-2/src/components/Vuetable';
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
   import Pagination from './Pagination/';
+  import { formatDate } from '_helpers/CustomFunction'
 
   export default {
     components: {
@@ -103,6 +107,10 @@
     mounted() {
     },
     methods: {
+      formatDate(date)
+      {
+        return formatDate(date)
+      },
       onSetPhoto(value)
       {
         if( value != '' ) {

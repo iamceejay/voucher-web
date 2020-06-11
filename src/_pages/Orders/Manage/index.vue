@@ -60,8 +60,8 @@
         },
         fields: [
           {
-            name: 'voucher.title',
-            title: 'Voucher',
+            name: 'created_date_',
+            title: 'Order Date',
             dataClass: 'text-center',
           }, {
             name: 'qr.url',
