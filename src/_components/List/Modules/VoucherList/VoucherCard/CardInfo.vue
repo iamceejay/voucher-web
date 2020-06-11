@@ -11,7 +11,8 @@
           {{ data.title || 'Voucher Name' }}
         </div>
         <div class="text-xs font-bold font-body">
-          {{ data.seller && data.seller.company.name || 'Company Name' }}
+          <!-- {{ data.seller && data.seller.company.name || 'Company Name' }} -->
+          {{ data.seller && data.seller.username || 'N/A' }}
         </div>
       </div>
       <div class="self-center ml-auto">
