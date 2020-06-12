@@ -81,6 +81,9 @@
       }, placeholder: {
         type: String,
         default: ''
+      }, note: {
+        type: String,
+        default: ''
       }, errorMessages: {
         type: Array,
         default() {

@@ -71,7 +71,7 @@
     />
     <div v-if="GLOBAL_SETTING" class="mt-2 mb-4 text-sm text-center">
       {{
-        `Your commision is ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% and ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_euro : '5' }€ per sale`
+        `Your commision is ${ settings ? settings.sales_commission_percentage : '5' }% and ${ settings ? settings.sales_commission_euro : '5' }€ per sale`
       }}
     </div>
   </div>
@@ -113,7 +113,8 @@
           logo: '',
           region: '',
           vat_number: ''
-        }
+        },
+        settings: null
       }
     },
     computed: {
@@ -125,17 +126,37 @@
       {
         return this.$store.getters.GLOBAL_SETTING
       },
+      USER_SETTING()
+      {
+        return this.$store.getters.USER_SETTING
+      },
     },
     watch: {
       data(newVal)
       {
         this.onSetForm()
-      }
+      },
+      GLOBAL_SETTING()
+      {
+        this.onSetSettings()
+      },
+      USER_SETTING()
+      {
+        this.onSetSettings()
+      },
     },
     mounted() {
       this.onSetForm()
+      this.onSetSettings()
     },
     methods: {
+      onSetSettings()
+      {
+        this.settings = this.GLOBAL_SETTING
+        if( this.USER_SETTING ) {
+          this.settings = this.USER_SETTING
+        }
+      },
       onChange()
       {
         this.$emit('onChange', this.form)

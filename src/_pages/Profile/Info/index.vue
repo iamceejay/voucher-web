@@ -109,9 +109,12 @@
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.$store.commit('SET_GLOBAL_SETTING', null)
-        await this.onFetchGlobalSetting()
         await this.onFetchUser()
+        if( this.AUTH_USER.role.name == 'seller' ) {
+          await this.$store.commit('SET_GLOBAL_SETTING', null)
+          await this.onFetchGlobalSetting()
+          await this.onFetchUserSetting()
+        }
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -198,6 +201,16 @@
       {
         try {
           const { data } = await this.$store.dispatch('FETCH_GLOBAL_SETTING', 1)
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchUserSetting()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_USER_SETTING_BY_USER', {
+            user_id: this.AUTH_USER.data.id
+          })
         } catch (err) {
           console.log('err', err)
         }
