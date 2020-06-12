@@ -109,6 +109,11 @@
       }
     },
     watch: {
+      async data(newVal)
+      {
+        this.totalPrice = 0
+        await this.onGetTotalPrice()
+      }
     },
     mounted() {
       this.onGetTotalPrice()

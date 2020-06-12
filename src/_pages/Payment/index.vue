@@ -78,6 +78,11 @@
       },
     },
     watch: {
+      async WALLETS(newVal)
+      {
+        this.totalPrice = 0
+        await this.onGetTotalPrice()
+      }
     },
     mounted() {
       (async() => {
