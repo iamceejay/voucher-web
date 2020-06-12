@@ -23,8 +23,9 @@
         {{ otherData.qr.url }}
       </div>
     </div>
-    <div class="flex flex-row w-full mt-16">
+    <div class="flex flex-row w-full mt-16 h-12">
       <a
+        v-if="!otherData.sent_via" 
         class="p-2 text-lg text-primary" 
         href="javascript:void(0)"
         @click="onGenerateVoucher(otherData.id)"
@@ -32,18 +33,21 @@
         <i class="fas fa-download" />
       </a>
       <router-link 
+        v-if="!otherData.sent_via" 
         class="p-2 text-lg text-primary" 
         :to="`/vouchers/send-email/${otherData.id}`"
       >
         <i class="fas fa-envelope" />
       </router-link>
       <router-link 
+        v-if="!otherData.sent_via" 
         class="p-2 text-lg text-primary" 
         :to="`/vouchers/transfer/${otherData.id}`"
       >
         <i class="fas fa-user-circle" />
       </router-link>
       <router-link 
+        v-if="!otherData.sent_via" 
         class="p-2 text-lg text-primary ml-auto" 
         :to="`/vouchers/personalized/${ otherData.id}`"
       >

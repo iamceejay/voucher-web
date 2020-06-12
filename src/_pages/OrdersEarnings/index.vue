@@ -97,18 +97,34 @@
       })()
     },
     methods: {
-      onSetEarnings({ voucher_total, total_earnings })
+      onSetEarnings({ voucher_total, total_earnings, total_earnings_with_commission, waiting_for_payout, days_until_next_payout })
       {
         this.earnings = [
           {
             type: 'Vouchers',
             title: 'sold total',
             value: voucher_total
-          },{
+          }, {
             type: 'Earnings',
             title: 'total',
-            value: `€${total_earnings}`
-          }
+            value: `€${total_earnings}`,
+            extra: {
+              title: 'Commision:',
+              value: `€${total_earnings_with_commission}`
+            }
+          }, {
+            type: 'Payout',
+            title: 'Waiting',
+            value: `€${waiting_for_payout}`
+          }, {
+            type: 'Days',
+            title: 'next payout',
+            value: days_until_next_payout,
+            extra: {
+              title: 'Payout:',
+              value: 'every 14 days'
+            }
+          }, 
         ]
       },
       async onLoadData( data )

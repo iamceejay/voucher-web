@@ -66,6 +66,7 @@
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
               v-model="form.price_hidden"
+              @input="onChangeForm"
             />
             <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">
               Show Price / Hide Price

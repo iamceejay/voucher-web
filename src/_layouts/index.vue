@@ -19,16 +19,19 @@
         <slot name="content" />
       </div>
     </div>
+    <CookieLaw theme="dark-lime" />
   </div>
 </template>
 <script>
   import Sidebar from '_components/Menus/Sidebar'
   import HeaderNavMenu from '_components/Menus/HeaderNavMenu'
+  import CookieLaw from 'vue-cookie-law'
 
   export default {
     components: {
       Sidebar,
-      HeaderNavMenu
+      HeaderNavMenu,
+      CookieLaw,
     },
     props: [],
     data() {

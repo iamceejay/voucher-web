@@ -15,6 +15,7 @@
         >
           {{ note }}
         </span>
+        <slot name="note_" />
         <input
           :id="id"
           ref="inputField"

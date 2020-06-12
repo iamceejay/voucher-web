@@ -27,10 +27,23 @@
             type="text"
             class="w-full m-auto mt-4"
             label="Icon"
-            note="(Note: Please refer on https://fontawesome.com/icons)"
-            placeholder="Ex. fa-building"
+            placeholder="Ex. fas fa-building"
             rules="required"
-          />
+          >
+            <template #note_>
+              <div class="text-xs font-semibold">
+                <p>
+                  (Note: Please refer on https://fontawesome.com/icons)
+                </p>
+                <p>
+                  Please copy the text inside the quote (fas fas fa-book) and only the free icons will work.
+                </p>
+                <p>
+                  Ex. in Fontawesome page: {{ example }}
+                </p>
+              </div>
+            </template>
+          </InputField>
           <Button
             class="justify-center"
             :label="`${form.id ? 'Update' : 'Save'}`"
@@ -68,6 +81,7 @@
     },
     data() {
       return {
+        example: '<i class="fas fas fa-book"></i>',
         value: '',
         form: {
           id: null,

@@ -1,6 +1,6 @@
 <template>
   <div 
-    :class="`w-full flex flex-col px-4 py-3 ${ (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : '' }`"
+    :class="`w-full flex flex-col px-4 py-3 cursor-pointer`"
     @click="onClickHeader()"
   >
     <div 
@@ -187,9 +187,9 @@
       {
         if( this.role === 'user' || !this.role ) {
           if( this.withQR ) {
-            if( (!this.otherData || (this.otherData && !this.otherData.sent_via)) ) {
-              this.$emit('onFlip')
-            }
+            // if( (!this.otherData || (this.otherData && !this.otherData.sent_via)) ) {
+            this.$emit('onFlip')
+            // }
           } else {
             this.$router.push(`/vouchers/${this.data.id}`)
           }

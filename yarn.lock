@@ -2461,7 +2461,7 @@ core-js-compat@^3.6.2, core-js-compat@^3.6.4:
     browserslist "^4.8.5"
     semver "7.0.0"
 
-core-js@^2.4.0:
+core-js@^2.4.0, core-js@^2.6.5:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
@@ -7820,6 +7820,11 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
+tiny-cookie@^2.1.1:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/tiny-cookie/-/tiny-cookie-2.3.2.tgz#3b5fb4e0888cfa0b4728d5f6b7be3d3a88e6a5f0"
+  integrity sha512-qbymkVh+6+Gc/c9sqnvbG+dOHH6bschjphK3SHgIfT6h/t+63GBL37JXNoXEc6u/+BcwU6XmaWUuf19ouLVtPg==
+
 tinycolor2@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
@@ -8181,6 +8186,14 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vfa-picker@^5.9.1:
+  version "5.9.1"
+  resolved "https://registry.yarnpkg.com/vfa-picker/-/vfa-picker-5.9.1.tgz#86ec49057ec76579c3e307ecc66a0696f184b564"
+  integrity sha512-HytUGQWlEEWTbPm+s7AVXql6WI0+YNu9JsIFYsxdwjw/n5+IWRjKybGpEieknbAUkZoFZWKtke7zykIO2yjixA==
+  dependencies:
+    core-js "^2.6.5"
+    vue "^2.6.10"
+
 vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
@@ -8195,6 +8208,13 @@ vue-color@^2.7.1:
     lodash.throttle "^4.0.0"
     material-colors "^1.0.0"
     tinycolor2 "^1.1.2"
+
+vue-cookie-law@^1.13.3:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/vue-cookie-law/-/vue-cookie-law-1.13.3.tgz#c4fc5d9dd66772d4043c4f140790a0e502caabbc"
+  integrity sha512-n5ef5/dAB4cyUz6OaolYZEeyfV/fcsVU/RCTT/aHXcyjNbXf7EU2TgaOlMwu+cTOjdn5tBJKyKP6lr6IOUf9bg==
+  dependencies:
+    tiny-cookie "^2.1.1"
 
 vue-eslint-parser@^7.0.0:
   version "7.0.0"
@@ -8292,7 +8312,7 @@ vue2-datepicker@^3.5.0:
     date-fns "^2.0.1"
     date-format-parse "^0.2.5"
 
-vue@^2.6.11:
+vue@^2.6.10, vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==

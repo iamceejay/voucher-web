@@ -17,8 +17,16 @@
           <div class="text-sm font-body font-bold text-gray-900 uppercase">
             {{ row.type }}
           </div>
-          <div class="text-xs mb-3 font-body font-semibold text-gray-700 lowercase">
+          <div class="text-xs mb-1 font-body font-semibold text-gray-700 lowercase">
             {{ row.title }} 
+          </div>
+          <div class="mb-3 font-body font-semibold text-gray-700 h-6">
+            <div v-if="row.extra" class="text-xs">
+              {{ row.extra.title || '' }}
+            </div>
+            <div v-if="row.extra" class="text-2xs">
+              {{ row.extra.value || '' }}
+            </div>
           </div>
         </div>
       </div>

@@ -21,10 +21,10 @@
       </template>
       <template #icon_="props">
         <div class="flex">
-          <span>
+          <!-- <span>
             {{ props.rowData.icon }} 
-          </span>
-          <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" />
+          </span> -->
+          <i :class="`mx-2 ${props.rowData.icon}`" />
         </div>
       </template>
       <template #voucher_feature_="props">

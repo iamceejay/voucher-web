@@ -40,7 +40,7 @@
         await this.$store.commit('SET_WALLETS', [])
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWalletStat()
-        await this.onFetchCommissionStat()
+        // await this.onFetchCommissionStat()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
@@ -53,19 +53,20 @@
             status: 'completed'
           })
           await this.onSetStats(data)
-        } catch (err) {
-          console.log('err', err)
-        }
-      },
-      async onFetchCommissionStat()
-      {
-        try {
-          const data = await this.$store.dispatch('FETCH_COMMISSION_STAT')
           await this.onSetTotalStats(data)
         } catch (err) {
           console.log('err', err)
         }
       },
+      // async onFetchCommissionStat()
+      // {
+      //   try {
+      //     const data = await this.$store.dispatch('FETCH_COMMISSION_STAT')
+      //     await this.onSetTotalStats(data)
+      //   } catch (err) {
+      //     console.log('err', err)
+      //   }
+      // },
       onSetStats(data)
       {
         this.stats = [
@@ -102,15 +103,15 @@
           {
             type: 'Total Revenue',
             title: '',
-            value: `€${data.total_earnings}`
+            value: `€${data.total_revenue}`
           },{
             type: 'Monthly Revenue',
             title: '',
-            value: `€${data.earnings_monthly}`
+            value: `€${data.monthly_revenue}`
           },{
             type: 'Weekly Revenue',
             title: '',
-            value: `€${data.earnings_weekly}`
+            value: `€${data.weekly_revenue}`
           },
         ]
       }
