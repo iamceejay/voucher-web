@@ -5,10 +5,10 @@
         <Header1
           label="Send Voucher"
         />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }">
+        <ValidationObserver v-slot="{ handleSubmit }">
           <form 
             class="w-full flex flex-col"
-            @submit.prevent="handleSubmit(onSubmit(invalid))"
+            @submit.prevent="handleSubmit(onSubmit)"
           >
             <InputField
               id="email"
@@ -72,6 +72,7 @@
           email: '',
           subject: '',
           text: '',
+          sent_via: 'email',
         },
       }
     },
@@ -79,29 +80,27 @@
       this.emailForm.id = this.$route.params.id
     },
     methods: {
-      async onSubmit( isValid )
+      async onSubmit()
       {
-        if( !isValid ) {
-          try {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('SEND_WALLET', this.emailForm)
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Sending the voucher via email.',
-              confirmButtonColor: '#6C757D',
-            });
-            this.emailForm = {
-              id: null,
-              email: '',
-              subject: '',
-              text: '',
-            }
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$router.push('/wallet')
-          } catch (err) {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch('SEND_WALLET', this.emailForm)
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: 'Sending the voucher via email.',
+            confirmButtonColor: '#6C757D',
+          });
+          this.emailForm = {
+            id: null,
+            email: '',
+            subject: '',
+            text: '',
           }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$router.push('/wallet')
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       }
     }
