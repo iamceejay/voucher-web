@@ -4,7 +4,7 @@
       <div class="content-container flex flex-col w-full px-8">
         <ValidationObserver v-slot="{ handleSubmit }">
           <form 
-            class="flex flex-col w-1/2"
+            class="flex flex-col w-full md:w-1/2"
             @submit.prevent="handleSubmit(onSubmit)"
           >
             <Header2 label="Settings" />

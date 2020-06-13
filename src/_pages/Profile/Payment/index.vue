@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div class="content-container flex flex-col w-full px-8">
-        <div class="flex flex-col w-1/2">
+        <div class="flex flex-col w-full md:w-1/2">
           <Header2
             label="Payment Info"
           />
