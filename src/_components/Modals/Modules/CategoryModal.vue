@@ -36,7 +36,7 @@
                   (Note: Please refer on https://fontawesome.com/icons)
                 </p>
                 <p>
-                  Please copy the text inside the quote (fas fas fa-book) and only the free icons will work.
+                  Please copy the text inside the quote (fas fa-book) and only the free icons will work.
                 </p>
                 <p>
                   Ex. in Fontawesome page: {{ example }}
@@ -81,7 +81,7 @@
     },
     data() {
       return {
-        example: '<i class="fas fas fa-book"></i>',
+        example: '<i class="fas fa-book"></i>',
         value: '',
         form: {
           id: null,
