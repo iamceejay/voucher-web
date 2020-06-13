@@ -92,10 +92,13 @@
           <div class="w-full md:w-1/2 mb-5">
             <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
               {{ `${ form.custom_image ? 'Update' : 'Add another' } Picture` }}
+              <div class="text-xs font-semibold">
+                (Note: Based fit is 250px x 100px)
+              </div>
             </div>
             <div v-if="form.custom_image" class="flex flex-col px-2">
               <img 
-                style="width: 120px; height: 80px;"
+                style="width: 120px; height: 48px;"
                 :src="onSetCustomImage('set', form.custom_image)" 
                 alt=""
               />

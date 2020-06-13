@@ -42,7 +42,7 @@
         </div>
         <div v-if="otherData && otherData.user_voucher && otherData.user_voucher.custom_image" class="w-2/5 p-1">
           <img 
-            style="width: 120px; height: 80px;"
+            style="width: 120px; height: 48px;"
             :src="onSetCustomImage(otherData.user_voucher.custom_image)" 
             alt=""
           />
