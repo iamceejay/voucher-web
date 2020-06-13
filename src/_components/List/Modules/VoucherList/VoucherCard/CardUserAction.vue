@@ -8,7 +8,7 @@
       <QrcodeVue
         class="self-center m-2"
         :value="otherData.qr.url" 
-        :size="184" 
+        :size="196" 
         level="H" 
       />
       <!-- <img 
@@ -23,7 +23,7 @@
         {{ otherData.qr.url }}
       </div>
     </div>
-    <div class="flex flex-row w-full mt-16 h-12">
+    <div class="flex flex-row w-full mt-12 h-12">
       <a
         v-if="!otherData.sent_via" 
         class="p-2 text-lg text-primary" 
