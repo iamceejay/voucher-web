@@ -18,8 +18,8 @@
           class="text-xs font-semibold"
         >
           {{ note }}
-          <slot name="note_" />
         </span>
+        <slot name="note_" />
         <vSelect
           :id="id"
           ref="inputField"

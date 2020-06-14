@@ -277,7 +277,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Value"
-              rules="required"
+              rules="required|min_value:1"
             />
             <InputField
               id="min"
