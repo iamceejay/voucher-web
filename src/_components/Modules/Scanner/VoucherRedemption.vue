@@ -10,8 +10,8 @@
           v-model="form.value"
           type="number"
           class="w-full md:w-1/2 m-auto mt-4"
-          placeholder="Enter value of redemption."
-          rules="required"
+          :placeholder="`Enter the ${(QR_CODE.order.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`"
+          rules="required|min_value:1"
         />
         <Button
           class="py-1 justify-center"

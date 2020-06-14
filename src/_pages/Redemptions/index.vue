@@ -16,7 +16,7 @@
 <script>
   import Button from '_components/Button';
   import MainLayout from '_layouts';
-  import RedemptionList from '_components/List/Modules/OrderList/Redemption'
+  import RedemptionList from '_components/List/Modules/RedemptionList'
   import Header1 from '_components/Headers/Header1';
 
   export default {

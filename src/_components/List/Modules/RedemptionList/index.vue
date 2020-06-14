@@ -5,7 +5,7 @@
       :key="`stat-${index}`"
       class="w-full sm:w-1/2 md:w-1/4 order-container"
     >
-      <CardOrder 
+      <CardRedemption 
         :data="row.order"
         :otherData="row"
         :role="role"
@@ -18,11 +18,11 @@
   </div>
 </template>
 <script>
-  import CardOrder from './CardOrder'
+  import CardRedemption from './CardRedemption'
 
   export default {
     components: {
-      CardOrder
+      CardRedemption
     },
     props: {
       data: {
