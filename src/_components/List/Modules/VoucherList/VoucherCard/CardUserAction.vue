@@ -98,6 +98,7 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           this.isAction = ++this.isAction
           await this.$store.dispatch('DOWNLOAD_WALLET', order_id)
+          this.$emit('onFlip')
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

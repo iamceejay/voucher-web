@@ -95,7 +95,7 @@
           </div>
           <div class="text-center self-center h-4">
             <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
-              {{ otherData.sent_via == 'email' ? 'Sent by Email' : 'Transferred' }}
+              {{ onGetSentVia(otherData.sent_via) }}
             </div>
           </div>
         </div>
@@ -177,6 +177,22 @@
       formatDate(date)
       {
         return formatDate(date)
+      },
+      onGetSentVia(value)
+      {
+        switch (value) {
+          case 'voucher_download':
+            return 'Downloaded'
+            break;
+          case 'email':
+            return 'Sent via Email'
+            break;
+          case 'transferred':
+            return 'Transferred'
+            break;
+          default:
+            break;
+        }
       },
       onGetExpiryDate(data)
       {

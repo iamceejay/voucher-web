@@ -302,9 +302,7 @@
           menuIcon.remove(`fa-caret-${icon.r}`)
           menuIcon.add(`fa-caret-${icon.a}`)
           this.menus = this.menus.map( (m, i) => {
-            if(index === i) {
-              m.isChildShow = !m.isChildShow
-            }
+            m.isChildShow = (index === i) ? !m.isChildShow : false
             return m
           })
         }

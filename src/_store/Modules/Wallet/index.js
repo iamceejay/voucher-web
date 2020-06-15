@@ -151,6 +151,17 @@ export default {
         link.href = window.URL.createObjectURL(blob)
         link.download = `voucher-${date}.pdf`
         link.click()
+
+        const newList = state.wallets.data.map( row => {
+          if(row.id == payload) {
+            row.sent_via = 'voucher_download'
+          }
+          return row
+        })
+        await commit('SET_WALLETS', {
+          ...state.wallets,
+          data: newList
+        })
       } catch (err) {
         throw err
       }

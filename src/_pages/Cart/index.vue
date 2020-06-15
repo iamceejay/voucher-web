@@ -44,6 +44,10 @@
       {
         return this.$store.getters.IS_LOADING
       },
+      COUNT_CART()
+      {
+        return this.$store.getters.COUNT_CART
+      },
     },
     watch: {
     },
@@ -67,6 +71,7 @@
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         await this.$store.dispatch('DELETE_WALLET', data)
+        await this.$store.commit('SET_COUNT_CART', this.COUNT_CART - 1)
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         this.$swal({
           icon: 'success',

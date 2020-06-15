@@ -86,15 +86,19 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.$store.commit('SET_WALLETS', [])
-        await this.onFetchWallets()
-        await this.onFetchUser()
-        if( this.USER?.stripe?.is_save ) {
-          this.is_save =  true
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.$store.commit('SET_WALLETS', [])
+          await this.onFetchWallets()
+          await this.onFetchUser()
+          if( this.USER?.stripe?.is_save ) {
+            this.is_save =  true
+          }
+          await this.onGetTotalPrice()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (error) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
-        await this.onGetTotalPrice()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {
@@ -125,6 +129,7 @@
               confirmButtonColor: '#6C757D',
               confirmButtonText: 'Confirm',
             }).then(async (result) => {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               if(result.value){
                 await this.$store.commit('SET_COUNT_CART', 0)
                 this.$router.push('/wallet')
