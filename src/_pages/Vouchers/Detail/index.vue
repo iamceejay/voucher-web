@@ -85,6 +85,7 @@
           user_id: null,
           value: 0,
           qty: null,
+          total_amount: 0,
         },
         symbol: '',
         isAdded: false,
@@ -108,11 +109,6 @@
         return this.$store.getters.IS_LOADING
       }
     },
-    watch: {
-      CARTS(newVal)
-      {
-      }
-    },
     mounted() {
       (async() => {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' })
@@ -123,6 +119,8 @@
     methods: {
       async onSubmit()
       {
+        this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
+        console.log('this.form.total_amount', this.form.total_amount)
         this.$swal({
           title: 'Add to cart',
           text: `Are you sure you want to add this to the cart?`,
@@ -134,6 +132,7 @@
         }).then( async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
             this.form.user_id = this.AUTH_USER.data.id
             this.form.voucher_id = this.VOUCHER.id
             if( this.VOUCHER.type == 'quantity' ) {
@@ -150,6 +149,7 @@
               value: null,
               qty: null,
               value: null,
+              total_amount: 0,
             }
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
