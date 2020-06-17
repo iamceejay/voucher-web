@@ -9,6 +9,7 @@
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       @input="onChange"
+      :disabled="form.id ? true : false"
     />
     <div class="flex flex-row">
       <InputField
