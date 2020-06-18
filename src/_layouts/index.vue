@@ -19,7 +19,34 @@
         <slot name="content" />
       </div>
     </div>
-    <CookieLaw theme="dark-lime" />
+    <CookieLaw
+      class="cookie-container"
+      buttonClass="cookie-btn"
+    >
+      <template #default="props">
+        <div class="flex flex-col">
+          <p class="text-xs">
+            This website uses cookies to ensure you get the best experience on our website.
+          </p>
+          <p class="text-xs">
+            <a
+              class="text-peach font-bold"
+              href="https://verkaufen.epasnets.com/datenschutz"
+              target="_blank"
+            >
+              Click Here
+            </a>
+            to view more about the Data Privacy.
+          </p>
+        </div>
+        <button 
+          class="cookie-btn" 
+          @click="props.accept"
+        >
+          I accept
+        </button>
+      </template>
+    </CookieLaw>
   </div>
 </template>
 <script>
