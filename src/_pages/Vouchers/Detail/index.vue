@@ -32,20 +32,31 @@
             @submit.prevent="handleSubmit(onSubmit)"
           >
             <InputField
-              id="name"
+              id="value"
               v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (€${VOUCHER.price_filter}/voucher)` : 'value' }`"
+              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (${$helpers.convertCurrency(VOUCHER.price_filter)}/voucher)` : 'value' }`"
               placeholder="Enter here"
-              :rules="`required|numeric|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
-              :note="`Value from ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min } to ${symbol}${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
+              :rules="`required|decimal|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
+              :note="`Value from 
+              ${ 
+                (VOUCHER.type == 'quantity') 
+                  ? `x${VOUCHER.qty_min}` 
+                  : $helpers.convertCurrency(VOUCHER.val_min) 
+              }
+              to
+              ${ 
+                (VOUCHER.type == 'quantity') 
+                  ? `x${VOUCHER.qty_max}` 
+                  : $helpers.convertCurrency(VOUCHER.val_max) 
+              }`"
               :disabled="isAdded ? true : false"
             />
-            <div class="flex flex-col mt-3 self-center">
+            <div class="flex flex-col mt-3 self-center text-center">
               <span class="text-2xl">Price</span>
               <span class="text-2xl font-bold">
-                €{{ form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val ) }}
+                {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
               </span>
             </div>
             <Button
@@ -83,7 +94,7 @@
           id: null,
           voucher_id: null,
           user_id: null,
-          value: 0,
+          value: null,
           qty: null,
           total_amount: 0,
         },
@@ -152,12 +163,17 @@
               total_amount: 0,
             }
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
+            let confirm = this.$swal({
               icon: 'success',
               title: 'Successful!',
               text: 'Adding the voucher to the card.',
-              confirmButtonColor: '#6C757D',
+              allowOutsideClick: false,
+              showConfirmButton: false
             })
+            setTimeout(() => {
+              confirm.close()
+              this.$router.push('/home')
+            }, 1000)
           }   
         })
       },

@@ -274,7 +274,7 @@
               link: '/login',
             }, {
               title: 'Register',
-              link: '/register',
+              link: '/register/buyer',
               borderB: true,
             }, 
           ]

@@ -77,7 +77,7 @@
           },{
             type: 'Commision',
             title: 'earnings total',
-            value: `€${data.total_earnings}`
+            value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },{
             type: 'Vouchers',
             title: 'sold / month',
@@ -85,7 +85,7 @@
           },{
             type: 'Commision',
             title: 'earnings / month',
-            value: `€${data.monthly_earnings}`
+            value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
           },{
             type: 'Vouchers',
             title: 'sold / week',
@@ -93,7 +93,7 @@
           },{
             type: 'Commision',
             title: 'earnings / week',
-            value: `€${data.weekly_earnings}`
+            value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           },
         ]
       },
@@ -103,15 +103,15 @@
           {
             type: 'Total Revenue',
             title: '',
-            value: `€${data.total_revenue}`
+            value: `${this.$helpers.convertCurrency(data.total_revenue)}`
           },{
             type: 'Monthly Revenue',
             title: '',
-            value: `€${data.monthly_revenue}`
+            value: `${this.$helpers.convertCurrency(data.monthly_revenue)}`
           },{
             type: 'Weekly Revenue',
             title: '',
-            value: `€${data.weekly_revenue}`
+            value: `${this.$helpers.convertCurrency(data.weekly_revenue)}`
           },
         ]
       }

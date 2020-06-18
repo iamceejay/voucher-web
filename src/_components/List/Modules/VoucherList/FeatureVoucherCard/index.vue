@@ -15,7 +15,7 @@
       {{ data.name }}
     </div>
     <div class="text-sm font-body font-bold uppercase">
-      €{{ data.value }}
+      {{ $helpers.convertCurrency(data.value) }}
     </div>
   </div>
 </template>

@@ -24,10 +24,14 @@
             </div>
           </div>
           <p class="text-sm font-bold ml-2">
-            {{ `${USER.detail.firstName} ${USER.detail.lastName}` }}
+            {{ USER.username }}
+            <!-- {{ `${USER.detail.firstName} ${USER.detail.lastName}` }} -->
           </p>
-          <p class="text-xs font-semibold ml-2">
-            {{ USER.detail.address }}
+          <p class="text-xs font-semibold ml-2 md:w-4/5 lg:w-1/2">
+            {{ 
+              `${ USER.detail.address }
+              ${ (USER.detail.city) ? `, ${USER.detail.city}` : '' }${ (USER.detail.zip_code) ? `, ${USER.detail.zip_code}` : '' }` 
+            }}
           </p>
           <p class="text-xs font-semibold ml-2">
             {{ USER.company.region || '' }}

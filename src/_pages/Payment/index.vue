@@ -11,7 +11,7 @@
               Price
             </span>
             <span class="text-lg font-bold text-center">
-              €{{ totalPrice }}
+              {{ $helpers.convertCurrency(totalPrice) }}
             </span>
           </div>
           <div v-if="is_save" class="flex flex-col">

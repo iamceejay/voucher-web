@@ -1,7 +1,7 @@
 <template>
   <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
     <Header1
-      :label="`Hi ${AUTH_USER.isAuth ? AUTH_USER.data.company.name : 'Company'}!`"
+      :label="`Hi ${AUTH_USER.isAuth ? AUTH_USER.data.username : 'User'}!`"
     />
     <router-link to="/scanner">
       <Button
@@ -81,7 +81,7 @@
           },{
             type: 'Earnings',
             title: 'this day',
-            value: `€${data.daily_earnings}`
+            value: `${this.$helpers.convertCurrency(data.daily_earnings)}`
           },{
             type: 'Voucher',
             title: 'sold this week',
@@ -89,7 +89,7 @@
           },{
             type: 'Earnings',
             title: 'this week',
-            value: `€${data.weekly_earnings}`
+            value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           },{
             type: 'Voucher',
             title: 'sold this month',
@@ -97,7 +97,7 @@
           },{
             type: 'Earnings',
             title: 'this month',
-            value: `€${data.monthly_earnings}`
+            value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
           },{
             type: 'Voucher',
             title: 'sold total',
@@ -105,7 +105,7 @@
           },{
             type: 'Earnings',
             title: 'total',
-            value: `€${data.total_earnings}`
+            value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },
         ]
       }

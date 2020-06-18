@@ -4,6 +4,7 @@ import router from '_router'
 import store from '_store'
 import '_assets/css/tailwind.css'
 import '_assets/css/styles.css'
+import helpers from '_helpers/Functions'
 
 import Vuex from 'vuex'
 import VueFileAgent from 'vue-file-agent'
@@ -13,6 +14,14 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import '_helpers/VeeValidate'
 
+const plugin = {
+  install () {
+    Vue.helpers = helpers
+    Vue.prototype.$helpers = helpers
+  }
+}
+
+Vue.use(plugin)
 Vue.use(VueFileAgent)
 Vue.use(VueSweetalert2)
 Vue.use(Vuex)

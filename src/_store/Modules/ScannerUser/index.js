@@ -44,7 +44,12 @@ export default {
     {
       try {
         const { data } = await del(`${prefix}/${payload.id}`, {})
-        const newList = state.scannerUsers.filter( row => row.id != payload.id);
+        const newList = state.scannerUsers.filter( row => {
+          if(row.id == payload.id) {
+            row.status = !row.status
+          }
+          return row
+        });
         await commit('SET_SCANNER_USERS', newList)
       } catch (err) {
         throw err

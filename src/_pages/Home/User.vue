@@ -23,12 +23,12 @@
       :data="CATEGORIES"
     />
     <VoucherList
-      :withFilter="true"
+      :withSort="true"
       class="mb-3"
       title="Vouchers"
       :data="VOUCHERS.data"
       :withQR="false"
-      @onFilter="onSearchData($event, 'filter')"
+      @onSort="onSearchData($event, 'sort')"
     />
   </div>
 </template>

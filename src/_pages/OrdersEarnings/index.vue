@@ -97,7 +97,7 @@
       })()
     },
     methods: {
-      onSetEarnings({ voucher_total, total_earnings, total_earnings_with_commission, waiting_for_payout, days_until_next_payout })
+      onSetEarnings({ voucher_total, total_earnings, total_earnings_with_commission, waiting_for_payout, days_until_next_payout, payout_every })
       {
         this.earnings = [
           {
@@ -107,22 +107,22 @@
           }, {
             type: 'Earnings',
             title: 'total',
-            value: `€${total_earnings}`,
+            value: `${this.$helpers.convertCurrency(total_earnings)}`,
             extra: {
               title: 'Commision:',
-              value: `€${total_earnings_with_commission}`
+              value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`
             }
           }, {
             type: 'Payout',
             title: 'Waiting',
-            value: `€${waiting_for_payout}`
+            value: `${this.$helpers.convertCurrency(waiting_for_payout)}`
           }, {
             type: 'Days',
             title: 'next payout',
             value: days_until_next_payout,
             extra: {
               title: 'Payout:',
-              value: 'every 14 days'
+              value: `every ${payout_every} days`
             }
           }, 
         ]

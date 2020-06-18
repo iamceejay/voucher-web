@@ -27,8 +27,7 @@
         </div>
       </div>
       <div class="ml-auto text-xl font-bold font-display">
-        {{ `€${data.total_amount}` }}
-        <!-- {{ (data.voucher.type == 'quantity') ? `x${ data.qty }` : `€${data.value}` }} -->
+        {{ `${$helpers.convertCurrency(data.total_amount)}` }}
       </div>
     </div>
     <Button

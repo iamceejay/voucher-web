@@ -11,7 +11,7 @@
       <div class="w-1/5">
         <Button
           class="py-2"
-          label="Delete"
+          :label="`${row.status ? 'Deactivate' : 'Activate'}`"
           size="w-full py-1"
           round="rounded-full"
           fontSize="text-xs"
@@ -49,8 +49,8 @@
       async onDelete(data)
       {
         this.$swal({
-          title: 'Delete User Scanner',
-          text: `Are you sure you want to delete this user?`,
+          title: `${data.status ? 'Deactivate' : 'Activate'} user scanner`,
+          text: `Are you sure you want to ${data.status ? 'deactivate' : 'activate'} this user?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -58,14 +58,15 @@
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
           if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
             await this.$store.dispatch('DELETE_SCANNER_USER', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
               title: 'Successful!',
-              text: 'Deleting the user.',
+              text: `${data.status ? 'Deactivating' : 'Activating'} the user.`,
               confirmButtonColor: '#6C757D',
             });
-            this.$emit('onSetVoucher', '')
           }   
         })
       }

@@ -26,12 +26,12 @@
               }}
             </span>
             <span class="text-sm font-semibold ml-2">
-              {{ `${onGetSymbol(row.voucher.type)} ${ (row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value}` }}
+              {{ `${ $helpers.convertCurrency((row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value)}` }}
             </span>
           </div>
           <div v-if="isCart" class="flex flex-row justify-center">
             <span class="text-sm font-semibold ml-2">
-              {{ `= €${onGetTotal(row)}` }}
+              {{ `= ${$helpers.convertCurrency(onGetTotal(row))}` }}
             </span>
             <a 
               href="javascript:void(0)"
@@ -47,12 +47,12 @@
         No data found.
       </div>
     </div>
-    <div v-if="isCart && data.length > 0" class="flex flex-col mt-5 w-full sm:w-1/2 md:w-1/4 self-center">
-      <span class="text-lg font-bold text-center">
+    <div v-if="isCart && data.length > 0" class="flex flex-col mt-5 w-full sm:w-1/2 md:w-1/4 self-center text-center">
+      <span class="text-lg font-bold">
         Price
       </span>
-      <span class="text-lg font-bold text-center">
-        €{{ totalPrice }}
+      <span class="text-lg font-bold">
+        {{ $helpers.convertCurrency(totalPrice) }}
       </span>
       <Button
         type="submit"
@@ -155,10 +155,6 @@
         
         return total
       },
-      onGetSymbol(type)
-      {
-        return type == 'quantity' ? '€' : '€'
-      }
     }
   }
 </script>

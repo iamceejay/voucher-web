@@ -27,7 +27,12 @@
         </div>
       </div>
       <div class="ml-auto text-xl font-bold font-display">
-        {{ `${(data.voucher.type == 'quantity') ? 'x' : '€'}${ Math.floor(parseFloat(otherData.value)) }` }}
+        {{ 
+          `${(data.voucher.type == 'quantity') 
+            ? `x${Math.floor(parseFloat(otherData.value))}` 
+            : `${$helpers.convertCurrency(otherData.value)}`
+          }`
+        }}
       </div>
     </div>
     <Button

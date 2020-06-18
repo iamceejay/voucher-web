@@ -71,7 +71,7 @@
     />
     <div v-if="GLOBAL_SETTING" class="mt-2 mb-4 text-sm text-center">
       {{
-        `Your commision is ${ settings ? settings.sales_commission_percentage : '5' }% and ${ settings ? settings.sales_commission_euro : '5' }€ per sale`
+        `Your commision is ${ settings ? settings.sales_commission_percentage : '5' }% and ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } per sale`
       }}
     </div>
   </div>

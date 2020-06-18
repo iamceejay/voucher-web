@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col self-center w-full">
-    <ValidationObserver v-slot="{ handleSubmit, invalid }">
+    <ValidationObserver v-slot="{ handleSubmit }">
       <form 
         class="w-full flex flex-col"
-        @submit.prevent="handleSubmit(onSubmit(invalid))"
+        @submit.prevent="handleSubmit(onSubmit)"
       >
         <InputField
           id="value"
@@ -56,45 +56,43 @@
     },
     mounted() {},
     methods: {
-      async onSubmit(invalid) {
-        if( !invalid ) {
-          this.$swal({
-            title: 'Confirm the redemption of the voucher.',
-            text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? 'Value: €' : 'Quantity: x' }${this.form.value}`,
-            showCancelButton: true,
-            confirmButtonColor: '#6C757D',
-            cancelButtonColor: '#AF0000',
-            confirmButtonText: 'Confirm',
-            cancelButtonText: 'Cancel',
-          }).then( async (result) => {
-            if(result.value){
-              try {
-                await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-                await this.$store.dispatch('ADD_REDEMPTION', {
-                  order_id: this.QR_CODE.order_id,
-                  value: this.form.value,
-                })
-                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      async onSubmit() {
+        this.$swal({
+          title: 'Confirm the redemption of the voucher.',
+          text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
+          showCancelButton: true,
+          confirmButtonColor: '#6C757D',
+          cancelButtonColor: '#AF0000',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+        }).then( async (result) => {
+          if(result.value){
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('ADD_REDEMPTION', {
+                order_id: this.QR_CODE.order_id,
+                value: this.form.value,
+              })
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'The voucher was redeemed!',
+                confirmButtonColor: '#6C757D',
+              });
+              await this.$store.commit('SET_QR_CODE', null)
+            } catch (err) {
+              if( err?.response?.status == 422 ) {
                 this.$swal({
-                  icon: 'success',
-                  title: 'The voucher was redeemed!',
+                  icon: 'warning',
+                  title: 'Warning!',
+                  text: err.response.data.message,
                   confirmButtonColor: '#6C757D',
-                });
-                await this.$store.commit('SET_QR_CODE', null)
-              } catch (err) {
-                if( err?.response?.status == 422 ) {
-                  this.$swal({
-                    icon: 'warning',
-                    title: 'Warning!',
-                    text: err.response.data.message,
-                    confirmButtonColor: '#6C757D',
-                  })
-                }
-                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                })
               }
-            }   
-          })
-        }
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            }
+          }   
+        })
       }
     }
   }

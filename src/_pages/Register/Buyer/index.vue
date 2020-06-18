@@ -26,46 +26,59 @@
               :errorMessages="errorMessages"
               @onChange="onChange"
             />
+            <CheckboxField
+              id="dataPrivacy"
+              v-model="form.dataPrivacy"
+              container="mx-2 mb-0"
+              :rules="{ required: { allowFalse: false } }"
+            >
+              <template #labelSentence_>
+                <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+                  I accept the 
+                  <a 
+                    class="text-blue-700" 
+                    href="https://verkaufen.epasnets.com/datenschutz" 
+                    target="_blank"
+                  >
+                    Data Privacy guidelines.
+                  </a>
+                </label>
+              </template>
+            </CheckboxField>
+            <CheckboxField
+              id="terms"
+              v-model="form.terms"
+              type="text"
+              container="mx-2 mb-2"
+              :rules="{ required: { allowFalse: false } }"
+            >
+              <template #labelSentence_>
+                <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+                  I accept the 
+                  <a 
+                    class="text-blue-700" 
+                    href="https://verkaufen.epasnets.com/agb" 
+                    target="_blank"
+                  >
+                    Terms of Services.
+                  </a>
+                </label>
+              </template>
+            </CheckboxField>
+            <div class="mx-2 text-sm px-2">
+              <p>
+                You want to sell vouchers? 
+                <a
+                  class="text-peach font-bold"
+                  href="http://verkaufen.epasnets.com/"
+                  target="_blank"
+                >
+                  Register here
+                </a>
+                as a seller.
+              </p>
+            </div>
           </div>
-          <CheckboxField
-            id="dataPrivacy"
-            v-model="form.dataPrivacy"
-            container="mx-2 mb-0"
-            :rules="{ required: { allowFalse: false } }"
-          >
-            <template #labelSentence_>
-              <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
-                I accept the 
-                <a 
-                  class="text-blue-700" 
-                  href="https://verkaufen.epasnets.com/datenschutz" 
-                  target="_blank"
-                >
-                  Data Privacy guidelines.
-                </a>
-              </label>
-            </template>
-          </CheckboxField>
-          <CheckboxField
-            id="terms"
-            v-model="form.terms"
-            type="text"
-            container="mx-2 mb-5"
-            :rules="{ required: { allowFalse: false } }"
-          >
-            <template #labelSentence_>
-              <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
-                I accept the 
-                <a 
-                  class="text-blue-700" 
-                  href="https://verkaufen.epasnets.com/agb" 
-                  target="_blank"
-                >
-                  Terms of Services.
-                </a>
-              </label>
-            </template>
-          </CheckboxField>
           <Button
             type="submit"
             label="Complete Registration"

@@ -66,7 +66,7 @@
           // ,{
           //   type: 'Earnings',
           //   title: 'this day',
-          //   value: `€${data.daily_earnings}`
+          //   value: `${this.$helpers.convertCurrency(data.daily_earnings)}`
           // }
           {
             type: 'Vouchers',
@@ -76,7 +76,7 @@
           ,{
             type: 'Earnings',
             title: 'this week',
-            value: `€${data.weekly_earnings}`
+            value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           }
           // ,{
           //   type: 'Vouchers',
@@ -86,7 +86,7 @@
           // ,{
           //   type: 'Earnings',
           //   title: 'this month',
-          //   value: `€${data.montyly_earnings}`
+          //   value: `${this.$helpers.convertCurrency(data.montyly_earnings)}`
           // }
           ,{
             type: 'Vouchers',
@@ -95,7 +95,7 @@
           },{
             type: 'Earnings',
             title: 'total',
-            value: `€${data.total_earnings}`
+            value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },{
             type: 'Vouchers Redeemed',
             title: 'this day',

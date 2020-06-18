@@ -23,36 +23,37 @@
         {{ otherData.qr.url }}
       </div>
     </div>
-    <div class="flex flex-row w-full mt-12 h-12">
-      <a
-        v-if="!otherData.sent_via" 
-        class="p-2 text-lg text-primary" 
-        href="javascript:void(0)"
-        @click="onGenerateVoucher(otherData.id)"
+    <div class="flex flex-row w-full mt-4 h-12">
+      <div
+        v-if="!otherData.sent_via || (otherData.sent_via && ['email', 'voucher_download'].includes(otherData.sent_via))"
+        class="flex flex-row w-full"
       >
-        <i class="fas fa-download" />
-      </a>
-      <router-link 
-        v-if="!otherData.sent_via" 
-        class="p-2 text-lg text-primary" 
-        :to="`/vouchers/send-email/${otherData.id}`"
-      >
-        <i class="fas fa-envelope" />
-      </router-link>
-      <router-link 
-        v-if="!otherData.sent_via" 
-        class="p-2 text-lg text-primary" 
-        :to="`/vouchers/transfer/${otherData.id}`"
-      >
-        <i class="fas fa-user-circle" />
-      </router-link>
-      <router-link 
-        v-if="!otherData.sent_via" 
-        class="p-2 text-lg text-primary ml-auto" 
-        :to="`/vouchers/personalized/${ otherData.id}`"
-      >
-        <i class="fas fa-pen" />
-      </router-link>
+        <a
+          class="px-2 text-lg text-primary" 
+          href="javascript:void(0)"
+          @click="onGenerateVoucher(otherData.id)"
+        >
+          <i class="fas fa-download" />
+        </a>
+        <router-link 
+          class="px-2 text-lg text-primary" 
+          :to="`/vouchers/send-email/${otherData.id}`"
+        >
+          <i class="fas fa-envelope" />
+        </router-link>
+        <router-link 
+          class="px-2 text-lg text-primary" 
+          :to="`/vouchers/transfer/${otherData.id}`"
+        >
+          <i class="fas fa-user-circle" />
+        </router-link>
+        <router-link 
+          class="px-2 text-lg text-primary ml-auto" 
+          :to="`/vouchers/personalized/${ otherData.id}`"
+        >
+          <i class="fas fa-pen" />
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
