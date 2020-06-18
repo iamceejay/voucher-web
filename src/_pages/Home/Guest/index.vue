@@ -29,6 +29,7 @@
       @onFilter="onSearchData($event, 'filter')"
       @onSort="onSearchData($event, 'sort')"
     />
+    <GuestFooter />
   </div>
 </template>
 <script>
@@ -37,12 +38,14 @@
   import GuestHeader from './GuestHeader'
   import GuestContent from './GuestContent'
   import GuestSellerContent from './GuestSellerContent'
+  import GuestFooter from './GuestFooter'
 
   export default {
     components: {
       GuestHeader,
       GuestContent,
       GuestSellerContent,
+      GuestFooter,
       VoucherList,
       CategoryList,
     },
