@@ -66,7 +66,7 @@
               title: 'Successful!',
               text: `${data.status ? 'Deactivating' : 'Activating'} the user.`,
               confirmButtonColor: '#6C757D',
-            });
+            })
           }   
         })
       }

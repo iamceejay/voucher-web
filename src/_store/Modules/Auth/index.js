@@ -1,5 +1,7 @@
 import { post, get } from '_helpers/ApiService'
 
+const prefix = 'auth'
+
 export default {
   state: () => ({
     auth: {
@@ -28,7 +30,7 @@ export default {
     async LOGIN(context, payload) 
     {
       try {
-        const { data } = await post('auth/login', payload)
+        const { data } = await post(`${prefix}/login`, payload)
         return data
       } catch (err) {
         throw err
@@ -37,7 +39,25 @@ export default {
     async LOGOUT(context, payload) 
     {
       try {
-        const { data } = await post('auth/logout')
+        const { data } = await post(`${prefix}/logout`)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async FORGOT_PASSWORD(context, payload) 
+    {
+      try {
+        const { data } = await post(`${prefix}/forgot-password`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async RESET_PASSWORD(context, payload) 
+    {
+      try {
+        const { data } = await post(`${prefix}/reset-password`, payload)
         return data
       } catch (err) {
         throw err
@@ -46,7 +66,7 @@ export default {
     async CHANGE_ROLE( { commit, state }, payload )
     {
       try {
-        const { data } = await post('auth/change-role', payload)
+        const { data } = await post(`${prefix}/change-role`, payload)
         return data
       } catch (err) {
         throw err

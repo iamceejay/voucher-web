@@ -29,6 +29,10 @@
       }
     },
     computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
       VOUCHERS()
       {
         return this.$store.getters.VOUCHERS
@@ -36,15 +40,20 @@
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
-      }
+      },
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onSetVoucher()
-        await this.$store.commit('SET_CATEGORIES', [])
-        await this.onFetchCategories()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.onSetVoucher()
+          await this.$store.commit('SET_CATEGORIES', [])
+          await this.onFetchCategories()
+          await this.onFetchUserSetting()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
       })()
     },
     methods: {
@@ -52,6 +61,16 @@
       {
         try {
           await this.$store.dispatch('FETCH_CATEGORIES')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      async onFetchUserSetting()
+      {
+        try {
+          const data = await this.$store.dispatch('FETCH_USER_SETTING_BY_USER', {
+            user_id: this.AUTH_USER.data.id
+          })
         } catch (err) {
           console.log('err', err)
         }

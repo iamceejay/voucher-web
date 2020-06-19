@@ -3,7 +3,7 @@
     <div class="flex flex-row">
       <span class="font-semibold text-sm text-gray-900 font-display">{{ data.voucher.title }}</span>
       <span class="ml-auto text-xs text-gray-900 font-semibold font-body">
-        {{ `${ !isRedemption ? `OrderID #${ data.qr ? data.qr.url : ''}` : `RevokeID #${ otherData.redemption_no ? otherData.redemption_no : ''}` }` }}
+        {{ `${ !isRedemption ? `OrderID #${ data.order_no ? data.order_no : ''}` : `RevokeID #${ otherData.redemption_no ? otherData.redemption_no : ''}` }` }}
       </span>
     </div>
     <div class="flex flex-row">
@@ -20,7 +20,7 @@
           />
           <a 
             href="javascript:void(0)"
-            @click="onGenerateInvoice(data.customer_invoice_id)"
+            @click="onGenerateInvoice(data)"
           >
             <i class="fas fa-file-invoice text-black text-lg" />
           </a>
@@ -96,11 +96,11 @@
       {
         return formatDate(date)
       },
-      async onGenerateInvoice( id )
+      async onGenerateInvoice( data )
       {
         try {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          await this.$store.dispatch('DOWNLOAD_INVOICE', id)
+          await this.$store.dispatch('DOWNLOAD_INVOICE', data)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

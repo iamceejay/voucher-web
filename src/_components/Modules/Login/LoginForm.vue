@@ -7,7 +7,7 @@
       <div v-if="error" class="text-center mb-2">
         <span class="text-red-500 font-bold font-body">{{ error }}</span>
       </div>
-      <div>
+      <div class="flex flex-col w-full">
         <InputField
           id="email"
           v-model="loginForm.email"
@@ -24,6 +24,9 @@
           type="password"
           :errorMessages="errorMessages.password"
         />
+        <router-link to="/forgot-password" class="text-peach text-right text-sm mx-2 mb-2">
+          Forgot Account?
+        </router-link>
       </div>
       <div class="flex justify-between">
         <Button
@@ -39,8 +42,8 @@
 </template>
 <script>
   import { setToken } from '_helpers/ApiService'
-  import InputField from '_components/Form/InputField';
-  import Button from '_components/Button';
+  import InputField from '_components/Form/InputField'
+  import Button from '_components/Button'
 
   export default {
     name: 'LoginForm',
@@ -57,11 +60,11 @@
           email: '',
           password: ''
         }
-      };
+      }
     },
     computed: {
       AUTH_USER() {
-        return this.$store.getters.AUTH_USER;
+        return this.$store.getters.AUTH_USER
       }
     },
     mounted() {

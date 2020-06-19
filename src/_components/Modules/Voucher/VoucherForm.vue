@@ -277,7 +277,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Value"
-              rules="required|min_value:1"
+              :rules="`required|min_value:${USER_SETTING.minimum_voucher_value}`"
             />
             <InputField
               id="min"
@@ -286,7 +286,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Minimum Value / Quantity"
               placeholder="Min Value"
-              rules="required|min_value:0.001"
+              :rules="`required|min_value:${USER_SETTING.minimum_voucher_value}`"
             />
             <InputField
               id="max"
@@ -395,7 +395,11 @@
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
-      }
+      },
+      USER_SETTING()
+      {
+        return this.$store.getters.USER_SETTING
+      },
     },
     watch: {
       data(newVal)

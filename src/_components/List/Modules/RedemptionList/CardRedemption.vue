@@ -20,7 +20,7 @@
           />
           <a 
             href="javascript:void(0)"
-            @click="onGenerateInvoice(data.customer_invoice_id)"
+            @click="onGenerateInvoice(data)"
           >
             <i class="fas fa-file-invoice text-black text-lg" />
           </a>
@@ -101,11 +101,11 @@
       {
         return formatDate(date)
       },
-      async onGenerateInvoice( id )
+      async onGenerateInvoice( data )
       {
         try {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          await this.$store.dispatch('DOWNLOAD_INVOICE', id)
+          await this.$store.dispatch('DOWNLOAD_INVOICE', data)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
