@@ -29,7 +29,7 @@
           </p>
           <p class="text-xs font-semibold ml-2 md:w-4/5 lg:w-1/2">
             {{ 
-              `${ USER.detail.address }
+              `${ USER.detail.address || '' }
               ${ (USER.detail.city) ? `, ${USER.detail.city}` : '' }${ (USER.detail.zip_code) ? `, ${USER.detail.zip_code}` : '' }` 
             }}
           </p>
