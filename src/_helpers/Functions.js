@@ -3,7 +3,8 @@ const convertCurrency = (value) => {
     'de-DE', 
     { 
       style: 'currency', 
-      currency: 'EUR' 
+      currency: 'EUR',
+      minimumFractionDigits: 2
     })
   
   return formatter.format(value)
