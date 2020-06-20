@@ -38,7 +38,7 @@
               class="w-full md:w-1/2 self-center"
               :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (${$helpers.convertCurrency(VOUCHER.price_filter)}/voucher)` : 'value' }`"
               placeholder="Enter here"
-              :rules="`required|decimal|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
+              :rules="`required|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :note="`Value from 
               ${ 
                 (VOUCHER.type == 'quantity') 
