@@ -286,7 +286,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Minimum Value / Quantity"
               placeholder="Min Value"
-              :rules="`required|min_value:${USER_SETTING.minimum_voucher_value}`"
+              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING.minimum_voucher_value}`"
             />
             <InputField
               id="max"
@@ -295,7 +295,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Maximum Value / Quantity"
               placeholder="Max Value"
-              rules="required|min_value:0.001"
+              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:0.001`"
             />
           </div>
         </div>
