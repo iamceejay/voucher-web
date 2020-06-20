@@ -25,7 +25,7 @@
           :errorMessages="errorMessages.password"
         />
         <router-link to="/forgot-password" class="text-peach text-right text-sm mx-2 mb-2">
-          Forgot Account?
+          Forgot Password?
         </router-link>
       </div>
       <div class="flex justify-between">
