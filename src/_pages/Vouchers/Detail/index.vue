@@ -38,7 +38,7 @@
               class="w-full md:w-1/2 self-center"
               :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (${$helpers.convertCurrency(VOUCHER.price_filter)}/voucher)` : 'value' }`"
               placeholder="Enter here"
-              :rules="`required|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
+              :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :note="`Value from 
               ${ 
                 (VOUCHER.type == 'quantity') 
@@ -159,7 +159,7 @@
               user_id: null,
               value: null,
               qty: null,
-              value: null,
+              value: 0,
               total_amount: 0,
             }
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

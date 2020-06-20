@@ -25,10 +25,7 @@
                 <CompanyForm
                   :data="form"
                   :errorMessages="errorMessages"
-                  @onChange="onChange({
-                    ...form,
-                    company: $event
-                  })"
+                  @onChange="onChange"
                 />
               </div>
               <div
