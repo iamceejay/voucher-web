@@ -10,6 +10,7 @@ import {
   max_value,
   numeric,
   image,
+  decimal,
   password,
   unique,
 } from 'vee-validate/dist/rules';
@@ -42,6 +43,7 @@ const isUnique = ( value, data ) => {
 extend('integer', integer);
 extend('between', between);
 extend('numeric', numeric);
+extend('decimal', decimal);
 extend('image', image);
 extend('required', {
   ...required,
