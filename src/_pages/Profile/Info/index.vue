@@ -12,6 +12,7 @@
                 <Header2 label="Profile Info" />
                 <ProfileForm
                   :data="form"
+                  :type="AUTH_USER.role.name"
                   :errorMessages="errorMessages"
                   @onChange="onChange"
                 />

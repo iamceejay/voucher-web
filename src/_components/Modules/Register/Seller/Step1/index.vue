@@ -17,6 +17,8 @@
       </p>
       <div class="flex flex-col w-full md:w-1/2 my-5">
         <ProfileForm
+          type="seller"
+          :data="form"
           :errorMessages="errorMessages"
           @onChange="onChange"
         />
@@ -48,6 +50,12 @@
       Header1
     },
     props: {
+      data: {
+        type: Object,
+        default() {
+          return null
+        }
+      },
       errorMessages: {
         type: Array,
         default() {
@@ -68,6 +76,14 @@
           email: '',
           password: '',
           confirmPassword: '',
+          company: {
+            name: '',
+            description: '',
+            url: '',
+            logo: '',
+            region: '',
+            vat_number: ''
+          }
         }
       }
     },
@@ -78,6 +94,7 @@
       }
     },
     created() {
+      this.onSetForm()
     },
     methods: {
       onSubmit( isValid )
@@ -96,6 +113,16 @@
           ...data
         }
       },
+      onSetForm()
+      {
+        if( this.data ) {
+          this.form = {
+            ...this.form,
+            ...this.data
+          }
+          console.log('this.data', this.data)
+        }
+      }, 
     }
   }
 </script>

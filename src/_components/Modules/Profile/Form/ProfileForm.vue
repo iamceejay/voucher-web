@@ -1,6 +1,18 @@
 <template>
   <div class="flex flex-col w-full">
     <InputField
+      v-if="type == 'seller'"
+      id="company_name"
+      v-model="form.company.name"
+      type="text"
+      class="m-2"
+      label="Company Name"
+      rules="required"
+      :errorMessages="errorMessages.company && errorMessages.company.name"
+      @input="onChange"
+    />
+    <InputField
+      v-if="type == 'user'"
       id="username"
       v-model="form.username"
       type="text"
@@ -8,8 +20,8 @@
       label="Username"
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
-      @input="onChange"
       :disabled="form.id ? true : false"
+      @input="onChange"
     />
     <div class="flex flex-row">
       <InputField
@@ -102,6 +114,10 @@
       InputField,
     },
     props: {
+      type: {
+        type: String,
+        default: 'user'
+      },
       errorMessages: {
         type: Array,
         default() {
@@ -133,7 +149,8 @@
             description: '',
             url: '',
             logo: '',
-            region_id: '',
+            region: '',
+            vat_number: ''
           }
         }
       }
@@ -148,6 +165,10 @@
       this.onSetForm()
     },
     methods: {
+      onChange()
+      {
+        this.$emit('onChange', this.form)
+      },
       onSetForm()
       {
         if( this.data ) {
@@ -157,10 +178,6 @@
           }
         }
       },
-      onChange()
-      {
-        this.$emit('onChange', this.form)
-      }
     }
   }
 </script>

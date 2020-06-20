@@ -1,17 +1,18 @@
 <template>
   <ValidationObserver 
-    v-slot="{ handleSubmit, invalid }"
+    v-slot="{ handleSubmit }"
     class="flex w-full h-full"
   >
     <form 
       class="w-full flex flex-col"
-      @submit.prevent="handleSubmit(onSubmit(invalid))"
+      @submit.prevent="handleSubmit(onSubmit)"
     >
       <Header2
         label="Company Info"
       />
       <CompanyForm
         class="w-full md:w-1/2 my-5"
+        :data="form"
         :errorMessages="errorMessages"
         @onChange="onChange"
       />
@@ -36,6 +37,12 @@
       Header2
     },
     props: {
+      data: {
+        type: Object,
+        default() {
+          return null
+        }
+      },
       errorMessages: {
         type: Array,
         default() {
@@ -46,13 +53,33 @@
     data() {
       return {
         submitting: false,
+        // form: {
+        //   name: '',
+        //   description: '',
+        //   url: '',
+        //   logo: '',
+        //   region: '',
+        //   vat_number: '',
+        // }
         form: {
-          name: '',
-          description: '',
-          url: '',
-          logo: '',
-          region: '',
-          vat_number: '',
+          id: null,
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          address: '',
+          city: '',
+          zip_code: '',
+          password: '',
+          confirmPassword: '',
+          company: {
+            name: '',
+            description: '',
+            url: '',
+            logo: '',
+            region: '',
+            vat_number: ''
+          }
         }
       }
     },
@@ -65,30 +92,41 @@
     watch: {
     },
     created() {
+      this.onSetForm()
     },
     methods: {
-      onSubmit( isValid )
+      onSubmit()
       {
-        if( !isValid ) {
-          this.$emit('onChangeStep', {
-            step: 3,
-            form: {
-              company: {
-                ...this.form,
-                region: this.form.region_id.label,
-                region_id: this.form.region_id.id
-              }
+        this.$emit('onChangeStep', {
+          step: 3,
+          form: {
+            ...this.form,
+            company: {
+              ...this.form.company,
+              region: this.form.company.region_id.label,
+              region_id: this.form.company.region_id.id
             }
-          })
-        }
+          }
+        })
       },
       onChange( data )
       {
         this.form = {
           ...this.form,
-          ...data
+          ...data,
         }
+        console.log('this.form step 2', this.form)
       },
+      onSetForm()
+      {
+        if( this.data ) {
+          this.form = {
+            ...this.form,
+            ...this.data
+          }
+          console.log('this.form', this.form)
+        }
+      }, 
     }
   }
 </script>

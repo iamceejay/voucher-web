@@ -19,6 +19,7 @@
           </p>
           <div class="flex flex-col w-full md:w-1/2 my-5">
             <ProfileForm
+              type="user"
               :errorMessages="errorMessages"
               @onChange="onChange"
             />

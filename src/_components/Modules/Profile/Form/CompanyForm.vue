@@ -1,6 +1,17 @@
 <template>
   <div class="flex flex-col w-full">
     <InputField
+      id="username"
+      v-model="form.username"
+      type="text"
+      class="m-2"
+      label="Username"
+      :rules="`required|unique:users,username,${form.id}`"
+      :errorMessages="errorMessages.username"
+      :disabled="form.id ? true : false"
+      @input="onChange"
+    />
+    <!-- <InputField
       id="company_name"
       v-model="form.name"
       type="text"
@@ -9,10 +20,10 @@
       rules="required"
       :errorMessages="errorMessages.name"
       @input="onChange"
-    />
+    /> -->
     <TextAreaField
       id="text"
-      v-model="form.description"
+      v-model="form.company.description"
       class="m-2"
       label="Description"
       rules="max:800"
@@ -21,7 +32,7 @@
     />
     <InputField
       id="company_web_site"
-      v-model="form.url"
+      v-model="form.company.url"
       type="text"
       class="m-2"
       label="Company Website"
@@ -41,7 +52,7 @@
     </div>
     <FileInputField
       id="icon"
-      v-model="form.logo"
+      v-model="form.company.logo"
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
       label="Company Logo"
@@ -52,7 +63,7 @@
     />
     <InputField
       id="vat_number"
-      v-model="form.vat_number"
+      v-model="form.company.vat_number"
       type="text"
       class="m-2"
       label="VAT Number"
@@ -61,7 +72,7 @@
     />
     <SelectField
       id="month"
-      v-model="form.region_id"
+      v-model="form.company.region_id"
       :options="REGIONS"
       class="my-2 px-2"
       label="Region"
@@ -106,13 +117,34 @@
     data() {
       return {
         logo: '',
+        // form: {
+        //   username: '',
+        //   name: '',
+        //   description: '',
+        //   url: '',
+        //   logo: '',
+        //   region: '',
+        //   vat_number: ''
+        // },
         form: {
-          name: '',
-          description: '',
-          url: '',
-          logo: '',
-          region: '',
-          vat_number: ''
+          id: null,
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          address: '',
+          city: '',
+          zip_code: '',
+          password: '',
+          confirmPassword: '',
+          company: {
+            name: '',
+            description: '',
+            url: '',
+            logo: '',
+            region: '',
+            vat_number: ''
+          }
         },
         settings: null
       }
@@ -167,13 +199,13 @@
           let reader = new FileReader();
           reader.readAsDataURL(data[0]);
           reader.onload = () => {
-            this.form.logo = data[0]
+            this.form.company.logo = data[0]
             this.logo = reader.result
             this.onChange()
           }
         } else {
           this.logo = ''
-          this.form.logo = ''
+          this.form.company.logo = ''
           this.onChange()
         }
       },
@@ -182,19 +214,23 @@
         if( action == 'set' ) {
           return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         } else {
-          this.form.logo = ''
+          this.form.company.logo = ''
           this.logo = ''
         }
       },
       onSetForm()
       {
         if( this.data?.company ) {
-          if( typeof this.data?.company?.logo == 'string' ) {
+          if( typeof this.data?.company?.logo == 'string'  ) {
             this.logo = this.data.company.logo
           }
           this.form = {
             ...this.form,
-            ...this.data.company
+            ...this.data,
+            company: {
+              ...this.form.company,
+              ...this.data.company,
+            }
           }
         }
       },

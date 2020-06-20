@@ -4,10 +4,12 @@
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full h-full px-8">
         <RegisterStep1 
           v-if="step == 1"
+          :data="form"
           @onChangeStep="onChangeStep"
         />
         <RegisterStep2 
           v-if="step == 2"
+          :data="form"
           @onChangeStep="onChangeStep"
         />
         <RegisterStep3 
@@ -47,7 +49,14 @@
           confirmPassword: '',
           iban: '',
           bic: '',
-          company: null,
+          company: {
+            name: '',
+            description: '',
+            url: '',
+            logo: '',
+            region: '',
+            vat_number: ''
+          },
         }
       }
     },
@@ -83,10 +92,12 @@
       },
       onChange( data )
       {
+        console.log('data nai', data)
         this.form = {
           ...this.form,
           ...data
         }
+        console.log('this.form nai', this.form)
       },
       async onSubmit( isValid )
       {
