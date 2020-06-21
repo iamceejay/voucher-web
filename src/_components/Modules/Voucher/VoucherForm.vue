@@ -277,7 +277,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Value"
-              :rules="`required|min_value:${USER_SETTING.minimum_voucher_value}`"
+              :rules="`required|min_value:${USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
             />
             <InputField
               id="min"
@@ -286,7 +286,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Minimum Value / Quantity"
               placeholder="Min Value"
-              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING.minimum_voucher_value}`"
+              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
             />
             <InputField
               id="max"
@@ -413,14 +413,14 @@
         }
       }
     },
-    created() {
+    mounted() {
+      this.onSetForm()
       this.categories = this.CATEGORIES.map( row => {
         return {
           id: row.id,
           label: row.name,
         }
       })
-      this.onSetForm()
       this.onSetTax()
       this.onSetExpiry()
     },
@@ -472,7 +472,6 @@
           ...this.form.tax,
           value
         ]
-        console.log('form.tax', this.form.tax)
       },
       onPickColor( { hex } )
       {
