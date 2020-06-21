@@ -2,12 +2,12 @@
   <MainLayout>
     <template #content>
       <ValidationObserver 
-        v-slot="{ handleSubmit, invalid }"
+        v-slot="{ handleSubmit }"
         class="content-container flex flex-col w-full h-full px-8"
       >
         <form 
           class="w-full flex flex-col"
-          @submit.prevent="handleSubmit(onSubmit(invalid))"
+          @submit.prevent="handleSubmit(onSubmit)"
         >
           <Header1
             label="Welcome!"
@@ -141,27 +141,36 @@
     created() {
     },
     methods: {
-      async onSubmit( isValid )
+      async onSubmit()
       {
-        if( !isValid ) {
-          try {
-            this.errorMessages = []
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            const data = await this.$store.dispatch('ADD_USER', this.form)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Creating an account.',
-              confirmButtonColor: '#6C757D',
-            })
-            this.$router.push('/login')
-          } catch (err) {
-            if( err?.response?.status == 422 ) {
-              this.errorMessages = err.response.data.errors
+        try {
+          this.errorMessages = []
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          const data = await this.$store.dispatch('ADD_USER', this.form)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'success',
+            title: 'Successful!',
+            text: data.message,
+            showCancelButton: false,
+            confirmButtonColor: '#6C757D',
+            confirmButtonText: 'Confirm',
+          }).then(async (result) => {
+            if(result.value){
+              this.$router.push('/login')
             }
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          })
+          // this.$swal({
+          //   icon: 'success',
+          //   title: 'Successful!',
+          //   text: 'Creating an account.',
+          //   confirmButtonColor: '#6C757D',
+          // })
+        } catch (err) {
+          if( err?.response?.status == 422 ) {
+            this.errorMessages = err.response.data.errors
           }
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       onChange( data )

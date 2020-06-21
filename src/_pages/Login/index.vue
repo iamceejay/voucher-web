@@ -33,6 +33,14 @@
     mounted() {
       (async () => {
         await this.$store.commit('SET_COUNT_CART', 0)
+        if( this.$route.query?.status ) {
+          this.$swal({
+            icon: 'success',
+            // title: 'Successful!',
+            text: `You account has been successfully activated. Thank you!`,
+            confirmButtonColor: '#6C757D',
+          })
+        }
       })()
     },
     methods: {
