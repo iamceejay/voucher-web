@@ -452,6 +452,14 @@
           this.$router.push('/vouchers')
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          if( err?.response?.data?.message ) {
+            this.$swal({
+              icon: 'warning',
+              title: 'Warning!',
+              text: err.response.data.message,
+              confirmButtonColor: '#6C757D',
+            })
+          }
         }
       },
       onChangeTextColor(e)
