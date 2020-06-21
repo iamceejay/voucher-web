@@ -5,10 +5,10 @@
       :key="`scanner-${index}`"
       class="w-full md:w-1/2 flex flex-row"
     >
-      <div class="w-4/5 text-sm px-5 py-2 text-gray-900 font-semibold font-body">
+      <div class="w-3/5 sm:w-4/5 text-sm px-5 py-2 text-gray-900 font-semibold font-body">
         {{ `${index+1}. ${row.scanner.username}` }}
       </div>
-      <div class="w-1/5">
+      <div class="w-2/5 sm:w-1/5">
         <Button
           class="py-2"
           :label="`${row.status ? 'Deactivate' : 'Activate'}`"
