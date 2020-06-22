@@ -7,6 +7,7 @@
       <div class="font-body text-lg w-full sm:w-11/12 md:w-9/12 lg:w-6/12 ">
         Zum Verschenken oder selber Erleben
       </div>
+      
       <router-link 
         class="flex flex-col sm:w-11/12 md:w-9/12 lg:w-9/12" 
         to="/vouchers/search"

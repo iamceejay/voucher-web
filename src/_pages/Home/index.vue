@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="content-container flex flex-col w-full">
+      <div class="flex flex-col w-full">
         <GuestHome 
           v-if="AUTH_USER.role.name === null"
         />
