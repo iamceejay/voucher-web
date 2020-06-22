@@ -1,22 +1,22 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <GuestHeader />
     <GuestContent />
     <VoucherList
-      class="mb-3 py-6 px-8"
+      class="content-container mb-3 py-6 px-8"
       title="Featured Vouchers"
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
     />
     <CategoryList
-      class="mb-3 py-6 px-8"
+      class="content-container mb-3 py-6 px-8"
       title="Categories"
       :data="CATEGORIES"
     />
     <GuestSellerContent />
     <VoucherList
-      class="mb-3 py-6 px-8"
+      class="content-container mb-3 py-6 px-8"
       title="Newest"
       :data="VOUCHERS.data"
       sortLabel="Sort by:"
