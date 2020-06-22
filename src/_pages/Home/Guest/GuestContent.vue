@@ -4,12 +4,12 @@
       <div
         v-for="(item, index) in items"
         :key="`item-${index}`"
-        class="content-item w-full sm:w-1/2 md:w-1/2 lg:w-3/12"
+        class="content-item w-full sm:w-1/2 md:w-1/2 lg:w-1/5"
       >
         <div class="text-5xl">
           <i :class="item.icon" />
         </div>
-        <div class="font-bold font-display text-lg">
+        <div class="font-bold font-display text-lg my-3">
           {{ item.title }}
         </div>
         <div class="text-sm font-body">

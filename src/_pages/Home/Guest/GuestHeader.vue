@@ -4,11 +4,11 @@
       <div class="font-display font-bold text-3xl w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
         Entdecke die nettesten Gutscheine aus Tirol
       </div>
-      <div class="font-body text-lg w-full sm:w-11/12 md:w-6/12 lg:w-5/12 ">
+      <div class="font-body text-lg w-full sm:w-11/12 md:w-9/12 lg:w-9/6 ">
         Zum Verschenken oder selber Erleben
       </div>
       <router-link 
-        class="flex flex-col sm:w-11/12 md:w-6/12 lg:w-5/12" 
+        class="flex flex-col sm:w-11/12 md:w-9/12 lg:w-9/12" 
         to="/vouchers/search"
       >
         <SearchInputField

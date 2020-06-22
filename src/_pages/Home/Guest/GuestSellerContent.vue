@@ -2,7 +2,7 @@
   <div class="bg-peach">
     <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center">
       <div class="flex flex-col w-full md:w-1/5 lg:w-2/6 text-white">
-        <div class="font-bold font-display text-3xl">
+        <div class="font-bold font-display text-3xl mb-4">
           Werde auch du Partner
         </div>
         <div class="flex flex-col w-full">
@@ -17,7 +17,7 @@
           </p>
           <Button
             variant="white"
-            class="py-2"
+            class="py-2 mt-4"
             label="Jetzt mehr erfahren"
             size="w-32 py-1"
             round="rounded-full"
@@ -35,7 +35,7 @@
           <div class="text-5xl">
             <i :class="item.icon" />
           </div>
-          <div class="font-bold font-display text-lg">
+          <div class="font-bold font-display text-lg my-3">
             {{ item.title }}
           </div>
           <div class="text-sm font-body">
