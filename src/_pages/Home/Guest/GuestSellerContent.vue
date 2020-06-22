@@ -3,22 +3,22 @@
     <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center">
       <div class="flex flex-col w-full md:w-1/5 lg:w-2/6 text-white">
         <div class="font-bold font-display text-3xl">
-          Become a seller
+          Werde auch du Partner
         </div>
         <div class="flex flex-col w-full">
           <p class="font-body">
-            Lorem ipsum dolor sit amet.
+            Verkaufe deine Wert-, Erlebnis-
           </p>
           <p class="font-body">
-            Lorem ipsum dolor sit amet.
+            oder Produktgutscheine und
           </p>
           <p class="font-body">
-            Lorem ipsum dolor sit amet.
+            sichere dir Zusatzeinnahmen.
           </p>
           <Button
             variant="white"
             class="py-2"
-            label="Register"
+            label="Jetzt mehr erfahren"
             size="w-32 py-1"
             round="rounded-full"
             fontSize="text-xs"
@@ -58,16 +58,16 @@
         items: [
           {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Einfach',
+            content: 'Erstelle innerhalb weniger Minuten deine individuellen Gutscheine'
           }, {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Automatisiert',
+            content: 'Verkaufe ohne jeglichen Aufwand deine Gutscheine rund um die Uhr'
           }, {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Direkt',
+            content: 'Profitiere von schnellen Zahlungen und lege deine eigenen Richtlinien fest'
           },
         ],
       }

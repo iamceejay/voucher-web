@@ -26,20 +26,24 @@
         items: [
           {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Sofort erhältlich',
+            content: 'LJetzt kaufen und gleich verschenken'
           }, {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Personalisierbar',
+            content: 'Mit eigenen Fotos und Grüßen gestaltbar'
           }, {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Stressfreies Einlösen',
+            content: 'Einfach Gutschein vorzeigen und Genießen'
           }, {
             icon: 'far fa-check-circle',
-            title: 'Lorem ipsum',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+            title: 'Vielseitig verwendbar',
+            content: 'Ausgedruckt oder am Smartphone'
+          }, {
+            icon: 'far fa-check-circle',
+            title: 'Eigene Wallet',
+            content: 'Nie wieder Gutscheine verlieren'
           }, 
         ],
       }
