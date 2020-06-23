@@ -9,7 +9,7 @@
       <Button
         :key="`isNewest-${isNewest}`"
         class="py-2 px-1 w-full md:w-40"
-        label="Newest"
+        label="Neueste"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"
@@ -19,7 +19,7 @@
       <Button
         :key="`isMostPopular-${isMostPopular}`"
         class="py-2 px-1 w-full md:w-40"
-        label="Most Popular"
+        label="Beliebteste"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"
@@ -29,7 +29,7 @@
       <Button
         :key="`isLowestPrice-${isLowestPrice}`"
         class="py-2 px-1 w-full md:w-40"
-        :label="`${ !isLowestPrice ? 'Lowest' : 'Lowest' } Price`"
+        :label="`${ !isLowestPrice ? 'Günstigster' : 'Günstigster' } Preis`"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"

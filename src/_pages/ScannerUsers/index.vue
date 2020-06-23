@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container w-full flex flex-col px-8">
         <Header1
-          label="Scanner Users"
+          label="Scanner Profil"
         />
         <ScannerUserList 
           :data="SCANNER_USERS"
@@ -11,7 +11,7 @@
         <router-link to="/scanner-users/new">
           <Button
             class="py-2 w-full md:w-1/2"
-            label="Add new user"
+            label="Füge ein neues Scanner Profil  hinzu"
             size="w-full py-3"
             round="rounded-full"
             fontSize="text-xs"

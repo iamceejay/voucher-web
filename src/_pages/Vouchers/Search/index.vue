@@ -3,14 +3,14 @@
     <template #content>
       <div class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Search Voucher"
+          label="Entdecke Gutscheine"
         />
         <SearchInputField
           id="search-here"
           v-model="params.keyword"
           :value="params.keyword"
           class="m-2"
-          placeholder="Search for vouchers ..."
+          placeholder="Suche nach Gutscheinen"
           @input="onSearchData($event, 'search')"
         />
         <VoucherList

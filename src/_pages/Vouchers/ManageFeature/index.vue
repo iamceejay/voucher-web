@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Featured Vouchers"
+          label="Gesponserte Gutscheine"
         />
         <Table
           class="mt-3"
@@ -96,8 +96,8 @@
       async onChange(data)
       {
         this.$swal({
-          title: `${ data.is_featured ? 'Removing' : 'Adding' } Featured Voucher`,
-          text: `Are you sure you want to ${ data.is_featured ? 'remove' : 'add' } this to featured vouchers?`,
+          title: `${ data.is_featured ? 'Removing' : 'Adding' } Gesponserte Gutscheine`,
+          text: `Are you sure you want to ${ data.is_featured ? 'remove' : 'add' } this to Gesponserte Gutscheine?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -113,7 +113,7 @@
               this.$swal({
                 icon: 'success',
                 title: 'Successful!',
-                text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the featured voucher.`,
+                text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the Gesponserte Gutscheine.`,
                 confirmButtonColor: '#6C757D',
               })
             } catch (err) {

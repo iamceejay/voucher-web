@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-col">
     <Header1
-      label="Earnings"
+      label="Umsatz"
     />
     <StatisticList 
       :data="earnings"
@@ -32,11 +32,11 @@
         this.earnings = [
           {
             type: 'Vouchers',
-            title: 'sold total',
+            title: 'gesamt verkauft',
             value: '234'
           },{
             type: 'Earnings',
-            title: 'total',
+            title: 'gesamt',
             value: '€234,567'
           }
         ]

@@ -4,7 +4,7 @@
     <GuestContent />
     <VoucherList
       class="content-container mb-3 py-6 px-8"
-      title="Featured Vouchers"
+      title="Gesponserte Gutscheine"
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
@@ -17,11 +17,11 @@
     <GuestSellerContent />
     <VoucherList
       class="content-container mb-3 py-6 px-8"
-      title="Newest"
+      title="Gutscheine entdecken"
       :data="VOUCHERS.data"
-      sortLabel="Sort by:"
+      sortLabel="Sortieren nach:"
       :withSort="true"
-      filterLabel="Filter by:"
+      filterLabel="Filtern nach:"
       :withFilter="true"
       :withQR="false"
       listId="search-voucher-list"

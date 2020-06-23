@@ -3,18 +3,18 @@
     <template #content>
       <div class="content-container flex flex-col w-full h-full items-center justify-center px-8">
         <Header1
-          label="Register as"
+          label="Registrieren as"
         />
         <Button
           class="w-full justify-center my-2"
-          label="Buyer"
+          label="Käufer"
           size="w-full sm:w-1/2 py-3"
           round="rounded-full"
           @onClick="$router.push('/register/buyer')"
         />
         <Button
           class="w-full justify-center my-2"
-          label="Seller"
+          label="Verkäufer"
           size="w-full sm:w-1/2 py-3"
           round="rounded-full"
           @onClick="$router.push('/register/seller')"

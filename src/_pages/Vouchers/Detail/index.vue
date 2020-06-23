@@ -10,7 +10,7 @@
             :withQR="false"
           />
           <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
-            Login or register to purchase a voucher.
+            Login or registrieren to purchase a voucher.
           </div>
           <router-link 
             class="self-center w-full md:w-1/2"

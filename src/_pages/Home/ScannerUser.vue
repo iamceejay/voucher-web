@@ -1,6 +1,6 @@
 <template>
   <div class="content-container flex flex-col w-full px-8">
-    <Header1 label="Voucher Scanner" />
+    <Header1 label="Gutscheine scannen" />
     <VoucherScanner 
       v-if="!QR_CODE"
       :key="`s-${sIndex}`"

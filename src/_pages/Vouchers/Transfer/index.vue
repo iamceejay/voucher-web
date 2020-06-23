@@ -16,7 +16,7 @@
                 v-model="form.email"
                 type="email"
                 class="w-full md:w-1/2 m-auto mt-4"
-                placeholder="Email address"
+                placeholder="Emailadresse"
                 rules="required"
               />
               <Button

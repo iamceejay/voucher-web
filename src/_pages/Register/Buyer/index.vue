@@ -74,7 +74,7 @@
                   href="http://verkaufen.epasnets.com/"
                   target="_blank"
                 >
-                  Register here
+                  Registrieren here
                 </a>
                 as a seller.
               </p>

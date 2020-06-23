@@ -52,7 +52,7 @@ extend('required', {
 })
 extend('email', {
   ...email,
-  message: 'The email address is invalid.'
+  message: 'The emailadresse is invalid.'
 })
 extend('max', {
   ...max,

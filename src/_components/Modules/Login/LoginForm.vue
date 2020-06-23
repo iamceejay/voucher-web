@@ -12,7 +12,7 @@
           id="email"
           v-model="loginForm.email"
           class="m-2"
-          label="Email Address"
+          label="Emailadresse "
           type="email"
           :errorMessages="errorMessages.email"
         />
@@ -20,12 +20,12 @@
           id="password"
           v-model="loginForm.password"
           class="m-2"
-          label="Password"
+          label="Passwort"
           type="password"
           :errorMessages="errorMessages.password"
         />
         <router-link to="/forgot-password" class="text-peach text-right text-sm mx-2 mb-2">
-          Forgot Password?
+          Passwort vergessen?
         </router-link>
       </div>
       <div class="flex justify-between">

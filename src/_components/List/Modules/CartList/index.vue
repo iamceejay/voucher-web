@@ -21,7 +21,7 @@
             <span class="text-sm font-bold">
               {{ 
                 (row.voucher.type == 'quantity') 
-                  ? 'Price per voucher: ' 
+                  ? 'Price per gutschein: ' 
                   : 'Value: '
               }}
             </span>

@@ -79,7 +79,7 @@
       v-model="form.email"
       type="text"
       class="m-2"
-      label="Email address"
+      label="Emailadresse "
       :rules="`required|email|unique:users,email,${form.id}`"
       :errorMessages="errorMessages.email"
       @input="onChange"

@@ -12,20 +12,20 @@
     </router-link>
     <VoucherList
       class="mb-3"
-      title="Featured Vouchers"
+      title="Gesponserte Gutscheine"
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
     />
     <CategoryList
       class="mb-3"
-      title="Categories"
+      title="Kategorien"
       :data="CATEGORIES"
     />
     <VoucherList
       :withSort="true"
       class="mb-3"
-      title="Vouchers"
+      title="Gutscheine"
       :data="VOUCHERS.data"
       :withQR="false"
       @onSort="onSearchData($event, 'sort')"

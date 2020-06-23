@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-col mb-3">
     <StatisticList 
-      title="Sales Statistics"
+      title="Verkaufsstatistiken"
       :data="stats"
     />
   </div>
@@ -28,35 +28,35 @@
         this.stats = [
           {
             type: 'Voucher',
-            title: 'sold this day',
+            title: 'heute verkauft',
             value: '15'
           },{
             type: 'Earnings',
-            title: 'this day',
+            title: 'heute',
             value: '€13,456'
           },{
             type: 'Voucher',
-            title: 'sold this week',
+            title: 'diese Woche verkauft',
             value: '23'
           },{
             type: 'Earnings',
-            title: 'this week',
+            title: 'diese Woche',
             value: '€34,567'
           },{
             type: 'Voucher',
-            title: 'sold this month',
+            title: 'diesen Monat verkauft',
             value: '123'
           },{
             type: 'Earnings',
-            title: 'this month',
+            title: 'diesen Monat',
             value: '€123,456'
           },{
             type: 'Voucher',
-            title: 'sold total',
+            title: 'gesamt verkauft',
             value: '234'
           },{
             type: 'Earnings',
-            title: 'total',
+            title: 'gesamt',
             value: '234,456'
           },
         ]

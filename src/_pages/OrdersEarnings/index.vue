@@ -4,7 +4,7 @@
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <div class="w-full flex flex-col mb-5">
           <Header1
-            label="Earnings"
+            label="Umsatz"
           />
           <StatisticList 
             :data="earnings"
@@ -12,7 +12,7 @@
         </div>
         <div class="w-full flex flex-col mb-5">
           <Header1
-            label="Orders"
+            label="Bestellungen"
           />
           <OrderList 
             :isInvoice="true"
@@ -102,27 +102,27 @@
         this.earnings = [
           {
             type: 'Vouchers',
-            title: 'sold total',
+            title: 'gesamt verkauft',
             value: voucher_total
           }, {
             type: 'Earnings',
-            title: 'total',
+            title: 'gesamt',
             value: `${this.$helpers.convertCurrency(total_earnings)}`,
             extra: {
-              title: 'Commision:',
+              title: 'Kommission:',
               value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`
             }
           }, {
             type: 'Payout',
-            title: 'Waiting',
+            title: 'Wartend',
             value: `${this.$helpers.convertCurrency(waiting_for_payout)}`
           }, {
-            type: 'Days',
-            title: 'next payout',
+            type: 'Tage',
+            title: 'bis zur nächsten Auszahlung',
             value: days_until_next_payout,
             extra: {
-              title: 'Payout:',
-              value: `every ${payout_every} days`
+              title: 'Auszahlung:',
+              value: `alle ${payout_every} Tage`
             }
           }, 
         ]

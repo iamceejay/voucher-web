@@ -161,22 +161,22 @@
                   isChildShow: false,
                   child: [
                     {
-                      title: 'Users',
+                      title: 'Benutzer',
                       link: '/users'
                     }, {
-                      title: 'Orders',
+                      title: 'Bestellungen',
                       link: '/manage-orders'
                     }, {
-                      title: 'Payout',
+                      title: 'Auszahlung',
                       link: '/payout'
                     }, {
-                      title: 'Categories',
+                      title: 'Kategorien',
                       link: '/category'
                     }, {
                       title: 'Templates',
                       link: '/template'
                     }, {
-                      title: 'Featured Vouchers',
+                      title: 'Gesponserte Gutscheine',
                       link: '/featured-vouchers'
                     }, 
                   ],
@@ -204,7 +204,7 @@
                       title: 'Scanner',
                       link: '/scanner'
                     }, {
-                      title: 'Scanner Users',
+                      title: 'Scanner Profil',
                       link: '/scanner-users'
                     }, 
                   ],
@@ -241,7 +241,7 @@
                   title: 'Home',
                   link: '/home'
                 },{
-                  title: 'Categories',
+                  title: 'Kategorien',
                   link: '',
                   child: categories,
                   isChildShow: false
@@ -254,7 +254,7 @@
                   isChildShow: false,
                   child: profileChild,
                 },{
-                  title: 'Orders',
+                  title: 'Bestellungen',
                   link: '/orders'
                 },
               ]
@@ -279,7 +279,7 @@
               title: 'Login',
               link: '/login',
             }, {
-              title: 'Register',
+              title: 'Registrieren',
               link: '/register/buyer',
               borderB: true,
             }, 

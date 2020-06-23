@@ -18,7 +18,7 @@
           v-model="form.email"
           type="email"
           class="mx-2"
-          placeholder="Email address"
+          placeholder="Emailadresse "
           :rules="`required|email|unique:users,email,${form.id}`"
         />
         <InputField

@@ -3,14 +3,14 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Create New Voucher"
+          label="Neuen Gutschein erstellen"
         />
         <router-link
           to="vouchers/new"
         >
           <Button
             class="p-2 mt-3 mb-5"
-            label="Create New Voucher"
+            label="Neuen Gutschein erstellen"
             size="w-full sm:w-64 py-4"
             round="rounded-full"
           />

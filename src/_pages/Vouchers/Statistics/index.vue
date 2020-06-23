@@ -70,12 +70,12 @@
           // }
           {
             type: 'Vouchers',
-            title: 'sold this week',
+            title: 'diese Woche verkauft',
             value: data.weekly_voucher_sold
           }
           ,{
             type: 'Earnings',
-            title: 'this week',
+            title: 'diese Woche',
             value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           }
           // ,{
@@ -90,27 +90,27 @@
           // }
           ,{
             type: 'Vouchers',
-            title: 'sold total',
+            title: 'gesamt verkauft',
             value: data.voucher_total
           },{
             type: 'Earnings',
-            title: 'total',
+            title: 'gesamt',
             value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },{
             type: 'Vouchers Redeemed',
-            title: 'this day',
+            title: 'heute',
             value: data.daily_redemptions
           },{
             type: 'Vouchers Redeemed',
-            title: 'this week',
+            title: 'diese Woche',
             value: data.weekly_redemptions
           },{
             type: 'Vouchers Redeemed',
-            title: 'this month',
+            title: 'diesen Monat',
             value: data.monthly_redemptions
           },{
             type: 'Vouchers Redeemed',
-            title: 'total',
+            title: 'gesamt',
             value: data.total_redemptions
           }
         ]

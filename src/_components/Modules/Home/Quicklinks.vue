@@ -5,7 +5,7 @@
       <router-link to="/vouchers">
         <Button
           class="py-2"
-          label="Show my vouchers"
+          label="Meine Gutscheine ansehen"
           size="w-full md:w-64 py-2"
           round="rounded-full"
         />
@@ -13,7 +13,7 @@
       <router-link to="/vouchers/new">
         <Button
           class="py-2"
-          label="Create New Voucher"
+          label="Neuen Gutschein erstellen"
           size="w-full md:w-64 py-2"
           round="rounded-full"
         />

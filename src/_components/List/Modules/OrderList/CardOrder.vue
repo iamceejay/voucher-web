@@ -9,7 +9,7 @@
     <div class="flex flex-row">
       <div class="text-xs text-gray-900 font-body">
         <div v-if="role != 'user'">
-          User: {{ `${data.user.detail.firstName} ${data.user.detail.lastName}` }}
+          Benutzer: {{ `${data.user.detail.firstName} ${data.user.detail.lastName}` }}
         </div>
         <div>{{ formatDate(data.created_at) }}</div>
         <div v-if="role == 'user' || isInvoice">

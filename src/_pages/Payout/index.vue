@@ -86,7 +86,7 @@
             title: 'Company Name',
           }, {
             name: 'payout',
-            title: 'Payout(€)',
+            title: 'Auszahlung(€)',
             dataClass: 'text-right'
           }, {
             name: 'company.seller.detail.iban',

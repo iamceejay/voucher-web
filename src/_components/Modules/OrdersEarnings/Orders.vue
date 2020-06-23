@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-col">
     <Header1
-      label="Orders"
+      label="Bestellungen"
     />
     <OrderList
       :isInvoice="true"

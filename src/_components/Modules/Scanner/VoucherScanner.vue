@@ -18,12 +18,12 @@
           v-model="voucherForm.qr"
           type="text"
           class="w-full md:w-1/2 m-auto mt-4"
-          placeholder="Enter voucher code manually..."
+          placeholder="Gutscheincode manuell eingeben"
           rules="required"
         />
         <Button
           class="py-1 justify-center"
-          label="Enter voucher code"
+          label="Gutscheincode bestätigen"
           size="w-full md:w-1/2 py-4"
           round="rounded-full"
           type="submit"

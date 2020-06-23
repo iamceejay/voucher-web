@@ -4,7 +4,7 @@
       label="Admin Home"
     />
     <StatisticList 
-      title="Sales Statistics"
+      title="Verkaufsstatistiken"
       :data="stats"
     />
     <StatisticTotalList 
@@ -72,7 +72,7 @@
         this.stats = [
           {
             type: 'Vouchers',
-            title: 'sold total',
+            title: 'gesamt verkauft',
             value: data.voucher_total
           },{
             type: 'Commision',
@@ -84,7 +84,7 @@
             value: data.voucher_month
           },{
             type: 'Commision',
-            title: 'earnings / month',
+            title: 'umsatz / month',
             value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
           },{
             type: 'Vouchers',
@@ -92,7 +92,7 @@
             value: data.voucher_week
           },{
             type: 'Commision',
-            title: 'earnings / week',
+            title: 'umsatz / week',
             value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           },
         ]

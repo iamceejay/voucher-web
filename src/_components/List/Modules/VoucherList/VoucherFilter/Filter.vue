@@ -9,7 +9,7 @@
       <Button
         :key="`isCategory-${isCategory}`"
         class="py-2 px-1 w-full md:w-40"
-        label="Category"
+        label="Kategorie"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"
@@ -29,7 +29,7 @@
       <Button
         :key="`isPrice-${isPrice}`"
         class="py-2 px-1 w-full md:w-40"
-        label="Price"
+        label="Preis"
         size="w-full md:w-40 py-1"
         round="rounded-full"
         fontSize="text-xs"
@@ -40,7 +40,7 @@
     <div class="flex flex-col md:flex-row">
       <MultipleCheckboxField
         v-if="isCategory"
-        label="Select categories: "
+        label="Select kategorien: "
         class="mx-2 mr-5"
         style="margin-bottom: 5px;"
         name="categories"

@@ -6,13 +6,13 @@
     <router-link to="/scanner">
       <Button
         class="py-2 mt-3 mb-4"
-        label="Scan Voucher"
+        label="Gutschein scannen"
         size="w-full md:w-64 py-4"
         round="rounded-full"
       />
     </router-link>
     <StatisticList 
-      title="Sales Statistics"
+      title="Verkaufsstatistiken"
       :data="stats"
     />
     <Quicklinks />
@@ -76,35 +76,35 @@
         this.stats = [
           {
             type: 'Voucher',
-            title: 'sold this day',
+            title: 'heute verkauft',
             value: data.voucher_daily
           },{
             type: 'Earnings',
-            title: 'this day',
+            title: 'heute',
             value: `${this.$helpers.convertCurrency(data.daily_earnings)}`
           },{
             type: 'Voucher',
-            title: 'sold this week',
+            title: 'diese Woche verkauft',
             value: data.voucher_week
           },{
             type: 'Earnings',
-            title: 'this week',
+            title: 'diese Woche',
             value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           },{
             type: 'Voucher',
-            title: 'sold this month',
+            title: 'diesen Monat verkauft',
             value: data.voucher_month
           },{
             type: 'Earnings',
-            title: 'this month',
+            title: 'diesen Monat',
             value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
           },{
             type: 'Voucher',
-            title: 'sold total',
+            title: 'gesamt verkauft',
             value: data.voucher_total
           },{
             type: 'Earnings',
-            title: 'total',
+            title: 'gesamt',
             value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },
         ]
