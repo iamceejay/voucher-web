@@ -131,7 +131,6 @@
       async onSubmit()
       {
         this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
-        console.log('this.form.total_amount', this.form.total_amount)
         this.$swal({
           title: 'Add to cart',
           text: `Are you sure you want to add this to the cart?`,

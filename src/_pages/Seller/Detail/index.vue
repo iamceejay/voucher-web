@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
+      <div v-if="!IS_LOADING.status && USER" class="content-container flex flex-col w-full px-8">
         <div class="w-full flex flex-col">
           <div class="flex flex-row">
             <Header1

@@ -5,8 +5,8 @@
   >
     <button
       :type="type"
-      class="text-sm focus:outline-none focus:shadow-none border-1 font-display font-bold"
-      :class="[bg, size, round]"
+      class="focus:outline-none focus:shadow-none border-1 font-display"
+      :class="[bg, size, round, fontSize]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
     >
@@ -14,12 +14,9 @@
         v-if="isLoading"
         class="sm-spinner m-auto" 
       />
-      <span 
-        v-else
-        :class="[fontSize]"
-      >
+      <span v-else>
         <i v-if="icon != ''" :class="`fas fa-${icon}`" />
-        {{ label }}
+        <span :class="[labelClass]">{{ label }}</span>
       </span>
     </button>
   </div>
@@ -61,7 +58,15 @@
       },
       fontSize: {
         type: String,
-        default: 'font-base'
+        default: 'text-sm'
+      },
+      fontWeight: {
+        type: String,
+        default: 'font-bold'
+      },
+      labelClass: {
+        type: String,
+        default: ''
       }
     },
     data() {
