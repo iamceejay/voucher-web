@@ -13,14 +13,14 @@
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">
-          Live Preview
+          Live Vorschau
         </div>
       </div>
       <div class="w-full flex flex-col">
         <div class="flex flex-row flex-wrap w-full">
           <div class="w-full md:w-1/2 mb-5">
             <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-              Pick a template
+              Wähle eine Designvorlage oder lade selbst ein Hintergrundbild hoch
             </div>
             <div
               class="scroll-horizontal scroll flex"
@@ -69,7 +69,7 @@
               @input="onChangeForm"
             />
             <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">
-              Show Price / Hide Price
+              Zeige den Preis / verstecke den Preis
             </span>
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
@@ -77,14 +77,14 @@
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
             />
-            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Light / Dark Text</span>
+            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Heller / Dunkler Text</span>
           </div>
           <div class="w-full">
             <TextAreaField
               id="description"
               v-model="form.note"
               class="px-2 w-full md:w-1/2"
-              placeholder="Add custom note to voucher"
+              placeholder="Füge eine persönliche Nachricht hinzu"
               rules="max:65"
               @input="onChangeForm"
             />
@@ -93,7 +93,7 @@
             <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
               {{ `${ form.custom_image ? 'Update' : 'Add another' } Picture` }}
               <div class="text-xs font-semibold">
-                (Note: Based fit is 250px x 100px)
+                Ideale Größe ist 250px x 100px
               </div>
             </div>
             <div v-if="form.custom_image" class="flex flex-col px-2">
@@ -130,7 +130,7 @@
           </div>
         </div>
         <Button
-          label="Save voucher"
+          label="Gutschein speichern"
           size="w-full md:w-1/2 py-3"
           round="rounded-full"
           type="submit"
@@ -279,8 +279,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then((result) => {
           if(result.value){
             this.form.templates = this.form.templates.filter( (row,i) => i != index)

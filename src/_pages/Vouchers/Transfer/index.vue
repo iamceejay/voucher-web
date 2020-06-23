@@ -4,7 +4,7 @@
       <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
         <div class="flex flex-col">
           <Header1
-            label="Transfer Voucher"
+            label="Gutschein übertragen"
           />
           <ValidationObserver v-slot="{ handleSubmit, invalid }">
             <form 
@@ -21,20 +21,14 @@
               />
               <Button
                 class="mx-2 justify-center"
-                label="Send Email"
+                label="Email abschicken"
                 size="mt-1 w-full md:w-1/2 py-3"
                 round="rounded-full"
                 type="submit"
               />
               <div class="w-full md:w-1/2 self-center">
                 <p class="p-3 pb-0 text-center text-sm">
-                  The voucher will show in the wallet of the user and will
-                  be removed from your wallet after you have sent it. 
-                  This cannot be undone.
-                </p>
-                <p class="p-3 pt-0 text-center text-sm">
-                  The user must be registered on the wallet app for this function
-                  to work.
+                  Kopiere den Link in die Zwischenablage
                 </p>
               </div>
             </form>
@@ -42,7 +36,7 @@
         </div>
         <div class="flex flex-col">
           <Header1
-            label="Share Link"
+            label="Link teilen"
           />
           <InputField
             id="clipboard"
@@ -61,11 +55,10 @@
           />
           <div class="w-full md:w-1/2 self-center">
             <p class="p-3 pb-0 text-center text-sm">
-              The user needs to be registered on this website.
+              Um den Gutschein in die Wallet zu bekommen, muss der Empfänger bei epasnets registriert sein. Falls der Empfänger
             </p>
             <p class="p-3 pt-0 text-center text-sm">
-              If he or she is not registered, he will get forwarded to
-              the account creation page.
+              noch keinen Account bei epasnets hat, muss er zuerst einen Account erstellen, um den Gutschein zu erhalten.
             </p>
           </div>
         </div>
@@ -117,13 +110,13 @@
       onConfirmation()
       {
         return this.$swal({
-          title: 'Confirm transfer',
-          html: '<p>This cannot be undone.</p><p>You accept the risks.</p>',
+          title: 'Bestätige die Übertragung',
+          html: 'Diese Übertragung kann nicht mehr rückgängig gemacht werden. Falls du den Gutschein an die falsche Person schickst, kann der Gutschein verloren gehen.',
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then((result) => {
           if(result.value){
             return true

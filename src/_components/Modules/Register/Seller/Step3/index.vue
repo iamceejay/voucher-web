@@ -8,7 +8,7 @@
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
       <Header2
-        label="Payout Information"
+        label="Auszahlungsinfo"
       />
       <PayoutForm
         class="w-full md:w-1/2 "

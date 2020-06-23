@@ -36,7 +36,7 @@
             text: 'Please login first and revisit the url again. Thank you.',
             showCancelButton: false,
             confirmButtonColor: '#6C757D',
-            confirmButtonText: 'Confirm',
+            confirmButtonText: 'Bestätigen',
           }).then(async (result) => {
             if(result.value){
               this.$router.push('/login')
@@ -57,11 +57,11 @@
           })
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'The voucher is successfully transfered. Thank you!',
             showCancelButton: false,
             confirmButtonColor: '#6C757D',
-            confirmButtonText: 'Confirm',
+            confirmButtonText: 'Bestätigen',
           }).then(async (result) => {
             if(result.value){
               this.$router.push('/home')
@@ -76,7 +76,7 @@
               text: err.response.data.message,
               showCancelButton: false,
               confirmButtonColor: '#6C757D',
-              confirmButtonText: 'Confirm',
+              confirmButtonText: 'Bestätigen',
             }).then(async (result) => {
               if(result.value){
                 this.$router.push('/home')

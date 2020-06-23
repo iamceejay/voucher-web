@@ -40,7 +40,7 @@
           />
           <Button
             class="justify-center"
-            :label="`${form.id ? 'Update' : 'Save'}`"
+            :label="`${form.id ? 'Update' : 'Speichern'}`"
             size="mt-1 w-full py-3"
             round="rounded-full"
             type="submit"

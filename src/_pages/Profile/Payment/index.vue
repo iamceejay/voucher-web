@@ -53,7 +53,7 @@
           this.key = this.key + 1
           let confirm = this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Updating your payment info.',
             allowOutsideClick: false,
             showConfirmButton: false

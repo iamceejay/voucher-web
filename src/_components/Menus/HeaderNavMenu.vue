@@ -58,7 +58,7 @@
         class="menu-item font-bold font-display hover:text-peach" 
         @click="onLogout()"
       >
-        Logout
+        Ausloggen
       </a>
     </div>
     <router-link 
@@ -128,7 +128,7 @@
             title: 'Info',
             link: '/profile-info'
           },{
-            title: 'Settings',
+            title: 'Einstellungen',
             link: '/profile-settings'
           },
         ]
@@ -137,7 +137,7 @@
           profileChild = [
             ...profileChild,
             {
-              title: 'Payment',
+              title: 'Zahlungsmethoden',
               link: '/profile-payment'
             }
           ]
@@ -150,7 +150,7 @@
                   title: 'Home',
                   link: '/home'
                 }, {
-                  title: 'Manage',
+                  title: 'Verwalten',
                   link: '',
                   isChildShow: false,
                   child: [
@@ -187,10 +187,10 @@
                   title: 'Home',
                   link: '/home'
                 }, {
-                  title: 'My Vouchers',
+                  title: 'Meine Gutscheine',
                   link: '/vouchers'
                 }, {
-                  title: 'Scan',
+                  title: 'Scannen',
                   link: '',
                   isChildShow: false,
                   child: [
@@ -203,12 +203,12 @@
                     }, 
                   ],
                 },  {
-                  title: 'Manage',
+                  title: 'Verwalten',
                   link: '',
                   isChildShow: false,
                   child: [
                     {
-                      title: 'Orders & Earnings',
+                      title: 'Bestellungen & Verdienste',
                       link: '/orders-earnings'
                     }, {
                       title: 'Eingelöst',
@@ -216,7 +216,7 @@
                     }
                   ],
                 }, {
-                  title: 'Profile & Settings',
+                  title: 'Profil & Einstellungen',
                   link: '',
                   isChildShow: false,
                   child: profileChild,
@@ -240,10 +240,10 @@
                   child: categories,
                   isChildShow: false
                 },{
-                  title: 'My Wallet',
+                  title: 'Meine Wallet',
                   link: '/wallet'
                 },{
-                  title: 'Profile & Settings',
+                  title: 'Profil & Einstellungen',
                   link: '',
                   isChildShow: false,
                   child: profileChild,

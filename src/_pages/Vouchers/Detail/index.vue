@@ -17,7 +17,7 @@
             :to="`/seller/${VOUCHER.seller_id}`"
           >
             <Button
-              label="More info on seller"
+              label="Mehr Infos über den Verkäufer"
               size="w-full py-1"
               round="rounded-full"
             />
@@ -39,13 +39,13 @@
               :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (${$helpers.convertCurrency(VOUCHER.price_filter)}/voucher)` : 'value' }`"
               placeholder="Enter here"
               :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
-              :note="`Value from 
+              :note="`Menge zwischen 
               ${ 
                 (VOUCHER.type == 'quantity') 
                   ? `x${VOUCHER.qty_min}` 
                   : $helpers.convertCurrency(VOUCHER.val_min) 
               }
-              to
+              und
               ${ 
                 (VOUCHER.type == 'quantity') 
                   ? `x${VOUCHER.qty_max}` 
@@ -133,13 +133,13 @@
         this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
         console.log('this.form.total_amount', this.form.total_amount)
         this.$swal({
-          title: 'Add to cart',
-          text: `Are you sure you want to add this to the cart?`,
+          title: 'Im Warenkorb hinzufügen',
+          text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -165,7 +165,7 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             let confirm = this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Adding the voucher to the card.',
               allowOutsideClick: false,
               showConfirmButton: false
@@ -185,8 +185,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             const newData = this.CARTS.filter( cart => this.form.id != cart.id )
@@ -201,7 +201,7 @@
             }
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Removing the voucher.',
               confirmButtonColor: '#6C757D',
             })

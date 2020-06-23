@@ -56,11 +56,11 @@
                 v-for="(date, index) in data.valid_date"
                 :key="`date-${index}`"
               >
-                Valid on {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
+                Gültig von {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
               </span>
             </div>
             <div v-if="data.valid_day && data.valid_day.length > 0" class="h-8">
-              Valid on 
+              Gültig von
               <span 
                 v-for="(day, index) in data.valid_day"
                 :key="`day-${index}`"
@@ -73,7 +73,7 @@
             </div>
           </div>
           <div class="text-sm font-bold font-body">
-            {{ `${(data.type == 'quantity') ? 'Quantity' : 'Value'}-based` }}
+            {{ `${(data.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}
           </div>
           <div v-if="role != 'seller'" class="text-sm font-bold font-body">
             <!-- {{

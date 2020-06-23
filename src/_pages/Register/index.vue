@@ -62,7 +62,7 @@
         if( !isValid ) {
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Updating the profile.',
             confirmButtonColor: '#6C757D',
           });

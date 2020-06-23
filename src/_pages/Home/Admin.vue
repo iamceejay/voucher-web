@@ -71,7 +71,7 @@
       {
         this.stats = [
           {
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'gesamt verkauft',
             value: data.voucher_total
           },{
@@ -79,7 +79,7 @@
             title: 'earnings total',
             value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },{
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'sold / month',
             value: data.voucher_month
           },{
@@ -87,7 +87,7 @@
             title: 'umsatz / month',
             value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
           },{
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'sold / week',
             value: data.voucher_week
           },{

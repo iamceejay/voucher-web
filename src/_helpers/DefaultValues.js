@@ -115,13 +115,13 @@ export const templates = [
 ]
 
 export const getWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
+  'So',
+  'Mo',
+  'Di',
+  'Mi',
+  'Do',
+  'Fr',
+  'Sa',
 ]
 
 export const users = [
@@ -276,7 +276,7 @@ export const vouchers = [
   {
     id: 1,
     name: 'Voucher Name 1',
-    companyName: 'Company Name',
+    companyName: 'Unternehmensname',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq.',
     customNote: '',
     validDates: [
@@ -285,7 +285,7 @@ export const vouchers = [
         end: '2020-05-09',
       }
     ],
-    validDay: ['Monday', 'Sunday'],
+    validDay: ['Mo', 'So'],
     expiryDate: '12.04.2023',
     isQuantityBased: false,
     minVal: 0,
@@ -335,7 +335,7 @@ export const vouchers = [
         end: '2020-05-09',
       }
     ],
-    validDay: ['Monday', 'Sunday'],
+    validDay: ['Mo', 'So'],
     expiryDate: '12.04.2023',
     isQuantityBased: true,
     minVal: 0,

@@ -3,7 +3,7 @@
     <template #content>
       <div class="content-container w-full h-screen flex flex-col px-8">
         <Header1
-          label="Send Voucher"
+          label="Gutschein per Email verschicken"
         />
         <ValidationObserver v-slot="{ handleSubmit }">
           <form 
@@ -23,7 +23,7 @@
               v-model="emailForm.subject"
               type="text"
               class="w-full md:w-1/2 m-auto mt-4"
-              placeholder="Subject"
+              placeholder="Betreff"
               rules="required"
             />
             <TextAreaField
@@ -36,13 +36,13 @@
             />
             <Button
               class="mx-2 justify-center"
-              label="Send Email"
+              label="Email abschicken"
               size="mt-1 w-full md:w-1/2 py-3"
               round="rounded-full"
               type="submit"
             />
             <p class="p-3 text-center text-sm">
-              The voucher will be attached as PDF.
+              Der Gutschein wird als PDF im Email angehängt.
             </p>
           </form>
         </ValidationObserver>
@@ -87,7 +87,7 @@
           await this.$store.dispatch('SEND_WALLET', this.emailForm)
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Sending the voucher via email.',
             confirmButtonColor: '#6C757D',
           });

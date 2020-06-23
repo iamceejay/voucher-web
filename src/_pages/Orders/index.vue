@@ -9,7 +9,7 @@
           :data="stats"
         />
         <Header1
-          label="Orders"
+          label="Bestellungen"
         />
         <OrderList 
           :role="AUTH_USER.role.name"

@@ -101,11 +101,11 @@
       {
         this.earnings = [
           {
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'gesamt verkauft',
             value: voucher_total
           }, {
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'gesamt',
             value: `${this.$helpers.convertCurrency(total_earnings)}`,
             extra: {

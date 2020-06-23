@@ -111,7 +111,7 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           let confirm = this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Changing your password. Redirecting ...',
             allowOutsideClick: false,
             showConfirmButton: false

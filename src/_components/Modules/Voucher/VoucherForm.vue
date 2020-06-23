@@ -89,7 +89,7 @@
               <SelectField
                 id="tax"
                 class="px-2 py-1 w-full md:w-1/2"
-                placeholder="Anfallende MwSt."
+                placeholder="Steuersatz auswählen"
                 :options="taxes"
                 :multiple="true"
                 :disabled="unsure ? true : false"
@@ -104,7 +104,7 @@
                 <template #label_>
                   <div class="flex flex-row">
                     <Header5
-                      label="Tax"
+                      label="Anfallende MwSt."
                     />
                     <div class="tooltip ml-1">
                       <i class="fas fa-info-circle text-base text-gray-700" />
@@ -293,7 +293,7 @@
               v-model="form.max"
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
-              label="(form.type == 'quantity') ? 'Maximalbestellmenge' : 'Maximalgutscheinwert'"
+              :label="(form.type == 'quantity') ? 'Maximalbestellmenge' : 'Maximalgutscheinwert'"
               placeholder="Max Value"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:0.001`"
             />
@@ -443,7 +443,7 @@
           await this.$store.dispatch(url, this.form)
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
             confirmButtonColor: '#6C757D',
           });

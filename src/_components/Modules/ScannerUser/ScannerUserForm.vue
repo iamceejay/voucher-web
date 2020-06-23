@@ -10,7 +10,7 @@
           v-model="form.username"
           type="text"
           class="mx-2"
-          placeholder="Username"
+          placeholder="Benutzername"
           :rules="`required|unique:users,username,${form.id}`"
         />
         <InputField
@@ -36,7 +36,7 @@
         <Button
           type="submit"
           class="py-2"
-          label="Save"
+          label="Speichern"
           size="w-full py-3"
           round="rounded-full"
           fontSize="text-xs"
@@ -44,7 +44,7 @@
         <router-link to="/scanner-users">
           <Button
             class="py-2"
-            label="Cancel"
+            label="Abbrechen"
             size="w-full py-3"
             round="rounded-full"
             fontSize="text-xs"
@@ -93,7 +93,7 @@
             }
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Adding new user.',
               confirmButtonColor: '#6C757D',
             });

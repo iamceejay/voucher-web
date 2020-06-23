@@ -5,7 +5,7 @@
       v-model="form.username"
       type="text"
       class="m-2"
-      label="Username"
+      label="Benutzername"
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
@@ -25,7 +25,7 @@
       id="text"
       v-model="form.company.description"
       class="m-2"
-      label="Description"
+      label="Beschreibung"
       rules="max:800"
       :errorMessages="errorMessages.description"
       @input="onChange"
@@ -35,7 +35,7 @@
       v-model="form.company.url"
       type="text"
       class="m-2"
-      label="Company Website"
+      label="Webseite"
       rules="required"
       :errorMessages="errorMessages.url"
       @input="onChange"
@@ -55,7 +55,7 @@
       v-model="form.company.logo"
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
-      label="Company Logo"
+      label="Logo"
       note="(Note: Based fit is 250px x 100px)"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
@@ -66,7 +66,7 @@
       v-model="form.company.vat_number"
       type="text"
       class="m-2"
-      label="VAT Number"
+      label="UID Nummer"
       :errorMessages="errorMessages.vat_number"
       @input="onChange"
     />
@@ -82,7 +82,7 @@
     />
     <div v-if="GLOBAL_SETTING" class="mt-2 mb-4 text-sm text-center">
       {{
-        `Your commision is ${ settings ? settings.sales_commission_percentage : '5' }% and ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } per sale`
+        `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Verkauf`
       }}
     </div>
   </div>

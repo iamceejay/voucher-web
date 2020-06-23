@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Payment Method"
+          label="Zahlungsmethode"
         />
         <div class="flex flex-col w-full md:w-1/2">
           <div class="flex flex-col mt-5 w-full">
@@ -18,7 +18,7 @@
             <Button
               variant="info"
               class="py-2 justify-center"
-              label="New Card Number"
+              label="Neue Kreditkarte"
               size="w-full py-3"
               round="rounded-full"
               fontSize="text-sm"
@@ -26,7 +26,7 @@
             /> 
             <Button
               class="py-2 justify-center"
-              label="Pay Now"
+              label="Jetzt bezahlen"
               size="w-full py-3"
               round="rounded-full"
               fontSize="text-sm"
@@ -105,13 +105,13 @@
       onSubmit( data )
       {
         this.$swal({
-          title: 'Payment',
-          text: `Are you sure you want to continue this payment?`,
+          title: 'Zahlungsmethoden',
+          text: `Bist du sicher, dass du diese Zahlung durchführen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then(async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -123,11 +123,11 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Paying the vouchers.',
               showCancelButton: false,
               confirmButtonColor: '#6C757D',
-              confirmButtonText: 'Confirm',
+              confirmButtonText: 'Bestätigen',
             }).then(async (result) => {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               if(result.value){

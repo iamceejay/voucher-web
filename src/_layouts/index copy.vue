@@ -78,8 +78,8 @@
           // } 
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              title: 'Loading!',
-              text: 'Please wait ...',
+              title: 'Wird geladen',
+              text: 'Warten Sie mal',
               allowOutsideClick: false,
               showConfirmButton: false
             })

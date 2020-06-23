@@ -7,7 +7,7 @@
       <SearchInputField
         id="search-here"
         class="m-2"
-        placeholder="Search here ..."
+        placeholder="Suche hier nach Gutscheinen"
       />
     </router-link>
     <VoucherList

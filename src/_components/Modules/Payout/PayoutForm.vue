@@ -40,7 +40,7 @@
         <Button
           type="submit"
           class="py-2"
-          label="Save"
+          label="Speichern"
           size="w-full py-3"
           round="rounded-full"
           fontSize="text-sm"

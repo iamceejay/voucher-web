@@ -67,7 +67,7 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Saving the settings.',
             confirmButtonColor: '#6C757D',
           })

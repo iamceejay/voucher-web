@@ -3,13 +3,13 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="My Wallet"
+          label="Meine Wallet"
         />
         <SearchInputField
           id="search-here"
           v-model="params.keyword"
           class="my-2"
-          placeholder="Search for vouchers ..."
+          placeholder="Suche nach Gutscheinen"
           @input="onLoadData($event, true)"
         />
         <CartList

@@ -124,8 +124,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -133,7 +133,7 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Deleting the category.',
               confirmButtonColor: '#6C757D',
             })

@@ -14,12 +14,12 @@
           class="mt-1"
           type="checkbox"
         />
-        <span class="text-xs ml-1 mt-1"> Save card for later payments </span>
+        <span class="text-xs ml-1 mt-1"> Speichere deine Kreditkarte für spätere Zahlungen</span>
       </div>
       <Button
         type="submit"
         class="py-2 justify-center"
-        :label="`${ isPay ? 'Pay Now' : 'Save' }`"
+        :label="`${ isPay ? 'Pay Now' : 'Speichern' }`"
         size="w-full py-3"
         round="rounded-full"
         fontSize="text-sm"

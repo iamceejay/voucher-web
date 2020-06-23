@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Personalized Voucher"
+          label="Gutschein personalisieren"
         />
         <PersonalizedForm 
           :data="WALLET"

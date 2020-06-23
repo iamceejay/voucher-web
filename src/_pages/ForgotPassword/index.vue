@@ -88,7 +88,7 @@
           // this.$router.push('/login')
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: `Please check your email and proceed with the link given.`,
             confirmButtonColor: '#6C757D',
           })

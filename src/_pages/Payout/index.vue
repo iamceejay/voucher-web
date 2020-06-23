@@ -83,7 +83,7 @@
         fields: [
           {
             name: 'company.name',
-            title: 'Company Name',
+            title: 'Unternehmensname',
           }, {
             name: 'payout',
             title: 'Auszahlung(€)',
@@ -133,7 +133,7 @@
         setTimeout( () => {
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Downloading all the invoices.',
             confirmButtonColor: '#6C757D',
           })
@@ -150,7 +150,7 @@
         setTimeout( () => {
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Downloading all the payouts.',
             confirmButtonColor: '#6C757D',
           })
@@ -164,8 +164,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             this.data = this.data.map( row => {
@@ -176,7 +176,7 @@
             })
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Marking the payment complete.',
               confirmButtonColor: '#6C757D',
             })
@@ -191,8 +191,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -200,7 +200,7 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Sending an invoice.',
               confirmButtonColor: '#6C757D',
             });

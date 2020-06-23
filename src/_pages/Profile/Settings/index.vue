@@ -7,14 +7,14 @@
             class="flex flex-col w-full md:w-1/2"
             @submit.prevent="handleSubmit(onSubmit)"
           >
-            <Header2 label="Settings" />
+            <Header2 label="Einstellungen" />
             <div class="flex flex-col w-full">
               <InputField
                 id="current_password"
                 v-model="form.current_password"
                 type="password"
                 class="m-2"
-                label="Confirm Password"
+                label="Passwort bestätigen"
                 rules="required|min:8|max:16"
                 :errorMessages="errorMessages.current_password"
               />
@@ -23,7 +23,7 @@
                 v-model="form.new_password"
                 type="password"
                 class="m-2"
-                label="New Password"
+                label="Neues Passwort"
                 rules="required|min:8|max:16"
                 :errorMessages="errorMessages.new_password"
               />
@@ -32,14 +32,14 @@
                 v-model="form.repeat_password"
                 type="password"
                 class="m-2"
-                label="Repeat Password"
+                label="Passwort wiederholen"
                 rules="required|min:8|max:16|password:@new_password"
                 :errorMessages="errorMessages.repeat_password"
               />
             </div>
             <Button
               type="submit"
-              label="Save"
+              label="Speichern"
               size="w-full py-3 mx-2 mt-2"
               round="rounded-full"
             />
@@ -101,7 +101,7 @@
           }
           let confirm = this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Updating the password.',
             allowOutsideClick: false,
             showConfirmButton: false

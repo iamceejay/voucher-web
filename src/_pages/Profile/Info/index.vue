@@ -9,7 +9,7 @@
           >
             <div class="flex flex-wrap w-full">
               <div class="w-full md:w-1/2 order-1">
-                <Header2 label="Profile Info" />
+                <Header2 label="Profilinfo" />
                 <ProfileForm
                   :data="form"
                   :type="AUTH_USER.role.name"
@@ -32,7 +32,7 @@
                 v-if="AUTH_USER.role.name == 'seller'" 
                 class="w-full md:w-1/2 order-3 md:order-2 mt-5"
               >
-                <Header2 label="Payout Info" />
+                <Header2 label="Auszahlungsinfo" />
                 <PayoutForm
                   :data="form"
                   :errorMessages="errorMessages"
@@ -42,7 +42,7 @@
             </div>
             <Button
               type="submit"
-              label="Save"
+              label="Speichern"
               size="w-full md:w-1/2 py-3 mx-2 mt-1"
               round="rounded-full"
             />
@@ -132,7 +132,7 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           let confirm = this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: 'Updating your info.',
             allowOutsideClick: false,
             showConfirmButton: false

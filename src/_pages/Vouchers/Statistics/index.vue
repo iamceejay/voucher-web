@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
         <Header1
-          label="Voucher Statistics"
+          label="Gutscheinstatistiken"
         />
         <StatisticList 
           :data="stats"
@@ -69,12 +69,12 @@
           //   value: `${this.$helpers.convertCurrency(data.daily_earnings)}`
           // }
           {
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'diese Woche verkauft',
             value: data.weekly_voucher_sold
           }
           ,{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'diese Woche',
             value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           }
@@ -89,27 +89,27 @@
           //   value: `${this.$helpers.convertCurrency(data.montyly_earnings)}`
           // }
           ,{
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'gesamt verkauft',
             value: data.voucher_total
           },{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'gesamt',
             value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },{
-            type: 'Vouchers Redeemed',
+            type: 'Gutscheine eingelöst',
             title: 'heute',
             value: data.daily_redemptions
           },{
-            type: 'Vouchers Redeemed',
+            type: 'Gutscheine eingelöst',
             title: 'diese Woche',
             value: data.weekly_redemptions
           },{
-            type: 'Vouchers Redeemed',
+            type: 'Gutscheine eingelöst',
             title: 'diesen Monat',
             value: data.monthly_redemptions
           },{
-            type: 'Vouchers Redeemed',
+            type: 'Gutscheine eingelöst',
             title: 'gesamt',
             value: data.total_redemptions
           }

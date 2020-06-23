@@ -31,11 +31,11 @@
       {
         this.earnings = [
           {
-            type: 'Vouchers',
+            type: 'Gutscheine',
             title: 'gesamt verkauft',
             value: '234'
           },{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'gesamt',
             value: '€234,567'
           }

@@ -101,8 +101,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             try {
@@ -112,7 +112,7 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
-                title: 'Successful!',
+                title: 'Erfolgreich!',
                 text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the Gesponserte Gutscheine.`,
                 confirmButtonColor: '#6C757D',
               })

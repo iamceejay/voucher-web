@@ -14,7 +14,7 @@
     <router-link :to="`/vouchers/statistic/${data.id}`">
       <Button
         class="py-2 justify-center"
-        label="View statistics"
+        label="Statistiken anzeigen"
         size="w-64 py-2"
         round="rounded-full"
       />
@@ -72,13 +72,13 @@
       {
         this.isAction = ++this.isAction
         this.$swal({
-          title: 'Delete Voucher',
-          text: `Are you sure you want to delete this voucher?`,
+          title: 'Gutschein löschen',
+          text: `Bist du sicher, dass du diesen Gutschein löschen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then(async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -87,7 +87,7 @@
             
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: 'Deleting the voucher.',
               confirmButtonColor: '#6C757D',
             });
@@ -104,8 +104,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then(async (result) => {
           if(result.value){
             await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -113,7 +113,7 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
+              title: 'Erfolgreich!',
               text: `${ data.is_active ? 'Deactivating' : 'Activating' } the voucher.`,
               confirmButtonColor: '#6C757D',
             })

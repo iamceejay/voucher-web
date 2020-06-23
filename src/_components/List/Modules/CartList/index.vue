@@ -57,7 +57,7 @@
       <Button
         type="submit"
         class="py-2"
-        label="Go to checkout"
+        label="Kauf abschließen"
         size="w-full py-3"
         round="rounded-full"
         fontSize="text-sm"
@@ -122,13 +122,13 @@
       onDelete( data )
       {
         this.$swal({
-          title: 'Delete item',
-          text: `Are you sure you want to delete this item?`,
+          title: 'Aus dem Warenkorb entfernen',
+          text: `Bist du sicher, dass du diesen Gutschein aus dem Warenkorb entfernen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then((result) => {
           if(result.value){
             this.$emit('onDelete', data)

@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="My Cart"
+          label="Mein Warenkorb"
         />
         <CartList
           class="mb-3"
@@ -75,7 +75,7 @@
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         this.$swal({
           icon: 'success',
-          title: 'Successful!',
+          title: 'Erfolgreich!',
           text: 'Deleting the voucher from the cart.',
           confirmButtonColor: '#6C757D',
         })

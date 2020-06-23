@@ -48,7 +48,7 @@ extend('integer', {
 })
 extend('required', {
   ...required,
-  message: 'This field is required.'
+  message: 'Dieses Feld muss ausgefüllt werden'
 })
 extend('email', {
   ...email,
@@ -68,7 +68,7 @@ extend('max_value', {
 })
 extend('min_value', {
   ...min_value,
-  message: 'The value must be atleast {min}.' 
+  message: 'Der Wert muss mindestens sein {min}.' 
 })
 extend('password', {
   params: ['target'],

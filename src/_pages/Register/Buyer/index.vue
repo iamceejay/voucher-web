@@ -150,11 +150,11 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.$swal({
             icon: 'success',
-            title: 'Successful!',
+            title: 'Erfolgreich!',
             text: data.message,
             showCancelButton: false,
             confirmButtonColor: '#6C757D',
-            confirmButtonText: 'Confirm',
+            confirmButtonText: 'Bestätigen',
           }).then(async (result) => {
             if(result.value){
               this.$router.push('/login')

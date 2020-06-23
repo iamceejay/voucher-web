@@ -22,7 +22,7 @@
         />
         <Button
           class="py-1 mt-1 justify-center"
-          label="Cancel"
+          label="Abbrechen"
           size="w-full md:w-1/2 py-2"
           round="rounded-full"
           @onClick="$store.commit('SET_QR_CODE', null)"
@@ -63,8 +63,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
             try {
