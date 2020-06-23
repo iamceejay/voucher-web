@@ -217,7 +217,7 @@
                       title: 'Orders & Earnings',
                       link: '/orders-earnings'
                     }, {
-                      title: 'Redemptions',
+                      title: 'Eingelöst',
                       link: '/redemptions'
                     }
                   ],

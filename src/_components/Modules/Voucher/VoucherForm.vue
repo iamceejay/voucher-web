@@ -11,17 +11,17 @@
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">
-          Live Preview
+          Live Vorschau
         </div>
       </div>
       <div class="w-full flex flex-col">
         <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-          Pick a background color or upload photo
+          Wähle eine Hintergrundfarbe oder lade ein Foto hoch
         </div>
         <div class="flex flex-row flex-wrap w-full">
           <div class="w-full md:w-1/2 mb-5">
             <span class="font-semibold text-sm font-display text-gray-700 mx-2">
-              Background color
+              Hintergrundfarbe
             </span>
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
@@ -32,7 +32,7 @@
           </div>
           <div class="w-full md:w-1/2 mb-5">
             <span class="font-semibold text-sm font-display text-gray-700 mx-2">
-              Background image
+              Hintergrundbild
             </span>
             <Button
               v-if="form && form.id && form.background_image != ''"
@@ -67,7 +67,7 @@
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
             />
-            <span class="ml-2 font-semibold text-sm font-display text-gray-700">Light / Dark Text</span>
+            <span class="ml-2 font-semibold text-sm font-display text-gray-700">Heller / Dunkler Text</span>
           </div>
           <div class="w-full">
             <InputField
@@ -75,21 +75,21 @@
               v-model="form.title"
               type="text"
               class="px-2 w-full md:w-1/2"
-              placeholder="Voucher Title"
+              placeholder="Titel des Gutscheins"
               rules="required|max:30"
             />
             <TextAreaField
               id="description"
               v-model="form.description"
               class="px-2 w-full md:w-1/2"
-              placeholder="Voucher Description"
+              placeholder="Beschreibung des Gutscheins"
               rules="required|max:250"
             />
             <div v-if="!form.id" class="flex flex-col w-full">
               <SelectField
                 id="tax"
                 class="px-2 py-1 w-full md:w-1/2"
-                placeholder="Select tax"
+                placeholder="Anfallende MwSt."
                 :options="taxes"
                 :multiple="true"
                 :disabled="unsure ? true : false"
@@ -109,7 +109,7 @@
                     <div class="tooltip ml-1">
                       <i class="fas fa-info-circle text-base text-gray-700" />
                       <span class="tooltiptext">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Wählen einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".
                       </span>
                     </div>
                   </div>
@@ -119,13 +119,13 @@
                     id="tax-unsure"
                     v-model="unsure"
                     container="mb-0"
-                    labelSentence="Check if not sure about the tax."
+                    labelSentence="Steuersatz kann noch nicht festgestellt werden"
                   />
                 </template>
               </SelectField>
               <div v-if="form.tax.length > 0" class="flex flex-col w-full">
                 <div class="px-2 font-semibold text-xs font-display text-gray-700 flex flex-row w-full md:w-1/2">
-                  Selected Tax:
+                  Ausgewählter Steuersatz
                 </div>
                 <div
                   v-for="(row, index) in form.tax" 
@@ -147,7 +147,7 @@
                     type="number"
                     class="px-2 w-7/12"
                     inputContainer="py-1"
-                    placeholder="Tax Value"
+                    placeholder="Wert zu diesem Steuersatz"
                     :rules="`${ (form.tax.length <= 1) ? '' : 'required' }`"
                     :disabled="(form.tax.length > 1) ? false : true"
                   />
@@ -165,7 +165,7 @@
               id="category"
               v-model="form.category"
               class="px-2 py-1 w-full md:w-1/2"
-              label="Category"
+              label="Kategorie"
               :options="categories"
               rules="required"
             />
@@ -180,12 +180,12 @@
               <template #label_>
                 <div class="flex flex-row">
                   <Header5
-                    label="Valid on following days"
+                    label="Nur gültig an diesen Tagen"
                   />
                   <div class="tooltip ml-1">
                     <i class="fas fa-info-circle text-base text-gray-700" />
                     <span class="tooltiptext">
-                      This will give a restriction to redeem the voucher depending to the day given.
+                      Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll.
                     </span>
                   </div>
                 </div>
@@ -194,11 +194,11 @@
             <div class="w-full md:w-1/2 mb-5 mx-2">
               <div class="flex flex-row">
                 <label class="font-semibold text-sm font-display text-gray-700">
-                  Valid from ... to ...
+                  Nur gültig im Zeitraum von … bis … 
                   <div class="tooltip ml-1">
                     <i class="fas fa-info-circle text-base" />
                     <span class="tooltiptext">
-                      This will give a restriction to redeem the voucher depending to the date given.
+                      Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen.
                     </span>
                   </div>
                   <a 
@@ -254,20 +254,20 @@
               id="expiry_date"
               v-model="form.expiry_date"
               class="px-2 py-1 w-full md:w-1/2"
-              label="Years of Expiry (4-10 years)"
+              label="Gültigkeitsdauer (4 - 10 Jahre)"
               :options="expiry"
               rules="required"
             />
             <div class="m-1 w-full flex flex-col mb-5">
               <label class="font-semibold text-sm font-display text-gray-700">
-                Voucher Type
+                Gutscheinart
               </label>
               <div class="mx-2 mt-2 w-full flex flex-row">
                 <toggle-button
                   :value="(form.type == 'quantity') ? true : false"
                   @change="onChangeType"
                 />
-                <span class="ml-2 font-semibold text-sm font-display text-gray-700">Value based / Quantity based</span>
+                <span class="ml-2 font-semibold text-sm font-display text-gray-700">Wertgutschein / Produktgutschein</span>
               </div>
             </div>
             <InputField
@@ -276,7 +276,7 @@
               v-model="form.qty_val"
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
-              label="Voucher Value"
+              label="Gutscheinwert"
               :rules="`required|min_value:${USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
             />
             <InputField
@@ -284,7 +284,7 @@
               v-model="form.min"
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
-              label="Voucher Minimum Value / Quantity"
+              :label="(form.type == 'quantity') ? 'Mindestbestellmenge' : 'Mindestgutscheinwert'"
               placeholder="Min Value"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
             />
@@ -293,14 +293,14 @@
               v-model="form.max"
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
-              label="Voucher Maximum Value / Quantity"
+              label="(form.type == 'quantity') ? 'Maximalbestellmenge' : 'Maximalgutscheinwert'"
               placeholder="Max Value"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:0.001`"
             />
           </div>
         </div>
         <Button
-          :label="`${ data && data.id ? 'Update' : 'Save' } voucher`"
+          :label="`${ data && data.id ? 'Gutschein aktualisieren' : 'Gutschein speichern' }`"
           size="w-full md:w-1/2 py-3"
           round="rounded-full"
           type="submit"

@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Redemptions"
+          label="Eingelöst"
         />
         <RedemptionList 
           :data="REDEMPTIONS.data"

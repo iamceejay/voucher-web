@@ -10,7 +10,7 @@
           v-model="form.payout_schedule"
           type="text"
           class="m-2"
-          label="Payout schedule (days)"
+          label="Payout schedule (tage)"
           rules="required"
         />
         <InputField
