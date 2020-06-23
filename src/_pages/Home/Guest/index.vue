@@ -11,7 +11,7 @@
     />
     <CategoryList
       class="content-container mb-3 py-6 px-8"
-      title="Categories"
+      title="Kategorien"
       :data="CATEGORIES"
     />
     <GuestSellerContent />
