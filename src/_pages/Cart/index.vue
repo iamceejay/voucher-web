@@ -6,6 +6,7 @@
           label="Mein Warenkorb"
         />
         <CartList
+          v-if="WALLETS && WALLETS.length >= 0"
           class="mb-3"
           :role="AUTH_USER.role.name"
           :data="WALLETS"
@@ -53,8 +54,8 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.$store.commit('SET_WALLETS', [])
+        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
         await this.onFetchWallets()
         await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()

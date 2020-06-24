@@ -125,6 +125,7 @@ const router = new Router({
       name: 'vouchers-new', 
       component: NewVoucher,
       meta: {
+        back: '/vouchers',
         middleware: [ auth, authSeller ]
       } 
     }, { 
@@ -132,6 +133,7 @@ const router = new Router({
       name: 'vouchers-update', 
       component: NewVoucher,
       meta: {
+        back: '/vouchers',
         middleware: [ auth, authSeller ]
       } 
     }, { 
@@ -139,6 +141,7 @@ const router = new Router({
       name: 'vouchers-statistic', 
       component: StatisticsVoucher,
       meta: {
+        back: '/vouchers',
         middleware: [ auth, authSeller ]
       } 
     }, { 
@@ -195,6 +198,7 @@ const router = new Router({
       name: 'scanner-users-new', 
       component: ScannerUserNew,
       meta: {
+        back: '/scanner-users',
         middleware: [ auth, authSeller ]
       } 
     }, { 
@@ -202,6 +206,7 @@ const router = new Router({
       name: 'cart', 
       component: Cart,
       meta: {
+        back: '',
         middleware: [ auth, authUser ]
       } 
     }, { 
@@ -237,6 +242,7 @@ const router = new Router({
       name: 'vouchers-send-email', 
       component: VoucherSendEmail,
       meta: {
+        back: '/wallet',
         middleware: [ auth, authUser ]
       } 
     }, { 
@@ -244,6 +250,7 @@ const router = new Router({
       name: 'vouchers-transfer', 
       component: VoucherTransfer,
       meta: {
+        back: '/wallet',
         middleware: [ auth, authUser ]
       } 
     }, { 
@@ -251,6 +258,7 @@ const router = new Router({
       name: 'vouchers-detail', 
       component: VoucherDetail,
       meta: {
+        back: '/home',
         middleware: [ authGUS ]
       } 
     }, { 
@@ -258,6 +266,7 @@ const router = new Router({
       name: 'vouchers-personalized', 
       component: VoucherPersonalized,
       meta: {
+        back: '/wallet',
         middleware: [ auth, authUser ]
       } 
     }, { 
@@ -265,6 +274,7 @@ const router = new Router({
       name: 'seller-detail', 
       component: SellerDetail,
       meta: {
+        back: '',
         middleware: [ authGUS ]
       } 
     }, { 
@@ -272,6 +282,7 @@ const router = new Router({
       name: 'payment', 
       component: Payment,
       meta: {
+        back: '/cart',
         middleware: [ auth, authUser ]
       } 
     }, { 

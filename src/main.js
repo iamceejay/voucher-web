@@ -5,6 +5,7 @@ import store from '_store'
 import '_assets/css/tailwind.css'
 import '_assets/css/styles.css'
 import helpers from '_helpers/Functions'
+import BackBtn from '_components/Button/BackBtn';
 
 import Vuex from 'vuex'
 import VueFileAgent from 'vue-file-agent'
@@ -28,6 +29,7 @@ Vue.use(Vuex)
 
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
+Vue.component('BackBtn', BackBtn)
 
 Vue.config.productionTip = false
 
