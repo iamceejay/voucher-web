@@ -56,7 +56,7 @@
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
       label="Logo"
-      note="(Note: Based fit is 250px x 100px)"
+      note="(Ideales Maß ist 250px x 100px)"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
       @input="onChangeLogo"

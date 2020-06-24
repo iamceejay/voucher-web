@@ -58,7 +58,7 @@
           this.$swal({
             icon: 'success',
             title: 'Erfolgreich!',
-            text: 'The voucher is successfully transfered. Thank you!',
+            text: 'The voucher is successfully transfered. Danke! ',
             showCancelButton: false,
             confirmButtonColor: '#6C757D',
             confirmButtonText: 'Bestätigen',

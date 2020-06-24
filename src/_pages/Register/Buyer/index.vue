@@ -10,12 +10,11 @@
           @submit.prevent="handleSubmit(onSubmit)"
         >
           <Header1
-            label="Welcome!"
+            label="Willkommen!"
           />
           <p>
-            We are happy to have you on our platform! <br />
-            Please fill out the registration form below to
-            register for the app.
+            Wir freuen uns, dass du dich für unsere Plattform registrieren willst! <br />
+            Fülle einfach das kurze Formular aus und schon bist du für epasnets registriert. 
           </p>
           <div class="flex flex-col w-full md:w-1/2 my-5">
             <ProfileForm
@@ -35,13 +34,13 @@
             >
               <template #labelSentence_>
                 <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
-                  I accept the 
+                  Ich akzeptiere die
                   <a 
                     class="text-blue-700" 
                     href="https://verkaufen.epasnets.com/datenschutz" 
                     target="_blank"
                   >
-                    Data Privacy guidelines.
+                    Datenschutzerklärung.
                   </a>
                 </label>
               </template>
@@ -55,34 +54,34 @@
             >
               <template #labelSentence_>
                 <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
-                  I accept the 
+                  Ich akzeptiere die
                   <a 
                     class="text-blue-700" 
                     href="https://verkaufen.epasnets.com/agb" 
                     target="_blank"
                   >
-                    Terms of Services.
+                    Nutzungsbedingungen.
                   </a>
                 </label>
               </template>
             </CheckboxField>
             <div class="mx-2 text-sm px-2">
               <p>
-                You want to sell vouchers? 
+                Du willst lieber Gutscheine verkaufen? 
                 <a
                   class="text-peach font-bold"
                   href="http://verkaufen.epasnets.com/"
                   target="_blank"
                 >
-                  Registrieren here
+                  Registiere dich
                 </a>
-                as a seller.
+                als Verkäufer.
               </p>
             </div>
           </div>
           <Button
             type="submit"
-            label="Complete Registration"
+            label="Registrierung abschließen"
             size="w-full sm:w-1/2 py-3"
             round="rounded-full"
           />

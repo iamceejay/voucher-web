@@ -8,12 +8,12 @@
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
       <Header1
-        label="Welcome!"
+        label="Willkommen!"
       />
       <p>
-        Please fill out the registration form to register on our app as seller.
-        We will then review your entry, which can take up to 3 days. We will
-        contact you as soon as you are approved.
+        Wir freuen uns, dass du dich für unsere Plattform registrieren willst!
+        Fülle einfach das kurze Formular aus und schon ist dein Unternehmen für epasnets registriert. 
+        Wir werden im Anschluss dein Profil überprüfen und uns innerhalb von 24 Stunden bei dir melden, sobald dein Profil verifiziert ist. 
       </p>
       <div class="flex flex-col w-full md:w-1/2 my-5">
         <ProfileForm

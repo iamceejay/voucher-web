@@ -42,7 +42,7 @@
                   v-model="form.confirm_password"
                   type="password"
                   class="m-2"
-                  label="Repeat Password"
+                  label="Passwort wiederholen"
                   rules="required|min:8|max:16|password:@new_password"
                   :errorMessages="errorMessages.confirm_password"
                   @input="onChange"

@@ -27,13 +27,13 @@
       >
         <template #labelSentence_>
           <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
-            I accept the 
+            Ich akzeptiere die
             <a 
               class="text-blue-700" 
               href="https://verkaufen.epasnets.com/datenschutz" 
               target="_blank"
             >
-              Data Privacy guidelines.
+              Datenschutzerklärung.
             </a>
           </label>
         </template>
@@ -47,13 +47,13 @@
       >
         <template #labelSentence_>
           <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
-            I accept the 
+            Ich akzeptiere die
             <a 
               class="text-blue-700" 
               href="https://verkaufen.epasnets.com/agb" 
               target="_blank"
             >
-              Terms of Services.
+              Nutzungsbedingungen.
             </a>
           </label>
         </template>
@@ -63,12 +63,12 @@
         v-model="form.commision"
         type="text"
         container="mx-2 mb-5"
-        :labelSentence="`I accept the standard commission rate of ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% and ${ GLOBAL_SETTING ? $helpers.convertCurrency(GLOBAL_SETTING.sales_commission_euro) : '5,00 €' } per sale.`"
+        :labelSentence="`Ich akzeptiere die Kommision von ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% des Umsatzes und ${ GLOBAL_SETTING ? $helpers.convertCurrency(GLOBAL_SETTING.sales_commission_euro) : '5,00 €' } pro Gutscheinverkauf.`"
         :rules="{ required: { allowFalse: false } }"
       />
       <Button
         type="submit"
-        label="Complete Registration"
+        label="Registrierung abschließen"
         size="w-full sm:w-1/2 py-4 mx-2"
         round="rounded-full"
       />

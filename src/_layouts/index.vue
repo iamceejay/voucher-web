@@ -27,7 +27,7 @@
       <template #default="props">
         <div class="flex flex-col">
           <p class="text-xs">
-            This website uses cookies to ensure you get the best experience on our website.
+            Diese Webseite verwendet Cookies, um dir das bestmögliche Erlebnis zu bieten. 
           </p>
           <p class="text-xs">
             <a
@@ -35,16 +35,16 @@
               href="https://verkaufen.epasnets.com/datenschutz"
               target="_blank"
             >
-              Click Here
+              Klicke hier,
             </a>
-            to view more about the Data Privacy.
+            um mehr über die Datenschutzbedingungen zu erfahren.
           </p>
         </div>
         <button 
           class="cookie-btn" 
           @click="props.accept"
         >
-          I accept
+          Akzeptieren
         </button>
       </template>
     </CookieLaw>
@@ -102,8 +102,8 @@
           // } 
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              title: 'Loading',
-              text: 'Please wait',
+              title: 'Wird geladen,',
+              text: 'bitte warten…',
               allowOutsideClick: false,
               showConfirmButton: false
             })
@@ -126,8 +126,8 @@
           }
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              title: 'Processing!',
-              text: 'Please wait ...',
+              title: 'Wird geladen…',
+              text: 'Einen kurzen Moment.',
               allowOutsideClick: false,
               showConfirmButton: false
             })

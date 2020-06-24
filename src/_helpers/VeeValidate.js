@@ -60,7 +60,7 @@ extend('max', {
 })
 extend('min', {
   ...min,
-  message: 'The character length must be atleast {length}.' 
+  message: 'Muss mindestens 8 Zeichen ennthalten {length}.' 
 })
 extend('max_value', {
   ...max_value,

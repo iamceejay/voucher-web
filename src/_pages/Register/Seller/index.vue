@@ -109,7 +109,7 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
-              title: `Thank you!`,
+              title: `Danke! `,
               text: data.message,
               // text: `We have recieved your registration application. As soon as you are verified, this message will be removed and you will be able to see your seller dashboard.`,
               showCancelButton: false,
