@@ -16,7 +16,7 @@
         id="infinite-scroll" 
         class="flex flex-col h-full w-full m-c"
       >
-        <BackBtn class="px-8" />
+        <BackBtn />
         <slot name="content" />
       </div>
     </div>

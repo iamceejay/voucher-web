@@ -2,7 +2,7 @@
   <div
     v-if="$route.meta.back || $route.meta.back == ''"
     id="back-button-component"
-    class="flex"
+    class="content-container flex flex-col w-full px-8"
   >
     <Button
       size="w-20 py-1 px-2"
