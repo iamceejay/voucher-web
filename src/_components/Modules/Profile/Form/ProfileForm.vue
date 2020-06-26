@@ -6,10 +6,6 @@
       v-model="form.company.name"
       type="text"
       class="m-2"
-<<<<<<< Updated upstream
-      label="Unternehmensname"
-=======
->>>>>>> Stashed changes
       rules="required"
       :errorMessages="errorMessages.company && errorMessages.company.name"
       @input="onChange"
@@ -17,7 +13,7 @@
       <template #label_>
         <div class="flex flex-row">
           <Header5
-            label="Company Name"
+            label="Unternehmensname"
           />
           <div class="tooltip ml-1">
             <i class="fas fa-info-circle text-base text-gray-700" />
@@ -34,10 +30,6 @@
       v-model="form.username"
       type="text"
       class="m-2"
-<<<<<<< Updated upstream
-      label="Benutzername"
-=======
->>>>>>> Stashed changes
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
@@ -46,7 +38,7 @@
       <template #label_>
         <div class="flex flex-row">
           <Header5
-            label="Username"
+            label="Benutzername"
           />
           <div class="tooltip ml-1">
             <i class="fas fa-info-circle text-base text-gray-700" />

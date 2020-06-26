@@ -15,25 +15,13 @@
           <p class="font-body">
             sichere dir Zusatzeinnahmen.
           </p>
-<<<<<<< Updated upstream
-          <Button
-            variant="white"
-            class="py-2 mt-4"
-            label="Jetzt mehr erfahren"
-            size="w-32 py-1"
-            round="rounded-full"
-            fontSize="text-xs"
-            @onClick="$router.push('register')"
-          />
-=======
           <a
             class="w-32 py-1 rounded-full text-xs bg-white text-black text-center mt-2"
             href="https://verkaufen.epasnets.com"
             target="_blank"
           >
-            Register
+            Jetzt mehr erfahren
           </a>
->>>>>>> Stashed changes
         </div>
       </div>
       <div class="flex flex-col sm:flex-wrap sm:flex-row items-center w-full md:w-4/5 lg:w-4/6">
