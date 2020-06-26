@@ -5,7 +5,6 @@
       v-model="form.username"
       type="text"
       class="m-2"
-      label="Benutzername"
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
@@ -14,7 +13,7 @@
       <template #label_>
         <div class="flex flex-row">
           <Header5
-            label="Username"
+            label="Benutzername"
           />
           <div class="tooltip ml-1">
             <i class="fas fa-info-circle text-base text-gray-700" />
