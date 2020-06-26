@@ -409,7 +409,7 @@
       unsure(newVal)
       {
         if( newVal ) {
-          this.form.tax = []
+          this.form.tax = ['unsure']
         }
       }
     },
