@@ -51,22 +51,26 @@
       <div class="w-full flex flex-row">
         <div class="w-9/12 flex flex-col">
           <div class="text-xs font-body ">
-            <div v-if="data.valid_date && data.valid_date.length > 0">
-              <span
-                v-for="(date, index) in data.valid_date"
-                :key="`date-${index}`"
-              >
-                Gültig von {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
-              </span>
+            <div class="min-h-20">
+              <div v-if="data.valid_date && data.valid_date.length > 0">
+                <div
+                  v-for="(date, index) in data.valid_date"
+                  :key="`date-${index}`"
+                >
+                  Gültig von {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
+                </div>
+              </div>
             </div>
-            <div v-if="data.valid_day && data.valid_day.length > 0" class="h-8">
-              Gültig von
-              <span 
-                v-for="(day, index) in data.valid_day"
-                :key="`day-${index}`"
-              >
-                {{ `${day.substring(0,3)}${ (data.valid_day.length != (index+1)) ? ',' : '' }` }}
-              </span>
+            <div class="min-h-8">
+              <div v-if="data.valid_day && data.valid_day.length > 0">
+                Gültig von 
+                <span 
+                  v-for="(day, index) in data.valid_day"
+                  :key="`day-${index}`"
+                >
+                  {{ `${day.substring(0,3)}${ (data.valid_day.length != (index+1)) ? ',' : '' }` }}
+                </span>
+              </div>
             </div>
             <div v-if="otherData">
               Expiry: {{ onGetExpiryDate(otherData) }}

@@ -4,18 +4,20 @@
       v-if="title != ''"
       :label="title"
     />
-    <div class="flex flex-wrap w-full">
+    <div class="flex flex-wrap w-full justify-center sm:justify-start">
       <div
         v-for="(row, index) in data"
         :key="`voucher-${index}`"
-        class="flex flex-col card-container mr-3 mb-3"
+        class="flex flex-col cart-card-container mr-3 mb-3"
       >
-        <VoucherCard
-          :data="row.voucher"
-          :otherData="row"
-          :role="role"
-          :withQR="withQR"
-        />
+        <div class="flex flex-wrap justify-center sm:justify-start h-full">
+          <VoucherCard
+            :data="row.voucher"
+            :otherData="row"
+            :role="role"
+            :withQR="withQR"
+          />
+        </div>
         <div v-if="withCartDetail" class="flex flex-col h-12 self-center">
           <div class="flex flex-row">
             <span class="text-sm font-bold">
@@ -159,11 +161,11 @@
   }
 </script>
 <style lang="css" scoped>
-  .card-container {
+  .cart-card-container {
     width: 320px;
   }
   @media only screen and (max-width: 600px) {
-    .card-container {
+    .cart-card-container {
       width: 100%;
     }
   }
