@@ -5,10 +5,7 @@
       v-model="form.username"
       type="text"
       class="m-2"
-<<<<<<< Updated upstream
       label="Benutzername"
-=======
->>>>>>> Stashed changes
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
@@ -52,12 +49,7 @@
       v-model="form.company.url"
       type="text"
       class="m-2"
-<<<<<<< Updated upstream
-      label="Webseite"
-      rules="required"
-=======
       label="Company Website"
->>>>>>> Stashed changes
       :errorMessages="errorMessages.url"
       @input="onChange"
     />
