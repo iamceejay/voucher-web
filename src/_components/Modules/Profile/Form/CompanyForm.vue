@@ -5,12 +5,29 @@
       v-model="form.username"
       type="text"
       class="m-2"
+<<<<<<< Updated upstream
       label="Benutzername"
+=======
+>>>>>>> Stashed changes
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
       @input="onChange"
-    />
+    >
+      <template #label_>
+        <div class="flex flex-row">
+          <Header5
+            label="Username"
+          />
+          <div class="tooltip ml-1">
+            <i class="fas fa-info-circle text-base text-gray-700" />
+            <span class="tooltiptext">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </span>
+          </div>
+        </div>
+      </template>
+    </InputField>
     <!-- <InputField
       id="company_name"
       v-model="form.name"
@@ -35,8 +52,12 @@
       v-model="form.company.url"
       type="text"
       class="m-2"
+<<<<<<< Updated upstream
       label="Webseite"
       rules="required"
+=======
+      label="Company Website"
+>>>>>>> Stashed changes
       :errorMessages="errorMessages.url"
       @input="onChange"
     />
@@ -92,6 +113,7 @@
   import InputField from '_components/Form/InputField';
   import TextAreaField from '_components/Form/TextAreaField';
   import FileInputField from "_components/Form/FileInputField";
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
@@ -99,6 +121,7 @@
       InputField,
       TextAreaField,
       FileInputField,
+      Header5,
     },
     props: {
       errorMessages: {

@@ -9,6 +9,7 @@
           v-if="label != ''"
           :label="label"
         />
+        <slot name="label_" />
         <span 
           v-if="note != ''"
           class="text-xs font-semibold"

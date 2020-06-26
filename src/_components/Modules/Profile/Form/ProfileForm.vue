@@ -6,23 +6,57 @@
       v-model="form.company.name"
       type="text"
       class="m-2"
+<<<<<<< Updated upstream
       label="Unternehmensname"
+=======
+>>>>>>> Stashed changes
       rules="required"
       :errorMessages="errorMessages.company && errorMessages.company.name"
       @input="onChange"
-    />
+    >
+      <template #label_>
+        <div class="flex flex-row">
+          <Header5
+            label="Company Name"
+          />
+          <div class="tooltip ml-1">
+            <i class="fas fa-info-circle text-base text-gray-700" />
+            <span class="tooltiptext">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </span>
+          </div>
+        </div>
+      </template>
+    </InputField>
     <InputField
       v-if="type == 'user'"
       id="username"
       v-model="form.username"
       type="text"
       class="m-2"
+<<<<<<< Updated upstream
       label="Benutzername"
+=======
+>>>>>>> Stashed changes
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
       @input="onChange"
-    />
+    >
+      <template #label_>
+        <div class="flex flex-row">
+          <Header5
+            label="Username"
+          />
+          <div class="tooltip ml-1">
+            <i class="fas fa-info-circle text-base text-gray-700" />
+            <span class="tooltiptext">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </span>
+          </div>
+        </div>
+      </template>
+    </InputField>
     <div class="flex flex-row">
       <InputField
         id="firstName"
@@ -108,10 +142,12 @@
 </template>
 <script>
   import InputField from '_components/Form/InputField';
+  import Header5 from '_components/Headers/Header5';
 
   export default {
     components: {
       InputField,
+      Header5,
     },
     props: {
       type: {

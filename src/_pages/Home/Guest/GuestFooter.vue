@@ -5,7 +5,7 @@
         <div class="font-body text-xs p-2 sm:text-base w-1/2 lg:w-1/4">
           <a 
             class="text-peach" 
-            href="#" 
+            href="https://verkaufen.epasnets.com/impressum" 
             target="_blank"
           >
             Impressum
