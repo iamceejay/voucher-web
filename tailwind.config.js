@@ -15,7 +15,11 @@ module.exports = {
       colors: {
         'peach': '#ff5563',
         'dirty': '#f7f6f6'
-      }
+      },
+      minHeight: {
+        '20': '5rem',
+        '8': '2rem',
+      },
     },
     fontFamily: {
       'display': ['Manrope', 'sans-serif'],
