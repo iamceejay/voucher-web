@@ -252,7 +252,7 @@
       async onPayment()
       {
         if( this.payment_method == 'stripe' ) {
-          if( this.paymentForm.is_save ) {
+          if( this.paymentForm.is_save && this.USER?.stripe?.is_save ) {
             this.onSubmit()
           } else {
             this.onStripePayment()
