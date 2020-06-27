@@ -39,9 +39,7 @@ export default {
     async FETCH_USER( { commit, state }, payload )
     {
       try {
-        const { data } = await get(`${prefix}/${payload.id}`, {
-          ...payload
-        })
+        const { data } = await get(`${prefix}/${payload.id}`, payload)
         await commit('SET_USER', data.user)
         return data
       } catch (err) {
