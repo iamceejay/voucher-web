@@ -28,10 +28,14 @@
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
           :value="data"
           :checked="(data == val || value == data)"
+          :disabled="disabled"
           @change="onUpdateField()"
         />
-        <label :for="id" class="flex items-center cursor-pointer text-base font-bold">
-          <span class="w-8 h-8 inline-block mr-2 rounded-full border border-gray-500 flex-no-shrink flex justify-center">
+        <label :for="id" :class="`flex items-center ${!disabled && 'cursor-pointer' } text-base font-bold`">
+          <span
+            class="w-8 h-8 inline-block mr-2 rounded-full border border-gray-500 flex-no-shrink flex justify-center"
+            :class="{ 'disable-radio': disabled }"
+          >
             <i v-if="(data == val || value == data)" class="radio-icon fas fa-check self-center text-white" />
           </span>
           {{ description }}
@@ -86,7 +90,10 @@
       }, containerClass: {
         type: String,
         default: 'mb-5'
-      }, 
+      }, disabled: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -117,17 +124,18 @@
 	.radio-input + label:hover span{
 		transform: scale(1.2);
 	}
-
 	.radio-input:checked + label span {
 		background-color: #ff5563;
   }
-
 	.radio-input:checked + label .radio-icon {
     display: block;
 	}
-
 	.radio-input:checked + label{
     color: #ff5563;
+  }
+	.disable-radio {
+		background: rgba(0,0,0,0.1);
+    pointer-events: none;
 	}
 
 </style>

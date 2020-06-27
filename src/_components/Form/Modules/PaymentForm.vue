@@ -59,6 +59,7 @@
         name="payment_method"
         data="sofort"
         description="Sofortüberweisung"
+        :disabled="true"
       />
     </div>
     <div class="flex flex-col md:flex-row justify-between mt-5 w-full px-4 bg-dirty px-5 py-8">
@@ -300,13 +301,13 @@
     border-radius: 9999px;
   }
   .StripeElement--focus {
-      box-shadow: 0 2px 5px 2px hsla(0,0%,0%,0.2)
+    box-shadow: 0 2px 5px 2px hsla(0,0%,0%,0.2)
   }
   .StripeElement--invalid {
-      border-color: red;
+    border-color: red;
   }
   .StripeElement--webkit-autofill {
-      background-color: #fefde5 !important;
+    background-color: #fefde5 !important;
 	}
 	.disable-form {
 		background: rgba(0,0,0,0.1);
