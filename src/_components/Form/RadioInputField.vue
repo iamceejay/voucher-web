@@ -27,12 +27,12 @@
           class="hidden radio-input"
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
           :value="data"
-          :checked="data == val"
+          :checked="(data == val || value == data)"
           @change="onUpdateField()"
         />
         <label :for="id" class="flex items-center cursor-pointer text-base font-bold">
-          <span class="w-8 h-8 inline-block mr-2 rounded-full border border-grey flex-no-shrink flex justify-center">
-            <i v-if="data == val" class="radio-icon fas fa-check self-center text-white" />
+          <span class="w-8 h-8 inline-block mr-2 rounded-full border border-gray-500 flex-no-shrink flex justify-center">
+            <i v-if="(data == val || value == data)" class="radio-icon fas fa-check self-center text-white" />
           </span>
           {{ description }}
         </label>
@@ -93,7 +93,13 @@
         val: ''
       }
     },
-    mounted() {},
+    watch: {
+      value(newVal){
+        // console.log('newVal', newVal)
+      },
+    },
+    mounted() {
+    },
     methods: {
       onUpdateField() {
         let value = this.$refs.inputField.value
