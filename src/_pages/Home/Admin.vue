@@ -75,24 +75,24 @@
             title: 'gesamt verkauft',
             value: data.voucher_total
           },{
-            type: 'Commision',
-            title: 'earnings total',
+            type: 'Kommission',
+            title: 'umsatz gesamt',
             value: `${this.$helpers.convertCurrency(data.total_earnings)}`
           },{
             type: 'Gutscheine',
-            title: 'sold / month',
+            title: 'diesen Monat verkauft',
             value: data.voucher_month
           },{
-            type: 'Commision',
-            title: 'umsatz / month',
+            type: 'Kommission',
+            title: 'umsatz dieses Monat',
             value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
           },{
             type: 'Gutscheine',
-            title: 'sold / week',
+            title: 'diese Woche verkauft',
             value: data.voucher_week
           },{
-            type: 'Commision',
-            title: 'umsatz / week',
+            type: 'Kommission',
+            title: 'umsatz diese Woche',
             value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
           },
         ]

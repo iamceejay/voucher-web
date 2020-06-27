@@ -75,35 +75,35 @@
       {
         this.stats = [
           {
-            type: 'Voucher',
+            type: 'Gutschein',
             title: 'heute verkauft',
             value: data.voucher_daily
           },{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'heute',
             value: `${this.$helpers.convertCurrency(data.seller_daily_earnings)}`
           },{
-            type: 'Voucher',
+            type: 'Gutschein',
             title: 'diese Woche verkauft',
             value: data.voucher_week
           },{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'diese Woche',
             value: `${this.$helpers.convertCurrency(data.seller_weekly_earnings)}`
           },{
-            type: 'Voucher',
+            type: 'Gutschein',
             title: 'diesen Monat verkauft',
             value: data.voucher_month
           },{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'diesen Monat',
             value: `${this.$helpers.convertCurrency(data.seller_monthly_earnings)}`
           },{
-            type: 'Voucher',
+            type: 'Gutschein',
             title: 'gesamt verkauft',
             value: data.voucher_total
           },{
-            type: 'Earnings',
+            type: 'Umsatz',
             title: 'gesamt',
             value: `${this.$helpers.convertCurrency(data.seller_total_earnings)}`
           },
