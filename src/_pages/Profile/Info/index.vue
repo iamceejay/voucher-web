@@ -158,7 +158,9 @@
       async onFetchUser()
       {
         try {
-          const { user } = await this.$store.dispatch('FETCH_USER', this.AUTH_USER.data)
+          const { user } = await this.$store.dispatch('FETCH_USER', {
+            id: this.AUTH_USER.data.id
+          })
 
           let params = {
             id: user.id,
