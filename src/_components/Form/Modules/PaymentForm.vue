@@ -179,34 +179,17 @@
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
           if(result.value){
-<<<<<<< HEAD
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('PAYMENT', {
-              ...this.paymentForm,
-              price: this.totalPrice
-            })
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Danke!',
-              text: 'Die Zahlung wurde erfolgreich durchgeführt.',
-              showCancelButton: false,
-              confirmButtonColor: '#6C757D',
-              confirmButtonText: 'Confirm',
-            }).then(async (result) => {
-=======
             try {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
               await this.$store.dispatch('PAYMENT', {
                 ...this.paymentForm,
                 price: this.totalPrice
               })
->>>>>>> 34abbfdd325639ecbdb5095a05444861d12acf65
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
-                title: 'Successful!',
-                text: 'Paying the vouchers.',
+                title: 'Danke!',
+                text: 'Die Zahlung wurde erfolgreich durchgeführt.',
                 showCancelButton: false,
                 confirmButtonColor: '#6C757D',
                 confirmButtonText: 'Confirm',
