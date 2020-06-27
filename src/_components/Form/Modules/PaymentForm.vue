@@ -30,7 +30,7 @@
       </div>
       <div 
         class="flex flex-col w-full"
-        :class="{'hidden': USER && USER.stripe.is_save && paymentForm.is_save}"
+        :class="{'hidden': USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save}"
       >
         <form 
           id="stripe-form"
