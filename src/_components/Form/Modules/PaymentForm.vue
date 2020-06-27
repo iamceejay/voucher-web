@@ -12,7 +12,7 @@
       <div class="flex flex-col">
         <Button
           variant="info"
-          :class="`py-2 justify-center ${ (USER && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
+          :class="`py-2 justify-center ${ (USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
           label="New Card Number"
           size="w-full py-3"
           round="rounded-full"
