@@ -9,15 +9,15 @@
         data="stripe"
         description="Credit Card"
       />
-      <div v-if="paymentForm.is_save" class="flex flex-col">
+      <div class="flex flex-col">
         <Button
           variant="info"
-          class="py-2 justify-center"
+          :class="`py-2 justify-center ${ (USER && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
           label="New Card Number"
           size="w-full py-3"
           round="rounded-full"
           fontSize="text-sm"
-          @onClick="paymentForm.is_save = false"
+          @onClick="onNewNumber"
         /> 
         <!-- <Button
           class="py-2 justify-center"
@@ -28,7 +28,10 @@
           @onClick="onSubmit"
         />    -->
       </div>
-      <div v-else class="flex flex-col w-full">
+      <div 
+        class="flex flex-col w-full"
+        :class="{'hidden': USER && USER.stripe.is_save && paymentForm.is_save}"
+      >
         <form 
           id="stripe-form"
           class="w-full flex flex-col"
@@ -281,6 +284,17 @@
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           console.log(error)
         }
+      },
+      async onNewNumber()
+      {
+        this.paymentForm.is_save = false
+        await this.$store.commit('SET_USER', {
+          ...this.USER,
+          stripe: {
+            ...this.USER.stripe,
+            is_save: !this.USER.stripe.is_save
+          }
+        })
       },
     }
   }
