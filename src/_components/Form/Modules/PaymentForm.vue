@@ -179,26 +179,35 @@
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
           if(result.value){
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('PAYMENT', {
-              ...this.paymentForm,
-              price: this.totalPrice
-            })
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Paying the vouchers.',
-              showCancelButton: false,
-              confirmButtonColor: '#6C757D',
-              confirmButtonText: 'Confirm',
-            }).then(async (result) => {
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('PAYMENT', {
+                ...this.paymentForm,
+                price: this.totalPrice
+              })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              if(result.value){
-                await this.$store.commit('SET_COUNT_CART', 0)
-                this.$router.push('/wallet')
-              }
-            })
+              this.$swal({
+                icon: 'success',
+                title: 'Successful!',
+                text: 'Paying the vouchers.',
+                showCancelButton: false,
+                confirmButtonColor: '#6C757D',
+                confirmButtonText: 'Confirm',
+              }).then(async (result) => {
+                if(result.value){
+                  await this.$store.commit('SET_COUNT_CART', 0)
+                  this.$router.push('/wallet')
+                }
+              })
+            } catch (error) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },
