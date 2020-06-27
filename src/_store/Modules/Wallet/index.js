@@ -170,13 +170,13 @@ export default {
     {
       try {
         const { data } = await post(`${prefix}/download-invoice`, {
-          id: payload.id
+          id: payload.order_id
         }, {}, {responseType: 'arraybuffer'})
         // const date = moment().local().format('Y-m-d')
         let blob = new Blob([data], { type: 'application/pdf' })
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = `${payload.customer_invoice.invoice_no}.pdf`
+        link.download = `${payload.invoice_no}.pdf`
         link.click()
       } catch (err) {
         throw err

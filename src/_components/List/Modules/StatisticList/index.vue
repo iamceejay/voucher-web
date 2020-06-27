@@ -17,7 +17,7 @@
           <div class="text-sm font-body font-bold text-gray-900 uppercase h-12 sm:h-auto">
             {{ row.type }}
           </div>
-          <div class="text-xs mb-1 font-body font-semibold text-gray-700 lowercase">
+          <div class="text-xs min-h-12 mb-1 font-body font-semibold text-gray-700 lowercase">
             {{ row.title }} 
           </div>
           <div class="mb-3 font-body font-semibold text-gray-700 h-6">
