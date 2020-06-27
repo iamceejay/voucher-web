@@ -81,7 +81,7 @@
           },{
             type: 'Earnings',
             title: 'heute',
-            value: `${this.$helpers.convertCurrency(data.daily_earnings)}`
+            value: `${this.$helpers.convertCurrency(data.seller_daily_earnings)}`
           },{
             type: 'Voucher',
             title: 'diese Woche verkauft',
@@ -89,7 +89,7 @@
           },{
             type: 'Earnings',
             title: 'diese Woche',
-            value: `${this.$helpers.convertCurrency(data.weekly_earnings)}`
+            value: `${this.$helpers.convertCurrency(data.seller_weekly_earnings)}`
           },{
             type: 'Voucher',
             title: 'diesen Monat verkauft',
@@ -97,7 +97,7 @@
           },{
             type: 'Earnings',
             title: 'diesen Monat',
-            value: `${this.$helpers.convertCurrency(data.monthly_earnings)}`
+            value: `${this.$helpers.convertCurrency(data.seller_monthly_earnings)}`
           },{
             type: 'Voucher',
             title: 'gesamt verkauft',
@@ -105,7 +105,7 @@
           },{
             type: 'Earnings',
             title: 'gesamt',
-            value: `${this.$helpers.convertCurrency(data.total_earnings)}`
+            value: `${this.$helpers.convertCurrency(data.seller_total_earnings)}`
           },
         ]
       }
