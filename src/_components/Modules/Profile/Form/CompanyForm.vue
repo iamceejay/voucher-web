@@ -49,6 +49,7 @@
       type="text"
       class="m-2"
       label="Company Website"
+      rules=""
       :errorMessages="errorMessages.url"
       @input="onChange"
     />

@@ -316,15 +316,15 @@
         try {
           this.isLoggingOut = true
           const data = await this.$store.dispatch('LOGOUT')
-          this.onRemoveAuth()
+          await this.onRemoveAuth()
         } catch (err) {
-          this.onRemoveAuth()
+          await this.onRemoveAuth()
         }
       },
-      onRemoveAuth()
+      async onRemoveAuth()
       {
-        localStorage.removeItem('_auth')
-        this.$store.commit('SET_AUTH_USER', {
+        await localStorage.removeItem('_auth')
+        await this.$store.commit('SET_AUTH_USER', {
           isAuth: false,
           token: '',
           role: {

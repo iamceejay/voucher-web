@@ -282,7 +282,6 @@ const router = new Router({
       name: 'payment', 
       component: Payment,
       meta: {
-        back: '/cart',
         middleware: [ auth, authUser ]
       } 
     }, { 

@@ -169,9 +169,8 @@
               await this.onFetchTotalUserCart()
             }
             await setToken()
-            this.submitting = false
-            this.$router.push('/home')
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$router.push('/home')
           }   
         })
       },
