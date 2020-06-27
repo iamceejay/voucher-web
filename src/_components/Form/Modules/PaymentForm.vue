@@ -167,8 +167,8 @@
           return true
         }
         this.$swal({
-          title: 'Payment',
-          text: `Are you sure you want to continue this payment?`,
+          title: 'Zahlungsmethoden',
+          text: `Bist du sicher, dass du diese Zahlung durchführen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -184,8 +184,8 @@
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             this.$swal({
               icon: 'success',
-              title: 'Successful!',
-              text: 'Paying the vouchers.',
+              title: 'Danke!',
+              text: 'Die Zahlung wurde erfolgreich durchgeführt.',
               showCancelButton: false,
               confirmButtonColor: '#6C757D',
               confirmButtonText: 'Confirm',
