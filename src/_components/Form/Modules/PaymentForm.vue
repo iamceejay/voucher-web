@@ -228,12 +228,14 @@
           this.card = this.elements.create('card', {
             style: this.stripe_style
           })
-          this.card.mount('#card-element')
-          this.card.addEventListener('change', (event) => {
-            const displayError = document.getElementById('card-errors')
+          if( document.getElementById("card-element") ) {
+            this.card.mount('#card-element')
+            this.card.addEventListener('change', (event) => {
+              const displayError = document.getElementById('card-errors')
 
-            if(displayError) displayError.textContent = event.error ? event.error.message : '';
-          })
+              if(displayError) displayError.textContent = event.error ? event.error.message : '';
+            })
+          }
         } catch (err) {
           console.log('err', err)
         }
