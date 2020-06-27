@@ -100,7 +100,10 @@
       {
         try {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          await this.$store.dispatch('DOWNLOAD_INVOICE', data)
+          await this.$store.dispatch('DOWNLOAD_INVOICE', {
+            order_id: data.id,
+            invoice_no: data.customer_invoice.invoice_no
+          })
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
