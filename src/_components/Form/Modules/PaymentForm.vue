@@ -288,13 +288,15 @@
       async onNewNumber()
       {
         this.paymentForm.is_save = false
-        await this.$store.commit('SET_USER', {
-          ...this.USER,
-          stripe: {
-            ...this.USER.stripe,
-            is_save: !this.USER.stripe.is_save
-          }
-        })
+        if( this.USER?.stripe?.is_save ) {
+          await this.$store.commit('SET_USER', {
+            ...this.USER,
+            stripe: {
+              ...this.USER.stripe,
+              is_save: !this.USER.stripe.is_save
+            }
+          })
+        }
       },
     }
   }
