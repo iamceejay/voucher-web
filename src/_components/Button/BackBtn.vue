@@ -1,15 +1,15 @@
 <template>
   <div
-    v-if="$route.meta.back || $route.meta.back == ''"
+    v-if="$route.meta.back || $route.meta.back == '' || show"
     id="back-button-component"
-    class="flex"
+    class="content-container flex flex-col w-full"
   >
     <Button
-      size="w-20 py-1 px-2"
+      size="w-32 py-1 px-2"
       fontSize="text-2xs"
       labelClass="ml-2"
       fontWeight="font-normal"
-      label="Back"
+      label="Go Back"
       icon="arrow-left"
       @onClick="onBack()"
     />
@@ -23,6 +23,10 @@
       Button,
     },
     props: {
+      show: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -33,13 +37,19 @@
     methods: {
       onBack()
       {
-        let route = this.$route.meta.back
-        if( route == '' ) {
-          route = (window.history.length > 1) 
+        if( !this.show ) {
+          let route = this.$route.meta.back
+          if( route == '' ) {
+            (window.history.length > 1) 
+              ? this.$router.go(-1) 
+              : this.$router.push('/')
+          } else {
+            this.$router.push(route)
+          }
+        } else {
+          (window.history.length > 1) 
             ? this.$router.go(-1) 
             : this.$router.push('/')
-        } else {
-          this.$router.push(route)
         }
       }
     }

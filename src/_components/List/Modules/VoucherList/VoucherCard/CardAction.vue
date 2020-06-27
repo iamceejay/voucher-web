@@ -90,7 +90,7 @@
               title: 'Successful!',
               text: 'Deleting the voucher.',
               confirmButtonColor: '#6C757D',
-            });
+            })
             this.$emit('onFlip')
           }
         })

@@ -82,8 +82,9 @@
             data: user,
             role: user.user_role.role,
           }
-          await this.$store.commit('SET_AUTH_USER', auth)
+          await localStorage.removeItem('_auth')
           await localStorage.setItem('_auth', JSON.stringify(auth))
+          await this.$store.commit('SET_AUTH_USER', auth)
           if( auth.role.name == 'user' ) {
             await this.onFetchCategories()
           }
@@ -97,7 +98,6 @@
           } else if(err.response?.status === 404) {
             this.error = err.response.data.message
           }
-          console.log('err', err)
         }
       },
       async onFetchCategories()
