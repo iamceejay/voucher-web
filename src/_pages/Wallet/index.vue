@@ -80,12 +80,16 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_WALLETS', [])
-        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
-        this.params.user_id = this.AUTH_USER.data.id
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchSearchWallets()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        try {
+          await this.$store.commit('SET_WALLETS', [])
+          await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+          this.params.user_id = this.AUTH_USER.data.id
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.onFetchSearchWallets()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
       })()
     },
     beforeDestroy () {

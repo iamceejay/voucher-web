@@ -122,9 +122,13 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchVoucher()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.onFetchVoucher()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
       })()
     },
     methods: {

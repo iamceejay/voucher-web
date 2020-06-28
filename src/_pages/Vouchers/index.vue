@@ -57,12 +57,16 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        if( this.AUTH_USER?.data?.id ) {
-          await this.$store.commit('SET_VOUCHERS', [])
-          await this.onFetchVouchers(this.AUTH_USER.data.id)
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          if( this.AUTH_USER?.data?.id ) {
+            await this.$store.commit('SET_VOUCHERS', [])
+            await this.onFetchVouchers(this.AUTH_USER.data.id)
+          }
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {

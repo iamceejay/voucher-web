@@ -111,11 +111,15 @@
     methods: {
       async onFetchData()
       {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchCategory()
-        await this.onFetchFeaturedVouchers()
-        await this.onFetchNewestVouchers()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.onFetchCategory()
+          await this.onFetchFeaturedVouchers()
+          await this.onFetchNewestVouchers()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
       },
       async onLoadData( data )
       {
