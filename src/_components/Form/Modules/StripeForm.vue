@@ -19,7 +19,7 @@
       <Button
         type="submit"
         class="py-2 justify-center"
-        :label="`${ isPay ? 'Pay Now' : 'Speichern' }`"
+        :label="`${ isPay ? 'Jetzt bezahlen' : 'Speichern' }`"
         size="w-full py-3"
         round="rounded-full"
         fontSize="text-sm"

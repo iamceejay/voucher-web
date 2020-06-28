@@ -13,7 +13,7 @@
         <Button
           variant="info"
           :class="`py-2 justify-center ${ (USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
-          label="New Card Number"
+          label="Neue Kreditkarte"
           size="w-full py-3"
           round="rounded-full"
           fontSize="text-sm"
@@ -21,7 +21,7 @@
         /> 
         <!-- <Button
           class="py-2 justify-center"
-          label="Pay Now"
+          label="Jetzt bezahlen"
           size="w-full py-3"
           round="rounded-full"
           fontSize="text-sm"
@@ -84,7 +84,7 @@
             size="w-32 py-1 px-2"
             fontSize="text-2xs"
             round="rounded-full"
-            label="Pay Now"
+            label="Jetzt bezahlen"
             @onClick="onPayment()"
           />   
         </div>

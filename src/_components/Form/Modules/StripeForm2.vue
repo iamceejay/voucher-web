@@ -19,7 +19,7 @@
       <Button
         v-if="isWithBtn"
         class="py-2 justify-center"
-        :label="`${ isPay ? 'Pay Now' : 'Save' }`"
+        :label="`${ isPay ? 'Jetzt bezahlen' : 'Save' }`"
         size="w-full py-3"
         round="rounded-full"
         fontSize="text-sm"
