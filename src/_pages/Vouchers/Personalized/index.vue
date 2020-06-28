@@ -40,11 +40,15 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchWallet()
-        await this.$store.commit('SET_TEMPLATES', [])
-        await this.onFetchTemplates()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.onFetchWallet()
+          await this.$store.commit('SET_TEMPLATES', [])
+          await this.onFetchTemplates()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
       })()
     },
     methods: {

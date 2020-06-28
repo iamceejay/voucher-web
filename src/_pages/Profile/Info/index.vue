@@ -106,14 +106,18 @@
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.onFetchUser()
-        if( this.AUTH_USER.role.name == 'seller' ) {
-          await this.$store.commit('SET_GLOBAL_SETTING', null)
-          await this.onFetchGlobalSetting()
-          await this.onFetchUserSetting()
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.onFetchUser()
+          if( this.AUTH_USER.role.name == 'seller' ) {
+            await this.$store.commit('SET_GLOBAL_SETTING', null)
+            await this.onFetchGlobalSetting()
+            await this.onFetchUserSetting()
+          }
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
       })()
     },
     methods: {
