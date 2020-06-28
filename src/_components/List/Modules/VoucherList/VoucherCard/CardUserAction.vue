@@ -1,7 +1,7 @@
 <template>
   <div 
     v-if="otherData"
-    class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full"
+    class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full justify-center"
     @click="onFlip()"
   >
     <div v-if="otherData && otherData.qr" class="flex flex-col w-full my-6">
