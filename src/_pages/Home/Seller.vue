@@ -54,11 +54,15 @@
     },
     mounted() {
       (async() => {
-        this.params.seller_id = this.AUTH_USER.data.id
-        await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-        await this.$store.commit('SET_WALLETS', [])
-        await this.onFetchWallets()
-        await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        try {
+          this.params.seller_id = this.AUTH_USER.data.id
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.$store.commit('SET_WALLETS', [])
+          await this.onFetchWallets()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
       })()
     },
     methods: {
