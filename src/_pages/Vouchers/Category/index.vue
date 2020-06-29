@@ -14,7 +14,7 @@
         />
         <VoucherList
           class="mb-3"
-          title="Newest"
+          title="Neueste"
           :data="NEWEST_VOUCHERS.data"
           :withQR="false"
         />

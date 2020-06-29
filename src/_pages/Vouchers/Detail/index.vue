@@ -36,7 +36,7 @@
               v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Enter a ${ (VOUCHER.type == 'quantity') ? `quantity (${$helpers.convertCurrency(VOUCHER.price_filter)}/voucher)` : 'value' }`"
+              :label="`Gib deinen ${ (VOUCHER.type == 'quantity') ? `Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)}/Wunschbetrag)` : 'Wunschbetrag' } an`"
               placeholder="Enter here"
               :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :note="`Menge zwischen 
@@ -54,14 +54,14 @@
               :disabled="isAdded ? true : false"
             />
             <div class="flex flex-col mt-3 self-center text-center">
-              <span class="text-2xl">Price</span>
+              <span class="text-2xl">Preis</span>
               <span class="text-2xl font-bold">
                 {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
               </span>
             </div>
             <Button
               class="self-center w-full md:w-1/2 mt-3 "
-              :label="`${ isAdded ? 'Added' : 'Add'} to cart`"
+              :label="`zum Warenkorb hinzufügen`"
               :icon="`${ isAdded ? 'check' : '' }`"
               size="w-full py-3"
               round="rounded-full"

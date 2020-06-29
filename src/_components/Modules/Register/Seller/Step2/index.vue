@@ -18,7 +18,7 @@
       />
       <Button
         type="submit"
-        label="Next Step >"
+        label="nächster Schritt >"
         size="w-full sm:w-1/2 py-3 mx-3"
         round="rounded-full"
       />

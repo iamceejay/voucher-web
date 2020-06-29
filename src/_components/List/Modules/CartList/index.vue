@@ -23,8 +23,8 @@
             <span class="text-sm font-bold">
               {{ 
                 (row.voucher.type == 'quantity') 
-                  ? 'Price per gutschein: ' 
-                  : 'Value: '
+                  ? 'Preis pro gutschein: ' 
+                  : 'Wert: '
               }}
             </span>
             <span class="text-sm font-semibold ml-2">

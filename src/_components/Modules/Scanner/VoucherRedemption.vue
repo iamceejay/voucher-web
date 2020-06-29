@@ -10,12 +10,12 @@
           v-model="form.value"
           type="number"
           class="w-full md:w-1/2 m-auto mt-4"
-          :placeholder="`Enter the ${(QR_CODE.order.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`"
+          :placeholder="`Gib den einzulösenden ${(QR_CODE.order.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
           rules="required|min_value:1"
         />
         <Button
           class="py-1 justify-center"
-          label="Redeem voucher"
+          label="Gutschein einlösen"
           size="w-full md:w-1/2 py-2"
           round="rounded-full"
           type="submit"
@@ -58,8 +58,8 @@
     methods: {
       async onSubmit() {
         this.$swal({
-          title: 'Confirm the redemption of the voucher.',
-          text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
+          title: 'Bestätige die Einlösung der Gutscheine.',
+          text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: x${this.form.value}` }`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -76,7 +76,7 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
-                title: 'The voucher was redeemed!',
+                title: 'Der Gutschein wurde eingelöst',
                 confirmButtonColor: '#6C757D',
               });
               await this.$store.commit('SET_QR_CODE', null)

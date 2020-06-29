@@ -33,7 +33,7 @@
     <Button
       v-if="role == 'seller' && !isInvoice && (!otherData || !otherData.is_revoked)"
       class="py-2 mt-3"
-      label="Revoke redemption"
+      label="Einlösung rückgängig machen"
       size="w-full py-3"
       round="rounded-full"
       fontSize="text-xs"
@@ -41,7 +41,7 @@
     />
     <div v-if="otherData && otherData.is_revoked" class="w-full text-center mt-5 mb-2">
       <div class="text-xs font-bold font-body border border-gray-500 rounded-full py-3">
-        Order Revoked
+        Einlösung widerrufen
       </div>
     </div>
     <RevokeVoucherModal

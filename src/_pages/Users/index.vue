@@ -45,7 +45,7 @@
                   href="javascript:void(0)"
                   @click="onActivateUser(props.data)"
                 >
-                  Activate
+                  Aktivieren
                 </a>
                 <a 
                   class="text-xs text-indigo-500 underline text-center" 
@@ -205,7 +205,7 @@
       async onActivateUser(data)
       {
         this.$swal({
-          title: 'Activate User',
+          title: 'Aktivieren',
           text: `Are you sure you want to activate this user?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',

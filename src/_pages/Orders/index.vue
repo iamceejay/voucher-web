@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Statistics"
+          label="Statistiken"
         />
         <StatisticList 
           :data="stats"
@@ -134,11 +134,11 @@
       {
         this.stats = [
           {
-            type: 'Vouchers used',
+            type: 'verbrauchte Gutscheine',
             title: '',
             value: voucher_used
           },{
-            type: 'Vouchers bought',
+            type: 'gekaufte Gutscheine',
             title: '',
             value: `${vouchers_bought}`
           }

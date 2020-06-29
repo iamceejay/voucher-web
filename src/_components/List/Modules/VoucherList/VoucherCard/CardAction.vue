@@ -6,7 +6,7 @@
     <router-link :to="`/vouchers/update/${data.id}`">
       <Button
         class="py-2 justify-center"
-        label="Edit voucher"
+        label="Bearbeiten"
         size="w-64 py-2"
         round="rounded-full"
       />
@@ -21,7 +21,7 @@
     </router-link>
     <Button
       class="py-2 justify-center"
-      :label="`${ data.is_active ? 'Deactivate' : 'Activate' } voucher`"
+      :label="`${ data.is_active ? 'Deaktivieren' : 'Aktivieren' }`"
       size="w-64 py-2"
       round="rounded-full"
       @onClick="onDeact(data)"
@@ -99,7 +99,7 @@
       {
         this.isAction = ++this.isAction
         this.$swal({
-          title: `${ data.is_active ? 'Deactivate' : 'Activate' } Voucher`,
+          title: `${ data.is_active ? 'Deaktivieren' : 'Aktivieren' }`,
           text: `Are you sure you want to ${ data.is_active ? 'deactivate' : 'activate' } this voucher?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',

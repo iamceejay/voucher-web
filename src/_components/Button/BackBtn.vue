@@ -9,7 +9,7 @@
       fontSize="text-2xs"
       labelClass="ml-2"
       fontWeight="font-normal"
-      label="Go Back"
+      label="Zurück"
       icon="arrow-left"
       @onClick="onBack()"
     />

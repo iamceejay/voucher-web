@@ -73,7 +73,7 @@
               </div>
             </div>
             <div v-if="otherData">
-              Expiry: {{ onGetExpiryDate(otherData) }}
+              Gültig bis: {{ onGetExpiryDate(otherData) }}
             </div>
           </div>
           <div class="text-sm font-bold font-body">

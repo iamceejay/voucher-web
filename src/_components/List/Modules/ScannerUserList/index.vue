@@ -11,7 +11,7 @@
       <div class="w-2/5 sm:w-1/5">
         <Button
           class="py-2"
-          :label="`${row.status ? 'Deactivate' : 'Activate'}`"
+          :label="`${row.status ? 'Deaktivieren' : 'Aktivieren'}`"
           size="w-full py-1"
           round="rounded-full"
           fontSize="text-xs"
@@ -49,7 +49,7 @@
       async onDelete(data)
       {
         this.$swal({
-          title: `${data.status ? 'Deactivate' : 'Activate'} user scanner`,
+          title: `${data.status ? 'Deaktivieren' : 'Aktivieren'} user scanner`,
           text: `Are you sure you want to ${data.status ? 'deactivate' : 'activate'} this user?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',

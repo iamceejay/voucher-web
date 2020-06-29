@@ -29,7 +29,7 @@
       </div>
       <Button
         type="submit"
-        label="Next Step >"
+        label="nächster Schritt >"
         size="w-full sm:w-1/2 py-4 mx-2"
         round="rounded-full"
       />

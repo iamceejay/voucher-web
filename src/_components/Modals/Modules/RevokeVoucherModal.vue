@@ -5,7 +5,7 @@
   >
     <template>
       <div class="font-bold text-lg py-2 text-center text-gray-900 text-3xl">
-        Revoke redemption
+        Einlösung rückgängig machen
       </div>
       <!-- <ValidationObserver v-slot="{ handleSubmit, invalid }"> -->
       <form 
@@ -21,7 +21,7 @@
         /> -->
         <Button
           class="mx-2 justify-center"
-          label="Revoke voucher"
+          label="Einlösung rückgängig machen"
           size="mt-1 w-full md:w-1/2 py-3"
           round="rounded-full"
           @onClick="onSubmit"

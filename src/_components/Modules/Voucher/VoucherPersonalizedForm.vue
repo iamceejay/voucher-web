@@ -91,7 +91,7 @@
           </div>
           <div class="w-full md:w-1/2 mb-5">
             <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-              {{ `${ form.custom_image ? 'Update' : 'Add another' } Picture` }}
+              {{ `${ form.custom_image ? 'Aktualisieren' : 'Füge ein weitere Bild hinzu' }` }}
               <div class="text-xs font-semibold">
                 Ideale Größe ist 250px x 100px
               </div>
@@ -103,7 +103,7 @@
                 alt=""
               />
               <Button
-                label="Change / Remove"
+                label="Ändern/Löschen"
                 fontSize="text-xs"
                 size="w-32 py-0 mt-1"
                 round="rounded-full"
