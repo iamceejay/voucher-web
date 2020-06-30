@@ -59,6 +59,14 @@
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchWallets()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+          if( this.$route.query?.status == 'failed' ) {
+            this.$swal({
+              icon: 'warning',
+              // title: 'Successful!',
+              text: `Payment cancelled. Thank you!`,
+              confirmButtonColor: '#6C757D',
+            })
+          }
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }

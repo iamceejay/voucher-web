@@ -185,25 +185,24 @@
                 price: this.totalPrice,
                 payment_type: this.payment_type
               })
-              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              this.$swal({
-                icon: 'success',
-                title: 'Successful!',
-                text: 'Paying the vouchers.',
-                showCancelButton: false,
-                confirmButtonColor: '#6C757D',
-                confirmButtonText: 'Confirm',
-              }).then(async (result) => {
-                if(result.value){
-                  if(this.payment_type == 'stripe') {
+              if(this.payment_type == 'stripe') {
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                this.$swal({
+                  icon: 'success',
+                  title: 'Successful!',
+                  text: 'Paying the vouchers.',
+                  showCancelButton: false,
+                  confirmButtonColor: '#6C757D',
+                  confirmButtonText: 'Confirm',
+                }).then(async (result) => {
+                  if(result.value){
                     await this.$store.commit('SET_COUNT_CART', 0)
                     this.$router.push('/wallet')
-                  } else {
-                    await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-                    window.location.replace(data.url)
                   }
-                }
-              })
+                })
+              } else {
+                window.location.replace(data.url)
+              }
             } catch (error) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
