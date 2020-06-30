@@ -111,7 +111,7 @@
           }, {
             type: 'Earnings',
             title: 'total',
-            value: `${this.$helpers.convertCurrency(total_earnings)}`,
+            value: `${this.$helpers.convertCurrency(total_seller_earnings)}`,
             extra: {
               title: 'Commision:',
               value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`
