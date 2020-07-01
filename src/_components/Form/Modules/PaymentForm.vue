@@ -11,6 +11,7 @@
       />
       <div class="flex flex-col">
         <Button
+          v-if="payment_type == 'stripe'"
           variant="info"
           :class="`py-2 justify-center ${ (USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
           label="New Card Number"
