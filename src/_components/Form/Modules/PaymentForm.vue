@@ -183,33 +183,15 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
               const { data } = await this.$store.dispatch('PAYMENT', {
                 ...this.paymentForm,
-<<<<<<< HEAD
-                price: this.totalPrice
-              })
-              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              this.$swal({
-                icon: 'success',
-                title: 'Danke!',
-                text: 'Die Zahlung wurde erfolgreich durchgeführt.',
-                showCancelButton: false,
-                confirmButtonColor: '#6C757D',
-                confirmButtonText: 'Confirm',
-              }).then(async (result) => {
-                if(result.value){
-                  await this.$store.commit('SET_COUNT_CART', 0)
-                  this.$router.push('/wallet')
-                }
-=======
                 price: this.totalPrice,
                 payment_type: this.payment_type
->>>>>>> e7e899102a713739defd422d3a7b0ae5f6a7df65
               })
               if(this.payment_type == 'stripe') {
                 await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
                 this.$swal({
                   icon: 'success',
-                  title: 'Successful!',
-                  text: 'Paying the vouchers.',
+                  title: 'Danke!',
+                  text: 'Die Zahlung wurde erfolgreich durchgeführt.',
                   showCancelButton: false,
                   confirmButtonColor: '#6C757D',
                   confirmButtonText: 'Confirm',
