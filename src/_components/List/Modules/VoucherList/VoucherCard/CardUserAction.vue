@@ -25,9 +25,9 @@
     </div>
     <div class="flex flex-row w-full mt-4 h-12">
       <div
-        v-if="!otherData.sent_via || (otherData.sent_via && ['email', 'voucher_download'].includes(otherData.sent_via))"
         class="flex flex-row w-full"
       >
+        <!-- v-if="!otherData.sent_via || (otherData.sent_via && ['email', 'voucher_download'].includes(otherData.sent_via))" -->
         <a
           class="px-2 text-lg text-primary" 
           href="javascript:void(0)"

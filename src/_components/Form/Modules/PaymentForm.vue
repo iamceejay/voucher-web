@@ -2,15 +2,16 @@
   <div class="flex flex-col w-full">
     <div class="flex flex-col w-full md:w-1/2 mx-4 mb-5">
       <RadioInputField
-        id="stripe_payment_method"
-        v-model="payment_method"
+        id="stripe_payment_type"
+        v-model="payment_type"
         containerClass="mb-2"
-        name="payment_method"
+        name="payment_type"
         data="stripe"
         description="Credit Card"
       />
       <div class="flex flex-col">
         <Button
+          v-if="payment_type == 'stripe'"
           variant="info"
           :class="`py-2 justify-center ${ (USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
           label="Neue Kreditkarte"
@@ -35,7 +36,7 @@
         <form 
           id="stripe-form"
           class="w-full flex flex-col"
-          :class="{'hidden': payment_method != 'stripe'}"
+          :class="{'hidden': payment_type != 'stripe'}"
           @submit.prevent=""
         >
           <div
@@ -57,12 +58,11 @@
     </div>
     <div class="flex flex-col w-full md:w-1/2 mx-4">
       <RadioInputField
-        id="sofort_payment_method"
-        v-model="payment_method"
-        name="payment_method"
+        id="sofort_payment_type"
+        v-model="payment_type"
+        name="payment_type"
         data="sofort"
         description="Sofortüberweisung"
-        :disabled="true"
       />
     </div>
     <div class="flex flex-col md:flex-row justify-between mt-5 w-full px-4 bg-dirty px-5 py-8">
@@ -103,7 +103,7 @@
     },
     data() {
       return {
-        payment_method: 'stripe',
+        payment_type: 'stripe',
         totalPrice: 0,
         is_save: false,
         paymentForm: {
@@ -160,7 +160,7 @@
     methods: {
       onSubmit()
       {
-        if(this.payment_method == '') {
+        if(this.payment_type == '') {
           this.$swal({
             icon: 'warning',
             title: 'Warning!',
@@ -181,8 +181,9 @@
           if(result.value){
             try {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-              await this.$store.dispatch('PAYMENT', {
+              const { data } = await this.$store.dispatch('PAYMENT', {
                 ...this.paymentForm,
+<<<<<<< HEAD
                 price: this.totalPrice
               })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -198,7 +199,29 @@
                   await this.$store.commit('SET_COUNT_CART', 0)
                   this.$router.push('/wallet')
                 }
+=======
+                price: this.totalPrice,
+                payment_type: this.payment_type
+>>>>>>> e7e899102a713739defd422d3a7b0ae5f6a7df65
               })
+              if(this.payment_type == 'stripe') {
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                this.$swal({
+                  icon: 'success',
+                  title: 'Successful!',
+                  text: 'Paying the vouchers.',
+                  showCancelButton: false,
+                  confirmButtonColor: '#6C757D',
+                  confirmButtonText: 'Confirm',
+                }).then(async (result) => {
+                  if(result.value){
+                    await this.$store.commit('SET_COUNT_CART', 0)
+                    this.$router.push('/wallet')
+                  }
+                })
+              } else {
+                window.location.replace(data.url)
+              }
             } catch (error) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
@@ -251,12 +274,14 @@
       },
       async onPayment()
       {
-        if( this.payment_method == 'stripe' ) {
+        if( this.payment_type == 'stripe' ) {
           if( this.paymentForm.is_save && this.USER?.stripe?.is_save ) {
             this.onSubmit()
           } else {
             this.onStripePayment()
           }
+        } else {
+          this.onSubmit()
         }
       },
       async onStripePayment()

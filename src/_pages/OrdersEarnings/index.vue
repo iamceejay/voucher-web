@@ -109,9 +109,15 @@
             title: 'gesamt verkauft',
             value: voucher_total
           }, {
+<<<<<<< HEAD
             type: 'Umsatz',
             title: 'gesamt',
             value: `${this.$helpers.convertCurrency(total_earnings)}`,
+=======
+            type: 'Earnings',
+            title: 'total',
+            value: `${this.$helpers.convertCurrency(total_seller_earnings)}`,
+>>>>>>> e7e899102a713739defd422d3a7b0ae5f6a7df65
             extra: {
               title: 'Kommission:',
               value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`
