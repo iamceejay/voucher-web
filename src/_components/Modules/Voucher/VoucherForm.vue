@@ -26,7 +26,7 @@
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
               <Material
                 v-model="material_color"
-                @input="onPickColor"
+                @input="onPickColor($event, 'background_color')"
               />
             </div>
           </div>
@@ -62,6 +62,7 @@
               @delete="onChangeBgImg($event)"
             />
           </div>
+          
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
               :value="(form.text_color == 'dark') ? true : false"
@@ -85,6 +86,25 @@
               placeholder="Voucher Description"
               rules="required|max:250"
             />
+            <div class="w-full md:w-1/2 mb-5">
+              <div class="flex flex-row">
+                <Header5
+                  label="Reading Aid"
+                />
+                <div class="tooltip ml-1">
+                  <i class="fas fa-info-circle text-base text-gray-700" />
+                  <span class="tooltiptext">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </span>
+                </div>
+              </div>
+              <div class="w-full sm:w-1/2 md:mx-2 mt-2">
+                <Chrome
+                  v-model="chrome_color"
+                  @input="onPickColor($event, 'background_aid')"
+                />
+              </div>
+            </div>
             <div v-if="!form.id" class="flex flex-col w-full">
               <SelectField
                 id="tax"
@@ -319,7 +339,7 @@
   import TextAreaField from '_components/Form/TextAreaField'
   import SelectField from '_components/Form/SelectField'
   import MultipleCheckboxField from '_components/Form/MultipleCheckboxField'
-  import { Material } from 'vue-color'
+  import { Material, Chrome } from 'vue-color'
   import { ToggleButton } from 'vue-js-toggle-button'
   import 'vue2-datepicker/index.css'
   import { getWeek } from '_helpers/DefaultValues'
@@ -334,6 +354,7 @@
       DatePickerField,
       VoucherCard,
       Material,
+      Chrome,
       ToggleButton,
       TextAreaField,
       TextAreaField,
@@ -356,6 +377,10 @@
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
         },
+        chrome_color: { 
+          hex: '#FFF',
+          rgba: { r: 255, g: 255, b: 255, a: 255 },
+        },
         categories: [],
         form: {
           id: null,
@@ -363,6 +388,7 @@
           seller_id: null,
           title: '',
           description: '',
+          background_aid: 'transparent',
           background_color: '#fff',
           text_color: 'dark',
           background_image: '',
@@ -481,9 +507,13 @@
           value
         ]
       },
-      onPickColor( { hex } )
+      onPickColor( { rgba, hex }, type )
       {
-        this.form.background_color = hex
+        if (type == 'background_aid') {
+          this.form.background_aid = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`
+        } else {
+          this.form.background_color = hex
+        }
       },
       onSetTax()
       {
@@ -588,6 +618,7 @@
             },
             text_color: this.data.text_color,
             background_color: this.data.background_color,
+            background_aid: this.data.background_aid,
             background_image: this.data.background_image,
             seller: this.AUTH_USER.data
           }
@@ -603,6 +634,7 @@
           title: '',
           description: '',
           background_color: '#fff',
+          background_aid: 'transparent',
           text_color: 'dark',
           background_image: '',
           valid_day: [],

@@ -66,7 +66,7 @@
         type: String,
         default: ''
       }, value: {
-        type: [Object, Array],
+        type: [Object, Array, Number],
         default() {
           return null
         }

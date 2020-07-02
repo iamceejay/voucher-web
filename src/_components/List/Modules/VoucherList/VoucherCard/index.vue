@@ -5,26 +5,31 @@
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': !isFlip ? data.background_color : '' }"
   >
-    <CardInfo
-      v-if="!isAction"
-      :class="[ onGetTextColor() ]"
-      :data="data"
-      :isFlippable="isFlippable"
-      :withQR="withQR"
-      :otherData="otherData"
-      @onFlip="onFlip()"
-    />
-    <CardAction
-      v-if="isAction && role === 'seller'"
-      :data="data"
-      @onFlip="onFlip()"
-    />
-    <CardUserAction
-      v-if="isAction && role === 'user'"
-      :data="data"
-      :otherData="otherData"
-      @onFlip="onFlip()"
-    />
+    <div
+      class="flex flex-col w-full bg-aid"
+      :style="{ '--bgAid': !isFlip ? data.background_aid : '' }"
+    >
+      <CardInfo
+        v-if="!isAction"
+        :class="[ onGetTextColor() ]"
+        :data="data"
+        :isFlippable="isFlippable"
+        :withQR="withQR"
+        :otherData="otherData"
+        @onFlip="onFlip()"
+      />
+      <CardAction
+        v-if="isAction && role === 'seller'"
+        :data="data"
+        @onFlip="onFlip()"
+      />
+      <CardUserAction
+        v-if="isAction && role === 'user'"
+        :data="data"
+        :otherData="otherData"
+        @onFlip="onFlip()"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -172,6 +177,9 @@
   }
   .bg-color {
     background-color: var(--bgColor);
+  }
+  .bg-aid {
+    background-color: var(--bgAid);
   }
   @media only screen and (max-width: 600px) {
     .voucher-card-container {
