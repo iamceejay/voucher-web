@@ -6,7 +6,7 @@
     <div 
       class="card-header"
     >
-      <div class="flex flex-col">
+      <div class="flex flex-col w-3/5 break-all">
         <div class="text-base font-bold font-display">
           {{ data.title || 'Voucher Name' }}
         </div>
@@ -15,23 +15,23 @@
           {{ data.seller && data.seller.username || 'N/A' }}
         </div>
       </div>
-      <div class="self-center ml-auto">
+      <div class="self-center w-2/5">
         <img
           v-if="data.seller && data.seller.company.logo"
-          class="card-logo"
+          class="card-logo ml-auto"
           :src="onSetImage(data.seller.company.logo)" 
           alt=""
         />
         <img 
           v-else
-          class="card-logo"
+          class="card-logo ml-auto"
           src="@/_assets/img/company-default-logo.png" 
           alt=""
         />
       </div>
     </div>
     <div class="card-content">
-      <div class="w-full flex flex-row">
+      <div class="w-full flex flex-row break-all">
         <div :class="`${otherData && otherData.user_voucher && otherData.user_voucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
           <div class="text-xs text-justify card-description h-40 font-body">
             {{ data.description || 'Voucher Description' }}
