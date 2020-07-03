@@ -101,7 +101,7 @@
       })()
     },
     methods: {
-      onSetEarnings({ voucher_total, total_earnings, total_earnings_with_commission, waiting_for_payout, days_until_next_payout, payout_every })
+      onSetEarnings({ voucher_total, total_earnings, total_earnings_with_commission, waiting_for_payout, days_until_next_payout, payout_every, total_seller_earnings })
       {
         this.earnings = [
           {
