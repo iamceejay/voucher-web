@@ -107,20 +107,14 @@
             </div>
             <div v-if="!form.id" class="flex flex-col w-full">
               <SelectField
-                id="tax"
+                id="taxes"
+                v-model="form.tax"
                 class="px-2 py-1 w-full md:w-1/2"
-                placeholder="Select tax"
                 :options="taxes"
                 :multiple="true"
                 :disabled="unsure ? true : false"
-                @input="onChangeTax"
+                rules="required"
               >
-                <!-- <template #option_="{ option }">
-                  <span class="capitalize">{{ `${option.text}` }}</span>
-                </template>
-                <template #selected_option_="{ option }">
-                  <span class="capitalize">{{ `${option.text}` }}</span>
-                </template> -->
                 <template #label_>
                   <div class="flex flex-row">
                     <Header5
@@ -136,14 +130,13 @@
                 </template>
                 <template #note_>
                   <CheckboxField
-                    id="tax-unsure"
-                    v-model="unsure"
                     container="mb-0"
                     labelSentence="Check if not sure about the tax."
+                    @input="onUnsure"
                   />
                 </template>
               </SelectField>
-              <div v-if="form.tax.length > 0" class="flex flex-col w-full">
+              <div v-if="form.tax && form.tax.length > 0" class="flex flex-col w-full">
                 <div class="px-2 font-semibold text-xs font-display text-gray-700 flex flex-row w-full md:w-1/2">
                   Selected Tax:
                 </div>
@@ -234,41 +227,38 @@
               <div
                 v-for="(date, index) in form.valid_date"
                 :key="`date-${index}`"
-                class="flex flex-row"
+                class="flex flex-col"
               >
-                <div class="flex flex-row w-11/12">
-                  <DatePickerField
-                    v-model="form.valid_date[index].start"
-                    class="m-1 w-1/2"
-                    rules="required"
-                    placeholder="Start date"
-                  />
-                  <DatePickerField
-                    v-model="form.valid_date[index].end"
-                    class="m-1 w-1/2"
-                    rules="required"
-                    placeholder="End date"
-                  />
+                <div class="flex flex-row">
+                  <div class="flex flex-row w-11/12">
+                    <DatePickerField
+                      v-model="form.valid_date[index].start"
+                      class="m-1 w-1/2"
+                      container=""
+                      rules="required"
+                      placeholder="Start date"
+                      @input="onActionDate('change', index)"
+                    />
+                    <DatePickerField
+                      v-model="form.valid_date[index].end"
+                      class="m-1 w-1/2"
+                      container=""
+                      rules="required"
+                      placeholder="End date"
+                      :errorMessages="[form.valid_date[index].error]"
+                      @input="onActionDate('change', index)"
+                    />
+                  </div>
+                  <a 
+                    href="javascript:void(0)"
+                    class="flex mt-6 w-1/12 justify-center"
+                    @click="onActionDate('delete', index)"
+                  >
+                    <i class="fas fa-trash text-red-900 text-base" />
+                  </a>
                 </div>
-                <a 
-                  href="javascript:void(0)"
-                  class="flex mt-6 w-1/12 justify-center"
-                  @click="onActionDate('delete', index)"
-                >
-                  <i class="fas fa-trash text-red-900 text-base" />
-                </a>
               </div>
             </div>
-            <!-- <InputField
-              v-if="!form.id"
-              id="expiry_date"
-              v-model="form.expiry_date"
-              type="number"
-              class="px-2 py-1 w-full md:w-1/2"
-              label="Years of Expiry (4-10 years)"
-              placeholder=""
-              rules="required|min_value:4|max_value:10"
-            /> -->
             <SelectField
               v-if="!form.id"
               id="expiry_date"
@@ -315,7 +305,7 @@
               class="px-2 py-1 w-full md:w-1/2"
               label="Voucher Maximum Value / Quantity"
               placeholder="Max Value"
-              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:0.001`"
+              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${form.min ? form.min : 0.001}`"
             />
           </div>
         </div>
@@ -344,6 +334,7 @@
   import 'vue2-datepicker/index.css'
   import { getWeek } from '_helpers/DefaultValues'
   import { toFormData } from '_helpers/CustomFunction'
+  import moment from 'moment'
 
   export default {
     components: {
@@ -384,6 +375,7 @@
         categories: [],
         form: {
           id: null,
+          category: null,
           voucher_category_id: null,
           seller_id: null,
           title: '',
@@ -396,8 +388,8 @@
           valid_day: [],
           valid_date: [],
           type: 'value',
-          min: 0,
-          max: 0,
+          min: null,
+          max: null,
           expiry_date: null,
           qty_val: 0,
           qty_min: 0,
@@ -432,12 +424,6 @@
       {
         this.onSetForm()
       },
-      unsure(newVal)
-      {
-        if( newVal ) {
-          this.form.tax = ['unsure']
-        }
-      }
     },
     mounted() {
       this.onSetForm()
@@ -488,6 +474,13 @@
           }
         }
       },
+      onUnsure(value)
+      {
+        this.unsure = value
+        if( value ) {
+          this.form.tax = ['unsure']
+        }
+      },
       onChangeTextColor(e)
       {
         this.form.text_color = e.value ? 'dark' : 'light'
@@ -496,17 +489,17 @@
       {
         this.form.type = e.value ? 'quantity' : 'value'
       },
-      onChangeTax(data)
-      {
-        const value = {
-          id: this.form.tax.length + 1,
-          ...data[0]
-        }
-        this.form.tax = [
-          ...this.form.tax,
-          value
-        ]
-      },
+      // onChangeTax(data)
+      // {
+      //   const value = {
+      //     id: this.form.tax.length + 1,
+      //     ...data[0]
+      //   }
+      //   this.form.tax = [
+      //     ...this.form.tax,
+      //     value
+      //   ]
+      // },
       onPickColor( { rgba, hex }, type )
       {
         if (type == 'background_aid') {
@@ -590,6 +583,16 @@
           this.form.valid_date.push({
             start: '',
             end: '',
+          })
+        } else if( action === 'change' ) {
+          const {  start, end } = this.form.valid_date[index]
+
+          this.form.valid_date = this.form.valid_date.map((row, i) => {
+            row.error = ''
+            if(moment(end).isBefore(start, 'day') && index == i) {
+              row.error = 'Please input a valid date.'
+            }
+            return row
           })
         } else {
           this.form.valid_date = this.form.valid_date.filter( (date, i) => i != index)

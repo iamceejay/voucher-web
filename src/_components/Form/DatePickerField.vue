@@ -1,5 +1,8 @@
 <template>
-  <div id="datepicker-field-component" class="mb-5">
+  <div
+    id="datepicker-field-component"
+    :class="[ container ]"
+  >
     <ValidationProvider 
       :name="id" 
       :rules="rules"
@@ -51,6 +54,9 @@
       }, rules: {
         type: String,
         default: ''
+      }, container: {
+        type: String,
+        default: 'mb-5'
       }, errorMessages: {
         type: Array,
         default() {

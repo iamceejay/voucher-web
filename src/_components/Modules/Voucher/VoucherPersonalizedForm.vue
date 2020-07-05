@@ -290,7 +290,9 @@
       onSetCustomImage(action, value)
       {
         if( action == 'set' ) {
-          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+          if(value != '') {
+            return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+          }
         } else {
           this.form.custom_image = ''
           this.form.is_custom_remove = true
