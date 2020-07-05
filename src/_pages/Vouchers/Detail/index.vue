@@ -10,7 +10,7 @@
             :withQR="false"
           />
           <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
-            Login or registrieren to purchase a voucher.
+            Logge dich ein oder registriere dich, um Gutscheine zu kaufen.
           </div>
           <router-link 
             class="self-center w-full md:w-1/2"
@@ -36,21 +36,16 @@
               v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Gib deinen ${ (VOUCHER.type == 'quantity') ? `Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)}/Wunschbetrag)` : 'Wunschbetrag' } an`"
-              placeholder="Enter here"
+              :label="`Gib deinen ${ (VOUCHER.type == 'quantity') ? `Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)} pro Gutschein)` : 'Wunschbetrag' } an`"
+              placeholder="Hier eingeben"
               :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
-              :note="`Menge zwischen 
-              ${ 
-                (VOUCHER.type == 'quantity') 
-                  ? `x${VOUCHER.qty_min}` 
-                  : $helpers.convertCurrency(VOUCHER.val_min) 
+              :note="`
+              ${
+                (VOUCHER.type == 'quantity')
+                  ? `Menge zwischen x${VOUCHER.qty_min} und x${VOUCHER.qty_max}`
+                  : `Wert zwischen ${$helpers.convertCurrency(VOUCHER.val_min)} und ${$helpers.convertCurrency(VOUCHER.val_max) }`
               }
-              und
-              ${ 
-                (VOUCHER.type == 'quantity') 
-                  ? `x${VOUCHER.qty_max}` 
-                  : $helpers.convertCurrency(VOUCHER.val_max) 
-              }`"
+              `"
               :disabled="isAdded ? true : false"
             />
             <div class="flex flex-col mt-3 self-center text-center">
@@ -169,7 +164,7 @@
             let confirm = this.$swal({
               icon: 'success',
               title: 'Erfolgreich!',
-              text: 'Adding the voucher to the card.',
+              text: 'Die Gutscheine wurden in den Warenkorb gelegt.',
               allowOutsideClick: false,
               showConfirmButton: false
             })

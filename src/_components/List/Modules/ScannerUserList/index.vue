@@ -49,8 +49,8 @@
       async onDelete(data)
       {
         this.$swal({
-          title: `${data.status ? 'Deaktivieren' : 'Aktivieren'} user scanner`,
-          text: `Are you sure you want to ${data.status ? 'deactivate' : 'activate'} this user?`,
+          title: `${data.status ? 'Benutzer deaktivieren' : 'Benutzer Aktivieren'}`,
+          text: `Bist du sicher, dass du diesen Benutzer ${data.status ? 'deaktivieren' : 'aktivieren'} willst?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -64,7 +64,7 @@
             this.$swal({
               icon: 'success',
               title: 'Erfolgreich!',
-              text: `${data.status ? 'Deactivating' : 'Activating'} the user.`,
+              text: `${data.status ? 'Deaktivieren' : 'Aktiviere'} den Benutzer.`,
               confirmButtonColor: '#6C757D',
             })
           }   

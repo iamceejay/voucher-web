@@ -30,8 +30,7 @@
           rules="required|min:8|max:16"
         />
         <p class="text-center px-8 py-4 text-xs text-gray-700 font-semibold font-body">
-          A scan user is only allowed to do scans and redeem vouchers.
-          All other seller functions are deactivated.
+          Ein Scan Benutzer kann nur Gutscheine für dein Unternehmen einlösen. Alle weiteren Funktionen sind für diesen Benutzer nicht sichtbar. 
         </p>
         <Button
           type="submit"

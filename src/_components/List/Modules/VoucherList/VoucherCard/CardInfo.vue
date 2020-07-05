@@ -34,7 +34,7 @@
       <div class="w-full flex flex-row break-all">
         <div :class="`${otherData && otherData.user_voucher && otherData.user_voucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
           <div class="text-xs text-justify card-description h-40 font-body">
-            {{ data.description || 'Voucher Description' }}
+            {{ data.description || 'Beschreibung' }}
           </div>
           <div class="text-xs text-justify h-12 font-body">
             {{ otherData && otherData.user_voucher && otherData.user_voucher.note || '' }}
@@ -57,13 +57,13 @@
                   v-for="(date, index) in data.valid_date"
                   :key="`date-${index}`"
                 >
-                  Gültig von {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
+                  Gültig von {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
                 </div>
               </div>
             </div>
             <div class="min-h-8">
               <div v-if="data.valid_day && data.valid_day.length > 0">
-                Gültig von 
+                Gültig von
                 <span 
                   v-for="(day, index) in data.valid_day"
                   :key="`day-${index}`"
@@ -93,7 +93,7 @@
             <span v-else>
               {{ 
                 `${(data.type == 'quantity') 
-                  ? `x${otherData.qty}${ otherData.user_voucher && !otherData.user_voucher.price_hidden ? ` (${$helpers.convertCurrency(data.price_filter)}/voucher)` : '' }` 
+                  ? `x${otherData.qty}${ otherData.user_voucher && !otherData.user_voucher.price_hidden ? ` (${$helpers.convertCurrency(data.price_filter)}/Gutschein)` : '' }` 
                   : `${$helpers.convertCurrency(otherData.value)}`}` 
               }}
             </span>
@@ -190,13 +190,13 @@
       {
         switch (value) {
           case 'voucher_download':
-            return 'Downloaded'
+            return 'Heruntergeladen'
             break;
           case 'email':
             return 'Sent via Email'
             break;
           case 'transferred':
-            return 'Transferred'
+            return 'Verschenkt'
             break;
           default:
             break;

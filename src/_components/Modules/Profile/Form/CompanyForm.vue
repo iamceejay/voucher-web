@@ -18,7 +18,7 @@
           <div class="tooltip ml-1">
             <i class="fas fa-info-circle text-base text-gray-700" />
             <span class="tooltiptext">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Wähle einen Wunschnamen als Benutzername. Der Benutzername ist auf dem Gutschein ersichtlich und kann im Nachhinein nicht mehr geändert werden. 
             </span>
           </div>
         </div>

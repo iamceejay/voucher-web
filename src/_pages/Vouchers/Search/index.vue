@@ -15,9 +15,9 @@
         />
         <VoucherList
           class="mb-3"
-          sortLabel="Sort by:"
+          sortLabel="Sortieren nach:"
           :withSort="true"
-          filterLabel="Filter by:"
+          filterLabel="Filtern nach:"
           :withFilter="true"
           :data="VOUCHERS.data"
           :withQR="false"

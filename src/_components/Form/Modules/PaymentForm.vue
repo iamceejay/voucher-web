@@ -163,7 +163,7 @@
         if(this.payment_type == '') {
           this.$swal({
             icon: 'warning',
-            title: 'Warning!',
+            title: 'Warnung!',
             text: 'Select a payment method first.',
             confirmButtonColor: '#6C757D',
           })
@@ -175,7 +175,8 @@
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Confirm',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
           if(result.value){
@@ -194,7 +195,8 @@
                   text: 'Die Zahlung wurde erfolgreich durchgeführt.',
                   showCancelButton: false,
                   confirmButtonColor: '#6C757D',
-                  confirmButtonText: 'Confirm',
+                  confirmButtonText: 'Bestätigen',
+                  cancelButtonText: 'Abbrechen',
                 }).then(async (result) => {
                   if(result.value){
                     await this.$store.commit('SET_COUNT_CART', 0)
@@ -208,8 +210,8 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung!',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns. ',
                 confirmButtonColor: '#6C757D',
               })
             }

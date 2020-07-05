@@ -67,7 +67,7 @@
           >
             <Header5
               class="px-1"
-              label="Price Filter:"
+              label="Wunschpreis:"
             />
             <div class="flex flex-row px-3">
               <InputField
@@ -76,7 +76,7 @@
                 type="number"
                 class="w-full md:w-1/2 m-auto mt-1 mr-2"
                 style="margin-bottom: 10px;"
-                label="From"
+                label="Von"
                 placeholder="Enter price"
                 rules="required"
                 inputContainer="py-1"
@@ -88,7 +88,7 @@
                 type="number"
                 class="w-full md:w-1/2 m-auto mt-1 mr-2"
                 style="margin-bottom: 10px;"
-                label="To"
+                label="Bis"
                 placeholder="Enter price"
                 rules="required"
                 inputContainer="py-1"
@@ -102,7 +102,7 @@
     <Button
       v-if="isCategory || isRegion || isPrice"
       class="px-2 w-32 mb-3"
-      label="Apply filter"
+      label="Filter anwenden"
       size="w-full"
       round="rounded-full"
       fontSize="text-xs"

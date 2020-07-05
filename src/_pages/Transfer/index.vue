@@ -32,7 +32,7 @@
         if( !this.AUTH_USER.isAuth ) {
           this.$swal({
             icon: 'warning',
-            title: 'Warning!',
+            title: 'Warnung!',
             text: 'Please login first and revisit the url again. Thank you.',
             showCancelButton: false,
             confirmButtonColor: '#6C757D',
@@ -58,7 +58,7 @@
           this.$swal({
             icon: 'success',
             title: 'Erfolgreich!',
-            text: 'The voucher is successfully transfered. Danke! ',
+            text: 'Der Gutschein wurde erfolgreich übertragen!',
             showCancelButton: false,
             confirmButtonColor: '#6C757D',
             confirmButtonText: 'Bestätigen',
@@ -72,7 +72,7 @@
           if( err?.response?.status == 422 ) {
             this.$swal({
               icon: 'warning',
-              title: 'Warning!',
+              title: 'Warnung!',
               text: err.response.data.message,
               showCancelButton: false,
               confirmButtonColor: '#6C757D',

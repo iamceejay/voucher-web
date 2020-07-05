@@ -48,7 +48,7 @@
           />
           <Button
             class="mx-2 justify-center"
-            label="Copy link clipboard"
+            label="Kopiere den Link"
             size="mt-1 w-full md:w-1/2 py-3"
             round="rounded-full"
             @onClick="onCopyClipboard()"

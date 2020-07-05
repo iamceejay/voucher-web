@@ -89,12 +89,12 @@
             <div class="w-full md:w-1/2 mb-5">
               <div class="flex flex-row">
                 <Header5
-                  label="Reading Aid"
+                  label="Lesehilfe"
                 />
                 <div class="tooltip ml-1">
                   <i class="fas fa-info-circle text-base text-gray-700" />
                   <span class="tooltiptext">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
                   </span>
                 </div>
               </div>
@@ -152,7 +152,7 @@
                     type="text"
                     class="px-2 w-1/3"
                     inputContainer="py-1"
-                    placeholder="Tax Label"
+                    placeholder="Steuer kann nicht festgestellt werden"
                     :disabled="true"
                   />
                   <InputField
@@ -237,7 +237,7 @@
                       class="m-1 w-1/2"
                       container=""
                       rules="required"
-                      placeholder="Start date"
+                      placeholder="Startdatum"
                       @input="onActionDate('change', index)"
                     />
                     <DatePickerField
@@ -245,7 +245,7 @@
                       class="m-1 w-1/2"
                       container=""
                       rules="required"
-                      placeholder="End date"
+                      placeholder="Enddatum"
                       :errorMessages="[form.valid_date[index].error]"
                       @input="onActionDate('change', index)"
                     />
@@ -468,7 +468,7 @@
           if( err?.response?.data?.message ) {
             this.$swal({
               icon: 'warning',
-              title: 'Warning!',
+              title: 'Warnung!',
               text: err.response.data.message,
               confirmButtonColor: '#6C757D',
             })

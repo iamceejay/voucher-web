@@ -64,7 +64,7 @@
           if( err?.response?.status == 422 ) {
             this.$swal({
               icon: 'warning',
-              title: 'Warning!',
+              title: 'Warnung!',
               text: err.response.data.message,
               confirmButtonColor: '#6C757D',
             })

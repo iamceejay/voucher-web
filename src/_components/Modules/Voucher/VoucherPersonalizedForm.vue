@@ -69,7 +69,7 @@
               @input="onChangeForm"
             />
             <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">
-              Zeige den Preis / verstecke den Preis
+              Zeige den Preis / Verstecke den Preis
             </span>
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">

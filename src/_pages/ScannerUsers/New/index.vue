@@ -5,7 +5,7 @@
         <div class="flex flex-1 flex-col">
           <div class="flex flex-col">
             <Header1
-              label="Add Scanner User"
+              label="Füge einen Scanner Benutzer hinzu"
             />
           </div>
           <ScanerUserForm />

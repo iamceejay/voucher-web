@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          :label="`${($route.params.id) ? 'Update Voucher' : 'Neuer Gutschein'}`"
+          :label="`${($route.params.id) ? 'Gutschein aktualisieren' : 'Neuer Gutschein'}`"
         />
         <VoucherForm 
           :data="data"

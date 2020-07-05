@@ -10,7 +10,7 @@
           v-model="form.value"
           type="number"
           class="w-full md:w-1/2 m-auto mt-4"
-          :placeholder="`Gib den einzulösenden ${(QR_CODE.order.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
+          :placeholder="`Gib den einzulösende ${(QR_CODE.order.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
           rules="required|min_value:1"
         />
         <Button
@@ -84,7 +84,7 @@
               if( err?.response?.status == 422 ) {
                 this.$swal({
                   icon: 'warning',
-                  title: 'Warning!',
+                  title: 'Warnung!',
                   text: err.response.data.message,
                   confirmButtonColor: '#6C757D',
                 })

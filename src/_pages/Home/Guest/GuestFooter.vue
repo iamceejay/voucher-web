@@ -35,7 +35,7 @@
             href="https://verkaufen.epasnets.com" 
             target="_blank"
           >
-            Partner werder
+            Partner werden
           </a>
         </div>
       </div>
