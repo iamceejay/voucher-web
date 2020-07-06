@@ -516,6 +516,10 @@
             label: '0%',
             value: null,
           }, {
+            tax: '5',
+            label: '5%',
+            value: null,
+          }, {
             tax: '10',
             label: '10%',
             value: null,
