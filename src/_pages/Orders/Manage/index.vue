@@ -64,7 +64,7 @@
             title: 'Order Date',
             dataClass: 'text-center',
           }, {
-            name: 'qr.url',
+            name: 'order_no',
             title: 'Order No.',
             dataClass: 'text-center',
           }, {

@@ -12,18 +12,25 @@
           Benutzer: {{ `${data.user.detail.firstName} ${data.user.detail.lastName}` }}
         </div>
         <div>{{ formatDate(data.created_at) }}</div>
-        <div v-if="role == 'user' || isInvoice">
-          <a 
-            id="link" 
-            href="file.txt" 
-            download hidden 
-          />
-          <a 
-            href="javascript:void(0)"
-            @click="onGenerateInvoice(data)"
-          >
-            <i class="fas fa-file-invoice text-black text-lg" />
-          </a>
+        <div class="flex flex-row">
+          <div v-if="role == 'user' || isInvoice">
+            <a 
+              id="link" 
+              href="file.txt" 
+              download hidden 
+            />
+            <a 
+              href="javascript:void(0)"
+              @click="onGenerateInvoice(data)"
+            >
+              <i class="fas fa-file-invoice text-black text-lg" />
+            </a>
+          </div>
+        </div>
+        <div class="h-2 my-2">
+          <span v-if="data.reversed" class="bg-peach text-white text-xs rounded-full px-3 py-1">
+            Order Reversed
+          </span>
         </div>
       </div>
       <div class="ml-auto text-xl font-bold font-display">
