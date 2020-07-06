@@ -27,14 +27,14 @@
             </a>
           </div>
         </div>
-        <div class="h-2 my-2">
-          <span v-if="data.reversed" class="bg-peach text-white text-xs rounded-full px-3 py-1">
-            Order Reversed
-          </span>
-        </div>
       </div>
       <div class="ml-auto text-xl font-bold font-display">
         {{ `${$helpers.convertCurrency(data.total_amount)}` }}
+      </div>
+    </div>
+    <div class="h-5 w-full flex justify-center">
+      <div v-if="data.reversed" class="bg-peach text-white text-xs rounded-full w-32 text-center self-center">
+        Order Reversed
       </div>
     </div>
     <Button

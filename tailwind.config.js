@@ -21,6 +21,9 @@ module.exports = {
         '12': '3rem',
         '8': '2rem',
       },
+      boxShadow: {
+        'custom': '0 1px 5px #ccc'
+      }
     },
     fontFamily: {
       'display': ['Manrope', 'sans-serif'],
