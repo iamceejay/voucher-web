@@ -186,7 +186,7 @@
   }
   @media only screen and (max-width: 600px) {
     .voucher-card-container {
-      width: 100%;
+      width: 99%;
       max-width: 330px;
     }
   }

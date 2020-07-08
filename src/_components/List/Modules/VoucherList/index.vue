@@ -42,7 +42,20 @@
     </div>
     <div 
       v-if="type === 'feature'"
+      class="w-full md:w-1/2 relative flex self-center"
     >
+      <button
+        class="slider-icon slider-icon-left md:visible"
+        @click="onSlideTo('slidePre')"
+      >
+        <i class="fas fa-chevron-circle-left" />
+      </button>
+      <button
+        class="slider-icon slider-icon-right md:visible"
+        @click="onSlideTo('slideNext')"
+      >
+        <i class="fas fa-chevron-circle-right" />
+      </button>
       <slider
         ref="slider"
         :options="options"
@@ -123,11 +136,12 @@
     data() {
       return {
         options: {
-          pagination: true,
+          pagination: false,
           thresholdDistance: 100, // Sliding distance threshold
           thresholdTime: 300, // Sliding time threshold decision
           grabCursor: true, // Scratch style
-          speed: 300 
+          speed: 300,
+          loop: true,
         },
 
         params: {
@@ -170,11 +184,29 @@
       onFilter( data )
       {
         this.$emit('onFilter', data)
+      },
+      onSlideTo(action)
+      {
+        this.$refs.slider.$emit(action)
       }
     }
   }
 </script>
 <style lang="css">
+  .slider-icon {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    color: #ff5563;
+    font-size: 20px;
+    visibility: hidden;
+  }
+  .slider-icon.slider-icon-left {
+    left: 0;
+  }
+  .slider-icon.slider-icon-right {
+    right: 0;
+  }
   .slider-container {
     white-space: unset !important;
   }
