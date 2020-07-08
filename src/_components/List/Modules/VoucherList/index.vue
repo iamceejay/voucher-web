@@ -42,14 +42,23 @@
     </div>
     <div 
       v-if="type === 'feature'"
-      class="scroll-horizontal scroll"
     >
-      <FeatureVoucherCard
-        v-for="(voucher, index) in tempData"
-        :key="`voucher-${index}`"
-        :data="voucher"
-        class="m-2"
-      />
+      <slider
+        ref="slider"
+        :options="options"
+      >
+        <slideritem
+          v-for="(voucher, index) in tempData"
+          :key="`voucher-${index}`"
+        >
+          <VoucherCard
+            :listId="listId"
+            :data="voucher"
+            :role="role"
+            :withQR="withQR"
+          />
+        </slideritem>
+      </slider>
       <div v-if="tempData.length <= 0" class="py-2 text-lg">
         No data found.
       </div>
@@ -58,19 +67,20 @@
 </template>
 <script>
   import VoucherCard from './VoucherCard/'
-  import FeatureVoucherCard from './FeatureVoucherCard/'
   import VoucherSort from './VoucherFilter/Sort'
   import VoucherFilter from './VoucherFilter/Filter'
   import Header2 from '_components/Headers/Header2';
   import moment from 'moment';
+  import { slider, slideritem } from 'vue-concise-slider'
 
   export default {
     components: {
       VoucherCard,
-      FeatureVoucherCard,
       Header2,
       VoucherSort,
       VoucherFilter,
+      slider,
+      slideritem,
     },
     props: {
       listId: {
@@ -112,6 +122,14 @@
     },
     data() {
       return {
+        options: {
+          pagination: true,
+          thresholdDistance: 100, // Sliding distance threshold
+          thresholdTime: 300, // Sliding time threshold decision
+          grabCursor: true, // Scratch style
+          speed: 300 
+        },
+
         params: {
           isMostPopular: false,
           isNewest: false,
@@ -152,81 +170,31 @@
       onFilter( data )
       {
         this.$emit('onFilter', data)
-        
-        // this.params
-        // const action = data[0]
-        // let value = data.length > 1 ? data[1] : null
-        // switch ( action ) {
-        //   case 'newest':
-        //     this.isNewest = !this.isNewest
-        //     this.tempData = this.tempData.sort((a, b) => {
-        //       a = moment(a.created_at).local()
-        //       b = moment(b.created_at).local()
-        //       return !this.isNewest ? (a - b) : (b - a)
-        //     })
-        //     break
-        //   case 'popular':
-        //     this.isMostPopular = !this.isMostPopular
-        //     this.tempData = this.isMostPopular 
-        //       ? this.tempData.filter( row => row.isMostPopular )
-        //       : this.data
-        //     break
-        //   case 'lowest':
-        //     this.isLowest = !this.isLowest
-        //     this.tempData = this.tempData.sort((a, b) => {
-        //       return !this.isLowest ? (a.value - b.value) : (b.value - a.value)
-        //     })
-        //     break
-        //   case 'category':
-        //     if( value ) {
-
-        //     } else {
-        //       this.isCategory = !this.isCategory
-        //     }
-        //     // if( value || this.isLowestPrice ) {
-        //     //   this.isCategory = true
-        //     //   this.filterForm.categories = value
-        //     //   value = value || []
-        //     //   this.tempData = value.length > 0 || this.isLowestPrice
-        //     //     ? this.data.filter( row => {
-        //     //       const priceCon = this.isLowestPrice && this.filterForm.price
-        //     //         ? row.value >= this.filterForm.price.from && row.value <= this.filterForm.price.to
-        //     //         : true
-        //     //       const categCon = value.length > 0 
-        //     //         ? value.includes(row.category.label)
-        //     //         : true
-        //     //       return ( categCon && priceCon)
-        //     //     })
-        //     //     : this.data
-        //     // } else {
-        //     //   this.filterForm.categories = []
-        //     //   this.isCategory = !this.isCategory
-        //     //   this.tempData = this.data
-        //     // }
-        //     break
-        //   case 'region':
-        //     this.isRegion = !this.isRegion
-        //     break
-        //   case 'price':
-        //     this.isLowestPrice = !this.isLowestPrice
-
-        //     // if( value ) {
-        //     //   this.filterForm.price = value
-        //     //   this.tempData = value
-        //     //     ? this.data.filter( row => row.value >= value.from && row.value <= value.to )
-        //     //     : this.data
-        //     // } else {
-        //     //   this.filterForm.price = null
-        //     //   this.isLowestPrice = !this.isLowestPrice
-        //     //   this.tempData = this.data
-        //     // }
-        //     break
-        //   default:
-        //     break
-        // }
       }
     }
   }
 </script>
-<style lang="css" scoped>
+<style lang="css">
+  .slider-container {
+    white-space: unset !important;
+  }
+  .slider-wrapper .slider-item {
+    font-size: unset;
+    text-align: unset;
+    color: unset;
+    visibility: hidden;
+  }
+  .slider-wrapper .slider-item.slider-active {
+    visibility: visible;
+  }
+  .slider-pagination {
+    position: unset !important;
+  }
+  .slider-pagination-bullet {
+    height: 10px !important;
+    width: 10px !important;
+  }
+  .swiper-container-horizontal .slider-pagination-bullet-active, .swiper-container-vertical .slider-pagination-bullet-active {
+    background: #ff5563 !important;
+  }
 </style>

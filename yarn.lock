@@ -8209,6 +8209,11 @@ vue-color@^2.7.1:
     material-colors "^1.0.0"
     tinycolor2 "^1.1.2"
 
+vue-concise-slider@^3.4.4:
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/vue-concise-slider/-/vue-concise-slider-3.4.4.tgz#9b1c186e080ba314a002fc5e3a7974d2c13598eb"
+  integrity sha512-Nvn+Cbt6FPCjkiy0ccyfx++4/XKEo2jzUiUfzQX2zm2h7tjNk3wmrTZQelC7ZNaC6nh8I5Dh2nbgT1yZ3NLMCg==
+
 vue-cookie-law@^1.13.3:
   version "1.13.3"
   resolved "https://registry.yarnpkg.com/vue-cookie-law/-/vue-cookie-law-1.13.3.tgz#c4fc5d9dd66772d4043c4f140790a0e502caabbc"

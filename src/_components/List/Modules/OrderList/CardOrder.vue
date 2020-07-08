@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col m-1 p-3 border border-gray-900 rounded mb-3">
+  <div class="flex flex-col p-3 my-1 mx-2 shadow-custom rounded mb-3">
     <div class="flex flex-row">
       <span class="font-semibold text-sm text-gray-900 font-display">{{ data.voucher.title }}</span>
       <span class="ml-auto text-xs text-gray-900 font-semibold font-body">

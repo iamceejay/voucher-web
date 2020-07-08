@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="m-2 py-2 px-3 border border-gray-900 rounded bg-color text-center card-container w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
+    class="m-2 py-2 px-3 shadow-custom rounded bg-color text-center card-container w-1/2 md:w-1/4	lg:w-1/5 xl:w-1/6"
     :style="{ '--bgColor': data.bgColor }"
     :class="`${ data.isDarkText ? 'text-black' : 'text-white' }`"
   >
