@@ -49,6 +49,7 @@
           confirmPassword: '',
           iban: '',
           bic: '',
+          phone_number: '',
           company: {
             name: '',
             description: '',
@@ -96,12 +97,10 @@
       },
       onChange( data )
       {
-        console.log('data nai', data)
         this.form = {
           ...this.form,
           ...data
         }
-        console.log('this.form nai', this.form)
       },
       async onSubmit( isValid )
       {

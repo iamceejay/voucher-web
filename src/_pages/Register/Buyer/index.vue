@@ -122,6 +122,7 @@
           address: '',
           city: '',
           zip_code: '',
+          phone_number: '',
           password: '',
           confirmPassword: '',
           dataPrivacy: false,

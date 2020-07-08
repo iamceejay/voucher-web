@@ -110,6 +110,15 @@
       :errorMessages="errorMessages.email"
       @input="onChange"
     />
+    <InputField
+      id="phoneNumber"
+      v-model="form.phone_number"
+      type="text"
+      class="w-full sm:w-1/2 m-2"
+      label="Phone No."
+      :errorMessages="errorMessages.phone_number"
+      @input="onChange"
+    />
     <!-- <InputField
       id="password"
       v-model="form.password"
@@ -170,6 +179,7 @@
           address: '',
           city: '',
           zip_code: '',
+          phone_number: '',
           // password: '',
           // confirmPassword: '',
           company: {
