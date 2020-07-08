@@ -114,10 +114,10 @@ export default {
     {
       try {
         const { data } = await post(`${prefix}/download-pdf-invoices`, payload, {}, {responseType: 'arraybuffer'})
-        let blob = new Blob([data], { type: 'application/pdf' })
+        let blob = new Blob([data], { type: 'application/zip' })
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = `invoices(${payload.from}-${payload.to}).pdf`
+        link.download = `invoices(${payload.from}-to-${payload.to}).zip`
         link.click()
       } catch (err) {
         throw err
