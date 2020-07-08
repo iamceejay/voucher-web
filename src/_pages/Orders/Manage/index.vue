@@ -118,18 +118,34 @@
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('REVERSE_WALLET', {
-              id: data.id,
-              reverse: true
-            })
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Erfolgreich!',
-              text: 'Reversing the order.',
-              confirmButtonColor: '#6C757D',
-            });
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('REVERSE_WALLET', {
+                id: data.id,
+                reverse: true
+              })
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'Erfolgreich!',
+                text: 'Reversing the order.',
+                confirmButtonColor: '#6C757D',
+              })
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              let text = 'Something went wrong.'
+
+              if(err?.response?.status == 422) {
+                text = err.response.data.message
+              }
+
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text,
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },

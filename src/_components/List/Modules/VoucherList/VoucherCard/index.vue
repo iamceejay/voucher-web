@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="`voucher-card-${ (data || otherData) ? `${ otherData ? otherData.id : data.id }` : 0 }`"
+    :id="`${listId}-voucher-card-${ (data || otherData) ? `${ otherData ? otherData.id : data.id }` : 0 }`"
     class="flex border border-gray-900 rounded voucher-card-container bg-color mb-3 flex-shrink-0 mr-3 mt-3"
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': !isFlip ? data.background_color : '' }"
@@ -44,7 +44,10 @@
       CardUserAction
     },
     props: {
-      data: {
+      listId: {
+        type: String,
+        default: 'voucher-list'
+      }, data: {
         type: Object,
         default: null
       }, otherData: {
@@ -129,7 +132,7 @@
       },
       onSetBgImage(value)
       {
-        const card = document.getElementById(`voucher-card-${ (this.data || this.otherData) ? `${ this.otherData ? this.otherData.id : this.data.id }` : 0 }`)
+        const card = document.getElementById(`${this.listId}-voucher-card-${ (this.data || this.otherData) ? `${ this.otherData ? this.otherData.id : this.data.id }` : 0 }`)
         const bg = (this.data && this.data.id && (value.search('base64') < 0)) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         card.style.backgroundImage = `url('${bg}')`
         card.style.backgroundSize = `cover`

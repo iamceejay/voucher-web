@@ -110,5 +110,31 @@ export default {
         throw err     
       }
     },
+    async DOWNLOAD_SELLER_INVOICES_PDF( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/download-pdf-invoices`, payload, {}, {responseType: 'arraybuffer'})
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `invoices(${payload.from}-${payload.to}).pdf`
+        link.click()
+      } catch (err) {
+        throw err
+      }
+    },
+    async DOWNLOAD_SELLER_INVOICES_CSV( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/download-csv-invoices`, payload, {}, {responseType: 'arraybuffer'})
+        let blob = new Blob([data], { type: 'text/csv;charset=utf-8;' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `payouts(${payload.from}-to-${payload.to}).csv`
+        link.click()
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

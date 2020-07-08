@@ -6,7 +6,7 @@
     <div 
       class="card-header"
     >
-      <div class="flex flex-col w-3/5 break-all">
+      <div class="flex flex-col w-3/5 break-words">
         <div class="text-base font-bold font-display">
           {{ data.title || 'Voucher Name' }}
         </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="card-content">
-      <div class="w-full flex flex-row break-all">
+      <div class="w-full flex flex-row break-words">
         <div :class="`${otherData && otherData.user_voucher && otherData.user_voucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
           <div class="text-xs text-justify card-description h-40 font-body">
             {{ data.description || 'Beschreibung' }}

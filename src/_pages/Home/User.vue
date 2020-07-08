@@ -16,6 +16,7 @@
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
+      listId="featured-voucher-list"
     />
     <CategoryList
       class="mb-3"
@@ -28,6 +29,7 @@
       title="Gutscheine"
       :data="VOUCHERS.data"
       :withQR="false"
+      listId="search-voucher-list"
       @onSort="onSearchData($event, 'sort')"
     />
   </div>

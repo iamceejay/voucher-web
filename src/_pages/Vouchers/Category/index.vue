@@ -11,12 +11,14 @@
           :data="FEATURED_VOUCHERS"
           :withQR="false"
           :isInline="true"
+          listId="featured-voucher-list"
         />
         <VoucherList
           class="mb-3"
           title="Neueste"
           :data="NEWEST_VOUCHERS.data"
           :withQR="false"
+          listId="newest-voucher-list"
         />
       </div>
     </template>

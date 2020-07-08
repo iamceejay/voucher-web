@@ -8,6 +8,7 @@
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
+      listId="featured-voucher-list"
     />
     <CategoryList
       class="content-container mb-3 py-6 px-8"

@@ -37,6 +37,7 @@
             {{ USER.company.region || '' }}
           </p>
           <a 
+            v-if="(USER.company && USER.company.url)"
             class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2" 
             :href="addHttp(USER.company.url)"
             target="_blank"
@@ -110,6 +111,9 @@
     },
     methods: {
       addHttp(url) {
+        if(!url) {
+          return ''
+        }
         if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
           url = "http://" + url;
         }

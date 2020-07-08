@@ -40,32 +40,60 @@
             </div>
           </template>
         </Table>
-        <!-- <div class="flex flex-col w-full mt-5">
-          <Button
-            class="mx-2 justify-center"
-            label="Download all invoices (PDF)"
-            size="mt-2 w-full md:w-1/2 py-3"
-            round="rounded-full"
-            @onClick="onDownloadInvoices()"
-          />
-          <Button
-            class="mx-2 justify-center"
-            label="Download all payouts (CSV)"
-            size="mt-2 w-full md:w-1/2 py-3"
-            round="rounded-full"
-            @onClick="onDownloadPayouts()"
-          />
-        </div> -->
+        <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+          <form 
+            class="flex flex-col w-full mt-5"
+            @submit.prevent="handleSubmit(onSubmit)"
+          >
+            <div class="flex flex-row w-full md:w-1/2 py-3 self-center">
+              <DatePickerField
+                id="date_from"
+                v-model="form.from"
+                class="m-1 w-1/2"
+                container=""
+                rules="required"
+                placeholder="Start date"
+                @input="onActionDate()"
+              />
+              <DatePickerField
+                id="date_to"
+                v-model="form.to"
+                class="m-1 w-1/2"
+                container=""
+                rules="required"
+                placeholder="End date"
+                :errorMessages="errorMessages.to"
+                @input="onActionDate()"
+              />
+            </div>
+            <Button
+              class="mx-2 justify-center"
+              label="Download all invoices (PDF)"
+              size="mt-2 w-full md:w-1/2 py-3"
+              round="rounded-full"
+              @onClick="onSubmit('pdf')"
+            />
+            <Button
+              class="mx-2 justify-center"
+              label="Download all payouts (CSV)"
+              size="mt-2 w-full md:w-1/2 py-3"
+              round="rounded-full"
+              @onClick="onSubmit('csv')"
+            />
+          </form>
+        </ValidationObserver>
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import MainLayout from '_layouts';
-  import Header1 from '_components/Headers/Header1';
-  import Table from '_components/Table';
+  import MainLayout from '_layouts'
+  import Header1 from '_components/Headers/Header1'
+  import Table from '_components/Table'
   import Button from '_components/Button/'
-  import SearchInputField from '_components/Form/SearchInputField';
+  import SearchInputField from '_components/Form/SearchInputField'
+  import DatePickerField from '_components/Form/DatePickerField'
+  import moment from 'moment'
 
   export default {
     components: {
@@ -74,12 +102,18 @@
       Table,
       Button,
       SearchInputField,
+      DatePickerField,
     },
     data() {
       return {
         params: {
           keyword: '',
         },
+        form: {
+          from: '',
+          to: '',
+        },
+        errorMessages: [],
         fields: [
           {
             name: 'company.name',
@@ -96,11 +130,11 @@
             title: 'Actions',
           }
         ],
-      };
+      }
     },
     computed: {
       AUTH_USER() {
-        return this.$store.getters.AUTH_USER;
+        return this.$store.getters.AUTH_USER
       },
       IS_LOADING()
       {
@@ -126,40 +160,94 @@
       })()
     },
     methods: {
-      onDownloadInvoices(  )
+      async onSubmit(action)
       {
-        let processing = this.$swal({
-          title: 'Processing Request',
-          text: 'Please wait ...',
-          allowOutsideClick: false,
-          showConfirmButton: false
-        })
-        setTimeout( () => {
-          this.$swal({
-            icon: 'success',
-            title: 'Erfolgreich!',
-            text: 'Downloading all the invoices.',
-            confirmButtonColor: '#6C757D',
-          })
-        }, 2000)
+        const valid = await this.$refs.form.validate()
+        console.log('valid', valid)
+        if(valid) {
+          try {          
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+
+            const url = (action == 'pdf') 
+              ? 'DOWNLOAD_SELLER_INVOICES_PDF' 
+              : 'DOWNLOAD_SELLER_INVOICES_CSV'
+            await this.$store.dispatch(url, this.form)
+
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+            const text = (action == 'pdf')
+              ? 'Downloading all the invoices.'
+              : 'Downloading all the payouts.'
+
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich',
+              text,
+              confirmButtonColor: '#6C757D',
+            })
+
+          } catch (err) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            let text = 'Something went wrong.'
+
+            if(err?.response?.status == 422) {
+              text = 'No Records found.'
+            }
+
+            this.$swal({
+              icon: 'warning',
+              title: 'Warning!',
+              text,
+              confirmButtonColor: '#6C757D',
+            })
+          }
+        }
       },
-      onDownloadPayouts(  )
+      async onActionDate()
       {
-        let processing = this.$swal({
-          title: 'Processing Request',
-          text: 'Please wait ...',
-          allowOutsideClick: false,
-          showConfirmButton: false
-        })
-        setTimeout( () => {
-          this.$swal({
-            icon: 'success',
-            title: 'Erfolgreich!',
-            text: 'Downloading all the payouts.',
-            confirmButtonColor: '#6C757D',
+        const { from, to } = this.form
+        if(moment(to).isBefore(from, 'day')) {
+          await this.$refs.form.validate()
+          this.$refs.form.flags.invalid = true
+          await this.$refs.form.setErrors({
+            date_to: ['Please input a valid date.']
           })
-        }, 2000)
+        }
       },
+      // onDownloadInvoices()
+      // {
+      //   let processing = this.$swal({
+      //     title: 'Processing Request',
+      //     text: 'Please wait ...',
+      //     allowOutsideClick: false,
+      //     showConfirmButton: false
+      //   })
+      //   setTimeout( () => {
+      //     this.$swal({
+      //       icon: 'success',
+      //       title: 'Erfolgreich',
+      //       text: 'Downloading all the invoices.',
+      //       confirmButtonColor: '#6C757D',
+      //     })
+      //   }, 2000)
+      // },
+      // onDownloadPayouts()
+      // {
+      //   let processing = this.$swal({
+      //     title: 'Processing Request',
+      //     text: 'Please wait ...',
+      //     allowOutsideClick: false,
+      //     showConfirmButton: false
+      //   })
+      //   setTimeout( () => {
+      //     this.$swal({
+      //       icon: 'success',
+      //       title: 'Erfolgreich',
+      //       text: 'Downloading all the payouts.',
+      //       confirmButtonColor: '#6C757D',
+      //     })
+      //   }, 2000)
+      // },
       async onMarkComplete(data)
       {
         this.$swal({
@@ -207,7 +295,7 @@
               title: 'Erfolgreich!',
               text: 'Sending an invoice.',
               confirmButtonColor: '#6C757D',
-            });
+            })
           }   
         })
       },
