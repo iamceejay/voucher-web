@@ -82,6 +82,7 @@
           address: '',
           city: '',
           zip_code: '',
+          phone_number: '',
           iban: '',
           bic: '',
           company: null,
@@ -175,6 +176,7 @@
             address: user.detail.address,
             city: user.detail.city,
             zip_code: user.detail.zip_code,
+            phone_number: user.detail.phone_number,
             iban: user.detail.iban,
             bic: user.detail.bic,
             company: null

@@ -70,6 +70,7 @@
           address: '',
           city: '',
           zip_code: '',
+          phone_number: '',
           password: '',
           confirmPassword: '',
           company: {
@@ -115,7 +116,6 @@
           ...this.form,
           ...data,
         }
-        console.log('this.form step 2', this.form)
       },
       onSetForm()
       {
@@ -124,7 +124,6 @@
             ...this.form,
             ...this.data
           }
-          console.log('this.form', this.form)
         }
       }, 
     }

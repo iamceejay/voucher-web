@@ -73,6 +73,7 @@
           address: '',
           city: '',
           zip_code: '',
+          phone_number: '',
           email: '',
           password: '',
           confirmPassword: '',
@@ -120,7 +121,6 @@
             ...this.form,
             ...this.data
           }
-          console.log('this.data', this.data)
         }
       }, 
     }
