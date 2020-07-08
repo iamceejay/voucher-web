@@ -4,7 +4,8 @@
     :class="[ container ]"
   >
     <ValidationProvider 
-      :name="id" 
+      :ref="id"
+      :vid="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -14,9 +15,10 @@
         />
         <DatePicker
           v-model="date"
+          :inputAttr="{name: id, id}"
           class=" w-full"
           inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
-          format="YYYY-MM-DD"
+          :format="format"
           type="date"
           :placeholder="placeholder"
           valueType="format"
@@ -62,6 +64,9 @@
         default() {
           return []
         }
+      }, format: {
+        type: String,
+        default: 'YYYY-MM-DD'
       },
     },
     data() {

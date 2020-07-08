@@ -1,5 +1,6 @@
 <template>
-  <div 
+  <div
+    :id="listId"
     :key="`v-list-${listIndex}`"
     class="flex flex-col w-full"
   >
@@ -30,6 +31,7 @@
       <VoucherCard
         v-for="(voucher, index) in tempData"
         :key="`voucher-${index}`"
+        :listId="listId"
         :data="voucher"
         :role="role"
         :withQR="withQR"
@@ -71,7 +73,10 @@
       VoucherFilter,
     },
     props: {
-      title: {
+      listId: {
+        type: String,
+        default: 'voucher-list'
+      }, title: {
         type: String,
         default: ''
       }, data: {

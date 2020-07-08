@@ -259,7 +259,7 @@ const router = new Router({
       component: VoucherDetail,
       meta: {
         back: '/home',
-        middleware: [ authGUS ]
+        // middleware: [ authGUS ]
       } 
     }, { 
       path: '/vouchers/personalized/:id', 
@@ -275,7 +275,7 @@ const router = new Router({
       component: SellerDetail,
       meta: {
         back: '',
-        middleware: [ authGUS ]
+        // middleware: [ authGUS ]
       } 
     }, { 
       path: '/payment', 
