@@ -19,7 +19,7 @@
           Wähle eine Hintergrundfarbe oder lade ein Foto hoch
         </div>
         <div class="flex flex-row flex-wrap w-full">
-          <div class="w-full md:w-1/2 mb-5">
+          <!-- <div class="w-full md:w-1/2 mb-5">
             <span class="font-semibold text-sm font-display text-gray-700 mx-2">
               Hintergrundfarbe
             </span>
@@ -27,6 +27,25 @@
               <Material
                 v-model="material_color"
                 @input="onPickColor($event, 'background_color')"
+              />
+            </div>
+          </div> -->
+          <div class="w-full sm:w-1/2 md:px-2 mt-2 mb-5">
+            <div class="flex flex-row">
+              <Header5
+                label="Lesehilfe"
+              />
+              <div class="tooltip ml-1">
+                <i class="fas fa-info-circle text-base text-gray-700" />
+                <span class="tooltiptext">
+                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
+                </span>
+              </div>
+            </div>
+            <div class="w-full sm:w-1/2 md:mx-2 mt-2">
+              <Chrome
+                v-model="chrome_color"
+                @input="onPickColor($event, 'background_aid')"
               />
             </div>
           </div>
@@ -86,25 +105,6 @@
               placeholder="Beschreibung des Gutscheins"
               rules="required|max:250"
             />
-            <div class="w-full md:w-1/2 mb-5">
-              <div class="flex flex-row">
-                <Header5
-                  label="Lesehilfe"
-                />
-                <div class="tooltip ml-1">
-                  <i class="fas fa-info-circle text-base text-gray-700" />
-                  <span class="tooltiptext">
-                    Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
-                  </span>
-                </div>
-              </div>
-              <div class="w-full sm:w-1/2 md:mx-2 mt-2">
-                <Chrome
-                  v-model="chrome_color"
-                  @input="onPickColor($event, 'background_aid')"
-                />
-              </div>
-            </div>
             <div v-if="!form.id" class="flex flex-col w-full">
               <SelectField
                 id="taxes"
@@ -137,7 +137,7 @@
                   />
                 </template>
               </SelectField>
-              <div v-if="form.tax && form.tax.length > 0" class="flex flex-col w-full">
+              <div v-if="!unsure && form.tax && form.tax.length > 0" class="flex flex-col w-full">
                 <div class="px-2 font-semibold text-xs font-display text-gray-700 flex flex-row w-full md:w-1/2">
                   Ausgewählter Steuersatz
                 </div>
@@ -480,6 +480,8 @@
         this.unsure = value
         if( value ) {
           this.form.tax = ['unsure']
+        } else {
+          this.form.tax = this.form.tax.filter(row => row != 'unsure')
         }
       },
       onChangeTextColor(e)
