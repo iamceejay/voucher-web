@@ -4,7 +4,7 @@
       <div class="content-container flex flex-1 justify-center items-center flex-col w-full">
         <div class="container">
           <div class="text-center font-bold text-4xl font-display mb-10">
-            Reset Account
+            Konto wiederherstellen
           </div>
           <ValidationObserver 
             v-slot="{ handleSubmit }"
@@ -53,7 +53,7 @@
                   class="ml-auto py-2"
                   :disabled="submitting"
                   :isLoading="submitting"
-                  label="Send"
+                  label="Speichern"
                   type="submit"
                 />
               </div>
@@ -112,7 +112,7 @@
           let confirm = this.$swal({
             icon: 'success',
             title: 'Erfolgreich!',
-            text: 'Changing your password. Redirecting ...',
+            text: 'Erfolgreich! Dein Passwort wurde geändert.',
             allowOutsideClick: false,
             showConfirmButton: false
           })

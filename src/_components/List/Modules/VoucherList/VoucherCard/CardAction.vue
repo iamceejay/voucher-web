@@ -114,7 +114,7 @@
             this.$swal({
               icon: 'success',
               title: 'Erfolgreich!',
-              text: `${ data.is_active ? 'Deactivating' : 'Activating' } the voucher.`,
+              text: `${ data.is_active ? 'Gutscheine aktivieren.' : 'Gutscheine deaktiveren.' }`,
               confirmButtonColor: '#6C757D',
             })
             this.$emit('onFlip')

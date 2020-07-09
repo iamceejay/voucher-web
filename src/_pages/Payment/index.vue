@@ -4,7 +4,7 @@
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <div class="w-full h-24 sm:h-32 lg:h-48 bg-peach flex justify-center items-center mb-5">
           <Header1
-            label="Checkout"
+            label="Kassa"
             color="text-white"
           />
         </div>

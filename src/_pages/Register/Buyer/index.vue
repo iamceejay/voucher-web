@@ -163,7 +163,7 @@
           })
           // this.$swal({
           //   icon: 'success',
-          //   title: 'Successful!',
+          //   title: 'Erfolgreich!',
           //   text: 'Creating an account.',
           //   confirmButtonColor: '#6C757D',
           // })

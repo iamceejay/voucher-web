@@ -8,7 +8,7 @@
     >
       <div class="flex flex-col w-3/5 break-words">
         <div class="text-base font-bold font-display">
-          {{ data.title || 'Voucher Name' }}
+          {{ data.title || 'Gutscheinnname' }}
         </div>
         <div class="text-xs font-bold font-body">
           <!-- {{ data.seller && data.seller.company.name || 'Company Name' }} -->
@@ -57,13 +57,13 @@
                   v-for="(date, index) in data.valid_date"
                   :key="`date-${index}`"
                 >
-                  Gültig von {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
+                  Gültig am {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
                 </div>
               </div>
             </div>
             <div class="min-h-8">
               <div v-if="data.valid_day && data.valid_day.length > 0">
-                Gültig von
+                Gültig am
                 <span 
                   v-for="(day, index) in data.valid_day"
                   :key="`day-${index}`"

@@ -180,8 +180,8 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }
@@ -206,7 +206,7 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
-                title: 'Successful!',
+                title: 'Erfolgreich!',
                 text: 'Deleting the user.',
                 confirmButtonColor: '#6C757D',
               });
@@ -214,8 +214,8 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }
@@ -240,16 +240,16 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
-                title: 'Successful!',
-                text: 'Activating the user.',
+                title: 'Erfolgreich!',
+                text: 'Aktiviere den Benutzer.',
                 confirmButtonColor: '#6C757D',
               });
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }

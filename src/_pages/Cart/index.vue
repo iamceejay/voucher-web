@@ -62,7 +62,7 @@
           if( this.$route.query?.status == 'failed' ) {
             this.$swal({
               icon: 'warning',
-              // title: 'Successful!',
+              // title: 'Erfolgreich!',
               text: `Payment cancelled. Thank you!`,
               confirmButtonColor: '#6C757D',
             })
@@ -88,8 +88,8 @@
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         this.$swal({
           icon: 'success',
-          title: 'Erfolgreich!',
-          text: 'Deleting the voucher from the cart.',
+          title: 'Aus dem Warenkorb entfernt!',
+          text: 'Der Gutschein wurde soeben entfernt.',
           confirmButtonColor: '#6C757D',
         })
       },

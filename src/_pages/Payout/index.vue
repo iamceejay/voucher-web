@@ -52,7 +52,7 @@
                 class="m-1 w-1/2"
                 container=""
                 rules="required"
-                placeholder="Start date"
+                placeholder="Startdatum"
                 @input="onActionDate()"
               />
               <DatePickerField
@@ -61,7 +61,7 @@
                 class="m-1 w-1/2"
                 container=""
                 rules="required"
-                placeholder="End date"
+                placeholder="Enddatum"
                 :errorMessages="errorMessages.to"
                 @input="onActionDate()"
               />
@@ -188,7 +188,7 @@
 
           } catch (err) {
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            let text = 'Something went wrong.'
+            let text = 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.'
 
             if(err?.response?.status == 422) {
               text = 'No Records found.'
@@ -196,7 +196,7 @@
 
             this.$swal({
               icon: 'warning',
-              title: 'Warning!',
+              title: 'Achtung! ',
               text,
               confirmButtonColor: '#6C757D',
             })
@@ -269,15 +269,15 @@
               })
               this.$swal({
                 icon: 'success',
-                title: 'Successful!',
+                title: 'Erfolgreich!',
                 text: 'Marking the payment complete.',
                 confirmButtonColor: '#6C757D',
               })
             } catch (err) {
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }
@@ -296,24 +296,13 @@
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
-<<<<<<< HEAD
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('SEND_SELLER_INVOICE', data)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Erfolgreich!',
-              text: 'Sending an invoice.',
-              confirmButtonColor: '#6C757D',
-            })
-=======
             try {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
               await this.$store.dispatch('SEND_SELLER_INVOICE', data)
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'success',
-                title: 'Successful!',
+                title: 'Erfolgreich!',
                 text: 'Sending an invoice.',
                 confirmButtonColor: '#6C757D',
               })
@@ -321,12 +310,11 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }
->>>>>>> 5ae3012fcdf8b50a6e2a4b3786048370a0064434
           }   
         })
       },

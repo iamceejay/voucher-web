@@ -127,8 +127,8 @@
       async onDelete(data)
       {
         this.$swal({
-          title: 'Delete Template',
-          text: `Are you sure you want to delete this template?`,
+          title: 'Vorlage löschen',
+          text: `Bist du sicher dass du dieses Bild löschen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -150,8 +150,8 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }

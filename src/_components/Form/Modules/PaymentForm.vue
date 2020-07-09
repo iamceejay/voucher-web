@@ -178,7 +178,7 @@
           cancelButtonColor: '#AF0000',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
-          cancelButtonText: 'Cancel',
+          cancelButtonText: 'Bestätigen',
         }).then(async (result) => {
           if(result.value){
             try {

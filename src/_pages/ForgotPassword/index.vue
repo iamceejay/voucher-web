@@ -32,7 +32,7 @@
                   class="ml-auto py-2"
                   :disabled="submitting"
                   :isLoading="submitting"
-                  label="Send"
+                  label="Abschicken"
                   @onClick="onSubmit()"
                 />
               </div>
@@ -88,8 +88,8 @@
           // this.$router.push('/login')
           this.$swal({
             icon: 'success',
-            title: 'Erfolgreich!',
-            text: `Please check your email and proceed with the link given.`,
+            title: 'Email verschickt!',
+            text: `Du hast soeben ein Email bekommen, bitte öffne dort den Link, um dein Passwort zu ändern.`,
             allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           })

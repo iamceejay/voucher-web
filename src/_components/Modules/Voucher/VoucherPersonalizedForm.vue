@@ -274,8 +274,8 @@
       onDeleteTemplate( index )
       {
         this.$swal({
-          title: 'Delete template',
-          text: `Are you sure you want to delete this template?`,
+          title: 'Vorlage löschen',
+          text: `Bist du sicher dass du dieses Bild löschen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

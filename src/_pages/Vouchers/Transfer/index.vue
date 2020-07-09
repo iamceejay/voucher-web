@@ -142,7 +142,7 @@
             }
             // this.$swal({
             //   icon: 'success',
-            //   title: 'Successful!',
+            //   title: 'Erfolgreich!',
             //   text: 'Sending the voucher via email.',
             //   confirmButtonColor: '#6C757D',
             // });
@@ -162,7 +162,7 @@
           document.execCommand('copy');
           // this.$swal({
           //   icon: 'success',
-          //   title: 'Successful!',
+          //   title: 'Erfolgreich!',
           //   text: 'Sending the voucher via email.',
           //   confirmButtonColor: '#6C757D',
           // });

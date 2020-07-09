@@ -50,7 +50,7 @@
         </div>
         <div class="w-full flex flex-col">
           <VoucherList
-            title="All vouchers"
+            title="Alle Gutscheine"
             class="mb-3"
             :data="VOUCHERS.data"
             :withQR="false"

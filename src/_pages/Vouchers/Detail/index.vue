@@ -177,8 +177,8 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
-                text: 'Something went wrong.',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#6C757D',
               })
             }

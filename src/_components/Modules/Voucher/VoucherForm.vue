@@ -247,7 +247,7 @@
                         class="m-1 w-1/2"
                         container=""
                         rules="required"
-                        placeholder="Start date"
+                        placeholder="Startdatum"
                         @input="onActionDate('change', index)"
                       />
                       <DatePickerField
@@ -255,7 +255,7 @@
                         class="m-1 w-1/2"
                         container=""
                         rules="required"
-                        placeholder="End date"
+                        placeholder="Enddatum"
                         :errorMessages="[form.valid_date[index].error]"
                         @input="onActionDate('change', index)"
                       />

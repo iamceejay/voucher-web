@@ -133,7 +133,7 @@
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              let text = 'Something went wrong.'
+              let text = 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.'
 
               if(err?.response?.status == 422) {
                 text = err.response.data.message
@@ -141,7 +141,7 @@
 
               this.$swal({
                 icon: 'warning',
-                title: 'Warning!',
+                title: 'Achtung! ',
                 text,
                 confirmButtonColor: '#6C757D',
               })

@@ -34,7 +34,7 @@
     </div>
     <div class="h-5 w-full flex justify-center">
       <div v-if="data.reversed" class="bg-peach text-white text-xs rounded-full w-32 text-center self-center">
-        Bestellung rückerstattet
+        Bestellung storniert
       </div>
     </div>
     <Button

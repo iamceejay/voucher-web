@@ -51,7 +51,7 @@
             dataClass: 'text-center'
           }, {
             name: 'voucher_',
-            title: 'Voucher Name',
+            title: 'Gutscheinnname',
           }, {
             name: 'voucher_feature_',
             title: 'Status',
