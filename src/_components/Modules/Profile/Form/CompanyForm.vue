@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-full">
-    <InputField
+    <!-- <InputField
       id="username"
       v-model="form.username"
       type="text"
@@ -10,7 +10,7 @@
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
       @input="onChange"
-    />
+    /> -->
     <!-- <InputField
       id="company_name"
       v-model="form.name"

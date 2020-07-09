@@ -113,6 +113,7 @@
                 :options="taxes"
                 :multiple="true"
                 :disabled="unsure ? true : false"
+                :isHideInput="unsure"
                 rules="required"
               >
                 <template #label_>
