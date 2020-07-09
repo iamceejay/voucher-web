@@ -115,13 +115,13 @@ export const templates = [
 ]
 
 export const getWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
+  'So',
+  'Mo',
+  'Di',
+  'Mi',
+  'Do',
+  'Fr',
+  'Sa',
 ]
 
 export const users = [
