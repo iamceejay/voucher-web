@@ -42,39 +42,44 @@
     </div>
     <div 
       v-if="type === 'feature'"
-      class="w-full relative flex self-center"
+      class="w-full"
     >
-      <button
-        class="slider-icon slider-icon-left md:visible"
-        @click="onSlideTo('slidePre')"
-      >
-        <i class="fas fa-chevron-circle-left" />
-      </button>
-      <button
-        class="slider-icon slider-icon-right md:visible"
-        @click="onSlideTo('slideNext')"
-      >
-        <i class="fas fa-chevron-circle-right" />
-      </button>
-      <slider
-        ref="slider"
-        :options="options"
-      >
-        <slideritem
-          v-for="(voucher, index) in tempData"
-          :key="`voucher-${index}`"
-          class="slider-item-custom"
-        >
-          <VoucherCard
-            :listId="listId"
-            :data="voucher"
-            :role="role"
-            :withQR="withQR"
-          />
-        </slideritem>
-      </slider>
       <div v-if="tempData.length <= 0" class="py-2 text-lg">
         Keine Daten gefunden.
+      </div>
+      <div
+        v-else
+        class="w-full relative flex self-center"
+      >
+        <button
+          class="slider-icon slider-icon-left md:visible"
+          @click="onSlideTo('slidePre')"
+        >
+          <i class="fas fa-chevron-circle-left" />
+        </button>
+        <button
+          class="slider-icon slider-icon-right md:visible"
+          @click="onSlideTo('slideNext')"
+        >
+          <i class="fas fa-chevron-circle-right" />
+        </button>
+        <slider
+          ref="slider"
+          :options="options"
+        >
+          <slideritem
+            v-for="(voucher, index) in tempData"
+            :key="`voucher-${index}`"
+            class="slider-item-custom"
+          >
+            <VoucherCard
+              :listId="listId"
+              :data="voucher"
+              :role="role"
+              :withQR="withQR"
+            />
+          </slideritem>
+        </slider>
       </div>
     </div>
   </div>
