@@ -14,7 +14,7 @@
           class="mt-1"
           type="checkbox"
         />
-        <span class="text-xs ml-1 mt-1"> Save card for later payments </span>
+        <span class="text-xs ml-1 mt-1"> Speichere die Karte für spätere Bestellungen </span>
       </div>
       <Button
         v-if="isWithBtn"

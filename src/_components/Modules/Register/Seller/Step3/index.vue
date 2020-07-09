@@ -16,7 +16,7 @@
         @onChange="onChange"
       />
       <Header2
-        label="Legal"
+        label="Bedingungen"
       />
       <CheckboxField
         id="dataPrivacy"

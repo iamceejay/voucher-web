@@ -28,7 +28,7 @@
     />
     <Button
       class="py-2 justify-center"
-      label="Delete voucher"
+      label="Löschen"
       size="w-64 py-2"
       round="rounded-full"
       @onClick="onDelete(data)"

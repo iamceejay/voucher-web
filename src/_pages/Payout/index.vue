@@ -210,7 +210,7 @@
           await this.$refs.form.validate()
           this.$refs.form.flags.invalid = true
           await this.$refs.form.setErrors({
-            date_to: ['Please input a valid date.']
+            date_to: ['Bitte gib ein gültiges Datum ein']
           })
         }
       },

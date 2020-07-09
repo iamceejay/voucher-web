@@ -115,7 +115,7 @@
       v-model="form.phone_number"
       type="number"
       class="w-full sm:w-1/2 m-2"
-      label="Phone No."
+      label="Telefonnummer"
       :errorMessages="errorMessages.phone_number"
       rules="required"
       @input="onChange"

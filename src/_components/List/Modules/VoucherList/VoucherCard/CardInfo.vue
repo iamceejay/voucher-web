@@ -126,7 +126,7 @@
           /> -->
           <div class="qr-text ml-auto font-semibold flex flex-col font-body">
             <div class="">
-              Voucher No.
+              Gutscheinnummer
             </div>
             <div v-if="otherData && otherData.qr" class="">
               {{ otherData.qr.url }}
@@ -193,10 +193,10 @@
             return 'Heruntergeladen'
             break;
           case 'email':
-            return 'Sent via Email'
+            return 'als Email verschickt'
             break;
           case 'transferred':
-            return 'Verschenkt'
+            return 'Übertragen'
             break;
           default:
             break;

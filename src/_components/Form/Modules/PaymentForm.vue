@@ -7,7 +7,7 @@
         containerClass="mb-2"
         name="payment_type"
         data="stripe"
-        description="Credit Card"
+        description="Kreditkarte"
       />
       <div class="flex flex-col">
         <Button
@@ -51,7 +51,7 @@
               class="mt-1"
               type="checkbox"
             />
-            <span class="text-xs ml-1 mt-1"> Save card for later payments </span>
+            <span class="text-xs ml-1 mt-1"> Speichere die Karte für spätere Bestellungen </span>
           </div>
         </form>
       </div>

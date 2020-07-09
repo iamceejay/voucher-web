@@ -25,10 +25,10 @@
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
         >
           <span v-if="!isMultiple">
-            {{ value ? 'Change selected' : 'Select a file' }}
+            {{ value ? 'Change selected' : 'Wähle eine Datei aus' }}
           </span>
           <span v-else>
-            {{ value ? 'Choose another' : 'Select a file(s)' }}
+            {{ value ? 'Choose another' : 'Wähle eine Datei aus(s)' }}
           </span>
           <input 
             :id="id"

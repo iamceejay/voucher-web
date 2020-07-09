@@ -56,7 +56,7 @@
             <Button
               v-if="form && form.id && form.background_image != ''"
               class="mt-2 mx-2"
-              label="Change/Remove"
+              label="Ändern / Entfernen"
               fontSize="text-xs"
               size="w-32 py-1"
               round="rounded-full"
@@ -186,9 +186,9 @@
             <div class="flex flex-col w-full px-2">
               <CheckboxField
                 v-model="isWithLimit"
-                label="Are there any other limitations?"
+                label="Ist der Gutschein nur zu bestimmten Zeiten oder an gewissen Tagen gültig?"
                 container="mb-0"
-                labelSentence="Check if yes."
+                labelSentence="Wenn ja, dann klicke hier."
               />
             </div>
             <div v-if="isWithLimit" class="flex flex-col w-full px-2">
@@ -306,7 +306,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               :label="(form.type == 'quantity') ? 'Mindestbestellmenge' : 'Mindestgutscheinwert'"
-              placeholder="Min Value"
+              placeholder="Mindestwert"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
             />
             <InputField
@@ -315,7 +315,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               :label="(form.type == 'quantity') ? 'Maximalbestellmenge' : 'Maximalgutscheinwert'"
-              placeholder="Max Value"
+              placeholder="Maximalwert"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${form.min ? form.min : 0.001}`"
             />
           </div>
@@ -608,7 +608,7 @@
           this.form.valid_date = this.form.valid_date.map((row, i) => {
             row.error = ''
             if(moment(end).isBefore(start, 'day') && index == i) {
-              row.error = 'Please input a valid date.'
+              row.error = 'Bitte gib ein gültiges Datum ein'
             }
             return row
           })

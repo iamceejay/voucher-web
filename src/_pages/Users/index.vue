@@ -206,7 +206,7 @@
       {
         this.$swal({
           title: 'Aktivieren',
-          text: `Are you sure you want to activate this user?`,
+          text: `Bist du sicher, dass du diesen Bennutzer aktiveren willst?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

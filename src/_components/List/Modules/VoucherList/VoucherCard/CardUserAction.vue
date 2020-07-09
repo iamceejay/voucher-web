@@ -17,7 +17,7 @@
         alt=""
       /> -->
       <div class="text-center text-xs font-semibold">
-        Voucher No.
+        Gutscheinnummer
       </div>
       <div class="text-center text-xs font-semibold">
         {{ otherData.qr.url }}

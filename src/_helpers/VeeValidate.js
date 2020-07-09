@@ -56,7 +56,7 @@ extend('email', {
 })
 extend('max', {
   ...max,
-  message: 'The character length must be below or equal {length}.' 
+  message: 'Es dürfen maximal {length} Zeichen verwendet werden.' 
 })
 extend('min', {
   ...min,
@@ -64,7 +64,7 @@ extend('min', {
 })
 extend('max_value', {
   ...max_value,
-  message: 'The value must be below or equal {max}.' 
+  message: 'Der Wert darf maximal {max} betragen.' 
 })
 extend('min_value', {
   ...min_value,
