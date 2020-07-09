@@ -114,6 +114,7 @@
                 :options="taxes"
                 :multiple="true"
                 :disabled="unsure ? true : false"
+                :isHideInput="unsure"
                 rules="required"
               >
                 <template #label_>
@@ -469,6 +470,7 @@
             icon: 'success',
             title: 'Erfolgreich!',
             text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           });
           this.onResetForm()

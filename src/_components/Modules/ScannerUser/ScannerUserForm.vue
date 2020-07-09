@@ -94,6 +94,7 @@
               icon: 'success',
               title: 'Erfolgreich!',
               text: 'Adding new user.',
+              allowOutsideClick: false,
               confirmButtonColor: '#6C757D',
             });
             this.$router.push('/scanner-users')

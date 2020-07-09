@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-full">
-    <InputField
+    <!-- <InputField
       id="username"
       v-model="form.username"
       type="text"
@@ -9,21 +9,7 @@
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
       @input="onChange"
-    >
-      <template #label_>
-        <div class="flex flex-row">
-          <Header5
-            label="Benutzername"
-          />
-          <div class="tooltip ml-1">
-            <i class="fas fa-info-circle text-base text-gray-700" />
-            <span class="tooltiptext">
-              Wähle einen Wunschnamen als Benutzername. Der Benutzername ist auf dem Gutschein ersichtlich und kann im Nachhinein nicht mehr geändert werden. 
-            </span>
-          </div>
-        </div>
-      </template>
-    </InputField>
+    /> -->
     <!-- <InputField
       id="company_name"
       v-model="form.name"

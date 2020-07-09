@@ -136,13 +136,25 @@
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.dispatch('DELETE_TEMPLATE', data)
-            this.$swal({
-              icon: 'success',
-              title: 'Erfolgreich!',
-              text: 'Deleting the template.',
-              confirmButtonColor: '#6C757D',
-            })
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('DELETE_TEMPLATE', data)
+              this.$swal({
+                icon: 'success',
+                title: 'Erfolgreich!',
+                text: 'Deleting the template.',
+                confirmButtonColor: '#6C757D',
+              })
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },

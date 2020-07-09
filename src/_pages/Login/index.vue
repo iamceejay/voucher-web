@@ -37,7 +37,12 @@
           this.$swal({
             icon: 'success',
             // title: 'Successful!',
+<<<<<<< HEAD
             text: `You account has been successfully activated. Danke! `,
+=======
+            text: `You account has been successfully activated. Thank you!`,
+            allowOutsideClick: false,
+>>>>>>> 5ae3012fcdf8b50a6e2a4b3786048370a0064434
             confirmButtonColor: '#6C757D',
           })
         }

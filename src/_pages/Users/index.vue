@@ -155,26 +155,36 @@
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            const { token, user } = await this.$store.dispatch('CHANGE_ROLE', {
-              user_id: data.id
-            })
-            const auth = {
-              isAuth: true,
-              token,
-              data: user,
-              role: user.user_role.role,
-              admin: this.AUTH_USER.data
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              const { token, user } = await this.$store.dispatch('CHANGE_ROLE', {
+                user_id: data.id
+              })
+              const auth = {
+                isAuth: true,
+                token,
+                data: user,
+                role: user.user_role.role,
+                admin: this.AUTH_USER.data
+              }
+              await this.$store.commit('SET_AUTH_USER', auth)
+              await localStorage.setItem('_auth', JSON.stringify(auth))
+              if( auth.role.name == 'user' ) {
+                await this.onFetchCategories()
+                await this.onFetchTotalUserCart()
+              }
+              await setToken()
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$router.push('/home')
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
             }
-            await this.$store.commit('SET_AUTH_USER', auth)
-            await localStorage.setItem('_auth', JSON.stringify(auth))
-            if( auth.role.name == 'user' ) {
-              await this.onFetchCategories()
-              await this.onFetchTotalUserCart()
-            }
-            await setToken()
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$router.push('/home')
           }   
         })
       },
@@ -190,15 +200,25 @@
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('DELETE_USER', data)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Erfolgreich!',
-              text: 'Deleting the user.',
-              confirmButtonColor: '#6C757D',
-            });
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('DELETE_USER', data)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'Successful!',
+                text: 'Deleting the user.',
+                confirmButtonColor: '#6C757D',
+              });
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },
@@ -214,15 +234,25 @@
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('UPDATE_USER_STATUS', data)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Erfolgreich!',
-              text: 'Activating the user.',
-              confirmButtonColor: '#6C757D',
-            });
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('UPDATE_USER_STATUS', data)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'Successful!',
+                text: 'Activating the user.',
+                confirmButtonColor: '#6C757D',
+              });
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },

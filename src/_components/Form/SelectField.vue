@@ -21,6 +21,7 @@
         </span>
         <slot name="note_" />
         <vSelect
+          v-if="!isHideInput"
           :id="id"
           ref="inputField"
           :multiple="multiple"
@@ -93,6 +94,9 @@
         type: Boolean,
         default: false
       }, disabled: {
+        type: Boolean,
+        default: false
+      }, isHideInput: {
         type: Boolean,
         default: false
       }

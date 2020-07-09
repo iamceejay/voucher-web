@@ -165,6 +165,7 @@
             icon: 'warning',
             title: 'Warnung!',
             text: 'Select a payment method first.',
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           })
           return true
@@ -194,6 +195,7 @@
                   title: 'Danke!',
                   text: 'Die Zahlung wurde erfolgreich durchgeführt.',
                   showCancelButton: false,
+                  allowOutsideClick: false,
                   confirmButtonColor: '#6C757D',
                   confirmButtonText: 'Bestätigen',
                   cancelButtonText: 'Abbrechen',
