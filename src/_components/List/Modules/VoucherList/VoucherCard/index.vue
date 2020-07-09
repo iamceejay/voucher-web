@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`${listId}-voucher-card-${ (data || otherData) ? `${ otherData ? otherData.id : data.id }` : 0 }`"
-    class="flex border border-gray-900 rounded voucher-card-container bg-color mb-3 flex-shrink-0 mr-3 mt-3"
+    class="flex shadow-custom rounded voucher-card-container bg-color mb-3 flex-shrink-0 sm:mr-3 mt-3"
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': !isFlip ? data.background_color : '' }"
   >
@@ -186,7 +186,8 @@
   }
   @media only screen and (max-width: 600px) {
     .voucher-card-container {
-      /* width: 100%; */
+      width: 99%;
+      max-width: 330px;
     }
   }
 </style>

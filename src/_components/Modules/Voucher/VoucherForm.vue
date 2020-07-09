@@ -183,80 +183,90 @@
               :options="categories"
               rules="required"
             />
-            <MultipleCheckboxField
-              class="mx-2"
-              name="valid_day"
-              :options="week"
-              :data="form.valid_day"
-              :limitLabel="3"
-              @onChange="form.valid_day = $event"
-            >
-              <template #label_>
-                <div class="flex flex-row">
-                  <Header5
-                    label="Nur gültig an diesen Tagen"
-                  />
-                  <div class="tooltip ml-1">
-                    <i class="fas fa-info-circle text-base text-gray-700" />
-                    <span class="tooltiptext">
-                      Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll.
-                    </span>
-                  </div>
-                </div>
-              </template>
-            </MultipleCheckboxField>
-            <div class="w-full md:w-1/2 mb-5 mx-2">
-              <div class="flex flex-row">
-                <label class="font-semibold text-sm font-display text-gray-700">
-                  Nur gültig im Zeitraum von … bis … 
-                  <div class="tooltip ml-1">
-                    <i class="fas fa-info-circle text-base" />
-                    <span class="tooltiptext">
-                      Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen.
-                    </span>
-                  </div>
-                  <a 
-                    v-if="form.valid_date.length < 4"
-                    href="javascript:void(0)"
-                    class="ml-2"
-                    @click="onActionDate('add')"
-                  >
-                    <i class="fas fa-plus-circle text-base text-black" />
-                  </a>
-                </label>
-              </div>
-              <div
-                v-for="(date, index) in form.valid_date"
-                :key="`date-${index}`"
-                class="flex flex-col"
+            <div class="flex flex-col w-full px-2">
+              <CheckboxField
+                v-model="isWithLimit"
+                label="Are there any other limitations?"
+                container="mb-0"
+                labelSentence="Check if yes."
+              />
+            </div>
+            <div v-if="isWithLimit" class="flex flex-col w-full px-2">
+              <MultipleCheckboxField
+                class="mx-2"
+                name="valid_day"
+                :options="week"
+                :data="form.valid_day"
+                :limitLabel="3"
+                @onChange="form.valid_day = $event"
               >
-                <div class="flex flex-row">
-                  <div class="flex flex-row w-11/12">
-                    <DatePickerField
-                      v-model="form.valid_date[index].start"
-                      class="m-1 w-1/2"
-                      container=""
-                      rules="required"
-                      placeholder="Startdatum"
-                      @input="onActionDate('change', index)"
+                <template #label_>
+                  <div class="flex flex-row">
+                    <Header5
+                      label="Nur gültig an diesen Tagen"
                     />
-                    <DatePickerField
-                      v-model="form.valid_date[index].end"
-                      class="m-1 w-1/2"
-                      container=""
-                      rules="required"
-                      placeholder="Enddatum"
-                      :errorMessages="[form.valid_date[index].error]"
-                      @input="onActionDate('change', index)"
-                    />
+                    <div class="tooltip ml-1">
+                      <i class="fas fa-info-circle text-base text-gray-700" />
+                      <span class="tooltiptext">
+                        Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll.
+                      </span>
+                    </div>
                   </div>
-                  <a 
-                    href="javascript:void(0)"
-                    class="flex mt-6 w-1/12 justify-center"
-                    @click="onActionDate('delete', index)"
-                  >
-                    <i class="fas fa-trash text-red-900 text-base" />
-                  </a>
+                </template>
+              </MultipleCheckboxField>
+              <div class="w-full md:w-1/2 mb-5 mx-2">
+                <div class="flex flex-row">
+                  <label class="font-semibold text-sm font-display text-gray-700">
+                    Nur gültig im Zeitraum von … bis … 
+                    <div class="tooltip ml-1">
+                      <i class="fas fa-info-circle text-base" />
+                      <span class="tooltiptext">
+                        Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen.
+                      </span>
+                    </div>
+                    <a 
+                      v-if="form.valid_date.length < 4"
+                      href="javascript:void(0)"
+                      class="ml-2"
+                      @click="onActionDate('add')"
+                    >
+                      <i class="fas fa-plus-circle text-base text-black" />
+                    </a>
+                  </label>
+                </div>
+                <div
+                  v-for="(date, index) in form.valid_date"
+                  :key="`date-${index}`"
+                  class="flex flex-col"
+                >
+                  <div class="flex flex-row">
+                    <div class="flex flex-row w-11/12">
+                      <DatePickerField
+                        v-model="form.valid_date[index].start"
+                        class="m-1 w-1/2"
+                        container=""
+                        rules="required"
+                        placeholder="Start date"
+                        @input="onActionDate('change', index)"
+                      />
+                      <DatePickerField
+                        v-model="form.valid_date[index].end"
+                        class="m-1 w-1/2"
+                        container=""
+                        rules="required"
+                        placeholder="End date"
+                        :errorMessages="[form.valid_date[index].error]"
+                        @input="onActionDate('change', index)"
+                      />
+                    </div>
+                    <a 
+                      href="javascript:void(0)"
+                      class="flex mt-6 w-1/12 justify-center"
+                      @click="onActionDate('delete', index)"
+                    >
+                      <i class="fas fa-trash text-red-900 text-base" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -363,6 +373,7 @@
     },
     data() {
       return {
+        isWithLimit: false,
         unsure: false,
         formIndex: 0,
         material_color: { 

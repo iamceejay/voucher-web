@@ -16,6 +16,7 @@
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
+      type="feature"
       listId="featured-voucher-list"
     />
     <CategoryList

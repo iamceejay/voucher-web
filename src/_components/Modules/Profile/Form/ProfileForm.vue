@@ -113,10 +113,11 @@
     <InputField
       id="phoneNumber"
       v-model="form.phone_number"
-      type="text"
+      type="number"
       class="w-full sm:w-1/2 m-2"
       label="Phone No."
       :errorMessages="errorMessages.phone_number"
+      rules="required"
       @input="onChange"
     />
     <!-- <InputField
