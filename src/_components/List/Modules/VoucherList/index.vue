@@ -42,7 +42,7 @@
     </div>
     <div 
       v-if="type === 'feature'"
-      class="w-full md:w-1/2 relative flex self-center"
+      class="w-full relative flex self-center"
     >
       <button
         class="slider-icon slider-icon-left md:visible"
@@ -63,6 +63,7 @@
         <slideritem
           v-for="(voucher, index) in tempData"
           :key="`voucher-${index}`"
+          class="slider-item-custom"
         >
           <VoucherCard
             :listId="listId"
@@ -193,12 +194,23 @@
   }
 </script>
 <style lang="css">
+  /* .slider-item-custom {
+    width: 100%;
+  } */
+  @media (min-width: 768px) {
+    .slider-item-custom {
+      flex: 0 0 33.333333%;
+    }
+  }
   .slider-icon {
     position: absolute;
     top: 50%;
     z-index: 100;
     color: #ff5563;
     font-size: 20px;
+    visibility: hidden;
+  }
+  .slider-copy {
     visibility: hidden;
   }
   .slider-icon.slider-icon-left {
@@ -214,7 +226,10 @@
     font-size: unset;
     text-align: unset;
     color: unset;
-    visibility: hidden;
+    /* visibility: hidden; */
+  }
+  .slider-wrapper .slider-item .voucher-card-container {
+    margin-right: 0px !important;
   }
   .slider-wrapper .slider-item.slider-active {
     visibility: visible;
