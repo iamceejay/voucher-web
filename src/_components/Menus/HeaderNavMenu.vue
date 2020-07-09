@@ -371,7 +371,7 @@
     background: #f5f5f5;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 10;
     min-width: 160px;
     padding: 10px 0px;
   }
