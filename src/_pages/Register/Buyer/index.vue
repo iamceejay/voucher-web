@@ -154,6 +154,7 @@
             title: 'Successful!',
             text: data.message,
             showCancelButton: false,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
             confirmButtonText: 'Confirm',
           }).then(async (result) => {

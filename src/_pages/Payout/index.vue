@@ -260,18 +260,27 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
-            this.data = this.data.map( row => {
-              if(row.id == data.id) {
-                row.isCompleted = true
-              }
-              return row
-            })
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Marking the payment complete.',
-              confirmButtonColor: '#6C757D',
-            })
+            try {
+              this.data = this.data.map( row => {
+                if(row.id == data.id) {
+                  row.isCompleted = true
+                }
+                return row
+              })
+              this.$swal({
+                icon: 'success',
+                title: 'Successful!',
+                text: 'Marking the payment complete.',
+                confirmButtonColor: '#6C757D',
+              })
+            } catch (err) {
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },
@@ -287,15 +296,25 @@
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
           if(result.value){
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            await this.$store.dispatch('SEND_SELLER_INVOICE', data)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'success',
-              title: 'Successful!',
-              text: 'Sending an invoice.',
-              confirmButtonColor: '#6C757D',
-            })
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('SEND_SELLER_INVOICE', data)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'Successful!',
+                text: 'Sending an invoice.',
+                confirmButtonColor: '#6C757D',
+              })
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Warning!',
+                text: 'Something went wrong.',
+                confirmButtonColor: '#6C757D',
+              })
+            }
           }   
         })
       },

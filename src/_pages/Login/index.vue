@@ -38,6 +38,7 @@
             icon: 'success',
             // title: 'Successful!',
             text: `You account has been successfully activated. Thank you!`,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           })
         }

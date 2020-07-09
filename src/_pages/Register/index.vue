@@ -64,6 +64,7 @@
             icon: 'success',
             title: 'Successful!',
             text: 'Updating the profile.',
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           });
         }

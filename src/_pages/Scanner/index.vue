@@ -61,6 +61,7 @@
             this.sIndex = this.sIndex + 1
           }
         } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           if( err?.response?.status == 422 ) {
             this.$swal({
               icon: 'warning',
@@ -69,7 +70,6 @@
               confirmButtonColor: '#6C757D',
             })
           }
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.sIndex = this.sIndex + 1
         }
       }

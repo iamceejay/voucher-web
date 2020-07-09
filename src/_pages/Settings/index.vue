@@ -71,7 +71,7 @@
             confirmButtonColor: '#6C757D',
           })
         } catch (err) {
-          console.log('err', err)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       async onFetchGlobalSetting()

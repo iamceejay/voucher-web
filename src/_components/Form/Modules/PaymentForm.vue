@@ -165,6 +165,7 @@
             icon: 'warning',
             title: 'Warning!',
             text: 'Select a payment method first.',
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           })
           return true
@@ -193,6 +194,7 @@
                   title: 'Successful!',
                   text: 'Paying the vouchers.',
                   showCancelButton: false,
+                  allowOutsideClick: false,
                   confirmButtonColor: '#6C757D',
                   confirmButtonText: 'Confirm',
                 }).then(async (result) => {

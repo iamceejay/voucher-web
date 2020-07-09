@@ -90,6 +90,7 @@
             icon: 'success',
             title: 'Successful!',
             text: `Please check your email and proceed with the link given.`,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           })
         } catch (err) {

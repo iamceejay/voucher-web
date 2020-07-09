@@ -468,6 +468,7 @@
             icon: 'success',
             title: 'Successful!',
             text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
           });
           this.onResetForm()

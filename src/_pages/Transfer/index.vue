@@ -35,6 +35,7 @@
             title: 'Warning!',
             text: 'Please login first and revisit the url again. Thank you.',
             showCancelButton: false,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
             confirmButtonText: 'Confirm',
           }).then(async (result) => {
@@ -60,6 +61,7 @@
             title: 'Successful!',
             text: 'The voucher is successfully transfered. Thank you!',
             showCancelButton: false,
+            allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
             confirmButtonText: 'Confirm',
           }).then(async (result) => {
@@ -75,6 +77,7 @@
               title: 'Warning!',
               text: err.response.data.message,
               showCancelButton: false,
+              allowOutsideClick: false,
               confirmButtonColor: '#6C757D',
               confirmButtonText: 'Confirm',
             }).then(async (result) => {
