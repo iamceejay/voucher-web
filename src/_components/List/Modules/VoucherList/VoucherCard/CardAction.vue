@@ -100,7 +100,7 @@
         this.isAction = ++this.isAction
         this.$swal({
           title: `${ data.is_active ? 'Deaktivieren' : 'Aktivieren' }`,
-          text: `Are you sure you want to ${ data.is_active ? 'deactivate' : 'activate' } this voucher?`,
+          text: `${ data.is_active ? 'Bist du sicher, dass du diesen Gutschein deaktivieren willst?' : 'Bist du sicher, dass du diesen Gutschein aktivieren willst?' }`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

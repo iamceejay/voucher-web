@@ -35,7 +35,7 @@
                 href="javascript:void(0)"
                 @click="onSendInvoice(props.data)"
               >
-                Send Invoice
+                Rechnung abschicken
               </a>
             </div>
           </template>
@@ -251,8 +251,8 @@
       async onMarkComplete(data)
       {
         this.$swal({
-          title: 'Mark Complete',
-          text: `Are you sure you want to mark this payment complete?`,
+          title: 'Als erledigt markieren',
+          text: `Bist du sicher, dass du diese Zahlung als erledigt markieren möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -270,7 +270,7 @@
               this.$swal({
                 icon: 'success',
                 title: 'Erfolgreich!',
-                text: 'Marking the payment complete.',
+                text: 'Zahlung als erledigt markieren.',
                 confirmButtonColor: '#6C757D',
               })
             } catch (err) {
@@ -288,7 +288,7 @@
       {
         this.$swal({
           title: 'Send an Invoice',
-          text: `Are you sure you want to send an invoice?`,
+          text: `Bist du sicher, dass du die Rechnung verschicken möchtest? `,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -303,7 +303,7 @@
               this.$swal({
                 icon: 'success',
                 title: 'Erfolgreich!',
-                text: 'Sending an invoice.',
+                text: 'Rechnung schicken.',
                 confirmButtonColor: '#6C757D',
               })
             } catch (err) {

@@ -188,8 +188,8 @@
       async onRemoveCart()
       {
         this.$swal({
-          title: 'Remove from cart',
-          text: `Are you sure you want to remove this from the cart?`,
+          title: 'Vom Warenkorb entfernen',
+          text: `Bist du sicher, dass du diesen Gutschein vom Warenkorb entfernen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

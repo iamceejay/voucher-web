@@ -191,8 +191,8 @@
       async onDelete(data)
       {
         this.$swal({
-          title: 'Delete User',
-          text: `Are you sure you want to delete this user?`,
+          title: 'Benutzer löschen',
+          text: `Bist du sicher, dass du diesen Benutzer löschen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

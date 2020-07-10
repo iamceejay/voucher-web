@@ -142,7 +142,7 @@
               this.$swal({
                 icon: 'success',
                 title: 'Erfolgreich!',
-                text: 'Deleting the template.',
+                text: 'Vorlage wird gelöscht.',
                 confirmButtonColor: '#6C757D',
               })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

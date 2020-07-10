@@ -109,8 +109,8 @@
       async onReverse(data)
       {
         this.$swal({
-          title: 'Reverse Order',
-          text: `Are you sure you want to reverse this order?`,
+          title: 'Bestellung stornieren',
+          text: `Bist du sicher dass du diese Bestellung zurückerstatten willst?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

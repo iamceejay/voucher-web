@@ -123,8 +123,8 @@
       async onDelete(data)
       {
         this.$swal({
-          title: 'Delete Category',
-          text: `Are you sure you want to delete this category?`,
+          title: 'Kategorie löschen',
+          text: `Bist du sicher, dass du diese Kategorie löschen möchtest? `,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

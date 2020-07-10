@@ -100,8 +100,8 @@
       async onChange(data)
       {
         this.$swal({
-          title: `${ data.is_featured ? 'Removing' : 'Adding' } Gesponserte Gutscheine`,
-          text: `Are you sure you want to ${ data.is_featured ? 'remove' : 'add' } this to Gesponserte Gutscheine?`,
+          title: `${ data.is_featured ? 'Gesponserte Gutscheine entfernen' : 'Gesponserte Gutscheine hinzufügen' }`,
+          text: `${ data.is_featured ? 'Bist du sicher, dass du diesen Gutschein nicht mehr hervorheben willst? ' : 'Bist du sicher, dass du diesen Gutschein hervorheben willst? ' }`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',

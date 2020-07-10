@@ -143,7 +143,7 @@
             // this.$swal({
             //   icon: 'success',
             //   title: 'Erfolgreich!',
-            //   text: 'Sending the voucher via email.',
+            //   text: 'Gutschein via Email versenden.',
             //   confirmButtonColor: '#6C757D',
             // });
             // this.form = {
@@ -163,7 +163,7 @@
           // this.$swal({
           //   icon: 'success',
           //   title: 'Erfolgreich!',
-          //   text: 'Sending the voucher via email.',
+          //   text: 'Gutschein via Email versenden.',
           //   confirmButtonColor: '#6C757D',
           // });
         }
