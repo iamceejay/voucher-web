@@ -114,7 +114,7 @@
                 :multiple="true"
                 :disabled="unsure ? true : false"
                 :isHideInput="unsure"
-                rules="required"
+                :rules="unsure ? '' : 'required'"
               >
                 <template #label_>
                   <div class="flex flex-row">
