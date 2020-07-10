@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
     <InputField
+      v-if="type == 'seller'"
       id="company_name"
       v-model="form.company.name"
       type="text"
