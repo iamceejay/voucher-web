@@ -64,7 +64,7 @@
             this.$swal({
               icon: 'success',
               title: 'Erfolgreich!',
-              text: `${data.status ? 'Deaktivieren' : 'Aktiviere'} den Benutzer.`,
+              text: `${data.status ? 'Aktiviere' : 'Deaktivieren'} den Benutzer.`,
               confirmButtonColor: '#6C757D',
             })
           }   
