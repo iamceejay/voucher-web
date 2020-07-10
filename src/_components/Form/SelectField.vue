@@ -41,7 +41,10 @@
             <slot name="option_" :option="data" />
           </template>
         </vSelect>
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage
+          v-if="!isHideInput"
+          :errors="[...errors, ...errorMessages]"
+        />
       </template>
     </ValidationProvider>
   </div>
