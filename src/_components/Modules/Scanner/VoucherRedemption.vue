@@ -10,7 +10,7 @@
           v-model="form.value"
           type="number"
           class="w-full md:w-1/2 m-auto mt-4"
-          :placeholder="`Enter the ${(QR_CODE.order.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`"
+          :placeholder="`Enter the ${(QR_CODE.user_voucher.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`"
           rules="required|min_value:1"
         />
         <Button
@@ -59,7 +59,7 @@
       async onSubmit() {
         this.$swal({
           title: 'Confirm the redemption of the voucher.',
-          text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
+          text: `${(this.QR_CODE.user_voucher.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
