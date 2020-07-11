@@ -155,18 +155,19 @@
       },
       async onCopyClipboard()
       {
-        if( await this.onConfirmation() ) {
-          let copyText = document.getElementById('clipboard');
-          copyText.select();
-          copyText.setSelectionRange(0, 99999);
-          document.execCommand('copy');
-          // this.$swal({
-          //   icon: 'success',
-          //   title: 'Erfolgreich!',
-          //   text: 'Gutschein via Email versenden.',
-          //   confirmButtonColor: '#6C757D',
-          // });
-        }
+        let processing = this.$swal({
+          title: 'Copying URL',
+          text: 'Einen kurzen Moment.',
+          allowOutsideClick: false,
+          showConfirmButton: false
+        })
+        setTimeout( () => {
+          processing.close()
+          let copyText = document.getElementById('clipboard')
+          copyText.select()
+          copyText.setSelectionRange(0, 99999)
+          document.execCommand('copy')
+        }, 3000)
       },
       async onAddTransferUrl()
       {
