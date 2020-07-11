@@ -1,6 +1,7 @@
 <template>
   <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
     <Header1
+      id="header_title"
       :label="`Hi ${ AUTH_USER.data.detail && AUTH_USER.data.detail.firstName }!`"
     />
     <router-link class="w-full flex" to="/vouchers/search">
@@ -103,6 +104,8 @@
     mounted() {
       (async() => {
         try {
+          window.scrollTo(0,0)
+
           await this.$store.commit('SET_IS_INFINITE_LOAD', true)
           await this.$store.commit('SET_VOUCHERS', [])
           await this.$store.commit('SET_FEATURED_VOUCHERS', [])
