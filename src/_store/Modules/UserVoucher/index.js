@@ -42,8 +42,32 @@ export default {
       // payload id is order id
       try {
         const formData = toFormData(payload)
-        const { data } = await post(`${prefix}/${payload.order_id}`, formData)
-        await commit('SET_WALLET', data.order)
+        const { data } = await post(`${prefix}/${payload.id}`, formData)
+        // await commit('SET_WALLET', data.order)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async UPLOAD_CUSTOM_IMAGE_USER_VOUCHER( { commit, state }, payload )
+    {
+      // payload id is order id
+      try {
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}/upload-custom-image/${payload.id}`, formData)
+        // await commit('SET_WALLET', data.order)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async UPLOAD_TEMPLATES_USER_VOUCHER( { commit, state }, payload )
+    {
+      // payload id is order id
+      try {
+        const formData = toFormData(payload)
+        const { data } = await post(`${prefix}/upload-templates/${payload.id}`, formData)
+        // await commit('SET_WALLET', data.order)
         return data
       } catch (err) {
         throw err
