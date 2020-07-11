@@ -240,7 +240,7 @@
 
           this.$swal({
             icon: 'warning',
-            title: 'Warning!',
+            title: 'Achtung!',
             text: 'Something went wrong. Please reload!',
             showCancelButton: false,
             allowOutsideClick: false,
