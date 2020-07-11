@@ -47,7 +47,8 @@
                 :key="`tem-${index}`"
                 :class="`template-image m-1 relative ${ tem.status ? 'active' : '' }`"
               >
-                <a 
+                <a
+                  v-if="!tem.id"
                   class="template-icon" 
                   href="javascript:void(0)"
                   @click="onDeleteTemplate(index)"
@@ -170,6 +171,7 @@
         formIndex: 0,
         custom_image: null,
         form: {
+          id: null,
           order_id: null,
           templates: [],
           price_hidden: true,
@@ -200,9 +202,14 @@
       async onSubmit()
       {
         try {
-          this.form.order_id = this.data.id
-          this.form.custom_image = this.custom_image
-          this.form.templates = this.form.templates.filter( row => {
+          let tempForm = {
+            ...this.form
+          }
+
+          tempForm.id = this.otherData.user_voucher.id
+          tempForm.order_id = this.data.id
+          
+          const templates = tempForm.templates.filter( row => {
             if( !row.id ) {
               return {
                 attachment: row.attachment,
@@ -210,16 +217,67 @@
               }
             }
             if( row.id && row.status ) {
-              this.form.template_id = row.id
+              tempForm.template_id = row.id
             }
           })
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          await this.$store.dispatch('UPDATE_USER_VOUCHER', this.form)
+
+          delete tempForm.custom_image
+          delete tempForm.templates
+
+          await this.onUpdateData(tempForm)
+
+          if(this.custom_image) {
+            await this.onUploadCustomImage(this.custom_image)
+          }
+
+          if(templates?.length > 0) {
+            await this.onUploadTemplates(templates)
+          }
+
           this.$router.push('/wallet')
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (error) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+          this.$swal({
+            icon: 'warning',
+            title: 'Warning!',
+            text: 'Something went wrong. Please reload!',
+            showCancelButton: false,
+            allowOutsideClick: false,
+            confirmButtonColor: '#6C757D',
+            confirmButtonText: 'Confirm',
+          }).then(async (result) => {
+            if(result.value){
+              location.reload();
+            }
+          })
         }
+      },
+      async onUpdateData(data)
+      {
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        await this.$store.dispatch('UPDATE_USER_VOUCHER', data)
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
+      async onUploadCustomImage(data)
+      {
+        let tempForm = {
+          id: this.otherData.user_voucher.id,
+          custom_image: data
+        }
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        await this.$store.dispatch('UPLOAD_CUSTOM_IMAGE_USER_VOUCHER', tempForm)
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
+      async onUploadTemplates(data)
+      {
+        let tempForm = {
+          id: this.otherData.user_voucher.id,
+          templates: data
+        }
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        await this.$store.dispatch('UPLOAD_TEMPLATES_USER_VOUCHER', tempForm)
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
       },
       onSetForm()
       {
@@ -254,7 +312,7 @@
               text_color: (text_color != null) ? text_color : this.data.voucher.text_color,
               note,
               custom_image: this.otherData.user_voucher.custom_image,
-              price_hidden: this.otherData.user_voucher.price_hidden
+              price_hidden: this.otherData.user_voucher.price_hidden ? true : false
             }
             if( this.otherData.user_voucher.template ) {
               const template = this.otherData.user_voucher.template
