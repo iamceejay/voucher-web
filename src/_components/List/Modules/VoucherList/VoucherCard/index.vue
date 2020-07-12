@@ -6,7 +6,7 @@
     :style="{ '--bgColor': !isFlip ? voucher.background_color : '' }"
   >
     <div
-      class="flex flex-col w-full bg-aid"
+      class="flex flex-col w-full bg-aid rounded"
       :style="{ '--bgAid': !isFlip ? voucher.background_aid : '' }"
     >
       <CardInfo
