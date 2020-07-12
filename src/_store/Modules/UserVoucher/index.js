@@ -97,6 +97,33 @@ export default {
     {
       const newData = state.userVoucher.filter( row => row.id != payload.id )
       await commit('SET_USER_VOUCHERS', newData)
-    }
+    },
+    async DOWNLOAD_USER_VOUCHER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`order/download-voucher`, {
+          id: payload
+        }, {}, {responseType: 'arraybuffer'})
+        const date = moment().local().format('Y-m-d')
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `voucher-${date}.pdf`
+        link.click()
+
+        const newList = state.userVouchers.data.map( row => {
+          if(row.id == payload) {
+            row.sent_via = 'voucher_download'
+          }
+          return row
+        })
+        await commit('SET_WALLETS', {
+          ...state.userVouchers,
+          data: newList
+        })
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

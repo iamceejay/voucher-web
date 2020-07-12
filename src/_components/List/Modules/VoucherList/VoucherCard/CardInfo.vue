@@ -95,15 +95,15 @@
             </span>
           </div>
           <div class="text-center self-center h-4">
-            <div v-if="order && order.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
-              {{ onGetSentVia(order.sent_via) }}
+            <div v-if="userVoucher && userVoucher.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
+              {{ onGetSentVia(userVoucher.sent_via) }}
             </div>
           </div>
         </div>
         <div 
           v-if="withQR && qr"
-          :class="`w-1/4 flex flex-col ${ isFlippable && (!order || (order && !order.sent_via)) ? 'cursor-pointer' : ''}`"
-          @click="(order && order.sent_via ) ? '' : $emit('onFlip')"
+          :class="`w-1/4 flex flex-col ${ isFlippable && (!userVoucher || (order && !userVoucher.sent_via)) ? 'cursor-pointer' : ''}`"
+          @click="(userVoucher && userVoucher.sent_via ) ? '' : $emit('onFlip')"
         >
           <QrcodeVue
             class="card-qr"

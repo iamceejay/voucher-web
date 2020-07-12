@@ -289,7 +289,6 @@
         this.userVoucher = {
           ...this.data
         }
-        console.log('this.userVoucher', this.userVoucher)
         if(this.data?.id) {
           this.form.order_id = this.data.order.id
           const { text_color, note } = this.data

@@ -95,14 +95,14 @@
       {
         this.isAction = ++this.isAction
       },
-      async onGenerateVoucher( order_id )
+      async onGenerateVoucher(id)
       {
         try {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           this.isAction = ++this.isAction
-          await this.$store.dispatch('DOWNLOAD_WALLET', order_id)
-          this.$emit('onFlip')
+          await this.$store.dispatch('DOWNLOAD_USER_VOUCHER', id)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$emit('onFlip')
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.$swal({
