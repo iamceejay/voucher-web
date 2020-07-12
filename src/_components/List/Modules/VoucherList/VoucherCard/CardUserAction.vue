@@ -36,13 +36,13 @@
         </a>
         <router-link 
           class="px-2 text-lg text-primary" 
-          :to="`/vouchers/send-email/${order.id}`"
+          :to="`/vouchers/send-email/${userVoucher.id}`"
         >
           <i class="fas fa-envelope" />
         </router-link>
         <router-link 
           class="px-2 text-lg text-primary" 
-          :to="`/vouchers/transfer/${order.id}`"
+          :to="`/vouchers/transfer/${userVoucher.id}`"
         >
           <i class="fas fa-user-circle" />
         </router-link>
