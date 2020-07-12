@@ -27,11 +27,10 @@
       <div
         class="flex flex-row w-full"
       >
-        <!-- v-if="!order.sent_via || (order.sent_via && ['email', 'voucher_download'].includes(order.sent_via))" -->
         <a
           class="px-2 text-lg text-primary" 
           href="javascript:void(0)"
-          @click="onGenerateVoucher(order.id)"
+          @click="onGenerateVoucher(userVoucher.id)"
         >
           <i class="fas fa-download" />
         </a>

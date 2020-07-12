@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, invalid }">
+  <ValidationObserver v-slot="{ handleSubmit }">
     <form 
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit)"
@@ -302,8 +302,8 @@
             custom_image: this.data.custom_image,
             price_hidden: this.data.price_hidden ? true : false
           }
-          if( this.data.template ) {
-            const template = this.data.template
+          if( this.userVoucher.template ) {
+            const template = this.userVoucher.template
             this.form.templates = [
               ...this.form.templates,
               {
@@ -396,7 +396,7 @@
           }
           return row
         })
-        this.data.template = selected
+        this.userVoucher.template = selected
         this.formIndex = this.formIndex + 1
       },
       onChangeForm()
