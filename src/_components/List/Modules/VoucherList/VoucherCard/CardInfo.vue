@@ -83,7 +83,7 @@
               {{ 
                 `${(voucher.type == 'quantity') 
                   ? `x${(!userVoucher && order) ? order.qty : userVoucher.qty}${ userVoucher && !userVoucher.price_hidden ? ` (${$helpers.convertCurrency(voucher.price_filter)}/voucher)` : '' }` 
-                  : `${$helpers.convertCurrency((!userVoucher && order) ? order.value : userVoucher.value)}`}` 
+                  : `${$helpers.convertCurrency(order.value)}`}` 
               }}
             </span>
             <span v-else>
