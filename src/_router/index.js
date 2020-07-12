@@ -305,14 +305,16 @@ const router = new Router({
       meta: {
         middleware: [ auth, authAdmin ]
       } 
-    }, { 
-      path: '/payment', 
-      name: 'payment', 
-      component: Payment,
-      meta: {
-        middleware: [ auth, authAdmin ]
-      } 
-    }, { 
+    }
+    // , { 
+    //   path: '/payment', 
+    //   name: 'payment', 
+    //   component: Payment,
+    //   meta: {
+    //     middleware: [ auth, authAdmin ]
+    //   } 
+    // }
+    , { 
       path: '/category', 
       name: 'category', 
       component: Category,

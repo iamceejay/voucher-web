@@ -1,13 +1,13 @@
 <template>
   <div 
-    v-if="otherData"
+    v-if="order"
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full justify-center"
     @click="onFlip()"
   >
-    <div v-if="otherData && otherData.qr" class="flex flex-col w-full my-6">
+    <div v-if="order && qr" class="flex flex-col w-full my-6">
       <QrcodeVue
         class="self-center m-2"
-        :value="otherData.qr.url" 
+        :value="qr.url" 
         :size="196" 
         level="H" 
       />
@@ -20,36 +20,36 @@
         Voucher No.
       </div>
       <div class="text-center text-xs font-semibold">
-        {{ otherData.qr.url }}
+        {{ qr.url }}
       </div>
     </div>
     <div class="flex flex-row w-full mt-4 h-12">
       <div
         class="flex flex-row w-full"
       >
-        <!-- v-if="!otherData.sent_via || (otherData.sent_via && ['email', 'voucher_download'].includes(otherData.sent_via))" -->
+        <!-- v-if="!order.sent_via || (order.sent_via && ['email', 'voucher_download'].includes(order.sent_via))" -->
         <a
           class="px-2 text-lg text-primary" 
           href="javascript:void(0)"
-          @click="onGenerateVoucher(otherData.id)"
+          @click="onGenerateVoucher(order.id)"
         >
           <i class="fas fa-download" />
         </a>
         <router-link 
           class="px-2 text-lg text-primary" 
-          :to="`/vouchers/send-email/${otherData.id}`"
+          :to="`/vouchers/send-email/${order.id}`"
         >
           <i class="fas fa-envelope" />
         </router-link>
         <router-link 
           class="px-2 text-lg text-primary" 
-          :to="`/vouchers/transfer/${otherData.id}`"
+          :to="`/vouchers/transfer/${order.id}`"
         >
           <i class="fas fa-user-circle" />
         </router-link>
         <router-link 
           class="px-2 text-lg text-primary ml-auto" 
-          :to="`/vouchers/personalized/${ otherData.id}`"
+          :to="`/vouchers/personalized/${ userVoucher.id}`"
         >
           <i class="fas fa-pen" />
         </router-link>
@@ -65,10 +65,13 @@
       QrcodeVue,
     },
     props: {
-      data: {
+      qr: {
         type: Object,
         default: null
-      }, otherData: {
+      }, order: {
+        type: Object,
+        default: null
+      }, userVoucher: {
         type: Object,
         default: null
       },
