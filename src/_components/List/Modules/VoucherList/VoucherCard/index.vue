@@ -6,7 +6,7 @@
     :style="{ '--bgColor': !isFlip ? data.background_color : '' }"
   >
     <div
-      class="flex flex-col w-full bg-aid"
+      class="flex flex-col w-full bg-aid rounded"
       :style="{ '--bgAid': !isFlip ? data.background_aid : '' }"
     >
       <CardInfo
