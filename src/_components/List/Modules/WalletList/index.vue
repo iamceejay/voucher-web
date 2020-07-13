@@ -13,8 +13,10 @@
         <div class="flex flex-wrap justify-center sm:justify-start h-full">
           <VoucherCard
             :cardId="`voucher-card-${index}`"
-            :voucher="row.voucher"
-            :order="row"
+            :voucher="row.order.voucher"
+            :order="row.order"
+            :qr="row.qr"
+            :userVoucher="row"
             :role="role"
             :withQR="withQR"
           />
@@ -23,13 +25,13 @@
           <div class="flex flex-row">
             <span class="text-sm font-bold">
               {{ 
-                (row.voucher.type == 'quantity') 
+                (row.order.voucher.type == 'quantity') 
                   ? 'Price per voucher: ' 
                   : 'Value: '
               }}
             </span>
             <span class="text-sm font-semibold ml-2">
-              {{ `${ $helpers.convertCurrency((row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value)}` }}
+              {{ `${ $helpers.convertCurrency((row.order.voucher.type == 'quantity') ? row.order.voucher.price_filter : row.value)}` }}
             </span>
           </div>
           <div v-if="isCart" class="flex flex-row justify-center">
@@ -149,11 +151,11 @@
       },
       onGetTotal(data)
       {
-        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let value = (data.order.voucher.type == 'quantity') ? data.qty : data.value
         let total = value
 
-        if( data.voucher.type == 'quantity' ) {
-          total = value * data.voucher.price_filter
+        if( data.order.voucher.type == 'quantity' ) {
+          total = value * data.order.voucher.price_filter
         }
         
         return total

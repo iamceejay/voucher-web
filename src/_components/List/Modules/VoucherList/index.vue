@@ -31,8 +31,9 @@
       <VoucherCard
         v-for="(voucher, index) in tempData"
         :key="`voucher-${index}`"
+        :cardId="`voucher-card-${index}`"
         :listId="listId"
-        :data="voucher"
+        :voucher="voucher"
         :role="role"
         :withQR="withQR"
       />
@@ -44,7 +45,7 @@
       v-if="type === 'feature'"
       class="w-full"
     >
-      <div v-if="tempData.length <= 0" class="py-2 text-lg">
+      <div v-if="!tempData || tempData.length <= 0" class="py-2 text-lg">
         No data found.
       </div>
       <div
@@ -74,7 +75,8 @@
           >
             <VoucherCard
               :listId="listId"
-              :data="voucher"
+              :cardId="`voucher-card-${index}`"
+              :voucher="voucher"
               :role="role"
               :withQR="withQR"
             />
@@ -173,7 +175,9 @@
       }
     },
     mounted() {
-      this.tempData = this.data
+      this.tempData = [
+        ...this.data
+      ]
     },
     methods: {
       onSort( data )

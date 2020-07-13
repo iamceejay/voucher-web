@@ -7,7 +7,7 @@
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
           :key="`vform-${formIndex}`"
-          :data="form"
+          :voucher="form"
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">

@@ -8,18 +8,17 @@
     >
       <div class="flex flex-col w-3/5 break-words">
         <div class="text-base font-bold font-display">
-          {{ data.title || 'Voucher Name' }}
+          {{ voucher.title || 'Voucher Name' }}
         </div>
         <div class="text-xs font-bold font-body">
-          <!-- {{ data.seller && data.seller.company.name || 'Company Name' }} -->
-          {{ data.seller && data.seller.username || 'N/A' }}
+          {{ voucher.seller && voucher.seller.username || 'N/A' }}
         </div>
       </div>
       <div class="self-center w-2/5">
         <img
-          v-if="data.seller && data.seller.company.logo"
+          v-if="voucher.seller && voucher.seller.company.logo"
           class="card-logo ml-auto"
-          :src="onSetImage(data.seller.company.logo)" 
+          :src="onSetImage(voucher.seller.company.logo)" 
           alt=""
         />
         <img 
@@ -32,18 +31,18 @@
     </div>
     <div class="card-content">
       <div class="w-full flex flex-row break-words">
-        <div :class="`${otherData && otherData.user_voucher && otherData.user_voucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
+        <div :class="`${order && userVoucher && userVoucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
           <div class="text-xs text-justify card-description h-40 font-body">
-            {{ data.description || 'Voucher Description' }}
+            {{ voucher.description || 'Voucher Description' }}
           </div>
           <div class="text-xs text-justify h-12 font-body">
-            {{ otherData && otherData.user_voucher && otherData.user_voucher.note || '' }}
+            {{ order && userVoucher && userVoucher.note || '' }}
           </div>
         </div>
-        <div v-if="otherData && otherData.user_voucher && otherData.user_voucher.custom_image" class="w-2/5 p-1">
+        <div v-if="order && userVoucher && userVoucher.custom_image" class="w-2/5 p-1">
           <img 
             style="width: 120px; height: 48px;"
-            :src="onSetCustomImage(otherData.user_voucher.custom_image)" 
+            :src="onSetCustomImage(userVoucher.custom_image)" 
             alt=""
           />
         </div>
@@ -52,9 +51,9 @@
         <div class="w-9/12 flex flex-col">
           <div class="text-xs font-body ">
             <div class="min-h-20">
-              <div v-if="data.valid_date && data.valid_date.length > 0">
+              <div v-if="voucher.valid_date && voucher.valid_date.length > 0">
                 <div
-                  v-for="(date, index) in data.valid_date"
+                  v-for="(date, index) in voucher.valid_date"
                   :key="`date-${index}`"
                 >
                   Valid on {{ `${formatDate(date.start) || '...'} to ${formatDate(date.end) || '...'}` }}
@@ -62,74 +61,62 @@
               </div>
             </div>
             <div class="min-h-8">
-              <div v-if="data.valid_day && data.valid_day.length > 0">
+              <div v-if="voucher.valid_day && voucher.valid_day.length > 0">
                 Valid on 
                 <span 
-                  v-for="(day, index) in data.valid_day"
+                  v-for="(day, index) in voucher.valid_day"
                   :key="`day-${index}`"
                 >
-                  {{ `${day.substring(0,3)}${ (data.valid_day.length != (index+1)) ? ',' : '' }` }}
+                  {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
                 </span>
               </div>
             </div>
-            <div v-if="otherData">
-              Expiry: {{ onGetExpiryDate(otherData) }}
+            <div v-if="order">
+              Expiry: {{ onGetExpiryDate(order) }}
             </div>
           </div>
           <div class="text-sm font-bold font-body">
-            {{ `${(data.type == 'quantity') ? 'Quantity' : 'Value'}-based` }}
+            {{ `${(voucher.type == 'quantity') ? 'Quantity' : 'Value'}-based` }}
           </div>
           <div v-if="role != 'seller'" class="text-sm font-bold font-body">
-            <!-- {{
-              `${(data.type == 'quantity') ? `${data.qty_val}x (€${data.qty_min} - €${data.qty_max})` : `€${data.val_min} - €${data.val_max}`}`
-            }} -->
-            <span v-if="!otherData">
+            <span v-if="userVoucher || order">
               {{ 
-                `${(data.type == 'quantity') 
-                  ? `${$helpers.convertCurrency(data.qty_val)}` 
-                  : `${$helpers.convertCurrency(data.val_min)} - ${$helpers.convertCurrency(data.val_max)}`}` 
+                `${(voucher.type == 'quantity') 
+                  ? `x${(!userVoucher && order) ? order.qty : userVoucher.qty}${ userVoucher && !userVoucher.price_hidden ? ` (${$helpers.convertCurrency(voucher.price_filter)}/voucher)` : '' }` 
+                  : `${$helpers.convertCurrency(order.value)}`}` 
               }}
             </span>
             <span v-else>
               {{ 
-                `${(data.type == 'quantity') 
-                  ? `x${otherData.qty}${ otherData.user_voucher && !otherData.user_voucher.price_hidden ? ` (${$helpers.convertCurrency(data.price_filter)}/voucher)` : '' }` 
-                  : `${$helpers.convertCurrency(otherData.value)}`}` 
+                `${(voucher.type == 'quantity') 
+                  ? `${$helpers.convertCurrency(voucher.qty_val)}` 
+                  : `${$helpers.convertCurrency(voucher.val_min)} - ${$helpers.convertCurrency(voucher.val_max)}`}` 
               }}
             </span>
-            <!-- <span v-if="otherData">
-              {{ `${(data.type == 'quantity') ? `${otherData.qty_val}x` : ``}` }}
-            </span> -->
           </div>
           <div class="text-center self-center h-4">
-            <div v-if="otherData && otherData.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
-              {{ onGetSentVia(otherData.sent_via) }}
+            <div v-if="userVoucher && userVoucher.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
+              {{ onGetSentVia(userVoucher.sent_via) }}
             </div>
           </div>
         </div>
         <div 
-          v-if="withQR && otherData && otherData.qr"
-          :class="`w-1/4 flex flex-col ${ isFlippable && (!otherData || (otherData && !otherData.sent_via)) ? 'cursor-pointer' : ''}`"
-          @click="(otherData && otherData.sent_via ) ? '' : $emit('onFlip')"
+          v-if="withQR && qr"
+          :class="`w-1/4 flex flex-col ${ isFlippable && (!userVoucher || (order && !userVoucher.sent_via)) ? 'cursor-pointer' : ''}`"
+          @click="(userVoucher && userVoucher.sent_via ) ? '' : $emit('onFlip')"
         >
           <QrcodeVue
             class="card-qr"
-            :value="otherData.qr.url" 
+            :value="qr.url" 
             :size="50" 
             level="H" 
           />
-          <!-- <img
-            v-else
-            class="card-qr mt-1"
-            src="@/_assets/img/default-qr-code.png" 
-            alt=""
-          /> -->
           <div class="qr-text ml-auto font-semibold flex flex-col font-body">
             <div class="">
               Voucher No.
             </div>
-            <div v-if="otherData && otherData.qr" class="">
-              {{ otherData.qr.url }}
+            <div v-if="order && qr" class="">
+              {{ qr.url }}
             </div>
           </div>
         </div>
@@ -147,10 +134,16 @@
       QrcodeVue,
     },
     props: {
-      data: {
+      voucher: {
         type: Object,
         default: null
-      }, otherData: {
+      }, order: {
+        type: Object,
+        default: null
+      }, userVoucher: {
+        type: Object,
+        default: null
+      }, qr: {
         type: Object,
         default: null
       }, isFlippable: {
@@ -211,15 +204,15 @@
       {
         if( this.role === 'user' || !this.role ) {
           if( this.withQR ) {
-            // if( (!this.otherData || (this.otherData && !this.otherData.sent_via)) ) {
+            // if( (!this.order || (this.order && !this.order.sent_via)) ) {
             this.$emit('onFlip')
             // }
           } else {
-            this.$router.push(`/vouchers/${this.data.id}`)
+            this.$router.push(`/vouchers/${this.voucher.id}`)
           }
         } else {
           if( this.role == 'admin' ) {
-            this.$router.push(`/vouchers/${this.data.id}`)
+            this.$router.push(`/vouchers/${this.voucher.id}`)
           } else {
             this.$emit('onFlip')
           }

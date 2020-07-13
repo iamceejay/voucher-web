@@ -1,15 +1,16 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, invalid }">
+  <ValidationObserver v-slot="{ handleSubmit }">
     <form 
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
-          v-if="data && data.voucher"
+          v-if="data && data.order.voucher"
           :key="`vform-${formIndex}`"
-          :data="data.voucher"
-          :otherData="otherData"
+          :voucher="data.order.voucher"
+          :order="data.order"
+          :userVoucher="userVoucher"
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">
@@ -65,7 +66,8 @@
             </div>
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
-            <toggle-button 
+            <toggle-button
+              :key="`price-${form.price_hidden}`"
               v-model="form.price_hidden"
               @input="onChangeForm"
             />
@@ -75,6 +77,7 @@
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button 
+              :key="`text-${(form.text_color == 'dark') ? true : false}`"
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
             />
@@ -165,8 +168,8 @@
     },
     data() {
       return {
+        userVoucher: null,
         api_base_url: '',
-        otherData: null,
         template_id: null,
         formIndex: 0,
         custom_image: null,
@@ -194,7 +197,7 @@
         this.onSetForm()
       },
     },
-    created() {
+    mounted() {
       this.api_base_url = process.env.VUE_APP_API_BASE_URL
       this.onSetForm()
     },
@@ -206,8 +209,8 @@
             ...this.form
           }
 
-          tempForm.id = this.otherData.user_voucher.id
-          tempForm.order_id = this.data.id
+          tempForm.id = this.data.id
+          tempForm.order_id = this.data.order.id
           
           const templates = tempForm.templates.filter( row => {
             if( !row.id ) {
@@ -262,7 +265,7 @@
       async onUploadCustomImage(data)
       {
         let tempForm = {
-          id: this.otherData.user_voucher.id,
+          id: this.data.id,
           custom_image: data
         }
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -272,7 +275,7 @@
       async onUploadTemplates(data)
       {
         let tempForm = {
-          id: this.otherData.user_voucher.id,
+          id: this.data.id,
           templates: data
         }
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
@@ -281,12 +284,44 @@
       },
       onSetForm()
       {
-        this.otherData = this.data
+        this.onSetTemplates()
+
+        this.userVoucher = {
+          ...this.data
+        }
+        if(this.data?.id) {
+          this.form.order_id = this.data.order.id
+          const { text_color, note } = this.data
+          this.form = {
+            templates: [
+              ...this.form.templates
+            ],
+            text_color: (text_color != null) ? text_color : this.data.order.voucher.text_color,
+            note,
+            custom_image: this.data.custom_image,
+            price_hidden: this.data.price_hidden ? true : false
+          }
+          if( this.userVoucher.template ) {
+            const template = this.userVoucher.template
+            this.form.templates = [
+              ...this.form.templates,
+              {
+                id: template.id,
+                image: template.image,
+                status: 1,
+              }
+            ]
+          }
+        }
+        this.formIndex = this.formIndex + 1
+      },
+      onSetTemplates()
+      {
         if( this.TEMPLATES ) {
           this.form.templates = []
           let templates = []
           this.TEMPLATES.map( row => {
-            if( !this.otherData || this.otherData?.user_voucher?.template?.id != row.id ) {
+            if( !this.data || this.data?.template?.id != row.id ) {
               templates = [
                 ...templates,
                 {
@@ -299,35 +334,6 @@
           })
           this.form.templates = templates
         }
-        if(this.data?.id) {
-          if( !this.otherData.user_voucher ) {
-            this.form.text_color = this.data.voucher.text_color
-          } else {
-            this.form.order_id = this.data.id
-            const { text_color, note } = this.otherData.user_voucher
-            this.form = {
-              templates: [
-                ...this.form.templates
-              ],
-              text_color: (text_color != null) ? text_color : this.data.voucher.text_color,
-              note,
-              custom_image: this.otherData.user_voucher.custom_image,
-              price_hidden: this.otherData.user_voucher.price_hidden ? true : false
-            }
-            if( this.otherData.user_voucher.template ) {
-              const template = this.otherData.user_voucher.template
-              this.form.templates = [
-                ...this.form.templates,
-                {
-                  id: template.id,
-                  image: template.image,
-                  status: 1,
-                }
-              ]
-            }
-          }
-        }
-        this.formIndex = this.formIndex + 1
       },
       onDeleteTemplate( index )
       {
@@ -354,7 +360,7 @@
         } else {
           this.form.custom_image = ''
           this.form.is_custom_remove = true
-          this.otherData.user_voucher.custom_image = ''
+          this.data.custom_image = ''
           this.formIndex = this.formIndex + 1
         }
       },
@@ -389,17 +395,14 @@
           }
           return row
         })
-        this.otherData.user_voucher.template = selected
+        this.userVoucher.template = selected
         this.formIndex = this.formIndex + 1
       },
       onChangeForm()
       {
-        this.otherData = {
-          ...this.otherData,
-          user_voucher: {
-            ...this.otherData.user_voucher,
-            ...this.form
-          }
+        this.userVoucher = {
+          ...this.userVoucher,
+          ...this.form
         }
         this.formIndex = this.formIndex + 1
       },
@@ -422,7 +425,7 @@
               ...oldTemp,
               selected
             ]
-            this.otherData.user_voucher.template = selected
+            this.userVoucher.template = selected
             this.onChangeForm()
           }
         }
