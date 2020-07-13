@@ -5,7 +5,7 @@
         <div class="flex flex-col w-full">
           <VoucherCard
             class="self-center"
-            :data="VOUCHER"
+            :voucher="VOUCHER"
             :isFlippable="false"
             :withQR="false"
           />

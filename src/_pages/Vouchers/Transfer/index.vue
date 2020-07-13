@@ -156,8 +156,8 @@
       async onCopyClipboard()
       {
         let processing = this.$swal({
-          title: 'Copying URL',
-          text: 'Einen kurzen Moment.',
+          title: 'Erfolgreich!',
+          text: 'Link wurde kopiert',
           allowOutsideClick: false,
           showConfirmButton: false
         })
@@ -167,7 +167,7 @@
           copyText.select()
           copyText.setSelectionRange(0, 99999)
           document.execCommand('copy')
-        }, 3000)
+        }, 2000)
       },
       async onAddTransferUrl()
       {

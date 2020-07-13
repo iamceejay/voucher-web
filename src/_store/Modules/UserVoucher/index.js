@@ -6,27 +6,47 @@ const prefix = 'user-voucher'
 
 export default {
   state: () => ({
-    userVoucher: [],
+    userVoucher: null,
+    userVouchers: [],
     userStripe: null
   }),
   getters: {
-    USER_VOUCHERS(state) {
+    USER_VOUCHER(state) {
       return state.userVoucher;
+    },
+    USER_VOUCHERS(state) {
+      return state.userVouchers;
     },
   },
   mutations: {
-    SET_USER_VOUCHERS(state, payload) {
-      state.userVoucher = payload
-    },
     SET_USER_VOUCHER(state, payload) {
       state.userVoucher = payload
+    },
+    SET_USER_VOUCHERS(state, payload) {
+      state.userVouchers = payload
     },
   },
   actions: {
     async FETCH_USER_VOUCHER( { commit, state }, payload )
     {
-      await commit('SET_USER_VOUCHER', data)
-      return data
+      try {
+        const { data } = await get(`${prefix}/${payload}`, {})
+        await commit('SET_USER_VOUCHER', data.user_voucher)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async FETCH_SEARCH_USER_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/search/user-vouchers`, payload)
+        const newList = (payload.paginate) ? mergeList( state.userVouchers, data.user_vouchers ) : data.user_vouchers
+        await commit('SET_USER_VOUCHERS', newList)
+        return data
+      } catch (err) {
+        throw err
+      }
     },
     async ADD_USER_VOUCHER( { commit, state }, payload )
     {
@@ -77,6 +97,33 @@ export default {
     {
       const newData = state.userVoucher.filter( row => row.id != payload.id )
       await commit('SET_USER_VOUCHERS', newData)
-    }
+    },
+    async DOWNLOAD_USER_VOUCHER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`order/download-voucher`, {
+          id: payload
+        }, {}, {responseType: 'arraybuffer'})
+        const date = moment().local().format('Y-m-d')
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `voucher-${date}.pdf`
+        link.click()
+
+        const newList = state.userVouchers.data.map( row => {
+          if(row.id == payload) {
+            row.sent_via = 'voucher_download'
+          }
+          return row
+        })
+        await commit('SET_WALLETS', {
+          ...state.userVouchers,
+          data: newList
+        })
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

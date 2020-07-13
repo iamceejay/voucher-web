@@ -6,16 +6,16 @@
           label="Gutschein personalisieren"
         />
         <PersonalizedForm 
-          :data="WALLET"
+          :data="USER_VOUCHER"
         />
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
-  import PersonalizedForm from '_components/Modules/Voucher/VoucherPersonalizedForm';
-  import MainLayout from '_layouts';
-  import Header1 from '_components/Headers/Header1';
+  import PersonalizedForm from '_components/Modules/Voucher/VoucherPersonalizedForm'
+  import MainLayout from '_layouts'
+  import Header1 from '_components/Headers/Header1'
 
   export default {
     components: {
@@ -29,9 +29,9 @@
       }
     },
     computed: {
-      WALLET()
+      USER_VOUCHER()
       {
-        return this.$store.getters.WALLET
+        return this.$store.getters.USER_VOUCHER
       },
       IS_LOADING()
       {
@@ -42,7 +42,7 @@
       (async() => {
         try {
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-          await this.onFetchWallet()
+          await this.onFetchUserVoucher()
           await this.$store.commit('SET_TEMPLATES', [])
           await this.onFetchTemplates()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
@@ -52,11 +52,11 @@
       })()
     },
     methods: {
-      async onFetchWallet()
+      async onFetchUserVoucher()
       {
         if( this.$route.params.id ) {
           try {
-            await this.$store.dispatch('FETCH_WALLET', this.$route.params.id)
+            await this.$store.dispatch('FETCH_USER_VOUCHER', this.$route.params.id)
           } catch (err) {
             console.log('err', err)
           }

@@ -3,7 +3,7 @@
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full justify-center"
     @click="onFlip()"
   >
-    <router-link :to="`/vouchers/update/${data.id}`">
+    <router-link :to="`/vouchers/update/${voucher.id}`">
       <Button
         class="py-2 justify-center"
         label="Bearbeiten"
@@ -11,7 +11,7 @@
         round="rounded-full"
       />
     </router-link>
-    <router-link :to="`/vouchers/statistic/${data.id}`">
+    <router-link :to="`/vouchers/statistic/${voucher.id}`">
       <Button
         class="py-2 justify-center"
         label="Statistiken anzeigen"
@@ -21,17 +21,17 @@
     </router-link>
     <Button
       class="py-2 justify-center"
-      :label="`${ data.is_active ? 'Deaktivieren' : 'Aktivieren' }`"
+      :label="`${ voucher.is_active ? 'Deaktivieren' : 'Aktivieren' }`"
       size="w-64 py-2"
       round="rounded-full"
-      @onClick="onDeact(data)"
+      @onClick="onDeact(voucher)"
     />
     <Button
       class="py-2 justify-center"
       label="Löschen"
       size="w-64 py-2"
       round="rounded-full"
-      @onClick="onDelete(data)"
+      @onClick="onDelete(voucher)"
     />
   </div>
 </template>
@@ -43,7 +43,7 @@
       Button
     },
     props: {
-      data: {
+      voucher: {
         type: Object,
         default: null
       }

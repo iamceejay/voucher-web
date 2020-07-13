@@ -12,10 +12,10 @@
           placeholder="Suche nach Gutscheinen"
           @input="onLoadData($event, true)"
         />
-        <CartList
+        <WalletList
           class="mb-3"
           :role="AUTH_USER.role.name"
-          :data="WALLETS.data"
+          :data="USER_VOUCHERS.data"
           :isCart="false"
           :withQR="true"
           :withCartDetail="false"
@@ -28,14 +28,14 @@
   import MainLayout from '_layouts';
   import Header1 from '_components/Headers/Header1';
   import SearchInputField from '_components/Form/SearchInputField';
-  import CartList from '_components/List/Modules/CartList/';
+  import WalletList from '_components/List/Modules/WalletList/';
 
   export default {
     components: {
       MainLayout,
       Header1,
       SearchInputField,
-      CartList,
+      WalletList,
     },
     data() {
       return {
@@ -53,9 +53,9 @@
       AUTH_USER() {
         return this.$store.getters.AUTH_USER;
       },
-      WALLETS()
+      USER_VOUCHERS()
       {
-        return this.$store.getters.WALLETS
+        return this.$store.getters.USER_VOUCHERS
       },
       IS_LOADING()
       {
@@ -81,11 +81,11 @@
     mounted() {
       (async() => {
         try {
-          await this.$store.commit('SET_WALLETS', [])
+          await this.$store.commit('SET_USER_VOUCHERS', [])
           await this.$store.commit('SET_IS_INFINITE_LOAD', true)
           this.params.user_id = this.AUTH_USER.data.id
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-          await this.onFetchSearchWallets()
+          await this.onFetchSearchUserVouchers()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
@@ -107,16 +107,16 @@
           page: (this.params.keyword != '') ? 1 : data.page
         }
         if( fromSearch ) {
-          await this.$store.commit('SET_WALLETS', [])
+          await this.$store.commit('SET_USER_VOUCHERS', [])
         }
-        await this.onFetchSearchWallets()
+        await this.onFetchSearchUserVouchers()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
       },
-      async onFetchSearchWallets()
+      async onFetchSearchUserVouchers()
       {
         try {
-          const data = await this.$store.dispatch('FETCH_SEARCH_WALLETS', this.params)
-          if( data.orders.next_page_url == null ) {
+          const data = await this.$store.dispatch('FETCH_SEARCH_USER_VOUCHERS', this.params)
+          if( data.user_vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }
         } catch (err) {

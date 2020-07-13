@@ -13,8 +13,10 @@
         <div class="flex flex-wrap justify-center sm:justify-start h-full">
           <VoucherCard
             :cardId="`voucher-card-${index}`"
-            :voucher="row.voucher"
-            :order="row"
+            :voucher="row.order.voucher"
+            :order="row.order"
+            :qr="row.qr"
+            :userVoucher="row"
             :role="role"
             :withQR="withQR"
           />
@@ -23,13 +25,13 @@
           <div class="flex flex-row">
             <span class="text-sm font-bold">
               {{ 
-                (row.voucher.type == 'quantity') 
-                  ? 'Preis pro gutschein: ' 
-                  : 'Wert: '
+                (row.order.voucher.type == 'quantity') 
+                  ? 'Price per voucher: ' 
+                  : 'Value: '
               }}
             </span>
             <span class="text-sm font-semibold ml-2">
-              {{ `${ $helpers.convertCurrency((row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value)}` }}
+              {{ `${ $helpers.convertCurrency((row.order.voucher.type == 'quantity') ? row.order.voucher.price_filter : row.value)}` }}
             </span>
           </div>
           <div v-if="isCart" class="flex flex-row justify-center">
@@ -47,13 +49,12 @@
         </div>
       </div>
       <div v-if="data.length <= 0" class="py-2 text-lg">
-        <span v-if="isCart">Der Warenkorb ist leer </span>
-        <span v-else>Keine Daten verfügbar.</span>
+        No data found.
       </div>
     </div>
     <div v-if="isCart && data.length > 0" class="flex flex-col mt-5 w-full sm:w-1/2 md:w-1/4 self-center text-center">
       <span class="text-lg font-bold">
-        Preis
+        Price
       </span>
       <span class="text-lg font-bold">
         {{ $helpers.convertCurrency(totalPrice) }}
@@ -61,7 +62,7 @@
       <Button
         type="submit"
         class="py-2"
-        label="Kauf abschließen"
+        label="Go to checkout"
         size="w-full py-3"
         round="rounded-full"
         fontSize="text-sm"
@@ -126,13 +127,13 @@
       onDelete( data )
       {
         this.$swal({
-          title: 'Aus dem Warenkorb entfernen',
-          text: `Bist du sicher, dass du diesen Gutschein aus dem Warenkorb entfernen möchtest?`,
+          title: 'Delete item',
+          text: `Are you sure you want to delete this item?`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
-          confirmButtonText: 'Bestätigen',
-          cancelButtonText: 'Abbrechen',
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
         }).then((result) => {
           if(result.value){
             this.$emit('onDelete', data)
@@ -150,11 +151,11 @@
       },
       onGetTotal(data)
       {
-        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let value = (data.order.voucher.type == 'quantity') ? data.qty : data.value
         let total = value
 
-        if( data.voucher.type == 'quantity' ) {
-          total = value * data.voucher.price_filter
+        if( data.order.voucher.type == 'quantity' ) {
+          total = value * data.order.voucher.price_filter
         }
         
         return total

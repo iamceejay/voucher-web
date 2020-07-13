@@ -139,33 +139,33 @@ export default {
         throw err
       }
     },
-    async DOWNLOAD_WALLET( { commit, state }, payload )
-    {
-      try {
-        const { data } = await post(`${prefix}/download-voucher`, {
-          id: payload
-        }, {}, {responseType: 'arraybuffer'})
-        const date = moment().local().format('Y-m-d')
-        let blob = new Blob([data], { type: 'application/pdf' })
-        let link = document.createElement('a')
-        link.href = window.URL.createObjectURL(blob)
-        link.download = `voucher-${date}.pdf`
-        link.click()
+    // async DOWNLOAD_WALLET( { commit, state }, payload )
+    // {
+    //   try {
+    //     const { data } = await post(`${prefix}/download-voucher`, {
+    //       id: payload
+    //     }, {}, {responseType: 'arraybuffer'})
+    //     const date = moment().local().format('Y-m-d')
+    //     let blob = new Blob([data], { type: 'application/pdf' })
+    //     let link = document.createElement('a')
+    //     link.href = window.URL.createObjectURL(blob)
+    //     link.download = `voucher-${date}.pdf`
+    //     link.click()
 
-        const newList = state.wallets.data.map( row => {
-          if(row.id == payload) {
-            row.sent_via = 'voucher_download'
-          }
-          return row
-        })
-        await commit('SET_WALLETS', {
-          ...state.wallets,
-          data: newList
-        })
-      } catch (err) {
-        throw err
-      }
-    },
+    //     const newList = state.wallets.data.map( row => {
+    //       if(row.id == payload) {
+    //         row.sent_via = 'voucher_download'
+    //       }
+    //       return row
+    //     })
+    //     await commit('SET_WALLETS', {
+    //       ...state.wallets,
+    //       data: newList
+    //     })
+    //   } catch (err) {
+    //     throw err
+    //   }
+    // },
     async DOWNLOAD_INVOICE( { commit, state }, payload )
     {
       try {

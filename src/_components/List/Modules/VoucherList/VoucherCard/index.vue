@@ -1,32 +1,35 @@
 <template>
   <div
-    :id="`${listId}-voucher-card-${ (data || otherData) ? `${ otherData ? otherData.id : data.id }` : 0 }`"
+    :id="`${listId}-${cardId}`"
     class="flex shadow-custom rounded voucher-card-container bg-color mb-3 flex-shrink-0 sm:mr-3 mt-3"
     :class="{'flip': isFlip}"
-    :style="{ '--bgColor': !isFlip ? data.background_color : '' }"
+    :style="{ '--bgColor': !isFlip ? voucher.background_color : '' }"
   >
     <div
-      class="flex flex-col w-full bg-aid"
-      :style="{ '--bgAid': !isFlip ? data.background_aid : '' }"
+      class="flex flex-col w-full bg-aid rounded"
+      :style="{ '--bgAid': !isFlip ? voucher.background_aid : '' }"
     >
       <CardInfo
         v-if="!isAction"
         :class="[ onGetTextColor() ]"
-        :data="data"
+        :voucher="voucher"
+        :order="order"
+        :qr="qr"
+        :userVoucher="userVoucher"
         :isFlippable="isFlippable"
         :withQR="withQR"
-        :otherData="otherData"
         @onFlip="onFlip()"
       />
       <CardAction
         v-if="isAction && role === 'seller'"
-        :data="data"
+        :voucher="voucher"
         @onFlip="onFlip()"
       />
       <CardUserAction
         v-if="isAction && role === 'user'"
-        :data="data"
-        :otherData="otherData"
+        :qr="qr"
+        :userVoucher="userVoucher"
+        :order="order"
         @onFlip="onFlip()"
       />
     </div>
@@ -44,16 +47,30 @@
       CardUserAction
     },
     props: {
+      cardId: {
+        type: String,
+        default: 'voucher-card'
+      }, 
       listId: {
         type: String,
         default: 'voucher-list'
-      }, data: {
+      }, 
+      
+      voucher: {
         type: Object,
         default: null
-      }, otherData: {
+      }, order: {
         type: Object,
         default: null
-      }, bg: {
+      }, qr: {
+        type: Object,
+        default: null
+      }, userVoucher: {
+        type: Object,
+        default: null
+      },
+      
+      bg: {
         type: String,
         default: '#fff'
       }, role: {
@@ -78,13 +95,13 @@
       };
     },
     watch: {
-      'data.background_image'(newVal, oldVal)
+      'voucher.background_image'(newVal, oldVal)
       {
         if( newVal & newVal != '') {
           this.onSetBgImage(newVal)
         }
       },
-      'otherData.user_voucher.template'(newVal, oldVal)
+      'userVoucher.template'(newVal, oldVal)
       {
         if( newVal && newVal.length > 0 ) {
           const tem = newVal.filter( row => row.status )
@@ -93,7 +110,7 @@
           }
         }
       },
-      'otherData.user_voucher.text_color'(newVal, oldVal)
+      'userVoucher.text_color'(newVal, oldVal)
       {
         this.onGetTextColor()
       },
@@ -113,29 +130,31 @@
       onGetTextColor()
       {
         let color = ''
-        if( this.otherData?.user_voucher?.text_color != null  ) {
-          color = (this.otherData.user_voucher.text_color == 'dark') ? 'text-black' : 'text-white'
+        if( this.userVoucher?.text_color != null  ) {
+          color = (this.userVoucher.text_color == 'dark') ? 'text-black' : 'text-white'
         } else {
-          color = (this.data.text_color == 'dark') ? 'text-black' : 'text-white'
+          color = (this.voucher.text_color == 'dark') ? 'text-black' : 'text-white'
         }
         return color
       },
       onGetBg() {
         let bg = '';
-        if( this.otherData?.user_voucher?.template ) {
-          const template = this.otherData.user_voucher.template
+        if( this.userVoucher?.template ) {
+          const template = this.userVoucher.template
           bg = template.image
-        } else if(this.data?.background_image) {
-          bg = this.data.background_image
+        } else if(this.voucher?.background_image) {
+          bg = this.voucher.background_image
         }
         return bg
       },
       onSetBgImage(value)
       {
-        const card = document.getElementById(`${this.listId}-voucher-card-${ (this.data || this.otherData) ? `${ this.otherData ? this.otherData.id : this.data.id }` : 0 }`)
-        const bg = (this.data && this.data.id && (value.search('base64') < 0)) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
-        card.style.backgroundImage = `url('${bg}')`
-        card.style.backgroundSize = `cover`
+        const card = document.getElementById(`${this.listId}-${this.cardId}`)
+        if(card) {
+          const bg = (this.voucher && this.voucher.id && (value.search('base64') < 0)) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+          card.style.backgroundImage = `url('${bg}')`
+          card.style.backgroundSize = `cover`
+        }
       }
     }
   }

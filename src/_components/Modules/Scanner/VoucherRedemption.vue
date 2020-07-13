@@ -5,12 +5,13 @@
         class="w-full flex flex-col"
         @submit.prevent="handleSubmit(onSubmit)"
       >
+      <!-- :placeholder="`Enter the ${(QR_CODE.user_voucher.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`" -->
         <InputField
           id="value"
           v-model="form.value"
           type="number"
           class="w-full md:w-1/2 m-auto mt-4"
-          :placeholder="`Gib die einzulösende ${(QR_CODE.order.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
+          :placeholder="`Gib die einzulösende ${(QR_CODE.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
           rules="required|min_value:1"
         />
         <Button
@@ -57,9 +58,15 @@
     mounted() {},
     methods: {
       async onSubmit() {
+        //  text: `${(this.QR_CODE.user_voucher.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
         this.$swal({
+<<<<<<< HEAD
           title: 'Bestätige die Einlösung der Gutscheine.',
           text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: x${this.form.value}` }`,
+=======
+          title: 'Confirm the redemption of the voucher.',
+           text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
+>>>>>>> 6e5f61758fb0a8bfebd4ab18b63032fb0392f1e6
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
@@ -69,8 +76,9 @@
           if(result.value){
             try {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              //  order_id: this.QR_CODE.order_id,
               await this.$store.dispatch('ADD_REDEMPTION', {
-                order_id: this.QR_CODE.order_id,
+                order_id: this.QR_CODE.user_voucher_id,
                 value: this.form.value,
               })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

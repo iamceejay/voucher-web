@@ -7,7 +7,7 @@
       <div class="flex flex-col w-full items-center mb-6">
         <VoucherCard
           :key="`vform-${formIndex}`"
-          :data="form"
+          :voucher="form"
           :isFlippable="false"
         />
         <div class="text-center font-bold font-body">
@@ -105,7 +105,7 @@
               placeholder="Beschreibung des Gutscheins"
               rules="required|max:250"
             />
-            <div v-if="!form.id" class="flex flex-col w-full">
+            <div class="flex flex-col w-full">
               <SelectField
                 id="taxes"
                 v-model="form.tax"
@@ -113,8 +113,9 @@
                 placeholder="Steuersatz auswählen"
                 :options="taxes"
                 :multiple="true"
+                :containerClass="(form.id) ? '' : 'mb-5'"
                 :disabled="unsure ? true : false"
-                :isHideInput="unsure"
+                :isHideInput="unsure || form.id"
                 :rules="unsure ? '' : 'required'"
               >
                 <template #label_>
@@ -132,13 +133,14 @@
                 </template>
                 <template #note_>
                   <CheckboxField
+                    v-if="!form.id"
                     container="mb-0"
                     labelSentence="Steuersatz kann noch nicht festgestellt werden"
                     @input="onUnsure"
                   />
                 </template>
               </SelectField>
-              <div v-if="!unsure && form.tax && form.tax.length > 0" class="flex flex-col w-full">
+              <div v-if="form.tax && form.tax.length > 0 && form.tax[0] != 'unsure'" class="flex flex-col w-full">
                 <div class="px-2 font-semibold text-xs font-display text-gray-700 flex flex-row w-full md:w-1/2">
                   Ausgewählter Steuersatz
                 </div>
@@ -164,9 +166,10 @@
                     inputContainer="py-1"
                     placeholder="Wert zu diesem Steuersatz"
                     :rules="`${ (form.tax.length <= 1) ? '' : 'required' }`"
-                    :disabled="(form.tax.length > 1) ? false : true"
+                    :disabled="(form.tax.length > 1 && !form.id) ? false : true"
                   />
                   <a 
+                    v-if="!form.id"
                     href="javascript:void(0)"
                     class="flex mt-4 w-1/12 justify-center"
                     @click="onActionTax('delete', index)"
@@ -494,7 +497,7 @@
         if( value ) {
           this.form.tax = ['unsure']
         } else {
-          this.form.tax = this.form.tax.filter(row => row != 'unsure')
+          this.form.tax = []
         }
       },
       onChangeTextColor(e)
@@ -624,6 +627,9 @@
           this.form.seller = this.AUTH_USER.data
         }
         if(this.data?.id) {
+          if(this.data.valid_day || this.data.valid_date) {
+            this.isWithLimit = true
+          }
           this.form = {
             id: this.data.id,
             title: this.data.title,
