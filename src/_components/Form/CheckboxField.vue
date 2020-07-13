@@ -18,6 +18,7 @@
             :name="id"
             :value="value"
             type="checkbox"
+            :checked="value"
             @change="onUpdateField"
           />
           <label v-if="labelSentence != ''" class="text-xs p-1 mt-0 font-bold text-gray-900 font-body">

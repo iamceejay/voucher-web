@@ -1,7 +1,8 @@
 <template>
   <div 
     id="select-field-component" 
-    class="w-full mb-5"
+    :class="[ containerClass ]"
+    class="w-full "
   >
     <ValidationProvider 
       :name="id" 
@@ -102,6 +103,9 @@
       }, isHideInput: {
         type: Boolean,
         default: false
+      }, containerClass: {
+        type: String,
+        default: 'mb-5'
       }
     },
     data() {
