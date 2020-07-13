@@ -5,13 +5,12 @@
       :label="title"
     />
     <div 
-      class="scroll-horizontal scroll"
+      class="scroll-horizontal scroll category-container"
     >
       <CategoryCard
         v-for="(categ, index) in data"
         :key="`categ-${index}`"
         :data="categ"
-        class="m-2"
       />
       <div v-if="data.length <= 0" class="py-2 text-lg">
         No data found.
@@ -51,4 +50,7 @@
   }
 </script>
 <style lang="css" scoped>
+  .category-container {
+    min-height: 145px;
+  }
 </style>
