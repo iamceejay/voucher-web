@@ -57,7 +57,7 @@
                   v-for="(date, index) in data.valid_date"
                   :key="`date-${index}`"
                 >
-                  Gültig am {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
+                  Gültig von {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
                 </div>
               </div>
             </div>

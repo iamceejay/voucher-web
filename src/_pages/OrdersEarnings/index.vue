@@ -117,7 +117,7 @@
               value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`
             }
           }, {
-            type: 'Payout',
+            type: 'Auszahlung',
             title: 'Wartend',
             value: `${this.$helpers.convertCurrency(waiting_for_payout)}`
           }, {

@@ -307,7 +307,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               :label="(form.type == 'quantity') ? 'Mindestbestellmenge' : 'Mindestgutscheinwert'"
-              placeholder="Mindestwert"
+              :placeholder="(form.type == 'quantity') ? 'Mindestmenge' : 'Mindestwert'"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
             />
             <InputField
@@ -316,7 +316,7 @@
               type="number"
               class="px-2 py-1 w-full md:w-1/2"
               :label="(form.type == 'quantity') ? 'Maximalbestellmenge' : 'Maximalgutscheinwert'"
-              placeholder="Maximalwert"
+              :placeholder="(form.type == 'quantity') ? 'Maximalmenge' : 'Maximalwert'"
               :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${form.min ? form.min : 0.001}`"
             />
           </div>

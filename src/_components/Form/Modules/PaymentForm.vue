@@ -68,7 +68,7 @@
     <div class="flex flex-col md:flex-row justify-between mt-5 w-full px-4 bg-dirty px-5 py-8">
       <div>
         <div class="text-lg font-bold text-left h-10">
-          Total
+          Summe
         </div>
         <div class="h-12">
           <BackBtn :show="true" />

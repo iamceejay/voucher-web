@@ -36,7 +36,7 @@
               v-model="form.value"
               type="number"
               class="w-full md:w-1/2 self-center"
-              :label="`Gib deinen ${ (VOUCHER.type == 'quantity') ? `Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)} pro Gutschein)` : 'Wunschbetrag' } an`"
+              :label="`Gib deine ${ (VOUCHER.type == 'quantity') ? `Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)} pro Gutschein)` : 'Wunschbetrag' } an`"
               placeholder="Hier eingeben"
               :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
               :note="`

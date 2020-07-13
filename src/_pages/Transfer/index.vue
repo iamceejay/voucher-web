@@ -33,7 +33,7 @@
           this.$swal({
             icon: 'warning',
             title: 'Warnung!',
-            text: 'Please login first and revisit the url again. Thank you.',
+            text: 'Bitte logge dich zuerst ein und öffne dann den Link erneut. Danke!',
             showCancelButton: false,
             allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
