@@ -51,6 +51,6 @@
 </script>
 <style lang="css" scoped>
   .category-container {
-    min-height: 145px;
+    min-height: 155px;
   }
 </style>
