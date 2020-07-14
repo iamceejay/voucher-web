@@ -244,7 +244,7 @@
           this.$swal({
             icon: 'warning',
             title: 'Achtung!',
-            text: 'Something went wrong. Please reload!',
+            text: 'Etwas ist schief gelaufen. Bitte lade die Seite erneut!',
             showCancelButton: false,
             allowOutsideClick: false,
             confirmButtonColor: '#6C757D',
