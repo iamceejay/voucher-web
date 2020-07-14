@@ -115,8 +115,8 @@
                 :multiple="true"
                 :containerClass="(form.id) ? '' : 'mb-5'"
                 :disabled="unsure ? true : false"
-                :isHideInput="unsure || form.id"
-                :rules="unsure ? '' : 'required'"
+                :isHideInput="(unsure || form.id) ? true : false"
+                :rules="(unsure || form.id) ? '' : 'required'"
               >
                 <template #label_>
                   <div class="flex flex-row">
