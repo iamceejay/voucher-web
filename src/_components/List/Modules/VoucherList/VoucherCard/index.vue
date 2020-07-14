@@ -150,7 +150,7 @@
       onSetBgImage(value)
       {
         const card = document.getElementById(`${this.listId}-${this.cardId}`)
-        if(card) {
+        if(card && value != '') {
           const bg = (this.voucher && this.voucher.id && (value.search('base64') < 0)) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
           card.style.backgroundImage = `url('${bg}')`
           card.style.backgroundSize = `cover`
