@@ -60,13 +60,8 @@
       async onSubmit() {
         //  text: `${(this.QR_CODE.user_voucher.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
         this.$swal({
-<<<<<<< HEAD
           title: 'Bestätige die Einlösung der Gutscheine.',
-          text: `${(this.QR_CODE.order.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: x${this.form.value}` }`,
-=======
-          title: 'Confirm the redemption of the voucher.',
-           text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
->>>>>>> 6e5f61758fb0a8bfebd4ab18b63032fb0392f1e6
+          text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: x${this.form.value}` }`,
           showCancelButton: true,
           confirmButtonColor: '#6C757D',
           cancelButtonColor: '#AF0000',
