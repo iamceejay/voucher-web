@@ -35,7 +35,6 @@ export const toFormData = (data) => {
         }
       } else {
         if(data[key] && !(data[key] instanceof File) && typeof data[key] === 'object') {
-          console.log('key', key)
           Object.keys(data[key]).map( (key2,index2) => {
             form_data.append(`${key}[${key2}]`, data[key][key2] || '');
           });
