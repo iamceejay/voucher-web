@@ -201,7 +201,6 @@
                 name="valid_day"
                 :options="week"
                 :data="form.valid_day"
-                :limitLabel="3"
                 @onChange="form.valid_day = $event"
               >
                 <template #label_>

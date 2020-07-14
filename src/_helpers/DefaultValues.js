@@ -122,7 +122,7 @@ export const getWeek = [
   'Do',
   'Fr',
   'Sa',
-  'Urlaub',
+  'Feiertag',
 ]
 
 export const users = [
