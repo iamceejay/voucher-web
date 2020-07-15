@@ -111,7 +111,7 @@
             :size="50" 
             level="H" 
           />
-          <div class="qr-text ml-auto font-semibold flex flex-col font-body">
+          <div class="qr-text font-semibold flex flex-col font-body text-center">
             <div class="">
               Voucher No.
             </div>
@@ -252,7 +252,8 @@
     height: 32px;
   }
   .card-qr {
-    margin-left: auto;
+    align-self: center;
+    /* margin-left: auto; */
     /* margin: 0px 15px; */
   }
   .qr-text {
