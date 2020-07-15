@@ -7,7 +7,13 @@
   >
     <div
       class="flex flex-col w-full bg-aid rounded"
-      :style="{ '--bgAid': !isFlip ? voucher.background_aid : '' }"
+      :style="{ 
+        '--bgAid': !isFlip 
+          ? (userVoucher && userVoucher.background_aid) 
+            ? userVoucher.background_aid 
+            : voucher.background_aid 
+          : '' 
+      }"
     >
       <CardInfo
         v-if="!isAction"

@@ -73,8 +73,16 @@ export default {
     {
       // payload id is order id
       try {
-        const formData = toFormData(payload)
-        const { data } = await post(`${prefix}/upload-custom-image/${payload.id}`, formData)
+        // const formData = toFormData(payload)
+
+        let formData = new FormData;
+        formData.set('id', payload.id)
+        formData.set('custom_image', payload.custom_image, `${payload.file_name}.part`)
+        formData.set('is_last', payload.is_last)
+        
+        const { data } = await post(`${prefix}/upload-custom-image/${payload.id}`, formData, {
+          'Content-Type': 'application/octet-stream'
+        })
         // await commit('SET_WALLET', data.order)
         return data
       } catch (err) {
@@ -85,8 +93,16 @@ export default {
     {
       // payload id is order id
       try {
-        const formData = toFormData(payload)
-        const { data } = await post(`${prefix}/upload-templates/${payload.id}`, formData)
+        // const formData = toFormData(payload)
+        let formData = new FormData;
+        formData.set('id', payload.id)
+        formData.set('template[status]', payload.template.status)
+        formData.set('template[attachment]', payload.template.attachment, `${payload.file_name}.part`)
+        formData.set('template[is_last]', payload.template.is_last)
+
+        const { data } = await post(`${prefix}/upload-template/${payload.id}`, formData, {
+          'Content-Type': 'application/octet-stream'
+        })
         // await commit('SET_WALLET', data.order)
         return data
       } catch (err) {

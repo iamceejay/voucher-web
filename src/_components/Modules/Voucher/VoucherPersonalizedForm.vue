@@ -20,7 +20,7 @@
       <div class="w-full flex flex-col">
         <div class="flex flex-row flex-wrap w-full">
           <div class="w-full md:w-1/2 mb-5">
-            <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
+            <div class="font-semibold text-xl text-gray-700 font-display">
               Pick a template
             </div>
             <div
@@ -117,6 +117,7 @@
             <VueFileAgent
               v-else
               ref="vueFileAgent1"
+              class="mx-2"
               :theme="'grid'"
               :multiple="false"
               :deletable="true"
@@ -132,6 +133,25 @@
               @delete="onAddPicture($event)"
             />
           </div>
+          <div class="w-full mt-2 mb-5">
+            <div class="flex flex-row">
+              <div class="font-semibold text-xl text-gray-700 font-display">
+                Reading Aid
+              </div>
+              <div class="tooltip ml-1 pt-1">
+                <i class="fas fa-info-circle text-base text-gray-700" />
+                <span class="tooltiptext">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </span>
+              </div>
+            </div>
+            <div class="w-full sm:w-1/2 md:mx-2 mt-2 mx-2">
+              <Chrome
+                v-model="chrome_color"
+                @input="onPickColor($event, 'background_aid')"
+              />
+            </div>
+          </div>
         </div>
         <Button
           label="Save voucher"
@@ -146,17 +166,21 @@
 <script>
   import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
   import Button from '_components/Button'
+  import Header2 from '_components/Headers/Header2';
   import TextAreaField from '_components/Form/TextAreaField'
   import { ToggleButton } from 'vue-js-toggle-button'
   import 'vue2-datepicker/index.css'
+  import { Chrome } from 'vue-color'
 
   export default {
     components: {
       Button,
+      Header2,
       VoucherCard,
       ToggleButton,
       TextAreaField,
       TextAreaField,
+      Chrome,
     },
     props: {
       data: {
@@ -168,6 +192,10 @@
     },
     data() {
       return {
+        chrome_color: { 
+          hex: '#FFF',
+          rgba: { r: 255, g: 255, b: 255, a: 255 },
+        },
         userVoucher: null,
         api_base_url: '',
         template_id: null,
@@ -181,8 +209,12 @@
           text_color: true,
           is_custom_remove: false,
           note: '',
-          custom_image: ''
+          custom_image: '',
+          background_aid: 'transparent'
         },
+        chunk_template: [],
+        chunk_custom_image: [],
+        tempTemplates: []
       }
     },
     computed: {
@@ -230,11 +262,27 @@
           await this.onUpdateData(tempForm)
 
           if(this.custom_image) {
-            await this.onUploadCustomImage(this.custom_image)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            this.chunk_custom_image = this.onGetChunk(this.custom_image)
+            const random_string = this.$helpers.randomString(10)
+
+            while (this.chunk_custom_image.length > 0) {
+              await this.onUploadCustomImage(random_string)
+            }
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
 
           if(templates?.length > 0) {
-            await this.onUploadTemplates(templates)
+            this.tempTemplates = templates
+            this.chunk_template = this.onGetChunk(templates[0].attachment)
+            const random_string = this.$helpers.randomString(10)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+
+            while (this.chunk_template.length > 0) {
+              await this.onUploadTemplates(random_string)
+            }
+            
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
 
           this.$router.push('/wallet')
@@ -256,31 +304,59 @@
           })
         }
       },
+      onPickColor( { rgba, hex }, type )
+      {
+        if (type == 'background_aid') {
+          this.form.background_aid = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`
+          this.onChangeForm()
+        }
+      },
       async onUpdateData(data)
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         await this.$store.dispatch('UPDATE_USER_VOUCHER', data)
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
       },
-      async onUploadCustomImage(data)
+      async onUploadCustomImage(random)
       {
         let tempForm = {
           id: this.data.id,
-          custom_image: data
+          custom_image: this.chunk_custom_image[0],
+          is_last: this.chunk_custom_image.length == 1 ? 1 : 0,
+          file_name: `${random}-${this.custom_image.name}`
         }
-        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         await this.$store.dispatch('UPLOAD_CUSTOM_IMAGE_USER_VOUCHER', tempForm)
-        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        this.chunk_custom_image.shift()
       },
-      async onUploadTemplates(data)
+      async onUploadTemplates(random)
       {
         let tempForm = {
           id: this.data.id,
-          templates: data
+          template: {
+            status: this.tempTemplates[0].status,
+            attachment: this.chunk_template[0],
+            is_last: this.chunk_template.length == 1 ? 1 : 0
+          },
+          file_name: `${random}-${this.tempTemplates[0]['attachment'].name}`
         }
-        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        
         await this.$store.dispatch('UPLOAD_TEMPLATES_USER_VOUCHER', tempForm)
-        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+        this.chunk_template.shift()
+
+      },
+      onGetChunk(file)
+      {
+        let size = 999950
+        let chunks = Math.ceil(file.size / size)
+        let temp_chunk = []
+        
+        for (let i = 0; i < chunks; i++) {
+          temp_chunk.push(file.slice(
+            i * size, Math.min(i * size + size, file.size), file.type
+          ))
+        }
+        return temp_chunk
       },
       onSetForm()
       {
@@ -298,6 +374,7 @@
             ],
             text_color: (text_color != null) ? text_color : this.data.order.voucher.text_color,
             note,
+            background_aid: this.data.background_aid,
             custom_image: this.data.custom_image,
             price_hidden: this.data.price_hidden ? true : false
           }
