@@ -343,7 +343,7 @@
   import TextAreaField from '_components/Form/TextAreaField'
   import SelectField from '_components/Form/SelectField'
   import MultipleCheckboxField from '_components/Form/MultipleCheckboxField'
-  import { Material, Chrome } from 'vue-color'
+  import { Chrome } from 'vue-color'
   import { ToggleButton } from 'vue-js-toggle-button'
   import 'vue2-datepicker/index.css'
   import { getWeek } from '_helpers/DefaultValues'
@@ -358,7 +358,6 @@
       CheckboxField,
       DatePickerField,
       VoucherCard,
-      Material,
       Chrome,
       ToggleButton,
       TextAreaField,
