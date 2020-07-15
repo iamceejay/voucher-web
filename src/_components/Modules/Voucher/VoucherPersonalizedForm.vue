@@ -136,12 +136,12 @@
           <div class="w-full mt-2 mb-5">
             <div class="flex flex-row">
               <div class="font-semibold text-xl text-gray-700 font-display">
-                Reading Aid
+                Lesehilfe
               </div>
               <div class="tooltip ml-1 pt-1">
                 <i class="fas fa-info-circle text-base text-gray-700" />
                 <span class="tooltiptext">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
                 </span>
               </div>
             </div>
