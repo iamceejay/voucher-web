@@ -295,7 +295,7 @@
             text: 'Etwas ist schief gelaufen. Bitte lade die Seite erneut!',
             showCancelButton: false,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
             confirmButtonText: 'Confirm',
           }).then(async (result) => {
             if(result.value){
@@ -418,8 +418,8 @@
           title: 'Vorlage löschen',
           text: `Bist du sicher dass du dieses Bild löschen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then((result) => {

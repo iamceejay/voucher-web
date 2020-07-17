@@ -183,7 +183,7 @@
               icon: 'success',
               title: 'Erfolgreich',
               text,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
 
           } catch (err) {
@@ -198,7 +198,7 @@
               icon: 'warning',
               title: 'Achtung! ',
               text,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }
         }
@@ -227,7 +227,7 @@
       //       icon: 'success',
       //       title: 'Erfolgreich',
       //       text: 'Downloading all the invoices.',
-      //       confirmButtonColor: '#6C757D',
+      //       confirmButtonColor: '#48BB78',
       //     })
       //   }, 2000)
       // },
@@ -244,7 +244,7 @@
       //       icon: 'success',
       //       title: 'Erfolgreich',
       //       text: 'Downloading all the payouts.',
-      //       confirmButtonColor: '#6C757D',
+      //       confirmButtonColor: '#48BB78',
       //     })
       //   }, 2000)
       // },
@@ -254,8 +254,8 @@
           title: 'Als erledigt markieren',
           text: `Bist du sicher, dass du diese Zahlung als erledigt markieren möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -271,14 +271,14 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: 'Zahlung als erledigt markieren.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             } catch (err) {
               this.$swal({
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   
@@ -290,8 +290,8 @@
           title: 'Send an Invoice',
           text: `Bist du sicher, dass du die Rechnung verschicken möchtest? `,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -304,7 +304,7 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: 'Rechnung schicken.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -312,7 +312,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

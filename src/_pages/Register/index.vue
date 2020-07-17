@@ -65,7 +65,7 @@
             title: 'Erfolgreich!',
             text: 'Updating the profile.',
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           });
         }
       },

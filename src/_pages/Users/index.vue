@@ -149,8 +149,8 @@
           title: 'Change Role',
           text: `You are about to logout and login in ${fullName} credentials. Continue?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -182,7 +182,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   
@@ -194,8 +194,8 @@
           title: 'Benutzer löschen',
           text: `Bist du sicher, dass du diesen Benutzer löschen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -208,7 +208,7 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: 'Deleting the user.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               });
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -216,7 +216,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   
@@ -228,8 +228,8 @@
           title: 'Aktivieren',
           text: `Bist du sicher, dass du diesen Bennutzer aktiveren willst?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -242,7 +242,7 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: 'Aktiviere den Benutzer.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               });
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -250,7 +250,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

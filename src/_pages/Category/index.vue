@@ -126,8 +126,8 @@
           title: 'Kategorie löschen',
           text: `Bist du sicher, dass du diese Kategorie löschen möchtest? `,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -139,7 +139,7 @@
               icon: 'success',
               title: 'Erfolgreich!',
               text: 'Deleting the category.',
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }   
         })

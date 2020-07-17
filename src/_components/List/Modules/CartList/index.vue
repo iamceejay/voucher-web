@@ -129,8 +129,8 @@
           title: 'Aus dem Warenkorb entfernen',
           text: `Bist du sicher, dass du diesen Gutschein aus dem Warenkorb entfernen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then((result) => {

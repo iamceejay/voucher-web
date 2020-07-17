@@ -67,7 +67,7 @@
               icon: 'warning',
               title: 'Warnung!',
               text: err.response.data.message,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }
           this.sIndex = this.sIndex + 1

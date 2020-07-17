@@ -166,7 +166,7 @@
             title: 'Warnung!',
             text: 'Select a payment method first.',
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
           return true
         }
@@ -174,8 +174,8 @@
           title: 'Zahlungsmethoden',
           text: `Bist du sicher, dass du diese Zahlung durchführen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
           cancelButtonText: 'Bestätigen',
@@ -196,7 +196,7 @@
                   text: 'Die Zahlung wurde erfolgreich durchgeführt.',
                   showCancelButton: false,
                   allowOutsideClick: false,
-                  confirmButtonColor: '#6C757D',
+                  confirmButtonColor: '#48BB78',
                   confirmButtonText: 'Bestätigen',
                   cancelButtonText: 'Abbrechen',
                 }).then(async (result) => {
@@ -214,7 +214,7 @@
                 icon: 'warning',
                 title: 'Achtung!',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns. ',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

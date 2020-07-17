@@ -130,8 +130,8 @@
           title: 'Vorlage löschen',
           text: `Bist du sicher dass du dieses Bild löschen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -143,7 +143,7 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: 'Vorlage wird gelöscht.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             } catch (err) {
@@ -152,7 +152,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

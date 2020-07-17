@@ -36,7 +36,7 @@
             text: 'Bitte logge dich zuerst ein und öffne dann den Link erneut. Danke!',
             showCancelButton: false,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
             confirmButtonText: 'Bestätigen',
           }).then(async (result) => {
             if(result.value){
@@ -62,7 +62,7 @@
             text: 'Der Gutschein wurde erfolgreich übertragen!',
             showCancelButton: false,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
             confirmButtonText: 'Bestätigen',
           }).then(async (result) => {
             if(result.value){
@@ -78,7 +78,7 @@
               text: err.response.data.message,
               showCancelButton: false,
               allowOutsideClick: false,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
               confirmButtonText: 'Bestätigen',
             }).then(async (result) => {
               if(result.value){

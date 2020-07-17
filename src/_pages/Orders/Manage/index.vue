@@ -112,8 +112,8 @@
           title: 'Bestellung stornieren',
           text: `Bist du sicher dass du diese Bestellung zurückerstatten willst?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -129,7 +129,7 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: 'Reversing the order.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -143,7 +143,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text,
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

@@ -117,8 +117,8 @@
           title: 'Bestätige die Übertragung',
           html: 'Diese Übertragung kann nicht mehr rückgängig gemacht werden. Falls du den Gutschein an die falsche Person schickst, kann der Gutschein verloren gehen.',
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then((result) => {
@@ -144,7 +144,7 @@
             //   icon: 'success',
             //   title: 'Erfolgreich!',
             //   text: 'Gutschein via Email versenden.',
-            //   confirmButtonColor: '#6C757D',
+            //   confirmButtonColor: '#48BB78',
             // });
             // this.form = {
             //   email: '',

@@ -89,7 +89,7 @@
             icon: 'success',
             title: 'Erfolgreich!',
             text: 'Gutschein via Email versenden.',
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           });
           this.emailForm = {
             id: null,

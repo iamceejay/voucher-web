@@ -63,8 +63,8 @@
           title: 'Bestätige die Einlösung der Gutscheine.',
           text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: x${this.form.value}` }`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -80,7 +80,7 @@
               this.$swal({
                 icon: 'success',
                 title: 'Der Gutschein wurde eingelöst',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               });
               await this.$store.commit('SET_QR_CODE', null)
             } catch (err) {
@@ -89,7 +89,7 @@
                   icon: 'warning',
                   title: 'Warnung!',
                   text: err.response.data.message,
-                  confirmButtonColor: '#6C757D',
+                  confirmButtonColor: '#48BB78',
                 })
               }
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

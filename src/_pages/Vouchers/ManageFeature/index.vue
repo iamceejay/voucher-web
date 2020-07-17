@@ -103,8 +103,8 @@
           title: `${ data.is_featured ? 'Gesponserte Gutscheine entfernen' : 'Gesponserte Gutscheine hinzufügen' }`,
           text: `${ data.is_featured ? 'Bist du sicher, dass du diesen Gutschein nicht mehr hervorheben willst? ' : 'Bist du sicher, dass du diesen Gutschein hervorheben willst? ' }`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -118,7 +118,7 @@
                 icon: 'success',
                 title: 'Erfolgreich!',
                 text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the Gesponserte Gutscheine.`,
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

@@ -75,8 +75,8 @@
           title: 'Gutschein löschen',
           text: `Bist du sicher, dass du diesen Gutschein löschen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then(async (result) => {
@@ -89,7 +89,7 @@
               icon: 'success',
               title: 'Erfolgreich!',
               text: 'Deleting the voucher.',
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
             this.$emit('onFlip')
           }
@@ -102,8 +102,8 @@
           title: `${ data.is_active ? 'Deaktivieren' : 'Aktivieren' }`,
           text: `${ data.is_active ? 'Bist du sicher, dass du diesen Gutschein deaktivieren willst?' : 'Bist du sicher, dass du diesen Gutschein aktivieren willst?' }`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then(async (result) => {
@@ -115,7 +115,7 @@
               icon: 'success',
               title: 'Erfolgreich!',
               text: `${ data.is_active ? 'Gutscheine aktivieren.' : 'Gutscheine deaktiveren.' }`,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
             this.$emit('onFlip')
           }

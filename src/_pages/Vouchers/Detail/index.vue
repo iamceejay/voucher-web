@@ -134,8 +134,8 @@
           title: 'Im Warenkorb hinzufügen',
           text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -179,7 +179,7 @@
                 icon: 'warning',
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   
@@ -191,8 +191,8 @@
           title: 'Vom Warenkorb entfernen',
           text: `Bist du sicher, dass du diesen Gutschein vom Warenkorb entfernen möchtest?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Abbrechen',
         }).then( async (result) => {
@@ -211,7 +211,7 @@
               icon: 'success',
               title: 'Erfolgreich!',
               text: 'Removing the voucher.',
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }   
         })

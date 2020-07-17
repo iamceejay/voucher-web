@@ -109,7 +109,7 @@
             icon: 'warning',
             title: 'Achtung!',
             text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns. ',
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
         }
       },

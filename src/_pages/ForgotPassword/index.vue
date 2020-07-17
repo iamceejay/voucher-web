@@ -91,7 +91,7 @@
             title: 'Email verschickt!',
             text: `Du hast soeben ein Email bekommen, bitte öffne dort den Link, um dein Passwort zu ändern.`,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

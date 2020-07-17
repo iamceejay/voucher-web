@@ -39,7 +39,7 @@
             // title: 'Erfolgreich!',
             text: `Dein Konto wurde erfolgreich verifiziert. Viel Spaß mit epasnets!`,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
         }
       })()
