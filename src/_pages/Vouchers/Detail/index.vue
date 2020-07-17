@@ -139,8 +139,8 @@
           title: 'Add to cart',
           text: `Are you sure you want to add this to the cart?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
@@ -184,7 +184,7 @@
                 icon: 'warning',
                 title: 'Warning!',
                 text: 'Something went wrong.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   
@@ -196,8 +196,8 @@
           title: 'Remove from cart',
           text: `Are you sure you want to remove this from the cart?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
@@ -216,7 +216,7 @@
               icon: 'success',
               title: 'Successful!',
               text: 'Removing the voucher.',
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }   
         })

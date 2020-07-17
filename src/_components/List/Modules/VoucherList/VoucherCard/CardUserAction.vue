@@ -109,7 +109,7 @@
             icon: 'warning',
             title: 'Warning!',
             text: 'Something went wrong.',
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
         }
       },

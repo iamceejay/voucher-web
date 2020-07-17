@@ -89,7 +89,7 @@
             icon: 'success',
             title: 'Successful!',
             text: 'Sending the voucher via email.',
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           });
           this.emailForm = {
             id: null,

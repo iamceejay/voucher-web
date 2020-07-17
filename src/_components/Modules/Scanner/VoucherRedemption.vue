@@ -63,8 +63,8 @@
           title: 'Confirm the redemption of the voucher.',
            text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
@@ -80,7 +80,7 @@
               this.$swal({
                 icon: 'success',
                 title: 'The voucher was redeemed!',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               });
               await this.$store.commit('SET_QR_CODE', null)
             } catch (err) {
@@ -89,7 +89,7 @@
                   icon: 'warning',
                   title: 'Warning!',
                   text: err.response.data.message,
-                  confirmButtonColor: '#6C757D',
+                  confirmButtonColor: '#48BB78',
                 })
               }
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

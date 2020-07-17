@@ -64,7 +64,7 @@
               icon: 'warning',
               // title: 'Successful!',
               text: `Payment cancelled. Thank you!`,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }
         } catch (err) {
@@ -90,7 +90,7 @@
           icon: 'success',
           title: 'Successful!',
           text: 'Deleting the voucher from the cart.',
-          confirmButtonColor: '#6C757D',
+          confirmButtonColor: '#48BB78',
         })
       },
     }

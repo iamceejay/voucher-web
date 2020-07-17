@@ -472,7 +472,7 @@
             title: 'Successful!',
             text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           });
           this.onResetForm()
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -484,7 +484,7 @@
               icon: 'warning',
               title: 'Warning!',
               text: err.response.data.message,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }
         }

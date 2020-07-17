@@ -130,8 +130,8 @@
           title: 'Delete Template',
           text: `Are you sure you want to delete this template?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
@@ -143,7 +143,7 @@
                 icon: 'success',
                 title: 'Successful!',
                 text: 'Deleting the template.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             } catch (err) {
@@ -152,7 +152,7 @@
                 icon: 'warning',
                 title: 'Warning!',
                 text: 'Something went wrong.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

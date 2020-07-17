@@ -52,8 +52,8 @@
           title: `${data.status ? 'Deactivate' : 'Activate'} user scanner`,
           text: `Are you sure you want to ${data.status ? 'deactivate' : 'activate'} this user?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
@@ -65,7 +65,7 @@
               icon: 'success',
               title: 'Successful!',
               text: `${data.status ? 'Deactivating' : 'Activating'} the user.`,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }   
         })

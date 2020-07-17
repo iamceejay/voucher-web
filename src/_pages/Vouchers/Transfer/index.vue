@@ -124,8 +124,8 @@
           title: 'Confirm transfer',
           html: '<p>This cannot be undone.</p><p>You accept the risks.</p>',
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then((result) => {
@@ -151,7 +151,7 @@
             //   icon: 'success',
             //   title: 'Successful!',
             //   text: 'Sending the voucher via email.',
-            //   confirmButtonColor: '#6C757D',
+            //   confirmButtonColor: '#48BB78',
             // });
             // this.form = {
             //   email: '',

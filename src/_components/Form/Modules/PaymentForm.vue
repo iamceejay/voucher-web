@@ -166,7 +166,7 @@
             title: 'Warning!',
             text: 'Select a payment method first.',
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
           return true
         }
@@ -174,8 +174,8 @@
           title: 'Payment',
           text: `Are you sure you want to continue this payment?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
@@ -195,7 +195,7 @@
                   text: 'Paying the vouchers.',
                   showCancelButton: false,
                   allowOutsideClick: false,
-                  confirmButtonColor: '#6C757D',
+                  confirmButtonColor: '#48BB78',
                   confirmButtonText: 'Confirm',
                 }).then(async (result) => {
                   if(result.value){
@@ -212,7 +212,7 @@
                 icon: 'warning',
                 title: 'Warning!',
                 text: 'Something went wrong.',
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             }
           }   

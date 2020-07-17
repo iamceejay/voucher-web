@@ -91,7 +91,7 @@
             title: 'Successful!',
             text: `Please check your email and proceed with the link given.`,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

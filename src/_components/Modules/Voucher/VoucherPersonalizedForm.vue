@@ -295,7 +295,7 @@
             text: 'Something went wrong. Please reload!',
             showCancelButton: false,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
             confirmButtonText: 'Confirm',
           }).then(async (result) => {
             if(result.value){
@@ -418,8 +418,8 @@
           title: 'Delete template',
           text: `Are you sure you want to delete this template?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then((result) => {

@@ -59,7 +59,7 @@
               icon: 'warning',
               title: 'Warning!',
               text: err.response.data.message,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

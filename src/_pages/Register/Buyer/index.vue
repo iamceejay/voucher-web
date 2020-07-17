@@ -155,7 +155,7 @@
             text: data.message,
             showCancelButton: false,
             allowOutsideClick: false,
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
             confirmButtonText: 'Confirm',
           }).then(async (result) => {
             if(result.value){
@@ -166,7 +166,7 @@
           //   icon: 'success',
           //   title: 'Successful!',
           //   text: 'Creating an account.',
-          //   confirmButtonColor: '#6C757D',
+          //   confirmButtonColor: '#48BB78',
           // })
         } catch (err) {
           if( err?.response?.status == 422 ) {

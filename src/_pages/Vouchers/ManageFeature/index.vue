@@ -103,8 +103,8 @@
           title: `${ data.is_featured ? 'Removing' : 'Adding' } Featured Voucher`,
           text: `Are you sure you want to ${ data.is_featured ? 'remove' : 'add' } this to featured vouchers?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
@@ -118,7 +118,7 @@
                 icon: 'success',
                 title: 'Successful!',
                 text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the featured voucher.`,
-                confirmButtonColor: '#6C757D',
+                confirmButtonColor: '#48BB78',
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

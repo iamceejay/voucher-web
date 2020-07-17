@@ -75,8 +75,8 @@
           title: 'Delete Voucher',
           text: `Are you sure you want to delete this voucher?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
@@ -89,7 +89,7 @@
               icon: 'success',
               title: 'Successful!',
               text: 'Deleting the voucher.',
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
             this.$emit('onFlip')
           }
@@ -102,8 +102,8 @@
           title: `${ data.is_active ? 'Deactivate' : 'Activate' } Voucher`,
           text: `Are you sure you want to ${ data.is_active ? 'deactivate' : 'activate' } this voucher?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then(async (result) => {
@@ -115,7 +115,7 @@
               icon: 'success',
               title: 'Successful!',
               text: `${ data.is_active ? 'Deactivating' : 'Activating' } the voucher.`,
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
             this.$emit('onFlip')
           }

@@ -73,7 +73,7 @@
             icon: 'success',
             title: 'Successful!',
             text: 'Saving the settings.',
-            confirmButtonColor: '#6C757D',
+            confirmButtonColor: '#48BB78',
           })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

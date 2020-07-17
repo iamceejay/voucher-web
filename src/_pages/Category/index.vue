@@ -126,8 +126,8 @@
           title: 'Delete Category',
           text: `Are you sure you want to delete this category?`,
           showCancelButton: true,
-          confirmButtonColor: '#6C757D',
-          cancelButtonColor: '#AF0000',
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
         }).then( async (result) => {
@@ -139,7 +139,7 @@
               icon: 'success',
               title: 'Successful!',
               text: 'Deleting the category.',
-              confirmButtonColor: '#6C757D',
+              confirmButtonColor: '#48BB78',
             })
           }   
         })
