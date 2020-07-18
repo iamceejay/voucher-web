@@ -387,7 +387,9 @@ router.beforeEach((to, from, next) => {
     router,
     store
   }
-  window.scrollTo(0,0)
+  
+  // window.scrollTo(0,0)
+
   return middleware[0]({
     ...context,
     next: middlewarePipeline(context, middleware, 1)
