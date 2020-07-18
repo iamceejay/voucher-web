@@ -141,6 +141,9 @@
     },
     mounted() {
       (async() => {
+        setTimeout(() => {
+          window.scrollTo(0,0)
+        }, 100)  
         this.onScroll()
       })()
     },
