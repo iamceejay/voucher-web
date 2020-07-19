@@ -128,7 +128,7 @@
           if( !self.IS_LOADING.status && !self.IS_PROCESSING.status && self.IS_INFINITE_LOAD ) {
             const listElm = document.querySelector('#infinite-scroll')
             const doc = document.documentElement
-            if( listElm && doc.scrollTop + window.innerHeight == doc.scrollHeight )
+            if(doc.scrollTop + window.innerHeight == doc.scrollHeight)
             {
               await self.$store.commit('SET_IS_LOAD_MORE', true)
             }

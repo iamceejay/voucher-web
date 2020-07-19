@@ -95,7 +95,7 @@
             </span>
           </div>
           <div class="text-center self-center h-4">
-            <div v-if="userVoucher && userVoucher.sent_via" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
+            <div v-if="userVoucher && userVoucher.sent_via && userVoucher.sent_via != 'transferred'" class="text-xs font-bold font-body border border-gray-500 rounded-full w-32">
               {{ onGetSentVia(userVoucher.sent_via) }}
             </div>
           </div>

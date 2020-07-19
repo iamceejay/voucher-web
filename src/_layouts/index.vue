@@ -141,9 +141,6 @@
     },
     mounted() {
       (async() => {
-        setTimeout(() => {
-          window.scrollTo(0,0)
-        }, 100)  
         this.onScroll()
       })()
     },
@@ -151,12 +148,21 @@
       onScroll()
       {
         let self = this
-        document.onscroll = async () => {
+        // document.onscroll = async () => {
+        //   if( !self.IS_LOADING.status && !self.IS_PROCESSING.status && self.IS_INFINITE_LOAD ) {
+        //     const listElm = document.querySelector('#infinite-scroll')
+        //     const doc = document.documentElement
+            
+        //     if( listElm && doc.scrollTop + window.innerHeight == doc.scrollHeight )
+        //     {
+        //       await self.$store.commit('SET_IS_LOAD_MORE', true)
+        //     }
+        //   }
+        // }
+
+        window.onscroll = async (ev) => {
           if( !self.IS_LOADING.status && !self.IS_PROCESSING.status && self.IS_INFINITE_LOAD ) {
-            const listElm = document.querySelector('#infinite-scroll')
-            const doc = document.documentElement
-            if( listElm && doc.scrollTop + window.innerHeight == doc.scrollHeight )
-            {
+            if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 15) {
               await self.$store.commit('SET_IS_LOAD_MORE', true)
             }
           }
