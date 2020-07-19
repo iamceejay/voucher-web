@@ -104,8 +104,6 @@
     mounted() {
       (async() => {
         try {
-          window.scrollTo(0,0)
-
           await this.$store.commit('SET_IS_INFINITE_LOAD', true)
           await this.$store.commit('SET_VOUCHERS', [])
           await this.$store.commit('SET_FEATURED_VOUCHERS', [])

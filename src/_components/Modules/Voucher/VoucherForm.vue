@@ -132,7 +132,8 @@
                 </template>
                 <template #note_>
                   <CheckboxField
-                    v-if="!form.id"
+                    :checked="form.tax && ((form.tax.length <= 0 && form.id) || (form.tax.length > 0 && form.tax[0] == 'unsure'))"
+                    :disabled="form.id"
                     container="mb-0"
                     labelSentence="Check if not sure about the tax."
                     @input="onUnsure"

@@ -58,6 +58,9 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   routes: [
     { 
       path: '/login', 
@@ -388,8 +391,6 @@ router.beforeEach((to, from, next) => {
     store
   }
   
-  // window.scrollTo(0,0)
-
   return middleware[0]({
     ...context,
     next: middlewarePipeline(context, middleware, 1)

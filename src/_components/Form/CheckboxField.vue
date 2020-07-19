@@ -19,7 +19,8 @@
             :name="id"
             :value="value"
             type="checkbox"
-            :checked="value"
+            :checked="checked"
+            :disabled="disabled"
             @change="onUpdateField"
           />
           <label v-if="labelSentence != ''" class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
@@ -58,6 +59,12 @@
         type: String,
         default: ''
       }, value: {
+        type: Boolean,
+        default: false
+      }, checked: {
+        type: Boolean,
+        default: false
+      }, disabled: {
         type: Boolean,
         default: false
       }, limitLabel: {
