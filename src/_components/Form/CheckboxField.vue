@@ -12,16 +12,17 @@
           v-if="label != ''"
           :label="label"
         />
-        <div class=" flex items-center mx-2">
+        <div class=" flex items-start mx-2">
           <input
             :id="id"
+            class="checkbox-input"
             :name="id"
             :value="value"
             type="checkbox"
             :checked="value"
             @change="onUpdateField"
           />
-          <label v-if="labelSentence != ''" class="text-xs p-1 mt-0 font-bold text-gray-900 font-body">
+          <label v-if="labelSentence != ''" class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
             {{ limitLabel > 0 ? labelSentence.substring(0,limitLabel) : labelSentence }}
           </label>
           <slot name="labelSentence_" />
@@ -97,4 +98,7 @@
   }
 </script>
 <style lang='css' scoped>
+  .checkbox-input {
+    margin-top: 2px;
+  }
 </style>

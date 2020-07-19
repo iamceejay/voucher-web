@@ -32,10 +32,10 @@
     <div class="card-content">
       <div class="w-full flex flex-row break-words">
         <div :class="`${order && userVoucher && userVoucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
-          <div class="text-xs text-justify card-description h-48 font-body">
+          <div class="text-xs card-description h-48 font-body">
             {{ voucher.description || 'Voucher Description' }}
           </div>
-          <div class="text-xs text-justify h-16 font-body font-bold py-1">
+          <div class="text-xs h-16 font-body font-bold py-1">
             {{ order && userVoucher && userVoucher.note || '' }}
           </div>
         </div>

@@ -34,7 +34,7 @@
               :rules="{ required: { allowFalse: false } }"
             >
               <template #labelSentence_>
-                <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+                <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
                   I accept the 
                   <a 
                     class="text-blue-700" 
@@ -54,7 +54,7 @@
               :rules="{ required: { allowFalse: false } }"
             >
               <template #labelSentence_>
-                <label class="text-xs p-1 mt-1 font-bold text-gray-900 font-body">
+                <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
                   I accept the 
                   <a 
                     class="text-blue-700" 
