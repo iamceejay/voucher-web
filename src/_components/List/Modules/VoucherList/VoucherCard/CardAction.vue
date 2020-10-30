@@ -88,8 +88,9 @@
             this.$swal({
               icon: 'success',
               title: 'Erfolgreich!',
-              text: 'Deleting the voucher.',
+              text: 'Gutschein löschen',
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
             this.$emit('onFlip')
           }
@@ -116,6 +117,7 @@
               title: 'Erfolgreich!',
               text: `${ data.is_active ? 'Gutscheine aktivieren.' : 'Gutscheine deaktiveren.' }`,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
             this.$emit('onFlip')
           }

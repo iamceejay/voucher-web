@@ -68,6 +68,7 @@
               title: 'Warnung!',
               text: err.response.data.message,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }
           this.sIndex = this.sIndex + 1

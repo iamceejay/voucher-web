@@ -34,7 +34,7 @@
       v-model="form.company.url"
       type="text"
       class="m-2"
-      label="Company Website"
+      label="Webseite"
       rules=""
       :errorMessages="errorMessages.url"
       @input="onChange"
@@ -81,7 +81,7 @@
     />
     <div v-if="GLOBAL_SETTING" class="mt-2 mb-4 text-sm text-center">
       {{
-        `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Verkauf`
+        `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Verkauf zuzüglich 20% MwSt.`
       }}
     </div>
   </div>

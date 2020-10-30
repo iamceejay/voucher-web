@@ -16,7 +16,7 @@
       </div>
       <div class="w-full flex flex-col">
         <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-          Wähle eine Hintergrundfarbe oder lade ein Foto hoch
+          Wähle eine Hintergrundfarbe oder lade ein Foto im Hochformat hoch
         </div>
         <div class="flex flex-row flex-wrap w-full">
           <!-- <div class="w-full md:w-1/2 mb-5">
@@ -53,6 +53,9 @@
             <span class="font-semibold text-sm font-display text-gray-700 mx-2">
               Hintergrundbild
             </span>
+            <div class="font-semibold text-xs font-display text-gray-700 mx-2">
+              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein 
+            </div>
             <Button
               v-if="form && form.id && form.background_image != ''"
               class="mt-2 mx-2"
@@ -126,7 +129,7 @@
                     <div class="tooltip ml-1">
                       <i class="fas fa-info-circle text-base text-gray-700" />
                       <span class="tooltiptext">
-                        Wählen einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".
+                        Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".
                       </span>
                     </div>
                   </div>
@@ -165,7 +168,7 @@
                     type="number"
                     class="px-2 w-7/12"
                     inputContainer="py-1"
-                    placeholder="Wert zu diesem Steuersatz"
+                    placeholder="Betrag der Steuer in €"
                     :rules="`${ (form.tax.length <= 1) ? '' : 'required' }`"
                     :disabled="(form.tax.length > 1 && !form.id) ? false : true"
                   />
@@ -416,6 +419,7 @@
         },
         week: getWeek,
         background_image: null,
+        chunk_voucher_img: [],
         taxes: [],
         expiry: [],
       }
@@ -465,20 +469,49 @@
             this.form.qty_min = this.form.min
             this.form.qty_max = this.form.max
           }
-          this.form.background_image = this.background_image
+
+          // this.form.background_image = this.background_image
+
           const url = this.form.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER'
-          await this.$store.dispatch(url, this.form)
-          this.$swal({
-            icon: 'success',
-            title: 'Erfolgreich!',
-            text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
-            allowOutsideClick: false,
-            confirmButtonColor: '#48BB78',
-          });
-          this.onResetForm()
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+          // await this.$store.dispatch(url, this.form)
+          // this.$swal({
+          //   icon: 'success',
+          //   title: 'Erfolgreich!',
+          //   text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
+          //   allowOutsideClick: false,
+          //   confirmButtonColor: '#48BB78',
+          //   confirmButtonText: 'Bestätigen'
+          // });
+          // this.onResetForm()
+          // await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+          const { voucher } = await this.$store.dispatch(url, this.form)
+          // await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          if(this.background_image) {
+            
+            // await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            this.chunk_voucher_img = this.onGetChunk(this.background_image)
+            const random_string = this.$helpers.randomString(10)
+            while (this.chunk_voucher_img.length > 0) {
+              await this.onUploadVoucherImg(voucher.id, random_string)
+            }
+            // await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          }
+          // this.$swal({
+          //   icon: 'success',
+          //   title: 'Successful!',
+          //   text: `${this.form.id ? 'Updating' : 'Adding'} new voucher.`,
+          //   allowOutsideClick: false,
+          //   confirmButtonColor: '#48BB78',
+          // });
+          // this.onResetForm()
+
           this.$router.push('/vouchers')
         } catch (err) {
+
+          console.log('err',err)
+
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           if( err?.response?.data?.message ) {
             this.$swal({
@@ -486,9 +519,34 @@
               title: 'Warnung!',
               text: err.response.data.message,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }
         }
+      },
+      async onUploadVoucherImg(id, random)
+      {        
+        let tempForm = {
+          id,
+          attachment: this.chunk_voucher_img[0],
+          is_last: this.chunk_voucher_img.length == 1 ? 1 : 0,
+          file_name: `${random}-${this.background_image.name}`
+        }
+        await this.$store.dispatch('UPLOAD_BG_IMG_VOUCHER', tempForm)
+        this.chunk_voucher_img.shift()
+      },
+      onGetChunk(file)
+      {
+        let size = 999950
+        let chunks = Math.ceil(file.size / size)
+        let temp_chunk = []
+        
+        for (let i = 0; i < chunks; i++) {
+          temp_chunk.push(file.slice(
+            i * size, Math.min(i * size + size, file.size), file.type
+          ))
+        }
+        return temp_chunk
       },
       onUnsure(value)
       {

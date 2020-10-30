@@ -10,7 +10,7 @@
           v-model="form.payout_schedule"
           type="text"
           class="m-2"
-          label="Payout schedule (tage)"
+          label="Auszahlungsrythmus (tage)"
           rules="required"
         />
         <InputField
@@ -18,7 +18,7 @@
           v-model="form.sales_commission_percentage"
           type="text"
           class="m-2"
-          label="Sales Commission in %"
+          label="Kommission in %"
           rules="required"
         />
         <InputField
@@ -26,7 +26,7 @@
           v-model="form.sales_commission_euro"
           type="text"
           class="m-2"
-          label="Sales Commission in €"
+          label="Kommission in €"
           rules="required"
         />
         <InputField
@@ -34,7 +34,7 @@
           v-model="form.minimum_voucher_value"
           type="text"
           class="m-2"
-          label="Minimum Voucher Value in €"
+          label="Mindestgutscheinwert in €"
           rules="required"
         />
         <Button

@@ -8,7 +8,7 @@
       @submit.prevent="handleSubmit(onSubmit)"
     >
       <Header2
-        label="Company Info"
+        label="Unternehmensinfo"
       />
       <CompanyForm
         class="w-full md:w-1/2 my-5"

@@ -131,6 +131,8 @@ export default {
     {
       const formData = toFormData(payload)
       const { data } = await post(`${prefix}`, formData)
+
+      return data
       // await commit('SET_VOUCHERS', [
       //   ...state.vouchers,
       //   data.voucher,
@@ -179,6 +181,23 @@ export default {
         ...state.vouchers,
         data: newList
       })
-    }
+    },
+    async UPLOAD_BG_IMG_VOUCHER( { commit, state }, payload )
+    {
+      try {
+  
+        let formData = new FormData;
+        formData.set('id', payload.id)
+        formData.set('attachment', payload.attachment, `${payload.file_name}.part`)
+        formData.set('is_last', payload.is_last)
+        
+        const { data } = await post(`${prefix}/upload-bg-img/${payload.id}`, formData, {
+          'Content-Type': 'application/octet-stream'
+        })
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

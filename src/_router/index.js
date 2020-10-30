@@ -59,7 +59,7 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    window.scrollTo(0, 0)
   },
   routes: [
     { 

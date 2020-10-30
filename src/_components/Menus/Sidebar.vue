@@ -193,7 +193,7 @@
                   title: 'Home',
                   link: '/home'
                 }, {
-                  title: 'My Vouchers',
+                  title: 'Meine Gutscheine',
                   link: '/vouchers'
                 }, {
                   title: 'Scannen',

@@ -183,6 +183,7 @@
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   
@@ -209,6 +210,7 @@
                 title: 'Erfolgreich!',
                 text: 'Deleting the user.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               });
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -217,6 +219,7 @@
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   
@@ -243,6 +246,7 @@
                 title: 'Erfolgreich!',
                 text: 'Aktiviere den Benutzer.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               });
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -251,6 +255,7 @@
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   

@@ -138,7 +138,7 @@
           let confirm = this.$swal({
             icon: 'success',
             title: 'Erfolgreich!',
-            text: 'Updating your info.',
+            text: 'Info aktualisiert.',
             allowOutsideClick: false,
             showConfirmButton: false
           })

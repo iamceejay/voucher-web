@@ -37,9 +37,17 @@
       <template #label_>
         <div class="flex flex-row">
           <Header5
-            label="Benutzername"
+            label="Name auf Gutschein"
+            v-if="type == 'seller'"
           />
-          <div class="tooltip ml-1">
+          <Header5
+            label="Benutzername"
+            v-if="type == 'user'"
+          />
+          <div 
+            class="tooltip ml-1"
+            v-if="type == 'seller'"
+          >
             <i class="fas fa-info-circle text-base text-gray-700" />
             <span class="tooltiptext">
               Wähle einen Wunschnamen als Benutzername. Der Benutzername ist auf dem Gutschein ersichtlich und kann im Nachhinein nicht mehr geändert werden. 

@@ -54,6 +54,7 @@
   import Sidebar from '_components/Menus/Sidebar'
   import HeaderNavMenu from '_components/Menus/HeaderNavMenu'
   import CookieLaw from 'vue-cookie-law'
+  import LoaderImg from '_assets/img/epasnets-loader.png'
 
   export default {
     components: {
@@ -102,10 +103,21 @@
           // } 
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              title: 'Wird geladen,',
-              text: 'bitte warten…',
+              // title: 'Wird geladen,',
+              // text: 'bitte warten…',
+              imageUrl: LoaderImg,
+              imageHeight: 207,
+              imageWidth: 259,
               allowOutsideClick: false,
-              showConfirmButton: false
+              showConfirmButton: false,
+              showClass: {
+                popup: 'swal2-show-loader',
+                backdrop: 'swal2-show-backdrop'
+              },
+              hideClass: {
+                popup: 'swal2-hide-loader',
+                backdrop: 'swal2-hide-backdrop'
+              }
             })
             await this.$store.commit('SET_IS_LOADING', {
               status: 'processing',
@@ -126,10 +138,19 @@
           }
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              title: 'Wird geladen…',
-              text: 'Einen kurzen Moment.',
+              imageUrl: LoaderImg,
+              imageHeight: 207,
+              imageWidth: 259,
               allowOutsideClick: false,
-              showConfirmButton: false
+              showConfirmButton: false,
+              showClass: {
+                popup: 'swal2-show-loader',
+                backdrop: 'swal2-show-backdrop'
+              },
+              hideClass: {
+                popup: 'swal2-hide-loader',
+                backdrop: 'swal2-hide-backdrop'
+              }
             })
             await this.$store.commit('SET_IS_PROCESSING', {
               status: 'processing',
@@ -182,5 +203,8 @@
     .main-container.hide {
       background: rgba(0, 0, 0, 0.80);
     }
+  }
+  .swal2-show-loader {
+    background-color: transparent!important;
   }
 </style>

@@ -81,6 +81,7 @@
                 icon: 'success',
                 title: 'Der Gutschein wurde eingelöst',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               });
               await this.$store.commit('SET_QR_CODE', null)
             } catch (err) {
@@ -90,6 +91,7 @@
                   title: 'Warnung!',
                   text: err.response.data.message,
                   confirmButtonColor: '#48BB78',
+                  confirmButtonText: 'Bestätigen'
                 })
               }
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

@@ -49,12 +49,12 @@
         </div>
       </div>
       <div v-if="data.length <= 0" class="py-2 text-lg">
-        No data found.
+        Keine Daten gefunden.
       </div>
     </div>
     <div v-if="isCart && data.length > 0" class="flex flex-col mt-5 w-full sm:w-1/2 md:w-1/4 self-center text-center">
       <span class="text-lg font-bold">
-        Price
+        Preis
       </span>
       <span class="text-lg font-bold">
         {{ $helpers.convertCurrency(totalPrice) }}
@@ -132,7 +132,7 @@
           showCancelButton: true,
           confirmButtonColor: '#48BB78',
           cancelButtonColor: '#FC8181',
-          confirmButtonText: 'Confirm',
+          confirmButtonText: 'Bestätigen',
           cancelButtonText: 'Cancel',
         }).then((result) => {
           if(result.value){

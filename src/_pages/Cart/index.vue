@@ -63,8 +63,9 @@
             this.$swal({
               icon: 'warning',
               // title: 'Erfolgreich!',
-              text: `Payment cancelled. Thank you!`,
+              text: `Zahlung wurde abgebrochen. Bitte versuche es erneut oder wähle eine andere Zahlungsmethode.`,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }
         } catch (err) {
@@ -91,6 +92,7 @@
           title: 'Aus dem Warenkorb entfernt!',
           text: 'Der Gutschein wurde soeben entfernt.',
           confirmButtonColor: '#48BB78',
+          confirmButtonText: 'Bestätigen'
         })
       },
     }

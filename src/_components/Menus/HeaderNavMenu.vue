@@ -66,7 +66,7 @@
       class="cart-icon relative self-center"
       to="/cart"
     >
-      <div class="cart-count">
+      <div class="cart-count" :class="`${COUNT_CART ? 'bg-peach text-white' : 'cart-count-default'}`">
         {{ COUNT_CART }}
       </div>
       <i class="fas fa-shopping-cart text-base text-lg" />
@@ -399,9 +399,11 @@
     font-size: 10px;
     border-radius: 50%;
     text-align: center;
-    background: #ccc;
     top: -8px;
     right: 5px;
+  }
+  .cart-count-default {
+    background: #ccc;
   }
 
   @media only screen and (max-width: 600px) {

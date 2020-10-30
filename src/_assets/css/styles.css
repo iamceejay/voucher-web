@@ -213,3 +213,39 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.swal2-show-loader,
+.swal2-hide-loader,
+.swal2-show-backdrop,
+.swal2-hide-backdrop {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.swal2-show-loader .swal2-image {
+    transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+
+	70% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+.modal {
+    transition: opacity 0.25s ease;
+    z-index: 9999;
+}
+body.modal-active {
+    overflow-x: hidden;
+    overflow-y: visible !important;
+}

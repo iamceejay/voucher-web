@@ -66,6 +66,7 @@
               title: 'Erfolgreich!',
               text: `${data.status ? 'Aktiviere' : 'Deaktivieren'} den Benutzer.`,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }   
         })

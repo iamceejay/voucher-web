@@ -119,6 +119,7 @@
                 title: 'Erfolgreich!',
                 text: `${ !data.is_featured ? 'Removing' : 'Adding' } from the Gesponserte Gutscheine.`,
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

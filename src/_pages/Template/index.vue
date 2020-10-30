@@ -144,6 +144,7 @@
                 title: 'Erfolgreich!',
                 text: 'Vorlage wird gelöscht.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             } catch (err) {
@@ -153,6 +154,7 @@
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   

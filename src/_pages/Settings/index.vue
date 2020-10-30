@@ -69,6 +69,7 @@
             title: 'Erfolgreich!',
             text: 'Saving the settings.',
             confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
           })
         } catch (err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

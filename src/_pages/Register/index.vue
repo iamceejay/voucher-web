@@ -66,6 +66,7 @@
             text: 'Updating the profile.',
             allowOutsideClick: false,
             confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
           });
         }
       },

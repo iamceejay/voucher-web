@@ -113,7 +113,7 @@
           />
           <div class="qr-text font-semibold flex flex-col font-body text-center">
             <div class="">
-              Gutscheinnummer
+              Gutschein
             </div>
             <div v-if="order && qr" class="">
               {{ qr.url }}

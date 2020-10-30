@@ -9,7 +9,7 @@
         <div class="text-5xl">
           <i :class="item.icon" />
         </div>
-        <div class="font-bold font-display text-lg my-3">
+        <div class="font-bold font-display text-lg my-3 h-10">
           {{ item.title }}
         </div>
         <div class="text-sm font-body">
@@ -27,7 +27,7 @@
           {
             icon: 'far fa-check-circle',
             title: 'Sofort erhältlich',
-            content: 'LJetzt kaufen und gleich verschenken'
+            content: 'Jetzt kaufen und gleich verschenken'
           }, {
             icon: 'far fa-check-circle',
             title: 'Personalisierbar',
@@ -35,7 +35,7 @@
           }, {
             icon: 'far fa-check-circle',
             title: 'Stressfreies Einlösen',
-            content: 'Einfach Gutschein vorzeigen und Genießen'
+            content: 'Einfach Gutschein vorzeigen und genießen'
           }, {
             icon: 'far fa-check-circle',
             title: 'Vielseitig verwendbar',

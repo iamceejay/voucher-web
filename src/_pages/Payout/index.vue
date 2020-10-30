@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <Header1
-          label="Payout Management"
+          label="Auszahlungsmanagment"
         />
         <SearchInputField
           id="search-payout"
@@ -184,6 +184,7 @@
               title: 'Erfolgreich',
               text,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
 
           } catch (err) {
@@ -199,6 +200,7 @@
               title: 'Achtung! ',
               text,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }
         }
@@ -279,6 +281,7 @@
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   
@@ -313,6 +316,7 @@
                 title: 'Achtung! ',
                 text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   

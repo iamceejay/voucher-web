@@ -138,7 +138,7 @@
             title: '',
             value: voucher_used
           },{
-            type: 'gekaufte Gutscheine',
+            type: 'Abgeschlossene Bestellungen',
             title: '',
             value: `${vouchers_bought}`
           }

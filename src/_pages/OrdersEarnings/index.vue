@@ -109,12 +109,13 @@
             title: 'gesamt verkauft',
             value: voucher_total
           }, {
-            type: 'Umsatz',
+            type: 'Auszahlung',
             title: 'gesamt',
             value: `${this.$helpers.convertCurrency(total_seller_earnings)}`,
             extra: {
               title: 'Kommission:',
-              value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`
+              value: `${this.$helpers.convertCurrency(total_earnings_with_commission)}`,
+              help_text: 'inklusive 20% MwSt.'
             }
           }, {
             type: 'Auszahlung',

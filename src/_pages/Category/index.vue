@@ -140,6 +140,7 @@
               title: 'Erfolgreich!',
               text: 'Deleting the category.',
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }   
         })

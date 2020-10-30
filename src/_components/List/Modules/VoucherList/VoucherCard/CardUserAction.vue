@@ -17,10 +17,13 @@
         alt=""
       /> -->
       <div class="text-center text-xs font-semibold">
-        Gutscheinnummer
+        Gutschein
       </div>
       <div class="text-center text-xs font-semibold">
         {{ qr.url }}
+      </div>
+      <div v-if="order && order.voucher.seller.company.url" class="mt-4 text-xs text-center font-bold">
+        {{ order.voucher.seller.company.url }}
       </div>
     </div>
     <div class="flex flex-row w-full mt-4 h-12">
@@ -110,6 +113,7 @@
             title: 'Achtung!',
             text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns. ',
             confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
           })
         }
       },

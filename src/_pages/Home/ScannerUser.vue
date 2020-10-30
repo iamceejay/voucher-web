@@ -60,6 +60,7 @@
               title: 'Warnung!',
               text: err.response.data.message,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             })
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })

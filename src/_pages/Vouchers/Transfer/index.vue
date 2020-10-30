@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
-        <div class="flex flex-col">
+        <div class="flex flex-col mb-3">
           <Header1
             label="Gutschein übertragen"
           />
@@ -28,7 +28,10 @@
               />
               <div class="w-full md:w-1/2 self-center">
                 <p class="p-3 pb-0 text-center text-sm">
-                  Kopiere den Link in die Zwischenablage
+                  Um den Gutschein in die Wallet zu bekommen, muss der Empfänger bei epasnets registriert sein. Falls der Empfänger
+                </p>
+                <p class="p-3 pt-0 text-center text-sm">
+                  noch keinen Account bei epasnets hat, muss er zuerst einen Account erstellen, um den Gutschein zu erhalten.
                 </p>
               </div>
             </form>

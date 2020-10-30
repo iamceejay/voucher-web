@@ -96,6 +96,7 @@
               text: 'Adding new user.',
               allowOutsideClick: false,
               confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
             });
             this.$router.push('/scanner-users')
           } catch (err) {

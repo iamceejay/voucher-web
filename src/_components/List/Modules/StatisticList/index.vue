@@ -27,6 +27,9 @@
             <div v-if="row.extra" class="text-2xs">
               {{ row.extra.value || '' }}
             </div>
+            <div v-if="row.extra" class="text-2xs">
+              {{ row.extra.help_text || '' }}
+            </div>
           </div>
         </div>
       </div>

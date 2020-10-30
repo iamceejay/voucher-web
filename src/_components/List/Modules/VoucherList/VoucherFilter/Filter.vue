@@ -40,7 +40,7 @@
     <div class="flex flex-col md:flex-row">
       <MultipleCheckboxField
         v-if="isCategory"
-        label="Select kategorien: "
+        label="Wähle eine Kategorie: "
         class="mx-2 mr-5"
         style="margin-bottom: 5px;"
         name="categories"
@@ -49,7 +49,7 @@
       />
       <MultipleCheckboxField
         v-if="isRegion"
-        label="Select regions: "
+        label="Wähle eine Region: "
         class="mx-2 mr-5"
         style="margin-bottom: 5px;"
         name="regions"

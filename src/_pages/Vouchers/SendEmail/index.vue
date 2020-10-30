@@ -90,6 +90,7 @@
             title: 'Erfolgreich!',
             text: 'Gutschein via Email versenden.',
             confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
           });
           this.emailForm = {
             id: null,

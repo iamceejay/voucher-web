@@ -130,6 +130,7 @@
                 title: 'Erfolgreich!',
                 text: 'Reversing the order.',
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -144,6 +145,7 @@
                 title: 'Achtung! ',
                 text,
                 confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
               })
             }
           }   

@@ -21,7 +21,10 @@
         <div class="flex flex-row flex-wrap w-full">
           <div class="w-full md:w-1/2 mb-5">
             <div class="font-semibold text-xl text-gray-700 font-display">
-              Wähle eine Designvorlage oder lade selbst ein Hintergrundbild hoch
+              Wähle eine Designvorlage oder lade selbst ein Hintergrundbild im Hochformat hoch
+            </div>
+            <div class="font-semibold text-xs font-display text-gray-700 mx-2">
+              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein 
             </div>
             <div
               class="scroll-horizontal scroll flex"
@@ -65,6 +68,25 @@
               </div>
             </div>
           </div>
+          <div class="w-full mt-2 mb-5">
+            <div class="flex flex-row">
+              <div class="font-semibold text-xl text-gray-700 font-display">
+                Lesehilfe
+              </div>
+              <div class="tooltip ml-1 pt-1">
+                <i class="fas fa-info-circle text-base text-gray-700" />
+                <span class="tooltiptext">
+                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
+                </span>
+              </div>
+            </div>
+            <div class="w-full sm:w-1/2 md:mx-2 mt-2 mx-2">
+              <Chrome
+                v-model="chrome_color"
+                @input="onPickColor($event, 'background_aid')"
+              />
+            </div>
+          </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
             <toggle-button
               :key="`price-${form.price_hidden}`"
@@ -89,13 +111,13 @@
               v-model="form.note"
               class="px-2 w-full md:w-1/2"
               placeholder="Füge eine persönliche Nachricht hinzu"
-              rules="max:65"
+              rules="max:80"
               @input="onChangeForm"
             />
           </div>
           <div class="w-full md:w-1/2 mb-5">
             <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-              {{ `${ form.custom_image ? 'Aktualisieren' : 'Füge ein weitere Bild hinzu' }` }}
+              {{ `${ form.custom_image ? 'Aktualisieren' : 'Füge auf Wunsch ein weiteres Bild im Querformat hinzu' }` }}
               <div class="text-xs font-semibold">
                 Ideale Größe ist 250px x 100px
               </div>
@@ -132,25 +154,6 @@
               @select="onAddPicture($event)"
               @delete="onAddPicture($event)"
             />
-          </div>
-          <div class="w-full mt-2 mb-5">
-            <div class="flex flex-row">
-              <div class="font-semibold text-xl text-gray-700 font-display">
-                Lesehilfe
-              </div>
-              <div class="tooltip ml-1 pt-1">
-                <i class="fas fa-info-circle text-base text-gray-700" />
-                <span class="tooltiptext">
-                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
-                </span>
-              </div>
-            </div>
-            <div class="w-full sm:w-1/2 md:mx-2 mt-2 mx-2">
-              <Chrome
-                v-model="chrome_color"
-                @input="onPickColor($event, 'background_aid')"
-              />
-            </div>
           </div>
         </div>
         <Button
@@ -296,7 +299,7 @@
             showCancelButton: false,
             allowOutsideClick: false,
             confirmButtonColor: '#48BB78',
-            confirmButtonText: 'Confirm',
+            confirmButtonText: 'Bestätigen'
           }).then(async (result) => {
             if(result.value){
               location.reload();
