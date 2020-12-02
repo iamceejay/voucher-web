@@ -12,12 +12,11 @@
     >
       <template #label_>
         <div class="flex flex-row">
-          <Header5
-            label="Unternehmensname"
-          />
+          <Header5 label="Unternehmensname" />
           <div class="tooltip ml-1">
             <i
-              v-tippy class="fas fa-info-circle text-base text-gray-700"
+              v-tippy
+              class="fas fa-info-circle text-base text-gray-700"
               content="Teile uns hier deinen Firmennamen mit. Dieser Name wird auch auf der Rechnung bei einem Gutscheinverkauf angeführt."
             />
           </div>
@@ -36,20 +35,12 @@
     >
       <template #label_>
         <div class="flex flex-row">
-          <Header5
-            v-if="type == 'seller'"
-            label="Name auf Gutschein"
-          />
-          <Header5
-            v-if="type == 'user'"
-            label="Benutzername"
-          />
-          <div
-            v-if="type == 'seller'"
-            class="tooltip ml-1"
-          >
+          <Header5 v-if="type == 'seller'" label="Name auf Gutschein" />
+          <Header5 v-if="type == 'user'" label="Benutzername" />
+          <div v-if="type == 'seller'" class="tooltip ml-1">
             <i
-              v-tippy class="fas fa-info-circle text-base text-gray-700"
+              v-tippy
+              class="fas fa-info-circle text-base text-gray-700"
               content="Wähle einen Wunschnamen als Benutzername. Der Benutzername ist auf dem Gutschein ersichtlich und kann im Nachhinein nicht mehr geändert werden."
             />
           </div>
@@ -78,6 +69,15 @@
         @input="onChange"
       />
     </div>
+    <DatePicker
+      id="data"
+      v-model="form.bday"
+      label="Birth Date"
+      class="m-2"
+      :errorMessages="errorMessages.phone_number"
+      rules="required"
+      @input="onChange"
+    />
     <InputField
       v-if="type == 'seller'"
       id="address"
@@ -129,6 +129,83 @@
       rules="required"
       @input="onChange"
     />
+    <div
+      v-if="verification_front && verification_front != ''"
+      class="company-logo flex max-w-xs mx-2 w-full"
+    >
+      <img
+        style="width: 100%; height: auto;"
+        :src="onSetImage('set', verification_front)"
+        alt=""
+      />
+    </div>
+    <FileInputField
+      id="icon"
+      v-model="form.verification_front"
+      class="w-full m-2"
+      inputContainer="py-1 text-xs w-full md:w-2/5"
+      label="ID verification Front"
+      note="(Acceptable documents vary by country, although a passport scan is always acceptable and preferred.
+Scans of both the front and back are usually required for government-issued IDs and driver’s licenses.
+Files need to be JPEGs or PNGs smaller than 10MB. We can’t verify PDFs.
+Files should be in color, be rotated with the image right-side up, and have all information clearly legible.)"
+      :isMultiple="false"
+      accept=".jpeg,.png,.jpg"
+      rules="required"
+      :errorMessages="errorMessages.verification_front"
+      @input="(data) => onChangeLogo(data, 'verification_front')"
+    />
+
+    <div
+      v-if="verification_back && verification_back != ''"
+      class="company-logo flex max-w-xs mx-2 w-full"
+    >
+      <img
+        style="width: 100%; height: auto;"
+        :src="onSetImage('set', verification_back)"
+        alt=""
+      />
+    </div>
+    <FileInputField
+      id="icon"
+      v-model="form.verification_back"
+      class="w-full m-2"
+      inputContainer="py-1 text-xs w-full md:w-2/5"
+      label="ID verification Back"
+      note="(Acceptable documents vary by country, although a passport scan is always acceptable and preferred.
+Scans of both the front and back are usually required for government-issued IDs and driver’s licenses.
+Files need to be JPEGs or PNGs smaller than 10MB. We can’t verify PDFs.
+Files should be in color, be rotated with the image right-side up, and have all information clearly legible.)"
+      :isMultiple="false"
+      accept=".jpeg,.png,.jpg"
+      rules="required"
+      :errorMessages="errorMessages.verification_back"
+      @input="(data) => onChangeLogo(data, 'verification_back')"
+    />
+
+    <div
+      v-if="additional_identity && additional_identity != ''"
+      class="company-logo flex max-w-xs mx-2 w-full"
+    >
+      <img
+        style="width: 100%; height: auto;"
+        :src="onSetImage('set', additional_identity)"
+        alt=""
+      />
+    </div>
+    <FileInputField
+      id="icon"
+      v-model="form.additional_identity"
+      class="w-full m-2"
+      inputContainer="py-1 text-xs w-full md:w-2/5"
+      label="Additional Id Verification"
+      note="(A document showing address, either a passport, local ID card or utility bill from a well-known utility company.)"
+      :isMultiple="false"
+      accept=".jpeg,.png,.jpg"
+      rules="required"
+      :errorMessages="errorMessages.additional_identity"
+      @input="(data) => onChangeLogo(data, 'additional_identity')"
+    />
     <!-- <InputField
       id="password"
       v-model="form.password"
@@ -152,82 +229,114 @@
   </div>
 </template>
 <script>
-  import InputField from '_components/Form/InputField';
-  import Header5 from '_components/Headers/Header5';
+import InputField from '_components/Form/InputField';
+import Header5 from '_components/Headers/Header5';
+import DatePicker from '_components/Form/DatePickerField';
+import FileInputField from '_components/Form/FileInputField';
 
-  export default {
-    components: {
-      InputField,
-      Header5,
+export default {
+  components: {
+    InputField,
+    Header5,
+    DatePicker,
+    FileInputField,
+  },
+  props: {
+    type: {
+      type: String,
+      default: 'user',
     },
-    props: {
-      type: {
-        type: String,
-        default: 'user'
+    errorMessages: {
+      type: Array,
+      default() {
+        return [];
       },
-      errorMessages: {
-        type: Array,
-        default() {
-          return []
-        }
+    },
+    data: {
+      type: Object,
+      default() {
+        return null;
       },
-      data: {
-        type: Object,
-        default() {
-          return null
-        }
+    },
+  },
+  data() {
+    return {
+      verification_front: '',
+      verification_back: '',
+      additional_identity: '',
+      form: {
+        id: null,
+        username: '',
+        firstName: '',
+        lastName: '',
+        bday: '',
+        email: '',
+        address: '',
+        city: '',
+        zip_code: '',
+        phone_number: '',
+        verification_front: '',
+        verification_back: '',
+        additional_identity: '',
+        // password: '',
+        // confirmPassword: '',
+        company: {
+          name: '',
+          description: '',
+          url: '',
+          logo: '',
+          region: '',
+          vat_number: '',
+        },
+      },
+    };
+  },
+  watch: {
+    data(newVal) {
+      this.onSetForm();
+    },
+  },
+  mounted() {
+    this.onSetForm();
+  },
+  methods: {
+    onChange() {
+      this.$emit('onChange', this.form);
+    },
+    onSetForm() {
+      if (this.data) {
+        this.form = {
+          ...this.form,
+          ...this.data,
+        };
       }
     },
-    data() {
-      return {
-        form: {
-          id: null,
-          username: '',
-          firstName: '',
-          lastName: '',
-          email: '',
-          address: '',
-          city: '',
-          zip_code: '',
-          phone_number: '',
-          // password: '',
-          // confirmPassword: '',
-          company: {
-            name: '',
-            description: '',
-            url: '',
-            logo: '',
-            region: '',
-            vat_number: ''
-          }
-        }
+    onChangeLogo(data, field) {
+      console.log(field);
+      if (data.length > 0) {
+        let reader = new FileReader();
+        reader.readAsDataURL(data[0]);
+        reader.onload = () => {
+          this.form[field] = data[0];
+          this[field] = reader.result;
+          this.onChange();
+        };
+      } else {
+        this[field] = '';
+        this.onChange();
       }
     },
-    watch: {
-      data(newVal)
-      {
-        this.onSetForm()
+    onSetImage(action, value) {
+      if (action == 'set') {
+        return value.search('base64') < 0
+          ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}`
+          : value;
+      } else {
+        this.form.verification_front = '';
+        this.logo = '';
       }
     },
-    mounted() {
-      this.onSetForm()
-    },
-    methods: {
-      onChange()
-      {
-        this.$emit('onChange', this.form)
-      },
-      onSetForm()
-      {
-        if( this.data ) {
-          this.form = {
-            ...this.form,
-            ...this.data
-          }
-        }
-      },
-    }
-  }
+  },
+};
 </script>
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>
