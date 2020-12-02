@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
         <ValidationObserver v-slot="{ handleSubmit }">
-          <form 
+          <form
             class="w-full flex flex-col"
             @submit.prevent="handleSubmit(onSubmit)"
           >
@@ -18,7 +18,7 @@
                 />
               </div>
               <div
-                v-if="AUTH_USER.role.name == 'seller'" 
+                v-if="AUTH_USER.role.name == 'seller'"
                 class="w-full md:w-1/2 order-2 md:order-3 mt-5"
               >
                 <Header2 label="Company Info" />
@@ -29,7 +29,7 @@
                 />
               </div>
               <div
-                v-if="AUTH_USER.role.name == 'seller'" 
+                v-if="AUTH_USER.role.name == 'seller'"
                 class="w-full md:w-1/2 order-3 md:order-2 mt-5"
               >
                 <Header2 label="Auszahlungsinfo" />
@@ -130,7 +130,7 @@
           if( this.AUTH_USER.role.name == 'seller' ) {
             if( this.form?.company?.region_id ) {
               this.form.company.region = this.form.company.region_id.label
-              delete this.form.company.region_id; 
+              delete this.form.company.region_id;
             }
           }
           const data = await this.$store.dispatch('UPDATE_USER', this.form)
@@ -179,10 +179,11 @@
             phone_number: user.detail.phone_number,
             iban: user.detail.iban,
             bic: user.detail.bic,
+            bday: user.detail.bday,
             company: null
           }
 
-          
+
           if( this.AUTH_USER.role.name == 'seller' ) {
             const region = this.REGIONS.filter( row => user.company.region == row.label)
             params = {
