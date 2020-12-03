@@ -297,6 +297,9 @@ export default {
   },
   mounted() {
     this.onSetForm();
+    this.verification_front = this.form.verification_front
+    this.verification_back = this.form.verification_back
+    this.additional_identity = this.form.additional_identity
   },
   methods: {
     onChange() {
@@ -312,7 +315,6 @@ export default {
     },
     onChangeLogo(data, field)
     {
-      console.log(field)
       if(data.length > 0) {
         let reader = new FileReader();
         reader.readAsDataURL(data[0]);

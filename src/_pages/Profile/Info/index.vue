@@ -147,6 +147,17 @@
             this.$router.push('/home')
           }, 1000)
         } catch (err) {
+          console.log(err.response)
+
+          if( err?.response?.status == 500 && err?.response?.data?.message.indexOf('account is verified') != -1 ) {
+            this.$swal({
+              icon: 'warning',
+              title: 'Achtung!',
+              text: 'You cannot change verification file if an account is verified',
+              confirmButtonColor: '#48BB78',
+            })
+          }
+
           if( err?.response?.status == 422 ) {
             this.errorMessages = err.response.data.errors
           }
@@ -179,8 +190,11 @@
             phone_number: user.detail.phone_number,
             iban: user.detail.iban,
             bic: user.detail.bic,
-            bday: user.detail.bday,
-            company: null
+            bday: user.bday,
+            company: null,
+            verification_front: user.front_verification_image,
+            verification_back: user.back_verification_image,
+            additional_identity: user.additional_verification_image,
           }
 
 
