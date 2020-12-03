@@ -302,6 +302,9 @@ export default {
   },
   mounted() {
     this.onSetForm();
+    this.verification_front = this.form.verification_front
+    this.verification_back = this.form.verification_back
+    this.additional_identity = this.form.additional_identity
   },
   methods: {
     onChange() {
