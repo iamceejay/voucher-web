@@ -12,14 +12,15 @@
       listId="featured-voucher-list"
     />
     <CategoryList
+      id="categories"
       class="content-container mb-3 py-6 px-8"
       title="Kategorien"
       :data="CATEGORIES"
     />
     <GuestSellerContent />
     <VoucherList
-      class="content-container mb-3 py-6 px-8"
-      title="Gutscheine entdecken"
+      class="content-container mb-3 pb-6 px-8 py-12"
+      title=""
       :data="VOUCHERS.data"
       sortLabel="Sortieren nach:"
       :withSort="true"
@@ -39,7 +40,7 @@
         <div class="modal-content py-4 text-left px-6">
           <div class="flex justify-between items-center pb-3">
             <p class="text-xl font-bold">
-              Schön dich bei epasnets zusehen! 
+              Schön dich bei epasnets zusehen!
             </p>
             <div class="modal-close cursor-pointer z-50" @click="showAnnouncement = false">
               <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -138,9 +139,16 @@
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
+
       })()
 
-      setTimeout(() => this.showAnnouncement = true, 3000)
+      setTimeout(() => {
+        this.showAnnouncement = true
+        if (location.hash == '#categories') {
+          var elmnt = document.getElementById("categories");
+          elmnt.scrollIntoView();
+        }
+      }, 3000)
     },
     beforeDestroy () {
       (async() => {

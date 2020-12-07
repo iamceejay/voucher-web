@@ -1,12 +1,13 @@
 <template>
   <div class="w-full flex flex-col">
-    <Header4 
+    <Header4
       v-if="filterLabel != ''"
       class="px-1"
       :label="filterLabel"
     />
     <div class="flex flex-row">
       <Button
+        v-if="hasCategory"
         :key="`isCategory-${isCategory}`"
         class="py-2 px-1 w-full md:w-40"
         label="Kategorie"
@@ -61,7 +62,7 @@
         class="flex flex-col mb-2 mr-5"
       >
         <ValidationObserver v-slot="{ handleSubmit, invalid }">
-          <form 
+          <form
             class="flex flex-col"
             @submit.prevent="handleSubmit(onFilterPrice(invalid))"
           >
@@ -129,6 +130,10 @@
       filterLabel: {
         type: String,
         default: ''
+      },
+      hasCategory: {
+        type: Boolean,
+        default: true
       }
       // , isRegion: {
       //   type: Boolean,

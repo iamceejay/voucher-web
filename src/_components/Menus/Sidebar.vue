@@ -2,9 +2,9 @@
   <div
     class="sidebar-container sm:hidden flex flex-col min-h-screen clearfix h-full"
   >
-    <!-- <a 
-      href="javascript:void(0)" 
-      :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
+    <!-- <a
+      href="javascript:void(0)"
+      :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`"
       @click="onHideSidebar()"
     >
       <i class="fas fa-bars text-base text-2xl text-gray-900" />
@@ -18,10 +18,10 @@
       <div class="h-24 justify-center items-center text-2xl font-bold flex font-display">
         <img
           class="logo"
-          src="@/_assets/img/logo.png" 
+          src="@/_assets/img/logo.png"
           alt=""
         />
-        <!-- Hi {{ 
+        <!-- Hi {{
           (AUTH_USER.role && AUTH_USER.data) && (
             AUTH_USER.role.name === 'seller'
               ? 'Company'
@@ -32,7 +32,7 @@
         }}! -->
       </div>
       <ul class="list-reset scroll">
-        <li 
+        <li
           v-for="(menu, index) in menus"
           :key="`menu-${index}`"
           :class="`border-t block flex flex-col text-black font-semibold font-body cursor-pointer ${ menu.borderB && 'border-b' }`"
@@ -40,13 +40,13 @@
         >
           <div class="flex flex-row pl-5 py-2">
             {{ menu.title }}
-            <span 
+            <span
               v-if="menu.child"
               class="ml-auto mr-3"
             >
               <i
                 :id="`dropdown-${index}`"
-                class="fas fa-caret-down text-base" 
+                class="fas fa-caret-down text-base"
               />
             </span>
           </div>
@@ -54,7 +54,7 @@
             v-if="menu.child && menu.isChildShow"
             class="list-reset scroll"
           >
-            <li 
+            <li
               v-for="(child, cIndex) in menu.child"
               :key="`child-${cIndex}`"
               class="border-t py-2 pl-5 block flex text-black font-semibold font-body cursor-pointer"
@@ -64,7 +64,7 @@
             </li>
           </ul>
         </li>
-        <li 
+        <li
           v-if="AUTH_USER.isAuth"
           class="border-t py-2 border-b cursor-pointer"
           @click="onLogout()"
@@ -72,7 +72,7 @@
           <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
             <div
               v-if="isLoggingOut"
-              class="sm-spinner m-auto" 
+              class="sm-spinner m-auto"
             />
             <span v-else>
               Ausloggen
@@ -178,7 +178,7 @@
                     }, {
                       title: 'Gesponserte Gutscheine',
                       link: '/featured-vouchers'
-                    }, 
+                    },
                   ],
                 },
                 {
@@ -206,7 +206,7 @@
                     }, {
                       title: 'Scanner Profil',
                       link: '/scanner-users'
-                    }, 
+                    },
                   ],
                 },  {
                   title: 'Verwalten',
@@ -276,13 +276,19 @@
               title: 'Home',
               link: '/home'
             }, {
+              title: 'Meine Wallet',
+              link: '#wallet',
+            }, {
+              title: 'Kategorien',
+              link: '#categories',
+            }, {
               title: 'Login',
               link: '/login',
             }, {
               title: 'Registrieren',
               link: '/register/buyer',
               borderB: true,
-            }, 
+            },
           ]
         }
       },
@@ -296,6 +302,20 @@
       onSelectMenu(menu, index)
       {
         if(!menu.child) {
+          if (!this.AUTH_USER.isAuth && menu.link == '#categories') {
+            window.location.replace('/#categories')
+            location.reload()
+            return
+          }
+
+          if (!this.AUTH_USER.isAuth && menu.link == '#wallet') {
+            this.$parent.$refs.header.hideSidebar = true
+            this.$parent.$refs.header.showWallet = true
+            this.hideSidebar = true;
+            this.$emit('onHide', this.hideSidebar)
+            return
+          }
+
           if( this.$route.path != menu.link ) {
             this.$router.push(menu.link)
           }

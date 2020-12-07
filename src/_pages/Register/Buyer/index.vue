@@ -1,21 +1,18 @@
 <template>
   <MainLayout>
     <template #content>
-      <ValidationObserver 
+      <ValidationObserver
         v-slot="{ handleSubmit }"
         class="content-container flex flex-col w-full h-full px-8"
       >
-        <form 
+        <form
           class="w-full flex flex-col"
           @submit.prevent="handleSubmit(onSubmit)"
         >
           <Header1
-            label="Willkommen!"
+            label="Registriere dish kostenlos als Käufer"
           />
-          <p>
-            Wir freuen uns, dass du dich für unsere Plattform registrieren willst! <br />
-            Fülle einfach das kurze Formular aus und schon bist du für epasnets registriert. 
-          </p>
+
           <div class="flex flex-col w-full md:w-1/2 my-5">
             <ProfileForm
               type="user"
@@ -35,9 +32,9 @@
               <template #labelSentence_>
                 <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
                   Ich akzeptiere die
-                  <a 
-                    class="text-blue-700" 
-                    href="https://verkaufen.epasnets.com/datenschutz" 
+                  <a
+                    class="text-blue-700"
+                    href="https://verkaufen.epasnets.com/datenschutz"
                     target="_blank"
                   >
                     Datenschutzerklärung.
@@ -55,9 +52,9 @@
               <template #labelSentence_>
                 <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
                   Ich akzeptiere die
-                  <a 
-                    class="text-blue-700" 
-                    href="https://verkaufen.epasnets.com/agb" 
+                  <a
+                    class="text-blue-700"
+                    href="https://verkaufen.epasnets.com/agb"
                     target="_blank"
                   >
                     Nutzungsbedingungen.
@@ -67,7 +64,7 @@
             </CheckboxField>
             <div class="mx-2 text-sm px-2">
               <p>
-                Du willst lieber Gutscheine verkaufen? 
+                Du willst lieber Gutscheine verkaufen?
                 <a
                   class="text-peach font-bold"
                   href="http://verkaufen.epasnets.com/"
