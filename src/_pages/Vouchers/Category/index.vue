@@ -129,11 +129,13 @@
           ? {
             ...this.params,
             ...data,
-            page: 1
+            page: 1,
+            isCategory: [ this.CATEGORY.name ]
           }
           : {
             ...this.params,
-            page: 1
+            page: 1,
+            isCategory: [ this.CATEGORY.name ]
           }
         await this.$store.commit('SET_VOUCHERS', [])
         await this.onLoadData(params)
