@@ -9,9 +9,8 @@
           class="w-full flex flex-col"
           @submit.prevent="handleSubmit(onSubmit)"
         >
-          <Header1
-            label="Registriere dish kostenlos als Käufer"
-          />
+
+          <div class="font-bold py-2 text-2xl md:text-4xl font-display mb-1 text-gray-900"> Registriere dich kostenlos als Käufer </div>
 
           <div class="flex flex-col w-full md:w-1/2 my-5">
             <ProfileForm

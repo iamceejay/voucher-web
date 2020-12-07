@@ -1,10 +1,10 @@
 <template>
   <div class="bg-peach">
-    <div class="content-container flex flex-wrap sm:flex-row items-center">
+    <div class="content-container grid grid-cols-2 lg:grid-cols-4">
       <div
         v-for="(item, index) in items"
         :key="`item-${index}`"
-        class="content-item w-1/2 md:w-1/2 lg:w-1/5"
+        class="content-item"
       >
         <div class="text-5xl">
           <i :class="item.icon" />

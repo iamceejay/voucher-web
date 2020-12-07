@@ -280,7 +280,7 @@
               link: '#wallet',
             }, {
               title: 'Kategorien',
-              link: '#categories',
+              link: '/vouchers/category/1',
             }, {
               title: 'Login',
               link: '/login',
@@ -302,12 +302,6 @@
       onSelectMenu(menu, index)
       {
         if(!menu.child) {
-          if (!this.AUTH_USER.isAuth && menu.link == '#categories') {
-            window.location.replace('/#categories')
-            location.reload()
-            return
-          }
-
           if (!this.AUTH_USER.isAuth && menu.link == '#wallet') {
             this.$parent.$refs.header.hideSidebar = true
             this.$parent.$refs.header.showWallet = true

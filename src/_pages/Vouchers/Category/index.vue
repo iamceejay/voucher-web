@@ -16,7 +16,7 @@
         />
         <VoucherList
           class="mb-3"
-          title="Neueste"
+          title=""
           :data="VOUCHERS.data"
           sortLabel="Sortieren nach:"
           :withSort="true"
@@ -50,7 +50,9 @@
         params: {
           page: 1,
           paginate: 5,
-          isCategory: null,
+          isNewest: true,
+          isLowestPrice: false,
+          isMostPopular: false,
         }
       }
     },
@@ -111,6 +113,8 @@
         await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_NEWEST_VOUCHERS', [])
+        await this.$store.commit('SET_VOUCHERS', [])
+
         await this.onFetchData()
       })()
     },
@@ -129,13 +133,11 @@
           ? {
             ...this.params,
             ...data,
-            page: 1,
-            isCategory: [ this.CATEGORY.name ]
+            page: 1
           }
           : {
             ...this.params,
-            page: 1,
-            isCategory: [ this.CATEGORY.name ]
+            page: 1
           }
         await this.$store.commit('SET_VOUCHERS', [])
         await this.onLoadData(params)
@@ -157,7 +159,8 @@
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         this.params = {
           ...this.params,
-          ...data
+          ...data,
+          isCategory: [ this.CATEGORY.name ]
         }
         await this.onFetchNewestVouchers()
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
@@ -175,6 +178,7 @@
       async onFetchNewestVouchers()
       {
         try {
+          await this.$store.commit('SET_VOUCHERS', [])
           const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
