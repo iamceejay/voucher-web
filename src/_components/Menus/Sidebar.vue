@@ -305,6 +305,7 @@
           if (!this.AUTH_USER.isAuth && menu.link == '#wallet') {
             this.$parent.$refs.header.hideSidebar = true
             this.$parent.$refs.header.showWallet = true
+            this.$parent.$refs.header.isRegisterPop = false
             this.hideSidebar = true;
             this.$emit('onHide', this.hideSidebar)
             return
