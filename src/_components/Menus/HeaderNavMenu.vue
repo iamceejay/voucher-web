@@ -16,6 +16,7 @@
         />
       </div>
         <a
+           v-if="!AUTH_USER.isAuth"
           href="javascript:void(0)"
           :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
           @click="$router.push('/register/buyer')"
