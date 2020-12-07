@@ -17,9 +17,17 @@
         <VoucherList
           class="mb-3"
           title="Neueste"
-          :data="NEWEST_VOUCHERS.data"
+          :data="VOUCHERS.data"
+          sortLabel="Sortieren nach:"
+          :withSort="true"
+          filterLabel="Filtern nach:"
+          :withFilter="true"
           :withQR="false"
-          listId="newest-voucher-list"
+          listId="search-voucher-list"
+          :hasCategory="false"
+          @onChange="onLoadData"
+          @onFilter="onSearchData($event, 'filter')"
+          @onSort="onSearchData($event, 'sort')"
         />
       </div>
     </template>
@@ -112,6 +120,24 @@
       })()
     },
     methods: {
+       async onSearchData( data = null, action )
+      {
+        if ( action == 'sort' ) {
+          this.params.keyword = ''
+        }
+        let params = ( action == 'sort' || action == 'filter' )
+          ? {
+            ...this.params,
+            ...data,
+            page: 1
+          }
+          : {
+            ...this.params,
+            page: 1
+          }
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.onLoadData(params)
+      },
       async onFetchData()
       {
         try {
@@ -147,7 +173,7 @@
       async onFetchNewestVouchers()
       {
         try {
-          const data = await this.$store.dispatch('FETCH_NEWEST_VOUCHERS', this.params)
+          const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }

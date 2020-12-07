@@ -1,7 +1,7 @@
 <template>
   <div id="input-field-component" class="mb-5 w-full">
-    <ValidationProvider 
-      :name="id" 
+    <ValidationProvider
+      :name="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -9,18 +9,19 @@
           v-if="label != ''"
           :label="label"
         />
-        <div class="w-full flex flex-row relative">
+        <div class="w-full flex flex-row relative mt-2">
           <input
             :id="id"
             ref="inputField"
             v-model="keyword"
             :name="id"
             :type="type"
-            class="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold font-body"
+            class="input-field py-2 pl-10 px-3 rounded-full text-sm font-semibold font-body"
             :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
             :value="value"
             :placeholder="placeholder"
           />
+          <a href="/vouchers/search" class="absolute bg-peach px-2 sm:px-8 py-1 py-2 right-0 rounded-full text-white">Suchen</a>
           <span class="search-icon">
             <i class="fas fa-search" />
           </span>
@@ -105,7 +106,7 @@
 <style lang='css' scoped>
   .search-icon {
     position: absolute;
-    right: 0;
-    padding: 15px;
+    left: 0;
+    padding: 9px 15px;
   }
 </style>

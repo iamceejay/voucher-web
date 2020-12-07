@@ -4,19 +4,20 @@
     :key="`v-list-${listIndex}`"
     class="flex flex-col w-full"
   >
-    <Header2 
+    <Header2
       v-if="title != ''"
       :label="title"
     />
-    <VoucherFilter 
+    <VoucherFilter
       v-if="withFilter"
       :filterLabel="filterLabel"
       :isCategory="params.isCategory"
       :isRegion="params.isRegion"
       :isPrice="params.isPrice"
+      :hasCategory="hasCategory"
       @onFilter="onFilter"
     />
-    <VoucherSort 
+    <VoucherSort
       v-if="withSort"
       :sortLabel="sortLabel"
       :isNewest="params.isNewest"
@@ -24,7 +25,7 @@
       :isLowestPrice="params.isLowestPrice"
       @onFilter="onSort"
     />
-    <div 
+    <div
       v-if="type === 'standard'"
       :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'flex flex-wrap justify-center sm:justify-start' }`"
     >
@@ -41,7 +42,7 @@
         Keine Daten gefunden.
       </div>
     </div>
-    <div 
+    <div
       v-if="type === 'feature'"
       class="w-full"
     >
@@ -53,13 +54,13 @@
         class="w-full relative flex self-center"
       >
         <button
-          class="slider-icon slider-icon-left md:visible"
+          class="slider-icon slider-icon-left visible"
           @click="onSlideTo('slidePre')"
         >
           <i class="fas fa-chevron-circle-left" />
         </button>
         <button
-          class="slider-icon slider-icon-right md:visible"
+          class="slider-icon slider-icon-right visible"
           @click="onSlideTo('slideNext')"
         >
           <i class="fas fa-chevron-circle-right" />
@@ -139,6 +140,10 @@
       }, isInline: {
         type: Boolean,
         default: false
+      },
+      hasCategory: {
+        type: Boolean,
+        default: true
       }
     },
     data() {

@@ -1,9 +1,9 @@
 <template>
   <div class="content-container w-full flex flex-row nav-container">
     <div class="flex self-center nav-logo">
-      <a 
-        href="javascript:void(0)" 
-        :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`" 
+      <a
+        href="javascript:void(0)"
+        :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
         @click="onHideSidebar()"
       >
         <i class="fas fa-bars text-base text-lg text-gray-900" />
@@ -11,30 +11,37 @@
       <div class="flex self-center justify-center ml-12 w-full">
         <img
           class="self-center"
-          src="@/_assets/img/logo.png" 
+          src="@/_assets/img/logo.png"
           alt=""
         />
       </div>
+        <a
+          href="javascript:void(0)"
+          :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
+          @click="$router.push('/register/buyer')"
+        >
+          <i class="fa fa-user text-lg text-gray-900" />
+        </a>
       <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
     </div>
-    <div class="hidden sm:flex flex-row self-center nav-menu">
-      <a 
+    <div class="hidden sm:flex flex-row self-center nav-menu" v-if="AUTH_USER.isAuth">
+      <a
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
-        href="javascript:void(0)" 
+        href="javascript:void(0)"
         class="menu-item font-bold font-display"
         @click="onSelectMenu(menu, index)"
       >
         <span class="hover:text-peach">
           {{ menu.title }}
         </span>
-        <span 
+        <span
           v-if="menu.child"
           class="ml-3"
         >
           <i
             :id="`dropdown-${index}`"
-            class="fas fa-caret-down text-base" 
+            class="fas fa-caret-down text-base"
           />
         </span>
         <div
@@ -54,14 +61,36 @@
       </a>
       <a
         v-if="AUTH_USER.isAuth"
-        href="javascript:void(0)" 
-        class="menu-item font-bold font-display hover:text-peach" 
+        href="javascript:void(0)"
+        class="menu-item font-bold font-display hover:text-peach"
         @click="onLogout()"
       >
         Ausloggen
       </a>
     </div>
-    <router-link 
+    <div class="flex-row hidden justify-between nav-menu self-center sm:flex w-full" v-else>
+      <span>
+        <a href="/home" class="menu-item font-bold font-display hover:text-peach">Home</a>
+        <a
+        href="javascript:void(0)"
+        @click="showWallet = true"
+        class="menu-item font-bold font-display hover:text-peach"
+        >Meine Wallet</a>
+        <a href="javascript:void(0)" @click="$router.push('vouchers/category/1')" class="menu-item font-bold font-display hover:text-peach">Kategorien</a>
+      </span>
+      <span>
+        <a
+          v-for="(menu, index) in menus.slice(3)"
+          :key="`menu-${index}`"
+          :href="menu.link"
+          class="menu-item font-bold font-display hover:text-peach"
+        >
+            {{ menu.title }}
+        </a>
+      </span>
+
+    </div>
+    <router-link
       v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
       class="cart-icon relative self-center"
       to="/cart"
@@ -71,6 +100,46 @@
       </div>
       <i class="fas fa-shopping-cart text-base text-lg" />
     </router-link>
+
+    <div v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center" :class="showWallet ? 'modal-active' : ''">
+      <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" @click="showWallet = false"></div>
+      <div class="bg-white md:max-w-2xl modal-container mx-auto overflow-y-auto rounded shadow-lg w-11/12 z-50">
+        <div class="modal-content text-left">
+          <div class="p-6 bg-gray-200">
+            <div class="flex justify-between items-center pb-3">
+              <p class="font-bold text-center text-2xl w-full">
+                Erhalte Zugriff zu deiner eigenen Wallet
+              </p>
+              <div class="modal-close cursor-pointer z-50" @click="showWallet = false">
+                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                </svg>
+              </div>
+            </div>
+            <p class="text-center">In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken</p>
+          </div>
+          <div class="flex flex-col grid-template py-16 sm:grid">
+            <div class="flex flex-col p-6 justify-between">
+              <p class="font-bold text-2xl mx-6">Registriere dish kostenlos als Kaufer</p>
+                <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 text-lg text-white text-center">Registrieren</a>
+            </div>
+            <div class="wrapper hidden sm:block">
+              <div class="line"></div>
+              <div class="wordwrapper">
+                  <div class="word">oder</div>
+              </div>
+            </div>
+            <div id="oder" class="block sm:hidden mt-10">
+              <span>oder</span>
+            </div>​
+            <div class="flex flex-col p-6 justify-between">
+              <p class="font-bold text-2xl mx-6">Melde dich als Kaufer</p>
+                <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 text-lg text-white text-center">Anmelden</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -83,7 +152,8 @@
         hideSidebar: true,
         apiBaseURL: '',
         window_width: 0,
-        menus: []
+        menus: [],
+        showWallet: false
       }
     },
     computed: {
@@ -98,7 +168,7 @@
       COUNT_CART()
       {
         return this.$store.getters.COUNT_CART
-      }, 
+      },
     },
     watch: {
       async AUTH_USER(newVal, oldVal)
@@ -172,7 +242,7 @@
                     }, {
                       title: 'Gesponserte Gutscheine',
                       link: '/featured-vouchers'
-                    }, 
+                    },
                   ],
                 },
                 {
@@ -200,7 +270,7 @@
                     }, {
                       title: 'Scanner Profil',
                       link: '/scanner-users'
-                    }, 
+                    },
                   ],
                 },  {
                   title: 'Verwalten',
@@ -270,13 +340,19 @@
               title: 'Home',
               link: '/home'
             }, {
+              title: 'Meine Wallet',
+              link: '',
+            }, {
+              title: 'Kategorien',
+              link: '#categories',
+            },  {
               title: 'Login',
               link: '/login',
             }, {
               title: 'Registrieren',
               link: '/register/buyer',
               borderB: true,
-            }, 
+            },
           ]
         }
       },
@@ -423,7 +499,63 @@
       width: 100px;
       height: auto;
       /* margin: 0 auto; */
-      
+
     }
+  }
+
+  #oder {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    line-height: 0.1em;
+
+    span {
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 15px;
+      background: #fff;
+    }
+  }
+  .grid-template {
+    grid-template-columns: 1fr 20px 1px 1fr;
+  }
+
+  .wrapper {
+    position: relative;
+    margin: 10px;
+  }
+
+  .line {
+      position: absolute;
+      left: 49%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #ccc;
+      z-index: 1;
+  }
+
+  .wordwrapper {
+      text-align: center;
+      height: 12px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      margin-top: -12px;
+      z-index: 2;
+  }
+
+  .word {
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px;
+      font: bold 12px arial,sans-serif;
+      background: #fff;
+      margin-left: -24px;
+      width: 50px;
+      z-index: 999;
   }
 </style>
