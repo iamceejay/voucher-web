@@ -405,7 +405,7 @@
       onSelectMenu(menu, index)
       {
 
-        if (index == 1 && !this.AUTH_USER.isAuth) {
+        if (menu.title == 'Meine Wallet' && !this.AUTH_USER.isAuth) {
           this.showWallet = true;
         }
 

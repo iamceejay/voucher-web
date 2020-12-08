@@ -89,12 +89,29 @@
       {
         return this.$store.getters.IS_LOAD_MORE
       },
+      IS_PROCESSING()
+      {
+        return this.$store.getters.IS_PROCESSING
+      },
+      IS_INFINITE_LOAD()
+      {
+        return this.$store.getters.IS_INFINITE_LOAD
+      },
     },
     watch: {
       async '$route.params.id'()
       {
         await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_NEWEST_VOUCHERS', [])
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        this.params = {
+          page: 1,
+          paginate: 5,
+          isNewest: true,
+          isLowestPrice: false,
+          isMostPopular: false,
+        }
         await this.onFetchData()
       },
       async IS_LOAD_MORE(newVal)
@@ -178,7 +195,7 @@
       async onFetchNewestVouchers()
       {
         try {
-          await this.$store.commit('SET_VOUCHERS', [])
+
           const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)

@@ -323,6 +323,9 @@
 
           if( this.$route.path != menu.link ) {
             this.$router.push(menu.link)
+            this.$parent.$refs.header.hideSidebar = true
+            this.hideSidebar = true;
+            this.$emit('onHide', this.hideSidebar)
           }
           // this.onHideSidebar()
         } else {
