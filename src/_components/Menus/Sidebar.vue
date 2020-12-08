@@ -125,6 +125,7 @@
     methods: {
       async onFetchData()
       {
+        await this.$store.dispatch('FETCH_CATEGORIES')
         await this.onSetMenusByRole()
       },
       onSetMenusByRole()
