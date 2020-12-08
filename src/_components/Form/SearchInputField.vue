@@ -21,7 +21,7 @@
             :value="value"
             :placeholder="placeholder"
           />
-          <a href="/vouchers/search" class="absolute bg-peach px-2 sm:px-8 py-1 py-2 right-0 rounded-full text-white">Suchen</a>
+          <a href="javascript:void(0)" @click="onSearch" class="absolute bg-peach px-2 sm:px-8 py-1 py-2 right-0 rounded-full text-white">Suchen</a>
           <span class="search-icon">
             <i class="fas fa-search" />
           </span>
@@ -99,6 +99,13 @@
         //   }, 3000);
         // });
         // this.$emit('input', this.$refs.inputField.value);
+      },
+      onSearch() {
+        if (this.$route.name == 'vouchers-search') {
+          this.$emit('input', this.keyword)
+        } else {
+          this.$router.push('vouchers/search')
+        }
       }
     }
   }

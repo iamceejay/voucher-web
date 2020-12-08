@@ -271,6 +271,13 @@
               break;
           }
         } else {
+          const categories = this.CATEGORIES.map( categ => {
+              return {
+                title: categ.name,
+                link: `/vouchers/category/${categ.id}`
+              }
+            })
+
           this.menus = [
             {
               title: 'Home',
@@ -280,7 +287,9 @@
               link: '#wallet',
             }, {
               title: 'Kategorien',
-              link: '/vouchers/category/1',
+              link: '',
+              child: categories,
+              isChildShow: false
             }, {
               title: 'Login',
               link: '/login',

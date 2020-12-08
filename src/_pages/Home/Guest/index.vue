@@ -143,7 +143,7 @@
       })()
 
       setTimeout(() => {
-        this.showAnnouncement = true
+        this.showAnnouncement = false
         if (location.hash == '#categories') {
           var elmnt = document.getElementById("categories");
           elmnt.scrollIntoView();

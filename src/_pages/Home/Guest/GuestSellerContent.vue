@@ -1,11 +1,11 @@
 <template>
   <div style="background: linear-gradient(90deg, #ff5563 50%, #edf2f7 50%);">
     <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center bg-gray-200">
-      <div class="flex flex-col w-full md:w-1/5 lg:w-2/6 text-white bg-peach px-6 py-12 ">
-        <div class="font-bold font-display text-3xl mb-4 text-center md:text-left">
+      <div class="flex flex-col w-full lg:w-2/6 text-white bg-peach px-6 py-12 ">
+        <div class="font-bold font-display text-3xl mb-4 text-center lg:text-left">
           Werde Partner und verkaufe deine Gutscheine
         </div>
-        <div class="flex justify-center md:justify-start w-full">
+        <div class="flex justify-center lg:justify-start w-full">
           <a
             class="bg-white mt-2 py-1 py-3 rounded text-black text-center w-64"
             href="https://verkaufen.epasnets.com/"

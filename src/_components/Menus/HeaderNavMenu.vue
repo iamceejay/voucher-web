@@ -71,13 +71,40 @@
     </div>
     <div class="flex-row hidden justify-between nav-menu self-center sm:flex w-full" v-else>
       <span>
-        <a href="/home" class="menu-item font-bold font-display hover:text-peach">Home</a>
         <a
-        href="javascript:void(0)"
-        @click="showWallet = true"
-        class="menu-item font-bold font-display hover:text-peach"
-        >Meine Wallet</a>
-        <a href="javascript:void(0)" @click="$router.push('vouchers/category/1')" class="menu-item font-bold font-display hover:text-peach">Kategorien</a>
+          v-for="(menu, index) in menus.slice(0, 3)"
+          :key="`menu-${index}`"
+          href="javascript:void(0)"
+          class="menu-item font-bold font-display"
+          @click="onSelectMenu(menu, index)"
+        >
+          <span class="hover:text-peach">
+            {{ menu.title }}
+          </span>
+          <span
+            v-if="menu.child"
+            class="ml-3"
+          >
+            <i
+              :id="`dropdown-${index}`"
+              class="fas fa-caret-down text-base"
+            />
+          </span>
+          <div
+            v-if="menu.child && menu.isChildShow"
+            class="dropdown-menu flex flex-col left-0"
+          >
+            <a
+              v-for="(child, cIndex) in menu.child"
+              :key="`child-${cIndex}`"
+              href="javascript:void(0)"
+              class="dropdown-item font-bold font-display"
+              @click="onSelectMenu(child, cIndex)"
+            >
+              {{ child.title }}
+            </a>
+          </div>
+        </a>
       </span>
       <span>
         <a
@@ -111,19 +138,18 @@
               <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
             </svg>
           </div>
-          <div class="p-6 bg-gray-200" v-if="!isRegisterPop">
+          <div class="p-4 sm:p-6 bg-gray-200" v-if="!isRegisterPop">
             <div class="flex justify-between items-center pb-3">
-              <p class="font-bold text-center text-2xl w-full">
+              <p class="font-bold text-center text-lg sm:text-2xl w-full">
                 Erhalte Zugriff zu deiner eigenen Wallet
               </p>
-
             </div>
             <p class="text-center">In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken</p>
           </div>
-          <div class="flex flex-col grid-template py-16 sm:grid">
-            <div class="flex flex-col p-6 justify-between">
-              <p class="font-bold text-2xl mx-6">Registriere dich kostenlos als Käufer</p>
-                <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 text-lg text-white text-center">Registrieren</a>
+          <div class="flex flex-col grid-template py-4 sm:grid">
+            <div class="flex flex-col p-4 sm:p-6 justify-between">
+              <p class="font-bold text-lg sm:text-2xl mx-6">Registriere dich kostenlos als Käufer</p>
+                <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
             </div>
             <div class="wrapper hidden sm:block">
               <div class="line"></div>
@@ -135,8 +161,8 @@
               <span class="bg-white px-3">oder</span>
             </div>​
             <div class="flex flex-col p-6 justify-between">
-              <p class="font-bold text-2xl mx-6">Melde dich als Käufer</p>
-                <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 text-lg text-white text-center">Anmelden</a>
+              <p class="font-bold text-lg sm:text-2xl mx-6">Melde dich als Käufer an</p>
+                <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
             </div>
           </div>
         </div>
@@ -192,6 +218,7 @@
     methods: {
       async onFetchData()
       {
+        await this.$store.dispatch('FETCH_CATEGORIES')
         await this.onSetMenusByRole()
       },
       onSetMenusByRole()
@@ -338,6 +365,13 @@
               break;
           }
         } else {
+          const categories = this.CATEGORIES.map( categ => {
+              return {
+                title: categ.name,
+                link: `/vouchers/category/${categ.id}`
+              }
+            })
+
           this.menus = [
             {
               title: 'Home',
@@ -347,7 +381,9 @@
               link: '',
             }, {
               title: 'Kategorien',
-              link: '#categories',
+              link: '',
+              child: categories,
+              isChildShow: false
             },  {
               title: 'Login',
               link: '/login',
@@ -368,6 +404,11 @@
       },
       onSelectMenu(menu, index)
       {
+
+        if (index == 1 && !this.AUTH_USER.isAuth) {
+          this.showWallet = true;
+        }
+
         if(!menu.child) {
           if( this.$route.path != menu.link ) {
             this.$router.push(menu.link)
