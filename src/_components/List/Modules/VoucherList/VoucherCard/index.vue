@@ -7,12 +7,12 @@
   >
     <div
       class="flex flex-col w-full bg-aid rounded"
-      :style="{ 
-        '--bgAid': !isFlip 
-          ? (userVoucher && userVoucher.background_aid) 
-            ? userVoucher.background_aid 
-            : voucher.background_aid 
-          : '' 
+      :style="{
+        '--bgAid': !isFlip
+          ? (userVoucher && userVoucher.background_aid)
+            ? userVoucher.background_aid
+            : voucher.background_aid
+          : ''
       }"
     >
       <CardInfo
@@ -56,12 +56,12 @@
       cardId: {
         type: String,
         default: 'voucher-card'
-      }, 
+      },
       listId: {
         type: String,
         default: 'voucher-list'
-      }, 
-      
+      },
+
       voucher: {
         type: Object,
         default: null
@@ -75,7 +75,7 @@
         type: Object,
         default: null
       },
-      
+
       bg: {
         type: String,
         default: '#fff'
@@ -124,6 +124,9 @@
     mounted() {
       this.onSetBgImage( this.onGetBg() )
     },
+    activated() {
+      this.onSetBgImage( this.onGetBg() )
+    },
     methods: {
       onFlip()
       {
@@ -157,7 +160,7 @@
       {
         const card = document.getElementById(`${this.listId}-${this.cardId}`)
         if(card) {
-          const bg = (this.voucher && this.voucher.id && (value.search('base64') < 0)) 
+          const bg = (this.voucher && this.voucher.id && (value.search('base64') < 0))
             ? (value != '') ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : ''
             : value
           card.style.backgroundImage = `url('${bg}')`
