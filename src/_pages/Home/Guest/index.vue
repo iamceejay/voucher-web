@@ -81,11 +81,12 @@
           keyword: '',
           page: 1,
           paginate: 5,
-          isNewest: true,
+          isNewest: false,
           isMostPopular: false,
           isLowestPrice: false,
           isPrice: null,
           isLoading: false,
+          seed: new Date().getTime()
         },
         showAnnouncement: false
       }

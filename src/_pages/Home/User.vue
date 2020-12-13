@@ -60,6 +60,7 @@
           isLowestPrice: false,
           isPrice: null,
           isLoading: false,
+          seed: new Date().getTime()
         }
       }
     },
@@ -123,7 +124,7 @@
       })()
     },
     methods: {
-      
+
       async onSearchData( data = null, action )
       {
         if ( action == 'sort' ) {

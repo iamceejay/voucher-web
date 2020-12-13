@@ -50,9 +50,10 @@
         params: {
           page: 1,
           paginate: 5,
-          isNewest: true,
+          isNewest: false,
           isLowestPrice: false,
           isMostPopular: false,
+          seed: new Date().getTime()
         }
       }
     },

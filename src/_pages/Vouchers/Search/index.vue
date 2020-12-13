@@ -55,6 +55,7 @@
           isLowestPrice: false,
           isPrice: null,
           isLoading: false,
+          seed: new Date().getTime()
         }
       };
     },
