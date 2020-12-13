@@ -66,7 +66,7 @@
     props: [],
     data() {
       return {
-        isHideSideBar: false,
+        isHideSideBar: true,
         isLoading: true,
       }
     },
