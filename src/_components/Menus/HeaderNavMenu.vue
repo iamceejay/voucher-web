@@ -91,6 +91,7 @@
               class="fas fa-caret-down text-base"
             />
           </span>
+          <div class="fixed inset-0 z-0" v-if="menu.child && menu.isChildShow"></div>
           <div
             v-if="menu.child && menu.isChildShow"
             class="dropdown-menu flex flex-col left-0"
