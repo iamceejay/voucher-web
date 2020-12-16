@@ -33,7 +33,7 @@
         class="menu-item font-bold font-display"
         @click="onSelectMenu(menu, index)"
       >
-        <span class="hover:text-peach">
+        <span class="hover:text-peach relative z-10">
           {{ menu.title }}
         </span>
         <span
@@ -45,6 +45,7 @@
             class="fas fa-caret-down text-base"
           />
         </span>
+        <div class="fixed inset-0 z-0" v-if="menu.child && menu.isChildShow"></div>
         <div
           v-if="menu.child && menu.isChildShow"
           class="dropdown-menu flex flex-col"

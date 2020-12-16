@@ -13,12 +13,12 @@
         </div>
         <div>{{ formatDate(data.created_at) }}</div>
         <div v-if="role == 'user' || isInvoice">
-          <a 
-            id="link" 
-            href="file.txt" 
-            download hidden 
+          <a
+            id="link"
+            href="file.txt"
+            download hidden
           />
-          <a 
+          <a
             href="javascript:void(0)"
             @click="onGenerateInvoice(data)"
           >
@@ -27,9 +27,9 @@
         </div>
       </div>
       <div class="ml-auto text-xl font-bold font-display">
-        {{ 
-          `${(data.voucher.type == 'quantity') 
-            ? `x${Math.floor(parseFloat(otherData.value))}` 
+        {{
+          `${(data.voucher.type == 'quantity')
+            ? `${Math.floor(parseFloat(otherData.value))}x`
             : `${$helpers.convertCurrency(otherData.value)}`
           }`
         }}

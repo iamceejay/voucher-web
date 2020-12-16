@@ -12,7 +12,7 @@
           <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
             Logge dich ein oder registriere dich, um Gutscheine zu kaufen.
           </div>
-          <router-link 
+          <router-link
             class="self-center w-full md:w-1/2"
             :to="`/seller/${VOUCHER.seller_id}`"
           >
@@ -27,7 +27,7 @@
           v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
           v-slot="{ handleSubmit }"
         >
-          <form 
+          <form
             class="flex flex-col w-full mt-8"
             @submit.prevent="handleSubmit(onSubmit)"
           >
@@ -42,7 +42,7 @@
               :note="`
               ${
                 (VOUCHER.type == 'quantity')
-                  ? `Menge zwischen x${VOUCHER.qty_min} und x${VOUCHER.qty_max}`
+                  ? `Menge zwischen ${VOUCHER.qty_min}x und ${VOUCHER.qty_max}x`
                   : `Wert zwischen ${$helpers.convertCurrency(VOUCHER.val_min)} und ${$helpers.convertCurrency(VOUCHER.val_max) }`
               }
               `"
@@ -183,7 +183,7 @@
                 confirmButtonText: 'Bestätigen'
               })
             }
-          }   
+          }
         })
       },
       async onRemoveCart()
@@ -215,7 +215,7 @@
               confirmButtonColor: '#48BB78',
               confirmButtonText: 'Bestätigen'
             })
-          }   
+          }
         })
       },
       async onFetchVoucher()

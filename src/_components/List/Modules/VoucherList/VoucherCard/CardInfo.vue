@@ -1,9 +1,9 @@
 <template>
-  <div 
+  <div
     :class="`w-full flex flex-col px-4 py-3 cursor-pointer`"
     @click="onClickHeader()"
   >
-    <div 
+    <div
       class="card-header"
     >
       <div class="flex flex-col w-3/5 break-words">
@@ -18,13 +18,13 @@
         <img
           v-if="voucher.seller && voucher.seller.company.logo"
           class="card-logo ml-auto"
-          :src="onSetImage(voucher.seller.company.logo)" 
+          :src="onSetImage(voucher.seller.company.logo)"
           alt=""
         />
-        <img 
+        <img
           v-else
           class="card-logo ml-auto"
-          src="@/_assets/img/company-default-logo.png" 
+          src="@/_assets/img/company-default-logo.png"
           alt=""
         />
       </div>
@@ -40,9 +40,9 @@
           </div>
         </div>
         <div v-if="order && userVoucher && userVoucher.custom_image" class="w-2/5 p-1">
-          <img 
+          <img
             style="width: 120px; height: 48px;"
-            :src="onSetCustomImage(userVoucher.custom_image)" 
+            :src="onSetCustomImage(userVoucher.custom_image)"
             alt=""
           />
         </div>
@@ -63,7 +63,7 @@
             <div class="min-h-8">
               <div v-if="voucher.valid_day && voucher.valid_day.length > 0">
                 Gültig am
-                <span 
+                <span
                   v-for="(day, index) in voucher.valid_day"
                   :key="`day-${index}`"
                 >
@@ -80,17 +80,17 @@
           </div>
           <div v-if="role != 'seller'" class="text-sm font-bold font-body">
             <span v-if="userVoucher || order">
-              {{ 
-                `${(voucher.type == 'quantity') 
-                  ? `x${(!userVoucher && order) ? order.qty : userVoucher.qty}${ userVoucher && !userVoucher.price_hidden ? ` (${$helpers.convertCurrency(voucher.price_filter)}/Gutschein)` : '' }` 
-                  : `${$helpers.convertCurrency(order.value)}`}` 
+              {{
+                `${(voucher.type == 'quantity')
+                  ? `${(!userVoucher && order) ? order.qty : userVoucher.qty}x${ userVoucher && !userVoucher.price_hidden ? ` (${$helpers.convertCurrency(voucher.price_filter)}/Gutschein)` : '' }`
+                  : `${$helpers.convertCurrency(order.value)}`}`
               }}
             </span>
             <span v-else>
-              {{ 
-                `${(voucher.type == 'quantity') 
-                  ? `${$helpers.convertCurrency(voucher.qty_val)}` 
-                  : `${$helpers.convertCurrency(voucher.val_min)} - ${$helpers.convertCurrency(voucher.val_max)}`}` 
+              {{
+                `${(voucher.type == 'quantity')
+                  ? `${$helpers.convertCurrency(voucher.qty_val)}`
+                  : `${$helpers.convertCurrency(voucher.val_min)} - ${$helpers.convertCurrency(voucher.val_max)}`}`
               }}
             </span>
           </div>
@@ -100,16 +100,16 @@
             </div>
           </div>
         </div>
-        <div 
+        <div
           v-if="withQR && qr"
           :class="`w-1/4 flex flex-col ${ isFlippable && (!userVoucher || (order && !userVoucher.sent_via)) ? 'cursor-pointer' : ''}`"
           @click="(userVoucher && userVoucher.sent_via ) ? '' : $emit('onFlip')"
         >
           <QrcodeVue
             class="card-qr"
-            :value="qr.url" 
-            :size="50" 
-            level="H" 
+            :value="qr.url"
+            :size="50"
+            level="H"
           />
           <div class="qr-text font-semibold flex flex-col font-body text-center">
             <div class="">

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col self-center w-full">
     <ValidationObserver v-slot="{ handleSubmit }">
-      <form 
+      <form
         class="w-full flex flex-col"
         @submit.prevent="handleSubmit(onSubmit)"
       >
@@ -61,7 +61,7 @@
         //  text: `${(this.QR_CODE.user_voucher.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
         this.$swal({
           title: 'Bestätige die Einlösung der Gutscheine.',
-          text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: x${this.form.value}` }`,
+          text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: ${this.form.value}x` }`,
           showCancelButton: true,
           confirmButtonColor: '#48BB78',
           cancelButtonColor: '#FC8181',
@@ -96,7 +96,7 @@
               }
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             }
-          }   
+          }
         })
       }
     }
