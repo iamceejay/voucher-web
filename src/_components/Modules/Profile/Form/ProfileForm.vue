@@ -16,10 +16,7 @@
             label="Unternehmensname"
           />
           <div class="tooltip ml-1">
-            <i class="fas fa-info-circle text-base text-gray-700" />
-            <span class="tooltiptext">
-              Teile uns hier deinen Firmennamen mit. Dieser Name wird auch auf der Rechnung bei einem Gutscheinverkauf angeführt.
-            </span>
+            <i class="fas fa-info-circle text-base text-gray-700" content="Teile uns hier deinen Firmennamen mit. Dieser Name wird auch auf der Rechnung bei einem Gutscheinverkauf angeführt." v-tippy/>
           </div>
         </div>
       </template>
@@ -48,10 +45,7 @@
             class="tooltip ml-1"
             v-if="type == 'seller'"
           >
-            <i class="fas fa-info-circle text-base text-gray-700" />
-            <span class="tooltiptext">
-              Wähle einen Wunschnamen als Benutzername. Der Benutzername ist auf dem Gutschein ersichtlich und kann im Nachhinein nicht mehr geändert werden.
-            </span>
+            <i class="fas fa-info-circle text-base text-gray-700" content="Wähle einen Wunschnamen als Benutzername. Der Benutzername ist auf dem Gutschein ersichtlich und kann im Nachhinein nicht mehr geändert werden."  v-tippy/>
           </div>
         </div>
       </template>

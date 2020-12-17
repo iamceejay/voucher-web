@@ -14,6 +14,7 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import '_helpers/VeeValidate'
+import VueTippy, { TippyComponent } from "vue-tippy";
 
 const plugin = {
   install () {
@@ -21,6 +22,7 @@ const plugin = {
     Vue.prototype.$helpers = helpers
   }
 }
+Vue.use(VueTippy);
 
 Vue.use(plugin)
 Vue.use(VueFileAgent)

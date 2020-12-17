@@ -1,6 +1,6 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
-    <form 
+    <form
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
@@ -24,7 +24,7 @@
               Wähle eine Designvorlage oder lade selbst ein Hintergrundbild im Hochformat hoch
             </div>
             <div class="font-semibold text-xs font-display text-gray-700 mx-2">
-              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein 
+              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein
             </div>
             <div
               class="scroll-horizontal scroll flex"
@@ -46,14 +46,14 @@
                 @select="onChangeBgImg($event)"
                 @delete="onChangeBgImg($event)"
               />
-              <div 
+              <div
                 v-for="(tem, index) in form.templates"
                 :key="`tem-${index}`"
                 :class="`template-image m-1 relative ${ tem.status ? 'active' : '' }`"
               >
                 <a
                   v-if="!tem.id"
-                  class="template-icon" 
+                  class="template-icon"
                   href="javascript:void(0)"
                   @click="onDeleteTemplate(index)"
                 >
@@ -61,7 +61,7 @@
                 </a>
                 <img
                   class="cursor-pointer"
-                  :src="(tem.id) ? `${api_base_url}/storage/${tem.image}` : tem.image" 
+                  :src="(tem.id) ? `${api_base_url}/storage/${tem.image}` : tem.image"
                   alt=""
                   @click="onSelectTemplate(index)"
                 />
@@ -74,10 +74,10 @@
                 Lesehilfe
               </div>
               <div class="tooltip ml-1 pt-1">
-                <i class="fas fa-info-circle text-base text-gray-700" />
-                <span class="tooltiptext">
-                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
-                </span>
+                <i class="fas fa-info-circle text-base text-gray-700" content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. " v-tippy/>
+                <!-- <span class="tooltiptext">
+                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist.
+                </span> -->
               </div>
             </div>
             <div class="w-full sm:w-1/2 md:mx-2 mt-2 mx-2">
@@ -98,7 +98,7 @@
             </span>
           </div>
           <div class="mx-2 mb-5 w-full flex flex-row">
-            <toggle-button 
+            <toggle-button
               :key="`text-${(form.text_color == 'dark') ? true : false}`"
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
@@ -123,9 +123,9 @@
               </div>
             </div>
             <div v-if="form.custom_image" class="flex flex-col px-2">
-              <img 
+              <img
                 style="width: 120px; height: 48px;"
-                :src="onSetCustomImage('set', form.custom_image)" 
+                :src="onSetCustomImage('set', form.custom_image)"
                 alt=""
               />
               <Button
@@ -195,7 +195,7 @@
     },
     data() {
       return {
-        chrome_color: { 
+        chrome_color: {
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
         },
@@ -246,7 +246,7 @@
 
           tempForm.id = this.data.id
           tempForm.order_id = this.data.order.id
-          
+
           const templates = tempForm.templates.filter( row => {
             if( !row.id ) {
               return {
@@ -284,7 +284,7 @@
             while (this.chunk_template.length > 0) {
               await this.onUploadTemplates(random_string)
             }
-            
+
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
 
@@ -342,7 +342,7 @@
           },
           file_name: `${random}-${this.tempTemplates[0]['attachment'].name}`
         }
-        
+
         await this.$store.dispatch('UPLOAD_TEMPLATES_USER_VOUCHER', tempForm)
 
         this.chunk_template.shift()
@@ -353,7 +353,7 @@
         let size = 999950
         let chunks = Math.ceil(file.size / size)
         let temp_chunk = []
-        
+
         for (let i = 0; i < chunks; i++) {
           temp_chunk.push(file.slice(
             i * size, Math.min(i * size + size, file.size), file.type
@@ -428,7 +428,7 @@
         }).then((result) => {
           if(result.value){
             this.form.templates = this.form.templates.filter( (row,i) => i != index)
-          }   
+          }
         })
       },
       onSetCustomImage(action, value)
