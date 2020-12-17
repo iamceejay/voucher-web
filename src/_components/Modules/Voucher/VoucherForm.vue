@@ -1,6 +1,6 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
-    <form 
+    <form
       class="flex flex-col w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
@@ -36,10 +36,10 @@
                 label="Lesehilfe"
               />
               <div class="tooltip ml-1">
-                <i class="fas fa-info-circle text-base text-gray-700" />
-                <span class="tooltiptext">
-                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. 
-                </span>
+                <i class="fas fa-info-circle text-base text-gray-700" content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. " v-tippy/>
+                <!-- <span class="tooltiptext">
+                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist.
+                </span> -->
               </div>
             </div>
             <div class="w-full sm:w-1/2 md:mx-2 mt-2">
@@ -54,7 +54,7 @@
               Hintergrundbild
             </span>
             <div class="font-semibold text-xs font-display text-gray-700 mx-2">
-              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein 
+              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein
             </div>
             <Button
               v-if="form && form.id && form.background_image != ''"
@@ -84,9 +84,9 @@
               @delete="onChangeBgImg($event)"
             />
           </div>
-          
+
           <div class="mx-2 mb-5 w-full flex flex-row">
-            <toggle-button 
+            <toggle-button
               :value="(form.text_color == 'dark') ? true : false"
               @change="onChangeTextColor"
             />
@@ -127,10 +127,10 @@
                       label="Anfallende MwSt."
                     />
                     <div class="tooltip ml-1">
-                      <i class="fas fa-info-circle text-base text-gray-700" />
-                      <span class="tooltiptext">
+                      <i class="fas fa-info-circle text-base text-gray-700" content=' Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".' v-tippy/>
+                      <!-- <span class="tooltiptext">
                         Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".
-                      </span>
+                      </span> -->
                     </div>
                   </div>
                 </template>
@@ -149,7 +149,7 @@
                   Ausgewählter Steuersatz
                 </div>
                 <div
-                  v-for="(row, index) in form.tax" 
+                  v-for="(row, index) in form.tax"
                   :key="`tax-${index}`"
                   class="flex flex-row w-full md:w-1/2"
                 >
@@ -172,7 +172,7 @@
                     :rules="`${ (form.tax.length <= 1) ? '' : 'required' }`"
                     :disabled="(form.tax.length > 1 && !form.id) ? false : true"
                   />
-                  <a 
+                  <a
                     v-if="!form.id"
                     href="javascript:void(0)"
                     class="flex mt-4 w-1/12 justify-center"
@@ -213,10 +213,10 @@
                       label="Nur gültig an diesen Tagen"
                     />
                     <div class="tooltip ml-1">
-                      <i class="fas fa-info-circle text-base text-gray-700" />
-                      <span class="tooltiptext">
+                      <i class="fas fa-info-circle text-base text-gray-700" content="Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll."  v-tippy/>
+                      <!-- <span class="tooltiptext">
                         Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll.
-                      </span>
+                      </span> -->
                     </div>
                   </div>
                 </template>
@@ -224,14 +224,14 @@
               <div class="w-full md:w-1/2 mb-5 mx-2">
                 <div class="flex flex-row">
                   <label class="font-semibold text-sm font-display text-gray-700">
-                    Nur gültig im Zeitraum von … bis … 
+                    Nur gültig im Zeitraum von … bis …
                     <div class="tooltip ml-1">
-                      <i class="fas fa-info-circle text-base" />
-                      <span class="tooltiptext">
+                      <i class="fas fa-info-circle text-base" content="Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen." v-tippy/>
+                      <!-- <span class="tooltiptext">
                         Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen.
-                      </span>
+                      </span> -->
                     </div>
-                    <a 
+                    <a
                       v-if="form.valid_date.length < 4"
                       href="javascript:void(0)"
                       class="ml-2"
@@ -266,7 +266,7 @@
                         @input="onActionDate('change', index)"
                       />
                     </div>
-                    <a 
+                    <a
                       href="javascript:void(0)"
                       class="flex mt-6 w-1/12 justify-center"
                       @click="onActionDate('delete', index)"
@@ -382,11 +382,11 @@
         isWithLimit: false,
         unsure: false,
         formIndex: 0,
-        material_color: { 
+        material_color: {
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
         },
-        chrome_color: { 
+        chrome_color: {
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
         },
@@ -489,7 +489,7 @@
           const { voucher } = await this.$store.dispatch(url, this.form)
           // await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           if(this.background_image) {
-            
+
             // await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
             this.chunk_voucher_img = this.onGetChunk(this.background_image)
             const random_string = this.$helpers.randomString(10)
@@ -525,7 +525,7 @@
         }
       },
       async onUploadVoucherImg(id, random)
-      {        
+      {
         let tempForm = {
           id,
           attachment: this.chunk_voucher_img[0],
@@ -540,7 +540,7 @@
         let size = 999950
         let chunks = Math.ceil(file.size / size)
         let temp_chunk = []
-        
+
         for (let i = 0; i < chunks; i++) {
           temp_chunk.push(file.slice(
             i * size, Math.min(i * size + size, file.size), file.type
@@ -607,7 +607,7 @@
             tax: '20',
             label: '20%',
             value: null,
-          }, 
+          },
         ]
       },
       onSetExpiry()

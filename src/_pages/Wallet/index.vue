@@ -2,9 +2,13 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <Header1
-          label="Meine Wallet"
-        />
+        <div data-v-6d1a851d="" class="font-bold py-2 text-2xl md:text-4xl font-display capitalize mb-1 text-gray-900 flex items-center" > Meine Wallet
+            <i class="fas fa-info-circle text-base text-gray-700 ml-3" content="Klicke auf den Gutschein, um ihn zu personalisieren oder zu verschenken.
+              Heruntergeladene oder als PDF verschickte Gutscheine werden dir in der Wallet als verschenkt markiert,
+              damit du sie nicht versehentlich einlöst. Verschickst du den Gutschein direkt an andere epasnets Nutzer über den Link,
+              verschwindet der Gutschein aus deiner Wallet und erscheint in der Wallet des Beschenkten." v-tippy />
+        </div>
+
         <SearchInputField
           id="search-here"
           v-model="params.keyword"
