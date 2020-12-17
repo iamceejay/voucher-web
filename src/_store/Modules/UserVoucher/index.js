@@ -124,7 +124,7 @@ export default {
         let blob = new Blob([data], { type: 'application/pdf' })
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        link.download = `voucher-${date}.pdf`
+        link.download = `Gutschein-${date}.pdf`
         link.click()
 
         const newList = state.userVouchers.data.map( row => {

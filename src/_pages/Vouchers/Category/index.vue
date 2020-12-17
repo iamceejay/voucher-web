@@ -7,7 +7,7 @@
         />
         <VoucherList
           class="mb-3"
-          title="Gesponserte Gutscheine"
+          title="Unsere Lieblinge"
           :data="FEATURED_VOUCHERS"
           :withQR="false"
           :isInline="true"

@@ -4,7 +4,7 @@
     <GuestContent />
     <VoucherList
       class="content-container mb-3 py-6 px-8"
-      title="Gesponserte Gutscheine"
+      title="Unsere Lieblinge"
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
