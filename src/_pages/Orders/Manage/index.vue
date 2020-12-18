@@ -21,9 +21,9 @@
           >
             <template #customActions="props">
               <div class="flex flex-col">
-                <a 
+                <a
                   v-if="!props.data.reversed"
-                  class="text-xs text-indigo-500 underline text-center" 
+                  class="text-xs text-indigo-500 underline text-center"
                   href="javascript:void(0)"
                   @click="onReverse(props.data)"
                 >
@@ -66,6 +66,22 @@
           }, {
             name: 'order_no',
             title: 'Order No.',
+            dataClass: 'text-center',
+          }, {
+            name: 'voucher.seller.company.name',
+            title: 'Seller name',
+            dataClass: 'text-center',
+          }, {
+            name: 'user.detail.fullname',
+            title: 'User name',
+            dataClass: 'text-center',
+          }, {
+            name: 'voucher.title',
+            title: 'Voucher name',
+            dataClass: 'text-center',
+          }, {
+            name: 'commission',
+            title: 'Comission',
             dataClass: 'text-center',
           }, {
             name: 'order_reverse_',
@@ -148,7 +164,7 @@
                 confirmButtonText: 'Bestätigen'
               })
             }
-          }   
+          }
         })
       },
       async onLoadData()

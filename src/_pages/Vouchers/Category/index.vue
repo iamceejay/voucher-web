@@ -2,6 +2,7 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
+        <BackBtn :show="true" class="mt-10" />
         <Header1
           :label="`${ CATEGORY ? CATEGORY.name : 'Category Name' }`"
         />
