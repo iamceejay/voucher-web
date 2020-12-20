@@ -3,7 +3,7 @@
     <div class="flex flex-row">
       <span class="font-semibold text-sm text-gray-900 font-display">{{ data.voucher.title }}</span>
       <span class="ml-auto text-xs text-gray-900 font-semibold font-body">
-        {{ `${ !isRedemption ? `OrderID #${ data.qr ? data.qr.url : ''}` : `RevokeID #${ otherData.redemption_no ? otherData.redemption_no : ''}` }` }}
+        {{ `${ !isRedemption ? `OrderID #${ data.qr ? data.qr.url : ''}` : `Redemption ID #${ otherData.redemption_no ? otherData.redemption_no : ''}` }` }}
       </span>
     </div>
     <div class="flex flex-row">
@@ -11,6 +11,15 @@
         <div v-if="role != 'user'">
           Benutzer: {{ `${data.user.detail.firstName} ${data.user.detail.lastName}` }}
         </div>
+        <div>
+          Order Number: {{ data.order_no }}
+        </div>
+        <div v-if="otherData.created_at != otherData.updated_at">
+          Revoked Date: {{formatDate(data.updated_at) }}
+        </div>
+         <!-- <div >
+          Revoked Date: {{ formatDate(data.created_at) }}
+        </div> -->
         <div>{{ formatDate(data.created_at) }}</div>
         <div v-if="role == 'user' || isInvoice">
           <a
