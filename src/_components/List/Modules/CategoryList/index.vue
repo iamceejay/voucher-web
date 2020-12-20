@@ -11,13 +11,13 @@
         class="slider-icon slider-icon-left visible"
         @click="onSlideTo('slidePre')"
       >
-        <i class="fas fa-chevron-circle-left" />
+        <i class="fas fa-chevron-left" />
       </button>
       <button
         class="slider-icon slider-icon-right visible"
         @click="onSlideTo('slideNext')"
       >
-        <i class="fas fa-chevron-circle-right" />
+        <i class="fas fa-chevron-right" />
       </button>
       <slider
         ref="slider"
@@ -69,7 +69,7 @@
         options: {
           pagination: false,
           thresholdDistance: 100, // Sliding distance threshold
-          thresholdTime: 300, // Sliding time threshold decision
+          thresholdTime: 500, // Sliding time threshold decision
           grabCursor: true, // Scratch style
           speed: 300,
           loop: false,
