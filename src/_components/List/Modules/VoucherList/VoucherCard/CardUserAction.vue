@@ -1,19 +1,19 @@
 <template>
-  <div 
+  <div
     v-if="order"
     class="w-full flex flex-col cursor-pointer self-center px-4 py-3 h-full justify-center"
     @click="onFlip()"
   >
-    <div v-if="order && qr" class="flex flex-col w-full my-6">
+    <div v-if="order && qr" class="flex flex-1 flex-col justify-center my-6 w-full">
       <QrcodeVue
         class="self-center m-2"
-        :value="qr.url" 
-        :size="196" 
-        level="H" 
+        :value="qr.url"
+        :size="196"
+        level="H"
       />
-      <!-- <img 
+      <!-- <img
         class="card-qr self-center"
-        src="@/_assets/img/default-qr-code.png" 
+        src="@/_assets/img/default-qr-code.png"
         alt=""
       /> -->
       <div class="text-center text-xs font-semibold">
@@ -28,43 +28,59 @@
     </div>
     <div class="flex flex-row w-full mt-4 h-12">
       <div
-        class="flex flex-row w-full"
+        class="flex flex-row w-full justify-between"
       >
-        <a
-          class="px-2 text-lg text-primary" 
-          href="javascript:void(0)"
-          @click="onGenerateVoucher(userVoucher.id)"
-        >
-          <i class="fas fa-download" />
-        </a>
-        <router-link 
-          class="px-2 text-lg text-primary" 
-          :to="`/vouchers/send-email/${userVoucher.id}`"
-        >
-          <i class="fas fa-envelope" />
-        </router-link>
-        <router-link 
-          class="px-2 text-lg text-primary" 
-          :to="`/vouchers/transfer/${userVoucher.id}`"
-        >
-          <i class="fas fa-user-circle" />
-        </router-link>
-        <router-link 
-          class="px-2 text-lg text-primary ml-auto" 
+        <router-link
+          class="px-2 text-3xl text-primary"
           :to="`/vouchers/personalized/${ userVoucher.id}`"
         >
           <i class="fas fa-pen" />
         </router-link>
+
+        <dropdown placement="right">
+          <!-- Button content -->
+          <template v-slot:button>
+            <span class="py-1 inline-flex items-center text-sm" @click.prevent>
+              <span class="mr-2"><i class="fas fa-share-alt text-3xl" /></span>
+            </span>
+          </template>
+
+          <!-- Opened dropdown content -->
+          <template v-slot:content>
+             <a
+              class="flex w-full text-primary px-2 py-1 my-1"
+              href="javascript:void(0)"
+              @click="onGenerateVoucher(userVoucher.id)"
+            >
+              <i class="text-lg mr-3 fas fa-download" /> Herunterladen
+            </a>
+            <router-link
+              class="flex w-full text-primary px-2 py-1 my-1"
+              :to="`/vouchers/send-email/${userVoucher.id}`"
+            >
+              <i class="text-lg mr-3 fas fa-envelope" /> per Email verschicken
+            </router-link>
+            <router-link
+              class="flex w-full text-primary px-2 py-1 my-1"
+              :to="`/vouchers/transfer/${userVoucher.id}`"
+            >
+              <i class="text-lg mr-3 fas fa-user-circle" /> als Link teilen
+            </router-link>
+          </template>
+        </dropdown>
+
       </div>
     </div>
   </div>
 </template>
 <script>
   import QrcodeVue from 'qrcode.vue'
+  import Dropdown from '_components/Dropdown'
 
   export default {
     components: {
       QrcodeVue,
+      Dropdown
     },
     props: {
       qr: {
