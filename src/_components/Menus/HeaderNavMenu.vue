@@ -536,10 +536,7 @@
     top: -81px;
   }
 
-  .show-sidebar  #site-header {
-    background: transparent;
-    top: 0;
-  }
+
   .nav-container .nav-logo {
     padding: 0px 20px;
     font-weight: bold;
@@ -603,6 +600,10 @@
   }
 
   @media only screen and (max-width: 600px) {
+    .show-sidebar  #site-header {
+      background: transparent;
+      top: 0;
+    }
     .nav-container .nav-logo {
       width: 100%;
     }
