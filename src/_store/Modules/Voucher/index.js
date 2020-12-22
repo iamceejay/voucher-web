@@ -11,6 +11,8 @@ export default {
     vouchers: [],
     featuredVouchers: [],
     newestVouchers: [],
+    modal: false,
+    voucher_id: '',
   }),
   getters: {
     VOUCHER(state) {
@@ -25,6 +27,12 @@ export default {
     NEWEST_VOUCHERS(state) {
       return state.newestVouchers;
     },
+    MODAL(state) {
+      return state.modal;
+    },
+    VOUCHER_ID(state) {
+      return state.voucher_id
+    }
   },
   mutations: {
     SET_VOUCHER(state, payload) {
@@ -39,6 +47,12 @@ export default {
     SET_NEWEST_VOUCHERS(state, payload) {
       state.newestVouchers = payload;
     },
+    SET_MODAL(state, payload) {
+      state.modal = payload
+    },
+    SET_VOUCHER_ID(state, payload) {
+      state.voucher_id = payload
+    }
   },
   actions: {
     async FETCH_VOUCHER( { commit, state }, payload )
@@ -145,7 +159,7 @@ export default {
         const { data } = await post(`${prefix}/${payload.id}`, formData)
         return data
       } catch (err) {
-        throw err     
+        throw err
       }
     },
     async STATUS_UPDATE_VOUCHER( { commit, state }, payload )
@@ -185,12 +199,12 @@ export default {
     async UPLOAD_BG_IMG_VOUCHER( { commit, state }, payload )
     {
       try {
-  
+
         let formData = new FormData;
         formData.set('id', payload.id)
         formData.set('attachment', payload.attachment, `${payload.file_name}.part`)
         formData.set('is_last', payload.is_last)
-        
+
         const { data } = await post(`${prefix}/upload-bg-img/${payload.id}`, formData, {
           'Content-Type': 'application/octet-stream'
         })
@@ -199,5 +213,8 @@ export default {
         throw err
       }
     },
+    SHOW_MODAL({ commit, state }) {
+      commit('SET_MODAL', state)
+    }
   },
 }

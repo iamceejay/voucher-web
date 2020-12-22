@@ -131,7 +131,7 @@
 
   export default {
     components: {
-      QrcodeVue,
+      QrcodeVue
     },
     props: {
       voucher: {
@@ -202,17 +202,22 @@
       },
       onClickHeader()
       {
+
         if( this.role === 'user' || !this.role ) {
           if( this.withQR ) {
             // if( (!this.order || (this.order && !this.order.sent_via)) ) {
             this.$emit('onFlip')
             // }
           } else {
-            this.$router.push(`/vouchers/${this.voucher.id}`)
+            // this.$router.push(`/vouchers/${this.voucher.id}`)
+            this.$store.commit('SET_VOUCHER_ID', this.voucher.id)
+            this.$store.commit('SET_MODAL', true)
           }
         } else {
           if( this.role == 'admin' ) {
-            this.$router.push(`/vouchers/${this.voucher.id}`)
+            // this.$router.push(`/vouchers/${this.voucher.id}`)
+            this.$store.commit('SET_VOUCHER_ID', this.voucher.id)
+            this.$store.commit('SET_MODAL', true)
           } else {
             this.$emit('onFlip')
           }

@@ -49,6 +49,7 @@
         </button>
       </template>
     </CookieLaw>
+    <voucher-modal :open="$store.getters.MODAL"></voucher-modal>
   </div>
 </template>
 <script>
@@ -56,12 +57,14 @@
   import HeaderNavMenu from '_components/Menus/HeaderNavMenu'
   import CookieLaw from 'vue-cookie-law'
   import LoaderImg from '_assets/img/epasnets-loader.png'
+  import VoucherModal from '_components/Modals/voucher-modal'
 
   export default {
     components: {
       Sidebar,
       HeaderNavMenu,
       CookieLaw,
+      VoucherModal
     },
     props: [],
     data() {
