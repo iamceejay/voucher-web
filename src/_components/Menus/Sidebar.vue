@@ -400,7 +400,7 @@
   .sidebar-container {
     box-shadow: 3px 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     position: absolute;
-    z-index: 1;
+    z-index: 9999;
     background: #fff;
   }
   @media only screen and (max-width: 600px) {
