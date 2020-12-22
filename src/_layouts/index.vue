@@ -12,7 +12,9 @@
       ref="header"
       @onHide="isHideSideBar = $event"
     />
-    <div :class="`w-full pb-16 min-h-screen`">
+    <div :class="`w-full pb-16 min-h-screen`" style="
+    margin-top: 82px;
+">
       <div
         id="infinite-scroll"
         class="flex flex-col h-full w-full m-c"
