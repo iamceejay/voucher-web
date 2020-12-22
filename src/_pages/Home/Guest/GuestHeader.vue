@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-dirty">
+  <div class="bg-dirty -m-10">
     <div class="content-container header-container flex flex-col items-center px-8 py-20 lg:py-32">
       <div class="font-display font-bold text-2xl w-full sm:w-11/12 md:w-6/12 lg:w-9/12">
         Entdecke die nettesten Gutscheine aus Tirol
