@@ -538,6 +538,7 @@
 
   .show-sidebar  #site-header {
     background: transparent;
+    top: 0;
   }
   .nav-container .nav-logo {
     padding: 0px 20px;

@@ -399,7 +399,7 @@
   }
   .sidebar-container {
     box-shadow: 3px 1px 3px 0px rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    position: absolute;
+    position: fixed;
     z-index: 9999;
     background: #fff;
   }
