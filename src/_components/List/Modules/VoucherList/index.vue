@@ -5,7 +5,7 @@
     class="flex flex-col w-full"
   >
     <Header2
-      v-if="title != ''"
+      v-if="title != '' && !hideIfEmpty"
       :label="title"
     />
     <VoucherFilter
@@ -38,7 +38,7 @@
         :role="role"
         :withQR="withQR"
       />
-      <div v-if="tempData.length <= 0" class="py-2 text-lg">
+      <div v-if="tempData.length <= 0 && !hideIfEmpty" class="py-2 text-lg">
         Keine Daten gefunden.
       </div>
     </div>
@@ -46,8 +46,8 @@
       v-if="type === 'feature'"
       class="w-full"
     >
-      <div v-if="!tempData || tempData.length <= 0" class="py-2 text-lg">
-        Keine Daten gefunden.
+      <div v-if="(!tempData || tempData.length <= 0) " class="py-2 text-lg">
+        {{ !hideIfEmpty ? 'Keine Daten gefunden.' : '' }}
       </div>
       <div
         v-else
@@ -144,6 +144,10 @@
       hasCategory: {
         type: Boolean,
         default: true
+      },
+      hideIfEmpty: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

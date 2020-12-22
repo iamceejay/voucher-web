@@ -14,6 +14,7 @@
           :isInline="true"
           type="feature"
           listId="featured-voucher-list"
+          :hideIfEmpty="true"
         />
         <VoucherList
           class="mb-3"
