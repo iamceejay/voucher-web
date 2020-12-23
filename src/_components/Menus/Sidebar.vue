@@ -273,11 +273,11 @@
           }
         } else {
           const categories = this.CATEGORIES.map( categ => {
-              return {
-                title: categ.name,
-                link: `/vouchers/category/${categ.id}`
-              }
-            })
+            return {
+              title: categ.name,
+              link: `/vouchers/category/${categ.id}`
+            }
+          })
 
           this.menus = [
             {

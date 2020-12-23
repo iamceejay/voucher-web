@@ -74,7 +74,10 @@
                 Lesehilfe
               </div>
               <div class="tooltip ml-1 pt-1">
-                <i class="fas fa-info-circle text-base text-gray-700" content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. " v-tippy/>
+                <i
+                  v-tippy class="fas fa-info-circle text-base text-gray-700"
+                  content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. "
+                />
                 <!-- <span class="tooltiptext">
                   Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist.
                 </span> -->

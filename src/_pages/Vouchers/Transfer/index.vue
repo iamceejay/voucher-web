@@ -42,10 +42,20 @@
             label="Link teilen"
           />
           <div class="mb-5 w-full md:w-1/2 m-auto mt-4">
-             <input v-model="form.link" id="link" name="clipboard" type="text" placeholder="" step="any" class="input-field mt-2 px-3 rounded-full text-sm font-semibold font-body py-2" readonly>
+            <input
+              id="link" v-model="form.link"
+              name="clipboard" type="text"
+              placeholder="" step="any"
+              class="input-field mt-2 px-3 rounded-full text-sm font-semibold font-body py-2" readonly
+            />
           </div>
 
-          <button data-clipboard-target="#link" type="button" class="focus:outline-none focus:shadow-none border-1 font-display bg-peach text-white mt-1 w-full md:w-1/2 py-3 rounded-full text-sm clipboard mx-auto">Kopiere den Link</button>
+          <button
+            data-clipboard-target="#link" type="button"
+            class="focus:outline-none focus:shadow-none border-1 font-display bg-peach text-white mt-1 w-full md:w-1/2 py-3 rounded-full text-sm clipboard mx-auto"
+          >
+            Kopiere den Link
+          </button>
           <div class="w-full md:w-1/2 self-center">
             <p class="p-3 pb-0 text-center text-sm">
               Um den Gutschein in die Wallet zu bekommen, muss der Empfänger bei epasnets registriert sein. Falls der Empfänger
@@ -95,16 +105,16 @@
     mounted() {
       var clipboard = new ClipboardJS('.clipboard');
       clipboard.on('success', (e) => {
-          let processing = this.$swal({
-            title: 'Erfolgreich!',
-            text: 'Link wurde kopiert',
-            allowOutsideClick: false,
-            showConfirmButton: false
-          })
-          setTimeout( () => {
-            processing.close()
-          }, 2000)
-          e.clearSelection();
+        let processing = this.$swal({
+          title: 'Erfolgreich!',
+          text: 'Link wurde kopiert',
+          allowOutsideClick: false,
+          showConfirmButton: false
+        })
+        setTimeout( () => {
+          processing.close()
+        }, 2000)
+        e.clearSelection();
       });
       (async() => {
         try {

@@ -16,17 +16,17 @@
             alt=""
           />
         </div>
-          <a
-            v-if="!AUTH_USER.isAuth"
-            href="javascript:void(0)"
-            :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
-            @click="showWallet = true; isRegisterPop = true"
-          >
-            <i class="fa fa-user text-lg text-gray-900" />
-          </a>
+        <a
+          v-if="!AUTH_USER.isAuth"
+          href="javascript:void(0)"
+          :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
+          @click="showWallet = true; isRegisterPop = true"
+        >
+          <i class="fa fa-user text-lg text-gray-900" />
+        </a>
         <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
       </div>
-      <div class="hidden sm:flex flex-row self-center nav-menu" v-if="AUTH_USER.isAuth">
+      <div v-if="AUTH_USER.isAuth" class="hidden sm:flex flex-row self-center nav-menu">
         <a
           v-for="(menu, index) in menus"
           :key="`menu-${index}`"
@@ -46,7 +46,7 @@
               class="fas fa-caret-down text-base"
             />
           </span>
-          <div class="fixed inset-0 z-0" v-if="menu.child && menu.isChildShow"></div>
+          <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" />
           <div
             v-if="menu.child && menu.isChildShow"
             class="dropdown-menu flex flex-col"
@@ -71,7 +71,7 @@
           Ausloggen
         </a>
       </div>
-      <div class="flex-row hidden justify-between nav-menu self-center sm:flex w-full" v-else>
+      <div v-else class="flex-row hidden justify-between nav-menu self-center sm:flex w-full">
         <span>
           <a
             v-for="(menu, index) in menus.slice(0, 3)"
@@ -92,7 +92,7 @@
                 class="fas fa-caret-down text-base"
               />
             </span>
-            <div class="fixed inset-0 z-0" v-if="menu.child && menu.isChildShow"></div>
+            <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" />
             <div
               v-if="menu.child && menu.isChildShow"
               class="dropdown-menu flex flex-col left-0"
@@ -116,10 +116,9 @@
             :href="menu.link"
             class="menu-item font-bold font-display hover:text-peach"
           >
-              {{ menu.title }}
+            {{ menu.title }}
           </a>
         </span>
-
       </div>
       <router-link
         v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
@@ -132,40 +131,55 @@
         <i class="fas fa-shopping-cart text-base text-lg" />
       </router-link>
 
-      <div v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center" :class="showWallet ? 'modal-active' : ''">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" @click="showWallet = false; isRegisterPop = false"></div>
+      <div
+        v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
+        :class="showWallet ? 'modal-active' : ''"
+      >
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" @click="showWallet = false; isRegisterPop = false" />
         <div class="bg-white md:max-w-2xl modal-container mx-auto overflow-y-auto rounded shadow-lg w-11/12 z-50">
           <div class="modal-content text-left relative">
             <div class="absolute cursor-pointer modal-close p-4 right-0 z-50" @click="showWallet = false">
-              <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+              <svg
+                class="fill-current text-black" xmlns="http://www.w3.org/2000/svg"
+                width="18" height="18"
+                viewBox="0 0 18 18"
+              >
+                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
               </svg>
             </div>
-            <div class="p-4 sm:p-6 bg-gray-200" v-if="!isRegisterPop">
+            <div v-if="!isRegisterPop" class="p-4 sm:p-6 bg-gray-200">
               <div class="flex justify-between items-center pb-3">
                 <p class="font-bold text-center text-lg sm:text-2xl w-full">
                   Erhalte Zugriff zu deiner eigenen Wallet
                 </p>
               </div>
-              <p class="text-center">In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken</p>
+              <p class="text-center">
+                In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
+              </p>
             </div>
             <div class="flex flex-col grid-template py-4 sm:grid">
               <div class="flex flex-col p-4 sm:p-6 justify-between">
-                <p class="font-bold text-lg sm:text-2xl mx-6">Registriere dich kostenlos als Käufer</p>
-                  <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
+                <p class="font-bold text-lg sm:text-2xl mx-6">
+                  Registriere dich kostenlos als Käufer
+                </p>
+                <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
               </div>
               <div class="wrapper hidden sm:block">
-                <div class="line"></div>
+                <div class="line" />
                 <div class="wordwrapper">
-                    <div class="word">oder</div>
+                  <div class="word">
+                    oder
+                  </div>
                 </div>
               </div>
               <div id="oder" class="block sm:hidden mt-10">
                 <span class="bg-white px-3">oder</span>
               </div>​
               <div class="flex flex-col p-6 justify-between">
-                <p class="font-bold text-lg sm:text-2xl mx-6">Melde dich als Käufer an</p>
-                  <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
+                <p class="font-bold text-lg sm:text-2xl mx-6">
+                  Melde dich als Käufer an
+                </p>
+                <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
               </div>
             </div>
           </div>
@@ -422,11 +436,11 @@
           }
         } else {
           const categories = this.CATEGORIES.map( categ => {
-              return {
-                title: categ.name,
-                link: `/vouchers/category/${categ.id}`
-              }
-            })
+            return {
+              title: categ.name,
+              link: `/vouchers/category/${categ.id}`
+            }
+          })
 
           this.menus = [
             {

@@ -1,10 +1,17 @@
 <template>
   <transition name="fade-shrink-in" appear>
-    <div class="fixed inset-0 p-4 overflow-auto" @click="close" v-show="open"  style="background-color: hsla(0, 0%, 0%, .5); z-index: 999">
-
-      <div @click.stop class="max-w-4xl w-full mx-auto bg-white rounded py-12 mt-8 z-10 shadow-lg relative">
+    <div
+      v-show="open" class="fixed inset-0 p-4 overflow-auto"
+      style="background-color: hsla(0, 0%, 0%, .5); z-index: 999" @click="close"
+    >
+      <div class="max-w-4xl w-full mx-auto bg-white rounded py-12 mt-8 z-10 shadow-lg relative" @click.stop>
         <div v-if="!isLoading && VOUCHER" class="content-container w-full flex flex-col px-4">
-          <button type="button" class="focus:outline-none focus:shadow-none border-1 font-display bg-peach text-white w-32 py-1 px-2 rounded-full text-2xs" @click="close"><span><i class="fas fa-arrow-left"></i><span class="ml-2" >Zurück</span></span></button>
+          <button
+            type="button" class="focus:outline-none focus:shadow-none border-1 font-display bg-peach text-white w-32 py-1 px-2 rounded-full text-2xs"
+            @click="close"
+          >
+            <span><i class="fas fa-arrow-left" /><span class="ml-2">Zurück</span></span>
+          </button>
           <div class="flex flex-col w-full">
             <VoucherCard
               class="self-center"
@@ -20,10 +27,10 @@
               >
                 Logge dich ein
               </a>
-               oder <a
-                  href="javascript:void(0)"
-                  class="text-peach cursor-pointer"
-                  @click="close(); $router.push('/register/buyer')"
+              oder <a
+                href="javascript:void(0)"
+                class="text-peach cursor-pointer"
+                @click="close(); $router.push('/register/buyer')"
               >
                 registriere dich
               </a>, um Gutscheine zu kaufen.
@@ -36,7 +43,6 @@
                 label="Mehr Infos über den Verkäufer"
                 size="w-full py-1"
                 round="rounded-full"
-
               />
             </div>
           </div>
@@ -84,7 +90,10 @@
           </ValidationObserver>
         </div>
         <div v-else class="flex justify-center py-20">
-          <img src="@/_assets/img/epasnets-loader.png" alt="loading" class="flex justify-center p-20">
+          <img
+            src="@/_assets/img/epasnets-loader.png" alt="loading"
+            class="flex justify-center p-20"
+          />
         </div>
       </div>
     </div>
@@ -92,196 +101,198 @@
 </template>
 
 <script>
-import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
-import InputField from '_components/Form/InputField'
-import Button from '_components/Button'
-import LoaderImg from '_assets/img/epasnets-loader.png'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import InputField from '_components/Form/InputField'
+  import Button from '_components/Button'
+  import LoaderImg from '_assets/img/epasnets-loader.png'
 
-export default {
-  name: 'voucher-modal',
-  props: ['open'],
-  components: {
-    VoucherCard,
-    InputField,
-    Button,
-  },
-  data() {
-    return {
-      form: {
-        id: null,
-        voucher_id: null,
-        user_id: null,
-        value: null,
-        qty: null,
-        total_amount: 0,
-      },
-      symbol: '',
-      isAdded: false,
-      isLoading: false
-    }
-  },
-  computed: {
-    VOUCHER()
-    {
-      return this.$store.getters.VOUCHER
+  export default {
+    name: 'VoucherModal',
+    components: {
+      VoucherCard,
+      InputField,
+      Button,
     },
-    CARTS()
-    {
-      return this.$store.getters.CARTS
-    },
-    AUTH_USER()
-    {
-      return this.$store.getters.AUTH_USER
-    },
-    IS_LOADING()
-    {
-      return this.$store.getters.IS_LOADING
-    },
-    VOUCHER_ID()
-    {
-      return this.$store.getters.VOUCHER_ID
-    },
-  },
-  watch: {
-    open(val) {
-      if (val) {
-        (async() => {
-          try {
-            this.isLoading = true
-            await this.onFetchVoucher()
-            this.isLoading = false
-          } catch (err) {
-            console.log(err)
-            this.isLoading = false
-          }
-        })()
+    props: ['open'],
+    data() {
+      return {
+        form: {
+          id: null,
+          voucher_id: null,
+          user_id: null,
+          value: null,
+          qty: null,
+          total_amount: 0,
+        },
+        symbol: '',
+        isAdded: false,
+        isLoading: false
       }
     },
-    $route(to, from){
-      console.log('new routes')
-    }
-  },
-  methods: {
-    close() {
-      this.$store.commit('SET_MODAL', false)
+    computed: {
+      VOUCHER()
+      {
+        return this.$store.getters.VOUCHER
+      },
+      CARTS()
+      {
+        return this.$store.getters.CARTS
+      },
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+      VOUCHER_ID()
+      {
+        return this.$store.getters.VOUCHER_ID
+      },
     },
-    async onSubmit()
-    {
-      this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
-      this.$swal({
-        title: 'Im Warenkorb hinzufügen',
-        text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
-        showCancelButton: true,
-        confirmButtonColor: '#48BB78',
-        cancelButtonColor: '#FC8181',
-        confirmButtonText: 'Bestätigen',
-        cancelButtonText: 'Abbrechen',
-      }).then( async (result) => {
-        if(result.value){
-          try {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
-            this.form.user_id = this.AUTH_USER.data.id
-            this.form.voucher_id = this.VOUCHER.id
-            if( this.VOUCHER.type == 'quantity' ) {
-              this.form.qty = this.form.value
-              this.form.value = null
-            } else {
-              this.form.value = this.form.value
+    watch: {
+      open(val) {
+        if (val) {
+          (async() => {
+            try {
+              document.body.classList.add('overflow-hidden')
+              this.isLoading = true
+              await this.onFetchVoucher()
+              this.isLoading = false
+            } catch (err) {
+              console.log(err)
+              this.isLoading = false
             }
-            const data = await this.$store.dispatch('ADD_WALLET', this.form)
-            this.form = {
-              id: null,
-              voucher_id: null,
-              user_id: null,
-              value: null,
-              qty: null,
-              value: 0,
-              total_amount: 0,
-            }
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            let confirm = this.$swal({
-              icon: 'success',
-              title: 'Erfolgreich!',
-              text: 'Die Gutscheine wurden in den Warenkorb gelegt.',
-              allowOutsideClick: false,
-              showConfirmButton: false
-            })
-            setTimeout(() => {
-              confirm.close()
-              this.close()
-            }, 1000)
-          } catch (err) {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-            this.$swal({
-              icon: 'warning',
-              title: 'Achtung! ',
-              text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-              confirmButtonColor: '#48BB78',
-              confirmButtonText: 'Bestätigen'
-            })
-          }
+          })()
+        } else {
+          document.body.classList.remove('overflow-hidden')
         }
-      })
+      }
     },
-    async onRemoveCart()
-    {
-      this.$swal({
-        title: 'Vom Warenkorb entfernen',
-        text: `Bist du sicher, dass du diesen Gutschein vom Warenkorb entfernen möchtest?`,
-        showCancelButton: true,
-        confirmButtonColor: '#48BB78',
-        cancelButtonColor: '#FC8181',
-        confirmButtonText: 'Bestätigen',
-        cancelButtonText: 'Abbrechen',
-      }).then( async (result) => {
-        if(result.value){
-          const newData = this.CARTS.filter( cart => this.form.id != cart.id )
-          await this.$store.commit('SET_CARTS', newData)
-          this.isAdded = false
-          this.form = {
-            id: null,
-            user_id: null,
-            value: null,
-            type: '',
-            voucher: null
-          }
-          this.$swal({
-            icon: 'success',
-            title: 'Erfolgreich!',
-            text: 'Removing the voucher.',
-            confirmButtonColor: '#48BB78',
-            confirmButtonText: 'Bestätigen'
-          })
+    created() {
+      document.addEventListener('keydown', (e) => {
+        if (this.open && e.keyCode == 27) {
           this.close()
         }
       })
     },
-    async onFetchVoucher()
-    {
-      console.log('fetch')
-      try {
-        await this.$store.dispatch('FETCH_VOUCHER', {
-          id: this.VOUCHER_ID
+    methods: {
+      close() {
+        document.body.classList.remove('overflow-hidden')
+        this.$store.commit('SET_MODAL', false)
+      },
+      async onSubmit()
+      {
+        this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
+        this.$swal({
+          title: 'Im Warenkorb hinzufügen',
+          text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
+          showCancelButton: true,
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then( async (result) => {
+          if(result.value){
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
+              this.form.user_id = this.AUTH_USER.data.id
+              this.form.voucher_id = this.VOUCHER.id
+              if( this.VOUCHER.type == 'quantity' ) {
+                this.form.qty = this.form.value
+                this.form.value = null
+              } else {
+                this.form.value = this.form.value
+              }
+              const data = await this.$store.dispatch('ADD_WALLET', this.form)
+              this.form = {
+                id: null,
+                voucher_id: null,
+                user_id: null,
+                value: null,
+                qty: null,
+                value: 0,
+                total_amount: 0,
+              }
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              let confirm = this.$swal({
+                icon: 'success',
+                title: 'Erfolgreich!',
+                text: 'Die Gutscheine wurden in den Warenkorb gelegt.',
+                allowOutsideClick: false,
+                showConfirmButton: false
+              })
+              setTimeout(() => {
+                confirm.close()
+                this.close()
+              }, 1000)
+            } catch (err) {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
+                confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
+              })
+            }
+          }
         })
-        this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
-      } catch (err) {
-        console.log('err', err)
-      }
-    },
-    toSeller(id) {
-      this.close()
-      this.$router.push(`/seller/${id}`)
-    }
-  },
-  created() {
-    document.addEventListener('keydown', (e) => {
-      if (this.open && e.keyCode == 27) {
+      },
+      async onRemoveCart()
+      {
+        this.$swal({
+          title: 'Vom Warenkorb entfernen',
+          text: `Bist du sicher, dass du diesen Gutschein vom Warenkorb entfernen möchtest?`,
+          showCancelButton: true,
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then( async (result) => {
+          if(result.value){
+            const newData = this.CARTS.filter( cart => this.form.id != cart.id )
+            await this.$store.commit('SET_CARTS', newData)
+            this.isAdded = false
+            this.form = {
+              id: null,
+              user_id: null,
+              value: null,
+              type: '',
+              voucher: null
+            }
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich!',
+              text: 'Removing the voucher.',
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
+            })
+            this.close()
+          }
+        })
+      },
+      async onFetchVoucher()
+      {
+        try {
+          await this.$store.dispatch('FETCH_VOUCHER', {
+            id: this.VOUCHER_ID
+          })
+          this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+      toSeller(id) {
         this.close()
+        this.$store.commit('SET_SELLER_MODAL', true)
+        this.$store.commit('SET_SELLER_ID', id)
+      // this.$router.push(`/seller/${id}`)
       }
-    })
+    }
   }
-}
 </script>
 
 <style>

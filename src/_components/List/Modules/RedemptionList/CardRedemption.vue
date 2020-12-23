@@ -15,9 +15,9 @@
           Order Number: {{ data.order_no }}
         </div>
         <div v-if="otherData.created_at != otherData.updated_at">
-          Revoked Date: {{formatDate(data.updated_at) }}
+          Revoked Date: {{ formatDate(data.updated_at) }}
         </div>
-         <!-- <div >
+        <!-- <div >
           Revoked Date: {{ formatDate(data.created_at) }}
         </div> -->
         <div>{{ formatDate(data.created_at) }}</div>

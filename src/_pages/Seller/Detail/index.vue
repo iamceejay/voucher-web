@@ -12,13 +12,13 @@
               <img
                 v-if="USER && USER.company.logo"
                 class="company-logo"
-                :src="onSetImage(USER.company.logo)" 
+                :src="onSetImage(USER.company.logo)"
                 alt=""
               />
-              <img 
+              <img
                 v-else
                 class="company-logo"
-                src="@/_assets/img/company-default-logo.png" 
+                src="@/_assets/img/company-default-logo.png"
                 alt=""
               />
             </div>
@@ -28,17 +28,17 @@
             <!-- {{ `${USER.detail.firstName} ${USER.detail.lastName}` }} -->
           </p>
           <p class="text-xs font-semibold ml-2 md:w-4/5 lg:w-1/2">
-            {{ 
+            {{
               `${ USER.detail.address || '' }
-              ${ (USER.detail.city) ? `, ${USER.detail.city}` : '' }${ (USER.detail.zip_code) ? `, ${USER.detail.zip_code}` : '' }` 
+              ${ (USER.detail.city) ? `, ${USER.detail.city}` : '' }${ (USER.detail.zip_code) ? `, ${USER.detail.zip_code}` : '' }`
             }}
           </p>
           <p class="text-xs font-semibold ml-2">
             {{ USER.company.region || '' }}
           </p>
-          <a 
+          <a
             v-if="(USER.company && USER.company.url)"
-            class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2" 
+            class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2"
             :href="addHttp(USER.company.url)"
             target="_blank"
           >

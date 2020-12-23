@@ -12,12 +12,14 @@
       ref="header"
       @onHide="isHideSideBar = $event"
     />
-    <div :class="`w-full pb-16 min-h-screen`" style="
+    <div
+      :class="`w-full pb-16 min-h-screen`" style="
     margin-top: 82px;
-">
+"
+    >
       <div
         id="infinite-scroll"
-        class="flex flex-col h-full w-full m-c py-10"
+        class="flex flex-col h-full w-full m-c pt-10"
       >
         <BackBtn class="px-8" />
         <slot name="content" />
@@ -51,7 +53,8 @@
         </button>
       </template>
     </CookieLaw>
-    <voucher-modal :open="$store.getters.MODAL"></voucher-modal>
+    <voucher-modal :open="$store.getters.MODAL" />
+    <seller-modal :open="IS_SELLER_MODAL_SHOW" />
   </div>
 </template>
 <script>
@@ -60,13 +63,15 @@
   import CookieLaw from 'vue-cookie-law'
   import LoaderImg from '_assets/img/epasnets-loader.png'
   import VoucherModal from '_components/Modals/voucher-modal'
+  import SellerModal from '_components/Modals/seller-modal'
 
   export default {
     components: {
       Sidebar,
       HeaderNavMenu,
       CookieLaw,
-      VoucherModal
+      VoucherModal,
+      SellerModal
     },
     props: [],
     data() {
@@ -92,6 +97,10 @@
       {
         return this.$store.getters.IS_INFINITE_LOAD
       },
+      IS_SELLER_MODAL_SHOW()
+      {
+        return this.$store.getters.SELLER_MODAL
+      }
     },
     watch: {
       async IS_LOADING(newVal)
@@ -192,7 +201,7 @@
         // }
 
         window.onscroll = async (ev) => {
-          if( !self.IS_LOADING.status && !self.IS_PROCESSING.status && self.IS_INFINITE_LOAD ) {
+          if( !self.IS_LOADING.status && !self.IS_PROCESSING.status && self.IS_INFINITE_LOAD && !self.IS_SELLER_MODAL_SHOW) {
             if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 15) {
               await self.$store.commit('SET_IS_LOAD_MORE', true)
             }

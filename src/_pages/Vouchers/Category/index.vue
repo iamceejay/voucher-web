@@ -144,7 +144,7 @@
       })()
     },
     methods: {
-       async onSearchData( data = null, action )
+      async onSearchData( data = null, action )
       {
         if ( action == 'sort' ) {
           this.params.keyword = ''

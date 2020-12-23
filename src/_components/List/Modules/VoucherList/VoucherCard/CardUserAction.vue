@@ -39,15 +39,15 @@
 
         <dropdown placement="right">
           <!-- Button content -->
-          <template v-slot:button>
+          <template #button>
             <span class="py-1 inline-flex items-center text-sm" @click.prevent>
               <span class="mr-2"><i class="fas fa-share-alt text-3xl" /></span>
             </span>
           </template>
 
           <!-- Opened dropdown content -->
-          <template v-slot:content>
-             <a
+          <template #content>
+            <a
               class="flex w-full text-primary px-2 py-1 my-1"
               href="javascript:void(0)"
               @click="onGenerateVoucher(userVoucher.id)"
@@ -68,7 +68,6 @@
             </router-link>
           </template>
         </dropdown>
-
       </div>
     </div>
   </div>

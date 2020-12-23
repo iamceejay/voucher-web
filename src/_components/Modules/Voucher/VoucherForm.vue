@@ -36,7 +36,10 @@
                 label="Lesehilfe"
               />
               <div class="tooltip ml-1">
-                <i class="fas fa-info-circle text-base text-gray-700" content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. " v-tippy/>
+                <i
+                  v-tippy class="fas fa-info-circle text-base text-gray-700"
+                  content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. "
+                />
                 <!-- <span class="tooltiptext">
                   Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist.
                 </span> -->
@@ -127,7 +130,10 @@
                       label="Anfallende MwSt."
                     />
                     <div class="tooltip ml-1">
-                      <i class="fas fa-info-circle text-base text-gray-700" content=' Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".' v-tippy/>
+                      <i
+                        v-tippy class="fas fa-info-circle text-base text-gray-700"
+                        content=' Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".'
+                      />
                       <!-- <span class="tooltiptext">
                         Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".
                       </span> -->
@@ -213,7 +219,10 @@
                       label="Nur gültig an diesen Tagen"
                     />
                     <div class="tooltip ml-1">
-                      <i class="fas fa-info-circle text-base text-gray-700" content="Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll."  v-tippy/>
+                      <i
+                        v-tippy class="fas fa-info-circle text-base text-gray-700"
+                        content="Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll."
+                      />
                       <!-- <span class="tooltiptext">
                         Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll.
                       </span> -->
@@ -226,7 +235,10 @@
                   <label class="font-semibold text-sm font-display text-gray-700">
                     Nur gültig im Zeitraum von … bis …
                     <div class="tooltip ml-1">
-                      <i class="fas fa-info-circle text-base" content="Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen." v-tippy/>
+                      <i
+                        v-tippy class="fas fa-info-circle text-base"
+                        content="Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen."
+                      />
                       <!-- <span class="tooltiptext">
                         Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen.
                       </span> -->

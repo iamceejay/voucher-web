@@ -16,7 +16,9 @@
         </div>
       </div>
       <div class="bg-gray-200 flex flex-col items-center lg:w-4/6 md:w-4/5 px-6 py-12 w-full">
-        <h2 class="font-bold text-3xl">Z'Weihnachten gibt's epasnets</h2>
+        <h2 class="font-bold text-3xl">
+          Z'Weihnachten gibt's epasnets
+        </h2>
         <p class="max-w-sm text-2xl">
           Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und genießen.
         </p>

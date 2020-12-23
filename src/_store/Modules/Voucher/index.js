@@ -13,6 +13,7 @@ export default {
     newestVouchers: [],
     modal: false,
     voucher_id: '',
+    seller_vouchers: []
   }),
   getters: {
     VOUCHER(state) {
@@ -20,6 +21,9 @@ export default {
     },
     VOUCHERS(state) {
       return state.vouchers;
+    },
+    SELLER_VOUCHERS(state) {
+      return state.seller_vouchers;
     },
     FEATURED_VOUCHERS(state) {
       return state.featuredVouchers;
@@ -40,6 +44,9 @@ export default {
     },
     SET_VOUCHERS(state, payload) {
       state.vouchers = payload;
+    },
+    SET_SELLER_VOUCHERS(state, payload) {
+      state.seller_vouchers = payload;
     },
     SET_FEATURED_VOUCHERS(state, payload) {
       state.featuredVouchers = payload;
@@ -77,7 +84,8 @@ export default {
           }
         }
         const { data } = await get(`${prefix}`, params)
-        await commit('SET_VOUCHERS', withParams ? mergeList( state.vouchers, data.vouchers ) : data.vouchers )
+        const commitAction = payload.isSeller ? 'SET_SELLER_VOUCHERS' : 'SET_VOUCHERS'
+        await commit(commitAction, withParams ? mergeList( state.vouchers, data.vouchers ) : data.vouchers )
         return data
       } catch (err) {
         console.log('err', err)

@@ -4,17 +4,31 @@ import moment from 'moment'
 
 export default {
   state: () => ({
-    seller: null
+    seller: null,
+    seller_modal: false,
+    seller_id: '',
   }),
   getters: {
     SELLER(state) {
       return state.seller;
     },
+    SELLER_MODAL(state) {
+      return state.seller_modal;
+    },
+    SELLER_ID(state) {
+      return state.seller_id
+    }
   },
   mutations: {
     SET_SELLER(state, payload) {
       state.seller = payload;
     },
+    SET_SELLER_MODAL(state, payload) {
+      state.seller_modal = payload
+    },
+    SET_SELLER_ID(state, payload) {
+      state.seller_id = payload
+    }
   },
   actions: {
     async FETCH_SELLER( { commit, state }, payload )

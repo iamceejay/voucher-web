@@ -5,7 +5,7 @@
         class="w-full flex flex-col"
         @submit.prevent="handleSubmit(onSubmit)"
       >
-      <!-- :placeholder="`Enter the ${(QR_CODE.user_voucher.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`" -->
+        <!-- :placeholder="`Enter the ${(QR_CODE.user_voucher.voucher.type != 'quantity') ? 'value' : 'quantity' } of redemption`" -->
         <InputField
           id="value"
           v-model="form.value"
