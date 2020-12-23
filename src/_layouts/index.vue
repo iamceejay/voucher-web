@@ -154,8 +154,8 @@
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
               imageUrl: LoaderImg,
-              imageHeight: 207,
-              imageWidth: 259,
+              imageHeight: 145,
+              imageWidth: 181,
               allowOutsideClick: false,
               showConfirmButton: false,
               showClass: {

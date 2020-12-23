@@ -13,7 +13,7 @@
     </router-link>
     <VoucherList
       class="mb-3"
-      title="Gesponserte Gutscheine"
+      title="Unsere Lieblinge"
       :data="FEATURED_VOUCHERS"
       :isInline="true"
       :withQR="false"
