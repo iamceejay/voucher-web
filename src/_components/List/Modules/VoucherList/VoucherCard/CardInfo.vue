@@ -183,10 +183,10 @@
       {
         switch (value) {
           case 'voucher_download':
-            return 'Heruntergeladen'
+            return 'Verschenkt'
             break;
           case 'email':
-            return 'als Email verschickt'
+            return 'Verschenkt'
             break;
           case 'transferred':
             return 'Übertragen'

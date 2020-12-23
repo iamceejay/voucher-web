@@ -39,7 +39,7 @@
         :withQR="withQR"
       />
       <div v-if="tempData.length <= 0 && !hideIfEmpty" class="py-2 text-lg">
-        Keine Daten gefunden.
+        Noch keine Daten vorhanden.
       </div>
     </div>
     <div
@@ -47,7 +47,7 @@
       class="w-full"
     >
       <div v-if="(!tempData || tempData.length <= 0) " class="py-2 text-lg">
-        {{ !hideIfEmpty ? 'Keine Daten gefunden.' : '' }}
+        {{ !hideIfEmpty ? 'Noch keine Daten vorhanden.' : '' }}
       </div>
       <div
         v-else

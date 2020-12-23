@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
-        <div class="flex flex-col mb-3">
+        <div class="flex flex-col mb-3 hidden">
           <Header1
             label="Gutschein übertragen"
           />
@@ -56,12 +56,9 @@
           >
             Kopiere den Link
           </button>
-          <div class="w-full md:w-1/2 self-center">
+          <div class="lg:w-1/3 md:1/2 self-center">
             <p class="p-3 pb-0 text-center text-sm">
-              Um den Gutschein in die Wallet zu bekommen, muss der Empfänger bei epasnets registriert sein. Falls der Empfänger
-            </p>
-            <p class="p-3 pt-0 text-center text-sm">
-              noch keinen Account bei epasnets hat, muss er zuerst einen Account erstellen, um den Gutschein zu erhalten.
+              Sobald der Gutschein von einem anderen Nutzer über den Link geöffnet wurde, gehört der Gutschein nicht mehr dir.
             </p>
           </div>
         </div>

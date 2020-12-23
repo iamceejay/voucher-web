@@ -3,7 +3,7 @@
     <template #content>
       <div class="content-container w-full h-screen flex flex-col px-8">
         <Header1
-          label="Gutschein per Email verschicken"
+          label="Gutschein via Email Verschicken"
         />
         <ValidationObserver v-slot="{ handleSubmit }">
           <form 
@@ -41,11 +41,14 @@
               round="rounded-full"
               type="submit"
             />
-            <p class="p-3 text-center text-sm">
-              Der Gutschein wird als PDF im Email angehängt.
-            </p>
           </form>
         </ValidationObserver>
+
+        <div class="lg:w-1/3 md:1/2 self-center">
+          <p class="p-3 pb-0 text-center text-sm">
+            In dem Email wird der Gutschein als PDF angehängt. Außerdem befindet sich dort auch ein Link, sodass der Empfänger den Gutschein direkt in seine epasnets Wallet laden kann.
+          </p>
+        </div>
       </div>
     </template>
   </MainLayout>

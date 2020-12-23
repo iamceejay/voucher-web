@@ -40,7 +40,7 @@
               @click="toSeller(VOUCHER.seller_id)"
             >
               <Button
-                label="Mehr Infos über den Verkäufer"
+                label="Mehr Infos & Gutscheine von diesem Verkäufer"
                 size="w-full py-1"
                 round="rounded-full"
               />
@@ -59,7 +59,7 @@
                 v-model="form.value"
                 type="number"
                 class="w-full md:w-1/2 self-center"
-                :label="`Gib deinen ${ (VOUCHER.type == 'quantity') ? `Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)} pro Gutschein)` : 'Wunschbetrag' } an`"
+                :label="`${ (VOUCHER.type == 'quantity') ? `Gib deine Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)} pro Gutschein)` : 'Gib deinen Wunschbetrag' } an`"
                 placeholder="Hier eingeben"
                 :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
                 :note="`

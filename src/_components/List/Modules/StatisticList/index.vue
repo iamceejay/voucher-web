@@ -34,7 +34,7 @@
         </div>
       </div>
       <div v-if="data.length <= 0" class="py-2 text-lg">
-        Keine Daten gefunden.
+        Noch keine Daten vorhanden.
       </div>
     </div>
   </div>
