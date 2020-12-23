@@ -84,8 +84,10 @@ export default {
           }
         }
         const { data } = await get(`${prefix}`, params)
-        const commitAction = payload.isSeller ? 'SET_SELLER_VOUCHERS' : 'SET_VOUCHERS'
-        await commit(commitAction, withParams ? mergeList( state.vouchers, data.vouchers ) : data.vouchers )
+        const commitAction = payload.isSeller ? 'SET_SELLER_VOUCHERS' : 'SET_VOUCHERS';
+        const stateName = payload.isSeller ? 'seller_vouchers' : 'vouchers';
+
+        await commit(commitAction, withParams ? mergeList( state[stateName], data.vouchers ) : data.vouchers )
         return data
       } catch (err) {
         console.log('err', err)
