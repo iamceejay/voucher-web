@@ -70,6 +70,7 @@
       />
     </div>
     <DatePicker
+      v-if="type == 'seller'"
       id="data"
       v-model="form.bday"
       label="Birth Date"
@@ -140,6 +141,7 @@
       />
     </div>
     <FileInputField
+      v-if="type == 'seller'"
       id="icon"
       v-model="form.verification_front"
       class="w-full m-2"
@@ -167,6 +169,7 @@ Files should be in color, be rotated with the image right-side up, and have all 
       />
     </div>
     <FileInputField
+      v-if="type == 'seller'"
       id="icon"
       v-model="form.verification_back"
       class="w-full m-2"
@@ -194,6 +197,7 @@ Files should be in color, be rotated with the image right-side up, and have all 
       />
     </div>
     <FileInputField
+      v-if="type == 'seller'"
       id="icon"
       v-model="form.additional_identity"
       class="w-full m-2"
