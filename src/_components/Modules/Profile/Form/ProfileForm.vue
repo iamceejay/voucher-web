@@ -69,11 +69,14 @@
         @input="onChange"
       />
     </div>
+    <span v-if="type == 'seller'" class="mb-3 mx-2 text-sm">
+      Bitte gib den Namen vom Inhaber oder Geschäftsführer des Unternehmens an.
+    </span>
     <DatePicker
       v-if="type == 'seller'"
       id="data"
       v-model="form.bday"
-      label="Birth Date"
+      label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
       class="m-2"
       :errorMessages="errorMessages.phone_number"
       rules="required"
@@ -141,7 +144,7 @@
       />
     </div>
     <FileInputField
-      v-if="type == 'seller'"
+      v-if="type == 'seller' && AUTH_USER.isAuth"
       id="icon"
       v-model="form.verification_front"
       class="w-full m-2"
@@ -169,7 +172,7 @@ Files should be in color, be rotated with the image right-side up, and have all 
       />
     </div>
     <FileInputField
-      v-if="type == 'seller'"
+      v-if="type == 'seller' && AUTH_USER.isAuth"
       id="icon"
       v-model="form.verification_back"
       class="w-full m-2"
@@ -197,7 +200,7 @@ Files should be in color, be rotated with the image right-side up, and have all 
       />
     </div>
     <FileInputField
-      v-if="type == 'seller'"
+      v-if="type == 'seller' && AUTH_USER.isAuth"
       id="icon"
       v-model="form.additional_identity"
       class="w-full m-2"
@@ -261,6 +264,12 @@ export default {
       default() {
         return null;
       },
+    },
+  },
+  computed: {
+    AUTH_USER()
+    {
+      return this.$store.getters.AUTH_USER
     },
   },
   data() {

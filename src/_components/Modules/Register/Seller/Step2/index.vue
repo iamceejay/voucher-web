@@ -1,25 +1,27 @@
 <template>
-  <ValidationObserver 
-    v-slot="{ handleSubmit }"
+  <ValidationObserver
+    v-slot="{ handleSubmit, invalid }"
     class="flex w-full h-full"
   >
-    <form 
+    <form
       class="w-full flex flex-col"
-      @submit.prevent="handleSubmit(onSubmit)"
+      @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
-      <Header2
-        label="Unternehmensinfo"
+      <Header1
+        label="Überprüfung"
       />
-      <CompanyForm
-        class="w-full md:w-1/2 my-5"
-        :data="form"
-        :errorMessages="errorMessages"
-        @onChange="onChange"
-      />
+      <div class="flex flex-col w-full md:w-1/2 my-5">
+        <VerificationForm
+          type="seller"
+          :data="form"
+          :errorMessages="errorMessages"
+          @onChange="onChange"
+        />
+      </div>
       <Button
         type="submit"
         label="nächster Schritt >"
-        size="w-full sm:w-1/2 py-3 mx-3"
+        size="w-full sm:w-1/2 py-4 mx-2"
         round="rounded-full"
       />
     </form>
@@ -27,14 +29,14 @@
 </template>
 <script>
   import Button from '_components/Button';
-  import CompanyForm from '_components/Modules/Profile/Form/CompanyForm';
-  import Header2 from '_components/Headers/Header2';
+  import VerificationForm from '_components/Modules/Profile/Form/VerificationForm';
+  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
-      CompanyForm,
+      VerificationForm,
       Button,
-      Header2
+      Header1
     },
     props: {
       data: {
@@ -53,24 +55,15 @@
     data() {
       return {
         submitting: false,
-        // form: {
-        //   name: '',
-        //   description: '',
-        //   url: '',
-        //   logo: '',
-        //   region: '',
-        //   vat_number: '',
-        // }
         form: {
-          id: null,
           username: '',
           firstName: '',
           lastName: '',
-          email: '',
           address: '',
           city: '',
           zip_code: '',
           phone_number: '',
+          email: '',
           password: '',
           confirmPassword: '',
           company: {
@@ -88,33 +81,26 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
-      },
-    },
-    watch: {
+      }
     },
     created() {
       this.onSetForm()
     },
     methods: {
-      onSubmit()
+      onSubmit( isValid )
       {
-        this.$emit('onChangeStep', {
-          step: 3,
-          form: {
-            ...this.form,
-            company: {
-              ...this.form.company,
-              region: this.form.company.region_id.label,
-              region_id: this.form.company.region_id.id
-            }
-          }
-        })
+        if( !isValid ) {
+          this.$emit('onChangeStep', {
+            step: 3,
+            form: this.form
+          })
+        }
       },
       onChange( data )
       {
         this.form = {
           ...this.form,
-          ...data,
+          ...data
         }
       },
       onSetForm()
@@ -125,7 +111,7 @@
             ...this.data
           }
         }
-      }, 
+      },
     }
   }
 </script>

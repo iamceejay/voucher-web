@@ -2,18 +2,23 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full h-full px-8">
-        <RegisterStep1 
+        <RegisterStep1
           v-if="step == 1"
           :data="form"
           @onChangeStep="onChangeStep"
         />
-        <RegisterStep2 
+        <RegisterStep2
           v-if="step == 2"
           :data="form"
           @onChangeStep="onChangeStep"
         />
-        <RegisterStep3 
+        <RegisterStep3
           v-if="step == 3"
+          :data="form"
+          @onChangeStep="onChangeStep"
+        />
+        <ReigsterStep4
+          v-if="step == 4"
           @onChangeStep="onChangeStep"
         />
       </div>
@@ -26,6 +31,7 @@
   import RegisterStep1 from '_components/Modules/Register/Seller/Step1/'
   import RegisterStep2 from '_components/Modules/Register/Seller/Step2/'
   import RegisterStep3 from '_components/Modules/Register/Seller/Step3/'
+  import ReigsterStep4 from '_components/Modules/Register/Seller/Step4'
 
   export default {
     name: 'Register',
@@ -34,6 +40,7 @@
       RegisterStep1,
       RegisterStep2,
       RegisterStep3,
+      ReigsterStep4
     },
     data() {
       return {

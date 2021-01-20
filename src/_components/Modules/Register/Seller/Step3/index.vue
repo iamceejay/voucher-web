@@ -1,75 +1,25 @@
 <template>
-  <ValidationObserver 
-    v-slot="{ handleSubmit, invalid }"
+  <ValidationObserver
+    v-slot="{ handleSubmit }"
     class="flex w-full h-full"
   >
-    <form 
+    <form
       class="w-full flex flex-col"
-      @submit.prevent="handleSubmit(onSubmit(invalid))"
+      @submit.prevent="handleSubmit(onSubmit)"
     >
       <Header2
-        label="Auszahlungsinfo"
+        label="Unternehmensinfo"
       />
-      <PayoutForm
-        class="w-full md:w-1/2 "
+      <CompanyForm
+        class="w-full md:w-1/2 my-5"
+        :data="form"
         :errorMessages="errorMessages"
         @onChange="onChange"
       />
-      <Header2
-        label="Bedingungen"
-      />
-      <CheckboxField
-        id="dataPrivacy"
-        v-model="form.dataPrivacy"
-        type="text"
-        container="mx-2 mb-0"
-        :rules="{ required: { allowFalse: false } }"
-      >
-        <template #labelSentence_>
-          <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
-            Ich akzeptiere die
-            <a 
-              class="text-blue-700" 
-              href="https://verkaufen.epasnets.com/datenschutz" 
-              target="_blank"
-            >
-              Datenschutzerklärung.
-            </a>
-          </label>
-        </template>
-      </CheckboxField>
-      <CheckboxField
-        id="terms"
-        v-model="form.terms"
-        type="text"
-        container="mx-2 mb-0"
-        :rules="{ required: { allowFalse: false } }"
-      >
-        <template #labelSentence_>
-          <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
-            Ich akzeptiere die
-            <a 
-              class="text-blue-700" 
-              href="https://verkaufen.epasnets.com/agb" 
-              target="_blank"
-            >
-              Nutzungsbedingungen.
-            </a>
-          </label>
-        </template>
-      </CheckboxField>
-      <CheckboxField
-        id="commision"
-        v-model="form.commision"
-        type="text"
-        container="mx-2 mb-5"
-        :labelSentence="`Ich akzeptiere die Kommision von ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% des Umsatzes und ${ GLOBAL_SETTING ? $helpers.convertCurrency(GLOBAL_SETTING.sales_commission_euro) : '5,00 €' } pro Gutscheinverkauf zuzüglich 20% MwSt.`"
-        :rules="{ required: { allowFalse: false } }"
-      />
       <Button
         type="submit"
-        label="Registrierung abschließen"
-        size="w-full sm:w-1/2 py-4 mx-2"
+        label="nächster Schritt >"
+        size="w-full sm:w-1/2 py-3 mx-3"
         round="rounded-full"
       />
     </form>
@@ -77,18 +27,22 @@
 </template>
 <script>
   import Button from '_components/Button';
-  import PayoutForm from '_components/Modules/Profile/Form/PayoutForm';
-  import CheckboxField from '_components/Form/CheckboxField';
+  import CompanyForm from '_components/Modules/Profile/Form/CompanyForm';
   import Header2 from '_components/Headers/Header2';
 
   export default {
     components: {
-      PayoutForm,
-      CheckboxField,
+      CompanyForm,
       Button,
       Header2
     },
     props: {
+      data: {
+        type: Object,
+        default() {
+          return null
+        }
+      },
       errorMessages: {
         type: Array,
         default() {
@@ -99,10 +53,34 @@
     data() {
       return {
         submitting: false,
+        // form: {
+        //   name: '',
+        //   description: '',
+        //   url: '',
+        //   logo: '',
+        //   region: '',
+        //   vat_number: '',
+        // }
         form: {
-          dataPrivacy: false,
-          terms: false,
-          commission: false,
+          id: null,
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          address: '',
+          city: '',
+          zip_code: '',
+          phone_number: '',
+          password: '',
+          confirmPassword: '',
+          company: {
+            name: '',
+            description: '',
+            url: '',
+            logo: '',
+            region: '',
+            vat_number: ''
+          }
         }
       }
     },
@@ -111,30 +89,41 @@
       {
         return this.$store.getters.AUTH_USER
       },
-      GLOBAL_SETTING()
-      {
-        return this.$store.getters.GLOBAL_SETTING
-      },
     },
     watch: {
     },
     created() {
+      this.onSetForm()
     },
     methods: {
-      onSubmit( isValid )
+      onSubmit()
       {
-        if( !isValid ) {
-          this.$emit('onChangeStep', {
-            step: 'done',
-            form: this.form
-          })
-        }
+        this.$emit('onChangeStep', {
+          step: 4,
+          form: {
+            ...this.form,
+            company: {
+              ...this.form.company,
+              region: this.form.company.region_id.label,
+              region_id: this.form.company.region_id.id
+            }
+          }
+        })
       },
       onChange( data )
       {
         this.form = {
           ...this.form,
-          ...data
+          ...data,
+        }
+      },
+      onSetForm()
+      {
+        if( this.data ) {
+          this.form = {
+            ...this.form,
+            ...this.data
+          }
         }
       },
     }
