@@ -16,6 +16,8 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import '_helpers/VeeValidate'
 import VueTippy, { TippyComponent } from "vue-tippy";
 
+import VueGtag from "vue-gtag"
+
 const plugin = {
   install () {
     Vue.helpers = helpers
@@ -28,6 +30,9 @@ Vue.use(plugin)
 Vue.use(VueFileAgent)
 Vue.use(VueSweetalert2)
 Vue.use(Vuex)
+Vue.use(VueGtag, {
+  config: { id: "G-FCYT763C30" }
+})
 
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
