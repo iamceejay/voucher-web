@@ -39,13 +39,13 @@
       :errorMessages="errorMessages.url"
       @input="onChange"
     />
-    <div 
-      v-if="logo && logo != ''" 
+    <div
+      v-if="logo && logo != ''"
       class="flex w-full mx-2 company-logo"
     >
-      <img 
+      <img
         style="width: 100%; height: auto;"
-        :src="onSetImage('set', logo)" 
+        :src="onSetImage('set', logo)"
         alt=""
       />
     </div>
@@ -79,7 +79,7 @@
       :errorMessages="errorMessages.region_id"
       @input="onChange"
     />
-    <div v-if="GLOBAL_SETTING" class="mt-2 mb-4 text-sm text-center">
+    <div v-if="GLOBAL_SETTING && AUTH_USER.isAuth" class="mt-2 mb-4 text-sm text-center">
       {{
         `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Verkauf zuzüglich 20% MwSt.`
       }}
@@ -164,6 +164,10 @@
       {
         return this.$store.getters.USER_SETTING
       },
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      }
     },
     watch: {
       data(newVal)
