@@ -149,11 +149,8 @@
       v-model="form.verification_front"
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
-      label="ID verification Front"
-      note="(Acceptable documents vary by country, although a passport scan is always acceptable and preferred.
-Scans of both the front and back are usually required for government-issued IDs and driver’s licenses.
-Files need to be JPEGs or PNGs smaller than 10MB. We can’t verify PDFs.
-Files should be in color, be rotated with the image right-side up, and have all information clearly legible.)"
+      label="Lade jetzt oder später ein Foto von der Vorderseite eines gültigen Ausweises hoch"
+      note="(Personalausweis, Führerschein oder Pass. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.)"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
       rules="required"
@@ -177,11 +174,8 @@ Files should be in color, be rotated with the image right-side up, and have all 
       v-model="form.verification_back"
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
-      label="ID verification Back"
-      note="(Acceptable documents vary by country, although a passport scan is always acceptable and preferred.
-Scans of both the front and back are usually required for government-issued IDs and driver’s licenses.
-Files need to be JPEGs or PNGs smaller than 10MB. We can’t verify PDFs.
-Files should be in color, be rotated with the image right-side up, and have all information clearly legible.)"
+      label="Lade jetzt oder spät ein Foto von der Rückseite des gültigen Ausweises hoch "
+      note="(Personalausweis, Führerschein oder Pass. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.) "
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
       rules="required"
@@ -205,8 +199,8 @@ Files should be in color, be rotated with the image right-side up, and have all 
       v-model="form.additional_identity"
       class="w-full m-2"
       inputContainer="py-1 text-xs w-full md:w-2/5"
-      label="Additional Id Verification"
-      note="(A document showing address, either a passport, local ID card or utility bill from a well-known utility company.)"
+      label="Lade jetzt oder später ein amtliches Dokument, wo die Adresse deines Unternehmens ersichtlich ist, hoch."
+      note="(Firmenbuchauszug oder Gewerbeanmeldung)"
       :isMultiple="false"
       accept=".jpeg,.png,.jpg"
       rules="required"
