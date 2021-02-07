@@ -1,5 +1,5 @@
 <template>
-  <div id="input-field-component" class="mb-5">
+  <div id="input-field-component">
     <Header5
       v-if="label != ''"
       :label="label"
@@ -7,22 +7,22 @@
     <slot name="label_" />
     <div
       v-for="(row, index) in options"
-      :key="`${row}-${index}`"
+      :key="`${typeof row == 'object' ? row.label : row}-${index}`"
       class=" flex items-center mx-2"
     >
       <input
-        :id="`${row}-${index}`"
+        :id="`${typeof row == 'object' ? row.label : row}-${index}`"
         v-model="checkboxValue"
         :name="name"
-        :value="row"
+        :value="typeof row == 'object' ? row.id : row"
         type="checkbox"
         @change="onUpdateField()"
       />
       <label class="text-xs p-1 font-bold text-gray-900 font-body">
-        {{ limitLabel > 0 ? row.substring(0,limitLabel) : row }}
+        {{ limitLabel > 0 ? row.substring(0,limitLabel) : typeof row == 'object' ? row.label : row }}
       </label>
     </div>
-    <ErrorMessage :errors="errors" />
+    <ErrorMessage class="mt-1" :errors="errors" />
   </div>
 </template>
 <script>

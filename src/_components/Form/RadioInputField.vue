@@ -3,8 +3,8 @@
     id="input-field-component"
     :class="[ containerClass ]"
   >
-    <ValidationProvider 
-      :name="id" 
+    <ValidationProvider
+      :name="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -12,7 +12,7 @@
           v-if="label != ''"
           :label="label"
         />
-        <span 
+        <span
           v-if="note != ''"
           class="text-xs font-semibold"
         >
@@ -40,7 +40,7 @@
           </span>
           {{ description }}
         </label>
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>

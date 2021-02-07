@@ -1,7 +1,6 @@
 <template>
   <div
-    :id="`${listId}-${cardId}`"
-    class="flex shadow-custom rounded voucher-card-container bg-color mb-3 flex-shrink-0 sm:mr-3 mt-3"
+    class="bg-color flex flex-shrink-0 voucher-card-container"
     :class="{'flip': isFlip}"
     :style="{ '--bgColor': !isFlip ? voucher.background_color : '' }"
   >
@@ -24,6 +23,8 @@
         :userVoucher="userVoucher"
         :isFlippable="isFlippable"
         :withQR="withQR"
+        :listId="listId"
+        :cardId="cardId"
         @onFlip="onFlip()"
       />
       <CardAction
@@ -172,10 +173,9 @@
 </script>
 <style lang="css" scoped>
   .voucher-card-container {
-    width: 320px;
+    width: 367px;
     min-height: 330px;
     /* min-height: 480px; */
-    border-radius: 6px;
     transform: rotateY(0deg);
     transition: transform 0.5s linear;
     background-repeat: no-repeat;

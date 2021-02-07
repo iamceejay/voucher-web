@@ -29,7 +29,7 @@
             <i class="fas fa-search" />
           </span>
         </div>
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>

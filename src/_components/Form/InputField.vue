@@ -1,7 +1,7 @@
 <template>
   <div id="input-field-component" class="mb-5">
-    <ValidationProvider 
-      :name="id" 
+    <ValidationProvider
+      :name="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -10,7 +10,7 @@
           :label="label"
         />
         <slot name="label_" />
-        <span 
+        <span
           v-if="note != ''"
           class="text-xs font-semibold"
         >
@@ -22,7 +22,7 @@
           ref="inputField"
           :name="id"
           :type="type"
-          class="input-field mt-2 px-3 rounded-full text-sm font-semibold font-body"
+          class="input-field mt-2 px-3 rounded-sm text-sm"
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
           :value="value"
           :placeholder="placeholder"
@@ -31,7 +31,7 @@
           :step="step"
           @input="onUpdateField()"
         />
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>
@@ -98,4 +98,8 @@
   }
 </script>
 <style lang='css' scoped>
+input {
+  background-color: #F7F7F7;
+  border-color: #00000033;
+}
 </style>

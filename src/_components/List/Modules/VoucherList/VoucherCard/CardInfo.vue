@@ -1,16 +1,16 @@
 <template>
   <div
-    :class="`w-full flex flex-col px-4 py-3 cursor-pointer`"
+    :class="`cursor-pointer flex flex-col text-black w-full`"
     @click="onClickHeader()"
   >
     <div
-      class="card-header"
+      class="card-header  p-5"
     >
       <div class="flex flex-col w-3/5 break-words">
-        <div class="text-base font-bold font-display">
+        <div class="text-lg font-semibold">
           {{ voucher.title || 'Gutscheinnname' }}
         </div>
-        <div class="text-xs font-bold font-body">
+        <div class="text-sm">
           {{ voucher.seller && voucher.seller.username || 'N/A' }}
         </div>
       </div>
@@ -30,26 +30,65 @@
       </div>
     </div>
     <div class="card-content">
-      <div class="w-full flex flex-row break-words">
-        <div :class="`${order && userVoucher && userVoucher.custom_image ? 'w-3/5' : 'w-9/12'}`">
-          <div class="text-xs card-description h-48 font-body">
+      <div class="w-full flex flex-col break-words">
+        <!-- <div class="w-full py-5 card-description">
+          <div class="text-sm  px-5">
             {{ voucher.description || 'Beschreibung' }}
           </div>
           <div class="text-xs h-16 font-body font-bold py-1">
             {{ order && userVoucher && userVoucher.note || '' }}
           </div>
-        </div>
+        </div> -->
         <div v-if="order && userVoucher && userVoucher.custom_image" class="w-2/5 p-1">
           <img
-            style="width: 120px; height: 48px;"
+            class="card-image"
             :src="onSetCustomImage(userVoucher.custom_image)"
             alt=""
           />
         </div>
+        <div v-else>
+            <div
+              :style="{ backgroundImage: 'url(' + voucher.background_image + ')'}"
+              style="background-size: contain"
+              class="card-image"
+            ></div>
+        </div>
       </div>
-      <div class="w-full flex flex-row">
+      <div class="flex flex-col p-5 break-words card-long-description">
+        <div class="text-xs leading-5">
+          {{ voucher.description || 'Beschreibung' }}
+        </div>
+      </div>
+      <div class="flex flex-row">
+        <div class="w-1/2 flex flex-col p-5">
+          <span class="text-2xs">{{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}</span>
+          <span class="text-xl font-bold">1 x 50,00 €</span>
+          <span class="mt-3 flex items-center">
+             <QrcodeVue
+              class="card-qr"
+              :value="withQR && qr ? qr.url : ''"
+              :size="35"
+              level="H"
+            />
+            <div class="flex flex-col text-2xs ml-2">
+              <span>Gutscheincode:</span>
+              <span class="font-bold">123456789</span>
+            </div>
+          </span>
+        </div>
+
+        <div class="w-1/2 flex flex-col p-5">
+          <span class="text-2xs">Einlösbar:</span>
+          <span class="text-2xs text-gray-500">am: Mo, Di, Mi, Do, Fr Sa</span>
+          <span class="text-2xs text-gray-500">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
+          <span class="text-2xs mt-1">Region:</span>
+          <span class="text-2xs text-gray-500">Tirol</span>
+        </div>
+      </div>
+      <!-- <div class="w-full flex flex-row">
         <div class="w-9/12 flex flex-col">
           <div class="text-xs font-body ">
+
             <div class="min-h-20">
               <div v-if="voucher.valid_date && voucher.valid_date.length > 0">
                 <div
@@ -74,9 +113,6 @@
             <div v-if="order">
               Gültig bis: {{ onGetExpiryDate(order) }}
             </div>
-          </div>
-          <div class="text-sm font-bold font-body">
-            {{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}
           </div>
           <div v-if="role != 'seller'" class="text-sm font-bold font-body">
             <span v-if="userVoucher || order">
@@ -120,7 +156,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -134,6 +170,14 @@
       QrcodeVue
     },
     props: {
+      cardId: {
+        type: String,
+        default: 'voucher-card'
+      },
+      listId: {
+        type: String,
+        default: 'voucher-list'
+      },
       voucher: {
         type: Object,
         default: null
@@ -248,18 +292,29 @@
 </script>
 <style lang="css" scoped>
   .card-description {
-    min-width: 10rem;
+    height: 89px;
+    background-color: var(--card-description-background, #A38F7E);
+    color: var(--card-description-color, white);
   }
+
+  .card-long-description {
+    height: 135px;
+    background-color: var(--card-long-description-background, #1D4F55);
+    color: var(--card-description-color, white);
+  }
+
+  .card-image {
+    height: 340px;
+    width: 100%;
+  }
+
   .card-header {
     display: flex;
     flex-direction: row;
     /* flex-wrap: wrap; */
   }
-  .card-content {
-    padding: 8px 0px;
-  }
   .card-logo {
-    width: 80px;
+    width: auto;
     height: 32px;
   }
   .card-qr {

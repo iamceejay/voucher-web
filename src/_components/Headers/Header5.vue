@@ -1,5 +1,5 @@
 <template>
-  <div class="font-semibold text-sm font-display text-gray-700">
+  <div class="text-sm">
     {{ label }}
   </div>
 </template>
@@ -9,7 +9,7 @@
       label: {
         type: String,
         default: ''
-      } 
+      }
     },
   }
 </script>

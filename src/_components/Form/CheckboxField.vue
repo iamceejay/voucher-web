@@ -1,10 +1,10 @@
 <template>
-  <div 
+  <div
     id="input-checkbox-component"
     :class="[ container ]"
   >
-    <ValidationProvider 
-      :name="id" 
+    <ValidationProvider
+      :name="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -12,7 +12,7 @@
           v-if="label != ''"
           :label="label"
         />
-        <div class=" flex items-start mx-2">
+        <div class=" flex items-start">
           <input
             :id="id"
             class="checkbox-input"
@@ -28,8 +28,8 @@
           </label>
           <slot name="labelSentence_" />
         </div>
-        <ErrorMessage 
-          class="mx-2" 
+        <ErrorMessage
+          class="mx-2 mt-1"
           :errors="[...errors, ...errorMessages]"
         />
       </template>

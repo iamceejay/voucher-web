@@ -1,121 +1,357 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <form
-      class="flex flex-col w-full"
+      class="flex gap-4 md:grid justify-center md:grid-cols-2 pt-12 w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
-      <div class="flex flex-col w-full items-center mb-6">
+      <div class="flex flex-col">
+        <span class="mb-8 py-3 text-xl">Gutschein Vorschau</span>
         <VoucherCard
           :key="`vform-${formIndex}`"
           :voucher="form"
           :isFlippable="false"
         />
-        <div class="text-center font-bold font-body">
-          Live Vorschau
-        </div>
       </div>
-      <div class="w-full flex flex-col">
-        <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-          Wähle eine Hintergrundfarbe oder lade ein Foto im Hochformat hoch
-        </div>
-        <div class="flex flex-row flex-wrap w-full">
-          <!-- <div class="w-full md:w-1/2 mb-5">
-            <span class="font-semibold text-sm font-display text-gray-700 mx-2">
-              Hintergrundfarbe
-            </span>
-            <div class="w-full sm:w-1/2 md:mx-2 mt-2">
-              <Material
-                v-model="material_color"
-                @input="onPickColor($event, 'background_color')"
-              />
-            </div>
-          </div> -->
-          <div class="w-full sm:w-1/2 md:px-2 mt-2 mb-5">
-            <div class="flex flex-row">
-              <Header5
-                label="Lesehilfe"
-              />
-              <div class="tooltip ml-1">
-                <i
-                  v-tippy class="fas fa-info-circle text-base text-gray-700"
-                  content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. "
-                />
-                <!-- <span class="tooltiptext">
-                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist.
-                </span> -->
-              </div>
-            </div>
-            <div class="w-full sm:w-1/2 md:mx-2 mt-2">
-              <Chrome
-                v-model="chrome_color"
-                @input="onPickColor($event, 'background_aid')"
-              />
-            </div>
-          </div>
-          <div class="w-full md:w-1/2 mb-5">
-            <span class="font-semibold text-sm font-display text-gray-700 mx-2">
-              Hintergrundbild
-            </span>
-            <div class="font-semibold text-xs font-display text-gray-700 mx-2">
-              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein
-            </div>
-            <Button
-              v-if="form && form.id && form.background_image != ''"
-              class="mt-2 mx-2"
-              label="Ändern / Entfernen"
-              fontSize="text-xs"
-              size="w-32 py-1"
-              round="rounded-full"
-              @onClick="onRemoveBg"
-            />
-            <VueFileAgent
-              v-else
-              ref="vueFileAgent"
-              class="mt-2 mx-2"
-              :theme="'grid'"
-              :multiple="false"
-              :deletable="true"
-              :meta="true"
-              :accept="'image/*'"
-              :maxSize="'10MB'"
-              :helpText="' '"
-              :errorText="{
-                type: 'Invalid file type. Only images or zip Allowed',
-                size: 'Files should not exceed 10MB in size',
-              }"
-              @select="onChangeBgImg($event)"
-              @delete="onChangeBgImg($event)"
-            />
-          </div>
 
-          <div class="mx-2 mb-5 w-full flex flex-row">
-            <toggle-button
-              :value="(form.text_color == 'dark') ? true : false"
-              @change="onChangeTextColor"
-            />
-            <span class="ml-2 font-semibold text-sm font-display text-gray-700">Heller / Dunkler Text</span>
-          </div>
-          <div class="w-full">
+      <div class="w-full flex flex-col" style="max-width: 368px">
+        <div class="gap-4 grid grid-cols-3 mb-1">
+          <button
+            @click="currentTab = 0"
+            type="button"
+            class="px-3 py-3 rounded-md text-xs"
+            :class="currentTab == 0 ? 'bg-black text-white' : 'border border-black text-black'"
+            >
+            Gestaltung
+          </button>
+          <button
+            @click="currentTab = 1"
+            type="button"
+            class="px-3 py-3 rounded-md text-xs"
+            :class="currentTab == 1 ? 'bg-black text-white' : 'border border-black text-black'"
+            >
+            Einstellungen
+          </button>
+          <button
+            @click="currentTab = 2"
+            type="button"
+            class="px-3 py-3 rounded-md text-xs"
+            :class="currentTab == 2 ? 'bg-black text-white' : 'border border-black text-black'"
+            >
+            Preis & MwSt.
+          </button>
+        </div>
+        <div>
+          <!-- Gestaltung -->
+          <div
+            v-show="currentTab == 0"
+            class="bg-white flex flex-row flex-wrap w-full p-5 mt-10">
             <InputField
-              id="title"
-              v-model="form.title"
-              type="text"
-              class="px-2 w-full md:w-1/2"
-              placeholder="Titel des Gutscheins"
-              rules="required|max:30"
-            />
+                id="title"
+                v-model="form.title"
+                type="text"
+                label="Gutscheintitel"
+                class="w-full"
+                rules="required|max:30"
+              />
+
             <TextAreaField
               id="description"
               v-model="form.description"
-              class="px-2 w-full md:w-1/2"
-              placeholder="Beschreibung des Gutscheins"
+              class="w-full"
+              label="Kurzbeschreibung"
               rules="required|max:250"
             />
+
+            <div class="flex flex-col w-full">
+              <div class="text-sm mb-2">Hintergrundbild</div>
+              <label class="file input-field px-3 py-2 rounded-sm text-xs mb-3" for="file" style="background-color: #F7F7F7">
+                  <i class="fa fa-cloud-upload-alt mr-1"></i> Bild hochladen
+                  <input type="file" id="file" accept="'image/*'" aria-label="File browser example" @change="croppie"/>
+                <span class="file-custom"></span>
+              </label>
+              <section :style="{ display: hasFile ? 'block' : 'none' }">
+                <vue-croppie
+                  ref="croppieRef"
+                  :enableOrientation="true"
+                  :enableResize="false"
+                  :boundary="{ width: 328, height: 305 }"
+                  :viewport="{ width: 328, height: 305, 'type':'square' }"
+                  @update="update"
+                />
+              </section>
+              <!-- the result -->
+            </div>
+
+            <span class="font-semibold text-sm mb-1">Hintergrundfarbe</span>
+            <colorpicker :color="'#fff'" :label="'Kurzbeschreibung'" />
+            <colorpicker :color="'#fff'" :label="'Persönlichen Nachricht'" />
+            <colorpicker :color="'#fff'" :label="'Kopfzeile & Fußzeile'" />
+            <!-- <div class="w-full mb-5">
+              <span class="font-semibold text-sm mx-2">
+                Hintergrundfarbe
+              </span>
+              <div class="w-full md:mx-2 mt-2">
+                <Material
+                  v-model="material_color"
+                  @input="onPickColor($event, 'background_color')"
+                />
+              </div>
+            </div> -->
+            <!-- <div class="w-full mt-2 mb-5">
+              <div class="flex flex-col">
+                <Header5
+                  label="Lesehilfe"
+                />
+                <div class="tooltip ml-1">
+                  <i
+                    v-tippy class="fas fa-info-circle text-base text-gray-700"
+                    content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. "
+                  />
+                </div>
+              </div>
+              <div class="w-full md:mx-2 mt-2">
+                <Chrome
+                  v-model="chrome_color"
+                  @input="onPickColor($event, 'background_aid')"
+                />
+              </div>
+            </div> -->
+            <div class="border-t my-8 block w-full"></div>
+
+            <span class="font-semibold text-sm mb-1">Schriftfarbe</span>
+
+            <div class="grid grid-cols-3 items-end relative w-full mb-1">
+              <label class="text-sm col-span-2">Kurzbeschreibung</label>
+              <span>
+                <toggle-button
+                  :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                  :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                  :value="(form.text_color == 'dark') ? true : false"
+                  @change="onChangeTextColor"
+                />
+              </span>
+            </div>
+
+            <div class="grid grid-cols-3 items-end relative w-full mb-1">
+              <label class="text-sm col-span-2">Persönlichen Nachricht</label>
+              <span>
+                <toggle-button
+                  :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                  :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                  :value="(form.text_color == 'dark') ? true : false"
+                  @change="onChangeTextColor"
+                />
+              </span>
+            </div>
+
+            <div class="grid grid-cols-3 items-end relative w-full mb-1">
+              <label class="text-sm col-span-2">Kopfzeile & Fußzeile</label>
+              <span>
+                <toggle-button
+                  :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                  :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                  :value="(form.text_color == 'dark') ? true : false"
+                  @change="onChangeTextColor"
+                />
+              </span>
+            </div>
+
+            <div class="border-t my-8 block w-full"></div>
+
+            <span class="text-sm mb-1">Weitere Bilder die im Gutschein und der Produktseite abgebildet sind. (Format 4 x 4)</span>
+
+            <section class="gap-4 grid grid-cols-3 mt-3">
+              <div>
+                <span class="block mb-1 text-sm">Bild 1</span>
+                <label for="file" class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);">
+                      <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen <input type="file" accept="'image/*'" aria-label="File browser example" />
+                      <span class="file-custom"></span>
+                  </label>
+              </div>
+              <div>
+                <span class="block mb-1 text-sm">Bild 2</span>
+                <label for="file" class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);">
+                      <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen <input type="file" accept="'image/*'" aria-label="File browser example" />
+                      <span class="file-custom"></span>
+                  </label>
+              </div>
+              <div>
+                <span class="block mb-1 text-sm">Bild 3</span>
+                <label for="file" class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);">
+                      <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen <input type="file" accept="'image/*'" aria-label="File browser example" />
+                      <span class="file-custom"></span>
+                  </label>
+              </div>
+            </section>
+          </div>
+          <!-- End of Gestaltung -->
+
+          <!-- Einstellungen -->
+          <div v-show="currentTab == 1">
+            <div class="bg-white flex flex-row flex-wrap mt-10 px-8 py-5 w-full">
+              <SelectField
+                v-if="!form.id"
+                id="expiry_date"
+                v-model="form.expiry_date"
+                class="py-1 w-full"
+                label="Gültigkeitsdauer"
+                placeholder="Bitte auswählen"
+                :options="expiry"
+                rules="required"
+              />
+            </div>
+
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+              <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Hauptkategorie</span>
+              <div class="px-3 py-3">
+                <!-- <SelectField
+                  id="category"
+                  v-model="form.category"
+                  class="py-1 w-full"
+                  label="Kategorie"
+                  :options="categories"
+                  rules="required"
+                /> -->
+                <MultipleCheckboxField
+                  name="valid_day"
+                  :options="categories"
+                  :data="form.category"
+                  @onChange="form.category = $event"
+                />
+              </div>
+            </div>
+
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+              <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen</span>
+              <div class="py-3">
+                <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
+                  <label class="text-sm">nein/ ja</label>
+                  <span>
+                    <toggle-button
+                      :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                      :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                       v-model="isWithLimit"
+                    />
+                  </span>
+                </div>
+                <div v-if="isWithLimit" class="flex flex-col w-full px-3">
+                  <MultipleCheckboxField
+                    name="valid_day"
+                    :options="week"
+                    :data="form.valid_day"
+                    @onChange="form.valid_day = $event"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-show="isWithLimit">
+              <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen oder einem bestimmten Zeitraum gültig</span>
+              <div class="py-3 w-full">
+                <div class="w-full mb-5 px-5">
+                  <label class="text-sm mb-3 block">
+                    Nur gültig im Zeitraum von … bis …
+                  </label>
+                  <div
+                    v-for="(date, index) in form.valid_date"
+                    :key="`date-${index}`"
+                    class="flex flex-col"
+                  >
+                    <div class="flex flex-row items-baseline">
+                      <div class="border flex flex-col rounded-sm w-full">
+                        <DatePickerField
+                          v-model="form.valid_date[index].start"
+                          class="w-full border-b"
+                          container=""
+                          rules="required"
+                          placeholder="Startdatum"
+                          @input="onActionDate('change', index)"
+                        />
+                        <DatePickerField
+                          v-model="form.valid_date[index].end"
+                          class="w-full"
+                          container=""
+                          rules="required"
+                          placeholder="Enddatum"
+                          :errorMessages="[form.valid_date[index].error]"
+                          @input="onActionDate('change', index)"
+                        />
+                      </div>
+                      <a
+                        href="javascript:void(0)"
+                        class="flex mt-6 w-1/12 justify-center"
+                        @click="onActionDate('delete', index)"
+                      >
+                        <i class="fas fa-times-circle text-base" />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="mt-3 text-sm">
+                    <a
+                      v-if="form.valid_date.length < 4"
+                      href="javascript:void(0)"
+                      @click="onActionDate('add')"
+                    >
+                      <i class="fas fa-plus-circle text-base text-black" />
+                      <span class="ml-3">Weiteren Zeitraum hinzufügen</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of Einstellungen -->
+          <!-- Preis & MwSt. -->
+          <div v-show="currentTab == 2" class="bg-white flex flex-row flex-wrap w-full p-5 mt-10">
+            <div class="grid items-end relative w-full mb-1" style="grid-template-columns: auto 1fr;">
+              <label class="text-sm col-span-2 font-semibold">Gutscheinart</label>
+              <span>
+                <toggle-button
+                  :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                  :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                  :value="(form.type == 'quantity') ? true : false"
+                  @change="onChangeType"
+                />
+                <span class="ml-2 text-xs">Wertgutschein / Produktgutschein</span>
+              </span>
+            </div>
+
+            <span class="text-sm mt-3 font-semibold">Wert</span>
+
+            <InputField
+              v-if="form.type == 'quantity'"
+              id="type"
+              v-model="form.qty_val"
+              type="number"
+              class="py-1 w-full"
+              label="Gutscheinwert"
+              :rules="`required|min_value:${USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
+            />
+
+            <div class="gap-4 grid grid-cols-2 w-full">
+              <InputField
+                id="min"
+                v-model="form.min"
+                type="number"
+                class="py-1 w-full"
+                :placeholder="'min.'"
+                :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
+              />
+              <InputField
+                id="max"
+                v-model="form.max"
+                type="number"
+                class="py-1 w-full"
+                :placeholder="'max.'"
+                :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${form.min ? form.min : 0.001}`"
+              />
+            </div>
+
             <div class="flex flex-col w-full">
               <SelectField
                 id="taxes"
                 v-model="form.tax"
-                class="px-2 py-1 w-full md:w-1/2"
+                class="w-full"
                 placeholder="Steuersatz auswählen"
                 :options="taxes"
                 :multiple="true"
@@ -126,44 +362,33 @@
               >
                 <template #label_>
                   <div class="flex flex-row">
-                    <Header5
-                      label="Anfallende MwSt."
-                    />
-                    <div class="tooltip ml-1">
-                      <i
-                        v-tippy class="fas fa-info-circle text-base text-gray-700"
-                        content=' Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".'
-                      />
-                      <!-- <span class="tooltiptext">
-                        Wähle einen oder mehrere Steuersätze, welche für die im Gutschein enthaltenen Leistungen anfallen. Falls der Steuersatz für die im Gutschein inkludierte Leistung noch nicht festgestellt werden kann, markiere bitte das Kästchen "Steuersatz kann noch nicht festgestellt werden".
-                      </span> -->
-                    </div>
+                    <span class="text-sm font-semibold">MwSt.</span>
                   </div>
                 </template>
                 <template #note_>
                   <CheckboxField
                     :checked="form.tax && ((form.tax.length <= 0 && form.id) || (form.tax.length > 0 && form.tax[0] == 'unsure'))"
                     :disabled="form.id"
-                    container="mb-0"
+                    container="my-3"
                     labelSentence="Steuersatz kann noch nicht festgestellt werden"
                     @input="onUnsure"
                   />
                 </template>
               </SelectField>
               <div v-if="form.tax && form.tax.length > 0 && form.tax[0] != 'unsure'" class="flex flex-col w-full">
-                <div class="px-2 font-semibold text-xs font-display text-gray-700 flex flex-row w-full md:w-1/2">
+                <div class="font-semibold text-xs flex flex-row w-full">
                   Ausgewählter Steuersatz
                 </div>
                 <div
                   v-for="(row, index) in form.tax"
                   :key="`tax-${index}`"
-                  class="flex flex-row w-full md:w-1/2"
+                  class="flex flex-row w-full"
                 >
                   <InputField
                     :id="`t-label-${index}`"
                     :value="form.tax[index].label"
                     type="text"
-                    class="px-2 w-1/3"
+                    class="w-1/3"
                     inputContainer="py-1"
                     placeholder="Steuer kann nicht festgestellt werden"
                     :disabled="true"
@@ -172,7 +397,7 @@
                     :id="`t-value-${index}`"
                     v-model="form.tax[index].value"
                     type="number"
-                    class="px-2 w-7/12"
+                    class="w-7/12"
                     inputContainer="py-1"
                     placeholder="Betrag der Steuer in €"
                     :rules="`${ (form.tax.length <= 1) ? '' : 'required' }`"
@@ -189,162 +414,14 @@
                 </div>
               </div>
             </div>
-            <SelectField
-              id="category"
-              v-model="form.category"
-              class="px-2 py-1 w-full md:w-1/2"
-              label="Kategorie"
-              :options="categories"
-              rules="required"
-            />
-            <div class="flex flex-col w-full px-2">
-              <CheckboxField
-                v-model="isWithLimit"
-                label="Ist der Gutschein nur zu bestimmten Zeiten oder an gewissen Tagen gültig?"
-                container="mb-0"
-                labelSentence="Wenn ja, dann klicke hier."
-              />
-            </div>
-            <div v-if="isWithLimit" class="flex flex-col w-full px-2">
-              <MultipleCheckboxField
-                class="mx-2"
-                name="valid_day"
-                :options="week"
-                :data="form.valid_day"
-                @onChange="form.valid_day = $event"
-              >
-                <template #label_>
-                  <div class="flex flex-row">
-                    <Header5
-                      label="Nur gültig an diesen Tagen"
-                    />
-                    <div class="tooltip ml-1">
-                      <i
-                        v-tippy class="fas fa-info-circle text-base text-gray-700"
-                        content="Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll."
-                      />
-                      <!-- <span class="tooltiptext">
-                        Bitte nur bestimmte Tage auswählen, wenn der Gutschein nicht an allen Tagen gültig sein soll.
-                      </span> -->
-                    </div>
-                  </div>
-                </template>
-              </MultipleCheckboxField>
-              <div class="w-full md:w-1/2 mb-5 mx-2">
-                <div class="flex flex-row">
-                  <label class="font-semibold text-sm font-display text-gray-700">
-                    Nur gültig im Zeitraum von … bis …
-                    <div class="tooltip ml-1">
-                      <i
-                        v-tippy class="fas fa-info-circle text-base"
-                        content="Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen."
-                      />
-                      <!-- <span class="tooltiptext">
-                        Bitte nur bestimmte Zeiträume auswählen, wenn der Gutschein nicht durchgehend gültig sein soll. Achtung: die Gültigkeitsperioden müssen bis zum Verfallsdatum wiederkehrend (jährlich) bestehen.
-                      </span> -->
-                    </div>
-                    <a
-                      v-if="form.valid_date.length < 4"
-                      href="javascript:void(0)"
-                      class="ml-2"
-                      @click="onActionDate('add')"
-                    >
-                      <i class="fas fa-plus-circle text-base text-black" />
-                    </a>
-                  </label>
-                </div>
-                <div
-                  v-for="(date, index) in form.valid_date"
-                  :key="`date-${index}`"
-                  class="flex flex-col"
-                >
-                  <div class="flex flex-row">
-                    <div class="flex flex-row w-11/12">
-                      <DatePickerField
-                        v-model="form.valid_date[index].start"
-                        class="m-1 w-1/2"
-                        container=""
-                        rules="required"
-                        placeholder="Startdatum"
-                        @input="onActionDate('change', index)"
-                      />
-                      <DatePickerField
-                        v-model="form.valid_date[index].end"
-                        class="m-1 w-1/2"
-                        container=""
-                        rules="required"
-                        placeholder="Enddatum"
-                        :errorMessages="[form.valid_date[index].error]"
-                        @input="onActionDate('change', index)"
-                      />
-                    </div>
-                    <a
-                      href="javascript:void(0)"
-                      class="flex mt-6 w-1/12 justify-center"
-                      @click="onActionDate('delete', index)"
-                    >
-                      <i class="fas fa-trash text-red-900 text-base" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <SelectField
-              v-if="!form.id"
-              id="expiry_date"
-              v-model="form.expiry_date"
-              class="px-2 py-1 w-full md:w-1/2"
-              label="Gültigkeitsdauer (4 - 10 Jahre)"
-              :options="expiry"
-              rules="required"
-            />
-            <div class="m-1 w-full flex flex-col mb-5">
-              <label class="font-semibold text-sm font-display text-gray-700">
-                Gutscheinart
-              </label>
-              <div class="mx-2 mt-2 w-full flex flex-row">
-                <toggle-button
-                  :value="(form.type == 'quantity') ? true : false"
-                  @change="onChangeType"
-                />
-                <span class="ml-2 font-semibold text-sm font-display text-gray-700">Wertgutschein / Produktgutschein</span>
-              </div>
-            </div>
-            <InputField
-              v-if="form.type == 'quantity'"
-              id="type"
-              v-model="form.qty_val"
-              type="number"
-              class="px-2 py-1 w-full md:w-1/2"
-              label="Gutscheinwert"
-              :rules="`required|min_value:${USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
-            />
-            <InputField
-              id="min"
-              v-model="form.min"
-              type="number"
-              class="px-2 py-1 w-full md:w-1/2"
-              :label="(form.type == 'quantity') ? 'Mindestbestellmenge' : 'Mindestgutscheinwert'"
-              :placeholder="(form.type == 'quantity') ? 'Mindestmenge' : 'Mindestwert'"
-              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (form.type == 'quantity') ? 1 : USER_SETTING ? USER_SETTING.minimum_voucher_value : 0.001}`"
-            />
-            <InputField
-              id="max"
-              v-model="form.max"
-              type="number"
-              class="px-2 py-1 w-full md:w-1/2"
-              :label="(form.type == 'quantity') ? 'Maximalbestellmenge' : 'Maximalgutscheinwert'"
-              :placeholder="(form.type == 'quantity') ? 'Maximalmenge' : 'Maximalwert'"
-              :rules="`required|${ (form.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${form.min ? form.min : 0.001}`"
-            />
           </div>
         </div>
-        <Button
-          :label="`${ data && data.id ? 'Gutschein aktualisieren' : 'Gutschein speichern' }`"
-          size="w-full md:w-1/2 py-3"
-          round="rounded-full"
-          type="submit"
-        />
+        <!-- End of Preis & MwSt. -->
+        <div class="flex justify-end">
+          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10">
+            {{ data && data.id ? 'Aktualisieren' : 'Speichern' }}
+          </button>
+        </div>
       </div>
     </form>
   </ValidationObserver>
@@ -358,6 +435,7 @@
   import Button from '_components/Button'
   import TextAreaField from '_components/Form/TextAreaField'
   import SelectField from '_components/Form/SelectField'
+  import Colorpicker from '_components/Colorpicker'
   import MultipleCheckboxField from '_components/Form/MultipleCheckboxField'
   import { Chrome } from 'vue-color'
   import { ToggleButton } from 'vue-js-toggle-button'
@@ -365,6 +443,11 @@
   import { getWeek } from '_helpers/DefaultValues'
   import { toFormData } from '_helpers/CustomFunction'
   import moment from 'moment'
+  import Vue from 'vue';
+  import VueCroppie from 'vue-croppie';
+  import 'croppie/croppie.css' // import the croppie css manually
+
+  Vue.use(VueCroppie);
 
   export default {
     components: {
@@ -380,6 +463,7 @@
       TextAreaField,
       SelectField,
       MultipleCheckboxField,
+      Colorpicker
     },
     props: {
       data: {
@@ -391,9 +475,11 @@
     },
     data() {
       return {
+        currentTab: 0,
         isWithLimit: false,
         unsure: false,
         formIndex: 0,
+        hasFile: false,
         material_color: {
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
@@ -405,7 +491,7 @@
         categories: [],
         form: {
           id: null,
-          category: null,
+          category: [],
           voucher_category_id: null,
           seller_id: null,
           title: '',
@@ -633,27 +719,6 @@
           this.expiry = expiry
         }
       },
-      onChangeBgImg(data)
-      {
-        if(data.length > 0) {
-          this.background_image = data[0].file
-          let reader = new FileReader();
-          reader.readAsDataURL(data[0].file);
-          reader.onload = () => {
-            this.form.background_image = reader.result
-            this.formIndex = this.formIndex + 1
-          }
-        } else {
-          this.form.background_image = ''
-          this.background_image = null
-        }
-      },
-      onRemoveBg()
-      {
-        this.form.background_image = ''
-        this.form.remove_bg = true
-        this.formIndex = this.formIndex + 1
-      },
       onActionTax( action, index = null )
       {
         if( action === 'add' ) {
@@ -751,7 +816,39 @@
           val_min: 0,
           val_max: 0,
         }
-      }
+      },
+        croppie (e) {
+          var files = e.target.files || e.dataTransfer.files;
+          if (!files.length) return;
+
+          var reader = new FileReader();
+          reader.onload = e => {
+          this.hasFile = true
+            this.$refs.croppieRef.bind({
+              url: e.target.result
+            });
+          };
+
+          reader.readAsDataURL(files[0]);
+        },
+        // CALBACK USAGE
+        crop() {
+            // Here we are getting the result via callback function
+            // and set the result to this.cropped which is being
+            // used to display the result above.
+            let options = {
+                type: 'base64',
+                format: 'jpeg',
+                size: { width: 367, height: 341},
+                quality: 1,
+            }
+            this.$refs.croppieRef.result(options, (output) => {
+              this.form.background_image = output
+            });
+        },
+        update(val) {
+          this.crop()
+        },
     }
   }
 </script>
@@ -760,6 +857,9 @@
     height: unset !important;
     width: 100%;
     border-radius: 8px !important;
+  }
+  input[type="file"] {
+    display: none;
   }
 </style>
 <style lang="css">
@@ -777,5 +877,8 @@
     border: 0 !important;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,.12), 0 2px 5px rgba(0,0,0,.16);
+  }
+  .v-switch-core {
+    border: 1px solid black;
   }
 </style>

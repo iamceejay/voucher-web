@@ -2,10 +2,14 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <Header1
+        <div class="border-b border-gray-400 flex items-center justify-between pb-5">
+          <span class="text-xl font-medium">Gutschein erstellen</span>
+          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white">Speichern</button>
+        </div>
+        <!-- <Header1
           :label="`${($route.params.id) ? 'Gutschein aktualisieren' : 'Neuer Gutschein'}`"
-        />
-        <VoucherForm 
+        /> -->
+        <VoucherForm
           :data="data"
         />
       </div>

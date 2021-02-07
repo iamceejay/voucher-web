@@ -1,12 +1,12 @@
 <template>
-  <div 
-    id="input-field-component" 
-    :key="`file-input-${fileIndex}`" 
+  <div
+    id="input-field-component"
+    :key="`file-input-${fileIndex}`"
     class="mb-5 text-sm"
   >
-    <ValidationProvider 
+    <ValidationProvider
       ref="provider"
-      :name="id" 
+      :name="id"
       :rules="rules"
     >
       <template #default="{ validate, errors }">
@@ -14,13 +14,13 @@
           v-if="label != ''"
           :label="label"
         />
-        <span 
+        <span
           v-if="note != ''"
           class="text-xs font-semibold"
         >
           {{ note }}
         </span>
-        <label 
+        <label
           class="file-select flex w-full mt-2 px-3 rounded-full font-semibold font-body justify-center"
           :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
         >
@@ -30,18 +30,18 @@
           <span v-else>
             {{ value ? 'Choose another' : 'Wähle eine Datei aus(s)' }}
           </span>
-          <input 
+          <input
             :id="id"
             ref="inputField"
             class="w-full"
             :name="id"
             type="file"
-            :accept="accept" 
+            :accept="accept"
             :multiple="isMultiple ? 'multiple' : false"
             @change="handleFileChange"
           />
         </label>
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>
@@ -126,7 +126,7 @@
       async onConvertFile(e) {
         let { files }  = e.target;
         if (!files.length) return;
-        
+
         const data = this.isMultiple ? files : files[0]
 
         await this.$emit('onChange', data);

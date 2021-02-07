@@ -1,12 +1,12 @@
 <template>
-  <div 
+  <div
     v-if="errors && errors.length > 0"
-    id="field-error-message-component" class="text-sm mt-1"
+    id="field-error-message-component" class="text-sm"
   >
-    <p 
+    <p
       v-for="(error,i) in errors"
-      :key="'error-'+i" 
-      class="text-red-500 font-semibold font-body" 
+      :key="'error-'+i"
+      class="text-red-500 font-semibold font-body"
     >
       <small>{{ error }}</small>
     </p>

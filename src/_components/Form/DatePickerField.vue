@@ -3,7 +3,7 @@
     id="datepicker-field-component"
     :class="[ container ]"
   >
-    <ValidationProvider 
+    <ValidationProvider
       :ref="id"
       :vid="id"
       :rules="rules"
@@ -17,14 +17,14 @@
           v-model="date"
           :inputAttr="{name: id, id}"
           class=" w-full"
-          inputClass="input-field mt-2 py-2 px-3 rounded-full text-sm font-semibold"
+          inputClass="input-field pl-8 py-2 rounded-sm text-sm"
           :format="format"
           type="date"
           :placeholder="placeholder"
           valueType="format"
           @input="onUpdateField"
         />
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage class="mx-2 mt-0" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>

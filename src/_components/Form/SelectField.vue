@@ -1,11 +1,11 @@
 <template>
-  <div 
-    id="select-field-component" 
+  <div
+    id="select-field-component"
     :class="[ containerClass ]"
     class="w-full "
   >
-    <ValidationProvider 
-      :name="id" 
+    <ValidationProvider
+      :name="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -14,7 +14,7 @@
           :label="label"
         />
         <slot name="label_" />
-        <span 
+        <span
           v-if="note != ''"
           class="text-xs font-semibold"
         >
@@ -29,7 +29,7 @@
           :name="id"
           class="mt-2"
           :class="{ 'text-red-500 border-red-500': errors.length > 0 }"
-          :options="options" 
+          :options="options"
           :value="value"
           :placeholder="placeholder"
           :disabled="disabled"
@@ -43,6 +43,7 @@
           </template>
         </vSelect>
         <ErrorMessage
+          class="mt-1"
           v-if="!isHideInput"
           :errors="[...errors, ...errorMessages]"
         />
@@ -55,14 +56,14 @@
   import Header5 from '_components/Headers/Header5';
   import vSelect from 'vue-select'
   import 'vue-select/dist/vue-select.css';
-  
+
   export default {
     components: {
       vSelect,
       ErrorMessage,
       Header5
     },
-    
+
     props: {
       id: {
         type: [Number, String],
@@ -133,7 +134,8 @@
 </script>
 <style lang='css'>
   .v-select .vs__dropdown-toggle {
-    border-radius: 25px;
+    border-radius: 0.125rem;
+    background-color: #F7F7F7;
   }
   .vs__search, .vs__search:focus {
     padding: 0px !important;

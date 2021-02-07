@@ -1,7 +1,7 @@
 <template>
   <div id="text-area-field-component" class="mb-5">
-    <ValidationProvider 
-      :name="id" 
+    <ValidationProvider
+      :name="id"
       :rules="rules"
     >
       <template #default="{ errors }">
@@ -14,14 +14,14 @@
           ref="textField"
           :rows="rows"
           :name="id"
-          class="input-field mt-2 py-2 px-3 rounded-lg text-sm font-semibold font-body"
+          class="input-field mt-2 py-2 px-3 rounded-sm text-sm resize-none"
           :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
           :value="value"
           :maxlength="max"
           :placeholder="placeholder"
           @input="onUpdateField()"
         />
-        <ErrorMessage :errors="[...errors, ...errorMessages]" />
+        <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
   </div>
@@ -76,4 +76,8 @@
   }
 </script>
 <style lang='css' scoped>
+textarea {
+  background-color: #F7F7F7;
+  border-color: #00000033;
+}
 </style>
