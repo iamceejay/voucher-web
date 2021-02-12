@@ -79,7 +79,6 @@
       label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
       class="m-2"
       :errorMessages="errorMessages.phone_number"
-      rules="required"
       @input="onChange"
     />
     <InputField
