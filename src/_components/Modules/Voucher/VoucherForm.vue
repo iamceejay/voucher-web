@@ -83,9 +83,21 @@
             </div>
 
             <span class="font-semibold text-sm mb-1">Hintergrundfarbe</span>
-            <colorpicker :color="'#fff'" :label="'Kurzbeschreibung'" />
-            <colorpicker :color="'#fff'" :label="'Persönlichen Nachricht'" />
-            <colorpicker :color="'#fff'" :label="'Kopfzeile & Fußzeile'" />
+            <colorpicker
+              v-model="form.background_description_color"
+              :color="form.background_description_color"
+              :label="'Kurzbeschreibung'"
+            />
+            <colorpicker
+              v-model="form.background_description_personal_color"
+              :color="form.background_description_personal_color"
+              :label="'Persönlichen Nachricht'"
+            />
+            <colorpicker
+              v-model="form.header_and_footer_background_color"
+              :color="form.header_and_footer_background_color"
+              :label="'Kopfzeile & Fußzeile'"
+            />
             <!-- <div class="w-full mb-5">
               <span class="font-semibold text-sm mx-2">
                 Hintergrundfarbe
@@ -126,8 +138,8 @@
                 <toggle-button
                   :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
                   :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
-                  :value="(form.text_color == 'dark') ? true : false"
-                  @change="onChangeTextColor"
+                  :value="(form.description_color == '#000') ? true : false"
+                  @change="(e) => form.description_color = e.value ? '#000' : '#fff'"
                 />
               </span>
             </div>
@@ -138,8 +150,8 @@
                 <toggle-button
                   :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
                   :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
-                  :value="(form.text_color == 'dark') ? true : false"
-                  @change="onChangeTextColor"
+                  :value="(form.personal_description_color == '#000') ? true : false"
+                  @change="(e) => form.personal_description_color = e.value ? '#000' : '#fff'"
                 />
               </span>
             </div>
@@ -150,8 +162,8 @@
                 <toggle-button
                   :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
                   :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
-                  :value="(form.text_color == 'dark') ? true : false"
-                  @change="onChangeTextColor"
+                  :value="(form.header_and_footer_color == '#000') ? true : false"
+                  @change="(e) => form.header_and_footer_color = e.value ? '#000' : '#fff'"
                 />
               </span>
             </div>
@@ -498,6 +510,12 @@
           description: '',
           background_aid: 'transparent',
           background_color: '#fff',
+          background_description_color: '#1D4F55',
+          background_description_personal_color: '#1D4F55',
+          header_and_footer_background_color: '#fff',
+          description_color: '#fff',
+          personal_description_color: '#fff',
+          header_and_footer_color: '#000',
           text_color: 'dark',
           background_image: '',
           tax: [],

@@ -2,7 +2,13 @@
   <div
     class="bg-color flex flex-shrink-0 voucher-card-container"
     :class="{'flip': isFlip}"
-    :style="{ '--bgColor': !isFlip ? voucher.background_color : '' }"
+    :style="{
+      '--bgColor': !isFlip ? voucher.background_color : '',
+      '--card-description-background': voucher.background_description_color,
+      '--card-description-color': voucher.description_color,
+      '--card-header-footer-background': voucher.header_and_footer_background_color,
+      '--card-header-footer-color': voucher.header_and_footer_color,
+    }"
   >
     <div
       class="flex flex-col w-full bg-aid rounded"

@@ -54,15 +54,19 @@
             ></div>
         </div>
       </div>
-      <div class="flex flex-col p-5 break-words card-long-description">
+      <div class="flex flex-col p-5 break-words card-description">
         <div class="text-xs leading-5">
           {{ voucher.description || 'Beschreibung' }}
         </div>
       </div>
-      <div class="flex flex-row">
+      <div class="flex flex-row card-footer">
         <div class="w-1/2 flex flex-col p-5">
           <span class="text-2xs">{{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}</span>
-          <span class="text-xl font-bold">1 x 50,00 €</span>
+          <span class="text-xl font-bold">{{
+                `${(voucher.type == 'quantity')
+                  ? `${$helpers.convertCurrency(voucher.qty_val)}`
+                  : `${$helpers.convertCurrency(voucher.min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max)}`}`
+              }}</span>
           <span class="mt-3 flex items-center">
              <QrcodeVue
               class="card-qr"
@@ -79,10 +83,19 @@
 
         <div class="w-1/2 flex flex-col p-5">
           <span class="text-2xs">Einlösbar:</span>
-          <span class="text-2xs text-gray-500">am: Mo, Di, Mi, Do, Fr Sa</span>
-          <span class="text-2xs text-gray-500">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
+          <span
+            v-if="voucher.valid_day && voucher.valid_day.length > 0"
+            class="text-2xs opacity-50">
+            am: <span
+                  v-for="(day, index) in voucher.valid_day"
+                  :key="`day-${index}`"
+                >
+                  {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
+                </span>
+            </span>
+          <span class="text-2xs opacity-50">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
           <span class="text-2xs mt-1">Region:</span>
-          <span class="text-2xs text-gray-500">Tirol</span>
+          <span class="text-2xs opacity-50">Tirol</span>
         </div>
       </div>
       <!-- <div class="w-full flex flex-row">
@@ -292,15 +305,15 @@
 </script>
 <style lang="css" scoped>
   .card-description {
-    height: 89px;
-    background-color: var(--card-description-background, #A38F7E);
+    height: 135px;
+    background-color: var(--card-description-background, #1D4F55);
     color: var(--card-description-color, white);
   }
 
-  .card-long-description {
-    height: 135px;
-    background-color: var(--card-long-description-background, #1D4F55);
-    color: var(--card-description-color, white);
+  .card-footer,
+  .card-header {
+    background-color: var(--card-header-footer-background, #fff);
+    color: var(--card-header-footer-color, #000);
   }
 
   .card-image {
