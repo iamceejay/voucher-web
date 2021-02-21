@@ -75,7 +75,7 @@
             />
             <div class="flex flex-col text-2xs ml-2">
               <span>Gutscheincode:</span>
-              <span class="font-bold">123456789</span>
+              <span class="font-bold">{{ withQR && qr ? qr.url : '123456789' }}</span>
             </div>
           </span>
         </div>
