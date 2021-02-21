@@ -27,7 +27,7 @@
     />
     <div
       v-if="type === 'standard'"
-      :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'flex flex-wrap justify-center sm:justify-start' }`"
+      :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'gap-4 grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2' }`"
     >
       <VoucherCard
         v-for="(voucher, index) in tempData"

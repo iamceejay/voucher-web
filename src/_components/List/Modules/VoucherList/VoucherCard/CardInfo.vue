@@ -48,7 +48,7 @@
         </div>
         <div v-else>
             <div
-              :style="{ backgroundImage: 'url(' + voucher.background_image + ')'}"
+              :style="{ backgroundImage: 'url(' + (voucher.data_json != null ? voucher.data_json.background_image : voucher.background_image) + ')', backgroundColor: 'white'}"
               style="background-size: contain"
               class="card-image"
             ></div>
@@ -65,13 +65,12 @@
           <span class="text-xl font-bold">{{
                 `${(voucher.type == 'quantity')
                   ? `${$helpers.convertCurrency(voucher.qty_val)}`
-                  : `${$helpers.convertCurrency(voucher.min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max)}`}`
+                  : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
               }}</span>
           <span class="mt-3 flex items-center">
              <QrcodeVue
               class="card-qr"
               :value="withQR && qr ? qr.url : ''"
-              :size="35"
               level="H"
             />
             <div class="flex flex-col text-2xs ml-2">
@@ -304,8 +303,31 @@
   }
 </script>
 <style lang="css" scoped>
+  .text-xl {
+    font-size: 1.25em;
+  }
+  .text-lg {
+    font-size: 1.125em;
+  }
+  .text-sm {
+    font-size: 0.875em;
+  }
+  .text-xs {
+    font-size: 0.75em;
+  }
+  .text-2xs {
+    font-size: .60em;
+  }
+
+  .p-1 {
+    padding: 0.25em;
+  }
+
+  .p-5 {
+    padding: 1.25em;
+  }
   .card-description {
-    height: 135px;
+    height: 8.4375em;
     background-color: var(--card-description-background, #1D4F55);
     color: var(--card-description-color, white);
   }
@@ -317,7 +339,7 @@
   }
 
   .card-image {
-    height: 340px;
+    padding-top: 92.65%;
     width: 100%;
   }
 
@@ -332,9 +354,11 @@
   }
   .card-qr {
     align-self: center;
+    width: 2.1875em;
     /* margin-left: auto; */
     /* margin: 0px 15px; */
   }
+
   .qr-text {
     margin-top: 2px;
     /* margin-right: 6px; */

@@ -3,11 +3,12 @@
     class="bg-color flex flex-shrink-0 voucher-card-container"
     :class="{'flip': isFlip}"
     :style="{
-      '--bgColor': !isFlip ? voucher.background_color : '',
-      '--card-description-background': voucher.background_description_color,
-      '--card-description-color': voucher.description_color,
-      '--card-header-footer-background': voucher.header_and_footer_background_color,
-      '--card-header-footer-color': voucher.header_and_footer_color,
+      '--bgColor': !isFlip ? 'transparent' : 'white',
+      '--card-description-background': voucher.data_json != null ? voucher.data_json.background_description_color : voucher.background_description_color,
+      '--card-description-color': voucher.data_json != null ? voucher.data_json.description_color : voucher.description_color,
+      '--card-header-footer-background': voucher.data_json != null ? voucher.data_json.header_and_footer_background_color : voucher.header_and_footer_background_color,
+      '--card-header-footer-color': voucher.data_json != null ? voucher.data_json.header_and_footer_color : voucher.header_and_footer_color,
+      fontSize: 'clamp(4px, 4.360vw, 16px)'
     }"
   >
     <div
@@ -179,13 +180,15 @@
 </script>
 <style lang="css" scoped>
   .voucher-card-container {
-    width: 367px;
+    max-width: 367px;
+    width: 100%;
     min-height: 330px;
     /* min-height: 480px; */
     transform: rotateY(0deg);
     transition: transform 0.5s linear;
     background-repeat: no-repeat;
     background-position: center;
+    margin: 0 auto;
   }
   .voucher-card-container.flip {
     transform: rotateY(360deg);
