@@ -7,7 +7,7 @@
       class="card-header  p-5"
     >
       <div class="flex flex-col w-3/5 break-words">
-        <div class="text-lg font-semibold">
+        <div class="text-base font-semibold">
           {{ voucher.title || 'Gutscheinnname' }}
         </div>
         <div class="text-sm">
@@ -303,6 +303,9 @@
   }
 </script>
 <style lang="css" scoped>
+  .text-base {
+      font-size: 1em;
+  }
   .text-xl {
     font-size: 1.25em;
   }

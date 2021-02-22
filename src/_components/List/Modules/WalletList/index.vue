@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-full">
-    <Header2 
+    <Header2
       v-if="title != ''"
       :label="title"
     />
@@ -8,7 +8,7 @@
       <div
         v-for="(row, index) in data"
         :key="`voucher-${index}`"
-        class="flex flex-col cart-card-container mr-3 mb-3"
+        class="flex flex-col cart-card-container mr-3 mb-3 border-b-2 pb-8"
       >
         <div class="flex flex-wrap justify-center sm:justify-start h-full">
           <VoucherCard
@@ -20,13 +20,30 @@
             :role="role"
             :withQR="withQR"
           />
+          <section class="flex flex-col items-center w-full mt-4">
+            <span class="font-medium">{{ row.order.voucher.title }}</span>
+            <span class="text-sm mb-2">{{ row.order.voucher.seller && row.order.voucher.seller.username || 'N/A' }}</span>
+            <span class="font-medium">{{
+                  `${(row.order.voucher.type == 'quantity')
+                    ? `${$helpers.convertCurrency(row.order.voucher.qty_val)}`
+                    : `${$helpers.convertCurrency(row.order.voucher.min || row.order.voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(row.order.voucher.max || voucher.val_max)}`}`
+                }}
+            </span>
+
+            <button
+              class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4"
+              @click="$router.push(`/seller/${row.order.voucher.seller_id}`)"
+              >
+              Zum Gutschein
+            </button>
+          </section>
         </div>
         <div v-if="withCartDetail" class="flex flex-col h-12 self-center">
           <div class="flex flex-row">
             <span class="text-sm font-bold">
-              {{ 
-                (row.order.voucher.type == 'quantity') 
-                  ? 'Price per voucher: ' 
+              {{
+                (row.order.voucher.type == 'quantity')
+                  ? 'Price per voucher: '
                   : 'Value: '
               }}
             </span>
@@ -38,7 +55,7 @@
             <span class="text-sm font-semibold ml-2">
               {{ `= ${$helpers.convertCurrency(onGetTotal(row))}` }}
             </span>
-            <a 
+            <a
               href="javascript:void(0)"
               class="text-red-900 ml-2"
               @click="onDelete(row)"
@@ -137,7 +154,7 @@
         }).then((result) => {
           if(result.value){
             this.$emit('onDelete', data)
-          }   
+          }
         })
       },
       onGetTotalPrice()
@@ -157,7 +174,7 @@
         if( data.order.voucher.type == 'quantity' ) {
           total = value * data.order.voucher.price_filter
         }
-        
+
         return total
       },
     }
