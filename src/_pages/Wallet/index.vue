@@ -21,9 +21,13 @@
           class="mb-3"
           :role="AUTH_USER.role.name"
           :data="USER_VOUCHERS.data"
+          :withPagination="true"
+          :currentPage="USER_VOUCHERS.current_page"
+          :lastPage="USER_VOUCHERS.last_page"
           :isCart="false"
           :withQR="true"
           :withCartDetail="false"
+          @onPaginate="onPaginateVouchers($event)"
         />
       </div>
     </template>
@@ -47,7 +51,7 @@
         params: {
           keyword: '',
           page: 1,
-          paginate: 5,
+          paginate: 9,
           user_id: null,
           status: 'completed'
         }
@@ -65,28 +69,28 @@
       {
         return this.$store.getters.IS_LOADING
       },
-      IS_LOAD_MORE()
-      {
-        return this.$store.getters.IS_LOAD_MORE
-      },
+      // IS_LOAD_MORE()
+      // {
+      //   return this.$store.getters.IS_LOAD_MORE
+      // },
     },
-    watch: {
-      async IS_LOAD_MORE(newVal)
-      {
-        if( newVal ) {
-          await this.onLoadData({
-            ...this.params,
-            page: this.params.page + 1
-          })
-          await this.$store.commit('SET_IS_LOAD_MORE', false)
-        }
-      },
-    },
+    // watch: {
+    //   async IS_LOAD_MORE(newVal)
+    //   {
+    //     if( newVal ) {
+    //       await this.onLoadData({
+    //         ...this.params,
+    //         page: this.params.page + 1
+    //       })
+    //       await this.$store.commit('SET_IS_LOAD_MORE', false)
+    //     }
+    //   },
+    // },
     mounted() {
       (async() => {
         try {
           await this.$store.commit('SET_USER_VOUCHERS', [])
-          await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+          // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
           this.params.user_id = this.AUTH_USER.data.id
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchSearchUserVouchers()
@@ -102,6 +106,16 @@
       })()
     },
     methods: {
+      async onPaginateVouchers(action)
+      {
+        let params =
+        {
+          ...this.params,
+          page: (action === "prev") ? this.params.page - 1 : this.params.page + 1
+        }
+        await this.$store.commit('SET_USER_VOUCHERS', [])
+        await this.onLoadData(params)
+      },
       async onLoadData( data, fromSearch = false )
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })

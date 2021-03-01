@@ -14,6 +14,10 @@
         <OrderList 
           :role="AUTH_USER.role.name"
           :data="WALLETS.data"
+          :withPagination="true"
+          :currentPage="WALLETS.current_page"
+          :lastPage="WALLETS.last_page"
+          @onPaginate="onPaginate($event)"
         />
       </div>
     </template>
@@ -39,7 +43,7 @@
         stats: [],
         params: {
           page: 1,
-          paginate: 5,
+          paginate: 9,
           user_id: null,
           status: 'completed'
         }
@@ -58,27 +62,27 @@
       {
         return this.$store.getters.IS_LOADING
       },
-      IS_LOAD_MORE()
-      {
-        return this.$store.getters.IS_LOAD_MORE
-      },
+      // IS_LOAD_MORE()
+      // {
+      //   return this.$store.getters.IS_LOAD_MORE
+      // },
     },
-    watch: {
-      async IS_LOAD_MORE(newVal)
-      {
-        if( newVal ) {
-          await this.onLoadData({
-            ...this.params,
-            page: this.params.page + 1
-          })
-          await this.$store.commit('SET_IS_LOAD_MORE', false)
-        }
-      },
-    },
+    // watch: {
+    //   async IS_LOAD_MORE(newVal)
+    //   {
+    //     if( newVal ) {
+    //       await this.onLoadData({
+    //         ...this.params,
+    //         page: this.params.page + 1
+    //       })
+    //       await this.$store.commit('SET_IS_LOAD_MORE', false)
+    //     }
+    //   },
+    // },
     mounted() {
       (async() => {
         try {
-          await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+          // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
           await this.$store.commit('SET_WALLETS', [])
           this.params.user_id = this.AUTH_USER.data.id
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
@@ -97,6 +101,16 @@
       })()
     },
     methods: {
+      async onPaginate(action)
+      {
+        let params =
+        {
+          ...this.params,
+          page: (action === "prev") ? this.params.page - 1 : this.params.page + 1
+        }
+        await this.$store.commit('SET_WALLETS', [])
+        await this.onLoadData(params)
+      },
       async onLoadData( data )
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })

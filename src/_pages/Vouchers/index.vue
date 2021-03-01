@@ -17,6 +17,10 @@
         </router-link>
         <VoucherList 
           :data="VOUCHERS.data"
+          :withPagination="true"
+          :currentPage="VOUCHERS.current_page"
+          :lastPage="VOUCHERS.last_page"
+          @onPaginate="onPaginateVouchers($event)"
         />
       </div>
     </template>
@@ -38,7 +42,18 @@
     },
     data() {
       return {
-        submitting: false
+        submitting: false,
+        params: {
+          keyword: '',
+          page: 1,
+          paginate: 9,
+          isNewest: false,
+          isMostPopular: false,
+          isLowestPrice: false,
+          isPrice: null,
+          isLoading: false,
+          seed: new Date().getTime()
+        }
       }
     },
     computed: {
@@ -70,10 +85,32 @@
       })()
     },
     methods: {
+      async onPaginateVouchers(action)
+      {
+        let params =
+        {
+          ...this.params,
+          page: (action === "prev") ? this.params.page - 1 : this.params.page + 1
+        }
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.onFetchData(params)
+      },
+      async onFetchData( data )
+      {
+        // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        this.params = {
+          ...this.params,
+          ...data,
+        }
+        await this.onFetchVouchers()
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+      },
       async onFetchVouchers(id)
       {
         try {
           await this.$store.dispatch('FETCH_SELLER_VOUCHERS', {
+            ...this.params,
             seller_id: id
           })
         } catch (err) {

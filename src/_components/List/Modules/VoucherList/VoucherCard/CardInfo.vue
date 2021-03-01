@@ -16,7 +16,7 @@
       </div>
       <div class="self-center w-2/5">
         <img
-          v-if="voucher.seller && voucher.seller.company.logo"
+          v-if="voucher.seller && voucher.seller.company && voucher.seller.company.logo"
           class="card-logo ml-auto"
           :src="onSetImage(voucher.seller.company.logo)"
           alt=""
