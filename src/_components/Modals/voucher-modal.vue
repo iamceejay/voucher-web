@@ -330,53 +330,6 @@
     opacity: 0;
     transform: scale(1.1);
   }
-  .order__form-number {
-  cursor: pointer;
-  width: 12px;
-  height: 12px;
-  text-align: center;
-  color: #333;
-  font-weight: bold;
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-.order__form .order__form-number.order-up {
-  position: absolute;
-  top: 10px;
-  right: 4px;
-}
-.order__form .order__form-number.order-down {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-}
-.order__form-group {
-  width: 80px;
-  position: relative;
-}
-.order__form input[type="number"]::-webkit-inner-spin-button,
-.order__form input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.order__form input[type="number"] {
-  -moz-appearance: textfield;
-  width: 100%;
-  padding-right: 5px;
-  text-align: center;
-  color: #45434a;
-  padding-top: 7px;
-  padding-bottom: 8px;
-  border-radius: 8px;
-  border: 2px solid #e3e3e3;
-}
-.order__form input[type="number"]:focus {
-  outline: 0;
-}
+
 
 </style>

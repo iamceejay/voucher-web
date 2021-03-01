@@ -21,7 +21,7 @@
         id="infinite-scroll"
         class="flex flex-col h-full w-full m-c pt-10"
       >
-        <BackBtn class="px-8" />
+        <BackBtn class="px-8" :title="title" />
         <slot name="content" />
       </div>
     </div>
@@ -73,7 +73,7 @@
       VoucherModal,
       SellerModal
     },
-    props: [],
+    props: ['title'],
     data() {
       return {
         isHideSideBar: true,

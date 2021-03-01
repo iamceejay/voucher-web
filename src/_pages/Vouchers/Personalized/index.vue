@@ -1,11 +1,12 @@
 <template>
-  <MainLayout>
+  <MainLayout title="Gutschein personalisieren">
+    <template #header-title>
+      <h3 class="font-medium text-xl">Gutschein personalisieren</h3>
+    </template>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <Header1
-          label="Gutschein personalisieren"
-        />
-        <PersonalizedForm 
+
+        <PersonalizedForm
           :data="USER_VOUCHER"
         />
       </div>

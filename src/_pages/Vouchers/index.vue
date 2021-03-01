@@ -15,7 +15,7 @@
             round="rounded-full"
           />
         </router-link>
-        <VoucherList 
+        <VoucherList
           :data="VOUCHERS.data"
           :withPagination="true"
           :currentPage="VOUCHERS.current_page"
