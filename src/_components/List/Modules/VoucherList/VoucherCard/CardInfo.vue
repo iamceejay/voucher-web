@@ -265,9 +265,9 @@
             this.$emit('onFlip')
             // }
           } else {
-            // this.$router.push(`/vouchers/${this.voucher.id}`)
-            this.$store.commit('SET_VOUCHER_ID', this.voucher.id)
-            this.$store.commit('SET_MODAL', true)
+            this.$router.push(`/vouchers/${this.voucher.id}`)
+            // this.$store.commit('SET_VOUCHER_ID', this.voucher.id)
+            // this.$store.commit('SET_MODAL', true)
 
             this.$store.commit('SET_SELLER_MODAL', false)
             document.body.classList.remove('overflow-hidden')

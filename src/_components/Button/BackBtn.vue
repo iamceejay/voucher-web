@@ -2,9 +2,16 @@
   <div
     v-if="$route.meta.back || $route.meta.back == '' || show"
     id="back-button-component"
-    class="content-container flex flex-col w-full"
+    class="content-container flex items-center w-full"
   >
-    <Button
+    <button
+      @click="onBack()"
+      type="button"
+      class="border-1 focus:outline-none focus:shadow-none font-display px-2 py-1 rounded-full text-2xl text-peach w-16">
+        <i class="fa-arrow-left fas"></i>
+    </button>
+    <h3 class="font-medium text-xl">{{ title }}</h3>
+    <!-- <Button
       size="w-32 py-1 px-2"
       fontSize="text-2xs"
       labelClass="ml-2"
@@ -12,7 +19,7 @@
       label="Zurück"
       icon="arrow-left"
       @onClick="onBack()"
-    />
+    /> -->
   </div>
 </template>
 <script>
@@ -26,6 +33,10 @@
       show: {
         type: Boolean,
         default: false
+      },
+      title: {
+        type: String,
+        default: ''
       }
     },
     data() {
@@ -40,15 +51,15 @@
         if( !this.show ) {
           let route = this.$route.meta.back
           if( route == '' ) {
-            (window.history.length > 1) 
-              ? this.$router.go(-1) 
+            (window.history.length > 1)
+              ? this.$router.go(-1)
               : this.$router.push('/')
           } else {
             this.$router.push(route)
           }
         } else {
-          (window.history.length > 1) 
-            ? this.$router.go(-1) 
+          (window.history.length > 1)
+            ? this.$router.go(-1)
             : this.$router.push('/')
         }
       }

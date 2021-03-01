@@ -9,61 +9,98 @@
             :isFlippable="false"
             :withQR="false"
           />
+          <span class="block border-b font-semibold pb-3 pt-6 text-lg text-center">
+            {{ VOUCHER.title }}
+          </span>
           <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
-            Logge dich ein oder registriere dich, um Gutscheine zu kaufen.
+            <a
+              href="javascript:void(0)"
+              class="text-peach cursor-pointer"
+              @click="close(); $router.push('/login')"
+            >
+              Logge dich ein
+            </a>
+            oder <a
+              href="javascript:void(0)"
+              class="text-peach cursor-pointer"
+              @click="close(); $router.push('/register/buyer')"
+            >
+              registriere dich
+            </a>, um Gutscheine zu kaufen.
           </div>
-          <router-link
-            class="self-center w-full md:w-1/2"
-            :to="`/seller/${VOUCHER.seller_id}`"
-          >
-            <Button
-              label="Mehr Infos & Gutscheine von diesem Verkäufer"
-              size="w-full py-1"
-              round="rounded-full"
-            />
-          </router-link>
+
         </div>
         <ValidationObserver
           v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
           v-slot="{ handleSubmit }"
         >
           <form
-            class="flex flex-col w-full mt-8"
+            class="flex flex-col w-full mt-4 order__form"
             @submit.prevent="handleSubmit(onSubmit)"
           >
-            <InputField
-              id="value"
-              v-model="form.value"
-              type="number"
-              class="w-full md:w-1/2 self-center"
-              :label="`${ (VOUCHER.type == 'quantity') ? `Gib deine Bestellmenge (${$helpers.convertCurrency(VOUCHER.price_filter)} pro Gutschein)` : 'Gib deinen Wunschbetrag' } an`"
-              placeholder="Hier eingeben"
-              :rules="`required|${ (VOUCHER.type == 'quantity') ? 'integer' : 'decimal'}|min_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min }|max_value:${ (VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max }`"
-              :note="`
-              ${
-                (VOUCHER.type == 'quantity')
-                  ? `Menge zwischen ${VOUCHER.qty_min}x und ${VOUCHER.qty_max}x`
-                  : `Wert zwischen ${$helpers.convertCurrency(VOUCHER.val_min)} und ${$helpers.convertCurrency(VOUCHER.val_max) }`
-              }
-              `"
-              :disabled="isAdded ? true : false"
-            />
-            <div class="flex flex-col mt-3 self-center text-center">
-              <span class="text-2xl">Preis</span>
-              <span class="text-2xl font-bold">
-                {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
-              </span>
-            </div>
+            <section class="gap-12 grid grid-cols-2">
+              <div class="flex flex-col items-end">
+                <span class="font-semibold text-lg">
+                  {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
+                </span>
+                <span class="text-2xs text-gray-500">inkl. MwSt.</span>
+              </div>
+              <div class="order__form-group">
+                <input
+                  v-model="form.value"
+                  type="number"
+                  :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                  :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                  required
+                />
+                <div
+                  class="order__form-number order-up"
+                  @click="form.value++"
+                >+</div>
+                <div
+                  class="order__form-number order-down"
+                  @click="form.value--"
+                >-</div>
+              </div>
+            </section>
             <Button
               class="self-center w-full md:w-1/2 mt-3 "
               :label="`zum Warenkorb hinzufügen`"
               :icon="`${ isAdded ? 'check' : '' }`"
               size="w-full py-3"
-              round="rounded-full"
+              round="rounded-md"
               :type="`${ isAdded ? 'button' : 'submit' }`"
               @onClick=" isAdded ? onRemoveCart() : null"
             />
           </form>
+
+          <section class="border flex md:w-1/2 mt-3 mx-auto p-4 w-full">
+            <i class="fa fa-palette mr-2 mt-1"></i>
+            <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
+          </section>
+
+          <span class="block md:w-1/2 mx-auto my-6 w-full">
+            {{ VOUCHER.description }}
+          </span>
+
+          <div v-if="VOUCHER.data_json != null" class="flex mx-auto overflow-x-scroll space-x-3 md:w-1/2 w-full">
+            <img v-if="VOUCHER.data_json.image_1" :src="VOUCHER.data_json.image_1" width="150" height="150">
+            <img v-if="VOUCHER.data_json.image_2" :src="VOUCHER.data_json.image_2" width="150" height="150">
+            <img v-if="VOUCHER.data_json.image_3" :src="VOUCHER.data_json.image_3" width="150" height="150">
+          </div>
+
+            <div v-if="VOUCHER.data_json != null" class="border-b flex md:w-1/2 mx-auto py-6 mb-8 text-xs w-full whitespace-pre">{{ VOUCHER.data_json.long_description }}</div>
+
+          <router-link
+            class="self-center w-full md:w-1/2 mx-auto block"
+            :to="`/seller/${VOUCHER.seller_id}`"
+          >
+            <Button
+              label="Mehr Infos & Gutscheine von diesem Verkäufer"
+              size="w-full py-3"
+              round="rounded-md"
+            />
+          </router-link>
         </ValidationObserver>
       </div>
     </template>
@@ -233,4 +270,52 @@
   }
 </script>
 <style lang='css' scoped>
+.order__form-number {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.order__form .order__form-number.order-up {
+  position: absolute;
+  top: 10px;
+  right: 4px;
+}
+.order__form .order__form-number.order-down {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+.order__form-group {
+  width: 80px;
+  position: relative;
+}
+.order__form input[type="number"]::-webkit-inner-spin-button,
+.order__form input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.order__form input[type="number"] {
+  -moz-appearance: textfield;
+  width: 100%;
+  padding-right: 5px;
+  text-align: center;
+  color: #45434a;
+  padding-top: 7px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  border: 2px solid #e3e3e3;
+}
+.order__form input[type="number"]:focus {
+  outline: 0;
+}
 </style>

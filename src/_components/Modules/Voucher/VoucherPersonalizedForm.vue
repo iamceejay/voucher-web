@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <form
-      class="flex flex-col w-full"
+      class="flex gap-4 md:grid justify-center md:grid-cols-2 pt-12 w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
       <div class="flex flex-col w-full items-center mb-6">
@@ -13,158 +13,236 @@
           :userVoucher="userVoucher"
           :isFlippable="false"
         />
-        <div class="text-center font-bold font-body">
-          Live Vorschau
-        </div>
+
       </div>
-      <div class="w-full flex flex-col">
-        <div class="flex flex-row flex-wrap w-full">
-          <div class="w-full md:w-1/2 mb-5">
-            <div class="font-semibold text-xl text-gray-700 font-display">
-              Wähle eine Designvorlage oder lade selbst ein Hintergrundbild im Hochformat hoch
-            </div>
-            <div class="font-semibold text-xs font-display text-gray-700 mx-2">
-              Foto darf nicht größer als <span class="text-red-600">10mb</span> sein
-            </div>
-            <div
-              class="scroll-horizontal scroll flex"
-            >
-              <VueFileAgent
-                ref="vueFileAgent"
-                class="template-container m-1 relative"
-                :theme="'grid'"
-                :multiple="false"
-                :deletable="true"
-                :meta="true"
-                :accept="'image/*'"
-                :maxSize="'10MB'"
-                :helpText="' '"
-                :errorText="{
-                  type: 'Invalid file type. Only images or zip Allowed',
-                  size: 'Files should not exceed 10MB in size',
-                }"
-                @select="onChangeBgImg($event)"
-                @delete="onChangeBgImg($event)"
-              />
-              <div
-                v-for="(tem, index) in form.templates"
-                :key="`tem-${index}`"
-                :class="`template-image m-1 relative ${ tem.status ? 'active' : '' }`"
-              >
-                <a
-                  v-if="!tem.id"
-                  class="template-icon"
-                  href="javascript:void(0)"
-                  @click="onDeleteTemplate(index)"
-                >
-                  <i class="fas fa-times text-red-900" />
-                </a>
-                <img
-                  class="cursor-pointer"
-                  :src="(tem.id) ? `${api_base_url}/storage/${tem.image}` : tem.image"
-                  alt=""
-                  @click="onSelectTemplate(index)"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="w-full mt-2 mb-5">
-            <div class="flex flex-row">
-              <div class="font-semibold text-xl text-gray-700 font-display">
-                Lesehilfe
-              </div>
-              <div class="tooltip ml-1 pt-1">
-                <i
-                  v-tippy class="fas fa-info-circle text-base text-gray-700"
-                  content="Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist. "
-                />
-                <!-- <span class="tooltiptext">
-                  Hier kannst du eine Farbe über deinen Gutschein legen und die Transparenz auswählen, dass dein Gutschein richtig gut aussieht und einfacher zu lesen ist.
-                </span> -->
-              </div>
-            </div>
-            <div class="w-full sm:w-1/2 md:mx-2 mt-2 mx-2">
-              <Chrome
-                v-model="chrome_color"
-                @input="onPickColor($event, 'background_aid')"
-              />
-            </div>
-          </div>
-          <div class="mx-2 mb-5 w-full flex flex-row">
-            <toggle-button
-              :key="`price-${form.price_hidden}`"
-              v-model="form.price_hidden"
-              @input="onChangeForm"
+      <div class="w-full flex flex-col" style="max-width: 368px">
+        <div class="bg-white flex flex-row flex-wrap w-full p-5 ">
+          <InputField
+              id="title"
+              v-model="form.title"
+              type="text"
+              label="Gutscheintitel"
+              class="w-full"
+              rules="required|max:30"
             />
-            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">
-              Zeige den Preis / Verstecke den Preis
+
+          <TextAreaField
+            id="description"
+            v-model="form.description"
+            class="w-full"
+            label="Kurzbeschreibung"
+            rules="required|max:250"
+          />
+
+            <TextAreaField
+            id="description"
+            v-model="form.long_description"
+            class="w-full"
+            label="Ausführliche Beschreibung"
+            rules="required|max:500"
+            rows="5"
+          />
+
+          <div class="flex flex-col w-full">
+            <div class="text-sm mb-2">Hintergrundbild</div>
+            <label class="file input-field px-3 py-2 rounded-sm text-xs mb-3" style="background-color: #F7F7F7">
+                <i class="fa fa-cloud-upload-alt mr-1"></i> Bild hochladen
+                <input
+                  type="file"
+                  id="file"
+                  accept="'image/*'"
+                  aria-label="File browser example"
+                  @change="(e) => croppie(e, 'croppieRef')"/>
+              <span class="file-custom"></span>
+            </label>
+            <section class="hidden">
+              <vue-croppie
+                ref="croppieRef"
+                :enableOrientation="true"
+                :enableResize="false"
+                :boundary="{ width: 328, height: 305 }"
+                :viewport="{ width: 328, height: 305, 'type':'square' }"
+                @update="update('croppieRef', 'background_image')"
+              />
+            </section>
+            <!-- the result -->
+          </div>
+
+          <span class="font-semibold text-sm mb-1">Hintergrundfarbe</span>
+          <colorpicker
+            v-model="form.background_description_personal_color"
+            :color="form.background_description_personal_color"
+            :label="'Persönlichen Nachricht'"
+          />
+          <colorpicker
+            v-model="form.header_and_footer_background_color"
+            :color="form.header_and_footer_background_color"
+            :label="'Kopfzeile & Fußzeile'"
+          />
+          <div class="border-t my-8 block w-full"></div>
+
+          <span class="font-semibold text-sm mb-1">Schriftfarbe</span>
+
+          <div class="grid grid-cols-3 items-end relative w-full mb-1">
+            <label class="text-sm col-span-2">Persönlichen Nachricht</label>
+            <span>
+              <toggle-button
+                :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                :value="(form.personal_description_color == '#000') ? true : false"
+                @change="(e) => form.personal_description_color = e.value ? '#000' : '#fff'"
+              />
             </span>
           </div>
-          <div class="mx-2 mb-5 w-full flex flex-row">
-            <toggle-button
-              :key="`text-${(form.text_color == 'dark') ? true : false}`"
-              :value="(form.text_color == 'dark') ? true : false"
-              @change="onChangeTextColor"
-            />
-            <span class="ml-2 text-sm font-bold text-gray-900 font-body capitalize">Heller / Dunkler Text</span>
-          </div>
-          <div class="w-full">
-            <TextAreaField
-              id="description"
-              v-model="form.note"
-              class="px-2 w-full md:w-1/2"
-              placeholder="Füge eine persönliche Nachricht hinzu"
-              rules="max:80"
-              @input="onChangeForm"
-            />
-          </div>
-          <div class="w-full md:w-1/2 mb-5">
-            <div class="font-semibold text-xl text-gray-700 mb-3 font-display">
-              {{ `${ form.custom_image ? 'Aktualisieren' : 'Füge auf Wunsch ein weiteres Bild im Querformat hinzu' }` }}
-              <div class="text-xs font-semibold">
-                Ideale Größe ist 250px x 100px
-              </div>
-            </div>
-            <div v-if="form.custom_image" class="flex flex-col px-2">
-              <img
-                style="width: 120px; height: 48px;"
-                :src="onSetCustomImage('set', form.custom_image)"
-                alt=""
+
+          <div class="grid grid-cols-3 items-end relative w-full mb-1">
+            <label class="text-sm col-span-2">Kopfzeile & Fußzeile</label>
+            <span>
+              <toggle-button
+                :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                :value="(form.header_and_footer_color == '#000') ? true : false"
+                @change="(e) => form.header_and_footer_color = e.value ? '#000' : '#fff'"
               />
-              <Button
-                label="Ändern/Löschen"
-                fontSize="text-xs"
-                size="w-32 py-0 mt-1"
-                round="rounded-full"
-                @onClick="onSetCustomImage('delete', form.custom_image)"
-              />
-            </div>
-            <VueFileAgent
-              v-else
-              ref="vueFileAgent1"
-              class="mx-2"
-              :theme="'grid'"
-              :multiple="false"
-              :deletable="true"
-              :meta="true"
-              :accept="'image/*'"
-              :maxSize="'10MB'"
-              :helpText="' '"
-              :errorText="{
-                type: 'Invalid file type. Only images or zip Allowed',
-                size: 'Files should not exceed 10MB in size',
-              }"
-              @select="onAddPicture($event)"
-              @delete="onAddPicture($event)"
-            />
+            </span>
           </div>
+
+          <div class="grid grid-cols-3 items-end relative w-full mb-1">
+            <label class="text-sm col-span-2">Zeige den Preis / Verstecke den Preis</label>
+            <span>
+              <toggle-button
+                v-model="form.price_hidden"
+                :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+              />
+            </span>
+          </div>
+
+          <div class="border-t my-8 block w-full"></div>
+
+          <span class="text-sm mb-1">Weitere Bilder die im Gutschein und der Produktseite abgebildet sind. (Format 4 x 4)</span>
+
+          <section class="gap-4 grid grid-cols-3 mt-3">
+            <div>
+              <span class="block mb-1 text-sm">Bild 1</span>
+              <label
+                v-if="!form.image_1"
+                class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);"
+                >
+                    <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
+                    <input
+                      type="file"
+                      accept="'image/*'"
+                      aria-label="File browser example"
+                      @change="(e) => croppie(e, 'image_1')"
+                      />
+                    <span class="file-custom"></span>
+                </label>
+                <section v-if="form.image_1_update" class="relative">
+                  <i
+                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                    @click="(e) => removeImage(e, 'image_1')"
+                    ></i>
+                  <img :src="form.image_1" width="99" height="99" />
+                </section>
+                <section class="relative hidden">
+                    <i
+                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                    @click="(e) => removeImage(e, 'image_1')"
+                    ></i>
+                  <vue-croppie
+                    ref="image_1"
+                    :enableOrientation="true"
+                    :enableResize="false"
+                    :boundary="{ width: 99, height: 99 }"
+                    :viewport="{ width: 99, height: 99, 'type':'square' }"
+                    @update="update('image_1', 'image_1')"
+                  />
+                </section>
+            </div>
+
+            <div>
+              <span class="block mb-1 text-sm">Bild 2</span>
+              <label
+                v-if="!form.image_2"
+                class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);"
+                >
+                    <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
+                    <input
+                      type="file"
+                      accept="'image/*'"
+                      aria-label="File browser example"
+                      @change="(e) => croppie(e, 'image_2')"
+                      />
+                    <span class="file-custom"></span>
+                </label>
+                <section v-if="form.image_2_update" class="relative">
+                  <i
+                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                    @click="(e) => removeImage(e, 'image_2')"
+                    ></i>
+                  <img :src="form.image_2" width="99" height="99" />
+                </section>
+                <section class="hidden relative">
+                  <i
+                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                    @click="(e) => removeImage(e, 'image_2')"
+                    ></i>
+                  <vue-croppie
+                    ref="image_2"
+                    :enableOrientation="true"
+                    :enableResize="false"
+                    :boundary="{ width: 99, height: 99 }"
+                    :viewport="{ width: 99, height: 99, 'type':'square' }"
+                    @update="update('image_2', 'image_2')"
+                  />
+                </section>
+            </div>
+
+            <div>
+              <span class="block mb-1 text-sm">Bild 3</span>
+              <label
+                v-if="!form.image_3"
+                class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);"
+                >
+                    <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
+                    <input
+                      type="file"
+                      accept="'image/*'"
+                      aria-label="File browser example"
+                      @change="(e) => croppie(e, 'image_3')"
+                      />
+                    <span class="file-custom"></span>
+                </label>
+                <section v-if="form.image_3_update" class="relative">
+                  <i
+                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                    @click="(e) => removeImage(e, 'image_3')"
+                    ></i>
+                  <img :src="form.image_3" width="99" height="99" />
+                </section>
+                <section class="hidden relative">
+                  <i
+                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                    @click="(e) => removeImage(e, 'image_3')"
+                    ></i>
+                  <vue-croppie
+                    ref="image_3"
+                    :enableOrientation="true"
+                    :enableResize="false"
+                    :boundary="{ width: 99, height: 99 }"
+                    :viewport="{ width: 99, height: 99, 'type':'square' }"
+                    @update="update('image_3', 'image_3')"
+                  />
+                </section>
+            </div>
+          </section>
         </div>
-        <Button
-          label="Gutschein speichern"
-          size="w-full md:w-1/2 py-3"
-          round="rounded-full"
-          type="submit"
-        />
+        <div class="flex justify-end">
+          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10">
+            Gutschein speichern
+          </button>
+        </div>
       </div>
     </form>
   </ValidationObserver>
@@ -177,6 +255,13 @@
   import { ToggleButton } from 'vue-js-toggle-button'
   import 'vue2-datepicker/index.css'
   import { Chrome } from 'vue-color'
+  import Colorpicker from '_components/Colorpicker'
+  import InputField from '_components/Form/InputField'
+  import Vue from 'vue';
+  import VueCroppie from 'vue-croppie';
+  import 'croppie/croppie.css' // import the croppie css manually
+
+  Vue.use(VueCroppie);
 
   export default {
     components: {
@@ -187,6 +272,8 @@
       TextAreaField,
       TextAreaField,
       Chrome,
+      InputField,
+      Colorpicker
     },
     props: {
       data: {
@@ -513,6 +600,46 @@
           }
         }
       },
+      croppie (e, ref) {
+          var files = e.target.files || e.dataTransfer.files;
+          if (!files.length) return;
+
+          var reader = new FileReader();
+          reader.onload = e => {
+            this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
+            this.$refs[ref].bind({
+              url: e.target.result
+            });
+          };
+
+          reader.readAsDataURL(files[0]);
+        },
+        // CALBACK USAGE
+        crop(ref, form) {
+          // Here we are getting the result via callback function
+          // and set the result to this.cropped which is being
+          // used to display the result above.
+          let size = form == 'background_image'
+            ? { width: 367, height: 341}
+            : { width: 200, height: 200};
+          let options = {
+              type: 'base64',
+              format: 'jpeg',
+              size,
+              quality: 1,
+          }
+          this.$refs[ref].result(options, (output) => {
+            this.form[form] = output
+          });
+      },
+      update(ref, form) {
+        this.crop(ref, form)
+      },
+      removeImage(e, form) {
+        e.target.parentElement.classList.add('hidden')
+        this.form[form] = ''
+        this.form[form + '_update'] = false
+      }
     }
   }
 </script>
@@ -538,6 +665,9 @@
     position: absolute;
     top: -12px;
     right: -5px;
+  }
+   input[type="file"] {
+    display: none;
   }
 </style>
 <style lang="css">

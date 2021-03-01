@@ -15,7 +15,7 @@
             round="rounded-full"
           />
         </router-link>
-        <VoucherList 
+        <VoucherList
           :data="VOUCHERS.data"
         />
       </div>
