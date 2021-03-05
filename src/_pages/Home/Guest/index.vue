@@ -36,7 +36,7 @@
       @onSort="onSearchData($event, 'sort')"
       @onPaginate="onPaginateVouchers($event)"
     />
-    <GuestFooter />
+    <!-- <GuestFooter /> -->
 
     <div
       v-if="showAnnouncement" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"

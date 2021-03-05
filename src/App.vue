@@ -1,12 +1,16 @@
 <template>
   <div v-if="!isLoading" id="app">
     <router-view />
+    <Footer />
   </div>
 </template>
 <script>
+  import Footer from './_components/Footer'
+  
   export default {
     name: 'App',
     components: {
+        Footer
     },
     data() {
       return {
