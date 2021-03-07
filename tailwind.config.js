@@ -14,7 +14,10 @@ module.exports = {
       },
       colors: {
         'peach': '#ff5563',
-        'dirty': '#f7f6f6'
+        'dirty': '#f7f6f6',
+        'custom-gray': '#f2f2f2',
+        'input-border': '#00000033',
+        'input-bg': '#f7f7f7'
       },
       minHeight: {
         '20': '5rem',

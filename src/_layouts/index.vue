@@ -13,12 +13,11 @@
       @onHide="isHideSideBar = $event"
     />
     <div
-      :class="`w-full pb-16 min-h-screen`" style="
+      :class="`w-full pb-16 md:min-h-screen`" style="
     margin-top: 82px;
 "
     >
       <div
-        id="infinite-scroll"
         class="flex flex-col h-full w-full m-c pt-10"
       >
         <BackBtn class="px-8" :title="title" />

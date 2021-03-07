@@ -26,14 +26,9 @@ body {
 .input-field {
     width: 100%;
     color: rgba(0, 0, 0, 0.75);
-    /* line-height: 1.50; */
-    /* border-radius: 20px; */
     -webkit-appearance: none;
-    /* padding: 6px 15px; */
-    /* font-size: 12px; */
-    /* margin-bottom: 0.25rem; */
     background-color: #F7F7F7;
-    border: none;
+    @apply border border-input-border rounded py-3;
 }
 .input-field:focus, .input-field:hover {
     outline: 0;

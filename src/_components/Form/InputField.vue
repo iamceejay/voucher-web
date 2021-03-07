@@ -1,5 +1,5 @@
 <template>
-  <div id="input-field-component" class="mb-5">
+  <div id="input-field-component" class="mb-2">
     <ValidationProvider
       :name="id"
       :rules="rules"
@@ -17,20 +17,26 @@
           {{ note }}
         </span>
         <slot name="note_" />
-        <input
-          :id="id"
-          ref="inputField"
-          :name="id"
-          :type="type"
-          class="input-field mt-2 px-3 rounded-sm text-sm"
-          :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
-          :value="value"
-          :placeholder="placeholder"
-          :disabled="disabled"
-          :readonly="readonly"
-          :step="step"
-          @input="onUpdateField()"
-        />
+        <span class="relative">
+          <input
+            :id="id"
+            ref="inputField"
+            :name="id"
+            :type="type === 'password' && isPasswordShown ? 'text': type"
+            class="input-field mt-2 px-3 text-sm"
+            :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
+            :value="value"
+            :placeholder="placeholder"
+            :disabled="disabled"
+            :readonly="readonly"
+            :step="step"
+            @input="onUpdateField()"
+          />
+          <i v-if="passwordToggle"
+            class="password-toggle"
+            :class="isPasswordShown ? 'fa fa-eye' : 'fa fa-eye-slash'"
+            @click="onToggleShowPassword()"></i>
+        </span>
         <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
     </ValidationProvider>
@@ -84,15 +90,24 @@
       }, readonly: {
         type: Boolean,
         default: false
+      },
+      passwordToggle: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
-      return {};
+      return {
+        isPasswordShown: false
+      };
     },
     mounted() {},
     methods: {
       onUpdateField() {
         this.$emit('input', this.$refs.inputField.value);
+      },
+      onToggleShowPassword() {
+        this.isPasswordShown = !this.isPasswordShown;
       }
     }
   }
@@ -101,5 +116,12 @@
 input {
   background-color: #F7F7F7;
   border-color: #00000033;
+}
+
+.password-toggle {
+  top: 50%;
+  right: .8rem;
+  transform: translateY(-50%);
+  @apply cursor-pointer absolute text-sm;
 }
 </style>
