@@ -76,11 +76,12 @@
 
           <span class="font-semibold text-sm mb-1">Preis verstecken</span>
           <div class="mb-1 relative w-full">
-            <span class="mr-3">
+            <span class="mr-3" v-if="form.id">
               <toggle-button
                 v-model="form.price_hidden"
                 :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
                 :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                @change="formIndex++"
               />
             </span>
             <label class="text-sm col-span-2">nein / ja</label>
@@ -206,6 +207,7 @@
 
           tempForm.id = this.data.id
           tempForm.order_id = this.data.order.id
+          tempForm.template_id = this.selected_template
 
           await this.onUpdateData(tempForm)
 
@@ -247,12 +249,15 @@
         }
 
         if (this.data.data_json != null) {
-          this.form.id = this.data.id
           this.form = this.data.data_json
           this.form.image_1_update = true
           this.form.image_2_update = true
           this.form.image_3_update = true
+          this.form.note = this.data.note
+          this.form.price_hidden = this.data.price_hidden ? true : false
           this.default_background = this.form.background_image
+          this.selected_template = this.data.template_id
+          this.form.id = this.data.id
         } else {
           this.form = {
             id: this.data.id,
@@ -281,7 +286,6 @@
           }
           console.log('test')
         }
-        console.log(this.form)
         // if(this.data?.id) {
         //   this.form.order_id = this.data.order.id
         //   const { text_color, note } = this.data
@@ -329,22 +333,6 @@
           this.form.templates = templates
         }
       },
-      onDeleteTemplate( index )
-      {
-        this.$swal({
-          title: 'Vorlage löschen',
-          text: `Bist du sicher dass du dieses Bild löschen möchtest?`,
-          showCancelButton: true,
-          confirmButtonColor: '#48BB78',
-          cancelButtonColor: '#FC8181',
-          confirmButtonText: 'Bestätigen',
-          cancelButtonText: 'Abbrechen',
-        }).then((result) => {
-          if(result.value){
-            this.form.templates = this.form.templates.filter( (row,i) => i != index)
-          }
-        })
-      },
       onSetCustomImage(action, value)
       {
         if( action == 'set' ) {
@@ -356,26 +344,6 @@
           this.form.is_custom_remove = true
           this.data.custom_image = ''
           this.formIndex = this.formIndex + 1
-        }
-      },
-      onChangeTextColor(e)
-      {
-        this.form.text_color = e.value ? 'dark' : 'light'
-        this.onChangeForm()
-      },
-      onAddPicture(data)
-      {
-        if(data.length > 0) {
-          let reader = new FileReader();
-          reader.readAsDataURL(data[0].file);
-          reader.onload = () => {
-            this.form.custom_image = reader.result
-            this.custom_image = data[0].file
-            this.onChangeForm()
-          }
-        } else {
-          this.form.custom_image = ''
-          this.custom_image = null
         }
       },
       onSelectTemplate(url, id)
@@ -394,14 +362,6 @@
           url: url
         });
         this.formIndex++
-      },
-      onChangeForm()
-      {
-        this.userVoucher = {
-          ...this.userVoucher,
-          ...this.form
-        }
-        this.formIndex = this.formIndex + 1
       },
       croppie (e, ref) {
         var files = e.target.files || e.dataTransfer.files;
