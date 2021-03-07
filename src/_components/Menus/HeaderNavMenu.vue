@@ -1,5 +1,5 @@
 <template>
-  <div class="content-container w-full flex flex-col nav-container" id="site-header">
+  <div class="content-container w-full flex-col nav-container hidden md:flex" id="site-header">
     <div class="nav-logo">
       <a
         href="javascript:void(0)"

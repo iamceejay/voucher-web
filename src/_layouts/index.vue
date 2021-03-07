@@ -213,7 +213,6 @@
 </script>
 <style lang="css" scoped>
   #main-layout-component {
-    grid-template-columns: 250px 1fr;
     margin: 0 auto;
   }
   .main-container.hide {
@@ -226,5 +225,11 @@
   }
   .swal2-show-loader {
     background-color: transparent!important;
+  }
+  @screen md {
+    #main-layout-component {
+      grid-template-columns: 250px 1fr;
+      margin: 0 auto;
+    }
   }
 </style>
