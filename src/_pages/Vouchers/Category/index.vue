@@ -20,6 +20,9 @@
           class="mb-3"
           title=""
           :data="VOUCHERS.data"
+          :withPagination="true"
+          :currentPage="VOUCHERS.current_page"
+          :lastPage="VOUCHERS.last_page"
           sortLabel="Sortieren nach:"
           :withSort="true"
           filterLabel="Filtern nach:"
@@ -30,6 +33,7 @@
           @onChange="onLoadData"
           @onFilter="onSearchData($event, 'filter')"
           @onSort="onSearchData($event, 'sort')"
+          @onPaginate="onPaginateVouchers($event)"
         />
       </div>
     </template>
@@ -51,7 +55,7 @@
       return {
         params: {
           page: 1,
-          paginate: 5,
+          paginate: 9,
           isNewest: false,
           isLowestPrice: false,
           isMostPopular: false,
@@ -96,10 +100,10 @@
       {
         return this.$store.getters.IS_PROCESSING
       },
-      IS_INFINITE_LOAD()
-      {
-        return this.$store.getters.IS_INFINITE_LOAD
-      },
+      // IS_INFINITE_LOAD()
+      // {
+      //   return this.$store.getters.IS_INFINITE_LOAD
+      // },
     },
     watch: {
       async '$route.params.id'()
@@ -107,7 +111,7 @@
         await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_NEWEST_VOUCHERS', [])
         await this.$store.commit('SET_VOUCHERS', [])
-        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         this.params = {
           page: 1,
           paginate: 5,
@@ -117,20 +121,20 @@
         }
         await this.onFetchData()
       },
-      async IS_LOAD_MORE(newVal)
-      {
-        if( newVal ) {
-          await this.onLoadData({
-            ...this.params,
-            page: this.params.page + 1
-          })
-          await this.$store.commit('SET_IS_LOAD_MORE', false)
-        }
-      },
+      // async IS_LOAD_MORE(newVal)
+      // {
+      //   if( newVal ) {
+      //     await this.onLoadData({
+      //       ...this.params,
+      //       page: this.params.page + 1
+      //     })
+      //     await this.$store.commit('SET_IS_LOAD_MORE', false)
+      //   }
+      // },
     },
     mounted() {
       (async() => {
-        await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+        // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_NEWEST_VOUCHERS', [])
         await this.$store.commit('SET_VOUCHERS', [])
@@ -144,6 +148,16 @@
       })()
     },
     methods: {
+      async onPaginateVouchers(action)
+      {
+        let params =
+        {
+          ...this.params,
+          page: (action === "prev") ? this.params.page - 1 : this.params.page + 1
+        }
+        await this.$store.commit('SET_VOUCHERS', [])
+        await this.onLoadData(params)
+      },
       async onSearchData( data = null, action )
       {
         if ( action == 'sort' ) {

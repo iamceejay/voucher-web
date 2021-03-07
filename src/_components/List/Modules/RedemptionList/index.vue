@@ -1,19 +1,37 @@
 <template>
-  <div class="flex flex-wrap">
-    <div
-      v-for="(row, index) in data"
-      :key="`stat-${index}`"
-      class="w-full sm:w-1/2 md:w-1/4 order-container"
-    >
-      <CardRedemption 
-        :data="row.order"
-        :otherData="row"
-        :role="role"
-        :isRedemption="true"
-      />
+  <div>
+    <div class="flex flex-wrap">
+      <div
+        v-for="(row, index) in data"
+        :key="`stat-${index}`"
+        class="w-full sm:w-1/2 md:w-1/4 order-container"
+      >
+        <CardRedemption 
+          :data="row.order"
+          :otherData="row"
+          :role="role"
+          :isRedemption="true"
+        />
+      </div>
+      <div v-if="data.length <= 0" class="py-2 text-lg">
+        Noch keine Daten vorhanden.
+      </div>
     </div>
-    <div v-if="data.length <= 0" class="py-2 text-lg">
-      Noch keine Daten vorhanden.
+    <div v-if="withPagination && data.length != 0"
+      class="text-center my-8">
+      <button
+        class="list-pagination"
+        :disabled="currentPage === 1"
+        @click="onPaginate('prev')">
+        <i class="fas fa-chevron-left" />
+      </button>
+      <span class="mx-8"> {{currentPage}} von {{lastPage}} </span>
+      <button
+        class="list-pagination"
+        :disabled="currentPage === lastPage"
+        @click="onPaginate('next')">
+        <i class="fas fa-chevron-right" />
+      </button>
     </div>
   </div>
 </template>
@@ -30,6 +48,15 @@
         default() {
           return []
         }
+      }, withPagination: {
+        type: Boolean,
+        default: false
+      }, currentPage: {
+        type: Number,
+        default: 1
+      }, lastPage: {
+        type: Number,
+        default: 1
       }, role: {
         type: String,
         default: 'seller'
@@ -46,7 +73,10 @@
     mounted() {
     },
     methods: {
-      
+      onPaginate(action)
+      {
+        this.$emit('onPaginate', action)
+      }
     }
   }
 </script>

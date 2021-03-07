@@ -17,6 +17,10 @@
           <OrderList 
             :isInvoice="true"
             :data="WALLETS.data"
+            :withPagination="true"
+            :currentPage="WALLETS.current_page"
+            :lastPage="WALLETS.last_page"
+            @onPaginate="onPaginate($event)"
           />
         </div>
       </div>
@@ -44,7 +48,7 @@
         earnings: [],
         params: {
           page: 1,
-          paginate: 5,
+          paginate: 9,
           seller_id: null,
           status: 'completed'
         }
@@ -63,27 +67,27 @@
       {
         return this.$store.getters.IS_LOADING
       },
-      IS_LOAD_MORE()
-      {
-        return this.$store.getters.IS_LOAD_MORE
-      },
+      // IS_LOAD_MORE()
+      // {
+      //   return this.$store.getters.IS_LOAD_MORE
+      // },
     },
-    watch: {
-      async IS_LOAD_MORE(newVal)
-      {
-        if( newVal ) {
-          await this.onLoadData({
-            ...this.params,
-            page: this.params.page + 1
-          })
-          await this.$store.commit('SET_IS_LOAD_MORE', false)
-        }
-      },
-    },
+    // watch: {
+    //   async IS_LOAD_MORE(newVal)
+    //   {
+    //     if( newVal ) {
+    //       await this.onLoadData({
+    //         ...this.params,
+    //         page: this.params.page + 1
+    //       })
+    //       await this.$store.commit('SET_IS_LOAD_MORE', false)
+    //     }
+    //   },
+    // },
     mounted() {
       (async() => {
         try {
-          await this.$store.commit('SET_IS_INFINITE_LOAD', true)
+          // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
           await this.$store.commit('SET_WALLETS', [])
           this.params.seller_id = this.AUTH_USER.data.id
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
@@ -101,6 +105,16 @@
       })()
     },
     methods: {
+      async onPaginate(action)
+      {
+        let params =
+        {
+          ...this.params,
+          page: (action === "prev") ? this.params.page - 1 : this.params.page + 1
+        }
+        await this.$store.commit('SET_WALLETS', [])
+        await this.onLoadData(params)
+      },
       onSetEarnings({ voucher_total, total_earnings, total_earnings_with_commission, waiting_for_payout, days_until_next_payout, payout_every, total_seller_earnings })
       {
         this.earnings = [

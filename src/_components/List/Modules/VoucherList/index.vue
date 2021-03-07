@@ -42,6 +42,22 @@
         Noch keine Daten vorhanden.
       </div>
     </div>
+    <div v-if="withPagination && tempData.length != 0"
+      class="text-center my-8">
+      <button
+        class="list-pagination"
+        :disabled="currentPage === 1"
+        @click="onPaginate('prev')">
+        <i class="fas fa-chevron-left" />
+      </button>
+      <span class="mx-8"> {{currentPage}} von {{lastPage}} </span>
+      <button
+        class="list-pagination"
+        :disabled="currentPage === lastPage"
+        @click="onPaginate('next')">
+        <i class="fas fa-chevron-right" />
+      </button>
+    </div>
     <div
       v-if="type === 'feature'"
       class="w-full"
@@ -116,6 +132,15 @@
         default() {
           return []
         }
+      }, withPagination: {
+        type: Boolean,
+        default: false
+      }, currentPage: {
+        type: Number,
+        default: 1
+      }, lastPage: {
+        type: Number,
+        default: 1
       }, role: {
         type: String,
         default: 'seller'
@@ -207,6 +232,10 @@
       onSlideTo(action)
       {
         this.$refs.slider.$emit(action)
+      },
+      onPaginate(action)
+      {
+        this.$emit('onPaginate', action)
       }
     }
   }
