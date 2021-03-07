@@ -11,31 +11,63 @@
         <InputField
           id="email"
           v-model="loginForm.email"
-          class="m-2"
-          label="Emailadresse "
+          placeholder="E-Mail"
           type="email"
           :errorMessages="errorMessages.email"
         />
         <InputField
           id="password"
+          class="mb-5"
           v-model="loginForm.password"
-          class="m-2"
-          label="Passwort"
+          placeholder="Passwort"
           type="password"
           :errorMessages="errorMessages.password"
+          :passwordToggle="true"
         />
-        <router-link to="/forgot-password" class="text-peach text-right text-sm mx-2 mb-2">
+        <router-link to="/register/buyer" class="underline text-center text-xs mx-2 mb-2">
+          Registrieren
+        </router-link>
+        <router-link to="/forgot-password" class="text-center text-xs mx-2 mb-5">
           Passwort vergessen?
         </router-link>
-      </div>
-      <div class="flex justify-between">
         <Button
-          class="ml-auto py-2"
+          class="mb-6"
+          size="w-full py-3"
+          round="rounded"
           :disabled="submitting"
           :isLoading="submitting"
           label="Login"
           @onClick="onSubmit()"
         />
+        <div class="flex flex-col border-t-2 border-input-border">
+          <p class="font-medium text-center text-lg py-4">Oder anmelden mit:</p>
+          <div class="flex">
+            <Button
+              class="pr-1 w-1/2"
+              size="w-full py-3"
+              round="rounded border border-input-border"
+              variant="white"
+              :disabled="submitting"
+              :isLoading="submitting"
+              label="Google"
+              icon="fab fa-google mr-2 text-2xl text-green-700"
+              :fullIconClass="true"
+              @onClick="onSSO('#')"
+            />
+            <Button
+              class="pl-1 w-1/2"
+              size="w-full py-3"
+              round="rounded border border-input-border"
+              variant="white"
+              :disabled="submitting"
+              :isLoading="submitting"
+              label="Facebook"
+              icon="fab fa-facebook mr-2 text-2xl text-blue-700"
+              :fullIconClass="true"
+              @onClick="onSSO('#')"
+            />
+          </div>
+        </div>
       </div>
     </form>
   </div>
@@ -108,8 +140,13 @@
           console.log('err', err)
         }
       },
+      async onSSO(value) {
+        // TODO: when SSO is available
+        this.$router.push(value);
+      }
     }
   };
 </script>
 <style lang='css' scoped>
+
 </style>

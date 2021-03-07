@@ -6,7 +6,7 @@
     <button
       :type="type"
       class="focus:outline-none focus:shadow-none border-1 font-display"
-      :class="[bg, size, round, fontSize]"
+      :class="[bg, size, round, fontSize, fontWeight]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
     >
@@ -14,8 +14,9 @@
         v-if="isLoading"
         class="sm-spinner m-auto" 
       />
-      <span v-else>
-        <i v-if="icon != ''" :class="`fas fa-${icon}`" />
+      <span :class="`flex items-center justify-center`" v-else>
+        <i v-if="icon != ''" :class="fullIconClass ? icon : `fas fa-${icon}`" />
+        <img v-if="customIcon != ''" :src="customIcon" :class="customIconClass" />
         <span :class="[labelClass]">{{ label }}</span>
       </span>
     </button>
@@ -44,6 +45,10 @@
         type: String,
         default: ''
       },
+      fullIconClass: {
+        type: Boolean,
+        default: false
+      },
       isDisabled: {
         type: Boolean,
         default: false
@@ -65,6 +70,14 @@
         default: 'font-bold'
       },
       labelClass: {
+        type: String,
+        default: ''
+      },
+      customIcon: {
+        type: String,
+        default: ''
+      },
+      customIconClass: {
         type: String,
         default: ''
       }
