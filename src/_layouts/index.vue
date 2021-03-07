@@ -1,7 +1,7 @@
 <template>
   <div
     id="main-layout-component"
-    class="w-full flex flex-col overflow-auto relative"
+    class="absolute grid hide-sidebar inset-0"
     :class="`${ isHideSideBar ? 'hide-sidebar' : 'show-sidebar' }`"
   >
     <Sidebar
@@ -12,18 +12,18 @@
       ref="header"
       @onHide="isHideSideBar = $event"
     />
-    <div
-      :class="`w-full pb-16 min-h-screen`" style="
-    margin-top: 82px;
-"
-    >
-      <div
-        id="infinite-scroll"
-        class="flex flex-col h-full w-full m-c pt-10"
-      >
-        <BackBtn class="px-8" :title="title" />
-        <slot name="content" />
+    <div class="flex flex-col overflow-auto w-full">
+      <div class="w-full pb-16">
+        <div
+          id="infinite-scroll"
+          class="flex flex-col h-full w-full m-c pt-10"
+        >
+          <BackBtn class="px-8" :title="title" />
+          <slot name="content" />
+        </div>
       </div>
+
+      <Footer />
     </div>
     <CookieLaw
       class="cookie-container"
@@ -53,8 +53,6 @@
         </button>
       </template>
     </CookieLaw>
-    <voucher-modal :open="$store.getters.MODAL" />
-    <seller-modal :open="IS_SELLER_MODAL_SHOW" />
   </div>
 </template>
 <script>
@@ -64,6 +62,7 @@
   import LoaderImg from '_assets/img/epasnets-loader.png'
   import VoucherModal from '_components/Modals/voucher-modal'
   import SellerModal from '_components/Modals/seller-modal'
+  import Footer from '_components/Footer'
 
   export default {
     components: {
@@ -71,7 +70,8 @@
       HeaderNavMenu,
       CookieLaw,
       VoucherModal,
-      SellerModal
+      SellerModal,
+      Footer
     },
     props: ['title'],
     data() {
@@ -213,6 +213,7 @@
 </script>
 <style lang="css" scoped>
   #main-layout-component {
+    grid-template-columns: 250px 1fr;
     margin: 0 auto;
   }
   .main-container.hide {
