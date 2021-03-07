@@ -13,7 +13,7 @@
         <div class="flex flex-wrap justify-center sm:justify-start h-full">
           <VoucherCard
             :cardId="`voucher-card-${index}`"
-            :voucher="row.order.voucher"
+            :voucher="getCustomVoucher(row)"
             :order="row.order"
             :qr="row.qr"
             :userVoucher="row"
@@ -166,6 +166,15 @@
       this.onGetTotalPrice()
     },
     methods: {
+      getCustomVoucher(row) {
+        if (!row.order.voucher.data_json) {
+          return row.order.voucher
+        }
+
+        row.order.voucher.data_json = row.data_json;
+        row.order.voucher.data_json.price_hidden = row.price_hidden ? true : false
+        return row.order.voucher.data_json
+      },
       onDelete( data )
       {
         this.$swal({
