@@ -83,11 +83,18 @@
             {{ VOUCHER.description }}
           </span>
 
-          <div v-if="VOUCHER.data_json != null" class="flex mx-auto overflow-x-scroll space-x-3 md:w-1/2 w-full">
-            <img v-if="VOUCHER.data_json.image_1" :src="VOUCHER.data_json.image_1" width="150" height="150">
-            <img v-if="VOUCHER.data_json.image_2" :src="VOUCHER.data_json.image_2" width="150" height="150">
-            <img v-if="VOUCHER.data_json.image_3" :src="VOUCHER.data_json.image_3" width="150" height="150">
+          <div v-if="VOUCHER.data_json != null" class="mx-auto md:w-1/2 w-full">
+            <slider ref="slider" :options="options" >
+                <!-- slideritem wrapped package with the components you need -->
+                <slideritem >
+                  <img class="mr-4" v-if="VOUCHER.data_json.image_1" :src="VOUCHER.data_json.image_1" width="150" height="150">
+                  <img class="mr-4" v-if="VOUCHER.data_json.image_2" :src="VOUCHER.data_json.image_2" width="150" height="150">
+                  <img class="mr-4" v-if="VOUCHER.data_json.image_3" :src="VOUCHER.data_json.image_3" width="150" height="150">
+                </slideritem>
+                <!-- Customizable loading -->
+            </slider>
           </div>
+
 
             <div v-if="VOUCHER.data_json != null" class="border-b flex md:w-1/2 mx-auto py-6 mb-8 text-xs w-full whitespace-pre">{{ VOUCHER.data_json.long_description }}</div>
 
@@ -111,6 +118,7 @@
   import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
   import InputField from '_components/Form/InputField'
   import Button from '_components/Button'
+  import { slider, slideritem } from 'vue-concise-slider'
 
   export default {
     name: 'Vouchers',
@@ -119,6 +127,8 @@
       VoucherCard,
       InputField,
       Button,
+      slider,
+      slideritem
     },
     data() {
       return {
@@ -132,6 +142,14 @@
         },
         symbol: '',
         isAdded: false,
+        options: {
+          currentPage: 0,
+          loop: true,
+          infinite: 1,
+          slidesToScroll: 1,
+          pagination: false,
+          centeredSlides: false
+        },
       }
     },
     computed: {

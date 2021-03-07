@@ -26,7 +26,7 @@
             <span class="font-medium">{{
                   `${(row.order.voucher.type == 'quantity')
                     ? `${$helpers.convertCurrency(row.order.voucher.qty_val)}`
-                    : `${$helpers.convertCurrency(row.order.voucher.min || row.order.voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(row.order.voucher.max || voucher.val_max)}`}`
+                    : `${$helpers.convertCurrency(row.order.voucher.min || row.order.voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(row.order.voucher.max || row.order.voucher.val_max)}`}`
                 }}
             </span>
 

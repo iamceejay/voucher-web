@@ -48,7 +48,7 @@
         </div>
         <div v-else>
             <div
-              :style="{ backgroundImage: 'url(' + (voucher.data_json != null ? voucher.data_json.background_image : voucher.background_image) + ')', backgroundColor: 'white'}"
+              :style="{ backgroundImage: 'url(' + (voucher.data_json != null ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
               style="background-size: contain"
               class="card-image"
             ></div>
@@ -56,13 +56,20 @@
       </div>
       <div class="flex flex-col p-5 break-words card-description">
         <div class="text-xs leading-5">
-          {{ voucher.description || 'Beschreibung' }}
+          {{ voucher.note || voucher.description || 'Beschreibung' }}
         </div>
       </div>
       <div class="flex flex-row card-footer">
         <div class="w-1/2 flex flex-col p-5">
           <span class="text-2xs">{{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}</span>
-          <span class="text-xl font-bold">{{
+          <span class="text-xl font-bold" v-if="userVoucher">
+            <span v-show="!voucher.price_hidden || typeof voucher.price_hidden == 'undefined'">{{
+                `${(voucher.type == 'quantity')
+                  ? `${$helpers.convertCurrency(voucher.qty_val)}`
+                  : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
+            }}</span>
+          </span>
+          <span class="text-xl font-bold" v-else>{{
                 `${(voucher.type == 'quantity')
                   ? `${$helpers.convertCurrency(voucher.qty_val)}`
                   : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`

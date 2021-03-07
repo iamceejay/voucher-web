@@ -1,51 +1,49 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <form
-      class="flex gap-4 md:grid justify-center md:grid-cols-2 pt-12 w-full"
+      class="flex flex-col justify-center m-auto max-w-2xl pt-12 w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
-      <div class="flex flex-col w-full items-center mb-6">
-        <VoucherCard
-          v-if="data && data.order.voucher"
-          :key="`vform-${formIndex}`"
-          :voucher="data.order.voucher"
-          :order="data.order"
-          :userVoucher="userVoucher"
-          :isFlippable="false"
-        />
-
-      </div>
-      <div class="w-full flex flex-col" style="max-width: 368px">
+      <div class="w-full flex flex-col m-auto mb-10" style="max-width: 368px">
         <div class="bg-white flex flex-row flex-wrap w-full p-5 ">
-          <InputField
-              id="title"
-              v-model="form.title"
-              type="text"
-              label="Gutscheintitel"
-              class="w-full"
-              rules="required|max:30"
-            />
-
-          <TextAreaField
-            id="description"
-            v-model="form.description"
-            class="w-full"
-            label="Kurzbeschreibung"
-            rules="required|max:250"
-          />
-
-            <TextAreaField
-            id="description"
-            v-model="form.long_description"
-            class="w-full"
-            label="Ausführliche Beschreibung"
-            rules="required|max:500"
-            rows="5"
-          />
-
           <div class="flex flex-col w-full">
-            <div class="text-sm mb-2">Hintergrundbild</div>
-            <label class="file input-field px-3 py-2 rounded-sm text-xs mb-3" style="background-color: #F7F7F7">
+            <div class="text-sm mb-2">Hintergrundbild wählen</div>
+            <!-- Using the slider component -->
+            <slider ref="slider" :options="options">
+                <!-- slideritem wrapped package with the components you need -->
+                <slideritem >
+                  <label class="border file flex h-full input-field items-center justify-center px-3 py-2 rounded-sm text-xs w-full cursor-pointer flex-col" style="background-color: #F7F7F7">
+                      <i class="fa fa-cloud-upload-alt mb-1 text-2xl"></i>
+                      <span>Eigenes Bild</span>
+                      <input
+                        type="file"
+                        id="file"
+                        accept="'image/*'"
+                        aria-label="File browser example"
+                        @change="(e) => croppie(e, 'croppieRef')"/>
+                    <span class="file-custom"></span>
+                  </label>
+                </slideritem>
+                <slideritem v-for="(tem, index) in TEMPLATES" :key="index">
+                  <div
+                    class="w-full h-full"
+                    :style="{ backgroundImage: 'url(' + api_base_url + '/storage/' + tem.image + ')',
+                      backgroundColor: 'white'
+                    }"
+                    style="background-size: cover"
+
+                  ></div>
+                  <span
+                    class="absolute bg-white bottom-0 flex h-6 items-center justify-center mb-2 mr-2 right-0 rounded-full text-peach text-xs w-6 cursor-pointer"
+                    @click="onSelectTemplate(api_base_url + '/storage/' + tem.image, tem.id)"
+                  >
+                    <i class="fa fa-check" v-if="selected_template == tem.id"></i>
+                  </span>
+                </slideritem>
+                <!-- Customizable loading -->
+            </slider>
+
+            <!-- <label class="file input-field px-3 py-2 rounded-sm text-xs mb-3" style="background-color: #F7F7F7">
                 <i class="fa fa-cloud-upload-alt mr-1"></i> Bild hochladen
                 <input
                   type="file"
@@ -54,7 +52,7 @@
                   aria-label="File browser example"
                   @change="(e) => croppie(e, 'croppieRef')"/>
               <span class="file-custom"></span>
-            </label>
+            </label> -->
             <section class="hidden">
               <vue-croppie
                 ref="croppieRef"
@@ -62,187 +60,47 @@
                 :enableResize="false"
                 :boundary="{ width: 328, height: 305 }"
                 :viewport="{ width: 328, height: 305, 'type':'square' }"
-                @update="update('croppieRef', 'background_image')"
+                @update="update('croppieRef', 'custom_background_image')"
               />
             </section>
             <!-- the result -->
           </div>
 
-          <span class="font-semibold text-sm mb-1">Hintergrundfarbe</span>
-          <colorpicker
-            v-model="form.background_description_personal_color"
-            :color="form.background_description_personal_color"
-            :label="'Persönlichen Nachricht'"
+          <TextAreaField
+            id="description"
+            v-model="form.note"
+            class="w-full"
+            label="Persönlichen Nachricht"
+            rules="max:80"
           />
-          <colorpicker
-            v-model="form.header_and_footer_background_color"
-            :color="form.header_and_footer_background_color"
-            :label="'Kopfzeile & Fußzeile'"
-          />
-          <div class="border-t my-8 block w-full"></div>
 
-          <span class="font-semibold text-sm mb-1">Schriftfarbe</span>
-
-          <div class="grid grid-cols-3 items-end relative w-full mb-1">
-            <label class="text-sm col-span-2">Persönlichen Nachricht</label>
-            <span>
-              <toggle-button
-                :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
-                :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
-                :value="(form.personal_description_color == '#000') ? true : false"
-                @change="(e) => form.personal_description_color = e.value ? '#000' : '#fff'"
-              />
-            </span>
-          </div>
-
-          <div class="grid grid-cols-3 items-end relative w-full mb-1">
-            <label class="text-sm col-span-2">Kopfzeile & Fußzeile</label>
-            <span>
-              <toggle-button
-                :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
-                :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
-                :value="(form.header_and_footer_color == '#000') ? true : false"
-                @change="(e) => form.header_and_footer_color = e.value ? '#000' : '#fff'"
-              />
-            </span>
-          </div>
-
-          <div class="grid grid-cols-3 items-end relative w-full mb-1">
-            <label class="text-sm col-span-2">Zeige den Preis / Verstecke den Preis</label>
-            <span>
+          <span class="font-semibold text-sm mb-1">Preis verstecken</span>
+          <div class="mb-1 relative w-full">
+            <span class="mr-3">
               <toggle-button
                 v-model="form.price_hidden"
                 :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
                 :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
               />
             </span>
+            <label class="text-sm col-span-2">nein / ja</label>
           </div>
-
-          <div class="border-t my-8 block w-full"></div>
-
-          <span class="text-sm mb-1">Weitere Bilder die im Gutschein und der Produktseite abgebildet sind. (Format 4 x 4)</span>
-
-          <section class="gap-4 grid grid-cols-3 mt-3">
-            <div>
-              <span class="block mb-1 text-sm">Bild 1</span>
-              <label
-                v-if="!form.image_1"
-                class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);"
-                >
-                    <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
-                    <input
-                      type="file"
-                      accept="'image/*'"
-                      aria-label="File browser example"
-                      @change="(e) => croppie(e, 'image_1')"
-                      />
-                    <span class="file-custom"></span>
-                </label>
-                <section v-if="form.image_1_update" class="relative">
-                  <i
-                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                    @click="(e) => removeImage(e, 'image_1')"
-                    ></i>
-                  <img :src="form.image_1" width="99" height="99" />
-                </section>
-                <section class="relative hidden">
-                    <i
-                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                    @click="(e) => removeImage(e, 'image_1')"
-                    ></i>
-                  <vue-croppie
-                    ref="image_1"
-                    :enableOrientation="true"
-                    :enableResize="false"
-                    :boundary="{ width: 99, height: 99 }"
-                    :viewport="{ width: 99, height: 99, 'type':'square' }"
-                    @update="update('image_1', 'image_1')"
-                  />
-                </section>
-            </div>
-
-            <div>
-              <span class="block mb-1 text-sm">Bild 2</span>
-              <label
-                v-if="!form.image_2"
-                class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);"
-                >
-                    <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
-                    <input
-                      type="file"
-                      accept="'image/*'"
-                      aria-label="File browser example"
-                      @change="(e) => croppie(e, 'image_2')"
-                      />
-                    <span class="file-custom"></span>
-                </label>
-                <section v-if="form.image_2_update" class="relative">
-                  <i
-                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                    @click="(e) => removeImage(e, 'image_2')"
-                    ></i>
-                  <img :src="form.image_2" width="99" height="99" />
-                </section>
-                <section class="hidden relative">
-                  <i
-                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                    @click="(e) => removeImage(e, 'image_2')"
-                    ></i>
-                  <vue-croppie
-                    ref="image_2"
-                    :enableOrientation="true"
-                    :enableResize="false"
-                    :boundary="{ width: 99, height: 99 }"
-                    :viewport="{ width: 99, height: 99, 'type':'square' }"
-                    @update="update('image_2', 'image_2')"
-                  />
-                </section>
-            </div>
-
-            <div>
-              <span class="block mb-1 text-sm">Bild 3</span>
-              <label
-                v-if="!form.image_3"
-                class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs" style="background-color: rgb(247, 247, 247);"
-                >
-                    <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
-                    <input
-                      type="file"
-                      accept="'image/*'"
-                      aria-label="File browser example"
-                      @change="(e) => croppie(e, 'image_3')"
-                      />
-                    <span class="file-custom"></span>
-                </label>
-                <section v-if="form.image_3_update" class="relative">
-                  <i
-                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                    @click="(e) => removeImage(e, 'image_3')"
-                    ></i>
-                  <img :src="form.image_3" width="99" height="99" />
-                </section>
-                <section class="hidden relative">
-                  <i
-                    class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                    @click="(e) => removeImage(e, 'image_3')"
-                    ></i>
-                  <vue-croppie
-                    ref="image_3"
-                    :enableOrientation="true"
-                    :enableResize="false"
-                    :boundary="{ width: 99, height: 99 }"
-                    :viewport="{ width: 99, height: 99, 'type':'square' }"
-                    @update="update('image_3', 'image_3')"
-                  />
-                </section>
-            </div>
-          </section>
         </div>
         <div class="flex justify-end">
-          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10">
+          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10 flex-1">
             Gutschein speichern
           </button>
         </div>
+      </div>
+      <div class="flex flex-col w-full items-center mb-6">
+        <VoucherCard
+          v-if="data && data.order.voucher"
+          :key="`vform-${formIndex}`"
+          :voucher="form"
+          :order="data.order"
+          :userVoucher="userVoucher"
+          :isFlippable="false"
+        />
       </div>
     </form>
   </ValidationObserver>
@@ -260,6 +118,7 @@
   import Vue from 'vue';
   import VueCroppie from 'vue-croppie';
   import 'croppie/croppie.css' // import the croppie css manually
+  import { slider, slideritem } from 'vue-concise-slider'
 
   Vue.use(VueCroppie);
 
@@ -273,7 +132,9 @@
       TextAreaField,
       Chrome,
       InputField,
-      Colorpicker
+      Colorpicker,
+      slider,
+      slideritem
     },
     props: {
       data: {
@@ -303,11 +164,20 @@
           is_custom_remove: false,
           note: '',
           custom_image: '',
-          background_aid: 'transparent'
+          background_aid: 'transparent',
+          custom_background_image: ''
         },
         chunk_template: [],
         chunk_custom_image: [],
-        tempTemplates: []
+        tempTemplates: [],
+        options: {
+          currentPage: 0,
+          tracking: false,
+          infinite: 2,
+          slidesToScroll: 2,
+        },
+        selected_template: null,
+        default_background: ''
       }
     },
     computed: {
@@ -337,46 +207,7 @@
           tempForm.id = this.data.id
           tempForm.order_id = this.data.order.id
 
-          const templates = tempForm.templates.filter( row => {
-            if( !row.id ) {
-              return {
-                attachment: row.attachment,
-                status: row.status,
-              }
-            }
-            if( row.id && row.status ) {
-              tempForm.template_id = row.id
-            }
-          })
-
-          delete tempForm.custom_image
-          delete tempForm.templates
-
           await this.onUpdateData(tempForm)
-
-          if(this.custom_image) {
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-            this.chunk_custom_image = this.onGetChunk(this.custom_image)
-            const random_string = this.$helpers.randomString(10)
-
-            while (this.chunk_custom_image.length > 0) {
-              await this.onUploadCustomImage(random_string)
-            }
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          }
-
-          if(templates?.length > 0) {
-            this.tempTemplates = templates
-            this.chunk_template = this.onGetChunk(templates[0].attachment)
-            const random_string = this.$helpers.randomString(10)
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-
-            while (this.chunk_template.length > 0) {
-              await this.onUploadTemplates(random_string)
-            }
-
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          }
 
           this.$router.push('/wallet')
         } catch (error) {
@@ -397,59 +228,11 @@
           })
         }
       },
-      onPickColor( { rgba, hex }, type )
-      {
-        if (type == 'background_aid') {
-          this.form.background_aid = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`
-          this.onChangeForm()
-        }
-      },
       async onUpdateData(data)
       {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
         await this.$store.dispatch('UPDATE_USER_VOUCHER', data)
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-      },
-      async onUploadCustomImage(random)
-      {
-        let tempForm = {
-          id: this.data.id,
-          custom_image: this.chunk_custom_image[0],
-          is_last: this.chunk_custom_image.length == 1 ? 1 : 0,
-          file_name: `${random}-${this.custom_image.name}`
-        }
-        await this.$store.dispatch('UPLOAD_CUSTOM_IMAGE_USER_VOUCHER', tempForm)
-        this.chunk_custom_image.shift()
-      },
-      async onUploadTemplates(random)
-      {
-        let tempForm = {
-          id: this.data.id,
-          template: {
-            status: this.tempTemplates[0].status,
-            attachment: this.chunk_template[0],
-            is_last: this.chunk_template.length == 1 ? 1 : 0
-          },
-          file_name: `${random}-${this.tempTemplates[0]['attachment'].name}`
-        }
-
-        await this.$store.dispatch('UPLOAD_TEMPLATES_USER_VOUCHER', tempForm)
-
-        this.chunk_template.shift()
-
-      },
-      onGetChunk(file)
-      {
-        let size = 999950
-        let chunks = Math.ceil(file.size / size)
-        let temp_chunk = []
-
-        for (let i = 0; i < chunks; i++) {
-          temp_chunk.push(file.slice(
-            i * size, Math.min(i * size + size, file.size), file.type
-          ))
-        }
-        return temp_chunk
       },
       onSetForm()
       {
@@ -458,31 +241,72 @@
         this.userVoucher = {
           ...this.data
         }
-        if(this.data?.id) {
-          this.form.order_id = this.data.order.id
-          const { text_color, note } = this.data
+
+        if(!this.data?.id) {
+          return
+        }
+
+        if (this.data.data_json != null) {
+          this.form.id = this.data.id
+          this.form = this.data.data_json
+          this.form.image_1_update = true
+          this.form.image_2_update = true
+          this.form.image_3_update = true
+          this.default_background = this.form.background_image
+        } else {
           this.form = {
-            templates: [
-              ...this.form.templates
-            ],
-            text_color: (text_color != null) ? text_color : this.data.order.voucher.text_color,
-            note,
+            id: this.data.id,
+            title: this.data.title,
+            description: this.data.description,
+            min: (this.data.type == 'quantity') ? this.data.qty_min : this.data.val_min,
+            max: (this.data.type == 'quantity') ? this.data.qty_max : this.data.val_max,
+            qty_val: this.data.qty_val,
+            valid_date: this.data.valid_date || [],
+            valid_day: this.data.valid_day || [],
+            tax: this.data.tax || [],
+            type: this.data.type,
+            category: [this.data.voucher_category.id],
+            text_color: this.data.text_color,
+            background_color: this.data.background_color,
             background_aid: this.data.background_aid,
-            custom_image: this.data.custom_image,
+            background_image: this.data.background_image,
+            seller: this.AUTH_USER.data,
+            background_description_color: '#1D4F55',
+            background_description_personal_color: '#1D4F55',
+            header_and_footer_background_color: '#fff',
+            description_color: '#fff',
+            personal_description_color: '#fff',
+            header_and_footer_color: '#000',
             price_hidden: this.data.price_hidden ? true : false
           }
-          if( this.userVoucher.template ) {
-            const template = this.userVoucher.template
-            this.form.templates = [
-              ...this.form.templates,
-              {
-                id: template.id,
-                image: template.image,
-                status: 1,
-              }
-            ]
-          }
+          console.log('test')
         }
+        console.log(this.form)
+        // if(this.data?.id) {
+        //   this.form.order_id = this.data.order.id
+        //   const { text_color, note } = this.data
+        //   this.form = {
+        //     templates: [
+        //       ...this.form.templates
+        //     ],
+        //     text_color: (text_color != null) ? text_color : this.data.order.voucher.text_color,
+        //     note,
+        //     background_aid: this.data.background_aid,
+        //     custom_image: this.data.custom_image,
+        //     price_hidden: this.data.price_hidden ? true : false
+        //   }
+        //   if( this.userVoucher.template ) {
+        //     const template = this.userVoucher.template
+        //     this.form.templates = [
+        //       ...this.form.templates,
+        //       {
+        //         id: template.id,
+        //         image: template.image,
+        //         status: 1,
+        //       }
+        //     ]
+        //   }
+        // }
         this.formIndex = this.formIndex + 1
       },
       onSetTemplates()
@@ -554,19 +378,22 @@
           this.custom_image = null
         }
       },
-      onSelectTemplate(index)
+      onSelectTemplate(url, id)
       {
-        let selected = null
-        this.form.templates = this.form.templates.map( (row, i) => {
-          row.status = 0
-          if(i == index) {
-            row.status = 1
-            selected = row
-          }
-          return row
-        })
-        this.userVoucher.template = selected
-        this.formIndex = this.formIndex + 1
+
+        if (this.selected_template == id) {
+          this.selected_template = null
+          this.form.custom_background_image = ''
+          this.$refs.croppieRef.$vnode.elm.parentElement.classList.add('hidden')
+          this.formIndex++
+          return
+        }
+        this.selected_template = id
+        this.$refs.croppieRef.$vnode.elm.parentElement.classList.remove('hidden')
+        this.$refs.croppieRef.bind({
+          url: url
+        });
+        this.formIndex++
       },
       onChangeForm()
       {
@@ -576,70 +403,42 @@
         }
         this.formIndex = this.formIndex + 1
       },
-      onChangeBgImg(data)
-      {
-        if(data.length > 0) {
-          let reader = new FileReader();
-          reader.readAsDataURL(data[0].file);
-          reader.onload = () => {
-            const oldTemp = this.form.templates.map( temp => ({
-              ...temp,
-              status: 0
-            }))
-            const selected = {
-              attachment: data[0].file,
-              image: reader.result,
-              status: 1
-            }
-            this.form.templates = [
-              ...oldTemp,
-              selected
-            ]
-            this.userVoucher.template = selected
-            this.onChangeForm()
-          }
-        }
-      },
       croppie (e, ref) {
-          var files = e.target.files || e.dataTransfer.files;
-          if (!files.length) return;
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
 
-          var reader = new FileReader();
-          reader.onload = e => {
-            this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
-            this.$refs[ref].bind({
-              url: e.target.result
-            });
-          };
-
-          reader.readAsDataURL(files[0]);
-        },
-        // CALBACK USAGE
-        crop(ref, form) {
-          // Here we are getting the result via callback function
-          // and set the result to this.cropped which is being
-          // used to display the result above.
-          let size = form == 'background_image'
-            ? { width: 367, height: 341}
-            : { width: 200, height: 200};
-          let options = {
-              type: 'base64',
-              format: 'jpeg',
-              size,
-              quality: 1,
-          }
-          this.$refs[ref].result(options, (output) => {
-            this.form[form] = output
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.selected_template = null
+          this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
+          this.$refs[ref].bind({
+            url: e.target.result
           });
+        };
+
+        reader.readAsDataURL(files[0]);
+      },
+      // CALBACK USAGE
+      crop(ref, form) {
+        // Here we are getting the result via callback function
+        // and set the result to this.cropped which is being
+        // used to display the result above.
+        let options = {
+            type: 'base64',
+            format: 'jpeg',
+            size: { width: 367, height: 341},
+            quality: 1,
+        }
+
+        this.$refs[ref].result(options, (output) => {
+          this.form[form] = output
+        });
+
+        this.formIndex++
       },
       update(ref, form) {
         this.crop(ref, form)
       },
-      removeImage(e, form) {
-        e.target.parentElement.classList.add('hidden')
-        this.form[form] = ''
-        this.form[form + '_update'] = false
-      }
     }
   }
 </script>
@@ -668,6 +467,13 @@
   }
    input[type="file"] {
     display: none;
+  }
+
+  .slider-item {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-right: 8px;
   }
 </style>
 <style lang="css">
