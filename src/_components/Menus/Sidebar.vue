@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white flex h-full w-full md:hidden"
+    class="bg-white flex h-full w-full md:hidden border-t"
   >
     <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
       {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
@@ -9,17 +9,17 @@
       <li
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
-        :class="`border-t block flex flex-col text-black cursor-pointer text-xs`"
+        :class="`flex flex-col ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
         @click="onSelectMenu(menu, index)"
       >
         <div class="flex flex-col items-center justify-center px-3 py-2">
           <!-- <img v-if="menu.icon" class="h-5" :src="menu.icon" alt=""> -->
           <svg class="icon h-5 w-5 mb-1 text-peach">
-            <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+            <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
           </svg>
           {{ menu.title }}
         </div>
-        <ul
+        <!-- <ul
           v-if="menu.child && menu.isChildShow"
           class="list-reset scroll"
         >
@@ -31,7 +31,7 @@
           >
             <span class="ml-3">{{ child.title }}</span>
           </li>
-        </ul>
+        </ul> -->
       </li>
       <!-- <li
         v-if="AUTH_USER.isAuth"
@@ -220,13 +220,13 @@
                   link: '/profile-info',
                   icon: 'person',
                   // isChildShow: false,
-                  // child: profileChild,
+                  child: profileChild,
                 },
                 {
                   title: 'Kategorien',
                   link: '',
                   icon: 'list',
-                  // child: categories,
+                  child: categories,
                   // isChildShow: false
                 },
                 {
@@ -309,16 +309,15 @@
           }
           // this.onHideSidebar()
         } else {
-          const menuIcon = document.getElementById(`dropdown-${index}`).classList
-          const icon = {
-            r: !menu.isChildShow ? 'down' : 'up',
-            a: !menu.isChildShow ? 'up' : 'down'
-          }
-          menuIcon.remove(`fa-caret-${icon.r}`)
-          menuIcon.add(`fa-caret-${icon.a}`)
+
+          console.log(menu)
+          this.$emit('onShowSubMenu', !menu.isChildShow ? menu.child : [])
           this.menus = this.menus.map( (m, i) => {
+
             if(index === i) {
               m.isChildShow = !m.isChildShow
+            } else {
+              m.isChildShow = false
             }
             return m
           })

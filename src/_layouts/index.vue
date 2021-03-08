@@ -7,7 +7,7 @@
     <HeaderNavMenu
       ref="header"
     />
-    <div class="bg-white md:hidden p-4 flex justify-between">
+    <div class="bg-white md:hidden p-4 flex justify-between border-b">
       <router-link
         to="/home"
         >
@@ -39,7 +39,14 @@
       </div>
 
     </div>
-    <div class="flex flex-col overflow-auto w-full">
+    <div class="flex flex-col w-full relative" :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'}`">
+      <ul id="mobile-category" v-if="categories.length" class="fixed inset-0 z-50 px-6 py-4 overflow-auto md:hidden" style="background-color: #F2F2F2">
+          <li v-for="(category, index) in categories" :key="index"  class="border-b py-2 text-sm">
+            <router-link :to="category.link">
+                {{ category.title }}
+            </router-link>
+          </li>
+      </ul>
       <div class="w-full pb-16">
         <div
           id="infinite-scroll"
@@ -52,7 +59,7 @@
 
       <Footer />
     </div>
-      <Sidebar
+      <Sidebar @onShowSubMenu="handleCategory"
       />
     <CookieLaw
       class="cookie-container"
@@ -107,6 +114,7 @@
       return {
         isHideSideBar: true,
         isLoading: true,
+        categories: []
       }
     },
     computed: {
@@ -245,6 +253,9 @@
           }
         }
       },
+      handleCategory(evt) {
+        this.categories = evt
+      }
     }
   }
 </script>
@@ -269,5 +280,9 @@
       grid-template-columns: 250px 1fr;
       grid-template-rows: none;
     }
+  }
+  #mobile-category {
+    top: 60px;
+    bottom: 70px;
   }
 </style>
