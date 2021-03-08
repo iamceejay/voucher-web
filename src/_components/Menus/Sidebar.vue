@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white flex h-full w-full md:hidden border-t"
+    class="bg-white border-t flex h-full md:hidden overflow-x-auto overflow-y-hidden"
   >
     <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
       {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
@@ -9,7 +9,7 @@
       <li
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
-        :class="`flex flex-col ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
+        :class="`flex flex-col text-center ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
         @click="onSelectMenu(menu, index)"
       >
         <div class="flex flex-col items-center justify-center px-3 py-2">
