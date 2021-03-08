@@ -1,86 +1,54 @@
 <template>
   <div
-    class="sidebar-container sm:hidden flex flex-col min-h-screen clearfix h-full"
+    class="bg-white flex h-full w-full md:hidden"
   >
-    <!-- <a
-      href="javascript:void(0)"
-      :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`"
-      @click="onHideSidebar()"
-    >
-      <i class="fas fa-bars text-base text-2xl text-gray-900" />
-    </a> -->
-    <div
-      class="flex flex-col w-full h-full"
-    >
-      <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
-        {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
-      </div>
-      <div class="h-24 justify-center items-center text-2xl font-bold flex font-display">
-        <img
-          class="logo"
-          src="@/_assets/img/logo.png"
-          alt=""
-        />
-        <!-- Hi {{
-          (AUTH_USER.role && AUTH_USER.data) && (
-            AUTH_USER.role.name === 'seller'
-              ? 'Company'
-              : AUTH_USER.role.name === 'scanner'
-                ? AUTH_USER.data.username
-                : AUTH_USER.data.detail.firstName
-          )
-        }}! -->
-      </div>
-      <ul class="list-reset scroll">
-        <li
-          v-for="(menu, index) in menus"
-          :key="`menu-${index}`"
-          :class="`border-t block flex flex-col text-black font-semibold font-body cursor-pointer ${ menu.borderB && 'border-b' }`"
-          @click="onSelectMenu(menu, index)"
-        >
-          <div class="flex flex-row pl-5 py-2">
-            {{ menu.title }}
-            <span
-              v-if="menu.child"
-              class="ml-auto mr-3"
-            >
-              <i
-                :id="`dropdown-${index}`"
-                class="fas fa-caret-down text-base"
-              />
-            </span>
-          </div>
-          <ul
-            v-if="menu.child && menu.isChildShow"
-            class="list-reset scroll"
-          >
-            <li
-              v-for="(child, cIndex) in menu.child"
-              :key="`child-${cIndex}`"
-              class="border-t py-2 pl-5 block flex text-black font-semibold font-body cursor-pointer"
-              @click="onSelectMenu(child, cIndex)"
-            >
-              <span class="ml-3">{{ child.title }}</span>
-            </li>
-          </ul>
-        </li>
-        <li
-          v-if="AUTH_USER.isAuth"
-          class="border-t py-2 border-b cursor-pointer"
-          @click="onLogout()"
-        >
-          <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
-            <div
-              v-if="isLoggingOut"
-              class="sm-spinner m-auto"
-            />
-            <span v-else>
-              Ausloggen
-            </span>
-          </div>
-        </li>
-      </ul>
+    <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
+      {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
     </div>
+    <ul class="flex justify-around w-full">
+      <li
+        v-for="(menu, index) in menus"
+        :key="`menu-${index}`"
+        :class="`border-t block flex flex-col text-black cursor-pointer text-xs`"
+        @click="onSelectMenu(menu, index)"
+      >
+        <div class="flex flex-col items-center justify-center px-3 py-2">
+          <!-- <img v-if="menu.icon" class="h-5" :src="menu.icon" alt=""> -->
+          <svg class="icon h-5 w-5 mb-1 text-peach">
+            <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+          </svg>
+          {{ menu.title }}
+        </div>
+        <ul
+          v-if="menu.child && menu.isChildShow"
+          class="list-reset scroll"
+        >
+          <li
+            v-for="(child, cIndex) in menu.child"
+            :key="`child-${cIndex}`"
+            class="border-t py-2 pl-5 block flex text-black font-semibold font-body cursor-pointer"
+            @click="onSelectMenu(child, cIndex)"
+          >
+            <span class="ml-3">{{ child.title }}</span>
+          </li>
+        </ul>
+      </li>
+      <!-- <li
+        v-if="AUTH_USER.isAuth"
+        class="border-t py-2 border-b cursor-pointer"
+        @click="onLogout()"
+      >
+        <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
+          <div
+            v-if="isLoggingOut"
+            class="sm-spinner m-auto"
+          />
+          <span v-else>
+            Ausloggen
+          </span>
+        </div>
+      </li> -->
+    </ul>
   </div>
 </template>
 <script>
@@ -238,26 +206,38 @@
                 }
               })
               this.menus = [
+                // {
+                //   title: 'Home',
+                //   link: '/home'
+                // },
                 {
-                  title: 'Home',
-                  link: '/home'
-                },{
+                  title: 'Mein Wallet',
+                  link: '/wallet',
+                  icon: 'wallet',
+                },
+                {
+                  title: 'Mein Profil',
+                  link: '/profile-info',
+                  icon: 'person',
+                  // isChildShow: false,
+                  // child: profileChild,
+                },
+                {
                   title: 'Kategorien',
                   link: '',
-                  child: categories,
-                  isChildShow: false
-                },{
-                  title: 'Meine Wallet',
-                  link: '/wallet'
-                },{
-                  title: 'Profil & Einstellungen',
-                  link: '',
-                  isChildShow: false,
-                  child: profileChild,
-                },{
-                  title: 'Bestellungen',
-                  link: '/orders'
+                  icon: 'list',
+                  // child: categories,
+                  // isChildShow: false
                 },
+                {
+                  title: 'Search',
+                  link: '/vouchers/search',
+                  icon: 'search',
+                },
+                // {
+                //   title: 'Bestellungen',
+                //   link: '/orders'
+                // },
               ]
               break;
             case 4:

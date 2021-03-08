@@ -33,8 +33,12 @@
           class="menu-item "
           @click="onSelectMenu(menu, index)"
         >
-          <span class="hover:text-peach relative z-10 flex">
-            <img v-if="menu.icon" class="mr-2" :src="menu.icon" alt=""> {{ menu.title }}
+          <span class="hover:text-peach relative z-10 flex items-center">
+            <svg v-if="menu.icon" class="icon h-4 w-4 mr-2">
+              <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+            </svg>
+            {{ menu.title }}
+
 
             <span
               v-if="menu.child"
@@ -90,11 +94,14 @@
           v-for="(menu, index) in menus.slice(0, 3)"
           :key="`menu-${index}`"
           href="javascript:void(0)"
-          class="menu-item font-bold font-display"
+          class="menu-item  "
           @click="onSelectMenu(menu, index)"
         >
-          <span class="hover:text-peach relative z-10 flex">
-            <img v-if="menu.icon" class="mr-2" :src="menu.icon" alt=""> {{ menu.title }}
+          <span class="hover:text-peach relative z-10 flex items-center">
+            <svg v-if="menu.icon" class="icon h-4 w-4 mr-2">
+              <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+            </svg>
+            {{ menu.title }}
 
             <span
               v-if="menu.child"
@@ -115,7 +122,7 @@
               v-for="(child, cIndex) in menu.child"
               :key="`child-${cIndex}`"
               href="javascript:void(0)"
-              class="dropdown-item font-bold font-display"
+              class="dropdown-item  "
               @click="onSelectMenu(child, cIndex)"
             >
               {{ child.title }}
@@ -128,7 +135,7 @@
           v-for="(menu, index) in menus.slice(3)"
           :key="`menu-${index}`"
           :href="menu.link"
-          class="menu-item font-bold font-display hover:text-peach"
+          class="menu-item   hover:text-peach"
         >
           {{ menu.title }}
         </a>
@@ -153,7 +160,7 @@
           </div>
           <div v-if="!isRegisterPop" class="p-4 sm:p-6 bg-gray-200">
             <div class="flex justify-between items-center pb-3">
-              <p class="font-bold text-center text-lg sm:text-2xl w-full">
+              <p class=" text-center text-lg sm:text-2xl w-full">
                 Erhalte Zugriff zu deiner eigenen Wallet
               </p>
             </div>
@@ -163,7 +170,7 @@
           </div>
           <div class="flex flex-col grid-template py-4 sm:grid">
             <div class="flex flex-col p-4 sm:p-6 justify-between">
-              <p class="font-bold text-lg sm:text-2xl mx-6">
+              <p class=" text-lg sm:text-2xl mx-6">
                 Registriere dich kostenlos als Käufer
               </p>
               <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
@@ -180,7 +187,7 @@
               <span class="bg-white px-3">oder</span>
             </div>​
             <div class="flex flex-col p-6 justify-between">
-              <p class="font-bold text-lg sm:text-2xl mx-6">
+              <p class=" text-lg sm:text-2xl mx-6">
                 Melde dich als Käufer an
               </p>
               <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
@@ -281,11 +288,6 @@
 
         })();
         await this.onFetchData()
-        this.$emit('onHide', this.hideSidebar)
-        this.$nextTick(function() {
-          window.addEventListener('resize', this.getWindowWidth)
-          this.getWindowWidth()
-        })
       })()
     },
     methods: {
@@ -322,12 +324,12 @@
                 {
                   title: 'Home',
                   link: '/home',
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                   child: [
                     {
                       title: 'Benutzer',
@@ -352,7 +354,7 @@
                 },
                 {
                   title: 'Global Settings',
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                   link: '/settings'
                 }
               ]
@@ -362,16 +364,16 @@
                 {
                   title: 'Home',
                   link: '/home',
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Meine Gutscheine',
                   link: '/vouchers',
-                  icon: '/icons/wallet.svg',
+                  icon: 'wallet',
                 }, {
                   title: 'Scannen',
                   link: '',
                   isChildShow: false,
-                  icon: '/icons/upc-scan.svg',
+                  icon: 'upc-scan',
                   child: [
                     {
                       title: 'Scanner',
@@ -385,7 +387,7 @@
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
-                  icon: '/icons/list.svg',
+                  icon: 'list',
                   child: [
                     {
                       title: 'Bestellungen & Verdienste',
@@ -397,7 +399,7 @@
                   ],
                 }, {
                   title: 'Profil & Einstellungen',
-                  icon: '/icons/person.svg',
+                  icon: 'person',
                   link: '',
                   isChildShow: false,
                   child: profileChild,
@@ -408,7 +410,7 @@
               const categories = this.CATEGORIES.map( categ => {
                 return {
                   title: categ.name,
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                   link: `/vouchers/category/${categ.id}`
                 }
               })
@@ -416,26 +418,26 @@
                 {
                   title: 'Home',
                   link: '/home',
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                 },{
                   title: 'Kategorien',
                   link: '',
-                  icon: '/icons/list.svg',
+                  icon: 'list',
                   child: categories,
                   isChildShow: false
                 },{
                   title: 'Meine Wallet',
                   link: '/wallet',
-                  icon: '/icons/wallet.svg',
+                  icon: 'wallet',
                 },{
                   title: 'Profil & Einstellungen',
                   link: '',
-                  icon: '/icons/person.svg',
+                  icon: 'person',
                   isChildShow: false,
                   child: profileChild,
                 },{
                   title: 'Bestellungen',
-                  icon: '/icons/clipboard-data.svg',
+                  icon: 'clipboard-data',
                   link: '/orders'
                 },
               ]
@@ -445,7 +447,7 @@
                 {
                   title: 'Home',
                   link: '/home',
-                  icon: '/icons/grid-3x3-gap-fill.svg',
+                  icon: 'grid-3x3-gap-fill',
                 }
               ]
               break
@@ -464,15 +466,15 @@
             {
               title: 'Home',
               link: '/home',
-              icon: '/icons/grid-3x3-gap-fill.svg',
+              icon: 'grid-3x3-gap-fill',
             }, {
               title: 'Meine Wallet',
               link: '',
-              icon: '/icons/wallet.svg',
+              icon: 'wallet',
             }, {
               title: 'Kategorien',
               link: '',
-              icon: '/icons/list.svg',
+              icon: 'list',
               child: categories,
               isChildShow: false
             },  {

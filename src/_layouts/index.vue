@@ -2,16 +2,43 @@
   <div
     id="main-layout-component"
     class="absolute grid hide-sidebar inset-0"
-    :class="`${ isHideSideBar ? 'hide-sidebar' : 'show-sidebar' }`"
   >
-    <Sidebar
-      :class="isHideSideBar ? 'hidden' : ''"
-      @onHide="isHideSideBar = $event"
-    />
+
     <HeaderNavMenu
       ref="header"
-      @onHide="isHideSideBar = $event"
     />
+    <div class="bg-white md:hidden p-4 flex justify-between">
+      <router-link
+        to="/home"
+        >
+        <img
+          class="h-full"
+          src="@/_assets/img/logo.png"
+          alt=""
+        />
+      </router-link>
+      <div v-if="AUTH_USER.isAuth">
+        <router-link
+          v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+          class="flex flex-col items-center justify-center text-peach relative"
+            to="/cart"
+          >
+          <div class="-mt-1 absolute mr-2 right-0 text-2xs text-black top-0">
+            {{ COUNT_CART }}
+          </div>
+          <svg class="icon h-5 w-5 mb-1 text-peach">
+            <use :xlink:href="`/icons/sprite.svg#bag`"/>
+          </svg>
+          <span class="text-2xs">Warenkorb</span>
+        </router-link>
+      </div>
+
+      <div v-else class="text-sm flex space-x-4">
+          <router-link class="hover:text-peach"  to="/login"> Login </router-link>
+          <router-link class="hover:text-peach"  to="/register/buyer"> Registrieren </router-link>
+      </div>
+
+    </div>
     <div class="flex flex-col overflow-auto w-full">
       <div class="w-full pb-16">
         <div
@@ -25,6 +52,8 @@
 
       <Footer />
     </div>
+      <Sidebar
+      />
     <CookieLaw
       class="cookie-container"
       buttonClass="cookie-btn"
@@ -100,7 +129,15 @@
       IS_SELLER_MODAL_SHOW()
       {
         return this.$store.getters.SELLER_MODAL
-      }
+      },
+      CATEGORIES()
+      {
+        return this.$store.getters.CATEGORIES
+      },
+      COUNT_CART()
+      {
+        return this.$store.getters.COUNT_CART
+      },
     },
     watch: {
       async IS_LOADING(newVal)
@@ -214,6 +251,7 @@
 <style lang="css" scoped>
   #main-layout-component {
     margin: 0 auto;
+    grid-template-rows: 60px 1fr 70px;
   }
   .main-container.hide {
     transition: all 0.6s;
@@ -229,7 +267,7 @@
   @screen md {
     #main-layout-component {
       grid-template-columns: 250px 1fr;
-      margin: 0 auto;
+      grid-template-rows: none;
     }
   }
 </style>
