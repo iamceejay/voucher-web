@@ -123,11 +123,13 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
+                  icon: 'grid-3x3-gap-fill',
                   child: [
                     {
                       title: 'Benutzer',
@@ -160,13 +162,16 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Meine Gutscheine',
-                  link: '/vouchers'
+                  link: '/vouchers',
+                  icon: 'wallet',
                 }, {
                   title: 'Scannen',
                   link: '',
+                  icon: 'upc-scan',
                   isChildShow: false,
                   child: [
                     {
@@ -180,6 +185,7 @@
                 },  {
                   title: 'Verwalten',
                   link: '',
+                  icon: 'list',
                   isChildShow: false,
                   child: [
                     {
@@ -193,6 +199,7 @@
                 }, {
                   title: 'Profil & Einstellungen',
                   link: '',
+                  icon: 'person',
                   isChildShow: false,
                   child: profileChild,
                 },
@@ -244,7 +251,8 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }
               ]
               break
@@ -262,23 +270,27 @@
           this.menus = [
             {
               title: 'Home',
-              link: '/home'
+              link: '/home',
+              icon: 'grid-3x3-gap-fill',
             }, {
               title: 'Meine Wallet',
               link: '#wallet',
+              icon: 'wallet',
             }, {
               title: 'Kategorien',
               link: '',
               child: categories,
-              isChildShow: false
-            }, {
-              title: 'Login',
-              link: '/login',
-            }, {
-              title: 'Registrieren',
-              link: '/register/buyer',
-              borderB: true,
+              isChildShow: false,
+              icon: 'list',
             },
+            // {
+            //   title: 'Login',
+            //   link: '/login',
+            // }, {
+            //   title: 'Registrieren',
+            //   link: '/register/buyer',
+            //   borderB: true,
+            // },
           ]
         }
       },
