@@ -1,10 +1,10 @@
 <template>
   <ValidationObserver
     v-slot="{ handleSubmit, invalid }"
-    class="flex w-full h-full"
+    class="flex flex-col w-full h-full items-center"
   >
     <form
-      class="w-full flex flex-col"
+      class="w-full flex flex-col items-center"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
       <Header2
@@ -18,60 +18,65 @@
       <Header2
         label="Bedingungen"
       />
-      <CheckboxField
-        id="dataPrivacy"
-        v-model="form.dataPrivacy"
-        type="text"
-        container="mx-2 mb-0"
-        :rules="{ required: { allowFalse: false } }"
-      >
-        <template #labelSentence_>
-          <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
-            Ich akzeptiere die
-            <a
-              class="text-blue-700"
-              href="https://verkaufen.epasnets.com/datenschutz"
-              target="_blank"
-            >
-              Datenschutzerklärung.
-            </a>
-          </label>
-        </template>
-      </CheckboxField>
-      <CheckboxField
-        id="terms"
-        v-model="form.terms"
-        type="text"
-        container="mx-2 mb-0"
-        :rules="{ required: { allowFalse: false } }"
-      >
-        <template #labelSentence_>
-          <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
-            Ich akzeptiere die
-            <a
-              class="text-blue-700"
-              href="https://verkaufen.epasnets.com/agb"
-              target="_blank"
-            >
-              Nutzungsbedingungen.
-            </a>
-          </label>
-        </template>
-      </CheckboxField>
-      <CheckboxField
-        id="commision"
-        v-model="form.commision"
-        type="text"
-        container="mx-2 mb-5"
-        :labelSentence="`Ich akzeptiere die Kommision von ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% des Umsatzes und ${ GLOBAL_SETTING ? $helpers.convertCurrency(GLOBAL_SETTING.sales_commission_euro) : '5,00 €' } pro Gutscheinverkauf zuzüglich 20% MwSt.`"
-        :rules="{ required: { allowFalse: false } }"
-      />
-      <Button
-        type="submit"
-        label="Registrierung abschließen"
-        size="w-full sm:w-1/2 py-4 mx-2"
-        round="rounded-full"
-      />
+      <div class="flex flex-col w-full md:w-1/2">
+        <CheckboxField
+          id="dataPrivacy"
+          v-model="form.dataPrivacy"
+          type="text"
+          container="mb-0"
+          :rules="{ required: { allowFalse: false } }"
+        >
+          <template #labelSentence_>
+            <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
+              Ich akzeptiere die
+              <a
+                class="text-peach underline"
+                href="https://verkaufen.epasnets.com/datenschutz"
+                target="_blank"
+              >
+                Datenschutzerklärung.
+              </a>
+            </label>
+          </template>
+        </CheckboxField>
+        <CheckboxField
+          id="terms"
+          v-model="form.terms"
+          type="text"
+          container="mb-0"
+          :rules="{ required: { allowFalse: false } }"
+        >
+          <template #labelSentence_>
+            <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
+              Ich akzeptiere die
+              <a
+                class="text-peach underline"
+                href="https://verkaufen.epasnets.com/agb"
+                target="_blank"
+              >
+                Nutzungsbedingungen.
+              </a>
+            </label>
+          </template>
+        </CheckboxField>
+        <CheckboxField
+          id="commision"
+          v-model="form.commision"
+          type="text"
+          container="mb-5"
+          :labelSentence="`Ich akzeptiere die Kommision von ${ GLOBAL_SETTING ? GLOBAL_SETTING.sales_commission_percentage : '5' }% des Umsatzes und ${ GLOBAL_SETTING ? $helpers.convertCurrency(GLOBAL_SETTING.sales_commission_euro) : '5,00 €' } pro Gutscheinverkauf zuzüglich 20% MwSt.`"
+          :rules="{ required: { allowFalse: false } }"
+        />
+      </div>
+      <div class="w-full sm:w-1/2">
+        <Button
+          class="flex flex-col items-center w-full"
+          type="submit"
+          label="Registrierung abschließen"
+          size="w-full py-4"
+          round="rounded"
+        />
+      </div>
     </form>
   </ValidationObserver>
 </template>

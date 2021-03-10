@@ -3,7 +3,7 @@
     <div class="flex flex-col w-full">
         <div
         v-if="verification_front && verification_front != ''"
-        class="company-logo flex max-w-xs mx-2 w-full"
+        class="company-logo flex max-w-xs w-full"
         >
         <img
             style="width: 100%; height: auto;"
@@ -15,7 +15,7 @@
         v-if="type == 'seller'"
         id="icon"
         v-model="form.verification_front"
-        class="w-full m-2"
+        class="w-full my-2"
         inputContainer="py-1 text-xs w-full md:w-2/5"
         label="Lade jetzt oder später ein Foto von der Vorderseite eines gültigen Ausweises hoch"
         note="(Personalausweis, Führerschein oder Pass. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.)"
@@ -23,14 +23,15 @@
         accept=".jpeg,.png,.jpg"
         :errorMessages="errorMessages.verification_front"
         @input="(data) => onChangeLogo(data, 'verification_front')"
+        round="rounded"
         />
-        <span v-if="type == 'seller'" class="font-bold mb-3 mx-2 text-xs">
+        <span v-if="type == 'seller'" class="font-bold mb-3 text-xs">
           Um die ersten Auszahlungen zu erhalten musst du dich mittels den oben genannten Dokumenten verifizieren.
         </span>
 
         <div
         v-if="verification_back && verification_back != ''"
-        class="company-logo flex max-w-xs mx-2 w-full"
+        class="company-logo flex max-w-xs w-full"
         >
         <img
             style="width: 100%; height: auto;"
@@ -42,7 +43,7 @@
         v-if="type == 'seller'"
         id="icon"
         v-model="form.verification_back"
-        class="w-full m-2"
+        class="w-full my-2"
         inputContainer="py-1 text-xs w-full md:w-2/5"
         label="Lade jetzt oder spät ein Foto von der Rückseite des gültigen Ausweises hoch "
         note="(Personalausweis, Führerschein oder Pass. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.) "
@@ -50,14 +51,15 @@
         accept=".jpeg,.png,.jpg"
         :errorMessages="errorMessages.verification_back"
         @input="(data) => onChangeLogo(data, 'verification_back')"
+        round="rounded"
         />
-        <span v-if="type == 'seller'" class="font-bold mb-3 mx-2 text-xs">
+        <span v-if="type == 'seller'" class="font-bold mb-3 text-xs">
           Um die ersten Auszahlungen zu erhalten musst du dich mittels den oben genannten Dokumenten verifizieren.
         </span>
 
         <div
         v-if="additional_identity && additional_identity != ''"
-        class="company-logo flex max-w-xs mx-2 w-full"
+        class="company-logo flex max-w-xs w-full"
         >
         <img
             style="width: 100%; height: auto;"
@@ -69,7 +71,7 @@
         v-if="type == 'seller'"
         id="icon"
         v-model="form.additional_identity"
-        class="w-full m-2"
+        class="w-full my-2"
         inputContainer="py-1 text-xs w-full md:w-2/5"
         label="Lade jetzt oder später ein amtliches Dokument, wo die Adresse deines Unternehmens ersichtlich ist, hoch."
         note="(Firmenbuchauszug oder Gewerbeanmeldung)"
@@ -77,15 +79,16 @@
         accept=".jpeg,.png,.jpg"
         :errorMessages="errorMessages.additional_identity"
         @input="(data) => onChangeLogo(data, 'additional_identity')"
+        round="rounded"
         />
-        <span v-if="type == 'seller'" class="font-bold mb-3 mx-2 text-xs">
+        <span v-if="type == 'seller'" class="font-bold mb-3 text-xs">
           Um die ersten Auszahlungen zu erhalten musst du dich mittels den oben genannten Dokumenten verifizieren.
         </span>
         <!-- <InputField
         id="password"
         v-model="form.password"
         type="password"
-        class="m-2"
+        class="my-2"
         label="Passwort"
         rules="required|min:8|max:16"
         :errorMessages="errorMessages.password"
@@ -95,7 +98,7 @@
         id="confirmPassword"
         v-model="form.confirmPassword"
         type="password"
-        class="m-2"
+        class="my-2"
         label="Passwort wiederholen"
         rules="required|min:8|max:16|password:@password"
         :errorMessages="errorMessages.confirmPassword"

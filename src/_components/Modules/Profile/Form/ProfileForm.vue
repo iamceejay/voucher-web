@@ -3,9 +3,9 @@
     <InputField
       v-if="type == 'seller'"
       id="company_name"
+      class="mb-4"
       v-model="form.company.name"
       type="text"
-      class="m-2"
       rules="required"
       :errorMessages="errorMessages.company && errorMessages.company.name"
       @input="onChange"
@@ -25,9 +25,9 @@
     </InputField>
     <InputField
       id="username"
+      class="mb-4"
       v-model="form.username"
       type="text"
-      class="m-2"
       :rules="`required|unique:users,username,${form.id}`"
       :errorMessages="errorMessages.username"
       :disabled="form.id ? true : false"
@@ -47,12 +47,12 @@
         </div>
       </template>
     </InputField>
-    <div class="flex flex-row">
+    <div class="flex flex-col sm:flex-row">
       <InputField
         id="firstName"
         v-model="form.firstName"
         type="text"
-        class="w-full sm:w-1/2 m-2"
+        class="w-full sm:w-1/2 sm:mr-2 mb-4"
         label="Vorname"
         rules="required"
         :errorMessages="errorMessages.firstName"
@@ -62,22 +62,22 @@
         id="lastName"
         v-model="form.lastName"
         type="text"
-        class="w-full sm:w-1/2 m-2"
+        class="w-full sm:w-1/2 sm:ml-2 mb-4"
         label="Nachname"
         rules="required"
         :errorMessages="errorMessages.lastName"
         @input="onChange"
       />
     </div>
-    <span v-if="type == 'seller'" class="mb-3 mx-2 text-sm">
+    <span v-if="type == 'seller'" class="mb-4 text-sm">
       Bitte gib den Namen vom Inhaber oder Geschäftsführer des Unternehmens an.
     </span>
     <DatePicker
       v-if="type == 'seller'"
       id="data"
+      class="mb-4"
       v-model="form.bday"
       label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
-      class="m-2"
       :errorMessages="errorMessages.phone_number"
       rules="required"
       @input="onChange"
@@ -85,19 +85,19 @@
     <InputField
       v-if="type == 'seller'"
       id="address"
+      class="mb-4"
       v-model="form.address"
       type="text"
-      class="m-2"
       label="Adresse"
       :errorMessages="errorMessages.address"
       @input="onChange"
     />
-    <div class="flex flex-row">
+    <div class="flex flex-col sm:flex-row">
       <InputField
         id="city"
         v-model="form.city"
         type="text"
-        class="w-full sm:w-1/2 m-2"
+        class="w-full sm:w-1/2 sm:mr-2 mb-4"
         label="Stadt"
         :errorMessages="errorMessages.city"
         @input="onChange"
@@ -106,7 +106,7 @@
         id="zip_code"
         v-model="form.zip_code"
         type="text"
-        class="w-full sm:w-1/2 m-2"
+        class="w-full sm:w-1/2 sm:ml-2 mb-4"
         label="Postleitzahl"
         :errorMessages="errorMessages.zip_code"
         @input="onChange"
@@ -114,9 +114,9 @@
     </div>
     <InputField
       id="email"
+      class="mb-4"
       v-model="form.email"
       type="text"
-      class="m-2"
       label="Emailadresse "
       :rules="`required|email|unique:users,email,${form.id}`"
       :errorMessages="errorMessages.email"
@@ -127,7 +127,7 @@
       id="phoneNumber"
       v-model="form.phone_number"
       type="number"
-      class="w-full sm:w-1/2 m-2"
+      class="w-full sm:w-1/2 mb-4"
       label="Telefonnummer"
       :errorMessages="errorMessages.phone_number"
       rules="required"
@@ -211,7 +211,6 @@
       id="password"
       v-model="form.password"
       type="password"
-      class="m-2"
       label="Passwort"
       rules="required|min:8|max:16"
       :errorMessages="errorMessages.password"
@@ -221,7 +220,6 @@
       id="confirmPassword"
       v-model="form.confirmPassword"
       type="password"
-      class="m-2"
       label="Passwort wiederholen"
       rules="required|min:8|max:16|password:@password"
       :errorMessages="errorMessages.confirmPassword"

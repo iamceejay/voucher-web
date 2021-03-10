@@ -3,15 +3,19 @@
     <template #content>
       <ValidationObserver
         v-slot="{ handleSubmit }"
-        class="content-container flex flex-col w-full h-full px-8"
+        class="content-container flex flex-col w-full h-full items-center"
       >
         <form
-          class="w-full flex flex-col"
+          class="container w-full flex flex-col items-center"
           @submit.prevent="handleSubmit(onSubmit)"
         >
           <div class="font-bold py-2 text-2xl md:text-4xl font-display mb-1 text-gray-900">
-            Registriere dich kostenlos als Käufer
+            Registrieren
           </div>
+
+          <RegisterTabs
+            type="user"
+          />
 
           <div class="flex flex-col w-full md:w-1/2 my-5">
             <ProfileForm
@@ -26,14 +30,14 @@
             <CheckboxField
               id="dataPrivacy"
               v-model="form.dataPrivacy"
-              container="mx-2 mb-0"
+              container="mb-0"
               :rules="{ required: { allowFalse: false } }"
             >
               <template #labelSentence_>
                 <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
                   Ich akzeptiere die
                   <a
-                    class="text-blue-700"
+                    class="text-peach underline"
                     href="https://verkaufen.epasnets.com/datenschutz"
                     target="_blank"
                   >
@@ -46,14 +50,14 @@
               id="terms"
               v-model="form.terms"
               type="text"
-              container="mx-2 mb-2"
+              container="mb-2"
               :rules="{ required: { allowFalse: false } }"
             >
               <template #labelSentence_>
                 <label class="text-xs px-1 py-0 mt-0 font-bold text-gray-900 font-body">
                   Ich akzeptiere die
                   <a
-                    class="text-blue-700"
+                    class="text-peach underline"
                     href="https://verkaufen.epasnets.com/agb"
                     target="_blank"
                   >
@@ -62,7 +66,7 @@
                 </label>
               </template>
             </CheckboxField>
-            <div class="mx-2 text-sm px-2">
+            <div class="text-sm">
               <p>
                 Du willst lieber Gutscheine verkaufen?
                 <a
@@ -76,12 +80,15 @@
               </p>
             </div>
           </div>
-          <Button
-            type="submit"
-            label="Registrierung abschließen"
-            size="w-full sm:w-1/2 py-3"
-            round="rounded-full"
-          />
+          <div class="w-full sm:w-1/2">
+            <Button
+              class="flex flex-col items-center w-full"
+              type="submit"
+              label="Kostenios registrieren"
+              size="w-full py-3"
+              round="rounded"
+            />
+          </div>
         </form>
       </ValidationObserver>
     </template>
@@ -90,6 +97,7 @@
 <script>
   import MainLayout from '_layouts';
   import Button from '_components/Button';
+  import RegisterTabs from '_components/Modules/Register/Tabs'
   import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
   import SettingsForm from '_components/Modules/Profile/Form/SettingsForm';
   import Header1 from '_components/Headers/Header1';
@@ -102,6 +110,7 @@
       ProfileForm,
       SettingsForm,
       Button,
+      RegisterTabs,
       CheckboxField,
       Header1
     },
@@ -182,4 +191,19 @@
   }
 </script>
 <style lang='css' scoped>
+  @media only screen and (max-width: 599px) {
+    .container {
+      width: 90% !important;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .container {
+      width: 60%;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .container {
+      width: 50%;
+    }
+  }
 </style>

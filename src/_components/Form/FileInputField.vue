@@ -21,8 +21,8 @@
           {{ note }}
         </span>
         <label
-          class="file-select flex w-full mt-2 px-3 rounded-full font-semibold font-body justify-center"
-          :class="[ inputContainer, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
+          class="file-select flex w-full mt-2 px-3 font-semibold font-body justify-center"
+          :class="[ inputContainer, round, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
         >
           <span v-if="!isMultiple">
             {{ value ? 'Change selected' : 'Wähle eine Datei aus' }}
@@ -101,7 +101,10 @@
         default() {
           return null
         }
-      }
+      }, round: {
+        type: String,
+        default: 'rounded-full'
+      },
     },
     data() {
       return {

@@ -17,7 +17,7 @@
           v-model="date"
           :inputAttr="{name: id, id}"
           class=" w-full"
-          inputClass="input-field pl-8 py-2 rounded-sm text-sm"
+          inputClass="input-field mt-2 pl-8 py-2 rounded-sm text-sm"
           :format="format"
           type="date"
           :placeholder="placeholder"
