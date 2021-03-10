@@ -34,7 +34,7 @@
 		props: {
       type: {
         type: String,
-        default: 'user'
+        default: ''
       }
     },
 		data() {
