@@ -305,11 +305,10 @@
       {
         if(!menu.child) {
           if (!this.AUTH_USER.isAuth && menu.link == '#wallet') {
-            this.$parent.$refs.header.hideSidebar = true
+            console.log(this.$parent.$refs.header)
             this.$parent.$refs.header.showWallet = true
             this.$parent.$refs.header.isRegisterPop = false
             this.hideSidebar = true;
-            this.$emit('onHide', this.hideSidebar)
             return
           }
 
@@ -321,8 +320,6 @@
           }
           // this.onHideSidebar()
         } else {
-
-          console.log(menu)
           this.$emit('onShowSubMenu', !menu.isChildShow ? menu.child : [])
           this.menus = this.menus.map( (m, i) => {
 

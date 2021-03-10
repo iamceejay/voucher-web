@@ -1,11 +1,17 @@
 <template>
   <div
     id="main-layout-component"
-    class="absolute grid hide-sidebar inset-0"
+    class="absolute hide-sidebar inset-0"
+    :class="{
+      'grid': AUTH_USER.isAuth,
+      'bg-white': !AUTH_USER.isAuth,
+      'overflow-hidden': !AUTH_USER.isAuth && categories.length,
+    }"
   >
 
     <HeaderNavMenu
       ref="header"
+      @onShowSubMenu="handleCategory"
     />
     <div class="bg-white md:hidden p-4 flex justify-between border-b">
       <router-link
@@ -39,9 +45,14 @@
       </div>
 
     </div>
-    <div class="flex flex-col w-full relative" :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'}`">
-      <ul id="mobile-category" v-if="categories.length" class="fixed inset-0 z-50 px-6 py-4 overflow-auto md:hidden" style="background-color: #F2F2F2">
-          <li v-for="(category, index) in categories" :key="index"  class="border-b py-2 text-sm">
+    <div class="flex flex-col w-full relative" :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'}`" style="background: #F2F2F2;">
+      <ul
+        v-if="categories.length"
+        id="mobile-category"
+        class="fixed inset-0 z-50 px-6 py-4 overflow-auto "
+        :class="AUTH_USER.isAuth ? 'md:hidden' : 'guest'"
+        style="background-color: #F2F2F2">
+          <li v-for="(category, index) in categories" :key="index"  class="border-b py-2 text-sm content-container ">
             <router-link :to="category.link">
                 {{ category.title }}
             </router-link>
@@ -284,5 +295,8 @@
   #mobile-category {
     top: 60px;
     bottom: 70px;
+  }
+  #mobile-category.guest {
+    bottom: 0px;
   }
 </style>

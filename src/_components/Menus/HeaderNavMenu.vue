@@ -1,6 +1,10 @@
 <template>
-  <div class="content-container w-full flex-col nav-container hidden md:flex" id="site-header">
-    <div class="nav-logo">
+  <div
+    class="content-container w-full nav-container hidden md:flex"
+    :id="AUTH_USER.isAuth ? 'site-header' : 'guest-header'"
+    :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'"
+    >
+    <div class="nav-logo"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
       <a
         href="javascript:void(0)"
         :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
@@ -23,7 +27,7 @@
       </a>
       <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
     </div>
-    <div class="border border-black mx-8 opacity-25" style="margin-bottom: 20px"></div>
+    <div v-if="AUTH_USER.isAuth" class="border border-black mx-8 opacity-25" style="margin-bottom: 20px"></div>
     <div v-if="AUTH_USER.isAuth" class="flex flex-1 flex-col justify-between mx-8 text-sm">
       <div class="flex flex-col space-y-4">
           <a
@@ -88,8 +92,13 @@
         </a>
       </div>
     </div>
-    <div v-else class="flex flex-1 flex-col justify-between mx-8 text-sm">
-      <div class="flex flex-col space-y-4">
+    <div
+      v-else
+      class="flex flex-1 justify-between mx-8 text-sm"
+      :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
+      <div
+        class="flex"
+        :class="AUTH_USER.isAuth ? 'flex-col space-y-4' : 'flex-row items-center space-x-4'">
         <a
           v-for="(menu, index) in menus.slice(0, 3)"
           :key="`menu-${index}`"
@@ -97,40 +106,18 @@
           class="menu-item  "
           @click="onSelectMenu(menu, index)"
         >
-          <span class="hover:text-peach relative z-10 flex items-center">
-            <svg v-if="menu.icon" class="icon h-4 w-4 mr-2">
-              <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+          <span class="hover:text-peach relative z-10 flex flex-col items-center">
+            <svg v-if="menu.icon" class="icon h-4 w-4 text-peach">
+              <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
             </svg>
             {{ menu.title }}
-
-            <span
-              v-if="menu.child"
-              class="absolute right-0"
-            >
-              <i
-                :id="`dropdown-${index}`"
-                class="fas fa-caret-down"
-              />
-            </span>
           </span>
-          <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" />
-          <div
-            v-if="menu.child && menu.isChildShow"
-            class="dropdown-menu flex flex-col left-0"
-          >
-            <a
-              v-for="(child, cIndex) in menu.child"
-              :key="`child-${cIndex}`"
-              href="javascript:void(0)"
-              class="dropdown-item  "
-              @click="onSelectMenu(child, cIndex)"
-            >
-              {{ child.title }}
-            </a>
-          </div>
         </a>
       </div>
-      <div class="flex flex-col items-start space-y-4 mt-8 pb-8">
+      <div
+        class="flex mt-8 pb-8"
+        :class="AUTH_USER.isAuth ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
+        >
         <a
           v-for="(menu, index) in menus.slice(3)"
           :key="`menu-${index}`"
@@ -507,6 +494,19 @@
             this.$router.push(menu.link)
           }
         } else {
+          if (!this.AUTH_USER.isAuth) {
+            this.$emit('onShowSubMenu', !menu.isChildShow ? menu.child : [])
+            this.menus = this.menus.map( (m, i) => {
+
+              if(index === i) {
+                m.isChildShow = !m.isChildShow
+              } else {
+                m.isChildShow = false
+              }
+              return m
+            })
+            return
+          }
           const menuIcon = document.getElementById(`dropdown-${index}`).classList
           const icon = {
             r: !menu.isChildShow ? 'down' : 'up',
@@ -553,6 +553,9 @@
   };
 </script>
 <style lang="css" scoped>
+  #guest-header {
+    height: 60px;
+  }
 
   #site-header {
     width: 100%;
@@ -569,6 +572,9 @@
   .nav-container .nav-logo {
     padding: 40px 30px 20px;
     font-weight: bold;
+  }
+  #guest-header .nav-logo {
+    padding: 20px 30px 20px;
   }
   .nav-logo img {
     width: 100px;
