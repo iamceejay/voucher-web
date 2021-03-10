@@ -286,17 +286,18 @@
   .swal2-show-loader {
     background-color: transparent!important;
   }
-  @screen md {
-    #main-layout-component {
-      grid-template-columns: 250px 1fr;
-      grid-template-rows: none;
-    }
-  }
+
   #mobile-category {
     top: 60px;
     bottom: 70px;
   }
   #mobile-category.guest {
-    bottom: 0px;
+    bottom: 70px;
+  }
+
+  @screen md {
+    #mobile-category.guest {
+       bottom: 0px;
+    }
   }
 </style>
