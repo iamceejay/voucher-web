@@ -4,7 +4,7 @@
     class="absolute hide-sidebar inset-0"
     :class="{
       'grid': AUTH_USER.isAuth,
-      'bg-white': !AUTH_USER.isAuth,
+      'bg-white grid md:block': !AUTH_USER.isAuth,
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
     }"
   >
