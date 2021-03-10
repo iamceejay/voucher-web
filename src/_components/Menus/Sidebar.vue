@@ -1,86 +1,54 @@
 <template>
   <div
-    class="sidebar-container sm:hidden flex flex-col min-h-screen clearfix h-full"
+    class="bg-white border-t flex h-full md:hidden overflow-x-auto overflow-y-hidden"
   >
-    <!-- <a
-      href="javascript:void(0)"
-      :class="`menu-toggle ${!hideSidebar ? 'hide' : ''}`"
-      @click="onHideSidebar()"
-    >
-      <i class="fas fa-bars text-base text-2xl text-gray-900" />
-    </a> -->
-    <div
-      class="flex flex-col w-full h-full"
-    >
-      <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
-        {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
-      </div>
-      <div class="h-24 justify-center items-center text-2xl font-bold flex font-display">
-        <img
-          class="logo"
-          src="@/_assets/img/logo.png"
-          alt=""
-        />
-        <!-- Hi {{
-          (AUTH_USER.role && AUTH_USER.data) && (
-            AUTH_USER.role.name === 'seller'
-              ? 'Company'
-              : AUTH_USER.role.name === 'scanner'
-                ? AUTH_USER.data.username
-                : AUTH_USER.data.detail.firstName
-          )
-        }}! -->
-      </div>
-      <ul class="list-reset scroll">
-        <li
-          v-for="(menu, index) in menus"
-          :key="`menu-${index}`"
-          :class="`border-t block flex flex-col text-black font-semibold font-body cursor-pointer ${ menu.borderB && 'border-b' }`"
-          @click="onSelectMenu(menu, index)"
-        >
-          <div class="flex flex-row pl-5 py-2">
-            {{ menu.title }}
-            <span
-              v-if="menu.child"
-              class="ml-auto mr-3"
-            >
-              <i
-                :id="`dropdown-${index}`"
-                class="fas fa-caret-down text-base"
-              />
-            </span>
-          </div>
-          <ul
-            v-if="menu.child && menu.isChildShow"
-            class="list-reset scroll"
-          >
-            <li
-              v-for="(child, cIndex) in menu.child"
-              :key="`child-${cIndex}`"
-              class="border-t py-2 pl-5 block flex text-black font-semibold font-body cursor-pointer"
-              @click="onSelectMenu(child, cIndex)"
-            >
-              <span class="ml-3">{{ child.title }}</span>
-            </li>
-          </ul>
-        </li>
-        <li
-          v-if="AUTH_USER.isAuth"
-          class="border-t py-2 border-b cursor-pointer"
-          @click="onLogout()"
-        >
-          <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
-            <div
-              v-if="isLoggingOut"
-              class="sm-spinner m-auto"
-            />
-            <span v-else>
-              Ausloggen
-            </span>
-          </div>
-        </li>
-      </ul>
+    <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
+      {{ `Admin: ${AUTH_USER.admin.detail.firstName} ${AUTH_USER.admin.detail.lastName}` }}
     </div>
+    <ul class="flex justify-around w-full">
+      <li
+        v-for="(menu, index) in menus"
+        :key="`menu-${index}`"
+        :class="`flex flex-col text-center ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
+        @click="onSelectMenu(menu, index)"
+      >
+        <div class="flex flex-col items-center justify-center px-3 py-2">
+          <!-- <img v-if="menu.icon" class="h-5" :src="menu.icon" alt=""> -->
+          <svg class="icon h-5 w-5 mb-1 text-peach">
+            <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
+          </svg>
+          {{ menu.title }}
+        </div>
+        <!-- <ul
+          v-if="menu.child && menu.isChildShow"
+          class="list-reset scroll"
+        >
+          <li
+            v-for="(child, cIndex) in menu.child"
+            :key="`child-${cIndex}`"
+            class="border-t py-2 pl-5 block flex text-black font-semibold font-body cursor-pointer"
+            @click="onSelectMenu(child, cIndex)"
+          >
+            <span class="ml-3">{{ child.title }}</span>
+          </li>
+        </ul> -->
+      </li>
+      <!-- <li
+        v-if="AUTH_USER.isAuth"
+        class="border-t py-2 border-b cursor-pointer"
+        @click="onLogout()"
+      >
+        <div class="pl-5 block hover:border-purple-900 text-black hover:no-underline font-semibold hover:font-semibold hover:font-gray-800 border-gray-black font-body">
+          <div
+            v-if="isLoggingOut"
+            class="sm-spinner m-auto"
+          />
+          <span v-else>
+            Ausloggen
+          </span>
+        </div>
+      </li> -->
+    </ul>
   </div>
 </template>
 <script>
@@ -155,11 +123,13 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
+                  icon: 'grid-3x3-gap-fill',
                   child: [
                     {
                       title: 'Benutzer',
@@ -192,13 +162,16 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Meine Gutscheine',
-                  link: '/vouchers'
+                  link: '/vouchers',
+                  icon: 'wallet',
                 }, {
                   title: 'Scannen',
                   link: '',
+                  icon: 'upc-scan',
                   isChildShow: false,
                   child: [
                     {
@@ -212,6 +185,7 @@
                 },  {
                   title: 'Verwalten',
                   link: '',
+                  icon: 'list',
                   isChildShow: false,
                   child: [
                     {
@@ -225,6 +199,7 @@
                 }, {
                   title: 'Profil & Einstellungen',
                   link: '',
+                  icon: 'person',
                   isChildShow: false,
                   child: profileChild,
                 },
@@ -238,33 +213,46 @@
                 }
               })
               this.menus = [
+                // {
+                //   title: 'Home',
+                //   link: '/home'
+                // },
                 {
-                  title: 'Home',
-                  link: '/home'
-                },{
+                  title: 'Mein Wallet',
+                  link: '/wallet',
+                  icon: 'wallet',
+                },
+                {
+                  title: 'Mein Profil',
+                  link: '/profile-info',
+                  icon: 'person',
+                  // isChildShow: false,
+                  child: profileChild,
+                },
+                {
                   title: 'Kategorien',
                   link: '',
+                  icon: 'list',
                   child: categories,
-                  isChildShow: false
-                },{
-                  title: 'Meine Wallet',
-                  link: '/wallet'
-                },{
-                  title: 'Profil & Einstellungen',
-                  link: '',
-                  isChildShow: false,
-                  child: profileChild,
-                },{
-                  title: 'Bestellungen',
-                  link: '/orders'
+                  // isChildShow: false
                 },
+                {
+                  title: 'Search',
+                  link: '/vouchers/search',
+                  icon: 'search',
+                },
+                // {
+                //   title: 'Bestellungen',
+                //   link: '/orders'
+                // },
               ]
               break;
             case 4:
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }
               ]
               break
@@ -282,23 +270,27 @@
           this.menus = [
             {
               title: 'Home',
-              link: '/home'
+              link: '/home',
+              icon: 'grid-3x3-gap-fill',
             }, {
               title: 'Meine Wallet',
               link: '#wallet',
+              icon: 'wallet',
             }, {
               title: 'Kategorien',
               link: '',
               child: categories,
-              isChildShow: false
-            }, {
-              title: 'Login',
-              link: '/login',
-            }, {
-              title: 'Registrieren',
-              link: '/register/buyer',
-              borderB: true,
+              isChildShow: false,
+              icon: 'list',
             },
+            // {
+            //   title: 'Login',
+            //   link: '/login',
+            // }, {
+            //   title: 'Registrieren',
+            //   link: '/register/buyer',
+            //   borderB: true,
+            // },
           ]
         }
       },
@@ -313,11 +305,10 @@
       {
         if(!menu.child) {
           if (!this.AUTH_USER.isAuth && menu.link == '#wallet') {
-            this.$parent.$refs.header.hideSidebar = true
+            console.log(this.$parent.$refs.header)
             this.$parent.$refs.header.showWallet = true
             this.$parent.$refs.header.isRegisterPop = false
             this.hideSidebar = true;
-            this.$emit('onHide', this.hideSidebar)
             return
           }
 
@@ -329,16 +320,13 @@
           }
           // this.onHideSidebar()
         } else {
-          const menuIcon = document.getElementById(`dropdown-${index}`).classList
-          const icon = {
-            r: !menu.isChildShow ? 'down' : 'up',
-            a: !menu.isChildShow ? 'up' : 'down'
-          }
-          menuIcon.remove(`fa-caret-${icon.r}`)
-          menuIcon.add(`fa-caret-${icon.a}`)
+          this.$emit('onShowSubMenu', !menu.isChildShow ? menu.child : [])
           this.menus = this.menus.map( (m, i) => {
+
             if(index === i) {
               m.isChildShow = !m.isChildShow
+            } else {
+              m.isChildShow = false
             }
             return m
           })

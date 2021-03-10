@@ -1,52 +1,60 @@
 <template>
-  <div id="site-header">
-    <div class="content-container w-full flex flex-row nav-container">
-      <div class="flex self-center nav-logo">
-        <a
-          href="javascript:void(0)"
-          :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
-          @click="onHideSidebar()"
-        >
-          <i class="fas fa-bars text-base text-lg text-gray-900" />
-        </a>
-        <div class="flex self-center justify-center ml-12 w-full">
-          <img
-            class="self-center"
-            src="@/_assets/img/logo.png"
-            alt=""
-          />
-        </div>
-        <a
-          v-if="!AUTH_USER.isAuth"
-          href="javascript:void(0)"
-          :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
-          @click="showWallet = true; isRegisterPop = true"
-        >
-          <i class="fa fa-user text-lg text-gray-900" />
-        </a>
-        <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
-      </div>
-      <div v-if="AUTH_USER.isAuth" class="hidden sm:flex flex-row self-center nav-menu">
-        <a
+  <div
+    class="content-container w-full nav-container hidden md:flex"
+    :id="AUTH_USER.isAuth ? 'site-header' : 'guest-header'"
+    :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'"
+    >
+    <div class="nav-logo"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
+      <a
+        href="javascript:void(0)"
+        :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
+        @click="onHideSidebar()"
+      >
+        <i class="fas fa-bars text-lg text-gray-900" />
+      </a>
+      <img
+        class="self-center"
+        src="@/_assets/img/logo.png"
+        alt=""
+      />
+      <a
+        v-if="!AUTH_USER.isAuth"
+        href="javascript:void(0)"
+        :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
+        @click="showWallet = true; isRegisterPop = true"
+      >
+        <i class="fa fa-user text-lg text-gray-900" />
+      </a>
+      <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
+    </div>
+    <div v-if="AUTH_USER.isAuth" class="border border-black mx-8 opacity-25" style="margin-bottom: 20px"></div>
+    <div v-if="AUTH_USER.isAuth" class="flex flex-1 flex-col justify-between mx-8 text-sm">
+      <div class="flex flex-col space-y-4">
+          <a
           v-for="(menu, index) in menus"
           :key="`menu-${index}`"
           href="javascript:void(0)"
-          class="menu-item font-bold font-display"
+          class="menu-item "
           @click="onSelectMenu(menu, index)"
         >
-          <span class="hover:text-peach relative z-10">
+          <span class="hover:text-peach relative z-10 flex items-center">
+            <svg v-if="menu.icon" class="icon h-4 w-4 mr-2">
+              <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+            </svg>
             {{ menu.title }}
+
+
+            <span
+              v-if="menu.child"
+              class="absolute right-0"
+            >
+              <i
+                :id="`dropdown-${index}`"
+                class="fas fa-caret-down"
+              />
+            </span>
           </span>
-          <span
-            v-if="menu.child"
-            class="ml-3"
-          >
-            <i
-              :id="`dropdown-${index}`"
-              class="fas fa-caret-down text-base"
-            />
-          </span>
-          <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" />
+          <!-- <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" /> -->
           <div
             v-if="menu.child && menu.isChildShow"
             class="dropdown-menu flex flex-col"
@@ -55,132 +63,121 @@
               v-for="(child, cIndex) in menu.child"
               :key="`child-${cIndex}`"
               href="javascript:void(0)"
-              class="dropdown-item font-bold font-display"
+              class="dropdown-item"
               @click="onSelectMenu(child, cIndex)"
             >
               {{ child.title }}
             </a>
           </div>
         </a>
+      </div>
+      <div class="flex flex-col items-start space-y-4 mt-8 pb-8">
+        <router-link
+          v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+          class="cart-icon"
+          to="/cart"
+        >
+          <div class="cart-count" :class="`${COUNT_CART ? 'bg-peach text-white' : 'cart-count-default'}`">
+            {{ COUNT_CART }}
+          </div>
+          <i class="fas fa-shopping-cart text-lg" />
+        </router-link>
         <a
           v-if="AUTH_USER.isAuth"
           href="javascript:void(0)"
-          class="menu-item font-bold font-display hover:text-peach"
+          class="menu-item hover:text-peach"
           @click="onLogout()"
         >
           Ausloggen
         </a>
       </div>
-      <div v-else class="flex-row hidden justify-between nav-menu self-center sm:flex w-full">
-        <span>
-          <a
-            v-for="(menu, index) in menus.slice(0, 3)"
-            :key="`menu-${index}`"
-            href="javascript:void(0)"
-            class="menu-item font-bold font-display"
-            @click="onSelectMenu(menu, index)"
-          >
-            <span class="hover:text-peach">
-              {{ menu.title }}
-            </span>
-            <span
-              v-if="menu.child"
-              class="ml-3"
-            >
-              <i
-                :id="`dropdown-${index}`"
-                class="fas fa-caret-down text-base"
-              />
-            </span>
-            <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" />
-            <div
-              v-if="menu.child && menu.isChildShow"
-              class="dropdown-menu flex flex-col left-0"
-            >
-              <a
-                v-for="(child, cIndex) in menu.child"
-                :key="`child-${cIndex}`"
-                href="javascript:void(0)"
-                class="dropdown-item font-bold font-display"
-                @click="onSelectMenu(child, cIndex)"
-              >
-                {{ child.title }}
-              </a>
-            </div>
-          </a>
-        </span>
-        <span>
-          <a
-            v-for="(menu, index) in menus.slice(3)"
-            :key="`menu-${index}`"
-            :href="menu.link"
-            class="menu-item font-bold font-display hover:text-peach"
-          >
-            {{ menu.title }}
-          </a>
-        </span>
-      </div>
-      <router-link
-        v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
-        class="cart-icon relative self-center"
-        to="/cart"
-      >
-        <div class="cart-count" :class="`${COUNT_CART ? 'bg-peach text-white' : 'cart-count-default'}`">
-          {{ COUNT_CART }}
-        </div>
-        <i class="fas fa-shopping-cart text-base text-lg" />
-      </router-link>
-
+    </div>
+    <div
+      v-else
+      class="flex flex-1 justify-between mx-8 text-sm"
+      :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
       <div
-        v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
-        :class="showWallet ? 'modal-active' : ''"
-      >
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" @click="showWallet = false; isRegisterPop = false" />
-        <div class="bg-white md:max-w-2xl modal-container mx-auto overflow-y-auto rounded shadow-lg w-11/12 z-50">
-          <div class="modal-content text-left relative">
-            <div class="absolute cursor-pointer modal-close p-4 right-0 z-50" @click="showWallet = false">
-              <svg
-                class="fill-current text-black" xmlns="http://www.w3.org/2000/svg"
-                width="18" height="18"
-                viewBox="0 0 18 18"
-              >
-                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
-              </svg>
-            </div>
-            <div v-if="!isRegisterPop" class="p-4 sm:p-6 bg-gray-200">
-              <div class="flex justify-between items-center pb-3">
-                <p class="font-bold text-center text-lg sm:text-2xl w-full">
-                  Erhalte Zugriff zu deiner eigenen Wallet
-                </p>
-              </div>
-              <p class="text-center">
-                In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
+        class="flex"
+        :class="AUTH_USER.isAuth ? 'flex-col space-y-4' : 'flex-row items-center space-x-4'">
+        <a
+          v-for="(menu, index) in menus.slice(0, 3)"
+          :key="`menu-${index}`"
+          href="javascript:void(0)"
+          class="menu-item  "
+          @click="onSelectMenu(menu, index)"
+        >
+          <span class="hover:text-peach relative z-10 flex flex-col items-center">
+            <svg v-if="menu.icon" class="icon h-4 w-4 text-peach">
+              <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
+            </svg>
+            {{ menu.title }}
+          </span>
+        </a>
+      </div>
+      <div
+        class="flex mt-8 pb-8"
+        :class="AUTH_USER.isAuth ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
+        >
+        <a
+          v-for="(menu, index) in menus.slice(3)"
+          :key="`menu-${index}`"
+          :href="menu.link"
+          class="menu-item   hover:text-peach"
+        >
+          {{ menu.title }}
+        </a>
+      </div>
+    </div>
+
+    <div
+      v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
+      :class="showWallet ? 'modal-active' : ''"
+    >
+      <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" @click="showWallet = false; isRegisterPop = false" />
+      <div class="bg-white md:max-w-2xl modal-container mx-auto overflow-y-auto rounded shadow-lg w-11/12 z-50">
+        <div class="modal-content text-left relative">
+          <div class="absolute cursor-pointer modal-close p-4 right-0 z-50" @click="showWallet = false">
+            <svg
+              class="fill-current text-black" xmlns="http://www.w3.org/2000/svg"
+              width="18" height="18"
+              viewBox="0 0 18 18"
+            >
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
+            </svg>
+          </div>
+          <div v-if="!isRegisterPop" class="p-4 sm:p-6 bg-gray-200">
+            <div class="flex justify-between items-center pb-3">
+              <p class=" text-center text-lg sm:text-2xl w-full">
+                Erhalte Zugriff zu deiner eigenen Wallet
               </p>
             </div>
-            <div class="flex flex-col grid-template py-4 sm:grid">
-              <div class="flex flex-col p-4 sm:p-6 justify-between">
-                <p class="font-bold text-lg sm:text-2xl mx-6">
-                  Registriere dich kostenlos als Käufer
-                </p>
-                <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
-              </div>
-              <div class="wrapper hidden sm:block">
-                <div class="line" />
-                <div class="wordwrapper">
-                  <div class="word">
-                    oder
-                  </div>
+            <p class="text-center">
+              In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
+            </p>
+          </div>
+          <div class="flex flex-col grid-template py-4 sm:grid">
+            <div class="flex flex-col p-4 sm:p-6 justify-between">
+              <p class=" text-lg sm:text-2xl mx-6">
+                Registriere dich kostenlos als Käufer
+              </p>
+              <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
+            </div>
+            <div class="wrapper hidden sm:block">
+              <div class="line" />
+              <div class="wordwrapper">
+                <div class="word">
+                  oder
                 </div>
               </div>
-              <div id="oder" class="block sm:hidden mt-10">
-                <span class="bg-white px-3">oder</span>
-              </div>​
-              <div class="flex flex-col p-6 justify-between">
-                <p class="font-bold text-lg sm:text-2xl mx-6">
-                  Melde dich als Käufer an
-                </p>
-                <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
-              </div>
+            </div>
+            <div id="oder" class="block sm:hidden mt-10">
+              <span class="bg-white px-3">oder</span>
+            </div>​
+            <div class="flex flex-col p-6 justify-between">
+              <p class=" text-lg sm:text-2xl mx-6">
+                Melde dich als Käufer an
+              </p>
+              <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
             </div>
           </div>
         </div>
@@ -278,11 +275,6 @@
 
         })();
         await this.onFetchData()
-        this.$emit('onHide', this.hideSidebar)
-        this.$nextTick(function() {
-          window.addEventListener('resize', this.getWindowWidth)
-          this.getWindowWidth()
-        })
       })()
     },
     methods: {
@@ -318,11 +310,13 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
+                  icon: 'grid-3x3-gap-fill',
                   child: [
                     {
                       title: 'Benutzer',
@@ -347,6 +341,7 @@
                 },
                 {
                   title: 'Global Settings',
+                  icon: 'grid-3x3-gap-fill',
                   link: '/settings'
                 }
               ]
@@ -355,14 +350,17 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }, {
                   title: 'Meine Gutscheine',
-                  link: '/vouchers'
+                  link: '/vouchers',
+                  icon: 'wallet',
                 }, {
                   title: 'Scannen',
                   link: '',
                   isChildShow: false,
+                  icon: 'upc-scan',
                   child: [
                     {
                       title: 'Scanner',
@@ -376,6 +374,7 @@
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
+                  icon: 'list',
                   child: [
                     {
                       title: 'Bestellungen & Verdienste',
@@ -387,6 +386,7 @@
                   ],
                 }, {
                   title: 'Profil & Einstellungen',
+                  icon: 'person',
                   link: '',
                   isChildShow: false,
                   child: profileChild,
@@ -397,28 +397,34 @@
               const categories = this.CATEGORIES.map( categ => {
                 return {
                   title: categ.name,
+                  icon: 'grid-3x3-gap-fill',
                   link: `/vouchers/category/${categ.id}`
                 }
               })
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 },{
                   title: 'Kategorien',
                   link: '',
+                  icon: 'list',
                   child: categories,
                   isChildShow: false
                 },{
                   title: 'Meine Wallet',
-                  link: '/wallet'
+                  link: '/wallet',
+                  icon: 'wallet',
                 },{
                   title: 'Profil & Einstellungen',
                   link: '',
+                  icon: 'person',
                   isChildShow: false,
                   child: profileChild,
                 },{
                   title: 'Bestellungen',
+                  icon: 'clipboard-data',
                   link: '/orders'
                 },
               ]
@@ -427,7 +433,8 @@
               this.menus = [
                 {
                   title: 'Home',
-                  link: '/home'
+                  link: '/home',
+                  icon: 'grid-3x3-gap-fill',
                 }
               ]
               break
@@ -445,13 +452,16 @@
           this.menus = [
             {
               title: 'Home',
-              link: '/home'
+              link: '/home',
+              icon: 'grid-3x3-gap-fill',
             }, {
               title: 'Meine Wallet',
               link: '',
+              icon: 'wallet',
             }, {
               title: 'Kategorien',
               link: '',
+              icon: 'list',
               child: categories,
               isChildShow: false
             },  {
@@ -484,6 +494,19 @@
             this.$router.push(menu.link)
           }
         } else {
+          if (!this.AUTH_USER.isAuth) {
+            this.$emit('onShowSubMenu', !menu.isChildShow ? menu.child : [])
+            this.menus = this.menus.map( (m, i) => {
+
+              if(index === i) {
+                m.isChildShow = !m.isChildShow
+              } else {
+                m.isChildShow = false
+              }
+              return m
+            })
+            return
+          }
           const menuIcon = document.getElementById(`dropdown-${index}`).classList
           const icon = {
             r: !menu.isChildShow ? 'down' : 'up',
@@ -530,30 +553,28 @@
   };
 </script>
 <style lang="css" scoped>
-  .nav-container {
-    /* border: 1px solid #ccc; */
-    height: 80px;
+  #guest-header {
+    height: 60px;
   }
+
   #site-header {
-    position: fixed;
-    height: 80px;
+    width: 100%;
     background: #fff;
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
     z-index: 999;
     transition: top .3s ease;
     box-shadow: 0 1px 25px rgba(0,0,0, .1);
+    overflow: auto;
   }
-  #site-header.hide {
-    top: -81px;
-  }
-
 
   .nav-container .nav-logo {
-    padding: 0px 20px;
+    padding: 40px 30px 20px;
     font-weight: bold;
+  }
+  #guest-header .nav-logo {
+    padding: 20px 30px 20px;
   }
   .nav-logo img {
     width: 100px;
@@ -594,10 +615,9 @@
   }
   .cart-icon {
     position: relative;
-    /* top: 16px; */
     padding: 0px 15px;
-    /* right: 40px; */
-    color: rgb(26, 32, 44);;
+    color: rgb(26, 32, 44);
+    margin-left: -15px;
   }
   .cart-count {
     position: absolute;
