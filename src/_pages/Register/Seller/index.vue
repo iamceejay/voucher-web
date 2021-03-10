@@ -5,7 +5,7 @@
         <div class="font-bold py-2 text-2xl md:text-4xl font-display mb-1 text-gray-900">
           Registrieren
         </div>
-        <div class="container">
+        <div class="container flex flex-col items-center">
           <RegisterTabs
             type="seller"
           />
