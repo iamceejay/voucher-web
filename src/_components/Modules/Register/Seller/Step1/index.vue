@@ -1,16 +1,16 @@
 <template>
   <ValidationObserver 
     v-slot="{ handleSubmit, invalid }"
-    class="flex w-full h-full"
+    class="flex flex-col w-full h-full items-center"
   >
     <form 
-      class="w-full flex flex-col"
+      class="w-full flex flex-col items-center"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
       <Header1
         label="Willkommen!"
       />
-      <p>
+      <p class="w-full md:w-1/2">
         Wir freuen uns, dass du dich für unsere Plattform registrieren willst!
         Fülle einfach das kurze Formular aus und schon ist dein Unternehmen für epasnets registriert. 
         Wir werden im Anschluss dein Profil überprüfen und uns innerhalb von 24 Stunden bei dir melden, sobald dein Profil verifiziert ist. 
@@ -27,12 +27,15 @@
           @onChange="onChange"
         />
       </div>
-      <Button
-        type="submit"
-        label="nächster Schritt >"
-        size="w-full sm:w-1/2 py-4 mx-2"
-        round="rounded-full"
-      />
+      <div class="w-full sm:w-1/2">
+        <Button
+          class="flex flex-col items-center w-full"
+          type="submit"
+          label="nächster Schritt >"
+          size="w-full py-4"
+          round="rounded"
+        />
+      </div>
     </form>
   </ValidationObserver>
 </template>

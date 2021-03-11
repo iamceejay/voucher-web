@@ -1,26 +1,35 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full h-full px-8">
-        <RegisterStep1
-          v-if="step == 1"
-          :data="form"
-          @onChangeStep="onChangeStep"
-        />
-        <RegisterStep2
-          v-if="step == 2"
-          :data="form"
-          @onChangeStep="onChangeStep"
-        />
-        <RegisterStep3
-          v-if="step == 3"
-          :data="form"
-          @onChangeStep="onChangeStep"
-        />
-        <ReigsterStep4
-          v-if="step == 4"
-          @onChangeStep="onChangeStep"
-        />
+      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full h-full items-center">
+        <div class="font-bold py-2 text-2xl md:text-4xl font-display mb-1 text-gray-900">
+          Registrieren
+        </div>
+        <div class="container flex flex-col items-center">
+          <RegisterTabs
+            type="seller"
+          />
+
+          <RegisterStep1
+            v-if="step == 1"
+            :data="form"
+            @onChangeStep="onChangeStep"
+          />
+          <RegisterStep2
+            v-if="step == 2"
+            :data="form"
+            @onChangeStep="onChangeStep"
+          />
+          <RegisterStep3
+            v-if="step == 3"
+            :data="form"
+            @onChangeStep="onChangeStep"
+          />
+          <ReigsterStep4
+            v-if="step == 4"
+            @onChangeStep="onChangeStep"
+          />
+        </div>
       </div>
     </template>
   </MainLayout>
@@ -28,6 +37,7 @@
 <script>
   import MainLayout from '_layouts'
   import Button from '_components/Button'
+  import RegisterTabs from '_components/Modules/Register/Tabs'
   import RegisterStep1 from '_components/Modules/Register/Seller/Step1/'
   import RegisterStep2 from '_components/Modules/Register/Seller/Step2/'
   import RegisterStep3 from '_components/Modules/Register/Seller/Step3/'
@@ -36,6 +46,8 @@
   export default {
     name: 'Register',
     components: {
+      Button,
+      RegisterTabs,
       MainLayout,
       RegisterStep1,
       RegisterStep2,
@@ -151,4 +163,19 @@
   }
 </script>
 <style lang='css' scoped>
+  @media only screen and (max-width: 599px) {
+    .container {
+      width: 90% !important;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .container {
+      width: 60%;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .container {
+      width: 50%;
+    }
+  }
 </style>

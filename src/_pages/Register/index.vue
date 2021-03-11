@@ -3,22 +3,11 @@
     <template #content>
       <div class="content-container flex flex-col w-full h-full items-center justify-center px-8">
         <Header1
-          label="Registrieren as"
+          label="Registrieren"
         />
-        <Button
-          class="w-full justify-center my-2"
-          label="Käufer"
-          size="w-full sm:w-1/2 py-3"
-          round="rounded-full"
-          @onClick="$router.push('/register/buyer')"
-        />
-        <Button
-          class="w-full justify-center my-2"
-          label="Verkäufer"
-          size="w-full sm:w-1/2 py-3"
-          round="rounded-full"
-          @onClick="$router.push('/register/seller')"
-        />
+        <div class="container flex flex-col items-center">
+          <RegisterTabs />
+        </div>
       </div>
     </template>
   </MainLayout>
@@ -27,13 +16,15 @@
   import MainLayout from '_layouts';
   import Button from '_components/Button';
   import Header1 from '_components/Headers/Header1';
+  import RegisterTabs from '_components/Modules/Register/Tabs'
 
   export default {
     name: 'Register',
     components: {
       MainLayout,
       Button,
-      Header1
+      Header1,
+      RegisterTabs
     },
     data() {
       return {

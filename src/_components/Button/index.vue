@@ -17,7 +17,7 @@
       <span :class="`flex items-center justify-center`" v-else>
         <i v-if="icon != ''" :class="fullIconClass ? icon : `fas fa-${icon}`" />
         <img v-if="customIcon != ''" :src="customIcon" :class="customIconClass" />
-        <span :class="[labelClass]">{{ label }}</span>
+        <span :class="[labelClass]" v-html="label"></span>
       </span>
     </button>
   </div>
@@ -102,6 +102,9 @@
             break
           case 'danger':
             this.bg = 'bg-red-600 text-white'
+            break
+          case 'black':
+            this.bg = 'bg-black text-white'
             break
           case 'white':
             this.bg = 'bg-white text-black'

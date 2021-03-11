@@ -2,9 +2,9 @@
   <div class="flex flex-col w-full">
     <InputField
       id="password"
+      class="mb-4"
       v-model="form.password"
       type="password"
-      class="m-2"
       label="Passwort"
       rules="required|min:8|max:16"
       :errorMessages="errorMessages.password"
@@ -12,9 +12,9 @@
     />
     <InputField
       id="confirmPassword"
+      class="mb-4"
       v-model="form.confirmPassword"
       type="password"
-      class="m-2"
       label="Passwort wiederholen"
       rules="required|min:8|max:16|password:@password"
       :errorMessages="errorMessages.confirmPassword"
