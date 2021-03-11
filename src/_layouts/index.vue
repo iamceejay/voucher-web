@@ -299,5 +299,9 @@
     #mobile-category.guest {
        bottom: 0px;
     }
+    #main-layout-component {
+      grid-template-columns: 250px 1fr;
+      grid-template-rows: none;
+    }
   }
 </style>
