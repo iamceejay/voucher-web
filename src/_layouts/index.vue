@@ -45,7 +45,12 @@
       </div>
 
     </div>
-    <div class="flex flex-col w-full relative" :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'}`" style="background: #F2F2F2;">
+    <div
+      class="flex flex-col w-full relative"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'}`"
+      style="background: #F2F2F2;"
+      :style="!AUTH_USER.isAuth ? 'margin-top: 60px' : ''"
+    >
       <ul
         v-if="categories.length"
         id="mobile-category"
