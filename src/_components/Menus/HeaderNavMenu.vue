@@ -129,7 +129,7 @@
         </div>
       </div>
 
-      <div
+      <!-- <div
         v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
         :class="showWallet ? 'modal-active' : ''"
       >
@@ -182,7 +182,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -457,7 +457,7 @@
               icon: 'grid-3x3-gap-fill',
             }, {
               title: 'Meine Wallet',
-              link: '',
+              link: '/guest-wallet',
               icon: 'wallet',
             }, {
               title: 'Kategorien',
@@ -486,9 +486,9 @@
       onSelectMenu(menu, index)
       {
 
-        if (menu.title == 'Meine Wallet' && !this.AUTH_USER.isAuth) {
-          this.showWallet = true;
-        }
+        // if (menu.title == 'Meine Wallet' && !this.AUTH_USER.isAuth) {
+        //   this.showWallet = true;
+        // }
 
         if(!menu.child) {
           if( this.$route.path != menu.link ) {

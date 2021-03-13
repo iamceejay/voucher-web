@@ -8,7 +8,6 @@
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
     }"
   >
-
     <HeaderNavMenu
       ref="header"
       @onShowSubMenu="handleCategory"

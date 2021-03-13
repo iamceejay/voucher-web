@@ -100,7 +100,6 @@
   import RegisterTabs from '_components/Modules/Register/Tabs'
   import ProfileForm from '_components/Modules/Profile/Form/ProfileForm';
   import SettingsForm from '_components/Modules/Profile/Form/SettingsForm';
-  import Header1 from '_components/Headers/Header1';
   import CheckboxField from '_components/Form/CheckboxField';
 
   export default {
@@ -111,8 +110,7 @@
       SettingsForm,
       Button,
       RegisterTabs,
-      CheckboxField,
-      Header1
+      CheckboxField
     },
     data() {
       return {

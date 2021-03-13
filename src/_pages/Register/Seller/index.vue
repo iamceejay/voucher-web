@@ -36,7 +36,6 @@
 </template>
 <script>
   import MainLayout from '_layouts'
-  import Button from '_components/Button'
   import RegisterTabs from '_components/Modules/Register/Tabs'
   import RegisterStep1 from '_components/Modules/Register/Seller/Step1/'
   import RegisterStep2 from '_components/Modules/Register/Seller/Step2/'
@@ -46,7 +45,6 @@
   export default {
     name: 'Register',
     components: {
-      Button,
       RegisterTabs,
       MainLayout,
       RegisterStep1,
