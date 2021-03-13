@@ -53,6 +53,7 @@
     },
     data() {
       return {
+        currentCategory: null,
         params: {
           page: 1,
           paginate: 9,
@@ -106,7 +107,7 @@
       // },
     },
     watch: {
-      async '$route.params.id'()
+      async '$route.params.slug'()
       {
         await this.$store.commit('SET_FEATURED_VOUCHERS', [])
         await this.$store.commit('SET_NEWEST_VOUCHERS', [])
@@ -223,8 +224,13 @@
       },
       async onFetchCategory()
       {
+        const { voucher_categories: categories }  = await this.$store.dispatch('FETCH_CATEGORIES')
+        this.currentCategory = categories.find((_category) => {
+          let categoryName = this.$helpers.toSlug(_category.name)
+          return categoryName == this.$route.params.slug
+        })
         try {
-          await this.$store.dispatch('FETCH_CATEGORY', this.$route.params.id)
+          await this.$store.dispatch('FETCH_CATEGORY', this.currentCategory.id)
           if( this.CATEGORY ) {
             this.params.isCategory = [ this.CATEGORY.name ]
           }

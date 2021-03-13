@@ -26,6 +26,18 @@ module.exports = {
       },
       boxShadow: {
         'custom': '0 1px 5px #ccc'
+      },
+      zIndex: {
+        '60': 60,
+        '70': 70,
+        '80': 80,
+        '90': 90,
+        '100': 100,
+        '110': 110,
+        '120': 120,
+        '130': 130,
+        '140': 140,
+        '150': 150
       }
     },
     fontFamily: {
@@ -33,6 +45,10 @@ module.exports = {
       'body': ['Manrope', 'sans-serif'],
     },
   },
-  variants: {},
+  variants: {
+    extend: {
+      borderWidth: ['last'],
+    }
+  },
   plugins: [],
 }

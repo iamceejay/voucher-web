@@ -207,9 +207,10 @@
               break;
             case 3:
               const categories = this.CATEGORIES.map( categ => {
+                let slug = this.$helpers.toSlug(categ.name)
                 return {
                   title: categ.name,
-                  link: `/vouchers/category/${categ.id}`
+                  link: `/vouchers/category/${slug}`
                 }
               })
               this.menus = [
@@ -261,9 +262,10 @@
           }
         } else {
           const categories = this.CATEGORIES.map( categ => {
+            let slug = this.$helpers.toSlug(categ.name)
             return {
               title: categ.name,
-              link: `/vouchers/category/${categ.id}`
+              link: `/vouchers/category/${slug}`
             }
           })
 

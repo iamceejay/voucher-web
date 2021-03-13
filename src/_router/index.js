@@ -235,7 +235,7 @@ const router = new Router({
         middleware: [ auth, authUser ]
       } 
     }, { 
-      path: '/vouchers/category/:id', 
+      path: '/vouchers/category/:slug', 
       name: 'vouchers-category', 
       component: VoucherCategory,
       meta: {

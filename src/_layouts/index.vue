@@ -53,12 +53,13 @@
       <ul
         v-if="categories.length"
         id="mobile-category"
-        class="fixed inset-0 z-50 px-6 py-4 overflow-auto "
+        class="categories-menu fixed inset-0 z-110 px-6 py-4 overflow-auto "
         :class="AUTH_USER.isAuth ? 'md:hidden' : 'guest'"
         style="background-color: #F2F2F2">
-          <li v-for="(category, index) in categories" :key="index"  class="border-b py-2 text-sm content-container ">
-            <router-link :to="category.link">
-                {{ category.title }}
+          <li v-for="(category, index) in categories" :key="index" class="categories-menu__item content-container">
+            <router-link :to="category.link" class="flex flex-wrap items-center py-2 lg:py-4 text-sm">
+              <img class="h-12 lg:h-16 rounded-md mr-6 lg:mr-8" src="@/_assets/img/placeholder-400-300.jpg" :alt="category.title">
+              <span>{{ category.title }}</span>
             </router-link>
           </li>
       </ul>
@@ -275,6 +276,12 @@
   }
 </script>
 <style lang="css" scoped>
+  .categories-menu__item {
+    @apply border-b-2 border-input-border;
+  }
+  .categories-menu__item:last-child {
+    @apply border-b-0;
+  }
   #main-layout-component {
     margin: 0 auto;
     grid-template-rows: 60px 1fr 70px;

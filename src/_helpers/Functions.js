@@ -23,7 +23,12 @@ const randomString = (len, an) => {
   return str;
 }
 
+const toSlug = (value) => {
+  return value.replace(/\s+/g, '-').toLowerCase();
+}
+
 export default {
   convertCurrency, //converts the currency
   randomString, //generate random string
+  toSlug,
 }
