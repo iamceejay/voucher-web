@@ -31,10 +31,22 @@
               />
             </div>
           </div>
-
-          <div class="border-b-2 ml-2 mt-4 pb-6">
-            {{ USER.company.description }}
+          <div class="border-b-2 ml-2 mt-4 pb-6 flex flex-col">
+            <div class="overflow-hidden" :class="{'h-20 md:h-10 show-more' : !isShowMore}">
+              {{ USER.company.description }}
+            </div>
+            <div>
+                <button
+                  type="button"
+                  @click="isShowMore = !isShowMore"
+                  class="px-3 py-3 rounded-md text-xs mt-6"
+                  :class="'border border-black text-black'"
+                  >
+                  {{ !isShowMore ? 'Mehr lesen' : 'Lese weniger' }}
+                </button>
+              </div>
           </div>
+
         </div>
         <div class="mt-6 p-6 border" style="background-color: #F7F7F7">
           <p class="text-sm font-bold">
@@ -86,6 +98,7 @@
     data() {
       return {
         isLoading: true,
+        isShowMore: false,
       }
     },
     computed: {
@@ -159,6 +172,9 @@
   }
 </script>
 <style lang='css' scoped>
+  .show-more {
+    -webkit-mask-image: -webkit-gradient(linear, center bottom, center top, color-stop(0.00, rgba(0,0,0,0)), color-stop(1.00, rgba(0,0,0,1)));
+  }
   .web-container {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
