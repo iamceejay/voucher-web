@@ -3,12 +3,20 @@
     <template #content>
       <div v-if="!IS_LOADING.status && USER" class="content-container flex flex-col w-full px-8">
         <div class="w-full flex flex-col">
+          <img
+            v-if="!USER && USER.company.logo"
+            class="h-32 md:h-64bg-white mb-6 object-cover"
+            :src="onSetImage(USER.company.logo)"
+            alt=""
+          />
+          <img
+            v-else
+            class="h-32 md:h-64 bg-white mb-6 object-cover"
+            src="@/_assets/img/header.png"
+            alt=""
+          />
           <div class="flex flex-row">
-            <Header1
-              class="pb-0"
-              :label="`${ USER.company.name }`"
-            />
-            <div class="self-center ml-auto">
+            <div class="self-center mx-auto">
               <img
                 v-if="USER && USER.company.logo"
                 class="company-logo"
@@ -23,34 +31,38 @@
               />
             </div>
           </div>
-          <p class="text-sm font-bold ml-2">
-            {{ USER.username }}
+
+          <div class="border-b-2 ml-2 mt-4 pb-6">
+            {{ USER.company.description }}
+          </div>
+        </div>
+        <div class="mt-6 p-6 border" style="background-color: #F7F7F7">
+          <p class="text-sm font-bold">
+            {{ USER.company.name }}
             <!-- {{ `${USER.detail.firstName} ${USER.detail.lastName}` }} -->
           </p>
-          <p class="text-xs font-semibold ml-2 md:w-4/5 lg:w-1/2">
+          <p class="text-xs">
             {{
               `${ USER.detail.address || '' }
               ${ (USER.detail.city) ? `, ${USER.detail.city}` : '' }${ (USER.detail.zip_code) ? `, ${USER.detail.zip_code}` : '' }`
             }}
           </p>
-          <p class="text-xs font-semibold ml-2">
+          <p class="text-xs ">
             {{ USER.company.region || '' }}
           </p>
           <a
             v-if="(USER.company && USER.company.url)"
-            class="web-container ml-2 w-full sm:w-1/2 md:w-1/4 mt-2"
+            class="web-container w-full mt-2"
             :href="addHttp(USER.company.url)"
             target="_blank"
           >
             {{ USER.company.url.replace(/(^\w+:|^)\/\//, '') }}
           </a>
-          <div class="mt-4 ml-2">
-            {{ USER.company.description }}
-          </div>
         </div>
         <div class="w-full flex flex-col">
+          <div class="font-medium text-base text-center my-6">Gutscheine</div>
           <VoucherList
-            title="Alle Gutscheine"
+            title=""
             class="mb-3"
             :data="VOUCHERS.data"
             :withQR="false"
@@ -157,12 +169,10 @@
     text-align: center;
   }
   .company-logo {
-    width: 160px;
-    height: 64px;
+    height: 50px;
   }
   @media only screen and (max-width: 600px) {
     .company-logo {
-      width: 100px;
       height: 40px;
     }
   }
