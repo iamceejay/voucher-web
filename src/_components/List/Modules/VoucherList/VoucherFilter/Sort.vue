@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col">
-    <Header4 
+    <Header4
       v-if="sortLabel != ''"
       class="px-1"
       :label="sortLabel"
