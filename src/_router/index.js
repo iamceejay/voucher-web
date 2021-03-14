@@ -63,324 +63,324 @@ const router = new Router({
     window.scrollTo(0, 0)
   },
   routes: [
-    { 
-      path: '/login', 
-      name: 'login', 
+    {
+      path: '/login',
+      name: 'login',
       component: Login,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '/forgot-password', 
-      name: 'forgot-password', 
+      }
+    }, {
+      path: '/forgot-password',
+      name: 'forgot-password',
       component: ForgotPassword,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '/forgot-password/:token', 
-      name: 'reset-forgot-password', 
+      }
+    }, {
+      path: '/forgot-password/:token',
+      name: 'reset-forgot-password',
       component: ResetForgotPassword,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '', 
+      }
+    }, {
+      path: '',
       component: Home,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
+      }
+    }, {
       path: '/guest-wallet',
-      name: 'guest-wallet', 
+      name: 'guest-wallet',
       component: GuestWallet,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '/register', 
-      name: 'register', 
+      }
+    }, {
+      path: '/register',
+      name: 'register',
       component: Register,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '/register/seller', 
-      name: 'register-seller', 
+      }
+    }, {
+      path: '/register/seller',
+      name: 'register-seller',
       component: RegisterSeller,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '/register/buyer', 
-      name: 'register-buyer', 
+      }
+    }, {
+      path: '/register/buyer',
+      name: 'register-buyer',
       component: RegisterBuyer,
       meta: {
         middleware: [ guest ]
-      } 
-    }, { 
-      path: '/home', 
-      name: 'home', 
+      }
+    }, {
+      path: '/home',
+      name: 'home',
       component: Home,
       meta: {
-      } 
-    }, { 
-      path: '/vouchers', 
-      name: 'vouchers', 
+      }
+    }, {
+      path: '/vouchers',
+      name: 'vouchers',
       component: Vouchers,
       meta: {
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/vouchers/new', 
-      name: 'vouchers-new', 
+      }
+    }, {
+      path: '/vouchers/new',
+      name: 'vouchers-new',
       component: NewVoucher,
       meta: {
         back: '/vouchers',
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/vouchers/update/:id', 
-      name: 'vouchers-update', 
+      }
+    }, {
+      path: '/vouchers/update/:id',
+      name: 'vouchers-update',
       component: NewVoucher,
       meta: {
         back: '/vouchers',
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/vouchers/statistic/:id', 
-      name: 'vouchers-statistic', 
+      }
+    }, {
+      path: '/vouchers/statistic/:id',
+      name: 'vouchers-statistic',
       component: StatisticsVoucher,
       meta: {
         back: '/vouchers',
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/scanner', 
-      name: 'scanner', 
+      }
+    }, {
+      path: '/scanner',
+      name: 'scanner',
       component: Scanner,
       meta: {
         middleware: [ auth, authSSU ]
-      } 
-    }, { 
-      path: '/orders-earnings', 
-      name: 'orders-earnings', 
+      }
+    }, {
+      path: '/orders-earnings',
+      name: 'orders-earnings',
       component: OrdersEarnings,
       meta: {
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/redemptions', 
-      name: 'redemptions', 
+      }
+    }, {
+      path: '/redemptions',
+      name: 'redemptions',
       component: Redemptions,
       meta: {
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/profile-info', 
-      name: 'profile-info', 
+      }
+    }, {
+      path: '/profile-info',
+      name: 'profile-info',
       component: ProfileInfo,
       meta: {
         middleware: [ auth, authUS ]
-      } 
-    }, { 
-      path: '/profile-payment', 
-      name: 'profile-payment', 
+      }
+    }, {
+      path: '/profile-payment',
+      name: 'profile-payment',
       component: ProfilePayment,
       meta: {
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/profile-settings', 
-      name: 'profile-settings', 
+      }
+    }, {
+      path: '/profile-settings',
+      name: 'profile-settings',
       component: ProfileSettings,
       meta: {
         middleware: [ auth, authUS ]
-      } 
-    }, { 
-      path: '/scanner-users', 
-      name: 'scanner-users', 
+      }
+    }, {
+      path: '/scanner-users',
+      name: 'scanner-users',
       component: ScannerUsers,
       meta: {
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/scanner-users/new', 
-      name: 'scanner-users-new', 
+      }
+    }, {
+      path: '/scanner-users/new',
+      name: 'scanner-users-new',
       component: ScannerUserNew,
       meta: {
         back: '/scanner-users',
         middleware: [ auth, authSeller ]
-      } 
-    }, { 
-      path: '/cart', 
-      name: 'cart', 
+      }
+    }, {
+      path: '/cart',
+      name: 'cart',
       component: Cart,
       meta: {
         back: '',
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/wallet', 
-      name: 'wallet', 
+      }
+    }, {
+      path: '/wallet',
+      name: 'wallet',
       component: Wallet,
       meta: {
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/orders', 
-      name: 'orders', 
+      }
+    }, {
+      path: '/orders',
+      name: 'orders',
       component: Orders,
       meta: {
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/vouchers/category/:slug', 
-      name: 'vouchers-category', 
+      }
+    }, {
+      path: '/vouchers/category/:slug',
+      name: 'vouchers-category',
       component: VoucherCategory,
       meta: {
         middleware: [ authGU ]
-      } 
-    }, { 
-      path: '/vouchers/search', 
-      name: 'vouchers-search', 
+      }
+    }, {
+      path: '/vouchers/search',
+      name: 'vouchers-search',
       component: VoucherSearch,
       meta: {
         middleware: [ authGU ]
-      } 
-    }, { 
-      path: '/vouchers/send-email/:id', 
-      name: 'vouchers-send-email', 
+      }
+    }, {
+      path: '/vouchers/send-email/:id',
+      name: 'vouchers-send-email',
       component: VoucherSendEmail,
       meta: {
         back: '/wallet',
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/vouchers/transfer/:id', 
-      name: 'vouchers-transfer', 
+      }
+    }, {
+      path: '/vouchers/transfer/:id',
+      name: 'vouchers-transfer',
       component: VoucherTransfer,
       meta: {
         back: '/wallet',
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/vouchers/:id', 
-      name: 'vouchers-detail', 
+      }
+    }, {
+      path: '/vouchers/:id',
+      name: 'vouchers-detail',
       component: VoucherDetail,
       meta: {
         back: '/home',
         // middleware: [ authGUS ]
-      } 
-    }, { 
-      path: '/vouchers/personalized/:id', 
-      name: 'vouchers-personalized', 
+      }
+    }, {
+      path: '/vouchers/personalized/:id',
+      name: 'vouchers-personalized',
       component: VoucherPersonalized,
       meta: {
         back: '/wallet',
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/seller/:id', 
-      name: 'seller-detail', 
+      }
+    }, {
+      path: '/seller/:id',
+      name: 'seller-detail',
       component: SellerDetail,
       meta: {
         back: '',
         // middleware: [ authGUS ]
-      } 
-    }, { 
-      path: '/payment', 
-      name: 'payment', 
+      }
+    }, {
+      path: '/payment',
+      name: 'payment',
       component: Payment,
       meta: {
         middleware: [ auth, authUser ]
-      } 
-    }, { 
-      path: '/featured-vouchers', 
-      name: 'featured-vouchers', 
+      }
+    }, {
+      path: '/featured-vouchers',
+      name: 'featured-vouchers',
       component: VoucherManageFeature,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/settings', 
-      name: 'settings', 
+      }
+    }, {
+      path: '/settings',
+      name: 'settings',
       component: Settings,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/settings/user/:id', 
-      name: 'settings-user', 
+      }
+    }, {
+      path: '/settings/user/:id',
+      name: 'settings-user',
       component: SettingUser,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
+      }
     }
-    // , { 
-    //   path: '/payment', 
-    //   name: 'payment', 
+    // , {
+    //   path: '/payment',
+    //   name: 'payment',
     //   component: Payment,
     //   meta: {
     //     middleware: [ auth, authAdmin ]
-    //   } 
+    //   }
     // }
-    , { 
-      path: '/category', 
-      name: 'category', 
+    , {
+      path: '/category',
+      name: 'category',
       component: Category,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/payout', 
-      name: 'payout', 
+      }
+    }, {
+      path: '/payout',
+      name: 'payout',
       component: Payout,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/template', 
-      name: 'template', 
+      }
+    }, {
+      path: '/template',
+      name: 'template',
       component: Template,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/users', 
-      name: 'users', 
+      }
+    }, {
+      path: '/users',
+      name: 'users',
       component: Users,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/manage-orders', 
-      name: 'manage-orders', 
+      }
+    }, {
+      path: '/manage-orders',
+      name: 'manage-orders',
       component: ManageOrders,
       meta: {
         middleware: [ auth, authAdmin ]
-      } 
-    }, { 
-      path: '/transfer/:id', 
-      name: 'transfer', 
+      }
+    }, {
+      path: '/transfer/:id',
+      name: 'transfer',
       component: Transfer,
       // meta: {
       //   middleware: [ auth, authAdmin ]
-      // } 
-    }, { 
-      path: '*', 
-      name: '404', 
+      // }
+    }, {
+      path: '*',
+      name: '404',
       component: PageNotFound,
       meta: {
         middleware: [ auth ]
-      } 
-    }, { 
-      path: '/error/not-allowed', 
-      name: 'not-allowed', 
+      }
+    }, {
+      path: '/error/not-allowed',
+      name: 'not-allowed',
       component: UserNotAllowed,
       meta: {
         middleware: [ auth ]
-      } 
+      }
     },
   ],
 })
@@ -398,7 +398,7 @@ router.beforeEach((to, from, next) => {
     router,
     store
   }
-  
+
   return middleware[0]({
     ...context,
     next: middlewarePipeline(context, middleware, 1)
