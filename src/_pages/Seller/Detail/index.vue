@@ -12,7 +12,7 @@
           <img
             v-else
             class="h-32 md:h-64 bg-white mb-6 object-cover"
-            src="@/_assets/img/header.png"
+            src="@/_assets/img/placeholder-1080.jpg"
             alt=""
           />
           <div class="flex flex-row">
