@@ -4,7 +4,7 @@
     :id="AUTH_USER.isAuth ? 'site-header' : 'guest-header'"
     >
     <div class="content-container mx-auto w-full hidden md:flex"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
-      <div class="nav-logo"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
+      <div class="nav-logo flex"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
         <a
           href="javascript:void(0)"
           :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
@@ -557,7 +557,7 @@
 </script>
 <style lang="css" scoped>
   #guest-header {
-    height: 60px;
+    height: 90px;
     position: fixed;
     top: 0;
     z-index: 9999;
@@ -565,7 +565,7 @@
   }
 
   #guest-header.hide {
-      top: -61px;
+      top: -91px;
   }
 
   #site-header {

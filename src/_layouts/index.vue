@@ -12,12 +12,12 @@
       ref="header"
       @onShowSubMenu="handleCategory"
     />
-    <div class="bg-white md:hidden p-4 flex justify-between border-b">
+    <div class="bg-white md:hidden p-4 flex items-center justify-between border-b">
       <router-link
         to="/home"
         >
         <img
-          class="h-full"
+          class="h-8"
           src="@/_assets/img/logo.png"
           alt=""
         />
@@ -46,9 +46,8 @@
     </div>
     <div
       class="flex flex-col w-full relative"
-      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'}`"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'} ${!AUTH_USER.isAuth ? 'guest-container' : ''}`"
       style="background: #F2F2F2;"
-      :style="!AUTH_USER.isAuth ? 'margin-top: 60px' : ''"
     >
       <ul
         v-if="categories.length"
@@ -284,8 +283,9 @@
   }
   #main-layout-component {
     margin: 0 auto;
-    grid-template-rows: 60px 1fr 70px;
+    grid-template-rows: 70px 1fr 70px;
   }
+
   .main-container.hide {
     transition: all 0.6s;
   }
@@ -299,7 +299,7 @@
   }
 
   #mobile-category {
-    top: 60px;
+    top: 70px;
     bottom: 70px;
   }
   #mobile-category.guest {
@@ -313,6 +313,9 @@
     #main-layout-component {
       grid-template-columns: 250px 1fr;
       grid-template-rows: none;
+    }
+    .guest-container {
+      margin-top: 90px;
     }
   }
 </style>
