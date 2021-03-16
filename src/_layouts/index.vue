@@ -39,8 +39,32 @@
       </div>
 
       <div v-else class="text-sm flex space-x-4">
-          <router-link class="hover:text-peach"  to="/login"> Login </router-link>
-          <router-link class="hover:text-peach"  to="/register/buyer"> Registrieren </router-link>
+        <a
+          href="javascript:void(0)"
+          class="menu-item  text-xs"
+        >
+          <span class="hover:text-peach relative z-10 flex flex-col items-center">
+            <svg class="icon h-4 w-4 text-peach">
+              <use :xlink:href="`/icons/sprite.svg#heart`"/>
+            </svg>
+            Meine Wishlist
+          </span>
+        </a>
+        <router-link
+          class="flex flex-col items-center justify-center relative"
+            to="/cart"
+          >
+          <div class="relative  h-4 w-4">
+            <svg class="relative icon h-4 w-4 text-peach">
+              <use :xlink:href="`/icons/sprite.svg#bag`"/>
+            </svg>
+            <div class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4">
+              {{ COUNT_CART }}
+            </div>
+          </div>
+
+          <span class="text-xs">Warenkorb</span>
+        </router-link>
       </div>
 
     </div>

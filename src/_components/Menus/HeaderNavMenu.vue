@@ -98,9 +98,9 @@
         :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
         <div
           class="flex"
-          :class="AUTH_USER.isAuth ? 'flex-col space-y-4' : 'flex-row items-center space-x-4'">
+          :class="AUTH_USER.isAuth ? 'flex-col space-y-4' : 'flex-row items-center space-x-4 flex-1 justify-center'">
           <a
-            v-for="(menu, index) in menus.slice(0, 3)"
+            v-for="(menu, index) in menus.slice(0, 4)"
             :key="`menu-${index}`"
             href="javascript:void(0)"
             class="menu-item  "
@@ -119,13 +119,31 @@
           :class="AUTH_USER.isAuth ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
           >
           <a
-            v-for="(menu, index) in menus.slice(3)"
-            :key="`menu-${index}`"
-            :href="menu.link"
-            class="menu-item   hover:text-peach"
+            href="javascript:void(0)"
+            class="menu-item  "
           >
-            {{ menu.title }}
+            <span class="hover:text-peach relative z-10 flex flex-col items-center">
+              <svg class="icon h-4 w-4 text-peach">
+                <use :xlink:href="`/icons/sprite.svg#heart`"/>
+              </svg>
+              Meine Wishlist
+            </span>
           </a>
+          <router-link
+            class="flex flex-col items-center justify-center relative"
+              to="/cart"
+            >
+            <div class="relative  h-4 w-4">
+              <svg class="relative icon h-4 w-4 text-peach">
+                <use :xlink:href="`/icons/sprite.svg#bag`"/>
+              </svg>
+              <div class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4">
+                {{ COUNT_CART }}
+              </div>
+            </div>
+
+            <span class="text-sm">Warenkorb</span>
+          </router-link>
         </div>
       </div>
 
@@ -454,26 +472,30 @@
 
           this.menus = [
             {
-              title: 'Home',
-              link: '/home',
-              icon: 'grid-3x3-gap-fill',
-            }, {
-              title: 'Meine Wallet',
-              link: '/guest-wallet',
-              icon: 'wallet',
-            }, {
+              title: 'Search',
+              link: '/vouchers/search',
+              icon: 'search',
+            },{
               title: 'Kategorien',
               link: '',
               icon: 'list',
               child: categories,
               isChildShow: false
-            },  {
+            }, {
+              title: 'Meine Wallet',
+              link: '/guest-wallet',
+              icon: 'wallet',
+            }, {
+              title: 'Anmelden',
+              link: '/register',
+              icon: 'person',
+            }, {
               title: 'Login',
               link: '/login',
             }, {
-              title: 'Registrieren',
-              link: '/register/buyer',
-              borderB: true,
+              title: 'Meine Wallet',
+              link: '/guest-wallet',
+              icon: 'wallet',
             },
           ]
         }

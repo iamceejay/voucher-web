@@ -9,7 +9,7 @@
       <li
         v-for="(menu, index) in menus"
         :key="`menu-${index}`"
-        :class="`flex flex-col text-center ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
+        :class="`flex flex-col justify-center text-center ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
         @click="onSelectMenu(menu, index)"
       >
         <div class="flex flex-col items-center justify-center px-3 py-2">
@@ -270,20 +270,29 @@
           })
 
           this.menus = [
-            {
-              title: 'Home',
-              link: '/home',
-              icon: 'grid-3x3-gap-fill',
-            }, {
+           {
               title: 'Meine Wallet',
-              link: '#wallet',
+              link: '/guest-wallet',
               icon: 'wallet',
-            }, {
+            },
+            {
+              title: 'Mein Profil',
+              link: '/profile-info',
+              icon: 'person',
+              // isChildShow: false,
+              child: profileChild,
+            },
+            {
               title: 'Kategorien',
               link: '',
               child: categories,
               isChildShow: false,
               icon: 'list',
+            },
+            {
+              title: 'Search',
+              link: '/vouchers/search',
+              icon: 'search',
             },
             // {
             //   title: 'Login',
