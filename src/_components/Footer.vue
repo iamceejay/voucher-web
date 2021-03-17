@@ -132,7 +132,8 @@
   }
 
   .footer__menu-item {
-    @apply text-lg text-gray-700;
+    font: normal normal normal 14px/24px;
+    color: #000;
   }
 
   .footer__payments {
