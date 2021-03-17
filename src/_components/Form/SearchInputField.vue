@@ -16,8 +16,8 @@
             v-model="keyword"
             :name="id"
             :type="type"
-            class="input-field pr-12 px-3 py-2 rounded-full text-sm"
-            :class="{ 'text-red-500 border-red-500': errors && errors.length > 0 }"
+            class="input-field pr-12 px-3 py-2 rounded-full"
+            :class="[font, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
             :value="value"
             :placeholder="placeholder"
           />
@@ -25,7 +25,7 @@
           <svg class="absolute h-5 icon mr-6 mt-3 right-0 text-peach w-5">
             <use xlink:href="/icons/sprite.svg#search"/>
           </svg>
-          <a
+          <a v-if="submitButton"
             href="javascript:void(0)" class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-3 text-center"
             @click="onSearch"
           >Suchen</a>
@@ -68,7 +68,13 @@
         default() {
           return []
         }
-      },
+      }, submitButton: {
+        type: Boolean,
+        default: true
+      }, font: {
+        type: String,
+        default: 'text-sm'
+      }
     },
     data() {
       return {
