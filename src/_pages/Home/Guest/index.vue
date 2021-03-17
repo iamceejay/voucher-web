@@ -3,10 +3,7 @@
     <GuestHeader />
     <!-- <GuestContent /> -->
     <div class="bg-white">
-      <div class="content-container w-11/12 md:w-9/12 lg:w-1/2">
-        <GuestVoucherCategories />
-        <div class="border-b-2 border-input-border my-24" />
-      </div>
+      <GuestVoucherCategories />
     </div>
     <VoucherList
       class="content-container mb-3 py-6 px-8"

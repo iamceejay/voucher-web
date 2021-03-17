@@ -6,7 +6,7 @@
           <h1 class="font-display text-xl md:text-3xl lg:text-4xl mb-1">
             Geschenk zum Valentinstag?
           </h1>
-          <p class="font-body text-xs md:text-sm lg:text-lg">
+          <p class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto">
             Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und oder selber genießen.
           </p>
         </div>
