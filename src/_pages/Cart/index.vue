@@ -1,10 +1,32 @@
 <template>
-  <MainLayout>
+  <MainLayout title="Weiter shoppen">
     <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <Header1
-          label="Mein Warenkorb"
-        />
+      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-4">
+
+        <h3 class="font-medium text-xl mx-auto">Warenkorb</h3>
+        <div class="flex items-start max-w-xs p-4 w-full mx-auto">
+          <svg class="h-6 icon mr-2 text-peach w-6">
+            <use :xlink:href="`/icons/sprite.svg#palette`"/>
+          </svg>
+          <span class="text-xs">
+            Du kannst den Gutschein nach dem Kauf personalisieren
+          </span>
+        </div>
+
+        <div class="bg-white flex flex-col items-start max-w-sm mb-10 mt-6 mx-auto pb-8 pt-4 px-8 w-full">
+          <div class="flex items-baseline justify-center w-full">
+              <span class="text-xs mr-3">Summe ({{WALLETS.length}} Artikel):</span>
+              <span class="border-b border-black font-medium text-xl">{{ $helpers.convertCurrency(totalAmount) }}</span>
+          </div>
+          <button
+            @click="$router.push('/payment')"
+            class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4 w-full"
+            :class="{'opacity-50': !WALLETS.length}"
+            :disabled="!WALLETS.length"
+            >
+              Zur Kasse
+          </button>
+        </div>
         <CartList
           v-if="WALLETS && WALLETS.length >= 0"
           class="mb-3"
@@ -30,7 +52,8 @@
     data() {
       return {
         role: null,
-        search: ''
+        search: '',
+        totalPrice: 0,
       }
     },
     computed: {
@@ -49,15 +72,42 @@
       {
         return this.$store.getters.COUNT_CART
       },
+      totalAmount() {
+        let total = 0
+        if( this.WALLETS ) {
+          this.WALLETS.map( data => {
+            let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+            let vouchTotal = value
+
+            if( data.voucher.type == 'quantity' ) {
+              vouchTotal = value * data.voucher.price_filter
+            }
+
+            total = total + vouchTotal
+
+          })
+        }
+
+        return total
+      },
     },
     watch: {
+       watch: {
+        async WALLETS(newVal)
+        {
+          this.totalPrice = 0
+          await this.onGetTotalPrice()
+        }
+      },
     },
     mounted() {
       (async() => {
+
         try {
           await this.$store.commit('SET_WALLETS', [])
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchWallets()
+          await this.onGetTotalPrice()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
           if( this.$route.query?.status == 'failed' ) {
             this.$swal({
@@ -94,6 +144,25 @@
           confirmButtonColor: '#48BB78',
           confirmButtonText: 'Bestätigen'
         })
+      },
+      onGetTotalPrice()
+      {
+        if( this.WALLETS ) {
+          this.WALLETS.map( row => {
+            this.totalPrice += this.onGetTotal(row)
+          })
+        }
+      },
+      onGetTotal(data)
+      {
+        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let total = value
+
+        if( data.voucher.type == 'quantity' ) {
+          total = value * data.voucher.price_filter
+        }
+
+        return total
       },
     }
   }

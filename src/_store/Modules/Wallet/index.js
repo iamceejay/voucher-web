@@ -1,4 +1,4 @@
-import { post, get, del } from '_helpers/ApiService'
+import { post, get, del, patch } from '_helpers/ApiService'
 import { mergeList } from '_helpers/CustomFunction'
 import moment from 'moment'
 
@@ -94,16 +94,24 @@ export default {
         throw err
       }
     },
-    UPDATE_WALLET( { commit, state }, payload )
+    async UPDATE_WALLET( { commit, state }, payload )
     {
-      const newList = state.wallets.map( row => {
-        if(row.id == payload.id) {
-          row = payload
-        }
-        return row
-      });
-      commit('SET_WALLET', payload)
-      commit('SET_WALLETS', newList)
+      try {
+        const { data } = await patch(`${prefix}/${payload.id}`, payload)
+        return data
+      } catch (err) {
+        console.log(err)
+        throw err
+      }
+
+      // const newList = state.wallets.map( row => {
+      //   if(row.id == payload.id) {
+      //     row = payload
+      //   }
+      //   return row
+      // });
+      // commit('SET_WALLET', payload)
+      // commit('SET_WALLETS', newList)
     },
     async DELETE_WALLET( { commit, state }, payload )
     {
