@@ -1,42 +1,19 @@
 <template>
-  <div style="background: linear-gradient(90deg, #ff5563 50%, #edf2f7 50%);">
+  <div class="bg-peach">
     <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center bg-gray-200">
-      <div class="flex flex-col w-full lg:w-2/6 text-white bg-peach px-6 py-12 ">
-        <div class="font-bold font-display text-3xl mb-4 text-center lg:text-left">
+      <div class="flex flex-col w-full text-white bg-peach px-6 py-20 items-center">
+        <div class="font-medium max-w-md mb-4 text-3xl text-center">
           Werde Partner und verkaufe deine Gutscheine
         </div>
-        <div class="flex justify-center lg:justify-start w-full">
+        <div class="flex justify-center w-full">
           <a
-            class="bg-white mt-2 py-1 py-3 rounded text-black text-center w-64"
+            class="bg-white mt-2 px-4 py-3 rounded text-black text-center"
             href="https://verkaufen.epasnets.com/"
             target="_blank"
           >
-            Als Verkaufer regisrieren
+            Jetzt als Verkäufer registrieren
           </a>
         </div>
-      </div>
-      <div class="bg-gray-200 flex flex-col items-center lg:w-4/6 md:w-4/5 px-6 py-12 w-full">
-        <h2 class="font-bold text-3xl">
-          2021 machen ma epasnets
-        </h2>
-        <p class="max-w-sm text-2xl">
-          Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und genießen.
-        </p>
-        <!-- <div
-          v-for="(item, index) in items"
-          :key="`item-${index}`"
-          class="content-item w-full sm:w-1/2 md:w-1/2 lg:w-3/12 md:ml-auto"
-        >
-          <div class="text-5xl">
-            <i :class="item.icon" />
-          </div>
-          <div class="font-bold font-display text-lg my-3">
-            {{ item.title }}
-          </div>
-          <div class="text-sm font-body">
-            {{ item.content }}
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

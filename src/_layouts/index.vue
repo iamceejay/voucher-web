@@ -70,7 +70,7 @@
     </div>
     <div
       class="flex flex-col w-full relative"
-      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-gray'}`"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-gray'}`"
     >
       <ul
         v-if="categories.length"
@@ -85,7 +85,7 @@
             </router-link>
           </li>
       </ul>
-      <div class="w-full pb-16">
+      <div class="w-full">
         <div
           id="infinite-scroll"
           class="flex flex-col h-full w-full m-c pt-10"

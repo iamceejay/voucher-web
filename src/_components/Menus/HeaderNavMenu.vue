@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white w-full nav-container hidden md:flex"
+    class="bg-white w-full nav-container hidden md:flex border-b"
     :id="AUTH_USER.isAuth ? 'site-header' : 'guest-header'"
     >
     <div class="content-container mx-auto w-full hidden md:flex"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
@@ -12,11 +12,13 @@
         >
           <i class="fas fa-bars text-lg text-gray-900" />
         </a>
-        <img
-          class="self-center"
-          src="@/_assets/img/logo.png"
-          alt=""
-        />
+        <router-link class="flex justify-center" to="/">
+          <img
+            class="self-center"
+            src="@/_assets/img/logo.png"
+            alt=""
+          />
+        </router-link>
         <a
           v-if="!AUTH_USER.isAuth"
           href="javascript:void(0)"
@@ -610,7 +612,8 @@
     padding: 20px 30px 20px;
   }
   .nav-logo img {
-    width: 100px;
+    width: auto;
+    height: 24px;
   }
   .nav-logo .logo-text-1 {
     color: #1f1f1f;

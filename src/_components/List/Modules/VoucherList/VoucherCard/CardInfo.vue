@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`cursor-pointer flex flex-col text-black w-full`"
+    :class="`cursor-pointer flex flex-col text-black w-full border`"
     @click="onClickHeader()"
   >
     <div

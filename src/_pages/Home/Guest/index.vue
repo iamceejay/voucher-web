@@ -4,24 +4,72 @@
     <!-- <GuestContent /> -->
     <div class="bg-white">
       <GuestVoucherCategories />
+
+      <div class="content-container w-11/12 md:w-9/12 lg:w-1/2">
+        <h2 class="text-center text-3xl mb-10 font-medium">In deiner Nachbarschaft</h2>
+        <slider ref="slider" :options="options" >
+          <slideritem class="grid grid-rows-2 gap-2 md:gap-4 lg:gap-7 md:grid-cols-4 p-0.5">
+              <a
+                v-for="(region, index) in REGIONS"
+                :key="`item-${index}`"
+                href="javscript:void(0)"
+              >
+                <img
+                  src="@/_assets/img/placeholder-400px.jpg"
+                  class="shadow rounded-lg mb-2"
+                />
+                <p class="text-sm">{{ region.label }}</p>
+              </a>
+          </slideritem>
+         </slider>
+      </div>
+
+      <h2 class="text-center text-3xl mb-10 font-medium mt-20">Unsere Lieblinge</h2>
+       <VoucherList
+        class="content-container mb-3 py-6 px-8"
+        title=""
+        :data="FEATURED_VOUCHERS"
+        :withQR="false"
+        listId="featured-voucher-list"
+      />
+
+      <div class="container lg:w-1/2 md:w-9/12 mb-10 mt-20 mx-auto w-11/12">
+        <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
+       <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
+          <!-- <div class="grid grid-rows-2 gap-2 md:gap-4 lg:gap-7 md:grid-cols-4 p-0.5"> -->
+              <div
+               v-for="(company, index) in companies"
+                :key="`company-${index}`"
+                class="flex flex-col p-3 slider-item-custom text-center mb-6"
+              >
+                  <img
+                    v-if="company.logo"
+                    class="h-10 mx-auto"
+                    :src="onSetImage(company.logo)"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    class="h-10 mx-auto bg-white"
+                    src="@/_assets/img/default-company.png"
+                    alt=""
+                  />
+                  <p class="text-xs mt-1">{{ company.name }}</p>
+              </div>
+          <!-- </div> -->
+         </VueSlickCarousel>
+      </div>
     </div>
-    <VoucherList
-      class="content-container mb-3 py-6 px-8"
-      title="Unsere Lieblinge"
-      :data="FEATURED_VOUCHERS"
-      :isInline="true"
-      :withQR="false"
-      type="feature"
-      listId="featured-voucher-list"
-    />
-    <CategoryList
+
+
+    <!-- <CategoryList
       id="categories"
       class="content-container mb-3 py-6 px-8"
       title="Kategorien"
       :data="CATEGORIES"
-    />
+    /> -->
     <GuestSellerContent />
-    <VoucherList
+    <!-- <VoucherList
       class="content-container mb-3 pb-6 px-8 py-12"
       title=""
       :data="VOUCHERS.data"
@@ -38,7 +86,7 @@
       @onFilter="onSearchData($event, 'filter')"
       @onSort="onSearchData($event, 'sort')"
       @onPaginate="onPaginateVouchers($event)"
-    />
+    /> -->
     <!-- <GuestFooter /> -->
 
     <div
@@ -80,6 +128,12 @@
   import GuestSellerContent from './GuestSellerContent'
   import GuestFooter from './GuestFooter'
   import GuestVoucherCategories from './VoucherCategories'
+  import { slider, slideritem } from 'vue-concise-slider'
+  import { get } from '_helpers/ApiService'
+  import VueSlickCarousel from 'vue-slick-carousel'
+  import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+  // optional style for arrows & dots
+  import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
   export default {
     components: {
@@ -89,7 +143,10 @@
       GuestFooter,
       VoucherList,
       CategoryList,
-      GuestVoucherCategories
+      GuestVoucherCategories,
+      slider,
+      slideritem,
+      VueSlickCarousel
     },
     data() {
       return {
@@ -102,9 +159,30 @@
           isLowestPrice: false,
           isPrice: null,
           isLoading: false,
-          seed: new Date().getTime()
+          seed: new Date().getTime(),
+
         },
-        showAnnouncement: false
+        showAnnouncement: false,
+        options: {
+          currentPage: 0,
+          loop: true,
+          slidesToScroll: 1,
+          pagination: false,
+          centeredSlides: false
+        },
+        companyOptions: {
+          "dots": false,
+          "focusOnSelect": true,
+          "infinite": true,
+          "speed": 500,
+          "slidesToShow": 3,
+          "slidesToScroll": 1,
+          "touchThreshold": 5,
+          "rows": 2,
+          "autoplay": true,
+          autoplaySpeed: 3000
+        },
+        companies: []
       }
     },
     computed: {
@@ -123,6 +201,10 @@
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
+      },
+      REGIONS()
+      {
+        return this.$store.getters.REGIONS
       },
       // IS_LOAD_MORE()
       // {
@@ -149,6 +231,8 @@
           await this.$store.commit('SET_VOUCHERS', [])
           await this.$store.commit('SET_FEATURED_VOUCHERS', [])
           await this.$store.commit('SET_CATEGORIES', [])
+          let { data } = await get('company/all')
+          this.companies = data.companies
           await this.onFetchNewestVouchers()
           await this.onFetchFeaturedVouchers()
           await this.onFetchCategories()
@@ -238,6 +322,10 @@
         } catch (err) {
           console.log('err', err)
         }
+      },
+      onSetImage(value)
+      {
+        return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
       },
     }
   }
