@@ -132,7 +132,8 @@
   }
 
   .footer__menu-item {
-    font: normal normal normal 14px/24px;
+    font: 14px;
+    line-height: 24px;
     color: #000;
   }
 
