@@ -70,8 +70,7 @@
     </div>
     <div
       class="flex flex-col w-full relative"
-      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'} ${!AUTH_USER.isAuth ? 'guest-container' : ''}`"
-      style="background: #F2F2F2;"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-gray'}`"
     >
       <ul
         v-if="categories.length"

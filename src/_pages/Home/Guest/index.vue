@@ -1,7 +1,10 @@
 <template>
   <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
     <GuestHeader />
-    <GuestContent />
+    <!-- <GuestContent /> -->
+    <div class="bg-white">
+      <GuestVoucherCategories />
+    </div>
     <VoucherList
       class="content-container mb-3 py-6 px-8"
       title="Unsere Lieblinge"
@@ -76,6 +79,7 @@
   import GuestContent from './GuestContent'
   import GuestSellerContent from './GuestSellerContent'
   import GuestFooter from './GuestFooter'
+  import GuestVoucherCategories from './VoucherCategories'
 
   export default {
     components: {
@@ -85,6 +89,7 @@
       GuestFooter,
       VoucherList,
       CategoryList,
+      GuestVoucherCategories
     },
     data() {
       return {

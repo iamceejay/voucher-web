@@ -1,23 +1,41 @@
 <template>
-  <div class="bg-dirty -mt-10">
-    <div class="content-container header-container flex flex-col items-center px-8 py-20 lg:py-32">
-      <div class="font-display font-bold text-2xl w-full sm:w-11/12 md:w-6/12 lg:w-9/12">
-        Entdecke die nettesten Gutscheine aus Tirol
+  <div class="-mt-10">
+    <div class="guest-header bg-peach">
+      <div class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-24 lg:pb-48 relative">
+        <div class="text-center text-white w-11/12 max-w-xl">
+          <h1 class="font-display text-xl md:text-3xl lg:text-4xl mb-1">
+            Geschenk zum Valentinstag?
+          </h1>
+          <p class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto">
+            Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und oder selber genießen.
+          </p>
+        </div>
+        <div class="search-box shadow bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">
+          <router-link
+            class="flex flex-col w-11/12 lg:w-9/12"
+            to="/vouchers/search"
+          >
+            <SearchInputField
+              id="search-voucher"
+              class="w-full"
+              font="text-xs lg:text-sm"
+              placeholder="Suche nach Aktivitäten oder Unternehmen"
+              :submitButton="false"
+            />
+          </router-link>
+          <div class="search-box__details w-11/12 md:9/12 lg:w-8/12">
+            <div
+              v-for="(item, index) in searchBoxItems"
+              :key="`item-${index}`"
+              class="search-box__details-item">
+              <svg class="icon">
+                <use :xlink:href="`/icons/sprite.svg#${item.spriteIcon}`"/>
+              </svg>
+              <p class="text-sm">{{ item.label }}</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="font-body text-lg w-full sm:w-11/12 md:w-9/12 lg:w-6/12 ">
-        Zum Verschenken oder selber Erleben
-      </div>
-
-      <router-link
-        class="flex flex-col w-full sm:w-11/12 md:w-9/12 lg:w-9/12"
-        to="/vouchers/search"
-      >
-        <SearchInputField
-          id="search-voucher"
-          class="m-2 w-full"
-          placeholder="Unternehmen & Aktivitäten finden"
-        />
-      </router-link>
     </div>
   </div>
 </template>
@@ -30,6 +48,20 @@
     },
     data() {
       return {
+        searchBoxItems: [
+          {
+            spriteIcon: 'palette', 
+            label: 'Personalisieren'
+          },
+          {
+            spriteIcon: 'cloud-arrow-down', 
+            label: 'Downloaden'
+          },
+          {
+            spriteIcon: 'gift', 
+            label: 'Verschenken'
+          }
+        ]
       }
     },
     created() {
@@ -38,9 +70,28 @@
     }
   }
 </script>
+<style lang="css">
+  :root {
+    --bottom-spacing: 4.5rem;
+  }
+  .guest-header {
+    margin-bottom: calc(var(--bottom-spacing) + 4rem);
+  }
+  .search-box {
+    bottom: calc(var(--bottom-spacing) * -1);
+  }
+  .search-box .input-field {
+    @apply bg-white;
+  }
+</style>
 <style lang="css" scoped>
-  .header-container {
-    justify-content: center;
-    text-align: center;
+  .search-box__details {
+    @apply flex flex-wrap pt-2 justify-around;
+  }
+  .search-box__details-item {
+    @apply flex flex-col items-center;
+  }
+  .icon {
+    @apply h-6 w-6 text-peach mb-1;
   }
 </style>
