@@ -10,7 +10,7 @@
             Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und oder selber genießen.
           </p>
         </div>
-        <div class="search-box shadow bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">
+        <div class="search-box bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">
           <router-link
             class="flex flex-col w-11/12 lg:w-9/12"
             to="/vouchers/search"
