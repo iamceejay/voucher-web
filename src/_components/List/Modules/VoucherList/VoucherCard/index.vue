@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-color flex flex-shrink-0 voucher-card-container"
+    class="bg-white flex flex-shrink-0 voucher-card-container border"
     :class="{'flip': isFlip}"
     :style="{
       '--bgColor': !isFlip ? 'transparent' : 'white',

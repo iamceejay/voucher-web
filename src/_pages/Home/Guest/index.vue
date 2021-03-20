@@ -1,71 +1,69 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="flex flex-col w-full">
+  <div v-if="!IS_LOADING.status" class="guest-homepage flex flex-col w-full"
+    :style="{
+      '--bottomSpacing': '4.5rem'
+    }"
+  >
     <GuestHeader />
-    <!-- <GuestContent /> -->
     <div class="bg-white">
-      <!-- <GuestVoucherCategories /> -->
-      <div class="content-container w-11/12 md:w-9/12 lg:w-1/2">
-        <div class="voucher-categories">
-          <h2 class="voucher-categories__title text-center text-3xl mb-10 font-medium">Finde Deinen Gutschein</h2>
-          <div class="voucher-categories__grid grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 lg:gap-7 md:grid-cols-4">
-            <router-link
-              v-for="(category, index) in CATEGORIES"
-              :key="`item-${index}`"
-              :to="`/vouchers/category/${$helpers.toSlug(category.name)}`"
-              class="voucher-categories__grid-item"
-            >
-              <img
-                src="@/_assets/img/placeholder-400px.jpg"
-                class="shadow rounded-lg mb-2"
-              />
-              <p class="text-sm">{{ category.name }}</p>
-            </router-link>
-          </div>
-        </div>
-        <div class="border-separator" />
+      <div class="content-container w-full sm:w-9/12 xl:w-7/12">
+        <h2 class="voucher-categories__title text-center text-3xl mb-10 font-medium">Finde Deinen Gutschein</h2>
+        <VueSlickCarousel class="voucher-categories__grid sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4" v-bind="voucherCategoriesOptions">
+          <router-link
+            v-for="(category, index) in CATEGORIES"
+            :key="`item-${index}`"
+            :to="`/vouchers/category/${$helpers.toSlug(category.name)}`"
+            class="voucher-categories__grid-item pl-4 sm:px-0"
+          >
+            <img
+              src="@/_assets/img/placeholder-400px.jpg"
+              class="shadow rounded-lg mb-2"
+            />
+            <p class="text-sm">{{ category.name }}</p>
+          </router-link>
+        </VueSlickCarousel>
+        <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="content-container w-11/12 md:w-9/12 lg:w-1/2">
+      <div class="content-container w-full sm:w-9/12 xl:w-7/12">
         <h2 class="text-center text-3xl mb-10 font-medium">Geschenke f&uuml;r</h2>
-        <slider ref="slider" :options="options" >
-          <slideritem class="grid grid-rows-2 gap-2 md:gap-4 lg:gap-7 md:grid-cols-4 p-0.5">
-            <a
-              v-for="(region, index) in REGIONS"
-              :key="`item-${index}`"
-              href="javscript:void(0)"
-            >
-              <img
-                src="@/_assets/img/placeholder-400px.jpg"
-                class="shadow rounded-lg mb-2"
-              />
-              <p class="text-sm">{{ region.label }}</p>
-            </a>
-          </slideritem>
-        </slider>
-        <div class="border-separator" />
+        <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-3" v-bind="giftOptions">
+          <a
+            v-for="(gift, index) in gifts"
+            :key="`item-${index}`"
+            href="javscript:void(0)"
+            class="pl-4 sm:px-0"
+          >
+            <img
+              src="@/_assets/img/placeholder-400px.jpg"
+              class="shadow rounded-lg mb-2"
+            />
+            <p class="text-sm" v-html="gift.label"></p>
+          </a>
+        </VueSlickCarousel>
+        <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="content-container w-11/12 md:w-9/12 lg:w-1/2">
+      <div class="content-container w-full sm:w-9/12 xl:w-7/12">
         <h2 class="text-center text-3xl mb-10 font-medium">In deiner Nachbarschaft</h2>
-        <slider ref="slider" :options="options" >
-          <slideritem class="grid grid-rows-2 gap-2 md:gap-4 lg:gap-7 md:grid-cols-4 p-0.5">
-            <a
-              v-for="(region, index) in REGIONS"
-              :key="`item-${index}`"
-              href="javscript:void(0)"
-            >
-              <img
-                src="@/_assets/img/placeholder-400px.jpg"
-                class="shadow rounded-lg mb-2"
-              />
-              <p class="text-sm">{{ region.label }}</p>
-            </a>
-          </slideritem>
-        </slider>
-        <div class="border-separator" />
+        <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4" v-bind="regionOptions">
+          <a
+            v-for="(region, index) in REGIONS"
+            :key="`item-${index}`"
+            href="javscript:void(0)"
+            class="pl-4 sm:px-0"
+          >
+            <img
+              src="@/_assets/img/placeholder-400px.jpg"
+              class="shadow rounded-lg mb-2"
+            />
+            <p class="text-sm">{{ region.label }}</p>
+          </a>
+        </VueSlickCarousel>
+        <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="content-container w-11/12 md:w-9/12 lg:w-1/2">
+      <div class="voucher-list__container content-container w-11/12 sm:w-9/12 xl:w-7/12">
         <h2 class="text-center text-3xl mb-10 font-medium">Unsere Lieblinge</h2>
         <VoucherList
           title=""
@@ -81,10 +79,9 @@
         <div class="border-separator" />
       </div>
 
-      <div class="container lg:w-1/2 md:w-9/12 mb-10 mx-auto w-11/12">
+      <div class="container w-11/12 sm:w-9/12 xl:w-7/12 mx-auto mb-10">
         <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
         <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
-          <!-- <div class="grid grid-rows-2 gap-2 md:gap-4 lg:gap-7 md:grid-cols-4 p-0.5"> -->
           <div
             v-for="(company, index) in companies"
             :key="`company-${index}`"
@@ -104,7 +101,6 @@
               />
               <p class="text-xs mt-1">{{ company.name }}</p>
           </div>
-          <!-- </div> -->
         </VueSlickCarousel>
       </div>
     </div>
@@ -175,7 +171,6 @@
   import GuestContent from './GuestContent'
   import GuestSellerContent from './GuestSellerContent'
   import GuestFooter from './GuestFooter'
-  import GuestVoucherCategories from './VoucherCategories'
   import { slider, slideritem } from 'vue-concise-slider'
   import { get } from '_helpers/ApiService'
   import VueSlickCarousel from 'vue-slick-carousel'
@@ -191,7 +186,6 @@
       GuestFooter,
       VoucherList,
       CategoryList,
-      GuestVoucherCategories,
       slider,
       slideritem,
       VueSlickCarousel
@@ -223,14 +217,91 @@
           "focusOnSelect": true,
           "infinite": true,
           "speed": 500,
-          "slidesToShow": 3,
+          "slidesToShow": 4,
           "slidesToScroll": 1,
           "touchThreshold": 5,
           "rows": 2,
           "autoplay": true,
-          autoplaySpeed: 3000
+          autoplaySpeed: 3000,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+          ]
         },
-        companies: []
+        voucherCategoriesOptions: {
+          dots: false,
+          speed: 500,
+          rows: 2,
+          touchThreshold: 5,
+          responsive: [
+            {
+              breakpoint: 9999,
+              settings: "unslick"
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                initialSlide: 1,
+                centerMode: true,
+                slidesToShow: 2,
+              }
+            }
+          ]
+        },
+        giftOptions: {
+          dots: false,
+          speed: 500,
+          touchThreshold: 5,
+          responsive: [
+            {
+              breakpoint: 9999,
+              settings: "unslick"
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                initialSlide: 1,
+                centerMode: true,
+                slidesToShow: 2,
+              }
+            }
+          ]
+        },
+        regionOptions: {
+          dots: false,
+          speed: 500,
+          touchThreshold: 5,
+          responsive: [
+            {
+              breakpoint: 9999,
+              settings: "unslick"
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                initialSlide: 1,
+                centerMode: true,
+                slidesToShow: 2,
+              }
+            }
+          ]
+        },
+        companies: [],
+        gifts: [
+          {
+            label: "Fraun"
+          },
+          {
+            label: "M&auml;nner"
+          },
+          {
+            label: "Kinder"
+          }
+        ]
       }
     },
     computed: {
@@ -314,6 +385,7 @@
         }
         await this.$store.commit('SET_VOUCHERS', [])
         await this.onFetchData(params)
+        document.querySelector(".voucher-list__container").scrollIntoView();
       },
       async onSearchData( data = null, action )
       {
@@ -381,6 +453,9 @@
 <style lang='css' scoped>
   .border-separator {
     @apply border-b border-input-border my-16;
+  }
+  .guest-homepage >>> .slick-list[style] {
+    padding: 0 20% 0 0 !important;
   }
   @media only screen and (max-width: 600px) {
     #guest-voucher-list >>> .voucher-card-container {

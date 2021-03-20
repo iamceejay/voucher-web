@@ -70,21 +70,16 @@
     }
   }
 </script>
-<style lang="css">
-  :root {
-    --bottom-spacing: 4.5rem;
-  }
+<style lang="css" scoped>
   .guest-header {
-    margin-bottom: calc(var(--bottom-spacing) + 4rem);
+    margin-bottom: calc(var(--bottomSpacing) + 4rem);
   }
   .search-box {
-    bottom: calc(var(--bottom-spacing) * -1);
+    bottom: calc(var(--bottomSpacing) * -1);
   }
-  .search-box .input-field {
+  .search-box >>> .input-field {
     @apply bg-white;
   }
-</style>
-<style lang="css" scoped>
   .search-box__details {
     @apply flex flex-wrap pt-2 justify-around;
   }
