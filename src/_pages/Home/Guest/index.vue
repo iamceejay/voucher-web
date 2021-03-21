@@ -112,7 +112,7 @@
       title="Kategorien"
       :data="CATEGORIES"
     /> -->
-    <GuestSellerContent />
+    <SellerContent />
     <!-- <VoucherList
       class="content-container mb-3 pb-6 px-8 py-12"
       title=""
@@ -169,7 +169,7 @@
   import CategoryList from '_components/List/Modules/CategoryList/'
   import GuestHeader from './GuestHeader'
   import GuestContent from './GuestContent'
-  import GuestSellerContent from './GuestSellerContent'
+  import SellerContent from '_pages/Home/shared/SellerContent'
   import GuestFooter from './GuestFooter'
   import { slider, slideritem } from 'vue-concise-slider'
   import { get } from '_helpers/ApiService'
@@ -182,7 +182,7 @@
     components: {
       GuestHeader,
       GuestContent,
-      GuestSellerContent,
+      SellerContent,
       GuestFooter,
       VoucherList,
       CategoryList,
