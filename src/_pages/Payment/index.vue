@@ -1,14 +1,11 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <div class="w-full h-24 sm:h-32 lg:h-48 bg-peach flex justify-center items-center mb-5">
-          <Header1
-            label="Kassa"
-            color="text-white"
-          />
+      <div class="bg-custom-gray -mt-10">
+        <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full py-10">
+          <h1 class="font-medium text-xl mx-auto">Kasse</h1>
+          <PaymentForm class="mt-8"/>
         </div>
-        <PaymentForm />
       </div>
     </template>
   </MainLayout>

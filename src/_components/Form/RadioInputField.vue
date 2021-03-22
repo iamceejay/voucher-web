@@ -31,14 +31,15 @@
           :disabled="disabled"
           @change="onUpdateField()"
         />
-        <label :for="id" :class="`flex items-center ${!disabled && 'cursor-pointer' } text-base font-bold`">
+        <label :for="id" :class="`flex items-center ${!disabled && 'cursor-pointer' } text-base`">
           <span
-            class="w-8 h-8 inline-block mr-2 rounded-full border border-gray-500 flex-no-shrink flex justify-center"
+            class="w-5 h-5 inline-block mr-2 rounded-full border border-gray-500 flex-no-shrink flex justify-center items-center"
             :class="{ 'disable-radio': disabled }"
           >
-            <i v-if="(data == val || value == data)" class="radio-icon fas fa-check self-center text-white" />
+            <!-- <i v-if="(data == val || value == data)" class="radio-icon fas fa-check self-center text-white" /> -->
+            <span class="radio-color w-4 h-4 rounded-full"></span>
           </span>
-          {{ description }}
+          <slot>{{ description }}</slot>
         </label>
         <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
@@ -122,17 +123,14 @@
 	}
 	.radio-input + label span:hover,
 	.radio-input + label:hover span{
-		transform: scale(1.2);
+		/* transform: scale(1.2); */
 	}
-	.radio-input:checked + label span {
+	.radio-input:checked + label .radio-color {
 		background-color: #ff5563;
   }
 	.radio-input:checked + label .radio-icon {
     display: block;
 	}
-	.radio-input:checked + label{
-    color: #ff5563;
-  }
 	.disable-radio {
 		background: rgba(0,0,0,0.1);
     pointer-events: none;

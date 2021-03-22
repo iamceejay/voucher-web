@@ -53,7 +53,7 @@
               class="card-image"
             ></div>
         </div>
-        <a class="wishlist-btn"
+        <a v-if="isShowWishlist" class="wishlist-btn"
           @click.stop="onClickWishlist(voucher.id)">
           <svg class="icon">
             <use xlink:href="/icons/sprite.svg#heart"/>
@@ -219,6 +219,9 @@
         type: Boolean,
         default: true
       }, withQR: {
+        type: Boolean,
+        default: true
+      }, isShowWishlist: {
         type: Boolean,
         default: true
       }

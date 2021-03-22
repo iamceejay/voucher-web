@@ -1,34 +1,55 @@
 <template>
-  <div class="flex flex-col w-full">
-    <div class="flex flex-col w-full md:w-1/2 mx-4 mb-5">
-      <RadioInputField
-        id="stripe_payment_type"
-        v-model="payment_type"
-        containerClass="mb-2"
-        name="payment_type"
-        data="stripe"
-        description="Kreditkarte"
-      />
-      <div class="flex flex-col">
-        <Button
-          v-if="payment_type == 'stripe'"
-          variant="info"
-          :class="`py-2 justify-center ${ (USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
-          label="Neue Kreditkarte"
-          size="w-full py-3"
-          round="rounded-full"
-          fontSize="text-sm"
-          @onClick="onNewNumber"
-        /> 
-        <!-- <Button
-          class="py-2 justify-center"
-          label="Jetzt bezahlen"
-          size="w-full py-3"
-          round="rounded-full"
-          fontSize="text-sm"
-          @onClick="onSubmit"
-        />    -->
+  <div class="flex flex-col w-11/12 max-w-sm items-center mx-auto">
+    <div class="flex flex-col w-full bg-white p-7">
+      <div class="flex flex-col mb-5 border-b border-input-border">
+        <RadioInputField
+          id="stripe_payment_type"
+          v-model="payment_type"
+          containerClass="mb-5"
+          name="payment_type"
+          data="stripe"
+        >
+          <svg class="h-7 w-7 icon mx-3">
+            <use xlink:href="/icons/sprite.svg#credit-card-fill"/>
+          </svg>
+          Kreditkarte
+        </RadioInputField>
       </div>
+      <div class="flex flex-col">
+        <RadioInputField
+          id="sofort_payment_type"
+          v-model="payment_type"
+          containerClass="mb-0"
+          name="payment_type"
+          data="sofort"
+        >
+          <svg class="h-7 w-7 icon mx-3">
+            <use xlink:href="/icons/sprite.svg#credit-card"/>
+          </svg>
+          Sofortüberweisung
+        </RadioInputField>
+      </div>
+    </div>
+    
+    <div class="flex flex-col w-full mt-8" v-show="payment_type == 'stripe'">
+      <Button
+        v-if="payment_type == 'stripe'"
+        variant="info"
+        :class="`mb-4 justify-center ${ (USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save) ? '' : 'hidden' }`"
+        label="Neue Kreditkarte"
+        size="w-full py-3"
+        round="rounded"
+        fontSize="text-sm"
+        @onClick="onNewNumber"
+      /> 
+      <!-- <Button
+        class="py-2 justify-center"
+        label="Jetzt bezahlen"
+        size="w-full py-3"
+        round="rounded-full"
+        fontSize="text-sm"
+        @onClick="onSubmit"
+      />    -->
       <div 
         class="flex flex-col w-full"
         :class="{'hidden': USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save}"
@@ -41,54 +62,34 @@
         >
           <div
             id="card-element"
-            class="mt-1 mb-2"
+            class="mt-1 mb-2 rounded bg-white border border-input-border p-4"
           />
           <div id="card-errors" class="mb-3 text-red-500 font-semibold font-body text-sm" />
-          <div class="flex flex-row mx-2">
+          <div class="flex flex-row mx-2 items-center">
             <input 
               id="is_save"
               v-model="paymentForm.is_save"
-              class="mt-1"
               type="checkbox"
             />
-            <span class="text-xs ml-1 mt-1"> Speichere die Karte für spätere Bestellungen </span>
+            <span class="text-xs ml-2"> Speichere die Karte für spätere Bestellungen </span>
           </div>
         </form>
       </div>
     </div>
-    <div class="flex flex-col w-full md:w-1/2 mx-4">
-      <RadioInputField
-        id="sofort_payment_type"
-        v-model="payment_type"
-        name="payment_type"
-        data="sofort"
-        description="Sofortüberweisung"
-      />
-    </div>
-    <div class="flex flex-col md:flex-row justify-between mt-5 w-full px-4 bg-dirty px-5 py-8">
-      <div>
-        <div class="text-lg font-bold text-left h-10">
-          Summe
-        </div>
-        <div class="h-12">
-          <BackBtn :show="true" />
-        </div>
+    <div class="border-t-2 border-input-border w-full mt-8"></div>
+    <div class="bg-white flex flex-col items-start mt-8 mx-auto pb-8 pt-4 px-8 w-full">
+      <div class="flex items-baseline justify-center w-full">
+          <span class="text-xs mr-3">Summe ({{WALLETS.length}} Artikel):</span>
+          <span class="border-b border-black font-medium text-xl">{{ $helpers.convertCurrency(totalPrice) }}</span>
       </div>
-      <div>
-        <div class="text-lg font-bold md:text-right h-10">
-          {{ $helpers.convertCurrency(totalPrice) }}
-        </div>
-        <div class="h-12">
-          <Button
-            fontWeight="font-normal"
-            size="w-32 py-1 px-2"
-            fontSize="text-2xs"
-            round="rounded-full"
-            label="Jetzt bezahlen"
-            @onClick="onPayment()"
-          />   
-        </div>
-      </div>
+      <button
+        @click="$router.push('/payment')"
+        class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4 w-full"
+        :class="{'opacity-50': !WALLETS.length}"
+        :disabled="!WALLETS.length"
+        >
+          Zur Kasse
+      </button>
     </div>
   </div>
 </template>
@@ -325,17 +326,9 @@
 <style lang='css' scoped>
   .StripeElement {
     color: rgba(0, 0, 0, 0.75);
-    border: 1px solid #ccc;
-    background-color: transparent;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin-top: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
     font-family: Nunito, sans-serif;
-    border-radius: 9999px;
   }
   .StripeElement--focus {
     box-shadow: 0 2px 5px 2px hsla(0,0%,0%,0.2)
