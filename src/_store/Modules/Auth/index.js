@@ -12,19 +12,19 @@ export default {
         name: null,
       },
       data: null
-    },
+    }
   }),
   getters: {
     AUTH_USER(state) 
     {
       return state.auth;
-    },
+    }
   },
   mutations: {
     SET_AUTH_USER(state, payload) 
     {
       state.auth = payload;
-    },
+    }
   },
   actions: {
     async LOGIN(context, payload) 

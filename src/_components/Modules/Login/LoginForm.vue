@@ -110,7 +110,7 @@
             isAuth: true,
             token,
             data: user,
-            role: user.user_role.role,
+            role: user.user_role.role
           }
           await localStorage.removeItem('_auth')
           await localStorage.setItem('_auth', JSON.stringify(auth))
@@ -119,6 +119,10 @@
             await this.onFetchCategories()
           }
           await setToken()
+          const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: auth.data.id });
+          await localStorage.removeItem('_userWishlist')
+          await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
+          await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
           this.submitting = false
           this.$router.push('/home')
         } catch (err) {
@@ -127,6 +131,8 @@
             this.errorMessages = err.response.data.errors
           } else if(err.response?.status === 404) {
             this.error = err.response.data.message
+          } else {
+            console.log(err)
           }
         }
       },
