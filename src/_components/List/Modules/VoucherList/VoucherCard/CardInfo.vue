@@ -325,6 +325,7 @@
       },
       async onClickWishlist(id)
       {
+        let text;
         let payload = {
           user_id: this.AUTH_USER.data.id,
           voucher_id: id
@@ -342,6 +343,7 @@
 
           await localStorage.removeItem('_userWishlist')
           await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
+          text = "Removed from wishlist."
         } else {
           await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
         
@@ -349,12 +351,18 @@
           await localStorage.removeItem('_userWishlist')
           await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
           await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
+          text = "Added to wishlist."
         }
-      },
-      // async checkWishlist(voucherId)
-      // {
-      //   return 
-      // }
+        
+        this.$swal({
+          icon: 'success',
+          title: 'Erfolgreich',
+          text,
+          confirmButtonColor: '#48BB78',
+          confirmButtonText: 'Bestätigen',
+          timer: 1500
+        })
+      }
     }
   }
 </script>
