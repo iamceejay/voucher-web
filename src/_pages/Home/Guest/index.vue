@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!IS_LOADING.status" class="guest-homepage flex flex-col w-full"
+  <div v-if="!IS_LOADING.status" class="guest-homepage flex flex-col w-full bg-white"
     :style="{
       '--bottomSpacing': '4.5rem'
     }"
   >
     <GuestHeader />
-    <div class="bg-white">
+    <div>
       <div class="content-container w-full sm:w-9/12 xl:w-7/12">
         <h2 class="voucher-categories__title text-center text-3xl mb-10 font-medium">Finde Deinen Gutschein</h2>
         <VueSlickCarousel class="voucher-categories__grid sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4" v-bind="voucherCategoriesOptions">

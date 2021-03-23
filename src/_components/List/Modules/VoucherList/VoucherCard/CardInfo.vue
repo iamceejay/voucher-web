@@ -325,6 +325,8 @@
       },
       async onClickWishlist(id)
       {
+        if (!this.AUTH_USER.isAuth) return
+
         let text;
         let payload = {
           user_id: this.AUTH_USER.data.id,
