@@ -54,7 +54,7 @@
             ></div>
         </div>
         <a v-if="isShowWishlist" class="wishlist-btn"
-          @click.stop="onClickWishlist(voucher.id)">
+          @click.stop="onClickWishlist(voucher)">
           <svg class="icon"
             :class="[{ 'text-peach': AUTH_USER_VOUCHER_WISHLIST.find(_wishlist => 
               _wishlist.voucher_id == voucher.id
@@ -323,17 +323,17 @@
           this.role = this.AUTH_USER.data.user_role.role.name
         }
       },
-      async onClickWishlist(id)
+      async onClickWishlist(voucher)
       {
         if (!this.AUTH_USER.isAuth) return
 
         let text;
         let payload = {
           user_id: this.AUTH_USER.data.id,
-          voucher_id: id
+          voucher_id: voucher.id
         }
         const validate = this.AUTH_USER_VOUCHER_WISHLIST.find(_wishlist => 
-          _wishlist.voucher_id == id
+          _wishlist.voucher_id == voucher.id
         )
         if (validate)
         {
@@ -345,7 +345,7 @@
 
           await localStorage.removeItem('_userWishlist')
           await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
-          text = "Removed from wishlist."
+          text = "removed from wishlist."
         } else {
           await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
         
@@ -353,16 +353,17 @@
           await localStorage.removeItem('_userWishlist')
           await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
           await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
-          text = "Added to wishlist."
+          text = "added to wishlist."
         }
         
         this.$swal({
           icon: 'success',
-          title: 'Erfolgreich',
-          text,
-          confirmButtonColor: '#48BB78',
-          confirmButtonText: 'Bestätigen',
-          timer: 1500
+          html: `<div class="px-3"><p>${voucher.title}</p><p>is ${text}</p></div>`,
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true
         })
       }
     }
