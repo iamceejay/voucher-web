@@ -10,7 +10,7 @@
             Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und oder selber genießen.
           </p>
         </div>
-        <div class="search-box shadow bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">
+        <div class="search-box bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">
           <router-link
             class="flex flex-col w-11/12 lg:w-9/12"
             to="/vouchers/search"
@@ -70,21 +70,16 @@
     }
   }
 </script>
-<style lang="css">
-  :root {
-    --bottom-spacing: 4.5rem;
-  }
+<style lang="css" scoped>
   .guest-header {
-    margin-bottom: calc(var(--bottom-spacing) + 4rem);
+    margin-bottom: calc(var(--bottomSpacing) + 4rem);
   }
   .search-box {
-    bottom: calc(var(--bottom-spacing) * -1);
+    bottom: calc(var(--bottomSpacing) * -1);
   }
-  .search-box .input-field {
+  .search-box >>> .input-field {
     @apply bg-white;
   }
-</style>
-<style lang="css" scoped>
   .search-box__details {
     @apply flex flex-wrap pt-2 justify-around;
   }

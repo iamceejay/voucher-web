@@ -4,7 +4,7 @@
     class="absolute hide-sidebar inset-0"
     :class="{
       'grid': AUTH_USER.isAuth,
-      'bg-white grid md:block': !AUTH_USER.isAuth,
+      'grid md:block': !AUTH_USER.isAuth,
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
     }"
   >
@@ -70,7 +70,7 @@
     </div>
     <div
       class="flex flex-col w-full relative"
-      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-gray'}`"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-white'}`"
     >
       <ul
         v-if="categories.length"

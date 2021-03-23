@@ -1,12 +1,12 @@
 <template>
   <div
-    :class="`cursor-pointer flex flex-col text-black w-full border`"
+    :class="`cursor-pointer flex flex-col text-black w-full`"
     @click="onClickHeader()"
   >
     <div
-      class="card-header  p-5"
+      class="card-header p-3 2xl:p-5"
     >
-      <div class="flex flex-col w-3/5 break-words">
+      <div class="flex flex-col w-3/4 break-words">
         <div class="text-base font-semibold">
           {{ voucher.title || 'Gutscheinnname' }}
         </div>
@@ -14,7 +14,7 @@
           {{ voucher.seller && voucher.seller.username || 'N/A' }}
         </div>
       </div>
-      <div class="self-center w-2/5">
+      <div class="w-1/4">
         <img
           v-if="voucher.seller && voucher.seller.company && voucher.seller.company.logo"
           class="card-logo ml-auto"
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="card-content">
-      <div class="w-full flex flex-col break-words">
+      <div class="w-full flex flex-col break-words relative">
         <!-- <div class="w-full py-5 card-description">
           <div class="text-sm  px-5">
             {{ voucher.description || 'Beschreibung' }}
@@ -53,15 +53,25 @@
               class="card-image"
             ></div>
         </div>
+        <a v-if="isShowWishlist" class="wishlist-btn"
+          @click.stop="onClickWishlist(voucher.id)">
+          <svg class="icon"
+            :class="[{ 'text-peach': AUTH_USER_VOUCHER_WISHLIST.find(_wishlist => 
+              _wishlist.voucher_id == voucher.id
+            ) }]"
+          >
+            <use xlink:href="/icons/sprite.svg#heart"/>
+          </svg>
+        </a>
       </div>
-      <div class="flex flex-col p-5 break-words card-description">
-        <div class="text-xs leading-5">
-          {{ voucher.note || voucher.description || 'Beschreibung' }}
+      <div class="flex flex-col px-3 pt-3 2xl:px-5 2xl:pt-5 break-words card-description h-20">
+        <div class="text-sm leading-5 border-b border-input-border h-full">
+          {{ (voucher.note || voucher.description).length > 80 ? (voucher.note || voucher.description).slice(0, 80) + "..." : (voucher.note || voucher.description) || 'Beschreibung' }}
         </div>
       </div>
       <div class="flex flex-row card-footer">
-        <div class="w-1/2 flex flex-col p-5">
-          <span class="text-2xs">{{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}</span>
+        <div class="w-1/2 flex flex-col p-3 2xl:p-5">
+          <span class="text-xs">{{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}</span>
           <span class="text-xl font-bold" v-if="userVoucher">
             <span v-show="!voucher.price_hidden || typeof voucher.price_hidden == 'undefined'">{{
                 `${(voucher.type == 'quantity')
@@ -74,7 +84,7 @@
                   ? `${$helpers.convertCurrency(voucher.qty_val)}`
                   : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
               }}</span>
-          <span class="mt-3 flex items-center">
+          <!-- <span class="mt-3 flex items-center">
              <QrcodeVue
               class="card-qr"
               :value="withQR && qr ? qr.url : ''"
@@ -84,10 +94,10 @@
               <span>Gutscheincode:</span>
               <span class="font-bold">{{ withQR && qr ? qr.url : '123456789' }}</span>
             </div>
-          </span>
+          </span> -->
         </div>
 
-        <div class="w-1/2 flex flex-col p-5">
+        <div class="w-1/2 flex flex-col p-3 2xl:p-5 h-32">
           <span class="text-2xs">Einlösbar:</span>
           <span
             v-if="voucher.valid_day && voucher.valid_day.length > 0"
@@ -100,8 +110,8 @@
                 </span>
             </span>
           <span class="text-2xs opacity-50">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
-          <span class="text-2xs mt-1">Region:</span>
-          <span class="text-2xs opacity-50">Tirol</span>
+          <!-- <span class="text-2xs mt-1">Region:</span>
+          <span class="text-2xs opacity-50">Tirol</span> -->
         </div>
       </div>
       <!-- <div class="w-full flex flex-row">
@@ -215,6 +225,9 @@
       }, withQR: {
         type: Boolean,
         default: true
+      }, isShowWishlist: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -226,6 +239,10 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
+      },
+      AUTH_USER_VOUCHER_WISHLIST()
+      {
+        return this.$store.getters.AUTH_USER_VOUCHER_WISHLIST
       }
     },
     watch: {
@@ -305,6 +322,48 @@
         if( this.AUTH_USER?.data?.user_role ) {
           this.role = this.AUTH_USER.data.user_role.role.name
         }
+      },
+      async onClickWishlist(id)
+      {
+        if (!this.AUTH_USER.isAuth) return
+
+        let text;
+        let payload = {
+          user_id: this.AUTH_USER.data.id,
+          voucher_id: id
+        }
+        const validate = this.AUTH_USER_VOUCHER_WISHLIST.find(_wishlist => 
+          _wishlist.voucher_id == id
+        )
+        if (validate)
+        {
+          payload = {
+            id: validate.id,
+            ...payload
+          }
+          await this.$store.dispatch('DELETE_USER_VOUCHER_WISHLIST', payload)
+
+          await localStorage.removeItem('_userWishlist')
+          await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
+          text = "Removed from wishlist."
+        } else {
+          await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
+        
+          const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: this.AUTH_USER.data.id });
+          await localStorage.removeItem('_userWishlist')
+          await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
+          await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
+          text = "Added to wishlist."
+        }
+        
+        this.$swal({
+          icon: 'success',
+          title: 'Erfolgreich',
+          text,
+          confirmButtonColor: '#48BB78',
+          confirmButtonText: 'Bestätigen',
+          timer: 1500
+        })
       }
     }
   }
@@ -329,23 +388,16 @@
     font-size: .60em;
   }
 
-  .p-1 {
-    padding: 0.25em;
-  }
-
-  .p-5 {
-    padding: 1.25em;
-  }
   .card-description {
-    height: 8.4375em;
-    background-color: var(--card-description-background, #1D4F55);
-    color: var(--card-description-color, white);
+    /* height: 8.4375em; */
+    /* background-color: var(--card-description-background, #1D4F55); */
+    /* color: var(--card-description-color, white); */
   }
 
   .card-footer,
   .card-header {
-    background-color: var(--card-header-footer-background, #fff);
-    color: var(--card-header-footer-color, #000);
+    /* background-color: var(--card-header-footer-background, #fff); */
+    /* color: var(--card-header-footer-color, #000); */
   }
 
   .card-image {
@@ -373,5 +425,13 @@
     margin-top: 2px;
     /* margin-right: 6px; */
     font-size: 9px;
+  }
+  .wishlist-btn {
+    bottom: -0.625rem;
+    right: 1rem;
+    @apply absolute rounded-full shadow-lg p-2.5;
+  }
+  .icon {
+    @apply h-5 w-5 pt-0.5;
   }
 </style>

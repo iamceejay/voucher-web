@@ -17,7 +17,7 @@
         </a>
       </li>
     </ul>
-    <ul class="footer__payments w-11/12 md:w-3/4">
+    <ul class="footer__payments w-11/12 md:w-7/12">
       <li
         v-for="(paymentMethod, index) in paymentMethods"
         :key="`footer__payments-${index}`">
@@ -138,6 +138,6 @@
   }
 
   .footer__payments {
-    @apply border-t-2 border-b-2;
+    @apply border-t border-b;
   }
 </style>

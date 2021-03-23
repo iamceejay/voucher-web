@@ -174,6 +174,10 @@
                 await this.onFetchTotalUserCart()
               }
               await setToken()
+              const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: auth.data.id });
+              await localStorage.removeItem('_userWishlist')
+              await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
+              await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$router.push('/home')
             } catch (err) {

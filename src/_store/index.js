@@ -14,6 +14,7 @@ import Region from './Modules/Region/'
 import Alert from './Modules/Alert/'
 import UserStripe from './Modules/UserStripe/'
 import UserVoucher from './Modules/UserVoucher/'
+import UserVoucherWishlist from './Modules/UserVoucherWishlist/'
 import QrCode from './Modules/QrCode/'
 import Redemption from './Modules/Redemption/'
 import GlobalSetting from './Modules/GlobalSetting/'
@@ -38,6 +39,7 @@ export default new Vuex.Store({
     Alert,
     UserStripe,
     UserVoucher,
+    UserVoucherWishlist,
     QrCode,
     Redemption,
     GlobalSetting,
