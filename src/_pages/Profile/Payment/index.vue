@@ -1,12 +1,40 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="content-container flex flex-col w-full px-8">
-        <div class="flex flex-col w-full md:w-1/2">
-          <Header2
-            label="Zahlungsmethoden speichern"
-          />
-          <StripeForm 
+      <div class="content-container flex flex-col w-full">
+        <div data-v-6d1a851d="" class="font-medium mb-1 text-2xl text-center">
+          Profil & Einstellungen
+        </div>
+
+        <span class="border-b-2 pb-6 flex flex-wrap text-sm mt-4 mx-8">
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-info"
+          >
+            Profil
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-settings"
+          >
+            Passwort
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black bg-black text-white mr-2 mb-2"
+            to="/profile-payment"
+          >
+            Zahlungsmethoden
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/orders"
+          >
+            Bestellungen
+          </router-link>
+      </span>
+        <div class="flex flex-col md:w-1/2 mt-6 mx-8">
+
+          <StripeForm
             :key="`stripe-${key}`"
             :isPay="false"
             @onSubmit="onSubmit"

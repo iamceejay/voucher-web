@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-full">
-    <form 
+    <form
       id="stripe-form"
       class="w-full flex flex-col"
       @submit.prevent=""
@@ -8,7 +8,7 @@
       <div id="card-element" class="mt-1 mb-2" />
       <div id="card-errors" class="mb-3 text-red-500 font-semibold font-body text-sm" />
       <div v-if="isPay" class="flex flex-row mx-2">
-        <input 
+        <input
           id="is_save"
           v-model="paymentForm.is_save"
           class="mt-1"
@@ -18,12 +18,12 @@
       </div>
       <Button
         type="submit"
-        class="py-2 justify-center"
+        class="py-2"
         :label="`${ isPay ? 'Jetzt bezahlen' : 'Speichern' }`"
-        size="w-full py-3"
-        round="rounded-full"
+        size="px-4 py-3"
+        round="rounded"
         fontSize="text-sm"
-      />   
+      />
     </form>
   </div>
 </template>
@@ -140,13 +140,13 @@
     background-color: transparent;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     margin-top: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
     font-family: Nunito, sans-serif;
-    border-radius: 9999px;
+    border-radius: 0.25rem;
   }
   .StripeElement--focus {
       box-shadow: 0 2px 5px 2px hsla(0,0%,0%,0.2)

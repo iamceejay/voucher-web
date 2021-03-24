@@ -1,19 +1,49 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="content-container flex flex-col w-full px-8">
+      <div data-v-6d1a851d="" class="font-medium mb-1 text-2xl text-center">
+        Profil & Einstellungen
+      </div>
+
+      <span class="border-b-2 pb-6 flex flex-wrap text-sm mt-4 mx-8">
+          <router-link
+             class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-info"
+          >
+            Profil
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black bg-black text-white mr-2 mb-2"
+            to="/profile-settings"
+          >
+            Passwort
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-payment"
+          >
+            Zahlungsmethoden
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/orders"
+          >
+            Bestellungen
+          </router-link>
+      </span>
+
+      <div class="content-container flex flex-col w-full px-8 mt-6">
         <ValidationObserver v-slot="{ handleSubmit }">
-          <form 
+          <form
             class="flex flex-col w-full md:w-1/2"
             @submit.prevent="handleSubmit(onSubmit)"
           >
-            <Header2 label="Einstellungen" />
             <div class="flex flex-col w-full">
               <InputField
                 id="current_password"
                 v-model="form.current_password"
                 type="password"
-                class="m-2"
+                class="my-2"
                 label="Passwort bestätigen"
                 rules="required|min:8|max:16"
                 :errorMessages="errorMessages.current_password"
@@ -22,7 +52,7 @@
                 id="new_password"
                 v-model="form.new_password"
                 type="password"
-                class="m-2"
+                class="my-2"
                 label="Neues Passwort"
                 rules="required|min:8|max:16"
                 :errorMessages="errorMessages.new_password"
@@ -31,18 +61,20 @@
                 id="repeat_password"
                 v-model="form.repeat_password"
                 type="password"
-                class="m-2"
+                class="my-2"
                 label="Passwort wiederholen"
                 rules="required|min:8|max:16|password:@new_password"
                 :errorMessages="errorMessages.repeat_password"
               />
             </div>
-            <Button
-              type="submit"
-              label="Speichern"
-              size="w-full py-3 mx-2 mt-2"
-              round="rounded-full"
-            />
+            <div class="mt-8 flex">
+              <Button
+                type="submit"
+                label="Speichern"
+                size="w-full py-3 px-4 "
+                round="rounded"
+              />
+            </div>
           </form>
         </ValidationObserver>
       </div>
