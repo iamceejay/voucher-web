@@ -39,6 +39,7 @@ import VoucherSearch from '_pages/Vouchers/Search/'
 import VoucherSendEmail from '_pages/Vouchers/SendEmail/'
 import VoucherTransfer from '_pages/Vouchers/Transfer/'
 import VoucherDetail from '_pages/Vouchers/Detail/'
+import VoucherWalletDetail from '_pages/Vouchers/WalletDetail/'
 import VoucherPersonalized from '_pages/Vouchers/Personalized/'
 import SellerDetail from '_pages/Seller/Detail/'
 import VoucherManageFeature from '_pages/Vouchers/ManageFeature/'
@@ -234,7 +235,17 @@ const router = new Router({
       meta: {
         middleware: [ auth, authUser ]
       }
-    }, {
+    },
+    {
+      path: '/voucher/:id',
+      name: 'voucher-detail',
+      component: VoucherWalletDetail,
+      meta: {
+        back: '/wallet',
+        // middleware: [ authGUS ]
+      }
+    },
+    {
       path: '/vouchers/category/:slug',
       name: 'vouchers-category',
       component: VoucherCategory,
@@ -367,7 +378,8 @@ const router = new Router({
       // meta: {
       //   middleware: [ auth, authAdmin ]
       // }
-    }, {
+    },
+    {
       path: '*',
       name: '404',
       component: PageNotFound,
