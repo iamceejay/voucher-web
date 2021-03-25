@@ -6,7 +6,7 @@
           <Header1
             label="Umsatz"
           />
-          <StatisticList 
+          <StatisticList
             :data="earnings"
           />
         </div>
@@ -14,7 +14,7 @@
           <Header1
             label="Bestellungen"
           />
-          <OrderList 
+          <OrderList
             :isInvoice="true"
             :data="WALLETS.data"
             :withPagination="true"
@@ -143,7 +143,7 @@
               title: 'Auszahlung:',
               value: `alle ${payout_every} Tage`
             }
-          }, 
+          },
         ]
       },
       async onLoadData( data )

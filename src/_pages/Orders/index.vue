@@ -2,16 +2,43 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <Header1
+        <div data-v-6d1a851d="" class="font-medium mb-1 text-2xl text-center">
+          Profil & Einstellungen
+        </div>
+
+        <span class="border-b-2 pb-6 flex flex-wrap text-sm mt-4 mb-8">
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-info"
+          >
+            Profil
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-settings"
+          >
+            Passwort
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+            to="/profile-payment"
+          >
+            Zahlungsmethoden
+          </router-link>
+          <router-link
+            class="px-3 py-1 rounded-md text-xs border border-black bg-black text-white mr-2 mb-2"
+            to="/orders"
+          >
+            Bestellungen
+          </router-link>
+      </span>
+        <!-- <Header1
           label="Statistiken"
         />
-        <StatisticList 
+        <StatisticList
           :data="stats"
-        />
-        <Header1
-          label="Bestellungen"
-        />
-        <OrderList 
+        /> -->
+        <OrderList
           :role="AUTH_USER.role.name"
           :data="WALLETS.data"
           :withPagination="true"
