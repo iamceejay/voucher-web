@@ -2,10 +2,8 @@
   <MainLayout :showBackButton="false">
     <template #content>
       <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8 -mt-10">
-        <div class="border-b-2 border-input-border flex items-center justify-between mb-10">
-          <Header1
-            label="Meine Gutscheine"
-          />
+        <div class="border-b-2 border-input-border flex items-center justify-between mb-10 pb-3">
+          <div class="font-medium mb-1 text-2xl">Meine Gutscheine</div>
           <router-link
             to="/vouchers/new"
           >
