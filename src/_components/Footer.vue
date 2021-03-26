@@ -11,7 +11,7 @@
       <li
         v-for="(menuItem, index) in menus"
         :key="`footer__menu-${index}`">
-        <a class="footer__menu-item" 
+        <a class="footer__menu-item"
           :href="menuItem.link">
           <span v-html="menuItem.title"></span>
         </a>
@@ -23,7 +23,8 @@
         :key="`footer__payments-${index}`">
         <a class="footer__payments-item"
           :href="paymentMethod.link">
-          <i :class="`footer__payments-icon ${paymentMethod.icon}`"></i>
+          <img class="h-10 w-auto" :src="paymentMethod.icon"/>
+          <!-- <i :class="`footer__payments-icon ${paymentMethod.icon}`"></i> -->
         </a>
       </li>
     </ul>
@@ -76,25 +77,25 @@
         ],
         paymentMethods: [
           {
-            icon: "fab fa-cc-amex",
+            icon: "/icon_american-express.png",
             title: "",
             img: "",
             link: "#"
           },
           {
-            icon: "fab fa-cc-mastercard",
+            icon: "/icon_mastercard.png",
             title: "",
             img: "",
             link: "#"
           },
           {
-            icon: "fab fa-paypal",
+            icon: "/icon_sofort.png",
             title: "",
             img: "",
             link: "#"
           },
           {
-            icon: "fas fa-money-bill-wave",
+            icon: "/icon_visa.png",
             title: "",
             img: "",
             link: "#"
@@ -107,7 +108,7 @@
     methods: {
     }
   }
-  
+
 </script>
 
 <style lang="css" scoped>
