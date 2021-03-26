@@ -11,13 +11,16 @@
         class="border-b-2 gap-3 grid mb-8 pb-8"
         style="grid-template-columns: 1fr 190px;"
       >
-        <VoucherCard
-          :cardId="`voucher-card-${index}`"
-          :voucher="row.voucher"
-          :order="row"
-          :role="role"
-          :withQR="withQR"
-        />
+        <div class="relative">
+          <div class="absolute inset-0 z-10"></div>
+          <VoucherCard
+            :cardId="`voucher-card-${index}`"
+            :voucher="row.voucher"
+            :order="row"
+            :role="role"
+            :withQR="withQR"
+          />
+        </div>
         <div v-if="withCartDetail" class="order__form flex flex-col w-full ">
           <router-link
             class="text-xs underline my-8"

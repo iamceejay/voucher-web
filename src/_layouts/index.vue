@@ -93,7 +93,7 @@
           id="infinite-scroll"
           class="flex flex-col h-full w-full m-c pt-10"
         >
-          <BackBtn class="px-8" :title="title" />
+          <BackBtn class="px-8" :title="title" v-if="showBackButton" />
           <slot name="content" />
         </div>
       </div>
@@ -152,7 +152,16 @@
       Footer,
       LottieAnimation
     },
-    props: ['title'],
+    props: {
+      title: {
+        type: String,
+        default: '',
+      },
+      showBackButton: {
+        type: Boolean,
+        default: true,
+      },
+    },
     data() {
       return {
         isHideSideBar: true,

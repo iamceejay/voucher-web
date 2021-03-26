@@ -1,13 +1,75 @@
 <template>
-  <MainLayout>
+  <MainLayout :showBackButton="false">
     <template #content>
-      <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8">
-        <Header1
-          label="Gutscheinstatistiken"
-        />
-        <StatisticList 
+      <div v-if="!IS_LOADING.status " class="content-container w-full flex flex-col px-8 -mt-10">
+        <div class="border-b-2 border-input-border flex items-center justify-between mb-10">
+          <Header1
+            label="Meine Gutscheine"
+          />
+          <router-link
+            to="/vouchers/new"
+          >
+            <Button
+              class=""
+              size="w-10 h-10"
+              round="rounded"
+              icon="fas fa-plus text-2xl"
+              :fullIconClass="true"
+              @onClick="onSSO('#')"
+            />
+          </router-link>
+        </div>
+        <div class="border-b-2 flex flex-wrap items-start mb-8 pb-8">
+          <div class="relative mr-4">
+            <div class="absolute inset-0 z-10"></div>
+            <VoucherCard
+              :voucher="voucher"
+              role="seller"
+              :withQR="false"
+            />
+          </div>
+          <div class="flex flex-col">
+            <div class="border p-6 w-full flex flex-col" style="max-width: 240px">
+              <span class="font-semibold text-sm text-peach mb-4">Statistik</span>
+              <div class="text-sm flex flex-col mb-3">
+                <span class="text-black text-opacity-50">Gutscheine verkauft: </span>
+                <span class="font-semibold">{{ stats[2].value }} Stück</span>
+              </div>
+
+              <div class="text-sm flex flex-col mb-3">
+                <span class="text-black text-opacity-50">Umsatz: </span>
+                <span class="font-semibold">{{ stats[3].value }}</span>
+              </div>
+
+              <div class="text-sm flex flex-col mb-3">
+                <span class="text-black text-opacity-50">Eingelöst:  </span>
+                <span class="font-semibold">{{ stats[7].value }}</span>
+              </div>
+            </div>
+            <div class="mt-10 flex flex-col">
+              <div class="flex mb-3">
+                <router-link
+                  class="px-3 py-3 rounded-md text-xs border border-black bg-black text-white"
+                  :to="`/vouchers/update/${$route.params.id}`"
+                  >
+                  Gutschein bearbeiten
+                </router-link>
+              </div>
+              <div class="flex">
+                <button
+                  class="px-5 py-3 rounded-md text-xs border border-black text-black"
+                  @click="onDelete(voucher)"
+                  >
+                  Gutschein löschen
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- <StatisticList
           :data="stats"
-        />
+        /> -->
       </div>
     </template>
   </MainLayout>
@@ -16,6 +78,8 @@
   import MainLayout from '_layouts';
   import StatisticList from '_components/List/Modules/StatisticList/';
   import Header1 from '_components/Headers/Header1';
+  import Button from '_components/Button';
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
 
   export default {
     name: 'Vouchers',
@@ -23,10 +87,13 @@
       MainLayout,
       StatisticList,
       Header1,
+      Button,
+      VoucherCard
     },
     data() {
       return {
-        stats: []
+        stats: [],
+        voucher: null,
       }
     },
     computed: {
@@ -54,6 +121,7 @@
             id: this.$route.params.id,
             with_stat: true
           })
+          this.voucher = data.voucher
           await this.onSetStats(data)
         } catch (err) {
           console.log('err', err)
@@ -118,8 +186,37 @@
             value: data.total_redemptions
           }
         ]
-      }
-    }
+      },
+      onDelete(data)
+      {
+        this.$swal({
+          title: 'Gutschein löschen',
+          text: `Bist du sicher, dass du diesen Gutschein löschen möchtest?`,
+          showCancelButton: true,
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then(async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('DELETE_VOUCHER', data)
+            // await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich!',
+              text: 'Gutschein löschen',
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
+            })
+            setTimeout(() => {
+              location.href = '/vouchers'
+            }, 2000)
+          }
+        })
+      },
+    },
   }
 </script>
 <style lang='css' scoped>
