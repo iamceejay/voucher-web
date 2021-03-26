@@ -1,0 +1,294 @@
+<template>
+  <div
+    :id="listId"
+    :key="`v-list-${listIndex}`"
+    class="flex flex-col w-full"
+  >
+    <Header2
+      v-if="title != '' && !hideIfEmpty"
+      :label="title"
+    />
+    <VoucherFilter
+      v-if="withFilter"
+      :filterLabel="filterLabel"
+      :isCategory="params.isCategory"
+      :isRegion="params.isRegion"
+      :isPrice="params.isPrice"
+      :hasCategory="hasCategory"
+      @onFilter="onFilter"
+    />
+    <VoucherSort
+      v-if="withSort"
+      :sortLabel="sortLabel"
+      :isNewest="params.isNewest"
+      :isMostPopular="params.isMostPopular"
+      :isLowestPrice="params.isLowestPrice"
+      @onFilter="onSort"
+    />
+    <div
+      v-if="type === 'standard'"
+      :class="`${ isInline ? 'flex overflow-x-auto scroll ' : 'gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' }`"
+    >
+      <VoucherCard
+        v-for="(voucher, index) in tempData"
+        :key="`voucher-${index}`"
+        :cardId="`voucher-card-${index}`"
+        :listId="listId"
+        :voucher="voucher"
+        :role="role"
+        :withQR="withQR"
+      />
+      <div v-if="tempData.length <= 0 && !hideIfEmpty" class="py-2 text-lg">
+        Noch keine Daten vorhanden.
+      </div>
+    </div>
+    <div v-if="withPagination && tempData.length != 0"
+      class="text-center my-8">
+      <button
+        class="list-pagination"
+        :disabled="currentPage === 1"
+        @click="onPaginate('prev')">
+        <i class="fas fa-chevron-left" />
+      </button>
+      <span class="mx-8"> {{currentPage}} von {{lastPage}} </span>
+      <button
+        class="list-pagination"
+        :disabled="currentPage === lastPage"
+        @click="onPaginate('next')">
+        <i class="fas fa-chevron-right" />
+      </button>
+    </div>
+    <div
+      v-if="type === 'feature'"
+      class="w-full"
+    >
+      <div v-if="(!tempData || tempData.length <= 0) " class="py-2 text-lg">
+        {{ !hideIfEmpty ? 'Noch keine Daten vorhanden.' : '' }}
+      </div>
+      <div
+        v-else
+        class="w-full relative flex self-center"
+      >
+        <button
+          class="slider-icon slider-icon-left visible"
+          @click="onSlideTo('slidePre')"
+        >
+          <i class="fas fa-chevron-left" />
+        </button>
+        <button
+          class="slider-icon slider-icon-right visible"
+          @click="onSlideTo('slideNext')"
+        >
+          <i class="fas fa-chevron-right" />
+        </button>
+        <slider
+          ref="slider"
+          :options="options"
+        >
+          <slideritem
+            v-for="(voucher, index) in tempData"
+            :key="`voucher-${index}`"
+            class="slider-item-custom"
+          >
+            <VoucherCard
+              :listId="listId"
+              :cardId="`voucher-card-${index}`"
+              :voucher="voucher"
+              :role="role"
+              :withQR="withQR"
+            />
+          </slideritem>
+        </slider>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  import VoucherCard from './VoucherCard/'
+  import VoucherSort from './VoucherFilter/Sort'
+  import VoucherFilter from './VoucherFilter/Filter'
+  import Header2 from '_components/Headers/Header2';
+  import moment from 'moment';
+  import { slider, slideritem } from 'vue-concise-slider'
+
+  export default {
+    components: {
+      VoucherCard,
+      Header2,
+      VoucherSort,
+      VoucherFilter,
+      slider,
+      slideritem,
+    },
+    props: {
+      listId: {
+        type: String,
+        default: 'voucher-list'
+      }, title: {
+        type: String,
+        default: ''
+      }, data: {
+        type: Array,
+        default() {
+          return []
+        }
+      }, withPagination: {
+        type: Boolean,
+        default: false
+      }, currentPage: {
+        type: Number,
+        default: 1
+      }, lastPage: {
+        type: Number,
+        default: 1
+      }, role: {
+        type: String,
+        default: 'seller'
+      }, type: {
+        type: String,
+        default: 'standard'
+      }, sortLabel: {
+        type: String,
+        default: ''
+      }, withSort: {
+        type: Boolean,
+        default: false
+      }, filterLabel: {
+        type: String,
+        default: ''
+      }, withFilter: {
+        type: Boolean,
+        default: false
+      }, withQR: {
+        type: Boolean,
+        default: true
+      }, isInline: {
+        type: Boolean,
+        default: false
+      },
+      hasCategory: {
+        type: Boolean,
+        default: true
+      },
+      hideIfEmpty: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data() {
+      return {
+        options: {
+          pagination: false,
+          thresholdDistance: 100, // Sliding distance threshold
+          thresholdTime: 500, // Sliding time threshold decision
+          grabCursor: true, // Scratch style
+          speed: 300,
+          loop: true,
+        },
+
+        params: {
+          isMostPopular: false,
+          isNewest: false,
+          isLowestPrice: false,
+          isCategory: false,
+          isRegion: false,
+          isPrice: null,
+        },
+        tempData: [],
+        listIndex: 0,
+        filterForm: {
+          categories: [],
+          price: null,
+        },
+      }
+    },
+    watch: {
+      data(newVal)
+      {
+        this.tempData = newVal
+      }
+    },
+    mounted() {
+      this.tempData = [
+        ...this.data
+      ]
+    },
+    methods: {
+      onSort( data )
+      {
+        this.params = {
+          ...this.params,
+          isMostPopular: false,
+          isNewest: false,
+          isLowestPrice: false,
+          [data]: !this.params[data]
+        }
+        this.$emit('onSort', this.params)
+      },
+      onFilter( data )
+      {
+        this.$emit('onFilter', data)
+      },
+      onSlideTo(action)
+      {
+        this.$refs.slider.$emit(action)
+      },
+      onPaginate(action)
+      {
+        this.$emit('onPaginate', action)
+      }
+    }
+  }
+</script>
+<style lang="css">
+  /* .slider-item-custom {
+    width: 100%;
+  } */
+  @media (min-width: 768px) {
+    .slider-item-custom {
+      flex: 0 0 33.333333%;
+    }
+  }
+  .slider-icon {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    color: #ff5563;
+    font-size: 20px;
+    visibility: hidden;
+  }
+  .slider-copy {
+    visibility: hidden;
+  }
+  .slider-icon.slider-icon-left {
+    left: 0;
+  }
+  .slider-icon.slider-icon-right {
+    right: 0;
+  }
+  .slider-container {
+    white-space: unset !important;
+  }
+  .slider-wrapper .slider-item {
+    font-size: unset;
+    text-align: unset;
+    color: unset;
+    /* visibility: hidden; */
+  }
+  .slider-wrapper .slider-item .voucher-card-container {
+    margin-right: 0px !important;
+  }
+  .slider-wrapper .slider-item.slider-active {
+    visibility: visible;
+  }
+  .slider-pagination {
+    position: unset !important;
+  }
+  .slider-pagination-bullet {
+    height: 10px !important;
+    width: 10px !important;
+  }
+  .swiper-container-horizontal .slider-pagination-bullet-active, .swiper-container-vertical .slider-pagination-bullet-active {
+    background: #ff5563 !important;
+  }
+</style>
