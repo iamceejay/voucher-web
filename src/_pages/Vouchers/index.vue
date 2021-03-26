@@ -1,27 +1,34 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <Header1
-          label="Neuen Gutschein erstellen"
-        />
-        <router-link
-          to="vouchers/new"
-        >
-          <Button
-            class="p-2 mt-3 mb-5"
-            label="Neuen Gutschein erstellen"
-            size="w-full sm:w-64 py-4"
-            round="rounded-full"
+      <div class="-mt-10 bg-custom-gray">
+        <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
+          <div class="border-b-2 border-input-border flex items-center justify-between mb-10">
+            <Header1
+              label="Meine Gutscheine"
+              class="mb-4"
+            />
+            <router-link
+              to="vouchers/new"
+            >
+              <Button
+                class=""
+                size="w-10 h-10"
+                round="rounded"
+                icon="fas fa-plus text-2xl"
+                :fullIconClass="true"
+                @onClick="onSSO('#')"
+              />
+            </router-link>
+          </div>
+          <VoucherList
+            :data="VOUCHERS.data"
+            :withPagination="true"
+            :currentPage="VOUCHERS.current_page"
+            :lastPage="VOUCHERS.last_page"
+            @onPaginate="onPaginateVouchers($event)"
           />
-        </router-link>
-        <VoucherList
-          :data="VOUCHERS.data"
-          :withPagination="true"
-          :currentPage="VOUCHERS.current_page"
-          :lastPage="VOUCHERS.last_page"
-          @onPaginate="onPaginateVouchers($event)"
-        />
+        </div>
       </div>
     </template>
   </MainLayout>

@@ -1,10 +1,10 @@
 <template>
-  <div
+  <h1
     class="font-bold py-2 text-2xl md:text-4xl font-display capitalize mb-1"
     :class="[color]"
   >
     {{ label }}
-  </div>
+  </h1>
 </template>
 <script>
   export default {
