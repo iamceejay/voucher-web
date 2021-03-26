@@ -3,11 +3,7 @@
     <template #content>
       <div class="-mt-10 bg-custom-gray">
         <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-          <div class="border-b-2 border-input-border flex items-center justify-between mb-10">
-            <Header1
-              label="Meine Gutscheine"
-              class="mb-4"
-            />
+          <Header title="Meine Gutscheine" containerClass="items-center justify-between">
             <router-link
               to="vouchers/new"
             >
@@ -17,10 +13,9 @@
                 round="rounded"
                 icon="fas fa-plus text-2xl"
                 :fullIconClass="true"
-                @onClick="onSSO('#')"
               />
             </router-link>
-          </div>
+          </Header>
           <VoucherList
             :data="VOUCHERS.data"
             :withPagination="true"
@@ -37,7 +32,7 @@
   import Button from '_components/Button';
   import VoucherList from '_components/List/Modules/VoucherList/';
   import MainLayout from '_layouts';
-  import Header1 from '_components/Headers/Header1';
+  import Header from '_components/Headers/Seller/Header';
 
   export default {
     name: 'Vouchers',
@@ -45,7 +40,7 @@
       Button,
       MainLayout,
       VoucherList,
-      Header1
+      Header
     },
     data() {
       return {
