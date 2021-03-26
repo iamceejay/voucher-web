@@ -8,12 +8,15 @@
           class="border-b-2 gap-3 grid mb-8 pb-8"
           style="grid-template-columns: 1fr 190px;"
         >
-          <VoucherCard
-            :cardId="`voucher-card-${index}`"
-            :voucher="row.voucher"
-            :order="row"
-            :role="role"
-          />
+          <div class="relative">
+            <div class="absolute inset-0 z-10"></div>
+            <VoucherCard
+              :cardId="`voucher-card-${index}`"
+              :voucher="row.voucher"
+              :order="row"
+              :role="role"
+            />
+          </div>
           <div class="order__form flex flex-col w-full ">
             <span class="text-xs my-8">
               Kaufdatum: {{ formatDate(row.created_at) }}
@@ -30,7 +33,7 @@
             </span>
             <router-link
               :to="`/vouchers/${row.voucher_id}`"
-              class="bg-peach px-5 py-3 rounded-md text-sm text-white w-full mt-6 mb-8">
+              class="bg-peach px-5 py-3 rounded-md text-sm text-white w-full mt-6 mb-8 text-center">
               Nochmal kaufen
               </router-link>
             <button

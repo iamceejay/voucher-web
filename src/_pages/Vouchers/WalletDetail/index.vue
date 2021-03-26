@@ -1,89 +1,84 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status && VOUCHER" class="content-container w-full flex flex-col px-8">
+      <div v-if="!IS_LOADING.status && WALLET" class="content-container w-full flex flex-col px-8">
         <div class="flex flex-col w-full">
-          <VoucherCard
-            class="self-center"
-            :voucher="VOUCHER"
-            :isFlippable="false"
-            :withQR="false"
-          />
-          <span class="block border-b font-semibold pb-3 pt-6 text-lg text-center">
-            {{ VOUCHER.title }}
-          </span>
-          <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
-            <a
-              href="javascript:void(0)"
-              class="text-peach cursor-pointer"
-              @click="close(); $router.push('/login')"
-            >
-              Logge dich ein
-            </a>
-            oder <a
-              href="javascript:void(0)"
-              class="text-peach cursor-pointer"
-              @click="close(); $router.push('/register/buyer')"
-            >
-              registriere dich
-            </a>, um Gutscheine zu kaufen.
-          </div>
-
-        </div>
-        <ValidationObserver
-          v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
-          v-slot="{ handleSubmit }"
-        >
-          <form
-            class="flex flex-col w-full mt-4 order__form"
-            @submit.prevent="handleSubmit(onSubmit)"
-          >
-            <section class="gap-12 grid grid-cols-2">
-              <div class="flex flex-col items-end">
-                <span class="font-semibold text-lg">
-                  {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
-                </span>
-                <span class="text-2xs text-gray-500">inkl. MwSt.</span>
-              </div>
-              <div class="order__form-group">
-                <input
-                  v-model="form.value"
-                  type="number"
-                  :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
-                  :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
-                  required
-                />
-                <div
-                  class="order__form-number order-up"
-                  @click="form.value++"
-                >+</div>
-                <div
-                  class="order__form-number order-down"
-                  @click="form.value--"
-                >-</div>
-              </div>
-            </section>
-            <Button
-              class="self-center w-full md:w-1/2 mt-3 "
-              :label="`zum Warenkorb hinzufügen`"
-              :icon="`${ isAdded ? 'check' : '' }`"
-              size="w-full py-3"
-              round="rounded-md"
-              :type="`${ isAdded ? 'button' : 'submit' }`"
-              @onClick=" isAdded ? onRemoveCart() : null"
+          <div class="relative">
+            <div class="absolute inset-0 z-10"></div>
+            <VoucherCard
+              :voucher="WALLET.voucher"
+              :order="WALLET"
+              role="user"
+              :withQR="false"
             />
-          </form>
+          </div>
+          <span class="block font-medium pb-3 pt-6 text-lg text-center">
+            <span>{{ WALLET.voucher.title }}</span>
+            <span class="border-r mx-3"></span>
+            <span class="font-medium">{{ $helpers.convertCurrency(onGetTotal(WALLET)) }}</span>
+          </span>
+          <div class="mt-8 gap-4 grid grid-cols-2 max-w-lg mx-auto w-full">
+            <router-link
+              class="bg-white border flex items-center justify-center text-sm px-3 py-4"
+              :to="`/vouchers/personalized/${ $route.params.id}`"
+            >
+              <svg class="icon h-5 w-5 text-peach mr-2">
+                <use :xlink:href="`/icons/sprite.svg#palette`"/>
+              </svg>
+              <span>Personalisieren</span>
+            </router-link>
+            <a
+              class="bg-white border flex items-center justify-center text-sm px-3 py-4"
+              href="javascript:void(0)"
+              @click="onGenerateVoucher(VOUCHER.id)"
+            >
+              <svg class="icon h-5 w-5 text-peach mr-2">
+                <use :xlink:href="`/icons/sprite.svg#cloud-arrow-down`"/>
+              </svg>
+              <span>Herunterladen</span>
+            </a>
+            <router-link
+              class="bg-white border flex items-center justify-center text-sm px-3 py-4"
+              :to="`/vouchers/send-email/${VOUCHER.id}`"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon h-5 w-5 text-peach mr-2" viewBox="0 0 16 16">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+              </svg>
+              <span>Per E-Mail senden</span>
+            </router-link>
+            <router-link
+              class="bg-white border flex items-center justify-center text-sm px-3 py-4"
+              :to="`/vouchers/transfer/${VOUCHER.id}`"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon h-5 w-5 text-peach mr-2" viewBox="0 0 16 16">
+                <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+              </svg>
+              <span>Als Link teilen</span>
+            </router-link>
+          </div>
+        </div>
 
-          <section class="border flex md:w-1/2 mt-3 mx-auto p-4 w-full">
-            <i class="fa fa-palette mr-2 mt-1"></i>
-            <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
-          </section>
-
-          <span class="block md:w-1/2 mx-auto my-6 w-full">
-            {{ VOUCHER.description }}
+        <section class="border-t border-b flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
+          <span class="font-medium">Verkäuferinfo</span>
+          <span class="text-xs flex flex-col mt-3">
+              <span class="font-medium">{{ WALLET.voucher.seller.company.name }}</span>
+              <span>{{WALLET.voucher.seller.detail.address}} </span>
+              <span>{{ WALLET.voucher.seller.detail.zip_code }} {{ WALLET.voucher.seller.detail.city }}</span>
+              <span>{{ WALLET.voucher.seller.company.region }}</span>
           </span>
 
-          <div v-if="VOUCHER.data_json != null" class="mx-auto md:w-1/2 w-full">
+          <span class="text-xs flex flex-col mt-3">
+              <span>Tel: {{WALLET.voucher.seller.detail.phone_number}} </span>
+              <span>E-Mail: {{ WALLET.voucher.seller.email }}</span>
+              <span>{{ WALLET.voucher.seller.company.url }}</span>
+          </span>
+        </section>
+
+        <section class="border-t border-b flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
+          <span class="font-medium">{{ WALLET.voucher.description }}</span>
+
+          <div v-if="WALLET.voucher.data_json != null" class="mt-6 w-full">
             <slider ref="slider" :options="options" >
                 <!-- slideritem wrapped package with the components you need -->
                 <slideritem >
@@ -94,28 +89,15 @@
                 <!-- Customizable loading -->
             </slider>
           </div>
+        </section>
 
-
-            <div v-if="VOUCHER.data_json != null" class="border-b flex md:w-1/2 mx-auto py-6 mb-8 text-xs w-full whitespace-pre">{{ VOUCHER.data_json.long_description }}</div>
-
-          <router-link
-            class="self-center w-full md:w-1/2 mx-auto block"
-            :to="`/seller/${VOUCHER.seller_id}`"
-          >
-            <Button
-              label="Mehr Infos & Gutscheine von diesem Verkäufer"
-              size="w-full py-3"
-              round="rounded-md"
-            />
-          </router-link>
-        </ValidationObserver>
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
   import MainLayout from '_layouts';
-  import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
   import InputField from '_components/Form/InputField'
   import Button from '_components/Button'
   import { slider, slideritem } from 'vue-concise-slider'
@@ -155,7 +137,11 @@
     computed: {
       VOUCHER()
       {
-        return this.$store.getters.VOUCHER
+        return this.$store.getters.USER_VOUCHER
+      },
+      WALLET()
+      {
+        return this.$store.getters.WALLET
       },
       CARTS()
       {
@@ -276,13 +262,23 @@
       async onFetchVoucher()
       {
         try {
-          await this.$store.dispatch('FETCH_VOUCHER', {
-            id: this.$route.params.id
-          })
-          this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
+          await this.$store.dispatch('FETCH_USER_VOUCHER', this.$route.params.id)
+          await this.$store.dispatch('FETCH_WALLET', this.VOUCHER.order_id)
+          // this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
         } catch (err) {
           console.log('err', err)
         }
+      },
+      onGetTotal(data)
+      {
+        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let total = value
+
+        if( data.voucher.type == 'quantity' ) {
+          total = value * data.voucher.price_filter
+        }
+
+        return total
       },
     }
   }

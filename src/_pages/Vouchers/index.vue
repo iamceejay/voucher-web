@@ -30,7 +30,7 @@
 </template>
 <script>
   import Button from '_components/Button';
-  import VoucherList from '_components/List/Modules/VoucherList/';
+  import VoucherList from '_components/List/Modules/VoucherDisplay/';
   import MainLayout from '_layouts';
   import Header from '_components/Headers/Seller/Header';
 
