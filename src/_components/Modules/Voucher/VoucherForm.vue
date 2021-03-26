@@ -547,7 +547,7 @@
   </ValidationObserver>
 </template>
 <script>
-  import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
   import Header5 from '_components/Headers/Header5';
   import InputField from '_components/Form/InputField'
   import CheckboxField from '_components/Form/CheckboxField'

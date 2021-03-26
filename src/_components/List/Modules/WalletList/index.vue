@@ -126,7 +126,7 @@
 </template>
 <script>
 import Header2 from '_components/Headers/Header2';
-import VoucherCard from '../VoucherList/VoucherCard/';
+import VoucherCard from '../VoucherList/VoucherDisplay/';
 import Button from '_components/Button';
 import moment from 'moment';
 
