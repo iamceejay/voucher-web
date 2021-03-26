@@ -370,28 +370,24 @@
             case 2:
               this.menus = [
                 {
-                  title: 'Home',
+                  title: 'Dashboard',
                   link: '/home',
                   icon: 'grid-3x3-gap-fill',
+                }, {
+                  title: 'Profil & Einstellungen',
+                  icon: 'person',
+                  link: '',
+                  isChildShow: false,
+                  child: profileChild,
+                }, {
+                  title: 'Gutschein scannen',
+                  link: '/scanner',
+                  icon: 'upc-scan',
                 }, {
                   title: 'Meine Gutscheine',
                   link: '/vouchers',
                   icon: 'wallet',
                 }, {
-                  title: 'Scannen',
-                  link: '',
-                  isChildShow: false,
-                  icon: 'upc-scan',
-                  child: [
-                    {
-                      title: 'Scanner',
-                      link: '/scanner'
-                    }, {
-                      title: 'Scanner Profil',
-                      link: '/scanner-users'
-                    },
-                  ],
-                },  {
                   title: 'Verwalten',
                   link: '',
                   isChildShow: false,
@@ -405,12 +401,6 @@
                       link: '/redemptions'
                     }
                   ],
-                }, {
-                  title: 'Profil & Einstellungen',
-                  icon: 'person',
-                  link: '',
-                  isChildShow: false,
-                  child: profileChild,
                 },
               ]
               break;

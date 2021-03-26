@@ -198,22 +198,24 @@ const router = new Router({
       meta: {
         middleware: [ auth, authUS ]
       }
-    }, {
-      path: '/scanner-users',
-      name: 'scanner-users',
-      component: ScannerUsers,
-      meta: {
-        middleware: [ auth, authSeller ]
-      }
-    }, {
-      path: '/scanner-users/new',
-      name: 'scanner-users-new',
-      component: ScannerUserNew,
-      meta: {
-        back: '/scanner-users',
-        middleware: [ auth, authSeller ]
-      }
-    }, {
+    },
+    // {
+    //   path: '/scanner-users',
+    //   name: 'scanner-users',
+    //   component: ScannerUsers,
+    //   meta: {
+    //     middleware: [ auth, authSeller ]
+    //   }
+    // }, {
+    //   path: '/scanner-users/new',
+    //   name: 'scanner-users-new',
+    //   component: ScannerUserNew,
+    //   meta: {
+    //     back: '/scanner-users',
+    //     middleware: [ auth, authSeller ]
+    //   }
+    // },
+    {
       path: '/cart',
       name: 'cart',
       component: Cart,

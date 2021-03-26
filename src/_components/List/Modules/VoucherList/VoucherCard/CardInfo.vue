@@ -341,19 +341,27 @@
             id: validate.id,
             ...payload
           }
-          await this.$store.dispatch('DELETE_USER_VOUCHER_WISHLIST', payload)
+          try {
+            await this.$store.dispatch('DELETE_USER_VOUCHER_WISHLIST', payload)
 
-          await localStorage.removeItem('_userWishlist')
-          await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
-          text = "removed from wishlist."
+            await localStorage.removeItem('_userWishlist')
+            await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
+            text = "removed from wishlist."
+          } catch (err) {
+
+          }
         } else {
-          await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
-        
-          const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: this.AUTH_USER.data.id });
-          await localStorage.removeItem('_userWishlist')
-          await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
-          await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
-          text = "added to wishlist."
+          try {
+            await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
+          
+            const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: this.AUTH_USER.data.id });
+            await localStorage.removeItem('_userWishlist')
+            await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
+            await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
+            text = "added to wishlist."
+          } catch (err) {
+            
+          }
         }
         
         this.$swal({

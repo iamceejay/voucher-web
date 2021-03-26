@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col self-center w-full">
+    <h2 class="font-semibold text-peach mb-4">Gutschein einlösen</h2>
     <ValidationObserver v-slot="{ handleSubmit }">
       <form
         class="w-full flex flex-col"
@@ -10,24 +11,27 @@
           id="value"
           v-model="form.value"
           type="number"
-          class="w-full md:w-1/2 m-auto mt-4"
-          :placeholder="`Gib die einzulösende ${(QR_CODE.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
+          class="w-full mb-5"
+          :label="`Gib die einzulösende ${(QR_CODE.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
           rules="required|min_value:1"
         />
-        <Button
-          class="py-1 justify-center"
-          label="Gutschein einlösen"
-          size="w-full md:w-1/2 py-2"
-          round="rounded-full"
-          type="submit"
-        />
-        <Button
-          class="py-1 mt-1 justify-center"
-          label="Abbrechen"
-          size="w-full md:w-1/2 py-2"
-          round="rounded-full"
-          @onClick="$store.commit('SET_QR_CODE', null)"
-        />
+        <div class="flex flex-wrap">
+          <Button
+            class="mr-4"
+            label="Speichern"
+            fontWeight="font-normal"
+            size="py-4 px-8"
+            round="rounded"
+            type="submit"
+          />
+          <Button
+            label="Abbrechen"
+            fontWeight="font-normal"
+            size="py-4 px-8"
+            round="rounded"
+            @onClick="$store.commit('SET_QR_CODE', null)"
+          />
+        </div>
       </form>
     </ValidationObserver>
   </div>

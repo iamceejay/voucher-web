@@ -1,35 +1,51 @@
 <template>
   <div class="flex flex-col self-center w-full">
-    <div class="w-full md:w-1/2 m-auto">
-      <QrcodeStream 
-        :track="true"
-        @decode="$emit('onSetVoucher', $event)" 
-        @init="onInit"
+    <div class="mb-8">
+      <h2>Gutscheincode manuell scannen</h2>
+      <ValidationObserver v-slot="{ handleSubmit }">
+        <form 
+          class="w-full flex flex-col"
+          @submit.prevent="handleSubmit(onDecode)"
+        >
+          <InputField
+            id="text"
+            v-model="voucherForm.qr"
+            type="text"
+            class="w-full mb-5"
+            rules="required"
+            label="Code"
+          />
+          <Button
+            label="Code anwaden"
+            fontWeight="font-normal"
+            size="py-4 px-8"
+            round="rounded"
+            type="submit"
+            :useDefaultFont="false"
+          />
+        </form>
+      </ValidationObserver>
+    </div>
+
+    <div>
+      <h2>Gutscheincode manuell scannen</h2>
+      <div v-if="isShowQR" class="w-full">
+        <QrcodeStream 
+          :track="true"
+          @decode="$emit('onSetVoucher', $event)" 
+          @init="onInit"
+        />
+      </div>
+      <Button
+        label="Kamera öffnen"
+        fontWeight="font-normal"
+        size="py-4 px-8"
+        round="rounded"
+        type="submit"
+        :useDefaultFont="false"
+        @onClick="() => isShowQR = !isShowQR"
       />
     </div>
-    
-    <ValidationObserver v-slot="{ handleSubmit }">
-      <form 
-        class="w-full flex flex-col"
-        @submit.prevent="handleSubmit(onDecode)"
-      >
-        <InputField
-          id="text"
-          v-model="voucherForm.qr"
-          type="text"
-          class="w-full md:w-1/2 m-auto mt-4"
-          placeholder="Gutscheincode manuell eingeben"
-          rules="required"
-        />
-        <Button
-          class="py-1 justify-center"
-          label="Gutscheincode bestätigen"
-          size="w-full md:w-1/2 py-4"
-          round="rounded-full"
-          type="submit"
-        />
-      </form>
-    </ValidationObserver>
   </div>
 </template>
 <script>
@@ -46,6 +62,7 @@
     props: [],
     data() {
       return {
+        isShowQR: false,
         voucherForm: {
           qr: ''
         }
@@ -80,4 +97,7 @@
   }
 </script>
 <style lang="css" scoped>
+  h2 {
+    @apply font-semibold text-peach mb-4;
+  }
 </style>

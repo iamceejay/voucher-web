@@ -145,7 +145,7 @@
     @apply flex flex-wrap;
   }
   .main-statistics__item {
-    @apply border border-l-0 border-r-0 border-custom-gray w-full p-6;
+    @apply border-t border-b border-custom-gray w-full p-6;
   }
   .statistics__item {
     @apply border-t border-b border-custom-gray w-full p-6 bg-white;
@@ -170,7 +170,7 @@
   }
   @screen sm {
     .main-statistics__item {
-      @apply w-1/2;
+      @apply border w-1/2;
     }
     .main-statistics__item:first-child {
       @apply border-l-0;

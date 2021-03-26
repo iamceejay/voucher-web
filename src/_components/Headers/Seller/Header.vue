@@ -3,7 +3,7 @@
     'border-b-2 border-input-border flex mb-8': !overwriteContainerClass
   }]">
     <h1 :class="[ headingClass, {
-      'font-bold py-5 text-2xl md:text-3xl font-display capitalize text-black': !overwriteHeadingClass
+      'font-bold py-5 text-2xl md:text-3xl font-display text-black': !overwriteHeadingClass
     }]" v-html="title" />
     <slot></slot>
   </div>

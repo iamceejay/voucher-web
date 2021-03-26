@@ -1,31 +1,17 @@
 <template>
   <MainLayout>
     <template #content>
-      <div class="-mt-10 bg-custom-gray">
-        <div class="content-container flex flex-col w-full px-8">
-          <Header title="Gutscheine scannen" />
-          <div class="flex flex-wrap justify-between">
-            <div class="w-full sm:w-1/2 sm:pr-4 mb-8">
-              <div class="bg-white w-full p-6">
-                <VoucherScanner 
-                  v-if="!QR_CODE"
-                  :key="`s-${sIndex}`"
-                  @onSetVoucher="onSetVoucher"
-                />
-                <VoucherRedemption 
-                  v-if="QR_CODE"
-                  @onSetVoucher="onSetVoucher"
-                />
-              </div>
-            </div>
-            <div class="w-full sm:w-1/2 sm:pl-4 mb-8">
-              <div class="bg-white w-full p-6">
-                <ScannerUsers v-if="!newUser" @onButtonClick="scannerUserViewToggle" />
-                <ScannerUserNew v-if="newUser" @onButtonClick="scannerUserViewToggle" />
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="content-container flex flex-col w-full px-8">
+        <Header1 label="Gutscheine scannen" />
+        <VoucherScanner 
+          v-if="!QR_CODE"
+          :key="`s-${sIndex}`"
+          @onSetVoucher="onSetVoucher"
+        />
+        <VoucherRedemption 
+          v-if="QR_CODE"
+          @onSetVoucher="onSetVoucher"
+        />
       </div>
     </template>
   </MainLayout>
@@ -34,9 +20,7 @@
   import MainLayout from '_layouts';
   import VoucherScanner from '_components/Modules/Scanner/VoucherScanner'
   import VoucherRedemption from '_components/Modules/Scanner/VoucherRedemption'
-  import Header from '_components/Headers/Seller/Header'
-  import ScannerUsers from '_pages/ScannerUsers/'
-  import ScannerUserNew from '_pages/ScannerUsers/New/'
+  import Header1 from '_components/Headers/Header1'
   
   export default {
     name: 'Dashboard',
@@ -44,15 +28,12 @@
       MainLayout,
       VoucherScanner,
       VoucherRedemption,
-      Header,
-      ScannerUsers,
-      ScannerUserNew
+      Header1
     },
     data() {
       return {
         sIndex: 0,
-        qr: null,
-        newUser: false
+        qr: null
       }
     },
     computed: {
@@ -92,10 +73,6 @@
           }
           this.sIndex = this.sIndex + 1
         }
-      },
-      scannerUserViewToggle()
-      {
-        this.newUser = !this.newUser
       }
     }
   }

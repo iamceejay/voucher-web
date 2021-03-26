@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col w-full mb-5">
+  <div class="flex flex-col w-full mb-2">
     <div
       v-for="(row, index) in data"
       :key="`scanner-${index}`"
-      class="w-full md:w-1/2 flex flex-row"
+      class="w-full flex flex-row items-center"
     >
-      <div class="w-3/5 sm:w-4/5 text-sm px-5 py-2 text-gray-900 font-semibold font-body">
+      <div class="w-3/5 sm:w-4/5 text-sm pr-5 py-2 font-semibold font-body">
         {{ `${index+1}. ${row.scanner.username}` }}
       </div>
       <div class="w-2/5 sm:w-1/5">
@@ -13,13 +13,13 @@
           class="py-2"
           :label="`${row.status ? 'Deaktivieren' : 'Aktivieren'}`"
           size="w-full py-1"
-          round="rounded-full"
+          round="rounded"
           fontSize="text-xs"
           @onClick="onDelete(row)"
         />
       </div>
     </div>
-    <div v-if="data.length <= 0" class="py-2 text-lg">
+    <div v-if="data.length <= 0" class="font-semibold py-2">
       Noch keine Daten vorhanden.
     </div>
   </div>
