@@ -8,6 +8,9 @@
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
     }"
   >
+    <div v-if="IS_LOADING.data || IS_PROCESSING.data" class="absolute bg-black bg-opacity-25 inset-0" style="z-index: 99999;">
+      <lottie-animation path="./loading.json"/>
+    </div>
     <HeaderNavMenu
       ref="header"
       @onShowSubMenu="handleCategory"
@@ -137,6 +140,7 @@
   import VoucherModal from '_components/Modals/voucher-modal'
   import SellerModal from '_components/Modals/seller-modal'
   import Footer from '_components/Footer'
+  import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
 
   export default {
     components: {
@@ -145,7 +149,8 @@
       CookieLaw,
       VoucherModal,
       SellerModal,
-      Footer
+      Footer,
+      LottieAnimation
     },
     props: ['title'],
     data() {
@@ -203,7 +208,7 @@
             let processing = this.$swal({
               // title: 'Wird geladen,',
               // text: 'bitte warten…',
-              imageUrl: LoaderImg,
+              // imageUrl: LoaderImg,
               imageHeight: 207,
               imageWidth: 259,
               allowOutsideClick: false,
@@ -236,7 +241,7 @@
           }
           if( newVal.status == 'open' ) {
             let processing = this.$swal({
-              imageUrl: LoaderImg,
+              // imageUrl: LoaderImg,
               imageHeight: 145,
               imageWidth: 181,
               allowOutsideClick: false,
