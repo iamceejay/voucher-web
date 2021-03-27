@@ -377,6 +377,15 @@
           console.log('err', err)
         }
       },
+      onSort(data) {
+        this.params = {
+          ...this.params,
+          isMostPopular: false,
+          isNewest: false,
+          isLowestPrice: false,
+          [data]: !this.params[data]
+        }
+      },
       onChangeRegion(name) {
         let index = this.params.isRegion.indexOf(name)
 
