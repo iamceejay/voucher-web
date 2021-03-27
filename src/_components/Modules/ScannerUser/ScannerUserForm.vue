@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full md:w-1/2">
+  <div class="flex flex-col w-full">
     <ValidationObserver v-slot="{ handleSubmit, invalid }">
       <form 
         class="w-full flex flex-col"
@@ -7,48 +7,48 @@
       >
         <InputField
           id="username"
+          class="mb-5"
           v-model="form.username"
           type="text"
-          class="mx-2"
-          placeholder="Benutzername"
+          label="Benutzername"
           :rules="`required|unique:users,username,${form.id}`"
         />
         <InputField
           id="email"
+          class="mb-5"
           v-model="form.email"
           type="email"
-          class="mx-2"
-          placeholder="Emailadresse "
+          label="E-Mail "
           :rules="`required|email|unique:users,email,${form.id}`"
         />
         <InputField
           id="password"
+          class="mb-5"
           v-model="form.password"
           type="password"
-          class="mx-2"
-          placeholder="Password"
+          label="Passwort"
           rules="required|min:8|max:16"
         />
-        <p class="text-center px-8 py-4 text-xs text-gray-700 font-semibold font-body">
+        <!-- <p class="text-center px-8 py-4 text-xs text-gray-700 font-semibold font-body">
           Ein Scan Benutzer kann nur Gutscheine für dein Unternehmen einlösen. Alle weiteren Funktionen sind für diesen Benutzer nicht sichtbar. 
-        </p>
-        <Button
-          type="submit"
-          class="py-2"
-          label="Speichern"
-          size="w-full py-3"
-          round="rounded-full"
-          fontSize="text-xs"
-        />
-        <router-link to="/scanner-users">
+        </p> -->
+        <div class="flex flex-wrap">
           <Button
-            class="py-2"
-            label="Abbrechen"
-            size="w-full py-3"
-            round="rounded-full"
-            fontSize="text-xs"
+            class="mr-4"
+            type="submit"
+            label="Speichern"
+            fontWeight="font-normal"
+            size="py-4 px-8"
+            round="rounded"
           />
-        </router-link>
+          <Button
+            label="Abbrechen"
+            fontWeight="font-normal"
+            size="py-4 px-8"
+            round="rounded"
+            @onClick="() => $emit('onButtonClick')"
+          />
+        </div>
       </form>
     </ValidationObserver>
   </div>

@@ -53,8 +53,9 @@ module.exports = {
         'peach': '#ff5563',
         'dirty': '#f7f6f6',
         'custom-gray': '#f2f2f2',
+        'custom-gray-2': '#00000073',
         'input-border': '#00000033',
-        'input-bg': '#f7f7f7'
+        'input-bg': '#f7f7f7',
       },
       minHeight: {
         '20': '5rem',

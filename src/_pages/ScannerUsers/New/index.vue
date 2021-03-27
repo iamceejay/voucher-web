@@ -1,28 +1,14 @@
 <template>
-  <MainLayout>
-    <template #content>
-      <div class="content-container flex w-full px-8">
-        <div class="flex flex-1 flex-col">
-          <div class="flex flex-col">
-            <Header1
-              label="Füge einen Scanner Benutzer hinzu"
-            />
-          </div>
-          <ScanerUserForm />
-        </div>
-      </div>
-    </template>
-  </MainLayout>
+  <div class="flex flex-1 flex-col">
+    <h2 class="font-semibold text-peach mb-4">Scanner Profil anlegen</h2>
+    <ScanerUserForm @onButtonClick="() => $emit('onButtonClick')" />
+  </div>
 </template>
 <script>
   import ScanerUserForm from '_components/Modules/ScannerUser/ScannerUserForm';
-  import MainLayout from '_layouts';
-  import Header1 from '_components/Headers/Header1';
 
   export default {
     components: {
-      MainLayout,
-      Header1,
       ScanerUserForm
     },
     data() {

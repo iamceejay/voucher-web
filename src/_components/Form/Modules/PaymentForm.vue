@@ -9,9 +9,7 @@
           name="payment_type"
           data="stripe"
         >
-          <svg class="h-7 w-7 icon mx-3">
-            <use xlink:href="/icons/sprite.svg#credit-card-fill"/>
-          </svg>
+          <img class="h-7 w-auto mx-3" src="/icon_mastercard.png"/>
           Kreditkarte
         </RadioInputField>
       </div>
@@ -23,9 +21,7 @@
           name="payment_type"
           data="sofort"
         >
-          <svg class="h-7 w-7 icon mx-3">
-            <use xlink:href="/icons/sprite.svg#credit-card"/>
-          </svg>
+          <img class="h-7 w-auto mx-3" src="/icon_sofort.png"/>
           Sofortüberweisung
         </RadioInputField>
       </div>

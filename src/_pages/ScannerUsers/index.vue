@@ -1,31 +1,24 @@
 <template>
-  <MainLayout>
-    <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container w-full flex flex-col px-8">
-        <Header1
-          label="Scanner Profil"
-        />
-        <ScannerUserList 
-          :data="SCANNER_USERS"
-        />
-        <router-link to="/scanner-users/new">
-          <Button
-            class="py-2 w-full md:w-1/2"
-            label="Füge ein neues Scanner Profil  hinzu"
-            size="w-full py-3"
-            round="rounded-full"
-            fontSize="text-xs"
-          />
-        </router-link>
-      </div>
-    </template>
-  </MainLayout>
+  <div class="w-full">
+    <h2 class="font-semibold text-peach mb-4">Scanner Profil</h2>
+    <ScannerUserList 
+      :data="SCANNER_USERS"
+    />
+    <p class="text-custom-gray-2 mb-6">Ein Scanner Benutzer kann nur Gutscheine für dein Unternehmen einlösen. Alle weiteren Funktionen sind für diesen Benutzer nicht sichtbar.</p>
+    <Button
+      label="Scanner Profil hinzufügen"
+      fontWeight="font-normal"
+      size="py-4 px-8"
+      round="rounded"
+      variant="black"
+      @onClick="() => $emit('onButtonClick')"
+    />
+  </div>
 </template>
 <script>
   import Button from '_components/Button'
   import MainLayout from '_layouts'
   import ScannerUserList from '_components/List/Modules/ScannerUserList'
-  import Header1 from '_components/Headers/Header1';
 
   export default {
     name: 'Dashboard',
@@ -33,7 +26,6 @@
       MainLayout,
       Button,
       ScannerUserList,
-      Header1,
     },
     data() {
       return {

@@ -5,8 +5,8 @@
   >
     <button
       :type="type"
-      class="focus:outline-none focus:shadow-none border-1 font-display"
-      :class="[bg, size, round, fontSize, fontWeight]"
+      class="focus:outline-none focus:shadow-none border-1"
+      :class="[bg, size, round, fontSize, fontWeight, { 'font-display': useDefaultFont }]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
     >
@@ -80,6 +80,10 @@
       customIconClass: {
         type: String,
         default: ''
+      },
+      useDefaultFont: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
