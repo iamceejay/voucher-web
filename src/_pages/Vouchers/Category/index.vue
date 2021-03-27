@@ -1,43 +1,147 @@
 <template>
-  <MainLayout>
-    <template #content>
-      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <BackBtn :show="true" class="mt-10" />
-        <Header1
-          :label="`${ CATEGORY ? CATEGORY.name : 'Category Name' }`"
-        />
-        <VoucherList
-          class="mb-3"
-          title="Unsere Lieblinge"
-          :data="FEATURED_VOUCHERS"
-          :withQR="false"
-          :isInline="true"
-          type="feature"
-          listId="featured-voucher-list"
-          :hideIfEmpty="true"
-        />
-        <VoucherList
-          class="mb-3"
-          title=""
-          :data="VOUCHERS.data"
-          :withPagination="true"
-          :currentPage="VOUCHERS.current_page"
-          :lastPage="VOUCHERS.last_page"
-          sortLabel="Sortieren nach:"
-          :withSort="true"
-          filterLabel="Filtern nach:"
-          :withFilter="true"
-          :withQR="false"
-          listId="search-voucher-list"
-          :hasCategory="false"
-          @onChange="onLoadData"
-          @onFilter="onSearchData($event, 'filter')"
-          @onSort="onSearchData($event, 'sort')"
-          @onPaginate="onPaginateVouchers($event)"
-        />
+  <div>
+     <div class="bg-white h-32 md:h-64 overflow-hidden relative w-full" style="margin-top: 90px">
+        <img class="bg-white h-full mx-auto" src="/placeholder-1080.jpg" />
+        <div class="absolute bg-black bg-opacity-50 flex inset-0 items-center justify-center  text-2xl md:text-3xl text-white">{{ CATEGORY ? CATEGORY.name : 'Category Name' }}</div>
       </div>
-    </template>
-  </MainLayout>
+    <MainLayout>
+      <template #content>
+        <div v-if="!IS_LOADING.status" class="flex flex-col mt-32 md:mt-64 mx-auto px-8 w-full" style="max-width: 1200px;">
+
+
+          <!-- <BackBtn :show="true" class="mt-10" />
+          <Header1
+            :label="`${ CATEGORY ? CATEGORY.name : 'Category Name' }`"
+          /> -->
+          <!-- <VoucherList
+            class="mb-3"
+            title="Unsere Lieblinge"
+            :data="FEATURED_VOUCHERS"
+            :withQR="false"
+            :isInline="true"
+            type="feature"
+            listId="featured-voucher-list"
+            :hideIfEmpty="true"
+          /> -->
+          <div class="flex justify-end">
+            <button
+              type="button"
+              class="bg-white border flex items-center mb-2 mr-3 px-2 py-2 rounded-md text-black text-xs"
+              @click="showFilter = true"
+              >
+              <svg class="border border-peach h-4 icon mr-2 rounded-full text-peach w-4">
+                <use xlink:href="/icons/sprite.svg#filter"/>
+              </svg>
+              Filter
+            </button>
+          </div>
+          <VoucherList
+            class="mb-3"
+            title=""
+            :data="VOUCHERS.data"
+            :withPagination="true"
+            :currentPage="VOUCHERS.current_page"
+            :lastPage="VOUCHERS.last_page"
+            sortLabel="Sortieren nach:"
+            :withSort="false"
+            filterLabel="Filtern nach:"
+            :withFilter="false"
+            :withQR="false"
+            listId="search-voucher-list"
+            :hasCategory="false"
+            @onChange="onLoadData"
+            @onFilter="onSearchData($event, 'filter')"
+            @onSort="onSearchData($event, 'sort')"
+            @onPaginate="onPaginateVouchers($event)"
+          />
+          <div
+            class="bg-white bottom-0 fixed filter-sidebar transition-all duration-500 shadow-2xl top-0 grid"
+            :class="{'show' : showFilter}"
+            style="grid-template-rows: 1fr;">
+            <div class="p-8 overflow-auto">
+              <div class="border-b-2 flex items-center justify-between pb-4 mb-4">
+                <div class="flex font-medium items-center text-xl">
+                  <svg class="border border-peach h-6 icon mr-2 p-1 rounded-full text-peach w-6">
+                    <use xlink:href="/icons/sprite.svg#filter"/>
+                  </svg>
+                  Filter
+                </div>
+                <div class="flex items-center text-sm">
+                  Schließen
+                  <svg @click="showFilter = false" class="h-4 icon ml-2 mr-6 w-4 cursor-pointer">
+                    <use xlink:href="/icons/sprite.svg#x-circle"/>
+                  </svg>
+                </div>
+              </div>
+              <!-- PRICE -->
+              <section class="border-b-2 mb-4 pb-4">
+                <div class="font-medium text-xs mb-2">Preis</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <input v-model="params.isPrice.from" type="number" placeholder="von" step="any" class="border mt-2 px-3 py-2 rounded-md text-xs">
+
+                  <input v-model="params.isPrice.to" type="number" placeholder="bis" step="any" class="border mt-2 px-3 py-2 rounded-md text-xs">
+                </div>
+              </section>
+              <!-- End PRICE -->
+              <!-- SORT -->
+              <section class="border-b-2 mb-4 pb-4">
+                <div class="font-medium text-xs mb-2">Sortieren</div>
+                <div>
+                  <button
+                    type="button"
+                    class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                    :class="params.isNewest ? 'bg-black text-white ' : ' text-black'"
+                    @click="onSort(['isNewest'])"
+                    >
+                    Neueste
+                  </button>
+                  <button
+                    type="button"
+                    class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                    :class="params.isMostPopular ? 'bg-black text-white ' : ' text-black'"
+                    @click="onSort(['isMostPopular'])"
+                    >
+                    Beliebteste
+                  </button>
+                  <button
+                    type="button"
+                    class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                    :class="params.isLowestPrice ? 'bg-black text-white ' : ' text-black'"
+                    @click="onSort(['isLowestPrice'])"
+                    >
+                    {{ !params.isLowestPrice ? 'Günstigster' : 'Günstigster' }} Preis
+                  </button>
+                </div>
+              </section>
+              <!-- End SORT -->
+              <!-- REGION -->
+              <section class="border-b-2 mb-4 pb-4">
+                <div class="font-medium text-xs mb-2">Region</div>
+                <div>
+                  <button
+                    v-for="(region, index) in REGIONS"
+                    :key="index"
+                    type="button"
+                    class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                    :class="params.isRegion.indexOf(region.label) != -1 ? 'bg-black text-white' : 'text-black'"
+                    @click="onChangeRegion(region.label)"
+                    >
+                    {{ region.label }}
+                  </button>
+                </div>
+              </section>
+              <!-- End REGION -->
+            </div>
+            <button
+              type="button"
+              @click="onSearchData"
+              class="bg-peach px-5 py-3 text-sm text-white mt-3 text-center"
+            >Ergebnisse Anzeigen</button>
+          </div>
+        </div>
+      </template>
+    </MainLayout>
+  </div>
 </template>
 <script>
   import MainLayout from '_layouts'
@@ -54,13 +158,20 @@
     data() {
       return {
         currentCategory: null,
+        showFilter: false,
         params: {
           page: 1,
           paginate: 9,
           isNewest: false,
           isLowestPrice: false,
           isMostPopular: false,
-          seed: new Date().getTime()
+          seed: new Date().getTime(),
+          isCategory: [],
+          isRegion: [],
+          isPrice: {
+            from: '',
+            to: ''
+          },
         }
       }
     },
@@ -101,6 +212,11 @@
       {
         return this.$store.getters.IS_PROCESSING
       },
+      REGIONS()
+      {
+        return this.$store.getters.REGIONS
+      },
+
       // IS_INFINITE_LOAD()
       // {
       //   return this.$store.getters.IS_INFINITE_LOAD
@@ -119,6 +235,8 @@
           isNewest: true,
           isLowestPrice: false,
           isMostPopular: false,
+          isCategory: [],
+          isRegion: [],
         }
         await this.onFetchData()
       },
@@ -174,6 +292,18 @@
             ...this.params,
             page: 1
           }
+
+        if (params.isPrice.from && params.isPrice.to) {
+          params.isPrice = {
+            from: parseFloat(params.isPrice.from),
+            to: parseFloat(params.isPrice.to),
+          }
+        } else {
+          params.isPrice = []
+        }
+
+        this.showFilter = false
+
         await this.$store.commit('SET_VOUCHERS', [])
         await this.onLoadData(params)
       },
@@ -213,8 +343,17 @@
       async onFetchNewestVouchers()
       {
         try {
+          let params = { ...this.params}
+           if (params.isPrice.from && params.isPrice.to) {
+            params.isPrice = {
+              from: parseFloat(params.isPrice.from),
+              to: parseFloat(params.isPrice.to),
+            }
+          } else {
+            params.isPrice = []
+          }
 
-          const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', this.params)
+          const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)
           }
@@ -238,8 +377,35 @@
           console.log('err', err)
         }
       },
+      onChangeRegion(name) {
+        let index = this.params.isRegion.indexOf(name)
+
+        if (index == -1) {
+          this.params.isRegion.push(name)
+        } else {
+          this.params.isRegion.splice(index, 1);
+        }
+      },
+      onChangeCategory(name) {
+        let index = this.params.isCategory.indexOf(name)
+
+        if (index == -1) {
+          this.params.isCategory.push(name)
+        } else {
+          this.params.isCategory.splice(index, 1);
+        }
+      }
     }
   }
 </script>
 <style lang='css' scoped>
+.filter-sidebar {
+  width: 100%;
+  max-width: 350px;
+  z-index: 99999;
+  right: -355px;
+}
+.filter-sidebar.show {
+  right: 0;
+}
 </style>

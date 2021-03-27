@@ -82,10 +82,10 @@
         :class="AUTH_USER.isAuth ? 'md:hidden' : 'guest'"
         style="background-color: #F2F2F2">
           <li v-for="(category, index) in categories" :key="index" class="categories-menu__item content-container">
-            <router-link :to="category.link" class="flex flex-wrap items-center py-2 lg:py-4 text-sm">
+            <a :href="category.link" class="flex flex-wrap items-center py-2 lg:py-4 text-sm">
               <img class="h-12 lg:h-16 rounded-md mr-6 lg:mr-8" src="@/_assets/img/placeholder-400-300.jpg" :alt="category.title">
               <span>{{ category.title }}</span>
-            </router-link>
+            </a>
           </li>
       </ul>
       <div class="w-full">
