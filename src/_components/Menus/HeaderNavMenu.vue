@@ -380,31 +380,35 @@
                 }, {
                   title: 'Profil & Einstellungen',
                   icon: 'person',
-                  link: '',
-                  isChildShow: false,
-                  child: profileChild,
+                  link: '/profile-info',
+                  // isChildShow: false,
+                  // child: profileChild,
                 }, {
                   title: 'Gutschein scannen',
                   link: '/scanner',
                   icon: 'upc-scan',
+                },{
+                  title: 'Gutschein erstellen',
+                  link: '/vouchers/new',
+                  icon: 'palette',
                 }, {
                   title: 'Meine Gutscheine',
                   link: '/vouchers',
                   icon: 'wallet',
                 }, {
                   title: 'Verwalten',
-                  link: '',
+                  link: '/orders-earnings',
                   isChildShow: false,
-                  icon: 'list',
-                  child: [
-                    {
-                      title: 'Bestellungen & Verdienste',
-                      link: '/orders-earnings'
-                    }, {
-                      title: 'Eingelöst',
-                      link: '/redemptions'
-                    }
-                  ],
+                  icon: 'laptop',
+                  // child: [
+                  //   {
+                  //     title: 'Bestellungen & Verdienste',
+                  //     link: '/orders-earnings'
+                  //   }, {
+                  //     title: 'Eingelöst',
+                  //     link: '/redemptions'
+                  //   }
+                  // ],
                 },
               ]
               break;
@@ -434,15 +438,16 @@
                   icon: 'wallet',
                 },{
                   title: 'Profil & Einstellungen',
-                  link: '',
+                  link: '/profile-info',
                   icon: 'person',
-                  isChildShow: false,
-                  child: profileChild,
-                },{
-                  title: 'Bestellungen',
-                  icon: 'clipboard-data',
-                  link: '/orders'
+                  // isChildShow: false,
+                  // child: profileChild,
                 },
+                // {
+                //   title: 'Bestellungen',
+                //   icon: 'clipboard-data',
+                //   link: '/orders'
+                // },
               ]
               break;
             case 4:

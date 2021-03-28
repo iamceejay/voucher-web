@@ -1,5 +1,5 @@
 <template>
-  <MainLayout content-style="background: #F2F2F2!important;">
+  <MainLayout content-style="background: #F2F2F2!important;"  :showBackButton="false">
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8 pb-10">
         <div class="border-b border-gray-400 flex items-center justify-between pb-5">

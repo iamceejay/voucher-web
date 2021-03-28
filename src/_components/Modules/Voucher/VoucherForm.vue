@@ -566,11 +566,11 @@
           </div>
         </div>
         <!-- End of Preis & MwSt. -->
-        <div class="flex justify-end">
+        <!-- <div class="flex justify-end">
           <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10">
             {{ data && data.id ? 'Aktualisieren' : 'Speichern' }}
           </button>
-        </div>
+        </div> -->
       </div>
     </form>
   </ValidationObserver>

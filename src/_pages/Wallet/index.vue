@@ -13,15 +13,15 @@
           Übersicht deiner Gutscheine
         </span>
 
-        <SearchInputField
+        <!-- <SearchInputField
           id="search-here"
           v-model="params.keyword"
           class="my-2"
           placeholder="Suche nach Gutscheinen"
           @input="onLoadData($event, true)"
-        />
+        /> -->
         <WalletList
-          class="mb-3"
+          class="mb-3 mt-4"
           :role="AUTH_USER.role.name"
           :data="USER_VOUCHERS.data"
           :withPagination="true"

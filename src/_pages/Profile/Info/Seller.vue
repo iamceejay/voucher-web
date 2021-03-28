@@ -37,6 +37,14 @@
                   >
                   Überprüfung
                 </button>
+                <button
+                  @click="currentTab = 3"
+                  type="button"
+                  class="px-4 py-3 rounded-md text-xs"
+                  :class="currentTab == 3 ? 'bg-black text-white' : 'border border-black text-black'"
+                  >
+                  Einstellungen
+                </button>
               </div>
               <div class="w-full" v-if="currentTab == 0">
                 <div class="md:flex flex-row md:space-x-6 w-full">
@@ -361,6 +369,55 @@
                   </div>
                 </div>
               </div>
+              <div
+                v-if="AUTH_USER.role.name == 'seller' && currentTab == 3"
+                class="w-full mt-5 md:flex"
+              >
+                <ValidationObserver v-slot="{ handleSubmit }" class="w-full md:w-1/2">
+                  <form
+                    class="flex flex-col w-full"
+                    @submit.prevent="handleSubmitPassword(onSubmit)"
+                  >
+                    <div class="flex flex-col w-full">
+                      <InputField
+                        id="current_password"
+                        v-model="form.current_password"
+                        type="password"
+                        class="my-2"
+                        label="Passwort bestätigen"
+                        rules="required|min:8|max:16"
+                        :errorMessages="errorMessages.current_password"
+                      />
+                      <InputField
+                        id="new_password"
+                        v-model="form.new_password"
+                        type="password"
+                        class="my-2"
+                        label="Neues Passwort"
+                        rules="required|min:8|max:16"
+                        :errorMessages="errorMessages.new_password"
+                      />
+                      <InputField
+                        id="repeat_password"
+                        v-model="form.repeat_password"
+                        type="password"
+                        class="my-2"
+                        label="Passwort wiederholen"
+                        rules="required|min:8|max:16|password:@new_password"
+                        :errorMessages="errorMessages.repeat_password"
+                      />
+                    </div>
+                    <div class="mt-8 flex">
+                      <Button
+                        type="submit"
+                        label="Speichern"
+                        size="w-full py-3 px-4 "
+                        round="rounded"
+                      />
+                    </div>
+                  </form>
+                </ValidationObserver>
+              </div>
             </div>
           </form>
         </ValidationObserver>
@@ -408,6 +465,9 @@
         additional_identity: '',
         form: {
           id: null,
+          current_password: '',
+          new_password: '',
+          repeat_password: '',
           username: '',
           firstName: '',
           lastName: '',
@@ -429,6 +489,7 @@
           verification_front: '',
           verification_back: '',
           additional_identity: '',
+
         },
         settings: null
       }

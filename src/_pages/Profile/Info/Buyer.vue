@@ -77,13 +77,13 @@
                 size="w-full py-3 px-4 "
                 round="rounded"
               />
-              <a
+              <!-- <a
                 href="javascript:void(0)"
                 class="menu-item hover:text-peach underline text-sm"
                 @click="onLogout()"
               >
                 Abmelden
-              </a>
+              </a> -->
             </div>
           </form>
         </ValidationObserver>

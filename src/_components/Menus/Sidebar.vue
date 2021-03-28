@@ -12,12 +12,12 @@
         :class="`flex flex-col justify-center text-center ${ menu.isChildShow ? 'text-peach' :  'text-black'} cursor-pointer text-xs hover:text-peach`"
         @click="onSelectMenu(menu, index)"
       >
-        <div class="flex flex-col items-center justify-center px-3 py-2">
+        <div class="flex flex-col items-center justify-center px-3 py-2" >
           <!-- <img v-if="menu.icon" class="h-5" :src="menu.icon" alt=""> -->
           <svg class="icon h-5 w-5 mb-1 text-peach">
             <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
           </svg>
-          {{ menu.title }}
+          {{ AUTH_USER.role.id != 2 ? menu.title : '' }}
         </div>
         <!-- <ul
           v-if="menu.child && menu.isChildShow"
@@ -164,47 +164,41 @@
             case 2:
               this.menus = [
                 {
-                  title: 'Home',
+                  title: 'Dashboard',
                   link: '/home',
                   icon: 'grid-3x3-gap-fill',
+                }, {
+                  title: 'Profil & Einstellungen',
+                  icon: 'person',
+                  link: '/profile-info',
+                  // isChildShow: false,
+                  // child: profileChild,
+                }, {
+                  title: 'Gutschein scannen',
+                  link: '/scanner',
+                  icon: 'upc-scan',
+                },{
+                  title: 'Gutschein erstellen',
+                  link: '/vouchers/new',
+                  icon: 'palette',
                 }, {
                   title: 'Meine Gutscheine',
                   link: '/vouchers',
                   icon: 'wallet',
                 }, {
-                  title: 'Scannen',
-                  link: '',
-                  icon: 'upc-scan',
-                  isChildShow: false,
-                  child: [
-                    {
-                      title: 'Scanner',
-                      link: '/scanner'
-                    }, {
-                      title: 'Scanner Profil',
-                      link: '/scanner-users'
-                    },
-                  ],
-                },  {
                   title: 'Verwalten',
-                  link: '',
-                  icon: 'list',
+                  link: '/orders-earnings',
                   isChildShow: false,
-                  child: [
-                    {
-                      title: 'Bestellungen & Verdienste',
-                      link: '/orders-earnings'
-                    }, {
-                      title: 'Eingelöst',
-                      link: '/redemptions'
-                    }
-                  ],
-                }, {
-                  title: 'Profil & Einstellungen',
-                  link: '',
-                  icon: 'person',
-                  isChildShow: false,
-                  child: profileChild,
+                  icon: 'laptop',
+                  // child: [
+                  //   {
+                  //     title: 'Bestellungen & Verdienste',
+                  //     link: '/orders-earnings'
+                  //   }, {
+                  //     title: 'Eingelöst',
+                  //     link: '/redemptions'
+                  //   }
+                  // ],
                 },
               ]
               break;

@@ -27,7 +27,7 @@
           @onPaginate="onPaginateVouchers($event)"
         />
       </div>
-      <SellerContent class="mt-8" />
+      <!-- <SellerContent class="mt-8" /> -->
     </div>
   </div>
 </template>
