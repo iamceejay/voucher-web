@@ -73,7 +73,7 @@
     </div>
     <div
       class="flex flex-col w-full relative"
-      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-white'}`"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : ''}`"
       :style="contentStyle"
     >
       <ul

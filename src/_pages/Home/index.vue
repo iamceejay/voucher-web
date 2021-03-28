@@ -1,20 +1,20 @@
 <template>
-  <MainLayout>
+  <MainLayout contentStyle="background: #fff;">
     <template #content>
       <div class="flex flex-col w-full">
-        <GuestHome 
+        <GuestHome
           v-if="AUTH_USER.role.name === null"
         />
-        <SellerHome 
+        <SellerHome
           v-if="AUTH_USER.role.name === 'seller'"
         />
-        <UserHome 
+        <UserHome
           v-if="AUTH_USER.role.name === 'user'"
         />
-        <ScannerUserHome 
+        <ScannerUserHome
           v-if="AUTH_USER.role.name === 'scanner'"
         />
-        <AdminHome 
+        <AdminHome
           v-if="AUTH_USER.role.name === 'admin'"
         />
       </div>
@@ -54,7 +54,7 @@
     watch: {
     },
     mounted() {
-      
+
     },
     methods: {
     }
