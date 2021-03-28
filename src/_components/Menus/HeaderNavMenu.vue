@@ -423,9 +423,9 @@
               })
               this.menus = [
                 {
-                  title: 'Home',
-                  link: '/home',
-                  icon: 'grid-3x3-gap-fill',
+                  title: 'Suche',
+                  link: '/vouchers/search',
+                  icon: 'search',
                 },{
                   title: 'Kategorien',
                   link: '',

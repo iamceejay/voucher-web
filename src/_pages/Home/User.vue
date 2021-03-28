@@ -97,6 +97,9 @@
     //     }
     //   },
     // },
+    beforeMount() {
+      this.$router.push('/vouchers/search')
+    },
     mounted() {
       (async() => {
         try {
