@@ -20,8 +20,8 @@
         to="/home"
         >
         <img
-          class="h-8"
-          src="@/_assets/img/logo.png"
+          class="h-6"
+          src="@/_assets/img/header.svg"
           alt=""
         />
       </router-link>
@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <Footer />
+      <Footer v-if="!AUTH_USER.isAuth"/>
     </div>
       <Sidebar @onShowSubMenu="handleCategory"
       />

@@ -29,7 +29,7 @@
       </li>
     </ul>
     <div>
-      <img class="w-12 mx-auto" src="@/_assets/img/epasnets-loader.png">
+      <img class="w-12 mx-auto" src="@/_assets/img/epasnets-heart-light.png">
     </div>
   </div>
 </template>

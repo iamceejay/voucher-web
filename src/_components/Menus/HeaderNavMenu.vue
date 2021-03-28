@@ -15,7 +15,7 @@
         <router-link class="flex justify-center" to="/">
           <img
             class="self-center"
-            src="@/_assets/img/logo.png"
+            src="@/_assets/img/header.svg"
             alt=""
           />
         </router-link>
