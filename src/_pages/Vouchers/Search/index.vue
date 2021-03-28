@@ -140,8 +140,63 @@
                       {{ category.name }}
                     </button>
                   </div>
+                  <div v-for="(subcategory, index) in SUBCATEGOREIS" :key="index">
+                    <div v-if="subcategory.subcategories && subcategory.subcategories.length">
+                      <span class="flex items-center mb-3 text-xs">
+                        <svg class="icon h-4 w-4 mr-2">
+                          <use :xlink:href="`/icons/sprite.svg#chevron-right`"/>
+                        </svg>{{ subcategory.name }}
+                      </span>
+                      <div class="ml-6">
+                        <button
+                          v-for="(category, index) in subcategory.subcategories"
+                          :key="index"
+                          type="button"
+                          class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                          :class="params.subcategory.indexOf(category.id) !== -1 ? 'bg-black text-white' : 'text-black'"
+                          @click="onChangeData('subcategory', category.id)"
+                          >
+                            {{ category.name }}
+                          </button>
+                        </div>
+                    </div>
+                  </div>
                 </section>
                 <!-- End CATEGORY -->
+                <!-- Fur -->
+                <section class="mb-4 pb-4">
+                  <div class="font-medium text-xs mb-2">Für</div>
+                  <div>
+                    <button
+                      v-for="(target, index) in target_group"
+                      :key="index"
+                      type="button"
+                      class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                      :class="params.targets.indexOf(target) !== -1 ? 'bg-black text-white' : 'text-black'"
+                      @click="onChangeData('targets', target)"
+                      >
+                      {{ target }}
+                    </button>
+                  </div>
+                </section>
+                <!-- End Fur -->
+                <!-- Wetter / Saison -->
+                <section class="mb-4 pb-4">
+                  <div class="font-medium text-xs mb-2">Wetter / Saison</div>
+                  <div>
+                    <button
+                      v-for="(season, index) in seasons"
+                      :key="index"
+                      type="button"
+                      class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                      :class="params.seasons.indexOf(season) !== -1 ? 'bg-black text-white' : 'text-black'"
+                      @click="onChangeData('seasons', season)"
+                      >
+                      {{ season }}
+                    </button>
+                  </div>
+                </section>
+                <!-- End Wetter / Saison -->
               </div>
               <button
                 type="button"
@@ -173,6 +228,8 @@
       return {
         search: '',
         showFilter: false,
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
+        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter'],
         params: {
           keyword: '',
           page: 1,
@@ -188,6 +245,9 @@
           seed: new Date().getTime(),
           isCategory: [],
           isRegion: [],
+          targets: [],
+          seasons: [],
+          subcategory: []
         }
       };
     },
@@ -211,6 +271,10 @@
       {
         return this.$store.getters.CATEGORIES
       },
+      SUBCATEGOREIS() {
+        let selectedCategory = this.CATEGORIES.filter(category => this.params.isCategory.indexOf(category.name) !== -1)
+        return selectedCategory
+      }
       // IS_LOAD_MORE()
       // {
       //   return this.$store.getters.IS_LOAD_MORE
@@ -335,6 +399,16 @@
           this.params.isCategory.push(name)
         } else {
           this.params.isCategory.splice(index, 1);
+        }
+      },
+      onChangeData(key, name) {
+        console.log(key, name)
+        let index = this.params[key].indexOf(name)
+
+        if (index == -1) {
+          this.params[key].push(name)
+        } else {
+          this.params[key].splice(index, 1);
         }
       }
 

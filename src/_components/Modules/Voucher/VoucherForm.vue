@@ -325,21 +325,21 @@
               <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Hauptkategorie</span>
               <div class="px-5 py-3 flex flex-col ">
                 <ValidationProvider rules="required" v-slot="{ errors }">
-                  <label class="flex items-center mb-1" v-for="(category, index) of categories" :key="index">
+                  <label class="flex items-center mb-1" v-for="(category, index) of CATEGORIES" :key="index">
                     <input type="radio" name="category" :value="category.id" v-model="form.category">
-                    <span class="text-xs ml-1">{{ category.label }}</span>
+                    <span class="text-xs ml-1">{{ category.name }}</span>
                   </label>
                   <span class="text-xs text-red-500">{{ errors[0] }}</span>
                 </ValidationProvider>
               </div>
             </div>
-            <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-if="form.category && SUBCATEGORIES && SUBCATEGORIES.length">
               <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Unterkategorie</span>
-              <div class="px-5 py-3 flex flex-col ">
+              <div class="px-5 py-3 flex flex-col">
                 <ValidationProvider rules="required" v-slot="{ errors }">
-                  <label class="flex items-center mb-1" v-for="(category, index) of categories" :key="index">
-                    <input type="radio" name="category" :value="category.id" v-model="form.category">
-                    <span class="text-xs ml-1">{{ category.label }}</span>
+                  <label class="flex items-center mb-1" v-for="(category, index) of SUBCATEGORIES" :key="`subcategory-${index}`">
+                    <input type="radio" name="sub-category" :value="category.id" v-model="form.subcategory">
+                    <span class="text-xs ml-1">{{ category.name }}</span>
                   </label>
                   <span class="text-xs text-red-500">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -641,6 +641,7 @@
         form: {
           id: null,
           category: '',
+          subcategory: '',
           target: '',
           season: '',
           voucher_category_id: null,
@@ -693,6 +694,10 @@
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
+      },
+      SUBCATEGORIES() {
+        let selectCategory = this.CATEGORIES.find(category => category.id == this.form.category)
+        return selectCategory.subcategories
       },
       USER_SETTING()
       {
@@ -929,13 +934,16 @@
           }
 
           if (this.data.data_json != null) {
-            this.form.id = this.data.id
+            this.form.id = this.$route.name == 'vouchers-update'
+              ? this.$route.params.id
+              : null;
             this.form = this.data.data_json
             this.form.image_1_update = true
             this.form.image_2_update = true
             this.form.image_3_update = true
             this.form.valid_date = this.data.valid_date || []
             this.form.valid_day = this.data.valid_day || []
+            this.form.category = this.data.voucher_category.id
           } else {
             this.form = {
               id: this.data.id,
@@ -948,7 +956,7 @@
               valid_day: this.data.valid_day || [],
               tax: this.data.tax || [],
               type: this.data.type,
-              category: [this.data.voucher_category.id],
+              category: this.data.voucher_category.id,
               text_color: this.data.text_color,
               background_color: this.data.background_color,
               background_aid: this.data.background_aid,

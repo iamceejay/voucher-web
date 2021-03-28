@@ -131,6 +131,64 @@
                 </div>
               </section>
               <!-- End REGION -->
+              <!-- CATEGORY -->
+              <section class="mb-4 pb-4">
+                <div class="font-medium text-xs mb-2">Unterkategorien</div>
+                <div v-if="SUBCATEGORIES && SUBCATEGORIES.length">
+                  <span class="flex items-center mb-3 text-xs">
+                    <svg class="icon h-4 w-4 mr-2">
+                      <use :xlink:href="`/icons/sprite.svg#chevron-right`"/>
+                    </svg>{{ currentCategory.name }}
+                  </span>
+                  <div class="ml-6">
+                    <button
+                      v-for="(category, index) in SUBCATEGORIES"
+                      :key="index"
+                      type="button"
+                      class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                      :class="params.subcategory.indexOf(category.id) !== -1 ? 'bg-black text-white' : 'text-black'"
+                      @click="onChangeData('subcategory', category.id)"
+                      >
+                        {{ category.name }}
+                    </button>
+                  </div>
+                </div>
+              </section>
+              <!-- End CATEGORY -->
+              <!-- Fur -->
+                <section class="mb-4 pb-4">
+                  <div class="font-medium text-xs mb-2">Für</div>
+                  <div>
+                    <button
+                      v-for="(target, index) in target_group"
+                      :key="index"
+                      type="button"
+                      class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                      :class="params.targets.indexOf(target) !== -1 ? 'bg-black text-white' : 'text-black'"
+                      @click="onChangeData('targets', target)"
+                      >
+                      {{ target }}
+                    </button>
+                  </div>
+                </section>
+                <!-- End Fur -->
+                <!-- Wetter / Saison -->
+                <section class="mb-4 pb-4">
+                  <div class="font-medium text-xs mb-2">Wetter / Saison</div>
+                  <div>
+                    <button
+                      v-for="(season, index) in seasons"
+                      :key="index"
+                      type="button"
+                      class="px-2 py-2 rounded-md text-xs mr-3 mb-2 border border-black"
+                      :class="params.seasons.indexOf(season) !== -1 ? 'bg-black text-white' : 'text-black'"
+                      @click="onChangeData('seasons', season)"
+                      >
+                      {{ season }}
+                    </button>
+                  </div>
+                </section>
+                <!-- End Wetter / Saison -->
             </div>
             <button
               type="button"
@@ -159,6 +217,8 @@
       return {
         currentCategory: null,
         showFilter: false,
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
+        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter'],
         params: {
           page: 1,
           paginate: 9,
@@ -172,6 +232,9 @@
             from: '',
             to: ''
           },
+          targets: [],
+          seasons: [],
+          subcategory: []
         }
       }
     },
@@ -216,7 +279,10 @@
       {
         return this.$store.getters.REGIONS
       },
-
+      SUBCATEGORIES() {
+        let selectCategory = this.CATEGORIES.find(category => category.id == this.currentCategory.id)
+        return selectCategory.subcategories
+      },
       // IS_INFINITE_LOAD()
       // {
       //   return this.$store.getters.IS_INFINITE_LOAD
@@ -240,6 +306,7 @@
         }
         await this.onFetchData()
       },
+
       // async IS_LOAD_MORE(newVal)
       // {
       //   if( newVal ) {
@@ -402,6 +469,16 @@
           this.params.isCategory.push(name)
         } else {
           this.params.isCategory.splice(index, 1);
+        }
+      },
+      onChangeData(key, name) {
+        console.log(key, name)
+        let index = this.params[key].indexOf(name)
+
+        if (index == -1) {
+          this.params[key].push(name)
+        } else {
+          this.params[key].splice(index, 1);
         }
       }
     }
