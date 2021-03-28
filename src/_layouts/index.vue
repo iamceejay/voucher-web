@@ -74,6 +74,7 @@
     <div
       class="flex flex-col w-full relative"
       :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : 'bg-white'}`"
+      :style="contentStyle"
     >
       <ul
         v-if="categories.length"
@@ -161,6 +162,10 @@
         type: Boolean,
         default: true,
       },
+      contentStyle: {
+        type: String,
+        defaul: ''
+      }
     },
     data() {
       return {

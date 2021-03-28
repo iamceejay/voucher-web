@@ -9,6 +9,7 @@ import Seller from './Modules/Seller/'
 import Wallet from './Modules/Wallet/'
 import User from './Modules/User/'
 import Category from './Modules/Category/'
+import SubCategory from './Modules/SubCategory/'
 import Template from './Modules/Template/'
 import Region from './Modules/Region/'
 import Alert from './Modules/Alert/'
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     Wallet,
     User,
     Category,
+    SubCategory,
     Template,
     Region,
     Alert,

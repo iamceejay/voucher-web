@@ -5,13 +5,17 @@
   >
     <template>
       <div class="font-bold text-lg py-2 text-center text-gray-900 text-3xl">
-        Category
+        Sub Category
       </div>
       <ValidationObserver v-slot="{ handleSubmit }">
         <form
           class="w-full flex flex-col"
           @submit.prevent="handleSubmit(onSubmit)"
         >
+          <ValidationProvider rules="required" v-slot="{ errors }">
+            <vSelect label="name" :options="CATEGORIES"  v-model="form.category" />
+            <span class="text-xs text-red-500">{{ errors[0] }}</span>
+          </ValidationProvider>
           <InputField
             id="name"
             v-model="form.name"
@@ -21,29 +25,6 @@
             placeholder="Entere here"
             rules="required"
           />
-          <InputField
-            id="icon"
-            v-model="form.icon"
-            type="text"
-            class="w-full m-auto mt-4"
-            label="Icon"
-            placeholder="Ex. fas fa-building"
-            rules="required"
-          >
-            <template #note_>
-              <div class="text-xs font-semibold">
-                <p>
-                  (Note: Please refer on https://fontawesome.com/icons)
-                </p>
-                <p>
-                  Please copy the text inside the quote (fas fa-book) and only the free icons will work.
-                </p>
-                <p>
-                  Ex. in Fontawesome page: {{ example }}
-                </p>
-              </div>
-            </template>
-          </InputField>
           <Button
             class="justify-center"
             :label="`${form.id ? 'Update' : 'Speichern'}`"
@@ -60,12 +41,15 @@
   import Button from '_components/Button/'
   import InputField from "_components/Form/InputField";
   import Modal from '_components/Modals/'
+  import SelectField from '_components/Form/SelectField'
+  import vSelect from 'vue-select'
 
   export default {
     components: {
       InputField,
       Button,
       Modal,
+      vSelect
     },
     props: {
       data: {
@@ -85,10 +69,16 @@
         value: '',
         form: {
           id: null,
+          category: '',
           name: '',
           icon: '',
         },
       }
+    },
+    computed: {
+      CATEGORIES() {
+        return this.$store.getters.CATEGORIES;
+      },
     },
     watch: {
       onShowModal()
@@ -104,17 +94,25 @@
       async onSubmit()
       {
         try {
-          const url = this.form.id ? 'UPDATE_CATEGORY' : 'ADD_CATEGORY'
+
+          const url = this.form.id ? 'UPDATE_SUBCATEGORY' : 'ADD_SUBCATEGORY'
+          let form = {
+            id: this.form.id,
+            category: this.form.category.id,
+            name: this.form.name
+          }
+
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          await this.$store.dispatch(url, this.form)
-          this.$emit('onClose')
+          await this.$store.dispatch(url, form)
+
+          this.$emit('onCloseModal')
           this.form = {
             id: null,
-            name: '',
-            icon: '',
+            category: '',
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         } catch (err) {
+          console.log(err)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },

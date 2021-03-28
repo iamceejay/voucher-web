@@ -1,0 +1,162 @@
+<template>
+  <MainLayout>
+    <template #content>
+      <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
+        <Header1
+          label="Manage Sub Category"
+        />
+        <Button
+          class="py-2 mt-3"
+          label="Add Category"
+          size="w-32 py-1"
+          round="rounded-full"
+          fontSize="text-xs"
+          @onClick="onEdit(null)"
+        />
+        <Table
+          class="mt-3"
+          :fields="fields"
+          :data="SUBCATEGORIES"
+        >
+          <template #customActions="props">
+            <div class="flex flex-row justify-center">
+              <a
+                class="text-xs text-indigo-500 underline text-center mx-2"
+                href="javascript:void(0)"
+                @click="onEdit(props.data)"
+              >
+                <i class="fas fa-pen" />
+              </a>
+              <a
+                class="text-xs text-red-900 underline text-center mx-2"
+                href="javascript:void(0)"
+                @click="onDelete(props.data)"
+              >
+                <i class="fas fa-trash" />
+              </a>
+            </div>
+          </template>
+        </Table>
+        <CategoryModal
+          :data="category"
+          :onShowModal="onShowModal"
+          @onCloseModal="onShowModal = false"
+        />
+      </div>
+    </template>
+  </MainLayout>
+</template>
+<script>
+  import MainLayout from '_layouts';
+  import Header1 from '_components/Headers/Header1';
+  import Table from '_components/Table';
+  import CategoryModal from '_components/Modals/Modules/SubCategoryModal'
+  import Button from '_components/Button/'
+
+  export default {
+    components: {
+      MainLayout,
+      Header1,
+      Button,
+      Table,
+      CategoryModal,
+    },
+    data() {
+      return {
+        category: null,
+        onShowModal: false,
+        search: '',
+        tableIndex: 0,
+        fields: [
+          {
+            name: 'sequence_',
+            title: '',
+            dataClass: 'text-center'
+          }, {
+            name: 'name',
+            title: 'Category Name',
+          },
+          {
+            name: 'category.name',
+            title: 'Main Category',
+          },
+          {
+            name: 'actions',
+            title: 'Actions',
+          }
+        ],
+      };
+    },
+    computed: {
+      AUTH_USER() {
+        return this.$store.getters.AUTH_USER;
+      },
+      SUBCATEGORIES() {
+        return this.$store.getters.SUBCATEGORIES;
+      },
+      IS_LOADING()
+      {
+        return this.$store.getters.IS_LOADING
+      },
+    },
+    watch: {
+      SUBCATEGORIES() {
+        this.tableIndex = this.tableIndex + 1
+      },
+    },
+    mounted() {
+      (async() => {
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.$store.commit('SET_SUBCATEGORIES', [])
+          await this.onFetchCategories()
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
+      })()
+    },
+    methods: {
+      async onEdit( data )
+      {
+        this.onShowModal = !this.onShowModal
+        this.category = data
+      },
+      async onDelete(data)
+      {
+        this.$swal({
+          title: 'Kategorie löschen',
+          text: `Bist du sicher, dass du diese Kategorie löschen möchtest? `,
+          showCancelButton: true,
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then( async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('DELETE_SUBCATEGORY', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich!',
+              text: 'Deleting the category.',
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
+            })
+          }
+        })
+      },
+      async onFetchCategories()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_SUBCATEGORIES')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
+    }
+  }
+</script>
+<style lang='css' scoped>
+</style>

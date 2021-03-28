@@ -144,6 +144,9 @@
                       title: 'Kategorien',
                       link: '/category'
                     }, {
+                      title: 'Unterkategorien',
+                      link: '/sub-category'
+                    }, {
                       title: 'Templates',
                       link: '/template'
                     }, {

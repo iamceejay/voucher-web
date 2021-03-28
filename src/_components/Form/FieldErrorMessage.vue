@@ -6,7 +6,7 @@
     <p
       v-for="(error,i) in errors"
       :key="'error-'+i"
-      class="text-red-500 font-semibold font-body"
+      class="text-red-500"
     >
       <small>{{ error }}</small>
     </p>

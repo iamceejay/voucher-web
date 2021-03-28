@@ -323,21 +323,50 @@
 
             <div class="bg-white flex flex-row flex-wrap w-full mt-3">
               <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Hauptkategorie</span>
-              <div class="px-3 py-3">
-                <!-- <SelectField
-                  id="category"
-                  v-model="form.category"
-                  class="py-1 w-full"
-                  label="Kategorie"
-                  :options="categories"
-                  rules="required"
-                /> -->
-                <MultipleCheckboxField
-                  name="valid_day"
-                  :options="categories"
-                  :data="form.category"
-                  @onChange="form.category = $event"
-                />
+              <div class="px-5 py-3 flex flex-col ">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <label class="flex items-center mb-1" v-for="(category, index) of categories" :key="index">
+                    <input type="radio" name="category" :value="category.id" v-model="form.category">
+                    <span class="text-xs ml-1">{{ category.label }}</span>
+                  </label>
+                  <span class="text-xs text-red-500">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+            </div>
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+              <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Unterkategorie</span>
+              <div class="px-5 py-3 flex flex-col ">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <label class="flex items-center mb-1" v-for="(category, index) of categories" :key="index">
+                    <input type="radio" name="category" :value="category.id" v-model="form.category">
+                    <span class="text-xs ml-1">{{ category.label }}</span>
+                  </label>
+                  <span class="text-xs text-red-500">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+            </div>
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+              <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Zielgruppe</span>
+              <div class="px-5 py-3 flex flex-col ">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <label class="flex items-center mb-1" v-for="(target, index) of target_group" :key="index">
+                    <input type="radio" name="taget_group" :value="target" v-model="form.target">
+                    <span class="text-xs ml-1">{{ target }}</span>
+                  </label>
+                  <span class="text-xs text-red-500">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+            </div>
+            <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+              <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Wetter/Saison</span>
+              <div class="px-5 py-3 flex flex-col ">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <label class="flex items-center mb-1" v-for="(season, index) of seasons" :key="index">
+                    <input type="radio" name="season" :value="season" v-model="form.season">
+                    <span class="text-xs ml-1">{{ season }}</span>
+                  </label>
+                  <span class="text-xs text-red-500">{{ errors[0] }}</span>
+                </ValidationProvider>
               </div>
             </div>
 
@@ -611,7 +640,9 @@
         categories: [],
         form: {
           id: null,
-          category: [],
+          category: '',
+          target: '',
+          season: '',
           voucher_category_id: null,
           seller_id: null,
           title: '',
@@ -650,6 +681,8 @@
         chunk_voucher_img: [],
         taxes: [],
         expiry: [],
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
+        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter']
       }
     },
     computed: {
@@ -901,6 +934,8 @@
             this.form.image_1_update = true
             this.form.image_2_update = true
             this.form.image_3_update = true
+            this.form.valid_date = this.data.valid_date || []
+            this.form.valid_day = this.data.valid_day || []
           } else {
             this.form = {
               id: this.data.id,
