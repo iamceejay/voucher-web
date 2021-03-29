@@ -8355,6 +8355,11 @@ vue-file-agent@^1.7.0:
   dependencies:
     vue "^2.6.11"
 
+vue-google-login@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/vue-google-login/-/vue-google-login-2.0.5.tgz#228267444a4a7cfa175b345fe146042d1c3e74ac"
+  integrity sha512-C+N8l+otSOiTDQic35bV8Qt/mq9KWGDX35utbZjcD37hGwMXGabW7GetB3cF56r2LfsSiGAnWwPGK2T2V1gZdA==
+
 vue-gtag@^1.10.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/vue-gtag/-/vue-gtag-1.11.0.tgz#4c1eedfa6db7d5c0945a535198e460f105f94b10"

@@ -42,8 +42,9 @@
         <div class="flex flex-col border-t-2 border-input-border">
           <p class="font-medium text-center text-lg py-4">Oder anmelden mit:</p>
           <div class="flex">
-            <!-- <Button
-              class="pr-1 w-1/2"
+             <GoogleLogin class="w-1/2" :params="params" :onSuccess="onSignIn" :onFailure="onFailure">
+            <Button
+              class="pr-1"
               size="w-full py-3"
               round="rounded border border-input-border"
               variant="white"
@@ -52,9 +53,8 @@
               icon="fab fa-google mr-2 text-2xl text-green-700"
               :fullIconClass="true"
               @onClick="onSSO('#')"
-            /> -->
-            <div id="google-signin-btn" class="g-signin2 pr-1 w-1/2" ></div>
-
+            />
+           </GoogleLogin>
             <Button
               class="pl-1 w-1/2"
               size="w-full py-3"
@@ -77,12 +77,15 @@
   import { setToken } from '_helpers/ApiService'
   import InputField from '_components/Form/InputField'
   import Button from '_components/Button'
+  import GoogleLogin from 'vue-google-login';
+
 
   export default {
     name: 'LoginForm',
     components: {
       InputField,
-      Button
+      Button,
+      GoogleLogin
     },
     data() {
       return {
@@ -92,6 +95,9 @@
         loginForm: {
           email: '',
           password: ''
+        },
+        params: {
+          client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID
         }
       }
     },
@@ -103,11 +109,6 @@
     async mounted() {
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
       await this.initFacebook();
-      gapi.signin2.render('google-signin-btn', { // this is the button "id"
-        height: 50,
-        onsuccess: this.onSignIn // note, no "()" here
-      })
-
     },
     methods: {
       async onSubmit()
@@ -233,15 +234,39 @@
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       },
-      onSignIn(googleUser) {
+      async onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile()
-        console.log(profile)
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+
+        try {
+          let loginForm = {
+            email: profile.getEmail(),
+            password: profile.getId()
+          }
+          const { token, user } = await this.$store.dispatch('LOGIN', loginForm)
+          this.setLoginAuth(token, user)
+          this.$router.go('home')
+        } catch (error) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          let form = {
+            role_id: 3,
+            region_id: null,
+            address: '',
+            city: '',
+            zip_code: '',
+            phone_number: '',
+            firstName: profile.getGivenName(),
+            lastName: profile.getFamilyName(),
+            username: profile.getEmail(),
+            email: profile.getEmail(),
+            password: profile.getId(),
+            confirmPassword: profile.getId(),
+            isActivated: 1,
+          }
+          const { token, user } = await this.$store.dispatch('ADD_USER', form)
+          this.setLoginAuth(token, user)
+          this.$router.go('home')
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        }
       },
       onFailure(error) {
         console.log(error)
