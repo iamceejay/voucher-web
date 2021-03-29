@@ -488,7 +488,7 @@
               icon: 'wallet',
             }, {
               title: 'Anmelden',
-              link: '/register',
+              link: '/login',
               icon: 'person',
             }, {
               title: 'Login',
