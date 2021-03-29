@@ -1,7 +1,7 @@
 <template>
   <div id="login-form-component">
-    <form 
-      class="container w-full" 
+    <form
+      class="container w-full"
       @submit.prevent
     >
       <div v-if="error" class="text-center mb-2">
@@ -100,7 +100,7 @@
     mounted() {
     },
     methods: {
-      async onSubmit() 
+      async onSubmit()
       {
         try {
           this.submitting = true
@@ -124,7 +124,7 @@
           await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
           await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
           this.submitting = false
-          this.$router.push('/home')
+          this.$router.go('home')
         } catch (err) {
           this.submitting = false
           if(err.response?.status === 422) {
