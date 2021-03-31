@@ -3,8 +3,10 @@
     <ValidationProvider
       :name="id"
       :rules="rules"
+      tag="div"
+      class="flex w-11/12 mx-auto"
     >
-      <template #default="{ errors }">
+      <template class="test" #default="{ errors }">
         <Header5
           v-if="label != ''"
           :label="label"

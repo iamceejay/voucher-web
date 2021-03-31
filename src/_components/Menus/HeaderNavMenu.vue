@@ -1,10 +1,10 @@
 <template>
   <div
     class="bg-white w-full nav-container hidden md:flex border-b"
-    :id="AUTH_USER.isAuth ? 'site-header' : 'guest-header'"
+    :id="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'site-header' : 'guest-header'"
     >
-    <div class="content-container mx-auto w-full hidden md:flex"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
-      <div class="nav-logo flex"  :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
+    <div class="content-container mx-auto w-full hidden md:flex"  :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'">
+      <div class="nav-logo flex"  :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'">
         <a
           href="javascript:void(0)"
           :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
@@ -29,9 +29,13 @@
         </a>
         <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
       </div>
-      <div v-if="AUTH_USER.isAuth" class="border border-black mx-8 opacity-25" style="margin-bottom: 20px"></div>
-      <div v-if="AUTH_USER.isAuth" class="flex flex-1 flex-col justify-between mx-8 text-sm">
-        <div class="flex flex-col space-y-4">
+      <div v-if="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user'" class="border border-black mx-8 opacity-25" style="margin-bottom: 20px"></div>
+      <div v-if="AUTH_USER.isAuth" class="flex flex-1 justify-between mx-8 text-sm"
+        :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'"
+        >
+        <div
+          class="flex"
+          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4' : 'flex-row space-x-4 items-center flex-1 justify-center'">
             <a
             v-for="(menu, index) in menus"
             :key="`menu-${index}`"
@@ -39,15 +43,18 @@
             class="menu-item "
             @click="onSelectMenu(menu, index)"
           >
-            <span class="hover:text-peach relative z-10 flex items-center">
-              <svg v-if="menu.icon" class="icon h-4 w-4 mr-2">
-                <use :xlink:href="`/icons/sprite.svg#${menu.icon}`"/>
+            <span
+              class="hover:text-peach relative z-10 flex items-center"
+              :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-row' : 'flex-col'">
+              <svg
+                v-if="menu.icon"
+                class="icon h-4 w-4"
+                :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'mr-2' : 'text-peach'">
+                <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
               </svg>
               {{ menu.title }}
-
-
               <span
-                v-if="menu.child"
+                v-if="menu.child && AUTH_USER.role.name !== 'user'"
                 class="absolute right-0"
               >
                 <i
@@ -58,7 +65,7 @@
             </span>
             <!-- <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" /> -->
             <div
-              v-if="menu.child && menu.isChildShow"
+              v-if="menu.child && menu.isChildShow && AUTH_USER.role.name !== 'user'"
               class="dropdown-menu flex flex-col"
             >
               <a
@@ -73,34 +80,49 @@
             </div>
           </a>
         </div>
-        <div class="flex flex-col items-start space-y-4 mt-8 pb-8">
+        <div
+          class="flex"
+          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 mt-8 pb-8 items-start' : 'items-center'">
           <router-link
             v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
-            class="cart-icon"
-            to="/cart"
-          >
-            <div class="cart-count" :class="`${COUNT_CART ? 'bg-peach text-white' : 'cart-count-default'}`">
-              {{ COUNT_CART }}
+            class="flex flex-col items-center justify-center relative"
+              to="/cart"
+            >
+            <div class="relative  h-4 w-4">
+              <svg class="relative icon h-4 w-4 text-peach">
+                <use :xlink:href="`/icons/sprite.svg#bag`"/>
+              </svg>
+              <div class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4">
+                {{ COUNT_CART }}
+              </div>
             </div>
-            <i class="fas fa-shopping-cart text-lg" />
+
+            <span class="text-sm">Warenkorb</span>
           </router-link>
           <a
             v-if="AUTH_USER.isAuth"
             href="javascript:void(0)"
-            class="menu-item hover:text-peach"
+            class="flex items-center justify-center relative"
+            :class="AUTH_USER.isAuth && AUTH_USER.role.name == 'user' ? 'flex-col ml-4' : 'space-x-2'"
             @click="onLogout()"
-          >
-            Ausloggen
+            >
+            <div class="relative  h-4 w-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="relative icon h-4 w-4 text-peach" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+              </svg>
+            </div>
+            <span class="text-sm">Ausloggen</span>
           </a>
         </div>
       </div>
       <div
         v-else
         class="flex flex-1 justify-between mx-8 text-sm"
-        :class="AUTH_USER.isAuth ? 'flex-col' : 'flex-row'">
+        :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'">
         <div
           class="flex"
-          :class="AUTH_USER.isAuth ? 'flex-col space-y-4' : 'flex-row items-center space-x-4 flex-1 justify-center'">
+          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4' : 'flex-row items-center space-x-4 flex-1 justify-center'">
           <a
             v-for="(menu, index) in menus.slice(0, 4)"
             :key="`menu-${index}`"
@@ -118,7 +140,7 @@
         </div>
         <div
           class="flex mt-8 pb-8"
-          :class="AUTH_USER.isAuth ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
+          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
           >
           <a
             href="javascript:void(0)"
@@ -148,61 +170,6 @@
           </router-link>
         </div>
       </div>
-
-      <!-- <div
-        v-if="showWallet" class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center"
-        :class="showWallet ? 'modal-active' : ''"
-      >
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" @click="showWallet = false; isRegisterPop = false" />
-        <div class="bg-white md:max-w-2xl modal-container mx-auto overflow-y-auto rounded shadow-lg w-11/12 z-50">
-          <div class="modal-content text-left relative">
-            <div class="absolute cursor-pointer modal-close p-4 right-0 z-50" @click="showWallet = false">
-              <svg
-                class="fill-current text-black" xmlns="http://www.w3.org/2000/svg"
-                width="18" height="18"
-                viewBox="0 0 18 18"
-              >
-                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
-              </svg>
-            </div>
-            <div v-if="!isRegisterPop" class="p-4 sm:p-6 bg-gray-200">
-              <div class="flex justify-between items-center pb-3">
-                <p class=" text-center text-lg sm:text-2xl w-full">
-                  Erhalte Zugriff zu deiner eigenen Wallet
-                </p>
-              </div>
-              <p class="text-center">
-                In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
-              </p>
-            </div>
-            <div class="flex flex-col grid-template py-4 sm:grid">
-              <div class="flex flex-col p-4 sm:p-6 justify-between">
-                <p class=" text-lg sm:text-2xl mx-6">
-                  Registriere dich kostenlos als Käufer
-                </p>
-                <a href="/register/buyer" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Registrieren</a>
-              </div>
-              <div class="wrapper hidden sm:block">
-                <div class="line" />
-                <div class="wordwrapper">
-                  <div class="word">
-                    oder
-                  </div>
-                </div>
-              </div>
-              <div id="oder" class="block sm:hidden mt-10">
-                <span class="bg-white px-3">oder</span>
-              </div>​
-              <div class="flex flex-col p-6 justify-between">
-                <p class=" text-lg sm:text-2xl mx-6">
-                  Melde dich als Käufer an
-                </p>
-                <a href="/login" class="px-4 bg-peach p-3 rounded-full mt-8 mx-6 sm:text-lg text-white text-center">Anmelden</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -520,7 +487,7 @@
             this.$router.push(menu.link)
           }
         } else {
-          if (!this.AUTH_USER.isAuth) {
+          if (!this.AUTH_USER.isAuth || (this.AUTH_USER.isAuth && this.AUTH_USER.role.name == 'user')) {
             this.$emit('onShowSubMenu', !menu.isChildShow ? menu.child : [])
             this.menus = this.menus.map( (m, i) => {
 

@@ -1,10 +1,9 @@
 <template>
   <div
     id="main-layout-component"
-    class="absolute hide-sidebar inset-0"
+    class="absolute hide-sidebar inset-0 grid"
     :class="{
-      'grid': AUTH_USER.isAuth,
-      'grid md:block': !AUTH_USER.isAuth,
+      'md:block': !AUTH_USER.isAuth || (AUTH_USER.isAuth && AUTH_USER.role.name == 'user'),
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
     }"
   >
@@ -25,7 +24,7 @@
           alt=""
         />
       </router-link>
-      <div v-if="AUTH_USER.isAuth">
+      <div v-if="AUTH_USER.isAuth" class="flex">
         <router-link
           v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
           class="flex flex-col items-center justify-center text-peach relative"
@@ -39,6 +38,20 @@
           </svg>
           <span class="text-2xs">Warenkorb</span>
         </router-link>
+        <a
+            href="javascript:void(0)"
+            class="flex flex-col items-center justify-center relative ml-4"
+
+            @click="onLogout()"
+            >
+            <div class="relative  h-5 w-5 mb-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="relative icon h-5 w-5 text-peach" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+              </svg>
+            </div>
+            <span class="text-2xs text-peach">Ausloggen</span>
+          </a>
       </div>
 
       <div v-else class="text-sm flex space-x-4">
@@ -73,14 +86,14 @@
     </div>
     <div
       class="flex flex-col w-full relative"
-      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth ? 'guest-container' : ''}`"
+      :class="`${categories.length ? 'overflow-hidden' : 'overflow-auto overflow-x-hidden'} ${!AUTH_USER.isAuth || AUTH_USER.role.name === 'user' ? 'guest-container' : ''}`"
       :style="contentStyle"
     >
       <ul
         v-if="categories.length"
         id="mobile-category"
         class="categories-menu fixed inset-0 z-110 px-6 py-4 overflow-auto "
-        :class="AUTH_USER.isAuth ? 'md:hidden' : 'guest'"
+        :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'md:hidden' : 'guest'"
         style="background-color: #F2F2F2">
           <li v-for="(category, index) in categories" :key="index" class="categories-menu__item content-container">
             <a :href="category.link" class="flex flex-wrap items-center py-2 lg:py-4 text-sm">
@@ -312,7 +325,17 @@
       },
       handleCategory(evt) {
         this.categories = evt
-      }
+      },
+      async onLogout()
+      {
+        try {
+          this.isLoggingOut = true
+          const data = await this.$store.dispatch('LOGOUT')
+          await this.onRemoveAuth()
+        } catch (err) {
+          await this.onRemoveAuth()
+        }
+      },
     }
   }
 </script>
