@@ -7,7 +7,7 @@
       class="card-header p-3 2xl:p-5"
     >
       <div class="flex flex-col w-3/4 break-words">
-        <div class="text-base font-semibold">
+        <div class="text-base font-semibold h-12">
           {{ voucher.title || 'Gutscheinnname' }}
         </div>
         <div class="text-sm">
@@ -56,7 +56,7 @@
         <a v-if="isShowWishlist" class="wishlist-btn"
           @click.stop="onClickWishlist(voucher)">
           <svg class="icon"
-            :class="[{ 'text-peach': AUTH_USER_VOUCHER_WISHLIST.find(_wishlist => 
+            :class="[{ 'text-peach': AUTH_USER_VOUCHER_WISHLIST.find(_wishlist =>
               _wishlist.voucher_id == voucher.id
             ) }]"
           >
@@ -332,7 +332,7 @@
           user_id: this.AUTH_USER.data.id,
           voucher_id: voucher.id
         }
-        const validate = this.AUTH_USER_VOUCHER_WISHLIST.find(_wishlist => 
+        const validate = this.AUTH_USER_VOUCHER_WISHLIST.find(_wishlist =>
           _wishlist.voucher_id == voucher.id
         )
         if (validate)
@@ -353,17 +353,17 @@
         } else {
           try {
             await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
-          
+
             const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: this.AUTH_USER.data.id });
             await localStorage.removeItem('_userWishlist')
             await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
             await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
             text = "added to wishlist."
           } catch (err) {
-            
+
           }
         }
-        
+
         this.$swal({
           icon: 'success',
           html: `<div class="px-3"><p>${voucher.title}</p><p>is ${text}</p></div>`,

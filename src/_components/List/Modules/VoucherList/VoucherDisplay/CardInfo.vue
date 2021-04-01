@@ -7,7 +7,7 @@
       class="card-header  p-5"
     >
       <div class="flex flex-col w-3/5 break-words">
-        <div class="text-base font-semibold">
+        <div class="text-base font-semibold h-12">
           {{ voucher.title || 'Gutscheinnname' }}
         </div>
         <div class="text-sm">
@@ -69,11 +69,14 @@
                   : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
             }}</span>
           </span>
-          <span class="text-xl font-bold" v-else>{{
+          <span class="text-xl font-bold" v-else>
+              {{
                 `${(voucher.type == 'quantity')
                   ? `${$helpers.convertCurrency(voucher.qty_val)}`
-                  : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
-              }}</span>
+                  : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${$route.name == 'vouchers-detail' ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
+              }}
+              <span></span>
+            </span>
           <span class="mt-3 flex items-center">
              <QrcodeVue
               class="card-qr"
