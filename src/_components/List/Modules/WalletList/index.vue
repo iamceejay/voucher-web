@@ -202,7 +202,7 @@ export default {
         ? true
         : false;
       row.order.voucher.data_json.seller = row.order.voucher.seller
-      console.log(row.order.voucher.data_json)
+
       return row.order.voucher.data_json;
     },
     onDelete(data) {

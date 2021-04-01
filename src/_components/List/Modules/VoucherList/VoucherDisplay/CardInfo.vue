@@ -301,7 +301,6 @@
       },
       onSetImage(value)
       {
-        console.log((value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value)
         return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
       },
       onSetRole()
