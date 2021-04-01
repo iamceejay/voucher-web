@@ -1,7 +1,7 @@
 <template>
   <div
     id="main-layout-component"
-    class="absolute hide-sidebar inset-0 grid"
+    class="absolute hide-sidebar inset-0 grid h-screen"
     :class="{
       'md:block': !AUTH_USER.isAuth || (AUTH_USER.isAuth && AUTH_USER.role.name == 'user'),
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
