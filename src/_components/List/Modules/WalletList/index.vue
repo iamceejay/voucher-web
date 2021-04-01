@@ -41,7 +41,7 @@
 
             <button
               class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4"
-              @click="$router.push(`/seller/${row.order.voucher.seller_id}`)"
+              @click="$router.push(`/vouchers/personalized/${row.id}`)"
             >
               Zum Gutschein
             </button>
