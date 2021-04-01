@@ -4,8 +4,8 @@
       <div class="bg-custom-gray">
         <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-4 pt-10">
           <h1 class="font-medium text-xl mx-auto">Warenkorb</h1>
-          <div class="flex items-start max-w-xs p-4 w-full mx-auto">
-            <svg class="h-6 icon mr-2 text-peach w-6">
+          <div class="flex items-start max-w-lg p-4 w-full mx-auto mb-6">
+            <svg class="h-6 icon mr-2 w-6">
               <use :xlink:href="`/icons/sprite.svg#palette`"/>
             </svg>
             <span class="text-xs">
@@ -13,7 +13,7 @@
             </span>
           </div>
 
-          <div class="bg-white flex flex-col items-start max-w-sm mb-10 mt-6 mx-auto pb-8 pt-4 px-8 w-full">
+          <!-- <div class="bg-white flex flex-col items-start max-w-sm mb-10 mt-6 mx-auto pb-8 pt-4 px-8 w-full">
             <div class="flex items-baseline justify-center w-full">
                 <span class="text-xs mr-3">Summe ({{WALLETS.length}} Artikel):</span>
                 <span class="border-b border-black font-medium text-xl">{{ $helpers.convertCurrency(totalAmount) }}</span>
@@ -26,14 +26,30 @@
               >
                 Zur Kasse
             </button>
+          </div> -->
+          <div class="bg-white max-w-2xl mb-12 md:mx-auto px-4 md:px-12 py-12 w-full">
+            <CartList
+              v-if="WALLETS && WALLETS.length >= 0"
+              class="mb-3"
+              :role="AUTH_USER.role.name"
+              :data="WALLETS"
+              @onDelete="onDelete"
+            />
+            <div class="bg-white flex items-start justify-between max-w-xl mx-auto">
+              <div class="flex flex-col items-baseline justify-center w-full">
+                  <span class="text-sm ">Gesamt</span>
+                  <span class="font-medium text-4xl">{{ $helpers.convertCurrency(totalAmount) }}</span>
+              </div>
+              <button
+                @click="$router.push('/payment')"
+                class="bg-peach px-5 py-3 rounded-md text-sm text-white"
+                :class="{'opacity-50': !WALLETS.length}"
+                :disabled="!WALLETS.length"
+                >
+                  Zur Kasse
+              </button>
+            </div>
           </div>
-          <CartList
-            v-if="WALLETS && WALLETS.length >= 0"
-            class="mb-3"
-            :role="AUTH_USER.role.name"
-            :data="WALLETS"
-            @onDelete="onDelete"
-          />
         </div>
       </div>
     </template>

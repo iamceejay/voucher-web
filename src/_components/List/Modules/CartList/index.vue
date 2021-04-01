@@ -22,39 +22,40 @@
           />
         </div>
         <div v-if="withCartDetail" class="order__form flex flex-col w-full ">
-          <router-link
+          <!-- <router-link
             class="text-xs underline my-8"
             to="/vouchers/category/"
           >
             Weitere Gutscheine wie diese
-          </router-link>
-          <span class="font-medium mb-2">
-            {{ row.voucher.title }}
-          </span>
-          <div class="flex items-center mb-2">
-            <form  ref="inputForm" class="order__form-group mr-3" >
-              <input
-                type="number"
-                :min="(row.voucher.type == 'quantity') ? row.voucher.qty_min : row.voucher.val_min"
-                :max="(row.voucher.type == 'quantity') ? row.voucher.qty_max : row.voucher.val_max"
-                :value="row.total_qty || row.total_amount"
-                @input="orderUpdate(row, $event.target.value)"
-                required
-              />
-              <div
-                class="order__form-number order-up"
-                @click="orderUpdate(row, row[row.total_qty ? 'total_qty' : 'total_amount'] + 1)"
-              >+</div>
-              <div
-                class="order__form-number order-down"
-                @click="orderUpdate(row, row[row.total_qty ? 'total_qty' : 'total_amount'] - 1)"
-              >-</div>
-            </form>
-            <div class="text-xs">Stück</div>
+          </router-link> -->
+          <div class="flex flex-1 flex-col justify-center">
+            <span class="font-medium mb-2">
+              {{ row.voucher.title }}
+            </span>
+            <div class="flex items-center mb-2">
+              <form  ref="inputForm" class="order__form-group mr-3" >
+                <input
+                  type="number"
+                  :min="(row.voucher.type == 'quantity') ? row.voucher.qty_min : row.voucher.val_min"
+                  :max="(row.voucher.type == 'quantity') ? row.voucher.qty_max : row.voucher.val_max"
+                  :value="row.total_qty || row.total_amount"
+                  @input="orderUpdate(row, $event.target.value)"
+                  required
+                />
+                <div
+                  class="order__form-number order-up"
+                  @click="orderUpdate(row, row[row.total_qty ? 'total_qty' : 'total_amount'] + 1)"
+                >+</div>
+                <div
+                  class="order__form-number order-down"
+                  @click="orderUpdate(row, row[row.total_qty ? 'total_qty' : 'total_amount'] - 1)"
+                >-</div>
+              </form>
+              <div class="text-xs">Stück</div>
+            </div>
+            <!-- <span class="font-medium">{{ `${ $helpers.convertCurrency((row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value)}` }}</span> -->
+            <span class="font-medium">{{ $helpers.convertCurrency(onGetTotal(row)) }}</span>
           </div>
-          <!-- <span class="font-medium">{{ `${ $helpers.convertCurrency((row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value)}` }}</span> -->
-          <span class="font-medium">{{ $helpers.convertCurrency(onGetTotal(row)) }}</span>
-
           <div v-if="isCart" class="flex flex-row mt-16">
             <a
               href="javascript:void(0)"

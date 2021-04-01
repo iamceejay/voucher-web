@@ -1,114 +1,169 @@
 <template>
   <MainLayout>
     <template #content>
-      <div v-if="!IS_LOADING.status && VOUCHER" class="content-container w-full flex flex-col px-8">
-        <div class="flex flex-col w-full">
-          <VoucherCard
-            class="self-center"
-            :voucher="VOUCHER"
-            :isFlippable="false"
-            :withQR="false"
-          />
-          <span class="block border-b font-semibold pb-3 pt-6 text-lg text-center">
-            {{ VOUCHER.title }}
-          </span>
-          <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm text-center px-2">
-            <a
-              href="javascript:void(0)"
-              class="text-peach cursor-pointer"
-              @click="close(); $router.push('/login')"
-            >
-              Logge dich ein
-            </a>
-            oder <a
-              href="javascript:void(0)"
-              class="text-peach cursor-pointer"
-              @click="close(); $router.push('/register/buyer')"
-            >
-              registriere dich
-            </a>, um Gutscheine zu kaufen.
+      <div v-if="!IS_LOADING.status && VOUCHER" class="content-container w-full flex flex-col px-8 pb-10">
+        <div class="flex flex-col md:flex-row w-full items-start justify-center">
+          <div>
+            <VoucherCard
+              class="self-center"
+              :voucher="VOUCHER"
+              :isFlippable="false"
+              :withQR="false"
+            />
           </div>
+          <div class="flex-1 md:mx-4 w-full" style="max-width: 465px">
+            <span class="block font-semibold pb-3 pt-6 text-lg">
+              {{ VOUCHER.title }}
+            </span>
+            <span class="block mb-3 w-full border-b pb-4">
+              {{ VOUCHER.description }}
+            </span>
+            <div v-if="VOUCHER.data_json != null" class="w-full">
+                <slider ref="slider" :options="options" >
+                    <!-- slideritem wrapped package with the components you need -->
+                    <slideritem >
+                      <img class="mr-4" v-if="VOUCHER.data_json.image_1" :src="VOUCHER.data_json.image_1" width="150" height="150">
+                      <img class="mr-4" v-if="VOUCHER.data_json.image_2" :src="VOUCHER.data_json.image_2" width="150" height="150">
+                      <img class="mr-4" v-if="VOUCHER.data_json.image_3" :src="VOUCHER.data_json.image_3" width="150" height="150">
+                    </slideritem>
+                    <!-- Customizable loading -->
+                </slider>
+            </div>
 
-        </div>
-        <ValidationObserver
-          v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
-          v-slot="{ handleSubmit }"
-        >
-          <form
-            class="flex flex-col w-full mt-4 order__form"
-            @submit.prevent="handleSubmit(onSubmit)"
-          >
-            <section class="gap-12 grid grid-cols-2">
-              <div class="flex flex-col items-end">
-                <span class="font-semibold text-lg">
-                  {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
+            <div
+              v-if="VOUCHER.data_json != null"
+              class="flex py-6 mb-4 text-xs w-full whitespace-pre overflow-hidden"
+              :class="{'h-20 md:h-10 show-more' : !isShowMore}"
+              >
+              {{ VOUCHER.data_json.long_description }}
+            </div>
+
+            <div>
+              <button
+                type="button"
+                @click="isShowMore = !isShowMore"
+                class="px-3 py-3 rounded-md text-xs mt-6 mr-3"
+                :class="'border border-black text-black'"
+                >
+                {{ !isShowMore ? 'Mehr lesen' : 'Lese weniger' }}
+              </button>
+
+              <router-link
+                class="px-3 py-3 rounded-md text-xs border border-black text-black"
+                :to="`/seller/${VOUCHER.seller_id}`"
+              >
+                Verkäufer Info
+              </router-link>
+            </div>
+
+            <span class="block mb-3 w-full border-b pb-4 mt-10 font-semibold">
+              Gutschein Info
+            </span>
+
+            <div class="flex space-x-6">
+              <div class="flex flex-col">
+                <span class="text-xs font-bold mb-1">Einlösbar:</span>
+                <span
+                  v-if="VOUCHER.valid_day && VOUCHER.valid_day.length > 0"
+                  class="text-xs flex flex-col">
+                  <span
+                    v-for="(day, index) in VOUCHER.valid_day"
+                    :key="`day-${index}`"
+                  >
+                    {{ `${day.substring(0,3)}` }}
+                  </span>
                 </span>
-                <span class="text-2xs text-gray-500">inkl. MwSt.</span>
               </div>
-              <div class="order__form-group">
-                <input
-                  v-model="form.value"
-                  type="number"
-                  :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
-                  :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
-                  required
-                />
+
+              <div class="flex flex-col">
+                <span class="text-xs font-bold mb-1">Zeitraum:</span>
                 <div
-                  class="order__form-number order-up"
-                  @click="form.value++"
-                >+</div>
-                <div
-                  class="order__form-number order-down"
-                  @click="form.value--"
-                >-</div>
+                  v-if="VOUCHER.valid_date && VOUCHER.valid_date.length > 0"
+                  class="text-xs flex flex-col">
+                  <div
+                    v-for="(date, index) in VOUCHER.valid_date"
+                    :key="`date-${index}`"
+                  >
+                  {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
+                  </div>
+                </div>
               </div>
-            </section>
-            <Button
-              class="self-center w-full md:w-1/2 mt-3 "
-              :label="`zum Warenkorb hinzufügen`"
-              :icon="`${ isAdded ? 'check' : '' }`"
-              size="w-full py-3"
-              round="rounded-md"
-              :type="`${ isAdded ? 'button' : 'submit' }`"
-              @onClick=" isAdded ? onRemoveCart() : null"
-            />
-          </form>
 
-          <section class="border flex md:w-1/2 mt-3 mx-auto p-4 w-full">
-            <i class="fa fa-palette mr-2 mt-1"></i>
-            <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
-          </section>
+              <div class="flex flex-col" v-if="VOUCHER.expiry_date">
+                <span class="text-xs font-bold mb-1">Gültigkeit:</span>
+                <div class="text-xs flex flex-col">
+                  {{ VOUCHER.expiry_date }} Jahre
+                </div>
+              </div>
+            </div>
 
-          <span class="block md:w-1/2 mx-auto my-6 w-full">
-            {{ VOUCHER.description }}
-          </span>
+            <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm">
+              <a
+                href="javascript:void(0)"
+                class="text-peach cursor-pointer"
+                @click="close(); $router.push('/login')"
+              >
+                Logge dich ein
+              </a>
+              oder <a
+                href="javascript:void(0)"
+                class="text-peach cursor-pointer"
+                @click="close(); $router.push('/register/buyer')"
+              >
+                registriere dich
+              </a>, um Gutscheine zu kaufen.
+            </div>
+           <ValidationObserver
+              v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
+              v-slot="{ handleSubmit }"
+            >
+              <form
+                class="flex flex-col w-full mt-4 order__form"
+                @submit.prevent="handleSubmit(onSubmit)"
+              >
+                <section class="flex items-center">
+                  <div class="flex flex-col items-end mr-3 md:mr-12">
+                    <span class="font-semibold text-lg">
+                      {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
+                    </span>
+                    <span class="text-2xs text-gray-500">inkl. MwSt.</span>
+                  </div>
+                  <div class="order__form-group mr-2">
+                    <input
+                      v-model="form.value"
+                      type="number"
+                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                      required
+                    />
+                    <div
+                      class="order__form-number order-up"
+                      @click="form.value++"
+                    >+</div>
+                    <div
+                      class="order__form-number order-down"
+                      @click="form.value--"
+                    >-</div>
+                  </div>
+                  <Button
+                    class="self-center"
+                    label="In den Warenkorb"
+                    :icon="`${ isAdded ? 'check' : '' }`"
+                    size="w-full py-3 px-2 md:px-4"
+                    round="rounded  "
+                    :type="`${ isAdded ? 'button' : 'submit' }`"
+                    @onClick=" isAdded ? onRemoveCart() : null"
+                  />
+                </section>
+              </form>
 
-          <div v-if="VOUCHER.data_json != null" class="mx-auto md:w-1/2 w-full">
-            <slider ref="slider" :options="options" >
-                <!-- slideritem wrapped package with the components you need -->
-                <slideritem >
-                  <img class="mr-4" v-if="VOUCHER.data_json.image_1" :src="VOUCHER.data_json.image_1" width="150" height="150">
-                  <img class="mr-4" v-if="VOUCHER.data_json.image_2" :src="VOUCHER.data_json.image_2" width="150" height="150">
-                  <img class="mr-4" v-if="VOUCHER.data_json.image_3" :src="VOUCHER.data_json.image_3" width="150" height="150">
-                </slideritem>
-                <!-- Customizable loading -->
-            </slider>
+              <section class="border flex mt-3 p-4 w-full">
+                <i class="fa fa-palette mr-2 mt-1"></i>
+                <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
+              </section>
+            </ValidationObserver>
           </div>
-
-
-            <div v-if="VOUCHER.data_json != null" class="border-b flex md:w-1/2 mx-auto py-6 mb-8 text-xs w-full whitespace-pre">{{ VOUCHER.data_json.long_description }}</div>
-
-          <router-link
-            class="self-center w-full md:w-1/2 mx-auto block"
-            :to="`/seller/${VOUCHER.seller_id}`"
-          >
-            <Button
-              label="Mehr Infos & Gutscheine von diesem Verkäufer"
-              size="w-full py-3"
-              round="rounded-md"
-            />
-          </router-link>
-        </ValidationObserver>
+        </div>
       </div>
     </template>
   </MainLayout>
@@ -119,6 +174,7 @@
   import InputField from '_components/Form/InputField'
   import Button from '_components/Button'
   import { slider, slideritem } from 'vue-concise-slider'
+  import { formatDate } from '_helpers/CustomFunction'
 
   export default {
     name: 'Vouchers',
@@ -132,6 +188,7 @@
     },
     data() {
       return {
+        isShowMore: false,
         form: {
           id: null,
           voucher_id: null,
@@ -143,12 +200,7 @@
         symbol: '',
         isAdded: false,
         options: {
-          currentPage: 0,
-          loop: true,
-          infinite: 1,
-          slidesToScroll: 1,
           pagination: false,
-          centeredSlides: false
         },
       }
     },
@@ -182,6 +234,10 @@
       })()
     },
     methods: {
+      formatDate(date)
+      {
+        return formatDate(date)
+      },
       async onSubmit()
       {
         this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
@@ -288,6 +344,9 @@
   }
 </script>
 <style lang='css' scoped>
+.show-more {
+  -webkit-mask-image: -webkit-gradient(linear, center bottom, center top, color-stop(0.00, rgba(0,0,0,0)), color-stop(1.00, rgba(0,0,0,1)));
+}
 .order__form-number {
   cursor: pointer;
   width: 12px;
