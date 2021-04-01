@@ -1,10 +1,20 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <form
-      class="flex flex-col justify-center m-auto max-w-2xl pt-12 w-full"
+      class="flex flex-col md:flex-row justify-center mx-auto max-w-3xl pt-12 w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
-      <div class="w-full flex flex-col m-auto mb-10" style="max-width: 368px">
+      <div class="flex flex-col w-full items-center mb-6 mr-4">
+        <VoucherCard
+          v-if="data && data.order.voucher"
+          :key="`vform-${formIndex}`"
+          :voucher="form"
+          :order="data.order"
+          :userVoucher="userVoucher"
+          :isFlippable="false"
+        />
+      </div>
+      <div class="w-full flex flex-col mb-10" style="max-width: 368px">
         <div class="bg-white flex flex-row flex-wrap w-full p-5 ">
           <div class="flex flex-col w-full">
             <div class="text-sm mb-2">Hintergrundbild wählen</div>
@@ -86,22 +96,10 @@
             </span>
             <label class="text-sm col-span-2">nein / ja</label>
           </div>
-        </div>
-        <div class="flex justify-end">
-          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10 flex-1">
-            Gutschein speichern
+          <button class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-10 w-full">
+            Speichern
           </button>
         </div>
-      </div>
-      <div class="flex flex-col w-full items-center mb-6">
-        <VoucherCard
-          v-if="data && data.order.voucher"
-          :key="`vform-${formIndex}`"
-          :voucher="form"
-          :order="data.order"
-          :userVoucher="userVoucher"
-          :isFlippable="false"
-        />
       </div>
     </form>
   </ValidationObserver>
@@ -261,22 +259,9 @@
           this.form.id = this.data.id
         } else {
           this.form = {
-            id: this.data.id,
-            title: this.data.title,
-            description: this.data.description,
+            ...this.data.order.voucher,
             min: (this.data.type == 'quantity') ? this.data.qty_min : this.data.val_min,
             max: (this.data.type == 'quantity') ? this.data.qty_max : this.data.val_max,
-            qty_val: this.data.qty_val,
-            valid_date: this.data.valid_date || [],
-            valid_day: this.data.valid_day || [],
-            tax: this.data.tax || [],
-            type: this.data.type,
-            category: [this.data.voucher_category.id],
-            text_color: this.data.text_color,
-            background_color: this.data.background_color,
-            background_aid: this.data.background_aid,
-            background_image: this.data.background_image,
-            seller: this.AUTH_USER.data,
             background_description_color: '#1D4F55',
             background_description_personal_color: '#1D4F55',
             header_and_footer_background_color: '#fff',
@@ -285,7 +270,6 @@
             header_and_footer_color: '#000',
             price_hidden: this.data.price_hidden ? true : false
           }
-          console.log('test')
         }
         // if(this.data?.id) {
         //   this.form.order_id = this.data.order.id

@@ -965,6 +965,7 @@
             this.form.valid_date = this.data.valid_date || []
             this.form.valid_day = this.data.valid_day || []
             this.form.category = this.data.voucher_category.id
+            this.form.seller = this.data.seller
           } else {
             this.form = {
               id: this.data.id,
