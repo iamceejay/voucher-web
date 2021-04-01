@@ -282,7 +282,7 @@
               })
               setTimeout(() => {
                 confirm.close()
-                this.$router.push('/home')
+                this.$router.push('/cart')
               }, 1000)
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
