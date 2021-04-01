@@ -79,7 +79,7 @@
           <span class="border-b border-black font-medium text-xl">{{ $helpers.convertCurrency(totalPrice) }}</span>
       </div>
       <button
-        @click="$router.push('/payment')"
+        @click="onPayment()"
         class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4 w-full"
         :class="{'opacity-50': !WALLETS.length}"
         :disabled="!WALLETS.length"
