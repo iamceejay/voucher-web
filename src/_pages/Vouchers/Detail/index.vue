@@ -115,7 +115,7 @@
 </template>
 <script>
   import MainLayout from '_layouts';
-  import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
   import InputField from '_components/Form/InputField'
   import Button from '_components/Button'
   import { slider, slideritem } from 'vue-concise-slider'
