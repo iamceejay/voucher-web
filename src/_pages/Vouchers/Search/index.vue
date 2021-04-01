@@ -421,11 +421,15 @@
   }
   .filter-sidebar {
     width: 100%;
-    max-width: 350px;
     z-index: 99999;
-    right: -355px;
+    right: -500px;
   }
   .filter-sidebar.show {
     right: 0;
+  }
+  @screen sm {
+    .filter-sidebar {
+      max-width: 350px;
+    }
   }
 </style>
