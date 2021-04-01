@@ -257,6 +257,7 @@
           this.form.price_hidden = this.data.price_hidden ? true : false
           this.default_background = this.form.background_image
           this.selected_template = this.data.template_id
+          this.form.seller = this.data.order.voucher.seller
           this.form.id = this.data.id
         } else {
           this.form = {
