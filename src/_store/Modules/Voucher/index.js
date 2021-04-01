@@ -116,7 +116,7 @@ export default {
       try {
         const { data } = await post(`${prefix}/search`, payload)
 
-        await commit('SET_VOUCHERS', mergeList( state.vouchers, data.vouchers ))
+        await commit('SET_VOUCHERS', data.vouchers)
         return data
 
       } catch (err) {

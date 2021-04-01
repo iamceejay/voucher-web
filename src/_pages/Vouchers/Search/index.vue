@@ -344,7 +344,7 @@
         }
 
         this.showFilter = false
-        await this.$store.commit('SET_VOUCHERS', [])
+
         await this.onFetchData(params)
 
       },
@@ -366,6 +366,7 @@
           params.isPrice = []
         }
         try {
+          await this.$store.commit('SET_VOUCHERS', [])
           const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', params)
           if( data.vouchers.next_page_url == null ) {
             await this.$store.commit('SET_IS_INFINITE_LOAD', false)

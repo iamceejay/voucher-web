@@ -371,7 +371,6 @@
 
         this.showFilter = false
 
-        await this.$store.commit('SET_VOUCHERS', [])
         await this.onLoadData(params)
       },
       async onFetchData()
@@ -400,6 +399,7 @@
       async onFetchFeaturedVouchers()
       {
         try {
+          await this.$store.commit('SET_VOUCHERS', [])
           await this.$store.dispatch('FETCH_FEATURED_VOUCHERS', {
             isCategory: this.params.isCategory
           })
