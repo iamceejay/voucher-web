@@ -107,7 +107,7 @@
   </ValidationObserver>
 </template>
 <script>
-  import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
   import Button from '_components/Button'
   import Header2 from '_components/Headers/Header2';
   import TextAreaField from '_components/Form/TextAreaField'

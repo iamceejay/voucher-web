@@ -201,6 +201,8 @@ export default {
       row.order.voucher.data_json.price_hidden = row.price_hidden
         ? true
         : false;
+      row.order.voucher.data_json.seller = row.order.voucher.seller
+      console.log(row.order.voucher.data_json)
       return row.order.voucher.data_json;
     },
     onDelete(data) {

@@ -36,7 +36,7 @@
               @onDelete="onDelete"
             />
             <div class="bg-white flex items-start justify-between max-w-xl mx-auto">
-              <div class="flex flex-col items-baseline justify-center w-full">
+              <div class="flex flex-col items-baseline justify-center">
                   <span class="text-sm ">Gesamt</span>
                   <span class="font-medium text-4xl">{{ $helpers.convertCurrency(totalAmount) }}</span>
               </div>
