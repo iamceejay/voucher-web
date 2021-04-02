@@ -1024,46 +1024,46 @@
           val_max: 0,
         }
       },
-        croppie (e, ref) {
-          var files = e.target.files || e.dataTransfer.files;
-          if (!files.length) return;
+      croppie (e, ref) {
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
 
-          var reader = new FileReader();
-          reader.onload = e => {
-            this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
-            this.$refs[ref].bind({
-              url: e.target.result
-            });
-          };
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
+          this.$refs[ref].bind({
+            url: e.target.result
+          });
+        };
 
-          reader.readAsDataURL(files[0]);
-        },
-        // CALBACK USAGE
-        crop(ref, form) {
-            // Here we are getting the result via callback function
-            // and set the result to this.cropped which is being
-            // used to display the result above.
-            let size = form == 'background_image'
-              ? { width: 367, height: 341}
-              : { width: 200, height: 200};
-            let options = {
-                type: 'base64',
-                format: 'jpeg',
-                size,
-                quality: 1,
-            }
-            this.$refs[ref].result(options, (output) => {
-              this.form[form] = output
-            });
-        },
-        update(ref, form) {
-          this.crop(ref, form)
-        },
-        removeImage(e, form) {
-          e.target.parentElement.classList.add('hidden')
-          this.form[form] = ''
-          this.form[form + '_update'] = false
-        }
+        reader.readAsDataURL(files[0]);
+      },
+      // CALBACK USAGE
+      crop(ref, form) {
+          // Here we are getting the result via callback function
+          // and set the result to this.cropped which is being
+          // used to display the result above.
+          let size = form == 'background_image'
+            ? { width: 367, height: 341}
+            : { width: 200, height: 200};
+          let options = {
+              type: 'base64',
+              format: 'jpeg',
+              size,
+              quality: 1,
+          }
+          this.$refs[ref].result(options, (output) => {
+            this.form[form] = output
+          });
+      },
+      update(ref, form) {
+        this.crop(ref, form)
+      },
+      removeImage(e, form) {
+        e.target.parentElement.classList.add('hidden')
+        this.form[form] = ''
+        this.form[form + '_update'] = false
+      }
     }
   }
 </script>

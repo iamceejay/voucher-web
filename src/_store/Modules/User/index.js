@@ -49,9 +49,9 @@ export default {
     async ADD_USER( { commit, state }, payload )
     {
       try {
-        if( payload.company && typeof payload.company.logo == 'string' ) {
-          payload.company.logo = ''
-        }
+        // if( payload.company && typeof payload.company.logo == 'string' ) {
+        //   payload.company.logo = ''
+        // }
         const formData = toFormData(payload)
         const { data } = await post(`auth/register`, formData)
         await commit('SET_USER', data.user)

@@ -39,28 +39,33 @@
       :errorMessages="errorMessages.url"
       @input="onChange"
     />
-    <div
-      v-if="logo && logo != ''"
-      class="flex w-full mx-2 company-logo"
-    >
-      <img
-        style="width: 100%; height: auto;"
-        :src="onSetImage('set', logo)"
-        alt=""
-      />
+
+    <div>
+      <span class="block mb-1 text-sm">Logo</span>
+      <label
+        class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
+        >
+            <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 250px x 100px)
+            <input
+              type="file"
+              accept="'image/*'"
+              aria-label="File browser example"
+              @change="(e) => croppie(e, 'logo')"
+              />
+            <span class="file-custom"></span>
+        </label>
+        <section class="relative hidden">
+          <vue-croppie
+            ref="logo"
+            :enableOrientation="true"
+            :enableResize="false"
+            :boundary="{ width: 250, height: 100 }"
+            :viewport="{ width: 250, height: 100, 'type':'square' }"
+            @update="update('logo', 'logo')"
+          />
+        </section>
     </div>
-    <FileInputField
-      id="icon"
-      v-model="form.company.logo"
-      class="w-full my-2"
-      inputContainer="py-1 text-xs w-full md:w-2/5"
-      label="Logo"
-      note="(Ideales Maß ist 250px x 100px)"
-      :isMultiple="false"
-      accept=".jpeg,.png,.jpg"
-      @input="onChangeLogo"
-      round="rounded"
-    />
+
     <InputField
       id="vat_number"
       v-model="form.company.vat_number"
@@ -241,6 +246,39 @@
           }
         }
       },
+      croppie (e, ref) {
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
+
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
+          this.$refs[ref].bind({
+            url: e.target.result
+          });
+        };
+
+        reader.readAsDataURL(files[0]);
+      },
+      // CALBACK USAGE
+      crop(ref, form) {
+          // Here we are getting the result via callback function
+          // and set the result to this.cropped which is being
+          // used to display the result above.
+          let size = { width: 250, height: 100};
+          let options = {
+              type: 'base64',
+              format: 'jpeg',
+              size,
+              quality: 1,
+          }
+          this.$refs[ref].result(options, (output) => {
+            this.form.company.logo = output
+          });
+      },
+      update(ref, form) {
+        this.crop(ref, form)
+      },
     }
   }
 </script>
@@ -249,5 +287,8 @@
     width: 250px;
     height: 100px;
     border: 1px solid #ccc;
+  }
+  input[type="file"] {
+    display: none;
   }
 </style>
