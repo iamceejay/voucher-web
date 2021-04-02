@@ -63,9 +63,9 @@ export default {
     async UPDATE_USER( { commit, state }, payload )
     {
       try {
-        if( payload.company && typeof payload.company.logo == 'string' ) {
-          payload.company.logo = ''
-        }
+        // if( payload.company && typeof payload.company.logo == 'string' ) {
+        //   payload.company.logo = ''
+        // }
         const formData = toFormData(payload)
         const { data } = await post(`${prefix}/${payload.id}`, formData)
         let auth = await JSON.parse(localStorage.getItem('_auth'))

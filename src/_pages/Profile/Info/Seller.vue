@@ -49,32 +49,42 @@
               <div class="w-full" v-if="currentTab == 0">
                 <div class="md:flex flex-row md:space-x-6 w-full">
                   <div class="w-full md:w-1/2">
-                    <FileInputField
-                      id="icon"
-                      v-model="form.company.logo"
-                      class="w-full my-2"
-                      inputContainer="py-1 text-xs w-full max-w-xs"
-                      label="Logo"
-                      note="(Ideales Maß ist 250px x 100px)"
-                      :isMultiple="false"
-                      accept=".jpeg,.png,.jpg"
-                      @input="onChangeLogo"
-                      round="rounded"
-                    />
-                    <div
-                      v-if="logo && logo != ''"
-                      class="flex w-full mx-2 company-logo mb-4"
-                    >
-                      <img
-                        style="width: 100%; height: auto;"
-                        :src="onSetLogo('set', logo)"
-                        alt=""
-                      />
+                    <div>
+                      <span class="block mb-1 text-sm">Logo</span>
+                      <label
+                        class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
+                        >
+                            <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 250px x 100px)
+                            <input
+                              type="file"
+                              accept="'image/*'"
+                              aria-label="File browser example"
+                              @change="(e) => croppie(e, 'logo')"
+                              />
+                            <span class="file-custom"></span>
+                        </label>
+                        <section v-if="logo && logo != '' && logo == form.company.logo" class="relative border" style="width: 250px; height: 100px;">
+                          <img :src="onSetLogo('set', logo)" style="width: auto; height: 100%;"/>
+                        </section>
+                        <section class="relative hidden">
+                          <!-- <i
+                            class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
+                            @click="(e) => removeImage(e, 'logo')"
+                          ></i> -->
+                          <vue-croppie
+                            ref="logo"
+                            :enableOrientation="true"
+                            :enableResize="false"
+                            :boundary="{ width: 250, height: 100 }"
+                            :viewport="{ width: 250, height: 100, 'type':'square' }"
+                            @update="update('logo', 'logo')"
+                          />
+                        </section>
                     </div>
                     <InputField
                       v-if="AUTH_USER.role.name == 'seller'"
                       id="company_name"
-                      class="mb-4"
+                      class="mb-4 mt-4"
                       v-model="form.company.name"
                       type="text"
                       rules="required"
@@ -459,6 +469,7 @@
       return {
         errorMessages: [],
         logo: '',
+        logoUpdate: false,
         currentTab: 0,
         verification_front: '',
         verification_back: '',
@@ -544,7 +555,10 @@
               this.form.company.region = this.form.company.region_id.label
               delete this.form.company.region_id;
             }
+
+            this.form.company.logo = this.logo
           }
+
           const data = await this.$store.dispatch('UPDATE_USER', this.form)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           let confirm = this.$swal({
@@ -682,14 +696,55 @@
           this.logo = '';
         }
       },
+      croppie (e, ref) {
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
+
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden')
+          this.$refs[ref].bind({
+            url: e.target.result
+          });
+        };
+
+        reader.readAsDataURL(files[0]);
+      },
+      // CALBACK USAGE
+      crop(ref, form) {
+          // Here we are getting the result via callback function
+          // and set the result to this.cropped which is being
+          // used to display the result above.
+          let size = { width: 250, height: 100};
+          let options = {
+              type: 'base64',
+              format: 'jpeg',
+              size,
+              quality: 1,
+          }
+          this.$refs[ref].result(options, (output) => {
+            this.logo = output
+          });
+      },
+      update(ref, form) {
+        this.crop(ref, form)
+      },
+      removeImage(e, form) {
+        e.target.parentElement.classList.add('hidden')
+        this.form[form] = ''
+        this.form[form + '_update'] = false
+      }
 
     }
   }
 </script>
 <style lang='css' scoped>
 .company-logo {
-    width: 250px;
-    height: 100px;
-    border: 1px solid #ccc;
-  }
+  width: 250px;
+  height: 100px;
+  border: 1px solid #ccc;
+}
+input[type="file"] {
+  display: none;
+}
 </style>
