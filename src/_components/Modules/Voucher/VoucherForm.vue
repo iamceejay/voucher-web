@@ -402,50 +402,24 @@
                     <label class="text-sm mb-3 block">
                       Nur gültig im Zeitraum von … bis …
                     </label>
-                    <div
-                      v-for="(date, index) in form.valid_date"
-                      :key="`date-${index}`"
-                      class="flex flex-col"
-                    >
-                      <div class="flex flex-row items-baseline">
-                        <div class="border flex flex-col rounded-sm w-full">
-                          <DatePickerField
-                            v-model="form.valid_date[index].start"
-                            class="w-full border-b"
-                            container=""
-                            rules="required"
-                            placeholder="Startdatum"
-                            @input="onActionDate('change', index)"
-                          />
-                          <DatePickerField
-                            v-model="form.valid_date[index].end"
-                            class="w-full"
-                            container=""
-                            rules="required"
-                            placeholder="Enddatum"
-                            :errorMessages="[form.valid_date[index].error]"
-                            @input="onActionDate('change', index)"
-                          />
-                        </div>
-                        <a
-                          href="javascript:void(0)"
-                          class="flex mt-6 w-1/12 justify-center"
-                          @click="onActionDate('delete', index)"
-                        >
-                          <i class="fas fa-times-circle text-base" />
-                        </a>
-                      </div>
-                    </div>
-                    <div class="mt-3 text-sm">
-                      <a
-                        v-if="form.valid_date.length < 4"
-                        href="javascript:void(0)"
-                        @click="onActionDate('add')"
-                      >
-                        <i class="fas fa-plus-circle text-base text-black" />
-                        <span class="ml-3">Weiteren Zeitraum hinzufügen</span>
-                      </a>
-                    </div>
+                    <DatePickerField
+                      v-model="valid_date_start"
+                      class="w-full border-b"
+                      container=""
+                      rules="required"
+                      placeholder="Startdatum"
+                      type="month"
+                      name="Startdatum"
+                    />
+                    <DatePickerField
+                      v-model="valid_date_end"
+                      class="w-full"
+                      container=""
+                      rules="required"
+                      placeholder="Enddatum"
+                      type="month"
+                      name="Enddatum"
+                    />
                   </div>
                 </div>
               </div>
@@ -596,6 +570,7 @@
   import Vue from 'vue';
   import VueCroppie from 'vue-croppie';
   import 'croppie/croppie.css' // import the croppie css manually
+  import DatePicker from 'vue2-datepicker'
 
   Vue.use(VueCroppie);
 
@@ -613,7 +588,8 @@
       TextAreaField,
       SelectField,
       MultipleCheckboxField,
-      Colorpicker
+      Colorpicker,
+      DatePicker
     },
     props: {
       data: {
@@ -683,6 +659,8 @@
         chunk_voucher_img: [],
         taxes: [],
         expiry: [],
+        valid_date_start: null,
+        valid_date_end: null,
         target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
         seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter']
       }
@@ -725,7 +703,6 @@
     methods: {
       async onSubmit()
       {
-
         try {
           const isValid = await this.$refs.observer.validate();
 
@@ -747,6 +724,16 @@
             return
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+
+          let x;
+          this.form.valid_date = []
+          for(x = 0; x < this.form.expiry_date; x++) {
+            this.form.valid_date.push({
+              start: moment(this.valid_date_start).add(x, 'y').format('YYYY-MM-DD'),
+              end: moment(this.valid_date_end).add(x, 'y').format('YYYY-MM-DD'),
+            })
+          }
+
           this.form.seller_id = this.AUTH_USER.data.id
           this.form.voucher_category_id = this.form.category.id
           if( this.form.type == 'value' ) {
@@ -793,8 +780,9 @@
           //   confirmButtonColor: '#48BB78',
           // });
           // this.onResetForm()
-
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.$router.push('/vouchers')
+
         } catch (err) {
 
           console.log('err',err)
@@ -959,11 +947,13 @@
               ? this.$route.params.id
               : null;
             this.form = this.data.data_json
-            this.form.image_1_update = true
-            this.form.image_2_update = true
-            this.form.image_3_update = true
+            this.form.image_1_update = this.form.image_1 ? true : false
+            this.form.image_2_update = this.form.image_2 ? true : false
+            this.form.image_3_update = this.form.image_3 ? true : false
             this.form.valid_date = this.data.valid_date || []
             this.form.valid_day = this.data.valid_day || []
+            this.valid_date_start = this.data.valid_date ? this.data.valid_date[0].start : null
+            this.valid_date_end = this.data.valid_date ? this.data.valid_date[0].end : null
             this.form.category = this.data.voucher_category.id
             this.form.seller = this.data.seller
           } else {
@@ -991,6 +981,8 @@
               personal_description_color: '#fff',
               header_and_footer_color: '#000',
             }
+            this.valid_date_start = this.data.valid_date ? this.data.valid_date[0].start : null
+            this.valid_date_end = this.data.valid_date ? this.data.valid_date[0].end : null
           }
           this.formIndex = this.formIndex + 1
         }

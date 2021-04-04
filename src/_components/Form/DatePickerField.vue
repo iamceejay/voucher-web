@@ -7,6 +7,7 @@
       :ref="id"
       :vid="id"
       :rules="rules"
+      :name="name"
     >
       <template #default="{ errors }">
         <Header5
@@ -19,7 +20,7 @@
           class=" w-full"
           inputClass="input-field mt-2 pl-8 py-2 rounded-sm text-sm"
           :format="format"
-          type="date"
+          :type="type"
           :placeholder="placeholder"
           valueType="format"
           @input="onUpdateField"
@@ -67,7 +68,13 @@
       }, format: {
         type: String,
         default: 'YYYY-MM-DD'
-      },
+      }, type: {
+        type: String,
+        default: 'date'
+      }, name: {
+        type: String,
+        default: ''
+      }
     },
     data() {
       return {

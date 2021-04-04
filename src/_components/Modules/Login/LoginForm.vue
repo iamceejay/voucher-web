@@ -103,6 +103,7 @@
       async onSubmit()
       {
         try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           this.submitting = true
           this.errorMessages = []
           const { token, user } = await this.$store.dispatch('LOGIN', this.loginForm)
@@ -125,7 +126,9 @@
           await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
           this.submitting = false
           this.$router.go('home')
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
           this.submitting = false
           if(err.response?.status === 422) {
             this.errorMessages = err.response.data.errors
