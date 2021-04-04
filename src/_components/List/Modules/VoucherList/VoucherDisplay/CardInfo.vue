@@ -65,15 +65,19 @@
           <span class="text-xl font-bold" v-if="userVoucher">
             <span v-show="!voucher.price_hidden || typeof voucher.price_hidden == 'undefined'">{{
                 `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency(voucher.qty_val)}`
+                  ? `${$helpers.convertCurrency( $route.name == 'wallet' ? order.total_amount : voucher.qty_val)}`
+                  : $route.name == 'wallet'
+                  ? $helpers.convertCurrency(order.total_amount)
                   : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
             }}</span>
           </span>
           <span class="text-xl font-bold" v-else>
               {{
                 `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency(voucher.qty_val)}`
-                  : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${$route.name == 'vouchers-detail' ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
+                  ? `${$helpers.convertCurrency($route.name == 'wallet' ? order.total_amount : voucher.qty_val)}`
+                  : $route.name == 'wallet'
+                  ? $helpers.convertCurrency(order.total_amount)
+                  :`${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${$route.name == 'vouchers-detail' ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
               }}
               <span></span>
             </span>
