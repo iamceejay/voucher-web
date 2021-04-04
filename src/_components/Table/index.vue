@@ -22,41 +22,42 @@
       <template #icon_="props">
         <div class="flex">
           <!-- <span>
-            {{ props.rowData.icon }} 
+            {{ props.rowData.icon }}
           </span> -->
-          <i :class="`mx-2 ${props.rowData.icon}`" />
+          <img v-if="props.rowData.icon.indexOf('fas') == -1" :src="onSetLogo('set', props.rowData.icon)" class="h-12 lg:h-16 rounded-md mr-6 lg:mr-8" />
+          <i :class="`mx-2 ${props.rowData.icon}`" v-else/>
         </div>
       </template>
       <template #voucher_feature_="props">
         <span class="flex justify-center">
-          {{ props.rowData.is_featured ? 'Featured' : 'Not Featured' }} 
+          {{ props.rowData.is_featured ? 'Featured' : 'Not Featured' }}
         </span>
       </template>
       <template #order_reverse_="props">
         <span class="flex justify-center">
-          {{ props.rowData.reversed ? 'Reversed' : 'Not Reversed' }} 
+          {{ props.rowData.reversed ? 'Reversed' : 'Not Reversed' }}
         </span>
       </template>
       <template #voucher_="props">
         <div class="flex">
           <router-link :to="`/vouchers/${props.rowData.id}`">
-            {{ props.rowData.title }} 
+            {{ props.rowData.title }}
           </router-link>
           <!-- <i :class="`ml-auto mx-2 fas ${props.rowData.icon}`" /> -->
         </div>
       </template>
       <template #photo_="props">
         <div class="flex justify-center">
-          <img 
+          <img
             v-if="props.rowData.image != ''"
             style="width: 120px; height: 130px;"
-            :src="onSetPhoto(props.rowData.image)" 
+            :src="onSetPhoto(props.rowData.image)"
             alt=""
           />
-          <img 
+          <img
             v-else
             style="width: 120px; height: 80px;"
-            src="@/_assets/img/no-image-available.jpg" 
+            src="@/_assets/img/no-image-available.jpg"
             alt=""
           />
         </div>
@@ -140,6 +141,12 @@
         return {
           pagination: pagination,
           data: local.slice(from, to)
+        }
+      },
+      onSetLogo(action, value)
+      {
+        if( action == 'set' ) {
+          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         }
       },
     }

@@ -384,7 +384,7 @@
                 let slug = this.$helpers.toSlug(categ.name)
                 return {
                   title: categ.name,
-                  icon: 'grid-3x3-gap-fill',
+                  icon: categ.icon,
                   link: `/vouchers/category/${slug}`
                 }
               })
@@ -434,7 +434,8 @@
             let slug = this.$helpers.toSlug(categ.name)
             return {
               title: categ.name,
-              link: `/vouchers/category/${slug}`
+              link: `/vouchers/category/${slug}`,
+              icon: categ.icon
             }
           })
 

@@ -97,7 +97,8 @@
         style="background-color: #F2F2F2">
           <li v-for="(category, index) in categories" :key="index" class="categories-menu__item content-container">
             <a :href="category.link" class="flex flex-wrap items-center py-2 lg:py-4 text-sm">
-              <img class="h-12 lg:h-16 rounded-md mr-6 lg:mr-8" src="@/_assets/img/placeholder-400-300.jpg" :alt="category.title">
+              <img  v-if="category.icon.indexOf('fas') == -1" :src="onSetLogo('set', category.icon)" class="h-12 lg:h-16 rounded-md mr-6 lg:mr-8" :alt="category.title">
+              <img v-else class="h-12 lg:h-16 rounded-md mr-6 lg:mr-8" src="@/_assets/img/placeholder-400-300.jpg" :alt="category.title">
               <span>{{ category.title }}</span>
             </a>
           </li>
@@ -334,6 +335,12 @@
           await this.onRemoveAuth()
         } catch (err) {
           await this.onRemoveAuth()
+        }
+      },
+      onSetLogo(action, value)
+      {
+        if( action == 'set' ) {
+          return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
         }
       },
     }
