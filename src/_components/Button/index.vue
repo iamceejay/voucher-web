@@ -1,18 +1,18 @@
 <template>
-  <div 
+  <div
     id="button-component"
     class="flex"
   >
     <button
       :type="type"
       class="focus:outline-none focus:shadow-none border-1"
-      :class="[bg, size, round, fontSize, fontWeight, { 'font-display': useDefaultFont }]"
+      :class="[bg, size, round, fontSize, fontWeight]"
       :disabled="isDisabled"
       @click="$emit('onClick')"
     >
       <div
         v-if="isLoading"
-        class="sm-spinner m-auto" 
+        class="sm-spinner m-auto"
       />
       <span :class="`flex items-center justify-center`" v-else>
         <i v-if="icon != ''" :class="fullIconClass ? icon : `fas fa-${icon}`" />
@@ -67,7 +67,7 @@
       },
       fontWeight: {
         type: String,
-        default: 'font-bold'
+        default: 'font-normal'
       },
       labelClass: {
         type: String,

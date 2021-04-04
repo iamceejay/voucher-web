@@ -37,25 +37,83 @@
               </svg>
               <span>Herunterladen</span>
             </a>
-            <router-link
-              class="bg-white border flex items-center justify-center text-sm px-3 py-4"
-              :to="`/vouchers/send-email/${VOUCHER.id}`"
+            <button
+              class="border flex items-center justify-center text-sm px-3 py-4"
+              type="button"
+              :class="currentButton == 'email' ? 'bg-peach text-white' : 'bg-white'"
+              @click="currentButton = 'email'"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon h-5 w-5 text-peach mr-2" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon h-5 w-5 mr-2" viewBox="0 0 16 16" :class="currentButton == 'email' ? ' text-white' : 'text-peach'">
                 <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
               </svg>
               <span>Per E-Mail senden</span>
-            </router-link>
-            <router-link
-              class="bg-white border flex items-center justify-center text-sm px-3 py-4"
-              :to="`/vouchers/transfer/${VOUCHER.id}`"
+            </button>
+            <button
+              class="border flex items-center justify-center text-sm px-3 py-4"
+              type="button"
+              :class="currentButton == 'link' ? 'bg-peach text-white' : 'bg-white'"
+              @click="currentButton = 'link'"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon h-5 w-5 text-peach mr-2" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon h-5 w-5  mr-2" viewBox="0 0 16 16" :class="currentButton == 'link' ? ' text-white' : 'text-peach'">
                 <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
                 <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
               </svg>
               <span>Als Link teilen</span>
-            </router-link>
+            </button>
+          </div>
+          <div class="flex max-w-lg mt-4 mx-auto relative w-full" v-if="currentButton == 'link'">
+            <input
+              id="link"
+              name="clipboard"
+              type="text"
+              :value="`${location.origin}/transfer/${ VOUCHER.transfer_url.url_code }`"
+              class="input-copy flex-1 px-4 py-2 rounded"
+            />
+            <button
+              data-clipboard-target="#link"
+              class="bg-black px-5 py-3 rounded text-sm text-white clipboard"
+            >Link kopieren</button>
+          </div>
+
+          <div class="flex max-w-lg mt-4 mx-auto relative w-full" v-if="currentButton == 'email'">
+            <ValidationObserver v-slot="{ handleSubmit }" class="flex w-full">
+              <form
+                class="w-full flex flex-col"
+                @submit.prevent="handleSubmit(onEmail)"
+              >
+                <InputField
+                  id="email"
+                  v-model="emailForm.email"
+                  type="email"
+                  class="w-full m-auto mt-4"
+                  placeholder="Emailadresse"
+                  rules="required"
+                />
+                <InputField
+                  id="subject"
+                  v-model="emailForm.subject"
+                  type="text"
+                  class="w-full m-auto mt-4"
+                  placeholder="Betreff"
+                  rules="required"
+                />
+                <TextAreaField
+                  id="text"
+                  v-model="emailForm.text"
+                  class="w-full m-auto mt-4"
+                  placeholder="Text"
+                  rules="required"
+                  :max="252"
+                />
+                <Button
+                  class="justify-center"
+                  label="Email abschicken"
+                  size="mt-1 w-full py-3"
+                  round="rounded"
+                  type="submit"
+                />
+              </form>
+            </ValidationObserver>
           </div>
         </div>
 
@@ -101,6 +159,7 @@
   import InputField from '_components/Form/InputField'
   import Button from '_components/Button'
   import { slider, slideritem } from 'vue-concise-slider'
+  import TextAreaField from '_components/Form/TextAreaField'
 
   export default {
     name: 'Vouchers',
@@ -108,12 +167,15 @@
       MainLayout,
       VoucherCard,
       InputField,
+      TextAreaField,
       Button,
       slider,
       slideritem
     },
     data() {
       return {
+        location: window.location,
+        currentButton: '',
         form: {
           id: null,
           voucher_id: null,
@@ -121,6 +183,13 @@
           value: null,
           qty: null,
           total_amount: 0,
+        },
+        emailForm: {
+          id: null,
+          email: '',
+          subject: '',
+          text: '',
+          sent_via: 'email',
         },
         symbol: '',
         isAdded: false,
@@ -159,9 +228,26 @@
     mounted() {
       (async() => {
         try {
+          this.emailForm.id = this.$route.params.id
+          await this.$store.dispatch('ADD_TRANSFER_URL', {
+            order_id: this.$route.params.id,
+          })
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchVoucher()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+          var clipboard = new ClipboardJS('.clipboard');
+          clipboard.on('success', (e) => {
+            let processing = this.$swal({
+              title: 'Erfolgreich!',
+              text: 'Link wurde kopiert',
+              allowOutsideClick: false,
+              showConfirmButton: false
+            })
+            setTimeout( () => {
+              processing.close()
+            }, 2000)
+            e.clearSelection();
+          });
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
@@ -280,10 +366,44 @@
 
         return total
       },
+      async onEmail()
+      {
+        try {
+          await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          await this.$store.dispatch('SEND_WALLET', this.emailForm)
+          this.$swal({
+            icon: 'success',
+            title: 'Erfolgreich!',
+            text: 'Gutschein via Email versenden.',
+            confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
+          });
+          this.emailForm = {
+            id: null,
+            email: '',
+            subject: '',
+            text: '',
+          }
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+          this.$router.push('/wallet')
+        } catch (err) {
+          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
+        }
+      }
     }
   }
 </script>
 <style lang='css' scoped>
+.input-copy {
+    color: rgba(0, 0, 0, 0.75);
+    -webkit-appearance: none;
+    background-color: #F7F7F7;
+    border-width: 1px;
+    border-color: #00000033;
+    border-radius: 0.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
 .order__form-number {
   cursor: pointer;
   width: 12px;
