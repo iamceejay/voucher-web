@@ -1,7 +1,7 @@
 <template>
   <div
     id="main-layout-component"
-    class="absolute hide-sidebar inset-0 grid h-screen"
+    class="absolute hide-sidebar inset-0 grid h-full"
     :class="{
       'md:block': !AUTH_USER.isAuth || (AUTH_USER.isAuth && AUTH_USER.role.name == 'user'),
       'overflow-hidden': !AUTH_USER.isAuth && categories.length,
@@ -41,7 +41,6 @@
         <a
             href="javascript:void(0)"
             class="flex flex-col items-center justify-center relative ml-4"
-
             @click="onLogout()"
             >
             <div class="relative  h-5 w-5 mb-1">
@@ -336,6 +335,23 @@
         } catch (err) {
           await this.onRemoveAuth()
         }
+      },
+      async onRemoveAuth()
+      {
+        await localStorage.removeItem('_auth')
+        await this.$store.commit('SET_AUTH_USER', {
+          isAuth: false,
+          token: '',
+          role: {
+            id: null,
+            name: null,
+          },
+          data: null,
+        })
+        await localStorage.removeItem('_userWishlist')
+        await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', [])
+        this.isLoggingOut = false
+        this.$router.push('/login')
       },
       onSetLogo(action, value)
       {
