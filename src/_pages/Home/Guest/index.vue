@@ -15,7 +15,13 @@
             :to="`/vouchers/category/${$helpers.toSlug(category.name)}`"
             class="voucher-categories__grid-item pl-4 sm:px-0"
           >
+             <img
+                v-if="category.icon.indexOf('fas') == -1"
+                :src="onSetImage(category.icon)"
+                class="shadow rounded-lg mb-2"
+              />
             <img
+              v-else
               src="@/_assets/img/placeholder-400px.jpg"
               class="shadow rounded-lg mb-2"
             />
@@ -351,7 +357,7 @@
           await this.$store.commit('SET_FEATURED_VOUCHERS', [])
           await this.$store.commit('SET_CATEGORIES', [])
           let { data } = await get('company/all')
-          this.companies = data.companies  
+          this.companies = data.companies
           await this.onFetchNewestVouchers()
           await this.onFetchFeaturedVouchers()
           await this.onFetchCategories()
