@@ -62,7 +62,7 @@
               label="Facebook"
               icon="fab fa-facebook mr-2 text-2xl text-blue-700"
               :fullIconClass="true"
-              @onClick="onSSO('#')"
+              @onClick="logInWithFacebook"
             />
           </div>
         </div>
@@ -97,7 +97,9 @@
         return this.$store.getters.AUTH_USER
       }
     },
-    mounted() {
+    async mounted() {
+      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+      await this.initFacebook();
     },
     methods: {
       async onSubmit()
@@ -107,23 +109,7 @@
           this.submitting = true
           this.errorMessages = []
           const { token, user } = await this.$store.dispatch('LOGIN', this.loginForm)
-          const auth = {
-            isAuth: true,
-            token,
-            data: user,
-            role: user.user_role.role
-          }
-          await localStorage.removeItem('_auth')
-          await localStorage.setItem('_auth', JSON.stringify(auth))
-          await this.$store.commit('SET_AUTH_USER', auth)
-          if( auth.role.name == 'user' ) {
-            await this.onFetchCategories()
-          }
-          await setToken()
-          const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: auth.data.id });
-          await localStorage.removeItem('_userWishlist')
-          await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
-          await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
+          this.setLoginAuth(token, user)
           this.submitting = false
           this.$router.go('home')
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
@@ -139,6 +125,25 @@
           }
         }
       },
+      async setLoginAuth(token, user){
+        const auth = {
+          isAuth: true,
+          token,
+          data: user,
+          role: user.user_role.role
+        }
+        await localStorage.removeItem('_auth')
+        await localStorage.setItem('_auth', JSON.stringify(auth))
+        await this.$store.commit('SET_AUTH_USER', auth)
+        if( auth.role.name == 'user' ) {
+          await this.onFetchCategories()
+        }
+        await setToken()
+        const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: auth.data.id });
+        await localStorage.removeItem('_userWishlist')
+        await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
+        await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
+      },
       async onFetchCategories()
       {
         try {
@@ -150,6 +155,74 @@
       async onSSO(value) {
         // TODO: when SSO is available
         this.$router.push(value);
+      },
+      async logInWithFacebook() {
+
+        window.FB.login((response) => {
+          console.log(response)
+          if (response.authResponse) {
+            // Now you can redirect the user or do an AJAX request to
+            // a PHP script that grabs the signed request from the cookie.
+            this.sendUserInfo()
+          } else {
+            alert("User cancelled login or did not fully authorize.");
+          }
+        }, {scope: 'public_profile,email,user_location'});
+        return false;
+      },
+      async sendUserInfo() {
+          await window.FB.api('/me', {fields: 'last_name,first_name,email,hometown,location'}, async (response) => {
+              try {
+                let loginForm = {
+                  email: response.email,
+                  password: response.id
+                }
+                const { token, user } = await this.$store.dispatch('LOGIN', loginForm)
+                this.setLoginAuth(token, user)
+                this.$router.go('home')
+              } catch (error) {
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+                let form = {
+                  role_id: 3,
+                  region_id: null,
+                  address: '',
+                  city: '',
+                  zip_code: '',
+                  phone_number: '',
+                  firstName: response.first_name,
+                  lastName: response.last_name,
+                  username: response.email,
+                  email: response.email,
+                  password: response.id,
+                  confirmPassword: response.id,
+                  isActivated: 1,
+                }
+                const { token, user } = await this.$store.dispatch('ADD_USER', form)
+                this.setLoginAuth(token, user)
+                this.$router.go('home')
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              }
+          });
+      },
+      async initFacebook() {
+        window.fbAsyncInit = function() {
+          window.FB.init({
+            appId: "171835298011899", //You will need to change this
+            cookie: true, // This is important, it's not enabled by default
+            version: "v2.10"
+          });
+        };
+      },
+      async loadFacebookSDK(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
       }
     }
   };
