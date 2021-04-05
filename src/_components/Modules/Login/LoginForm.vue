@@ -211,6 +211,7 @@
             cookie: true, // This is important, it's not enabled by default
             version: "v2.10"
           });
+          window.FB.logout()
         };
       },
       async loadFacebookSDK(d, s, id) {
