@@ -42,7 +42,7 @@
         <div class="flex flex-col border-t-2 border-input-border">
           <p class="font-medium text-center text-lg py-4">Oder anmelden mit:</p>
           <div class="flex">
-            <Button
+            <!-- <Button
               class="pr-1 w-1/2"
               size="w-full py-3"
               round="rounded border border-input-border"
@@ -52,7 +52,9 @@
               icon="fab fa-google mr-2 text-2xl text-green-700"
               :fullIconClass="true"
               @onClick="onSSO('#')"
-            />
+            /> -->
+            <div id="google-signin-btn" class="g-signin2 pr-1 w-1/2" ></div>
+
             <Button
               class="pl-1 w-1/2"
               size="w-full py-3"
@@ -70,6 +72,7 @@
     </form>
   </div>
 </template>
+
 <script>
   import { setToken } from '_helpers/ApiService'
   import InputField from '_components/Form/InputField'
@@ -100,6 +103,11 @@
     async mounted() {
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
       await this.initFacebook();
+      gapi.signin2.render('google-signin-btn', { // this is the button "id"
+        height: 50,
+        onsuccess: this.onSignIn // note, no "()" here
+      })
+
     },
     methods: {
       async onSubmit()
@@ -224,10 +232,32 @@
         js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
+      },
+      onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile()
+        console.log(profile)
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+      },
+      onFailure(error) {
+        console.log(error)
       }
     }
   };
 </script>
-<style lang='css' scoped>
-
+<style lang='css'>
+  .abcRioButton {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0.25rem!important;
+    box-shadow: none!important;
+    border: 1px solid #00000033;
+  }
+  .abcRioButtonContentWrapper {
+    @apply flex justify-center items-center font-medium;
+  }
 </style>
