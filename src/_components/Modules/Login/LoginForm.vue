@@ -182,6 +182,7 @@
       async sendUserInfo() {
           await window.FB.api('/me', {fields: 'last_name,first_name,email,hometown,location'}, async (response) => {
               try {
+                await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
                 let loginForm = {
                   email: response.email,
                   password: response.id
@@ -238,6 +239,7 @@
         var profile = googleUser.getBasicProfile()
 
         try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           let loginForm = {
             email: profile.getEmail(),
             password: profile.getId()
