@@ -395,7 +395,7 @@
                 </div>
               </div>
 
-              <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-show="isWithLimit">
+              <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-if="isWithLimit">
                 <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen oder einem bestimmten Zeitraum gültig</span>
                 <div class="py-3 w-full">
                   <div class="w-full mb-5 px-5">
