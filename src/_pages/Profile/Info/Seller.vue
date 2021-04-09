@@ -386,7 +386,7 @@
                 <ValidationObserver v-slot="{ handleSubmit }" class="w-full md:w-1/2">
                   <form
                     class="flex flex-col w-full"
-                    @submit.prevent="handleSubmitPassword(onSubmit)"
+                    @submit.prevent="handleSubmit(onSubmit)"
                   >
                     <div class="flex flex-col w-full">
                       <InputField
