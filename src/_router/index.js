@@ -391,6 +391,7 @@ const router = new Router({
       //   middleware: [ auth, authAdmin ]
       // }
     },
+    { path: '/.well-known/*',  },
     {
       path: '*',
       name: '404',
