@@ -47,7 +47,7 @@
         </div>
       </template>
     </InputField>
-    <div class="flex flex-col sm:flex-row">
+    <div class="flex flex-col sm:flex-row" v-if="type != 'seller'" >
       <InputField
         id="firstName"
         v-model="form.firstName"
@@ -69,19 +69,7 @@
         @input="onChange"
       />
     </div>
-    <span v-if="type == 'seller'" class="mb-4 text-sm">
-      Bitte gib den Namen vom Inhaber oder Geschäftsführer des Unternehmens an.
-    </span>
-    <DatePicker
-      v-if="type == 'seller'"
-      id="data"
-      class="mb-4"
-      v-model="form.bday"
-      label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
-      :errorMessages="errorMessages.phone_number"
-      rules="required"
-      @input="onChange"
-    />
+
     <InputField
       v-if="type == 'seller'"
       id="address"

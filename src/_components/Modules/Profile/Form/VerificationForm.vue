@@ -1,6 +1,41 @@
 <template>
 
     <div class="flex flex-col w-full">
+      <div class="flex flex-col sm:flex-row">
+        <InputField
+          id="firstName"
+          v-model="form.firstName"
+          type="text"
+          class="w-full sm:w-1/2 sm:mr-2 mb-4"
+          label="Vorname"
+          rules="required"
+          :errorMessages="errorMessages.firstName"
+          @input="onChange"
+        />
+        <InputField
+          id="lastName"
+          v-model="form.lastName"
+          type="text"
+          class="w-full sm:w-1/2 sm:ml-2 mb-4"
+          label="Nachname"
+          rules="required"
+          :errorMessages="errorMessages.lastName"
+          @input="onChange"
+        />
+      </div>
+      <span v-if="type == 'seller'" class="mb-4 text-sm">
+        Bitte gib den Namen vom Inhaber oder Geschäftsführer des Unternehmens an.
+      </span>
+      <DatePicker
+        v-if="type == 'seller'"
+        id="data"
+        class="mb-4"
+        v-model="form.bday"
+        label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
+        :errorMessages="errorMessages.phone_number"
+        rules="required"
+        @input="onChange"
+      />
         <div
         v-if="verification_front && verification_front != ''"
         class="company-logo flex max-w-xs w-full"

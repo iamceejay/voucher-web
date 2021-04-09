@@ -162,36 +162,6 @@
                   </div>
                   <div class="w-full md:w-1/2">
                     <span class="block font-semibold text-sm mb-4" v-if="AUTH_USER.role.name == 'seller'">Bitte gib den Namen und das Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens an.</span>
-                    <InputField
-                      id="firstName"
-                      v-model="form.firstName"
-                      type="text"
-                      class="w-full mb-4"
-                      label="Vorname"
-                      rules="required"
-                      :errorMessages="errorMessages.firstName"
-                      @input="onChange"
-                    />
-                    <InputField
-                        id="lastName"
-                        v-model="form.lastName"
-                        type="text"
-                        class="w-full mb-4"
-                        label="Nachname"
-                        rules="required"
-                        :errorMessages="errorMessages.lastName"
-                        @input="onChange"
-                      />
-                    <DatePicker
-                      v-if="AUTH_USER.role.name == 'seller'"
-                      id="data"
-                      class="mb-4"
-                      v-model="form.bday"
-                      label="Geburtsdatum"
-                      :errorMessages="errorMessages.phone_number"
-                      rules="required"
-                      @input="onChange"
-                    />
                     <SelectField
                       id="month"
                       v-model="form.company.region_id"
@@ -262,6 +232,36 @@
                 v-if="AUTH_USER.role.name == 'seller' && currentTab == 2"
                 class="w-full mmt-5"
               >
+               <InputField
+                  id="firstName"
+                  v-model="form.firstName"
+                  type="text"
+                  class="w-full mb-4"
+                  label="Vorname"
+                  rules="required"
+                  :errorMessages="errorMessages.firstName"
+                  @input="onChange"
+                />
+                <InputField
+                    id="lastName"
+                    v-model="form.lastName"
+                    type="text"
+                    class="w-full mb-4"
+                    label="Nachname"
+                    rules="required"
+                    :errorMessages="errorMessages.lastName"
+                    @input="onChange"
+                  />
+                <DatePicker
+                  v-if="AUTH_USER.role.name == 'seller'"
+                  id="data"
+                  class="mb-4"
+                  v-model="form.bday"
+                  label="Geburtsdatum"
+                  :errorMessages="errorMessages.phone_number"
+                  rules="required"
+                  @input="onChange"
+                />
                <span class="block font-semibold text-sm mb-4">Um die ersten Auszahlungen zu erhalten musst du dich mittels den genannten Dokumenten verifizieren.</span>
                <span class="block text-sm mb-4">(Personalausweis, Führerschein oder Pass. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.)</span>
 
