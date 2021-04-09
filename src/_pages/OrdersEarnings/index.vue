@@ -64,7 +64,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                       <tr v-for="(row, index) in WALLETS.data" :key="index">
                         <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm">{{ row.voucher.seller.company.name }}</span>
+                          <span class="text-sm">epasnets Marktplatz</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                           <span class="text-sm">{{ row.voucher.title }}</span>
