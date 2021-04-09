@@ -12,11 +12,11 @@
               <button type="submit" class="bg-peach px-5 py-3 rounded-md text-sm text-white">Speichern</button>
             </div>
             <div class="bg-white mt-8 p-6 w-full">
-              <div class="border-b-2 flex mb-4 pb-4 space-x-4">
+              <div class="border-b-2 flex flex-wrap mb-4 pb-4">
                 <button
                   @click="currentTab = 0"
                   type="button"
-                  class="px-4 py-3 rounded-md text-xs"
+                  class="px-4 py-3 rounded-md text-xs mr-4 mb-4"
                   :class="currentTab == 0 ? 'bg-black text-white' : 'border border-black text-black'"
                   >
                   Profilinfo
@@ -24,7 +24,7 @@
                 <button
                   @click="currentTab = 1"
                   type="button"
-                  class="px-4 py-3 rounded-md text-xs"
+                  class="px-4 py-3 rounded-md text-xs mr-4 mb-4"
                   :class="currentTab == 1 ? 'bg-black text-white' : 'border border-black text-black'"
                   >
                   Auszahlungsinfo
@@ -32,7 +32,7 @@
                 <button
                   @click="currentTab = 2"
                   type="button"
-                  class="px-4 py-3 rounded-md text-xs"
+                  class="px-4 py-3 rounded-md text-xs mr-4 mb-4"
                   :class="currentTab == 2 ? 'bg-black text-white' : 'border border-black text-black'"
                   >
                   Überprüfung
@@ -40,7 +40,7 @@
                 <button
                   @click="currentTab = 3"
                   type="button"
-                  class="px-4 py-3 rounded-md text-xs"
+                  class="px-4 py-3 rounded-md text-xs mr-4 mb-4"
                   :class="currentTab == 3 ? 'bg-black text-white' : 'border border-black text-black'"
                   >
                   Einstellungen
