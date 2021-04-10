@@ -22,7 +22,7 @@
           :format="format"
           :type="type"
           :placeholder="placeholder"
-          valueType="format"
+          :valueType="valueType"
           @input="onUpdateField"
         />
         <ErrorMessage class="mx-2 mt-0" :errors="[...errors, ...errorMessages]" />
@@ -74,6 +74,9 @@
       }, name: {
         type: String,
         default: ''
+      }, valueType: {
+        type: String,
+        default: 'format'
       }
     },
     data() {

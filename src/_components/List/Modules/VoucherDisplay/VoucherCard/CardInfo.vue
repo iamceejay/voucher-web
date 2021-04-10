@@ -99,7 +99,18 @@
                   {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
                 </span>
           </span>
-          <span class="text-2xs opacity-50">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
+          <span
+            v-if="voucher.data_json.months && voucher.data_json.months.length > 0"
+            class="text-2xs opacity-50">
+            im: <span
+                v-for="(month, index) in voucher.data_json.months"
+                :key="`month-${index}`"
+              >
+                <span v-if="month">
+                  {{ `${getMonth(parseInt(month))}${ (voucher.data_json.months.length != (index+1)) ? ',' : '' }` }}
+                </span>
+              </span>
+          </span>
           <span class="text-2xs mt-1">Region:</span>
           <span class="text-2xs opacity-50">Tirol</span>
         </div>
@@ -241,6 +252,9 @@
       formatDate(date)
       {
         return formatDate(date)
+      },
+      getMonth(month) {
+        return moment(month).format('MMM')
       },
       onGetSentVia(value)
       {

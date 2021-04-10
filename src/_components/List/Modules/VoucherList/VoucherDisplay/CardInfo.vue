@@ -100,13 +100,25 @@
             v-if="voucher.valid_day && voucher.valid_day.length > 0"
             class="text-2xs opacity-50">
             am: <span
-                  v-for="(day, index) in voucher.valid_day"
-                  :key="`day-${index}`"
-                >
-                  {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
+                v-for="(day, index) in voucher.valid_day"
+                :key="`day-${index}`"
+              >
+                {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
+              </span>
+          </span>
+          <span
+            v-if="voucher.months && voucher.months.length > 0"
+            class="text-2xs opacity-50">
+            im: <span
+                v-for="(month, index) in voucher.months"
+                :key="`month-${index}`"
+
+              >
+                <span v-if="month">
+                  {{ `${getMonth(month)}${ (voucher.months.length != (index+1)) ? ',' : '' }` }}
                 </span>
-            </span>
-          <span class="text-2xs opacity-50">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
+              </span>
+          </span>
           <span class="text-2xs mt-1">Region:</span>
           <span class="text-2xs opacity-50">Tirol</span>
         </div>
@@ -269,6 +281,9 @@
       {
         let expire = data.voucher.expiry_date ? data.voucher.expiry_date : 4
         return moment(data.created_at).local().add(expire, 'year').format('DD.MM.YYYY')
+      },
+      getMonth(month) {
+        return moment(month).format('MMM')
       },
       onClickHeader()
       {

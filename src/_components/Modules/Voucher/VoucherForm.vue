@@ -402,24 +402,44 @@
                     <label class="text-sm mb-3 block">
                       Nur gültig im Zeitraum von … bis …
                     </label>
-                    <DatePickerField
-                      v-model="valid_date_start"
-                      class="w-full border-b"
-                      container=""
-                      rules="required"
-                      placeholder="Startdatum"
-                      type="month"
-                      name="Startdatum"
-                    />
-                    <DatePickerField
-                      v-model="valid_date_end"
-                      class="w-full"
-                      container=""
-                      rules="required"
-                      placeholder="Enddatum"
-                      type="month"
-                      name="Enddatum"
-                    />
+                    <div
+                      v-for="(date, index) in form.months"
+                      :key="`date-${index}`"
+                      class="flex flex-col"
+                    >
+                      <div class="flex flex-row items-baseline">
+                        <div class="flex flex-col rounded-sm w-full">
+                          <DatePickerField
+                            v-model="form.months[index]"
+                            class="w-full"
+                            container=""
+                            rules="required"
+                            placeholder=""
+                            type="month"
+                            format="MMM"
+                            valueType="timestamp"
+                            @input="onActionDate('change', index)"
+                          />
+                        </div>
+                        <a
+                          href="javascript:void(0)"
+                          class="flex mt-6 w-1/12 justify-center"
+                          @click="onActionDate('delete', index)"
+                        >
+                          <i class="fas fa-times-circle text-base" />
+                        </a>
+                      </div>
+                    </div>
+                    <div class="mt-3 text-sm">
+                      <a
+                        v-if="form.valid_date.length < 4"
+                        href="javascript:void(0)"
+                        @click="onActionDate('add')"
+                      >
+                        <i class="fas fa-plus-circle text-base text-black" />
+                        <span class="ml-3">Weiteren Zeitraum hinzufügen</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -652,7 +672,8 @@
           val_min: 0,
           val_max: 0,
           remove_bg: false,
-          seller: null
+          seller: null,
+          months: []
         },
         week: getWeek,
         background_image: null,
@@ -661,6 +682,7 @@
         expiry: [],
         valid_date_start: null,
         valid_date_end: null,
+        valid_date: [],
         target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
         seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter']
       }
@@ -725,13 +747,16 @@
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
 
-          let x;
           this.form.valid_date = []
+          let x;
           for(x = 0; x < this.form.expiry_date; x++) {
-            this.form.valid_date.push({
-              start: moment(this.valid_date_start).add(x, 'y').format('YYYY-MM-DD'),
-              end: moment(this.valid_date_end).add(x, 'y').format('YYYY-MM-DD'),
+            let map = this.form.months.map((date) => {
+              return {
+                start: moment(date).add(x, 'y').format('YYYY-MM-DD'),
+                end: moment(date).add(x, 'y').endOf('month').format('YYYY-MM-DD'),
+              }
             })
+            this.form.valid_date = [...this.form.valid_date, ...map]
           }
 
           this.form.seller_id = this.AUTH_USER.data.id
@@ -914,22 +939,11 @@
       onActionDate( action, index = null )
       {
         if( action === 'add' ) {
-          this.form.valid_date.push({
-            start: '',
-            end: '',
-          })
+          this.form.months.push('')
         } else if( action === 'change' ) {
-          const {  start, end } = this.form.valid_date[index]
-
-          this.form.valid_date = this.form.valid_date.map((row, i) => {
-            row.error = ''
-            if(moment(end).isBefore(start, 'day') && index == i) {
-              row.error = 'Bitte gib ein gültiges Datum ein'
-            }
-            return row
-          })
+          this.form.months = [...new Set(this.form.months)].sort()
         } else {
-          this.form.valid_date = this.form.valid_date.filter( (date, i) => i != index)
+          this.form.months = this.form.months.filter( (date, i) => i != index)
         }
       },
       onSetForm()
@@ -952,10 +966,10 @@
             this.form.image_3_update = this.form.image_3 ? true : false
             this.form.valid_date = this.data.valid_date || []
             this.form.valid_day = this.data.valid_day || []
-            this.valid_date_start = this.data.valid_date ? this.data.valid_date[0].start : null
-            this.valid_date_end = this.data.valid_date ? this.data.valid_date[0].end : null
             this.form.category = this.data.voucher_category.id
             this.form.seller = this.data.seller
+            this.form.months = this.form.months.map(month => parseInt(month))
+            console.log(this.form.months)
           } else {
             this.form = {
               id: this.data.id,
@@ -981,7 +995,7 @@
               personal_description_color: '#fff',
               header_and_footer_color: '#000',
             }
-            this.valid_date_start = this.data.valid_date ? this.data.valid_date[0].start : null
+            date = this.data.valid_date ? this.data.valid_date[0].start : null
             this.valid_date_end = this.data.valid_date ? this.data.valid_date[0].end : null
           }
           this.formIndex = this.formIndex + 1

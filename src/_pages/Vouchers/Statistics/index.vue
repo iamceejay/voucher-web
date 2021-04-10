@@ -18,7 +18,7 @@
           </router-link>
         </div>
         <div class="border-b-2 flex flex-wrap items-start mb-8 pb-8">
-          <div class="relative mr-4">
+          <div class="max-w-md mr-4 relative w-full">
             <div class="absolute inset-0 z-10"></div>
             <VoucherCard
               :voucher="voucher"
@@ -77,7 +77,7 @@
   import StatisticList from '_components/List/Modules/StatisticList/';
   import Header1 from '_components/Headers/Header1';
   import Button from '_components/Button';
-  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
+  import VoucherCard from '_components/List/Modules/VoucherDisplay/VoucherCard'
 
   export default {
     name: 'Vouchers',
