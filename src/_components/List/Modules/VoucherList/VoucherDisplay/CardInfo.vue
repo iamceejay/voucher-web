@@ -355,6 +355,10 @@
     color: var(--card-header-footer-color, #000);
   }
 
+  .card-footer {
+    height: 10em;
+  }
+
   .card-image {
     padding-top: 92.65%;
     width: 100%;

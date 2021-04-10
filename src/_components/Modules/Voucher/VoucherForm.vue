@@ -4,7 +4,7 @@
         <span class="text-xl font-medium">Gutschein erstellen</span>
         <button type="submit"  class="bg-peach px-5 py-3 rounded-md text-sm text-white">Speichern</button>
       </div>
-      <div class="flex gap-4 md:grid justify-center md:grid-cols-2 pt-12 w-full">
+      <div class="flex flex-col gap-4 md:grid justify-center md:grid-cols-2 pt-12 w-full">
         <div class="flex flex-col">
           <span class="mb-8 py-3 text-xl">Gutschein Vorschau</span>
           <VoucherCard
