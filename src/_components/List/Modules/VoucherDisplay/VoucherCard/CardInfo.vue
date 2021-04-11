@@ -7,7 +7,7 @@
       class="card-header  p-5"
     >
       <div class="flex flex-col w-3/5 break-words">
-        <div class="text-base font-semibold">
+        <div class="text-base font-semibold h-12">
           {{ voucher.title || 'Gutscheinnname' }}
         </div>
         <div class="text-sm">
