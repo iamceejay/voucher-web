@@ -55,6 +55,7 @@ import Payment from '_pages/Payment/'
 import Transfer from '_pages/Transfer/'
 import PageNotFound from '_pages/Errors/PageNotFound'
 import UserNotAllowed from '_pages/Errors/UserNotAllowed'
+import WishList from '_pages/WishList'
 
 Vue.use(Router);
 
@@ -405,6 +406,14 @@ const router = new Router({
       component: UserNotAllowed,
       meta: {
         middleware: [ auth ]
+      }
+    },
+    {
+      path: '/wish-list',
+      name: 'wish-list',
+      component: WishList,
+      meta: {
+        middleware: [auth, authUser]
       }
     },
   ],

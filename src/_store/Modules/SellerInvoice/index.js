@@ -123,6 +123,21 @@ export default {
         throw err
       }
     },
+
+    async DOWNLOAD_BUYER_INVOICES_PDF( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/download-buyer-pdf-invoices`, payload, {}, {responseType: 'arraybuffer'})
+        let blob = new Blob([data], { type: 'application/zip' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `invoices(${payload.from}-to-${payload.to}).zip`
+        link.click()
+      } catch (err) {
+        throw err
+      }
+    },
+    
     async DOWNLOAD_SELLER_INVOICES_CSV( { commit, state }, payload )
     {
       try {

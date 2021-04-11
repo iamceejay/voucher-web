@@ -22,28 +22,28 @@
       <div class="text-center text-xs font-semibold">
         {{ qr.url }}
       </div>
-      <div v-if="order && order.voucher.seller.company.url" class="mt-4 text-xs text-center font-bold">
+      <!-- <div v-if="order && order.voucher.seller.company.url" class="mt-4 text-xs text-center font-bold">
         {{ order.voucher.seller.company.url }}
-      </div>
+      </div> -->
     </div>
     <div class="flex flex-row w-full mt-4 h-12">
       <div
         class="flex flex-row w-full justify-between"
       >
-        <router-link
+        <!-- <router-link
           class="px-2 text-3xl text-primary"
           :to="`/vouchers/personalized/${ userVoucher.id}`"
         >
           <i class="fas fa-pen" />
-        </router-link>
+        </router-link> -->
 
         <dropdown placement="right">
           <!-- Button content -->
-          <template #button>
+          <!-- <template #button>
             <span class="py-1 inline-flex items-center text-sm" @click.prevent>
               <span class="mr-2"><i class="fas fa-share-alt text-3xl" /></span>
             </span>
-          </template>
+          </template> -->
 
           <!-- Opened dropdown content -->
           <template #content>

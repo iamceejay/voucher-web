@@ -27,21 +27,16 @@
               >{{
                 `${
                   row.order.voucher.type == 'quantity'
-                    ? `${$helpers.convertCurrency(row.order.voucher.qty_val)}`
-                    : `${$helpers
-                        .convertCurrency(
-                          row.order.voucher.min || row.order.voucher.val_min
-                        )
-                        .replace('€', '')} - ${$helpers.convertCurrency(
-                        row.order.voucher.max || row.order.voucher.val_max
-                      )}`
-                }`
+                    ? `${row.order.qty} x ${$helpers.convertCurrency(row.order.voucher.qty_val) }`
+                    : $route.name == 'wallet'
+                      ? $helpers.convertCurrency(row.order.total_amount)
+                      : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
               }}
             </span>
 
             <button
               class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4"
-              @click="$router.push(`/vouchers/personalized/${row.id}`)"
+              @click="$router.push(`/voucher/${row.id}`)"
             >
               Zum Gutschein
             </button>

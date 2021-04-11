@@ -16,21 +16,29 @@
           <div class="flex space-x-4 mb-8">
              <DatePicker
                 class=""
+                id="date_csv_from"
                 inputClass="input-field  pl-8 py-2 rounded-sm text-sm"
-                format="DD-MM-YYY"
+                format="DD-MM-YYYY"
                 type="date"
                 placeholder="von: TT.MM.JJJ"
                 valueType="format"
+                v-model="date1"
               />
               <DatePicker
                 class=""
+                id="date_csv_to"
                 inputClass="input-field  pl-8 py-2 rounded-sm text-sm"
-                format="bis: TT.MM.JJJ"
+                format="DD-MM-YYYY"
                 type="date"
                 placeholder="von: TT.MM.JJJ"
                 valueType="format"
+                 v-model="date2"
               />
-              <button class="bg-peach px-5 py-2 rounded-md text-sm text-white">
+              <button 
+                class="bg-peach px-5 py-2 rounded-md text-sm text-white"
+                v-bind:disabled = "!date1 || !date2 "
+                @click="downloadInvoicesZip()"
+                >
                 CSV herunterladen
               </button>
           </div>
@@ -148,6 +156,8 @@
       return {
         submitting: false,
         earnings: [],
+        date1: null,
+        date2: null,
         params: {
           page: 1,
           paginate: 9,
@@ -310,6 +320,30 @@
           console.log('err', err)
         }
       },
+      async downloadInvoicesZip()
+      {
+        try {
+          const payload = { from: this.date1, to: this.date2, download: 'zip' }
+
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+
+          await this.$store.dispatch('DOWNLOAD_BUYER_INVOICES_PDF', payload )
+
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+
+          this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich',
+              text: 'Downloading all the invoices.',
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
+          })
+          
+        } catch(err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          console.log('err', err)
+        }
+      }
     }
   }
 </script>
