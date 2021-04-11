@@ -267,17 +267,10 @@
           })
 
           this.menus = [
-           {
-              title: 'Meine Wallet',
-              link: '/guest-wallet',
-              icon: 'wallet',
-            },
             {
-              title: 'Mein Profil',
-              link: '/profile-info',
-              icon: 'person',
-              // isChildShow: false,
-              child: profileChild,
+              title: 'Search',
+              link: '/vouchers/search',
+              icon: 'search',
             },
             {
               title: 'Kategorien',
@@ -286,11 +279,18 @@
               isChildShow: false,
               icon: 'list',
             },
-            {
-              title: 'Search',
-              link: '/vouchers/search',
-              icon: 'search',
+           {
+              title: 'Meine Wallet',
+              link: '/guest-wallet',
+              icon: 'wallet',
             },
+            {
+              title: 'Anmelden',
+              link: '/login',
+              icon: 'person',
+            },
+
+
             // {
             //   title: 'Login',
             //   link: '/login',
