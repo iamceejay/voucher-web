@@ -8,6 +8,7 @@
 
         <PersonalizedForm
           :data="USER_VOUCHER"
+          ref="form"
         />
       </div>
     </template>
@@ -51,6 +52,29 @@
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
       })()
+    },
+    beforeRouteLeave(to, from, next) {
+      if (this.$refs.form.isSubmitted) {
+        next(true)
+      }
+      this.$swal({
+        title: 'Möchten Sie Änderungen speichern?',
+        text: '',
+        showCancelButton: true,
+        confirmButtonColor: '#48BB78',
+        cancelButtonColor: '#FC8181',
+        confirmButtonText: 'speichern',
+        cancelButtonText: 'Verwerfen',
+      }).then(async (result) => {
+        if(result.value) {
+          this.$refs.form.isRouteChanged = true
+          await this.$refs.form.onSubmit()
+          next(true)
+        } else {
+          next(true)
+        }
+
+      })
     },
     methods: {
       async onFetchUserVoucher()

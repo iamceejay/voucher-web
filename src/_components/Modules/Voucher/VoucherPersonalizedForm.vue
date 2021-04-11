@@ -145,6 +145,8 @@
     },
     data() {
       return {
+        isRouteChanged: false,
+        isSubmitted: false,
         chrome_color: {
           hex: '#FFF',
           rgba: { r: 255, g: 255, b: 255, a: 255 },
@@ -208,8 +210,11 @@
           tempForm.template_id = this.selected_template
 
           await this.onUpdateData(tempForm)
+          if (!this.isRouteChanged) {
+            this.isSubmitted = true;
+            this.$router.push('/wallet')
+          }
 
-          this.$router.push('/wallet')
         } catch (error) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
 

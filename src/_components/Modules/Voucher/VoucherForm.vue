@@ -621,6 +621,7 @@
     },
     data() {
       return {
+        isRouteChanged: false,
         currentTab: 0,
         isWithLimit: false,
         unsure: false,
@@ -806,7 +807,9 @@
           // });
           // this.onResetForm()
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          this.$router.push('/vouchers')
+
+          if (!this.isRouteChanged)
+            this.$router.push('/vouchers')
 
         } catch (err) {
 
