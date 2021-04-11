@@ -979,9 +979,6 @@
           }
 
           if (this.data.data_json != null) {
-            this.form.id = this.$route.name == 'vouchers-update'
-              ? this.$route.params.id
-              : null;
             this.form = this.data.data_json
             this.form.image_1_update = this.form.image_1 ? true : false
             this.form.image_2_update = this.form.image_2 ? true : false
@@ -991,7 +988,9 @@
             this.form.category = this.data.voucher_category.id
             this.form.seller = this.data.seller
             this.form.months = this.form.months.map(month => parseInt(month))
-            console.log(this.form.months)
+            this.form.id = this.$route.name == 'vouchers-update'
+              ? this.$route.params.id
+              : null;
           } else {
             this.form = {
               id: this.data.id,
