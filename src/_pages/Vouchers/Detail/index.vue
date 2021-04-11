@@ -247,17 +247,7 @@
       async onSubmit()
       {
         this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
-        this.$swal({
-          title: 'Im Warenkorb hinzufügen',
-          text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
-          showCancelButton: true,
-          confirmButtonColor: '#48BB78',
-          cancelButtonColor: '#FC8181',
-          confirmButtonText: 'Bestätigen',
-          cancelButtonText: 'Abbrechen',
-        }).then( async (result) => {
-          if(result.value){
-            try {
+        try {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
               this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
               this.form.user_id = this.AUTH_USER.data.id
@@ -300,8 +290,61 @@
                 confirmButtonText: 'Bestätigen'
               })
             }
-          }
-        })
+        // this.$swal({
+        //   title: 'Im Warenkorb hinzufügen',
+        //   text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
+        //   showCancelButton: true,
+        //   confirmButtonColor: '#48BB78',
+        //   cancelButtonColor: '#FC8181',
+        //   confirmButtonText: 'Bestätigen',
+        //   cancelButtonText: 'Abbrechen',
+        // }).then( async (result) => {
+        //   if(result.value){
+        //     try {
+        //       await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+        //       this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
+        //       this.form.user_id = this.AUTH_USER.data.id
+        //       this.form.voucher_id = this.VOUCHER.id
+        //       if( this.VOUCHER.type == 'quantity' ) {
+        //         this.form.qty = this.form.value
+        //         this.form.value = null
+        //       } else {
+        //         this.form.value = this.form.value
+        //       }
+        //       const data = await this.$store.dispatch('ADD_WALLET', this.form)
+        //       this.form = {
+        //         id: null,
+        //         voucher_id: null,
+        //         user_id: null,
+        //         value: null,
+        //         qty: null,
+        //         value: 0,
+        //         total_amount: 0,
+        //       }
+        //       await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        //       let confirm = this.$swal({
+        //         icon: 'success',
+        //         title: 'Erfolgreich!',
+        //         text: 'Die Gutscheine wurden in den Warenkorb gelegt.',
+        //         allowOutsideClick: false,
+        //         showConfirmButton: false
+        //       })
+        //       setTimeout(() => {
+        //         confirm.close()
+        //         this.$router.push('/cart')
+        //       }, 1000)
+        //     } catch (err) {
+        //       await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        //       this.$swal({
+        //         icon: 'warning',
+        //         title: 'Achtung! ',
+        //         text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
+        //         confirmButtonColor: '#48BB78',
+        //         confirmButtonText: 'Bestätigen'
+        //       })
+        //     }
+        //   }
+        // })
       },
       async onRemoveCart()
       {

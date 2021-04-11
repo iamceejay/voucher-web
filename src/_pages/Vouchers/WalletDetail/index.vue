@@ -8,8 +8,10 @@
             <VoucherCard
               :voucher="WALLET.voucher"
               :order="WALLET"
-              role="user"
-              :withQR="false"
+              :qr="WALLET.qr"
+              :userVoucher="WALLET"
+              :role="'user'"
+              :withQR="true"
             />
           </div>
           <span class="block font-medium pb-3 pt-6 text-lg text-center">
@@ -59,6 +61,15 @@
                 <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
               </svg>
               <span>Als Link teilen</span>
+            </button>
+          </div>
+          <div class="mt-4 max-w-lg mx-auto w-full">
+            <button
+              class="border flex items-center justify-center text-sm w-full px-3 py-4 bg-peach"
+              type="button"
+              @click="$emit('onFlip')"
+            >
+              <span>Gutschein einlösen</span>
             </button>
           </div>
           <div class="flex max-w-lg mt-4 mx-auto relative w-full" v-if="currentButton == 'link'">
