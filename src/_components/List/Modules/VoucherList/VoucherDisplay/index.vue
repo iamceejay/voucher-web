@@ -136,15 +136,15 @@
       this.onSetBgImage( this.onGetBg() )
     },
     methods: {
-      onFlip()
+      onFlip(walletDetails = null)
       {
         if(this.isFlippable) {
-          // this.$router.push(`/voucher/${this.userVoucher.id}`)
-           if (this.isFlippable) {
-              this.isFlip = !this.isFlip;
-              this.isAction = !this.isAction;
-              this.onSetBgImage(this.isFlip ? '' : this.onGetBg());
-            }
+          this.$router.push(`/voucher/${this.userVoucher.id}`)
+          //  if (this.isFlippable) {
+          //     this.isFlip = !this.isFlip;
+          //     this.isAction = !this.isAction;
+          //     this.onSetBgImage(this.isFlip ? '' : this.onGetBg());
+          //   }
         }
       },
       onGetTextColor()
