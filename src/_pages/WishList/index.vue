@@ -28,22 +28,26 @@
         voucher: []
       }
     },
-    computed: { 
+    computed: {
       AUTH_USER_VOUCHER_WISHLIST()
       {
         return this.$store.getters.AUTH_USER_VOUCHER_WISHLIST
       },
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
     },
-    created() {      
-    },     
-    mounted() { 
+    created() {
+    },
+    mounted() {
       (async() => {
-        await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', JSON.parse(localStorage.getItem('_userWishlist')))
-        this.voucher = await this.AUTH_USER_VOUCHER_WISHLIST.user_voucher_wishlists.map((vouch) => { return vouch.voucher })
+        await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', this.AUTH_USER.data.id)
+        this.voucher = await this.AUTH_USER_VOUCHER_WISHLIST.map((vouch) => { return vouch.voucher })
       })()
     },
     beforeDestroy () {
-      
+
     },
     methods: {
     }
