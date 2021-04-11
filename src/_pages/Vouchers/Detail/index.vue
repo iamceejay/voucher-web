@@ -95,6 +95,12 @@
                   {{ VOUCHER.expiry_date }} Jahre
                 </div>
               </div>
+              <div class="flex flex-col">
+                <span class="text-xs font-bold mb-1">Reservierung:</span>
+                <div class="text-xs flex flex-col">
+                  {{ VOUCHER.data_json && VOUCHER.data_json.isReserve ? 'Ja' : 'nein'}}
+                </div>
+              </div>
             </div>
 
             <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm">

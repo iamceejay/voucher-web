@@ -372,6 +372,22 @@
               </div>
 
               <div class="bg-white flex flex-row flex-wrap w-full mt-3">
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Reservierung</span>
+                <div class="py-3">
+                  <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
+                    <label class="text-sm">nein/ ja</label>
+                    <span>
+                      <toggle-button
+                        :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
+                        :switch-color="{checked: '#fff', unchecked: '#000', disabled: '#CCCCCC'}"
+                        v-model="form.isReserve"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white flex flex-row flex-wrap w-full mt-3">
                 <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen</span>
                 <div class="py-3">
                   <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
@@ -622,6 +638,7 @@
     data() {
       return {
         isRouteChanged: false,
+        isSubmitted: false,
         currentTab: 0,
         isWithLimit: false,
         unsure: false,
@@ -674,7 +691,8 @@
           val_max: 0,
           remove_bg: false,
           seller: null,
-          months: []
+          months: [],
+          isReserve: false,
         },
         week: getWeek,
         background_image: null,
@@ -808,9 +826,10 @@
           // this.onResetForm()
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
 
-          if (!this.isRouteChanged)
+          if (!this.isRouteChanged) {
+            this.isSubmitted = true;
             this.$router.push('/vouchers')
-
+          }
         } catch (err) {
 
           console.log('err',err)
