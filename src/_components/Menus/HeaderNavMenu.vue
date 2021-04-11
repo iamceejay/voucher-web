@@ -142,9 +142,10 @@
           class="flex mt-8 pb-8"
           :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
           >
-          <a
+          <router-link
             href="javascript:void(0)"
-            class="menu-item  "
+            class="flex flex-col items-center justify-center relative"
+            to="/wish-list"
           >
             <span class="hover:text-peach relative z-10 flex flex-col items-center">
               <svg class="icon h-4 w-4 text-peach">
@@ -152,7 +153,7 @@
               </svg>
               Meine Wishlist
             </span>
-          </a>
+          </router-link>
           <router-link
             class="flex flex-col items-center justify-center relative"
               to="/cart"

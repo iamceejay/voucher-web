@@ -118,7 +118,7 @@
           this.submitting = true
           this.errorMessages = []
           const { token, user } = await this.$store.dispatch('LOGIN', this.loginForm)
-          this.setLoginAuth(token, user)
+          await this.setLoginAuth(token, user)
           this.submitting = false
           this.$router.go('home')
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
