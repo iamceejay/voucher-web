@@ -1124,4 +1124,7 @@
   .v-switch-core {
     border: 1px solid black;
   }
+  .mx-calendar-header {
+    display: none !important;
+  }
 </style>
