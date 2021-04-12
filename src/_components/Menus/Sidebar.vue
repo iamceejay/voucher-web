@@ -207,7 +207,8 @@
                 let slug = this.$helpers.toSlug(categ.name)
                 return {
                   title: categ.name,
-                  link: `/vouchers/category/${slug}`
+                  link: `/vouchers/category/${slug}`,
+                  icon: categ.icon
                 }
               })
               this.menus = [
@@ -225,7 +226,7 @@
                   link: '/profile-info',
                   icon: 'person',
                   // isChildShow: false,
-                  child: profileChild,
+                  // child: profileChild,
                 },
                 {
                   title: 'Kategorien',
@@ -260,9 +261,11 @@
         } else {
           const categories = this.CATEGORIES.map( categ => {
             let slug = this.$helpers.toSlug(categ.name)
+
             return {
               title: categ.name,
-              link: `/vouchers/category/${slug}`
+              link: `/vouchers/category/${slug}`,
+              icon: categ.icon
             }
           })
 
@@ -313,7 +316,6 @@
       {
         if(!menu.child) {
           if (!this.AUTH_USER.isAuth && menu.link == '#wallet') {
-            console.log(this.$parent.$refs.header)
             this.$parent.$refs.header.showWallet = true
             this.$parent.$refs.header.isRegisterPop = false
             this.hideSidebar = true;
