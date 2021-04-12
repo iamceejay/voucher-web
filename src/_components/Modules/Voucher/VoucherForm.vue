@@ -641,6 +641,9 @@
         isSubmitted: false,
         currentTab: 0,
         isWithLimit: false,
+        temp_valid_day: [],
+        temp_valid_date: [],
+        temp_months: [],
         unsure: false,
         formIndex: 0,
         hasFile: false,
@@ -729,6 +732,20 @@
       {
         this.onSetForm()
       },
+      isWithLimit(val) {
+        if (val) {
+          this.form.valid_day = [...this.temp_valid_day]
+          this.form.valid_date = [...this.temp_valid_date]
+          this.form.months = [...this.temp_months]
+        } else {
+          this.temp_valid_day = [...this.form.valid_day]
+          this.temp_valid_date = [...this.form.valid_date]
+          this.temp_months = [...this.form.months]
+          this.form.valid_day = []
+          this.form.valid_date = []
+          this.form.months = []
+        }
+      }
     },
     beforeMount() {
       this.onSetForm()
