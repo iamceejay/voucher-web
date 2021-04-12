@@ -58,7 +58,7 @@
       })()
     },
     beforeRouteLeave(to, from, next) {
-      if (!this.$refs.voucherForm.data?.id || this.$refs.voucherForm.isSubmitted) {
+      if (this.$refs.voucherForm.isSubmitted) {
         next(true)
       }
 
@@ -73,8 +73,8 @@
       }).then(async (result) => {
         if(result.value) {
           this.$refs.voucherForm.isRouteChanged = true
-          await this.$refs.voucherForm.onSubmit()
-          next(true)
+          let response = await this.$refs.voucherForm.onSubmit()
+          next(response)
         } else {
           next(true)
         }
