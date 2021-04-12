@@ -6,6 +6,7 @@
           <div class="relative">
             <div class="absolute inset-0 z-10"></div>
             <VoucherCard
+              ref="voucher"
               :cardId="`voucher-card-${$route.params.id}`"
               :voucher="getCustomVoucher(VOUCHER)"
               :order="VOUCHER.order"
@@ -66,9 +67,9 @@
           </div>
           <div class="mt-4 max-w-lg mx-auto w-full">
             <button
-              class="border flex items-center justify-center text-sm w-full px-3 py-4 bg-peach"
+              class="border flex items-center justify-center text-sm w-full px-3 py-4 bg-peach text-white"
               type="button"
-              @click="$emit('onFlip')"
+              @click="$refs.voucher.flip()"
             >
               <span>Gutschein einlösen</span>
             </button>
