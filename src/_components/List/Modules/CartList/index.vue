@@ -16,9 +16,8 @@
           <VoucherCard
             :cardId="`voucher-card-${index}`"
             :voucher="row.voucher"
-            :order="row"
-            :role="role"
-            :withQR="withQR"
+            :isFlippable="false"
+            :withQR="false"
           />
         </div>
         <div v-if="withCartDetail" class="order__form flex flex-col w-full ">
@@ -107,7 +106,7 @@
 </template>
 <script>
   import Header2 from '_components/Headers/Header2';
-  import VoucherCard from '../VoucherList/VoucherDisplay/'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
   import Button from '_components/Button'
   import moment from 'moment';
 

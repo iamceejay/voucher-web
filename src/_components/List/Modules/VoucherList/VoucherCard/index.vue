@@ -244,7 +244,7 @@ export default {
 @media only screen and (max-width: 600px) {
   .voucher-card-container {
     width: 99%;
-    max-width: 330px;
+    /* max-width: 330px; */
   }
 }
 </style>

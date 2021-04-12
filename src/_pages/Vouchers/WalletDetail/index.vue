@@ -6,10 +6,12 @@
           <div class="relative">
             <div class="absolute inset-0 z-10"></div>
             <VoucherCard
-              :voucher="WALLET.voucher"
-              :order="WALLET"
-              :qr="WALLET.qr"
-              :userVoucher="WALLET"
+              ref="voucher"
+              :cardId="`voucher-card-${$route.params.id}`"
+              :voucher="getCustomVoucher(VOUCHER)"
+              :order="VOUCHER.order"
+              :qr="VOUCHER.qr"
+              :userVoucher="VOUCHER"
               :role="'user'"
               :withQR="true"
             />
@@ -65,9 +67,9 @@
           </div>
           <div class="mt-4 max-w-lg mx-auto w-full">
             <button
-              class="border flex items-center justify-center text-sm w-full px-3 py-4 bg-peach"
+              class="border flex items-center justify-center text-sm w-full px-3 py-4 bg-peach text-white"
               type="button"
-              @click="$emit('onFlip')"
+              @click="$refs.voucher.flip()"
             >
               <span>Gutschein einlösen</span>
             </button>
@@ -265,6 +267,19 @@
       })()
     },
     methods: {
+      getCustomVoucher(row) {
+        if (!row.order.voucher.data_json) {
+          return row.order.voucher;
+        }
+
+        row.order.voucher.data_json = row.data_json;
+        row.order.voucher.data_json.price_hidden = row.price_hidden
+          ? true
+          : false;
+        row.order.voucher.data_json.seller = row.order.voucher.seller
+
+        return row.order.voucher.data_json;
+      },
       async onSubmit()
       {
         this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )

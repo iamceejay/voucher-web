@@ -16,7 +16,7 @@
           />
         </div>
         <div class="bg-white">
-          <div class="content-container flex flex-col w-full px-8">
+          <div class="content-container w-11/12">
             <h2 class="text-center text-3xl py-8 font-medium">Gutscheine</h2>
             <div class="flex justify-end">
               <button

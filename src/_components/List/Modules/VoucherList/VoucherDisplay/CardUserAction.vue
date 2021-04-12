@@ -26,60 +26,14 @@
         {{ order.voucher.seller.company.url }}
       </div> -->
     </div>
-    <div class="flex flex-row w-full mt-4 h-12">
-      <div
-        class="flex flex-row w-full justify-between"
-      >
-        <!-- <router-link
-          class="px-2 text-3xl text-primary"
-          :to="`/vouchers/personalized/${ userVoucher.id}`"
-        >
-          <i class="fas fa-pen" />
-        </router-link> -->
-
-        <dropdown placement="right">
-          <!-- Button content -->
-          <!-- <template #button>
-            <span class="py-1 inline-flex items-center text-sm" @click.prevent>
-              <span class="mr-2"><i class="fas fa-share-alt text-3xl" /></span>
-            </span>
-          </template> -->
-
-          <!-- Opened dropdown content -->
-          <template #content>
-            <a
-              class="flex w-full text-primary px-2 py-1 my-1"
-              href="javascript:void(0)"
-              @click="onGenerateVoucher(userVoucher.id)"
-            >
-              <i class="text-lg mr-3 fas fa-download" /> Herunterladen
-            </a>
-            <router-link
-              class="flex w-full text-primary px-2 py-1 my-1"
-              :to="`/vouchers/send-email/${userVoucher.id}`"
-            >
-              <i class="text-lg mr-3 fas fa-envelope" /> per Email verschicken
-            </router-link>
-            <router-link
-              class="flex w-full text-primary px-2 py-1 my-1"
-              :to="`/vouchers/transfer/${userVoucher.id}`"
-            >
-              <i class="text-lg mr-3 fas fa-user-circle" /> als Link teilen
-            </router-link>
-          </template>
-        </dropdown>
-      </div>
-    </div>
   </div>
 </template>
 <script>
   import QrcodeVue from 'qrcode.vue'
-  import Dropdown from '_components/Dropdown'
 
   export default {
     components: {
       QrcodeVue,
-      Dropdown
     },
     props: {
       qr: {

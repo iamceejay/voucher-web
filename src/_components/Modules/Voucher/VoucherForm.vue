@@ -762,7 +762,7 @@
               confirmButtonColor: '#48BB78',
               confirmButtonText: 'Bestätigen'
             })
-            return
+            return false
           }
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
 
@@ -830,6 +830,8 @@
             this.isSubmitted = true;
             this.$router.push('/vouchers')
           }
+
+          return true
         } catch (err) {
 
           console.log('err',err)
@@ -844,6 +846,7 @@
               confirmButtonText: 'Bestätigen'
             })
           }
+          return false
         }
       },
       async onUploadVoucherImg(id, random)

@@ -6,7 +6,7 @@
   >
     <GuestHeader />
     <div>
-      <div class="content-container w-full sm:w-9/12 xl:w-7/12">
+      <div class="content-container w-full">
         <h2 class="voucher-categories__title text-center text-3xl mb-10 font-medium">Finde Deinen Gutschein</h2>
         <VueSlickCarousel class="voucher-categories__grid sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4" v-bind="voucherCategoriesOptions">
           <router-link
@@ -31,7 +31,7 @@
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="content-container w-full sm:w-9/12 xl:w-7/12">
+      <div class="content-container w-full">
         <h2 class="text-center text-3xl mb-10 font-medium">Geschenke f&uuml;r</h2>
         <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-3" v-bind="giftOptions">
           <a
@@ -50,7 +50,7 @@
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="content-container w-full sm:w-9/12 xl:w-7/12">
+      <div class="content-container w-full">
         <h2 class="text-center text-3xl mb-10 font-medium">In deiner Nachbarschaft</h2>
         <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4" v-bind="regionOptions">
           <a
@@ -69,7 +69,7 @@
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="voucher-list__container content-container w-11/12 sm:w-9/12 xl:w-7/12">
+      <div class="voucher-list__container content-container w-11/12">
         <h2 class="text-center text-3xl mb-10 font-medium">Unsere Lieblinge</h2>
         <VoucherList
           title=""
@@ -85,7 +85,7 @@
         <div class="border-separator" />
       </div>
 
-      <div class="container w-11/12 sm:w-9/12 xl:w-7/12 mx-auto mb-10">
+      <div class="container w-11/12 mx-auto mb-10">
         <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
         <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
           <div

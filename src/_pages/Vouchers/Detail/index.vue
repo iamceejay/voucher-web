@@ -3,7 +3,7 @@
     <template #content>
       <div v-if="!IS_LOADING.status && VOUCHER" class="content-container w-full flex flex-col px-8 pb-10">
         <div class="flex flex-col md:flex-row w-full items-start justify-center">
-          <div>
+          <div class="max-w-md w-full">
             <VoucherCard
               class="self-center"
               :voucher="VOUCHER"
