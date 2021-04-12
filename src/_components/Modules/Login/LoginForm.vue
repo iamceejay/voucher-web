@@ -2,7 +2,7 @@
   <div id="login-form-component">
     <form
       class="container w-full"
-      @submit.prevent
+      @submit.prevent="onSubmit()"
     >
       <div v-if="error" class="text-center mb-2">
         <span class="text-red-500 font-bold font-body">{{ error }}</span>
@@ -31,13 +31,13 @@
           Passwort vergessen?
         </router-link>
         <Button
+          type="submit"
           class="mb-6"
           size="w-full py-3"
           round="rounded"
           :disabled="submitting"
           :isLoading="submitting"
           label="Login"
-          @onClick="onSubmit()"
         />
         <div class="flex flex-col border-t-2 border-input-border">
           <p class="font-medium text-center text-lg py-4">Oder anmelden mit:</p>
