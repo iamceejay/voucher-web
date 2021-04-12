@@ -528,7 +528,7 @@
                   <template #note_>
                     <CheckboxField
                       :checked="form.tax && ((form.tax.length <= 0 && form.id) || (form.tax.length > 0 && form.tax[0] == 'unsure'))"
-                      :disabled="form.id"
+                      :disabled="!!form.id"
                       container="my-3"
                       labelSentence="Steuersatz kann noch nicht festgestellt werden"
                       @input="onUnsure"
@@ -960,6 +960,7 @@
       },
       onActionDate( action, index = null )
       {
+        console.log(action)
         if( action === 'add' ) {
           this.form.months.push('')
         } else if( action === 'change' ) {
@@ -967,6 +968,7 @@
         } else {
           this.form.months = this.form.months.filter( (date, i) => i != index)
         }
+        this.$forceUpdate();
       },
       onSetForm()
       {
@@ -987,10 +989,16 @@
             this.form.valid_day = this.data.valid_day || []
             this.form.category = this.data.voucher_category.id
             this.form.seller = this.data.seller
-            this.form.months = this.form.months.map(month => parseInt(month))
+            this.form.months =  this.data.valid_date
+              ? this.data.valid_date
+                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .map(date => parseInt(moment(date.start).format('x')))
+              : []
+
             this.form.id = this.$route.name == 'vouchers-update'
               ? this.$route.params.id
               : null;
+
           } else {
             this.form = {
               id: this.data.id,
