@@ -77,7 +77,7 @@
                   ? `${$helpers.convertCurrency($route.name == 'wallet' ? order.total_amount : voucher.qty_val)}`
                   : $route.name == 'wallet'
                   ? $helpers.convertCurrency(order.total_amount)
-                  :`${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${$route.name == 'vouchers-detail' ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
+                  :`${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${  ['vouchers-detail', 'cart'].indexOf($route.name) != -1 ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
               }}
               <span></span>
             </span>

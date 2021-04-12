@@ -30,12 +30,10 @@
 </template>
 <script>
   import QrcodeVue from 'qrcode.vue'
-  import Dropdown from '_components/Dropdown'
 
   export default {
     components: {
       QrcodeVue,
-      Dropdown
     },
     props: {
       qr: {
