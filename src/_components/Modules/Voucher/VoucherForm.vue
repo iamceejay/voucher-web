@@ -757,6 +757,8 @@
       })
       this.onSetTax()
       this.onSetExpiry()
+
+      document.body.classList.add('voucher-builder-page')
     },
     methods: {
       async onSubmit()
@@ -980,7 +982,6 @@
       },
       onActionDate( action, index = null )
       {
-        console.log(action)
         if( action === 'add' ) {
           this.form.months.push('')
         } else if( action === 'change' ) {
@@ -1151,7 +1152,7 @@
   .v-switch-core {
     border: 1px solid black;
   }
-  .mx-calendar-header {
+  .voucher-builder-page .mx-calendar-header {
     display: none !important;
   }
 </style>

@@ -196,6 +196,9 @@
     //     }
     //   },
     // },
+    beforeMount() {
+      document.body.classList.remove('voucher-builder-page')
+    },
     mounted() {
       (async() => {
         try {
