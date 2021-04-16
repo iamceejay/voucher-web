@@ -8,7 +8,7 @@
       <div
         v-for="(row, index) in data"
         :key="`voucher-${index}`"
-        class="border-b-2 gap-3 grid mb-8 pb-8"
+        class="border-b-2 gap-3 flex flex-col md:grid mb-8 pb-8"
         style="grid-template-columns: 1fr minmax(0, 190px);"
       >
         <div class="relative">
