@@ -12,6 +12,17 @@
       </router-link>
       <div v-if="AUTH_USER.isAuth" class="flex">
         <router-link
+          to="/wish-list"
+          class="menu-item  text-xs mr-2"
+        >
+          <span class="hover:text-peach relative z-10 flex flex-col items-center">
+            <svg class="icon h-5 w-5 text-peach mb-1">
+              <use :xlink:href="`/icons/sprite.svg#heart`"/>
+            </svg>
+            <span class="text-2xs text-peach">Meine Wishlist</span>
+          </span>
+        </router-link>
+        <router-link
           v-if="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
           class="flex flex-col items-center justify-center text-peach relative"
             to="/cart"
@@ -24,19 +35,6 @@
           </svg>
           <span class="text-2xs">Warenkorb</span>
         </router-link>
-        <a
-            href="javascript:void(0)"
-            class="flex flex-col items-center justify-center relative ml-4"
-            @click="onLogout()"
-            >
-            <div class="relative  h-5 w-5 mb-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="relative icon h-5 w-5 text-peach" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-              </svg>
-            </div>
-            <span class="text-2xs text-peach">Ausloggen</span>
-          </a>
       </div>
 
       <div v-else class="text-sm flex space-x-4">

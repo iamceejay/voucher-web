@@ -6,32 +6,7 @@
           Profil & Einstellungen
         </div>
 
-        <span class="border-b-2 pb-6 flex flex-wrap text-sm mt-4">
-            <router-link
-              class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-              to="/profile-info"
-            >
-              Profil
-            </router-link>
-            <router-link
-              class="px-3 py-1 rounded-md text-xs border border-black bg-black text-white mr-2 mb-2"
-              to="/profile-settings"
-            >
-              Passwort
-            </router-link>
-            <router-link
-              class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-              to="/profile-payment"
-            >
-              Zahlungsmethoden
-            </router-link>
-            <router-link
-              class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-              to="/orders"
-            >
-              Bestellungen
-            </router-link>
-        </span>
+         <ProfileTabs />
         <ValidationObserver v-slot="{ handleSubmit }">
           <form
             class="flex flex-col w-full md:w-1/2"
@@ -85,6 +60,7 @@
   import Button from '_components/Button';
   import InputField from '_components/Form/InputField';
   import Header2 from '_components/Headers/Header2';
+  import ProfileTabs from '../ProfileTabs'
 
   export default {
     name: 'Profile',
@@ -92,7 +68,8 @@
       MainLayout,
       InputField,
       Button,
-      Header2
+      Header2,
+      ProfileTabs
     },
     data() {
       return {

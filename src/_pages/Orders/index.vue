@@ -6,32 +6,7 @@
           Profil & Einstellungen
         </div>
 
-        <span class="border-b-2 pb-6 flex flex-wrap text-sm mt-4 mb-8">
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-            to="/profile-info"
-          >
-            Profil
-          </router-link>
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-            to="/profile-settings"
-          >
-            Passwort
-          </router-link>
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-            to="/profile-payment"
-          >
-            Zahlungsmethoden
-          </router-link>
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black bg-black text-white mr-2 mb-2"
-            to="/orders"
-          >
-            Bestellungen
-          </router-link>
-      </span>
+        <ProfileTabs class="mb-6" />
         <!-- <Header1
           label="Statistiken"
         />
@@ -55,6 +30,7 @@
   import StatisticList from '_components/List/Modules/StatisticList/';
   import OrderList from '_components/List/Modules/OrderList/'
   import Header1 from '_components/Headers/Header1';
+  import ProfileTabs from '../Profile/ProfileTabs'
 
   export default {
     name: 'Home',
@@ -63,6 +39,7 @@
       StatisticList,
       OrderList,
       Header1,
+      ProfileTabs
     },
     data() {
       return {

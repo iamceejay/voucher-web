@@ -6,34 +6,9 @@
           Profil & Einstellungen
         </div>
 
-        <span class="border-b-2 pb-6 flex flex-wrap text-sm mt-4 mx-8">
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-            to="/profile-info"
-          >
-            Profil
-          </router-link>
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-            to="/profile-settings"
-          >
-            Passwort
-          </router-link>
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black bg-black text-white mr-2 mb-2"
-            to="/profile-payment"
-          >
-            Zahlungsmethoden
-          </router-link>
-          <router-link
-            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-            to="/orders"
-          >
-            Bestellungen
-          </router-link>
-      </span>
-        <div class="flex flex-col md:w-1/2 mt-6 mx-8">
 
+        <div class="flex flex-col md:w-1/2  mx-8">
+          <ProfileTabs />
           <StripeForm
             :key="`stripe-${key}`"
             :isPay="false"
@@ -48,13 +23,15 @@
   import MainLayout from '_layouts';
   import StripeForm from '_components/Form/Modules/StripeForm';
   import Header2 from '_components/Headers/Header2';
+  import ProfileTabs from '../ProfileTabs'
 
   export default {
     name: 'Profile',
     components: {
       MainLayout,
       StripeForm,
-      Header2
+      Header2,
+      ProfileTabs
     },
     data() {
       return {
