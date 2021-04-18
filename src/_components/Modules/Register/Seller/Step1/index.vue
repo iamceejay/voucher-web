@@ -1,9 +1,9 @@
 <template>
-  <ValidationObserver 
+  <ValidationObserver
     v-slot="{ handleSubmit, invalid }"
     class="flex flex-col w-full h-full items-center"
   >
-    <form 
+    <form
       class="w-full flex flex-col items-center"
       @submit.prevent="handleSubmit(onSubmit(invalid))"
     >
@@ -12,8 +12,8 @@
       />
       <p class="w-full md:w-1/2">
         Wir freuen uns, dass du dich für unsere Plattform registrieren willst!
-        Fülle einfach das kurze Formular aus und schon ist dein Unternehmen für epasnets registriert. 
-        Wir werden im Anschluss dein Profil überprüfen und uns innerhalb von 24 Stunden bei dir melden, sobald dein Profil verifiziert ist. 
+        Fülle einfach das kurze Formular aus und schon ist dein Unternehmen für epasnets registriert.
+        Wir werden im Anschluss dein Profil überprüfen und uns innerhalb von 24 Stunden bei dir melden, sobald dein Profil verifiziert ist.
       </p>
       <div class="flex flex-col w-full md:w-1/2 my-5">
         <ProfileForm
@@ -125,7 +125,7 @@
             ...this.data
           }
         }
-      }, 
+      },
     }
   }
 </script>

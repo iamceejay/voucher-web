@@ -223,7 +223,7 @@ const router = new Router({
       component: Cart,
       meta: {
         back: '',
-        middleware: [ auth, authUser ]
+        // middleware: [ auth, authUser ]
       }
     }, {
       path: '/wallet',

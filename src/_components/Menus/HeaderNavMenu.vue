@@ -194,13 +194,13 @@
       {
         return this.$store.getters.AUTH_USER
       },
+       COUNT_CART()
+      {
+        return this.$store.getters.COUNT_CART
+      },
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
-      },
-      COUNT_CART()
-      {
-        return this.$store.getters.COUNT_CART
       },
     },
     watch: {

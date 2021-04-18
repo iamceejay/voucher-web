@@ -104,9 +104,10 @@
     computed: {
       AUTH_USER() {
         return this.$store.getters.AUTH_USER
-      }
+      },
     },
     async mounted() {
+      await this.onFetchTotalUserCart()
       await this.loadFacebookSDK(document, "script", "facebook-jssdk");
       await this.initFacebook();
     },
@@ -272,7 +273,15 @@
       },
       onFailure(error) {
         console.log(error)
-      }
+      },
+      async onFetchTotalUserCart()
+      {
+        try {
+          const { data } = await this.$store.dispatch('FETCH_TOTAL_USER_CART')
+        } catch (err) {
+          console.log('err', err)
+        }
+      },
     }
   };
 </script>

@@ -18,11 +18,13 @@
         const auth = JSON.parse(await localStorage.getItem('_auth') )
         if(auth) {
           await this.$store.commit('SET_AUTH_USER', auth)
-          if( auth.role.name == 'user' ) {
-            await this.onFetchCategories()
-            await this.onFetchTotalUserCart()
-          }
+          // if( auth.role.name == 'user' ) {
+            // await this.onFetchCategories()
+            // await this.onFetchTotalUserCart()
+          // }
         }
+        await this.onFetchCategories()
+        await this.onFetchTotalUserCart()
         this.isLoading = false
       })()
     },

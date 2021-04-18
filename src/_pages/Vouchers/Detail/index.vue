@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm">
+            <!-- <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm">
               <a
                 href="javascript:void(0)"
                 class="text-peach cursor-pointer"
@@ -118,9 +118,8 @@
               >
                 registriere dich
               </a>, um Gutscheine zu kaufen.
-            </div>
+            </div> -->
            <ValidationObserver
-              v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'admin'"
               v-slot="{ handleSubmit }"
             >
               <form
@@ -250,7 +249,7 @@
         try {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
               this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
-              this.form.user_id = this.AUTH_USER.data.id
+              this.form.user_id = this.AUTH_USER.data ? this.AUTH_USER.data.id : null
               this.form.voucher_id = this.VOUCHER.id
               if( this.VOUCHER.type == 'quantity' ) {
                 this.form.qty = this.form.value
@@ -281,6 +280,7 @@
                 this.$router.push('/cart')
               }, 1000)
             } catch (err) {
+              console.log(err)
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
