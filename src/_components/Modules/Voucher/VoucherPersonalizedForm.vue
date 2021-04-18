@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <form
-      class="flex flex-col md:flex-row justify-center mx-auto max-w-3xl pt-12 w-full"
+      class="flex flex-col-reverse md:flex-row justify-center mx-auto max-w-3xl pt-12 w-full"
       @submit.prevent="handleSubmit(onSubmit)"
     >
       <div class="flex flex-col w-full items-center mb-6 mr-4">
