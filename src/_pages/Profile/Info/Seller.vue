@@ -467,6 +467,8 @@
     },
     data() {
       return {
+        isRouteChanged: false,
+        isSubmitted: false,
         errorMessages: [],
         logo: '',
         logoUpdate: false,
@@ -570,7 +572,11 @@
           })
           setTimeout(() => {
             confirm.close()
-            this.$router.push('/home')
+            if (!this.isRouteChanged) {
+              this.isSubmitted = true;
+              this.$router.push('/home')
+            }
+
           }, 1000)
         } catch (err) {
           console.log(err.response)

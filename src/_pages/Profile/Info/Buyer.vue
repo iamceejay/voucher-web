@@ -89,6 +89,8 @@
     data() {
       return {
         errorMessages: [],
+        isRouteChanged: false,
+        isSubmitted: false,
         form: {
           id: null,
           username: '',
@@ -160,7 +162,10 @@
           })
           setTimeout(() => {
             confirm.close()
-            this.$router.push('/home')
+            if (!this.isRouteChanged) {
+              this.isSubmitted = true;
+              this.$router.push('/home')
+            }
           }, 1000)
         } catch (err) {
           console.log(err.response)
