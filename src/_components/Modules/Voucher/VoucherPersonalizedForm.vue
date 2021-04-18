@@ -41,7 +41,6 @@
                       backgroundColor: 'white'
                     }"
                     style="background-size: cover"
-
                   ></div>
                   <span
                     class="absolute bg-white bottom-0 flex h-6 items-center justify-center mb-2 mr-2 right-0 rounded-full text-peach text-xs w-6 cursor-pointer"
@@ -50,8 +49,23 @@
                     <i class="fa fa-check" v-if="selected_template == tem.id"></i>
                   </span>
                 </slideritem>
+                <slideritem >
+                  <div
+                    class="w-full h-full"
+                    :style="{ backgroundImage: 'url(' + form.background_image + ')',
+                      backgroundColor: 'white'
+                    }"
+                    style="background-size: cover"
+                  ></div>
+                  <span
+                    class="absolute bg-white bottom-0 flex h-6 items-center justify-center mb-2 mr-2 right-0 rounded-full text-peach text-xs w-6 cursor-pointer"
+                    @click="onSetDefault()"
+                  >
+                    <i class="fa fa-check" v-if="selected_template == 'default'"></i>
+                  </span>
+                </slideritem>
                 <!-- Customizable loading -->
-            </slider>
+             </slider>
 
             <!-- <label class="file input-field px-3 py-2 rounded-sm text-xs mb-3" style="background-color: #F7F7F7">
                 <i class="fa fa-cloud-upload-alt mr-1"></i> Bild hochladen
@@ -335,6 +349,11 @@
           this.data.custom_image = ''
           this.formIndex = this.formIndex + 1
         }
+      },
+      onSetDefault() {
+        this.selected_template = 'default'
+        this.form.custom_background_image = this.form.background_image
+        this.$refs.croppieRef.$vnode.elm.parentElement.classList.add('hidden')
       },
       onSelectTemplate(url, id)
       {
