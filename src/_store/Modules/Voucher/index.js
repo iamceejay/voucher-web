@@ -175,16 +175,6 @@ export default {
     async STATUS_UPDATE_VOUCHER( { commit, state }, payload )
     {
       const { data } = await post(`${prefix}/update-status/${payload.id}`, {})
-      const newList = state.vouchers.data.map( vouch => {
-        if(vouch.id == payload.id) {
-          vouch.is_active = vouch.is_active ? 0 : 1
-        }
-        return vouch
-      })
-      await commit('SET_VOUCHERS', {
-        ...state.vouchers,
-        data: newList
-      })
     },
     async FEATURE_UPDATE_VOUCHER( { commit, state }, payload )
     {

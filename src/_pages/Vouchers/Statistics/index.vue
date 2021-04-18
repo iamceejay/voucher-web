@@ -45,22 +45,24 @@
               </div>
             </div>
             <div class="mt-10 flex flex-col">
-              <div class="flex mb-3">
-                <router-link
-                  class="px-3 py-3 rounded-md text-xs border border-black bg-black text-white"
-                  :to="`/vouchers/update/${$route.params.id}`"
-                  >
-                  Gutschein bearbeiten
-                </router-link>
-              </div>
-              <div class="flex">
-                <button
-                  class="px-5 py-3 rounded-md text-xs border border-black text-black"
-                  @click="onDelete(voucher)"
-                  >
-                  Gutschein löschen
-                </button>
-              </div>
+              <router-link
+                class="px-3 py-3 rounded-md text-xs border border-black bg-black text-white mb-3 text-center"
+                :to="`/vouchers/update/${$route.params.id}`"
+                >
+                Gutschein bearbeiten
+              </router-link>
+              <button
+                class="px-5 py-3 rounded-md text-xs border border-black text-black mb-3"
+                @click="onDelete(voucher)"
+                >
+                Gutschein löschen
+              </button>
+              <button
+                class="px-5 py-3 rounded-md text-xs border border-black text-black"
+                @click="onDeact(voucher)"
+                >
+                {{ voucher.is_active ? 'Deaktivieren' : 'Aktivieren' }}
+              </button>
             </div>
 
           </div>
@@ -211,6 +213,32 @@
             setTimeout(() => {
               location.href = '/vouchers'
             }, 2000)
+          }
+        })
+      },
+      async onDeact(data)
+      {
+        this.$swal({
+          title: `${ data.is_active ? 'Deaktivieren' : 'Aktivieren' }`,
+          text: `${ data.is_active ? 'Bist du sicher, dass du diesen Gutschein deaktivieren willst?' : 'Bist du sicher, dass du diesen Gutschein aktivieren willst?' }`,
+          showCancelButton: true,
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then(async (result) => {
+          if(result.value){
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            await this.$store.dispatch('STATUS_UPDATE_VOUCHER', data)
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            data.is_active = !data.is_active
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich!',
+              text: `${ data.is_active ? 'Gutscheine aktivieren.' : 'Gutscheine deaktiveren.' }`,
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
+            })
           }
         })
       },
