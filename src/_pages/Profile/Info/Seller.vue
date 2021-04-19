@@ -67,10 +67,6 @@
                           <img :src="onSetLogo('set', logo)" style="width: auto; height: 100%;"/>
                         </section>
                         <section class="relative hidden">
-                          <!-- <i
-                            class="-m-1 absolute cursor fa fa-close-circle fa-times-circle right-0 text-base text-center text-red-500 z-10"
-                            @click="(e) => removeImage(e, 'logo')"
-                          ></i> -->
                           <vue-croppie
                             ref="logo"
                             :enableOrientation="true"
@@ -81,6 +77,36 @@
                           />
                         </section>
                     </div>
+
+                    <div>
+                      <span class="block mb-1 text-sm">Header Logo</span>
+                      <label
+                        class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
+                        >
+                            <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 1920px x 1080px)
+                            <input
+                              type="file"
+                              accept="'image/*'"
+                              aria-label="File browser example"
+                              @change="(e) => croppie(e, 'header_logo')"
+                              />
+                            <span class="file-custom"></span>
+                        </label>
+                        <section v-if="header_logo && header_logo != '' && header_logo == form.company.header_logo" class="relative border" style="width: 250px; height: 141px;">
+                          <img :src="onSetLogo('set', header_logo)" style="width: auto; height: 100%;"/>
+                        </section>
+                        <section class="relative hidden">
+                          <vue-croppie
+                            ref="header_logo"
+                            :enableOrientation="true"
+                            :enableResize="false"
+                            :boundary="{ width: 250, height: 141 }"
+                            :viewport="{ width: 250, height: 141, 'type':'square' }"
+                            @update="update('header_logo', 'header_logo')"
+                          />
+                        </section>
+                    </div>
+
                     <InputField
                       v-if="AUTH_USER.role.name == 'seller'"
                       id="company_name"
@@ -471,6 +497,7 @@
         isSubmitted: false,
         errorMessages: [],
         logo: '',
+        header_logo: '',
         logoUpdate: false,
         currentTab: 0,
         verification_front: '',
@@ -496,6 +523,7 @@
             description: '',
             url: '',
             logo: '',
+            header_logo: '',
             region: '',
             vat_number: '',
           },
@@ -559,6 +587,7 @@
             }
 
             this.form.company.logo = this.logo
+            this.form.company.header_logo = this.header_logo
           }
 
           const data = await this.$store.dispatch('UPDATE_USER', this.form)
@@ -639,6 +668,7 @@
                 description: user.company.description,
                 url: user.company.url,
                 logo: user.company.logo,
+                header_logo: user.company.header_logo,
                 region: user.company.region,
                 region_id: region ? region[0] : '',
                 vat_number: user.company.vat_number,
@@ -646,6 +676,7 @@
             }
           }
           this.logo = user.company.logo
+          this.header_logo = user.company.header_logo
           this.form = params
         } catch (err) {
           console.log('err', err)
@@ -729,7 +760,7 @@
               quality: 1,
           }
           this.$refs[ref].result(options, (output) => {
-            this.logo = output
+            this[form] = output
           });
       },
       update(ref, form) {

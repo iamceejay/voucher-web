@@ -4,9 +4,9 @@
       <div v-if="!IS_LOADING.status && USER" class="content-container flex flex-col w-full px-8">
         <div class="w-full flex flex-col">
           <img
-            v-if="!USER && USER.company.logo"
-            class="h-32 md:h-64bg-white mb-6 object-cover"
-            :src="onSetImage(USER.company.logo)"
+            v-if="USER && USER.company.header_logo"
+            class="h-32 md:h-64 bg-white mb-6 object-cover"
+            :src="onSetImage(USER.company.header_logo)"
             alt=""
           />
           <img
