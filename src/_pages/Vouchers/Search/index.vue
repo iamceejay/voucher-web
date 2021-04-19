@@ -293,6 +293,14 @@
     //   },
     // },
     mounted() {
+      if (this.$route.query) {
+        for(let key in this.$route.query) {
+          if (['targets', 'isRegion'].indexOf(key) == -1)
+            return
+
+          this.params[key] = [this.$route.query[key]]
+        }
+      }
       (async() => {
         try {
           // await this.$store.commit('SET_IS_INFINITE_LOAD', true)

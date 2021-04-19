@@ -127,13 +127,24 @@
                 @submit.prevent="handleSubmit(onSubmit)"
               >
                 <section class="flex items-center">
-                  <div class="flex flex-col items-end mr-3 md:mr-12">
+                  <div class="flex flex-col items-end mr-3 md:mr-12" v-if="VOUCHER.type == 'quantity'">
                     <span class="font-semibold text-lg">
                       {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
                     </span>
                     <span class="text-2xs text-gray-500">inkl. MwSt.</span>
                   </div>
+                  <div v-else class="flex">
+                    <span class="text-2xs text-gray-500">Wert von {{ $helpers.convertCurrency(VOUCHER.val_min) }} bis {{ $helpers.convertCurrency(VOUCHER.val_max) }}</span>
+                    <input
+                      v-model="form.value"
+                      type="number"
+                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                      required
+                    />
+                  </div>
                   <div class="order__form-group mr-2">
+
                     <input
                       v-model="form.value"
                       type="number"

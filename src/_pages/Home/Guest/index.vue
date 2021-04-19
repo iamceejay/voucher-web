@@ -34,10 +34,10 @@
       <div class="content-container w-full">
         <h2 class="text-center text-3xl mb-10 font-medium">Geschenke f&uuml;r</h2>
         <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-3" v-bind="giftOptions">
-          <a
+          <router-link
             v-for="(gift, index) in gifts"
             :key="`item-${index}`"
-            href="javscript:void(0)"
+            :to="{ path: '/vouchers/search', query: { targets: gift.label }}"
             class="pl-4 sm:px-0"
           >
             <img
@@ -45,7 +45,7 @@
               class="shadow rounded-lg mb-2"
             />
             <p class="text-sm" v-html="gift.label"></p>
-          </a>
+          </router-link>
         </VueSlickCarousel>
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
@@ -53,10 +53,10 @@
       <div class="content-container w-full">
         <h2 class="text-center text-3xl mb-10 font-medium">In deiner Nachbarschaft</h2>
         <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4" v-bind="regionOptions">
-          <a
+          <router-link
             v-for="(region, index) in REGIONS"
             :key="`item-${index}`"
-            href="javscript:void(0)"
+            :to="{ path: '/vouchers/search', query: { isRegion: region.label }}"
             class="pl-4 sm:px-0"
           >
             <img
@@ -64,7 +64,7 @@
               class="shadow rounded-lg mb-2"
             />
             <p class="text-sm">{{ region.label }}</p>
-          </a>
+          </router-link>
         </VueSlickCarousel>
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
@@ -299,13 +299,19 @@
         companies: [],
         gifts: [
           {
-            label: "Fraun"
+            label: "Paare"
           },
           {
-            label: "M&auml;nner"
+            label: "Freunde"
           },
           {
             label: "Kinder"
+          },
+          {
+            label: "Frauen"
+          },
+          {
+            label: "Männer"
           }
         ]
       }
