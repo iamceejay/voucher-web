@@ -260,3 +260,7 @@ body.modal-active {
 .list-pagination:disabled {
 @apply text-gray-400 cursor-not-allowed;
 }
+
+.wishlist-btn {
+    background-color: #fff;
+}

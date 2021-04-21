@@ -36,7 +36,7 @@
           <Button
             class="mr-4"
             type="submit"
-            label="Speichern"
+            label="Einlösen"
             fontWeight="font-normal"
             size="py-4 px-8"
             round="rounded"

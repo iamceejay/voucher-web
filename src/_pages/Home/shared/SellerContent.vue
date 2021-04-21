@@ -3,7 +3,7 @@
     <div class="content-container flex flex-col sm:flex-wrap sm:flex-row items-center bg-gray-200">
       <div class="flex flex-col w-full text-white bg-peach px-6 py-20 items-center">
         <div class="font-medium max-w-md mb-4 text-3xl text-center">
-          Werde Partner und verkaufe deine Gutscheine
+          Werde Partner und verkaufe deine eigenen Gutscheine
         </div>
         <div class="flex justify-center w-full">
           <a

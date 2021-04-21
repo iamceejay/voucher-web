@@ -236,7 +236,7 @@
                   // isChildShow: false
                 },
                 {
-                  title: 'Search',
+                  title: 'Suchen',
                   link: '/vouchers/search',
                   icon: 'search',
                 },
@@ -271,7 +271,7 @@
 
           this.menus = [
             {
-              title: 'Search',
+              title: 'Suchen',
               link: '/vouchers/search',
               icon: 'search',
             },

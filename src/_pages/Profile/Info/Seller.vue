@@ -43,7 +43,7 @@
                   class="px-4 py-3 rounded-md text-xs mr-4 mb-4"
                   :class="currentTab == 3 ? 'bg-black text-white' : 'border border-black text-black'"
                   >
-                  Einstellungen
+                  Passwort
                 </button>
               </div>
               <div class="w-full" v-if="currentTab == 0">
@@ -79,7 +79,7 @@
                     </div>
 
                     <div>
-                      <span class="block mb-1 text-sm">Header Logo</span>
+                      <span class="block mb-1 text-sm">Titelbild</span>
                       <label
                         class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
                         >
@@ -160,7 +160,7 @@
                       id="text"
                       v-model="form.company.description"
                       class="my-2"
-                      label="Unternehmens Info"
+                      label="Beschreibung deines Unternehmens"
                       rules="max:800"
                       :errorMessages="errorMessages.description"
                       @input="onChange"
@@ -187,7 +187,6 @@
                     />
                   </div>
                   <div class="w-full md:w-1/2">
-                    <span class="block font-semibold text-sm mb-4" v-if="AUTH_USER.role.name == 'seller'">Bitte gib den Namen und das Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens an.</span>
                     <SelectField
                       id="month"
                       v-model="form.company.region_id"
@@ -226,7 +225,7 @@
                       class="mb-4"
                       v-model="form.address"
                       type="text"
-                      label="Straße & Hauser."
+                      label="Hausnummer"
                       :errorMessages="errorMessages.address"
                       @input="onChange"
                     />
@@ -258,6 +257,7 @@
                 v-if="AUTH_USER.role.name == 'seller' && currentTab == 2"
                 class="w-full mmt-5"
               >
+                <span class="block font-semibold text-sm mb-4" v-if="AUTH_USER.role.name == 'seller'">Bitte gib den Namen und das Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens an.</span>
                <InputField
                   id="firstName"
                   v-model="form.firstName"

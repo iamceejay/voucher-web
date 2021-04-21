@@ -472,9 +472,9 @@
       grid-template-columns: 250px 1fr;
       grid-template-rows: none;
     }
-    .guest-container {
+    /* .guest-container {
       margin-top: 90px;
-    }
+    } */
   }
 
   #mobile-header {
