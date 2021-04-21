@@ -30,7 +30,7 @@
                 inputClass="input-field  pl-8 py-2 rounded-sm text-sm"
                 format="DD-MM-YYYY"
                 type="date"
-                placeholder="von: TT.MM.JJJ"
+                placeholder="bis: TT.MM.JJJ"
                 valueType="format"
                  v-model="date2"
               />

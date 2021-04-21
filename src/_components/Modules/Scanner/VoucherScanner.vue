@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col self-center w-full">
     <div class="mb-8">
-      <h2>Gutscheincode manuell scannen</h2>
+      <h2>Gutscheincode manuell eingeben</h2>
       <ValidationObserver v-slot="{ handleSubmit }">
         <form 
           class="w-full flex flex-col"
@@ -16,7 +16,7 @@
             label="Code"
           />
           <Button
-            label="Code anwaden"
+            label="Code bestätigen"
             fontWeight="font-normal"
             size="py-4 px-8"
             round="rounded"

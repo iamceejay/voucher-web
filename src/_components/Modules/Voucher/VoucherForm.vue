@@ -22,7 +22,7 @@
               class="px-3 py-3 rounded-md text-xs"
               :class="currentTab == 0 ? 'bg-black text-white' : 'border border-black text-black'"
               >
-              Gestaltung
+              1. Gestaltung
             </button>
             <button
               @click="currentTab = 1"
@@ -30,7 +30,7 @@
               class="px-3 py-3 rounded-md text-xs"
               :class="currentTab == 1 ? 'bg-black text-white' : 'border border-black text-black'"
               >
-              Einstellungen
+              2. Einstellungen
             </button>
             <button
               @click="currentTab = 2"
@@ -38,7 +38,7 @@
               class="px-3 py-3 rounded-md text-xs"
               :class="currentTab == 2 ? 'bg-black text-white' : 'border border-black text-black'"
               >
-              Preis & MwSt.
+              3. Preis & MwSt.
             </button>
           </div>
           <div>
@@ -187,7 +187,7 @@
 
               <div class="border-t my-8 block w-full"></div>
 
-              <span class="text-sm mb-1">Weitere Bilder die im Gutschein und der Produktseite abgebildet sind. (Format 4 x 4)</span>
+              <span class="text-sm mb-1">Weitere Bilder die im Gutschein und in der Produktseite abgebildet sind. (Format 4 x 4)</span>
 
               <section class="gap-4 grid grid-cols-3 mt-3">
                 <div>
@@ -391,6 +391,7 @@
                 <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen</span>
                 <div class="py-3">
                   <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
+                    <label class="text-sm mb-3 block">Nur an gewissen Tagen gültig</label>
                     <label class="text-sm">nein/ ja</label>
                     <span>
                       <toggle-button
@@ -412,11 +413,11 @@
               </div>
 
               <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-if="isWithLimit">
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen oder einem bestimmten Zeitraum gültig</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur zu bestimmten Monaten gültig.</span>
                 <div class="py-3 w-full">
                   <div class="w-full mb-5 px-5">
                     <label class="text-sm mb-3 block">
-                      Nur gültig im Zeitraum von … bis …
+                      Füge Monate hinzu, an denen der Gutschein gültig sein soll
                     </label>
                     <div
                       v-for="(date, index) in form.months"

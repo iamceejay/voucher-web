@@ -67,7 +67,7 @@
             link: "#"
           },
           {
-            title: "Datenshutz",
+            title: "Datenschutz",
             link: "#"
           },
           {

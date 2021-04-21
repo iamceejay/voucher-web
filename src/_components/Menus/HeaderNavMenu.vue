@@ -151,7 +151,7 @@
               <svg class="icon h-4 w-4 text-peach">
                 <use :xlink:href="`/icons/sprite.svg#heart`"/>
               </svg>
-              Meine Wishlist
+              Meine Wunschliste
             </span>
           </router-link>
           <router-link
@@ -442,7 +442,7 @@
 
           this.menus = [
             {
-              title: 'Search',
+              title: 'Suchen',
               link: '/vouchers/search',
               icon: 'search',
             },{

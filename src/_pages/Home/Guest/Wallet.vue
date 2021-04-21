@@ -4,10 +4,10 @@
       <div class="content-container flex flex-1 justify-center items-center flex-col w-full">
         <div class="container w-11/12 lg:w-1/2 text-center">
           <h1 class="font-bold text-4xl font-display mb-10">
-            Mein Wallet
+            Meine Wallet
           </h1>
           <p class="text-sm">
-            In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutschein personalisieren und verschenken
+            In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
           </p>
           <div class="border-b-2 border-input-border my-8" />
           <p>
