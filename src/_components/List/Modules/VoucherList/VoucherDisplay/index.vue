@@ -151,6 +151,7 @@
         this.isFlip = !this.isFlip;
         this.isAction = !this.isAction;
         this.onSetBgImage(this.isFlip ? '' : this.onGetBg());
+        window.scrollTo({top: 100, behavior: 'smooth'});
       },
       onGetTextColor()
       {
