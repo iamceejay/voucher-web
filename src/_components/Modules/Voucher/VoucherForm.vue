@@ -388,10 +388,9 @@
               </div>
 
               <div class="bg-white flex flex-row flex-wrap w-full mt-3">
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen und Monaten gültig</span>
                 <div class="py-3">
                   <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
-                    <label class="text-sm mb-3 block">Nur an gewissen Tagen gültig</label>
                     <label class="text-sm">nein/ ja</label>
                     <span>
                       <toggle-button
@@ -402,6 +401,7 @@
                     </span>
                   </div>
                   <div v-if="isWithLimit" class="flex flex-col w-full px-3">
+                    <label class="text-sm ml-2 mt-2 block">Nur an gewissen Tagen gültig</label>
                     <MultipleCheckboxField
                       name="valid_day"
                       :options="week"
