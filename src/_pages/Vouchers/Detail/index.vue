@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status && VOUCHER" class="content-container w-full flex flex-col px-8 pb-10">
-        <div class="flex flex-col md:flex-row w-full items-start justify-center">
+        <div class="flex flex-col items-start justify-center max-w-md mx-auto w-full">
           <div class="max-w-md w-full">
             <VoucherCard
               class="self-center"
@@ -12,10 +12,77 @@
             />
           </div>
           <div class="flex-1 md:mx-4 w-full" style="max-width: 465px">
-            <span class="block font-semibold pb-3 pt-6 text-lg">
+            <span class="block font-medium pb-3 pt-6 text-xl text-center border-b">
               {{ VOUCHER.title }}
             </span>
-            <span class="block mb-3 w-full border-b pb-4">
+            <ValidationObserver
+              v-slot="{ handleSubmit }"
+            >
+              <form
+                class="flex flex-col w-full mt-4 order__form"
+                @submit.prevent="handleSubmit(onSubmit)"
+              >
+                <section class="flex items-center justify-center">
+                  <div class="flex flex-col items-end mr-3 md:mr-12" v-if="VOUCHER.type != 'quantity'">
+                    <span class="font-medium text-xl">
+                      {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
+                    </span>
+                    <span class="font-light opacity-50 text-sm">inkl. MwSt.</span>
+                  </div>
+                  <div v-else class="flex">
+                    <span class="font-light opacity-50 text-sm">Wert von {{ $helpers.convertCurrency(VOUCHER.val_min) }} bis {{ $helpers.convertCurrency(VOUCHER.val_max) }}</span>
+                    <input
+                      class="bg-white"
+                      v-model="form.value"
+                      type="number"
+                      disabled
+                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                      required
+                    />
+                  </div>
+                  <div class="order__form-group mr-2">
+
+                    <input
+                      class="bg-white"
+                      v-model="form.value"
+                      type="number"
+                      disabled
+                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                      required
+                    />
+                    <div
+                      class="order__form-number order-up"
+                      @click="form.value++"
+                    >+</div>
+                    <div
+                      class="order__form-number order-down"
+                      @click="form.value--"
+                    >-</div>
+                  </div>
+
+                </section>
+                <div class="mt-6">
+                  <Button
+                      class="self-center"
+                      label="In den Warenkorb"
+                      :icon="`${ isAdded ? 'check' : '' }`"
+                      size="w-full py-5 px-2 md:px-4"
+                      labelClass="text-base"
+                      round="rounded  "
+                      :type="`${ isAdded ? 'button' : 'submit' }`"
+                      @onClick=" isAdded ? onRemoveCart() : null"
+                    />
+                </div>
+              </form>
+
+              <section class="border flex mt-3 p-4 w-full mb-6 bg-white">
+                <i class="fa fa-palette mr-2 mt-1"></i>
+                <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
+              </section>
+            </ValidationObserver>
+            <span class="block mb-3 w-full border-b pb-4 font-medium">
               {{ VOUCHER.description }}
             </span>
             <div v-if="VOUCHER.data_json != null" class="w-full">
@@ -47,21 +114,14 @@
                 >
                 {{ !isShowMore ? 'Mehr lesen' : 'Lese weniger' }}
               </button>
-
-              <router-link
-                class="px-3 py-3 rounded-md text-xs border border-black text-black"
-                :to="`/seller/${VOUCHER.seller_id}`"
-              >
-                Verkäufer Info
-              </router-link>
             </div>
 
             <span class="block mb-3 w-full border-b pb-4 mt-10 font-semibold">
               Gutschein Info
             </span>
 
-            <div class="flex space-x-6">
-              <div class="flex flex-col">
+            <div class="gap-3 grid grid-cols-2">
+              <div class="flex flex-col bg-white p-4">
                 <span class="text-xs font-bold mb-1">Einlösbar:</span>
                 <span
                   v-if="VOUCHER.valid_day && VOUCHER.valid_day.length > 0"
@@ -75,7 +135,14 @@
                 </span>
               </div>
 
-              <div class="flex flex-col">
+              <div class="flex flex-col bg-white p-4" v-if="VOUCHER.expiry_date">
+                <span class="text-xs font-bold mb-1">Gültigkeit:</span>
+                <div class="text-xs flex flex-col">
+                  {{ VOUCHER.expiry_date }} Jahre
+                </div>
+              </div>
+
+              <div class="flex flex-col bg-white p-4">
                 <span class="text-xs font-bold mb-1">Zeitraum:</span>
                 <div
                   v-if="VOUCHER.valid_date && VOUCHER.valid_date.length > 0"
@@ -89,19 +156,22 @@
                 </div>
               </div>
 
-              <div class="flex flex-col" v-if="VOUCHER.expiry_date">
-                <span class="text-xs font-bold mb-1">Gültigkeit:</span>
-                <div class="text-xs flex flex-col">
-                  {{ VOUCHER.expiry_date }} Jahre
-                </div>
-              </div>
-              <div class="flex flex-col">
+              <div class="flex flex-col bg-white p-4">
                 <span class="text-xs font-bold mb-1">Reservierung:</span>
                 <div class="text-xs flex flex-col">
                   {{ VOUCHER.data_json && VOUCHER.data_json.isReserve ? 'Ja' : 'nein'}}
                 </div>
               </div>
             </div>
+
+            <router-link
+              class="bg-peach block border-1 focus:outline-none focus:shadow-none font-normal md:px-4 mt-6 px-2 py-4 rounded text-center text-sm text-white w-full"
+              :to="`/vouchers/category/${VOUCHER.voucher_category.name.toLocaleLowerCase()}`"
+            >
+              Weitere Gutscheine von diesem Unternehmen
+            </router-link>
+
+
 
             <!-- <div v-if="!AUTH_USER.isAuth" class="py-2 text-sm">
               <a
@@ -119,65 +189,7 @@
                 registriere dich
               </a>, um Gutscheine zu kaufen.
             </div> -->
-           <ValidationObserver
-              v-slot="{ handleSubmit }"
-            >
-              <form
-                class="flex flex-col w-full mt-4 order__form"
-                @submit.prevent="handleSubmit(onSubmit)"
-              >
-                <section class="flex items-center">
-                  <div class="flex flex-col items-end mr-3 md:mr-12" v-if="VOUCHER.type == 'quantity'">
-                    <span class="font-semibold text-lg">
-                      {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
-                    </span>
-                    <span class="text-2xs text-gray-500">inkl. MwSt.</span>
-                  </div>
-                  <div v-else class="flex">
-                    <span class="text-2xs text-gray-500">Wert von {{ $helpers.convertCurrency(VOUCHER.val_min) }} bis {{ $helpers.convertCurrency(VOUCHER.val_max) }}</span>
-                    <input
-                      v-model="form.value"
-                      type="number"
-                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
-                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
-                      required
-                    />
-                  </div>
-                  <div class="order__form-group mr-2">
 
-                    <input
-                      v-model="form.value"
-                      type="number"
-                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
-                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
-                      required
-                    />
-                    <div
-                      class="order__form-number order-up"
-                      @click="form.value++"
-                    >+</div>
-                    <div
-                      class="order__form-number order-down"
-                      @click="form.value--"
-                    >-</div>
-                  </div>
-                  <Button
-                    class="self-center"
-                    label="In den Warenkorb"
-                    :icon="`${ isAdded ? 'check' : '' }`"
-                    size="w-full py-3 px-2 md:px-4"
-                    round="rounded  "
-                    :type="`${ isAdded ? 'button' : 'submit' }`"
-                    @onClick=" isAdded ? onRemoveCart() : null"
-                  />
-                </section>
-              </form>
-
-              <section class="border flex mt-3 p-4 w-full">
-                <i class="fa fa-palette mr-2 mt-1"></i>
-                <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
-              </section>
-            </ValidationObserver>
           </div>
         </div>
       </div>
