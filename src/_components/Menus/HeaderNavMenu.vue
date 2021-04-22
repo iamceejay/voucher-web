@@ -84,8 +84,20 @@
           class="flex"
           :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 mt-8 pb-8 items-start' : 'items-center'">
           <router-link
-            v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+            href="javascript:void(0)"
             class="flex flex-col items-center justify-center relative"
+            to="/wish-list"
+          >
+            <span class="hover:text-peach relative z-10 flex flex-col items-center">
+              <svg class="icon h-4 w-4 text-peach">
+                <use :xlink:href="`/icons/sprite.svg#heart`"/>
+              </svg>
+              Meine Wunschliste
+            </span>
+          </router-link>
+          <router-link
+            v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
+            class="flex flex-col items-center justify-center relative ml-4"
               to="/cart"
             >
             <div class="relative  h-4 w-4">
@@ -99,7 +111,7 @@
 
             <span class="text-sm">Warenkorb</span>
           </router-link>
-          <a
+          <!-- <a
             v-if="AUTH_USER.isAuth"
             href="javascript:void(0)"
             class="flex items-center justify-center relative"
@@ -113,7 +125,7 @@
               </svg>
             </div>
             <span class="text-sm">Ausloggen</span>
-          </a>
+          </a> -->
         </div>
       </div>
       <div
