@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full px-8">
-        <ValidationObserver v-slot="{ handleSubmit }">
+        <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
           <form
             class="w-full flex flex-col"
             @submit.prevent="handleSubmit(onSubmit)"
@@ -552,6 +552,9 @@
       {
         return this.$store.getters.GLOBAL_SETTING
       },
+      isFormDirty() {
+        return Object.keys(this.$refs.observer.fields).some(key => this.$refs.observer.fields[key].dirty);
+      }
     },
     watch: {
     },

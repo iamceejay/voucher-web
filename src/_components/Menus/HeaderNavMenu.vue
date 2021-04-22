@@ -84,6 +84,7 @@
           class="flex"
           :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 mt-8 pb-8 items-start' : 'items-center'">
           <router-link
+            v-if="AUTH_USER.isAuth && AUTH_USER.role.name == 'user'"
             href="javascript:void(0)"
             class="flex flex-col items-center justify-center relative"
             to="/wish-list"
@@ -111,8 +112,8 @@
 
             <span class="text-sm">Warenkorb</span>
           </router-link>
-          <!-- <a
-            v-if="AUTH_USER.isAuth"
+          <a
+            v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'user'"
             href="javascript:void(0)"
             class="flex items-center justify-center relative"
             :class="AUTH_USER.isAuth && AUTH_USER.role.name == 'user' ? 'flex-col ml-4' : 'space-x-2'"
@@ -125,7 +126,7 @@
               </svg>
             </div>
             <span class="text-sm">Ausloggen</span>
-          </a> -->
+          </a>
         </div>
       </div>
       <div

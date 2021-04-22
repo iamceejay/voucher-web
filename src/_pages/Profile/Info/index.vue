@@ -19,8 +19,8 @@ export default {
     }
   },
   beforeRouteLeave(to, from, next) {
-      if (this.$refs.form.isSubmitted) {
-        next(true)
+      if (this.$refs.form.isSubmitted || !this.$refs.form.isFormDirty) {
+        return next(true)
       }
 
       this.$swal({

@@ -8,7 +8,7 @@
 
         <ProfileTabs />
 
-        <ValidationObserver v-slot="{ handleSubmit }">
+        <ValidationObserver ref="observer" v-slot="{ handleSubmit, dirty }">
           <form
             class="w-full flex flex-col mt-6"
             @submit.prevent="handleSubmit(onSubmit)"
@@ -120,6 +120,9 @@
       {
         return this.$store.getters.IS_LOADING
       },
+      isFormDirty() {
+        return Object.keys(this.$refs.observer.fields).some(key => this.$refs.observer.fields[key].dirty);
+      }
     },
     watch: {
     },
@@ -140,7 +143,7 @@
       })()
     },
     methods: {
-      async onSubmit()
+      async onSubmit(evt)
       {
         try {
           this.errorMessages = []
