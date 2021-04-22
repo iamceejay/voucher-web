@@ -97,9 +97,9 @@
     //     }
     //   },
     // },
-    beforeMount() {
-      this.$router.push('/vouchers/search')
-    },
+    // beforeMount() {
+    //   this.$router.push('/vouchers/search')
+    // },
     mounted() {
       (async() => {
         try {
