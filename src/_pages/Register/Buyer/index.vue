@@ -150,6 +150,7 @@
         try {
           this.errorMessages = []
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          localStorage.setItem('cart', this.$store.getters.COUNT_CART)
           const data = await this.$store.dispatch('ADD_USER', this.form)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           this.$swal({
