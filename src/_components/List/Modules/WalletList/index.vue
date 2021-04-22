@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col w-full">
     <Header2 v-if="title != ''" :label="title" />
-    <div class="flex flex-wrap w-full justify-center sm:justify-start">
+    <div class="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="(row, index) in data"
         :key="`voucher-${index}`"
-        class="flex flex-col cart-card-container mr-3 mb-3 border-b-2 pb-8"
+        class="flex flex-col mr-3 mb-3 border-b-2 pb-8"
       >
         <div class="flex flex-wrap justify-center sm:justify-start h-full">
           <VoucherCard
