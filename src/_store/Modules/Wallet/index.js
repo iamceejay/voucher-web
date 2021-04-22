@@ -36,7 +36,12 @@ export default {
     async FETCH_TOTAL_USER_CART( { commit, state }, payload )
     {
       try {
-        const { data } = await get(`${prefix}/total-user-cart`, {})
+        const auth = JSON.parse(await localStorage.getItem('_auth') )
+        let totalCartPath = auth && auth.role.name == 'user'
+          ? '/total-user-cart'
+          : '/guest/total-user-cart'
+
+        const { data } = await get(`${prefix}${totalCartPath}`, {})
         await commit('SET_COUNT_CART', data.total)
         return data
       } catch (err) {
