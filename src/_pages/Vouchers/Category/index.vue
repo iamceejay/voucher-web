@@ -1,7 +1,12 @@
 <template>
   <div>
      <div class="bg-white h-32 md:h-64 overflow-hidden relative w-full" style="margin-top: 90px">
-        <img class="bg-white h-full mx-auto" src="/placeholder-1080.jpg" />
+       <img
+          v-if="CATEGORY.icon.indexOf('fas') == -1"
+          :src="onSetImage(CATEGORY.icon)"
+          class="bg-white w-full bg-cover bg-center"
+        />
+        <img class="bg-white h-full mx-auto" src="/placeholder-1080.jpg" v-else/>
         <div class="absolute bg-black bg-opacity-50 flex inset-0 items-center justify-center  text-2xl md:text-3xl text-white">{{ CATEGORY ? CATEGORY.name : 'Category Name' }}</div>
       </div>
     <MainLayout>
@@ -480,7 +485,11 @@
         } else {
           this.params[key].splice(index, 1);
         }
-      }
+      },
+      onSetImage(value)
+      {
+        return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
+      },
     }
   }
 </script>
