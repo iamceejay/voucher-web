@@ -2,7 +2,7 @@
   <div>
      <div class="bg-white h-32 md:h-64 overflow-hidden relative w-full" style="margin-top: 90px">
        <img
-          v-if="CATEGORY.icon.indexOf('fas') == -1"
+          v-if="CATEGORY && CATEGORY.icon.indexOf('fas') == -1"
           :src="onSetImage(CATEGORY.icon)"
           class="bg-white w-full bg-cover bg-center"
         />
@@ -11,7 +11,7 @@
       </div>
     <MainLayout>
       <template #content>
-        <div v-if="!IS_LOADING.status" class="flex flex-col mt-32 md:mt-64 mx-auto px-8 w-full" style="max-width: 1200px;">
+        <div v-if="!IS_LOADING.status" class="flex flex-col mt-32 md:mt-64 mx-auto px-8 w-full" style="max-width: 1200px; background: #F2F2F2;">
 
 
           <!-- <BackBtn :show="true" class="mt-10" />
