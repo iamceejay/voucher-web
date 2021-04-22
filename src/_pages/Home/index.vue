@@ -3,14 +3,14 @@
     <template #content>
       <div class="flex flex-col w-full">
         <GuestHome
-          v-if="AUTH_USER.role.name === null"
+          v-if="AUTH_USER.role.name === null || AUTH_USER.role.name === 'user'"
         />
         <SellerHome
           v-if="AUTH_USER.role.name === 'seller'"
         />
-        <UserHome
+        <!-- <UserHome
           v-if="AUTH_USER.role.name === 'user'"
-        />
+        /> -->
         <ScannerUserHome
           v-if="AUTH_USER.role.name === 'scanner'"
         />

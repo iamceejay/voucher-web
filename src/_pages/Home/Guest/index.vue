@@ -118,7 +118,7 @@
       title="Kategorien"
       :data="CATEGORIES"
     /> -->
-    <SellerContent />
+    <SellerContent v-if="AUTH_USER.role.name === null" />
     <!-- <VoucherList
       class="content-container mb-3 pb-6 px-8 py-12"
       title=""
@@ -317,6 +317,10 @@
       }
     },
     computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
