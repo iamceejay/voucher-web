@@ -80,11 +80,11 @@
               </p>
             </div>
           </div>
-          <div class="w-full sm:w-1/2">
+          <div class="w-full sm:w-1/2 mb-3">
             <Button
               class="flex flex-col items-center w-full"
               type="submit"
-              label="Kostenios registrieren"
+              label="Kostenlos registrieren"
               size="w-full py-3"
               round="rounded"
             />
