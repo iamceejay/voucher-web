@@ -297,6 +297,7 @@
                 this.form.value = null
               } else {
                 this.form.value = this.form.value
+                this.form.total_amount = this.form.qty * this.form.value
               }
               const data = await this.$store.dispatch('ADD_WALLET', this.form)
               this.form = {

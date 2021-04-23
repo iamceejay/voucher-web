@@ -34,10 +34,12 @@
             <div class="flex items-center mb-2">
               <form  ref="inputForm" class="order__form-group mr-3" >
                 <input
+                  class="bg-white"
                   type="number"
                   :min="(row.voucher.type == 'quantity') ? row.voucher.qty_min : row.voucher.val_min"
                   :max="(row.voucher.type == 'quantity') ? row.voucher.qty_max : row.voucher.val_max"
                   :value="row.total_qty || row.total_amount"
+                  disabled
                   @input="orderUpdate(row, $event.target.value)"
                   required
                 />
@@ -201,21 +203,19 @@
         return total
       },
       async orderUpdate(row, value) {
-        let min= row.voucher.type == 'quantity' ? row.voucher.qty_min : row.voucher.val_min
-        let max= row.voucher.type == 'quantity' ? row.voucher.qty_max : row.voucher.val_max
-        if (value < min || value > max) {
-          return
-        }
+        // let min= row.voucher.type == 'quantity' ? row.voucher.qty_min : row.voucher.val_min
+        // let max= row.voucher.type == 'quantity' ? row.voucher.qty_max : row.voucher.val_max
+        // if (value < min || value > max) {
+        //   return
+        // }
         row[row.total_qty ? 'total_qty' : 'total_amount'] = value
-        if( row.voucher.type == 'quantity' ) {
-          row.qty = value
-          row.total_qty = value
-          row.total_amount = value * row.voucher.price_filter
-        } else {
-          row.total_value = value
-          row.total_amount = value
-          row.value = value
-        }
+
+        row.qty = value
+        row.total_qty = value
+        row.total_amount = value * (row.voucher.type == 'quantity'
+          ? row.voucher.price_filter
+          : row.value)
+
         this.totalPrice = 0
         console.log(row)
         let form = {
