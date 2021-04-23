@@ -23,15 +23,35 @@
                 @submit.prevent="handleSubmit(onSubmit)"
               >
                 <section class="flex items-center justify-center">
-                  <div class="flex flex-col items-end mr-3 md:mr-12" v-if="VOUCHER.type != 'quantity'">
+                  <div class="flex flex-col items-end mr-3 md:mr-12" v-if="VOUCHER.type == 'quantity'">
                     <span class="font-medium text-xl">
                       {{ $helpers.convertCurrency(form.value * ( (VOUCHER.type != 'quantity') ? 1 : VOUCHER.qty_val )) }}
                     </span>
                     <span class="font-light opacity-50 text-sm">inkl. MwSt.</span>
                   </div>
-                  <div v-else class="flex">
-                    <span class="font-light opacity-50 text-sm">Wert von {{ $helpers.convertCurrency(VOUCHER.val_min) }} bis {{ $helpers.convertCurrency(VOUCHER.val_max) }}</span>
+                  <template v-else>
+                    <span class="font-light opacity-50 text-xs mr-2">Wert von <br/>{{ $helpers.convertCurrency(VOUCHER.val_min) }} bis {{ $helpers.convertCurrency(VOUCHER.val_max) }}</span>
+
+                    <div class="mr-2 w-28 relative">
+                       <input
+                        class="bg-white"
+                        v-model="form.value"
+                        type="number"
+                        :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                        :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                        style="
+                          padding-right: 2em;
+                          text-align: right;
+                        "
+                        required
+                      />
+                      <span class="font-medium absolute mt-2" style="right: 15px;">€</span>
+                    </div>
+                  </template>
+
+                  <div class="order__form-group mr-2">
                     <input
+                      v-if="VOUCHER.type == 'quantity'"
                       class="bg-white"
                       v-model="form.value"
                       type="number"
@@ -40,12 +60,10 @@
                       :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
                       required
                     />
-                  </div>
-                  <div class="order__form-group mr-2">
-
                     <input
+                      v-else
                       class="bg-white"
-                      v-model="form.value"
+                      v-model="form.qty"
                       type="number"
                       disabled
                       :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
@@ -54,11 +72,11 @@
                     />
                     <div
                       class="order__form-number order-up"
-                      @click="form.value++"
+                      @click="VOUCHER.type == 'quantity' ? form.value++ : form.qty++"
                     >+</div>
                     <div
                       class="order__form-number order-down"
-                      @click="form.value--"
+                      @click="VOUCHER.type == 'quantity' ? form.value-- : form.qty--"
                     >-</div>
                   </div>
 
