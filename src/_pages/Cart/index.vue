@@ -93,7 +93,7 @@
         let total = 0
         if( this.WALLETS ) {
           this.WALLETS.map( data => {
-            let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+            let value = (data.voucher.type == 'quantity') ? data.qty : data.value * data.qty
             let vouchTotal = value
 
             if( data.voucher.type == 'quantity' ) {

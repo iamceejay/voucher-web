@@ -26,7 +26,7 @@
         </RadioInputField>
       </div>
     </div>
-    
+
     <div class="flex flex-col w-full mt-8" v-show="payment_type == 'stripe'">
       <Button
         v-if="payment_type == 'stripe'"
@@ -37,7 +37,7 @@
         round="rounded"
         fontSize="text-sm"
         @onClick="onNewNumber"
-      /> 
+      />
       <!-- <Button
         class="py-2 justify-center"
         label="Jetzt bezahlen"
@@ -46,11 +46,11 @@
         fontSize="text-sm"
         @onClick="onSubmit"
       />    -->
-      <div 
+      <div
         class="flex flex-col w-full"
         :class="{'hidden': USER && USER.stripe && USER.stripe.is_save && paymentForm.is_save}"
       >
-        <form 
+        <form
           id="stripe-form"
           class="w-full flex flex-col"
           :class="{'hidden': payment_type != 'stripe'}"
@@ -62,7 +62,7 @@
           />
           <div id="card-errors" class="mb-3 text-red-500 font-semibold font-body text-sm" />
           <div class="flex flex-row mx-2 items-center">
-            <input 
+            <input
               id="is_save"
               v-model="paymentForm.is_save"
               type="checkbox"
@@ -213,7 +213,7 @@
                 confirmButtonColor: '#48BB78',
               })
             }
-          }   
+          }
         })
       },
       onGetTotalPrice()
@@ -225,13 +225,13 @@
       },
       onGetTotal(data)
       {
-        let value = (data.voucher.type == 'quantity') ? data.qty : data.value
+        let value = (data.voucher.type == 'quantity') ? data.qty : data.value * data.qty
         let total = value
 
         if( data.voucher.type == 'quantity' ) {
           total = value * data.voucher.price_filter
         }
-        
+
         return total
       },
       onInitiateStripeForm()

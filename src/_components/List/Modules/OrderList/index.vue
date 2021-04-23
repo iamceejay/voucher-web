@@ -26,9 +26,12 @@
             </span>
             <span class="font-medium mb-2">
               {{
-                `${(row.voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency(row.voucher.qty_val)}`
-                  : `${$helpers.convertCurrency(row.voucher.min || row.voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(row.voucher.max || row.voucher.val_max)}`}`
+                `${
+                  row.voucher.type == 'quantity'
+                    ? `${row.qty} x ${$helpers.convertCurrency(row.voucher.qty_val) }`
+                    : $route.name == 'wallet'
+                      ? $helpers.convertCurrency(row.value)
+                      : `${$helpers.convertCurrency(row.voucher.min || row.voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(row.voucher.max || row.voucher.val_max)}`}`
               }}
             </span>
             <router-link
@@ -84,7 +87,7 @@
 </template>
 <script>
   import CardOrder from './CardOrder'
-  import VoucherCard from '../VoucherList/VoucherCard/'
+  import VoucherCard from '../VoucherList/VoucherDisplay/'
   import { formatDate } from '_helpers/CustomFunction'
 
   export default {

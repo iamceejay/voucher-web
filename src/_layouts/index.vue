@@ -90,7 +90,7 @@
         'overflow-hidden': !AUTH_USER.isAuth && categories.length,
       }"
     >
-      <div v-if="IS_LOADING.data || IS_PROCESSING.data" class="absolute bg-white inset-0" style="z-index: 99999;">
+      <div v-if="IS_LOADING.data || IS_PROCESSING.data" class="fixed bg-white inset-0" style="z-index: 99999;">
         <lottie-animation path="./loading.json"/>
       </div>
       <HeaderNavMenu
