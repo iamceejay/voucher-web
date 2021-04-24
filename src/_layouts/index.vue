@@ -127,7 +127,7 @@
           </div>
         </div>
 
-        <Footer v-if="!AUTH_USER.isAuth || (AUTH_USER.role.name === 'user' && $route.name == 'vouchers-search')"/>
+        <Footer v-if="!AUTH_USER.isAuth || (AUTH_USER.role.name === 'user')" class="mt-8"/>
       </div>
         <Sidebar @onShowSubMenu="handleCategory"
         />

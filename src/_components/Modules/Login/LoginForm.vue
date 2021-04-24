@@ -123,7 +123,6 @@
           this.submitting = false
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
           this.$router.go('home')
-          await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
           this.submitting = false
@@ -214,7 +213,6 @@
                 this.setLoginAuth(token, user)
                 localStorage.setItem('cart', this.$store.getters.COUNT_CART)
                 this.$router.go('home')
-                await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               }
           });
       },
@@ -273,7 +271,6 @@
           this.setLoginAuth(token, user)
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
           this.$router.go('home')
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
         }
       },
       onFailure(error) {
