@@ -184,7 +184,7 @@
 
             <router-link
               class="bg-peach block border-1 focus:outline-none focus:shadow-none font-normal md:px-4 mt-6 px-2 py-4 rounded text-center text-sm text-white w-full"
-              :to="`/vouchers/category/${VOUCHER.voucher_category.name.toLocaleLowerCase()}`"
+              :to="`/seller/${VOUCHER.seller_id}`"
             >
               Weitere Gutscheine von diesem Unternehmen
             </router-link>
