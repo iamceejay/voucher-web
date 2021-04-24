@@ -98,7 +98,7 @@
               confirmButtonColor: '#48BB78',
               confirmButtonText: 'Bestätigen'
             });
-            this.$router.push('/scanner-users')
+            this.$router.push('/scanner')
           } catch (err) {
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
             console.log('err', err)

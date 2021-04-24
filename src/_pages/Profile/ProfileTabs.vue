@@ -7,7 +7,7 @@
       activeClass="bg-black text-white"
       :to="link.to"
     >
-        {{ link.name }}
+      {{ link.name }}
     </router-link>
     <button
       @click="onLogout()"
@@ -41,6 +41,9 @@ export default {
 			]
 		}
 	},
+  beforeMount() {
+    document.body.classList.remove('voucher-builder-page')
+  },
   methods: {
     async onLogout()
     {

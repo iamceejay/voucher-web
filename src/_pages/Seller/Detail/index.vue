@@ -64,7 +64,7 @@
           </p>
           <a
             v-if="(USER.company && USER.company.url)"
-            class="web-container w-full mt-2"
+            class="web-container w-full mt-2 hidden"
             :href="addHttp(USER.company.url)"
             target="_blank"
           >
