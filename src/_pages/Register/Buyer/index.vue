@@ -151,21 +151,23 @@
           this.errorMessages = []
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          const data = await this.$store.dispatch('ADD_USER', this.form)
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-          this.$swal({
-            icon: 'success',
-            title: 'Erfolgreich!',
-            text: data.message,
-            showCancelButton: false,
-            allowOutsideClick: false,
-            confirmButtonColor: '#48BB78',
-            confirmButtonText: 'Bestätigen',
-          }).then(async (result) => {
-            if(result.value){
-              this.$router.push('/login')
-            }
-          })
+          const { token, user } = await this.$store.dispatch('ADD_USER', this.form)
+          console.l
+          await this.setLoginAuth(token, user)
+          this.$router.go('home')
+          // this.$swal({
+          //   icon: 'success',
+          //   title: 'Erfolgreich!',
+          //   text: data.message,
+          //   showCancelButton: false,
+          //   allowOutsideClick: false,
+          //   confirmButtonColor: '#48BB78',
+          //   confirmButtonText: 'Bestätigen',
+          // }).then(async (result) => {
+          //   if(result.value){
+
+          //   }
+          // })
           // this.$swal({
           //   icon: 'success',
           //   title: 'Erfolgreich!',
@@ -185,6 +187,17 @@
           ...this.form,
           ...data
         }
+      },
+      async setLoginAuth(token, user){
+        const auth = {
+          isAuth: true,
+          token,
+          data: user,
+          role: user.user_role.role
+        }
+        await localStorage.removeItem('_auth')
+        await localStorage.setItem('_auth', JSON.stringify(auth))
+        await this.$store.commit('SET_AUTH_USER', auth)
       },
     }
   }
