@@ -58,7 +58,7 @@
       })()
     },
     beforeRouteLeave(to, from, next) {
-      if (this.$refs.voucherForm.isSubmitted) {
+      if (this.$refs.voucherForm.isSubmitted || !this.$refs.voucherForm.isFormDirty) {
         next(true)
       }
 

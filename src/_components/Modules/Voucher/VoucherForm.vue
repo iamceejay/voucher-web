@@ -727,6 +727,9 @@
       {
         return this.$store.getters.USER_SETTING
       },
+      isFormDirty() {
+        return Object.keys(this.$refs.observer.fields).some(key => this.$refs.observer.fields[key].dirty);
+      }
     },
     watch: {
       data(newVal)
