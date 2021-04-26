@@ -289,7 +289,7 @@
         return moment(data.created_at).local().add(expire, 'year').format('DD.MM.YYYY')
       },
       getMonth(month) {
-        return moment(month).format('MMM')
+        return moment(parseInt(+month)).format('MMM')
       },
       onClickHeader()
       {

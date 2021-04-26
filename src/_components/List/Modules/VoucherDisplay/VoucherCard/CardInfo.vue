@@ -260,7 +260,7 @@
         return formatDate(date)
       },
       getMonth(month) {
-        return moment(month).format('MMM')
+        return moment(+month).format('MMM')
       },
       onGetSentVia(value)
       {
