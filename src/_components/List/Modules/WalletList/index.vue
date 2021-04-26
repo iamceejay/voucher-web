@@ -27,7 +27,7 @@
               >{{
                 `${
                   row.order.voucher.type == 'quantity'
-                    ? `${row.order.qty} x ${$helpers.convertCurrency(row.order.voucher.qty_val) }`
+                    ? `${row.qty} x ${$helpers.convertCurrency(row.order.voucher.qty_val) }`
                     : $route.name == 'wallet'
                       ? $helpers.convertCurrency(row.order.value)
                       : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`

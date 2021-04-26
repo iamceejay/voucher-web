@@ -54,6 +54,7 @@
                       <label
                         class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
                         >
+                        <ValidationProvider rules="" name="logo">
                             <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 250px x 100px)
                             <input
                               type="file"
@@ -62,6 +63,7 @@
                               @change="(e) => croppie(e, 'logo')"
                               />
                             <span class="file-custom"></span>
+                        </ValidationProvider>
                         </label>
                         <section v-if="logo && logo != '' && logo == form.company.logo" class="relative border" style="width: 250px; height: 100px;">
                           <img :src="onSetLogo('set', logo)" style="width: auto; height: 100%;"/>
@@ -84,12 +86,14 @@
                         class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
                         >
                             <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 1920px x 1080px)
+                            <ValidationProvider rules="" name="header_logo">
                             <input
                               type="file"
                               accept="'image/*'"
                               aria-label="File browser example"
                               @change="(e) => croppie(e, 'header_logo')"
                               />
+                            </ValidationProvider>
                             <span class="file-custom"></span>
                         </label>
                         <section v-if="header_logo && header_logo != '' && header_logo == form.company.header_logo" class="relative border" style="width: 250px; height: 141px;">
@@ -737,6 +741,7 @@
         }
       },
       croppie (e, ref) {
+        this.$refs.observer.fields[ref].dirty = true
         var files = e.target.files || e.dataTransfer.files;
         if (!files.length) return;
 
