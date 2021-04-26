@@ -346,7 +346,7 @@
 
             await localStorage.removeItem('_userWishlist')
             await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
-            text = "removed from wishlist."
+            text = "Gutschein von der Wunschliste entfernt."
           } catch (err) {
 
           }
@@ -358,7 +358,7 @@
             await localStorage.removeItem('_userWishlist')
             await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
             await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
-            text = "added to wishlist."
+            text = "Gutschein zur Wunschliste hinzugefügt."
           } catch (err) {
 
           }
@@ -366,7 +366,7 @@
 
         this.$swal({
           icon: 'success',
-          html: `<div class="px-3"><p>${voucher.title}</p><p>is ${text}</p></div>`,
+          html: `<div class="px-3"><p>${text}</p></div>`,
           toast: true,
           position: 'top-end',
           showConfirmButton: false,

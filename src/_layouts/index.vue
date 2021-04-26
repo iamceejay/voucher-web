@@ -61,7 +61,7 @@
             <svg class="icon h-4 w-4 text-peach">
               <use :xlink:href="`/icons/sprite.svg#heart`"/>
             </svg>
-            Meine Wishlist
+            Meine Wunschliste
           </span>
         </a>
         <router-link

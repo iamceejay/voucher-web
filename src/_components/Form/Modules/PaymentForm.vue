@@ -168,7 +168,7 @@
           return true
         }
         this.$swal({
-          title: 'Zahlungsmethoden',
+          // title: 'Zahlungsmethoden',
           text: `Bist du sicher, dass du diese Zahlung durchführen möchtest?`,
           showCancelButton: true,
           confirmButtonColor: '#48BB78',

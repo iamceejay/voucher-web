@@ -2,7 +2,7 @@
 <MainLayout>
   <template #content>
       <div class="content-container flex flex-1 justify-center items-center flex-col w-full">
-    <h2 class="text-center text-3xl mb-10 font-medium">Meine Wishlist</h2>
+    <h2 class="text-center text-3xl mb-10 font-medium">Meine Wunschliste</h2>
     <VoucherList
       title=""
       :data="voucher"
