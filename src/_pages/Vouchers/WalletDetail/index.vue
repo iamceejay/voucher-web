@@ -415,7 +415,24 @@
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
-      }
+      },
+      async onGenerateVoucher(id)
+      {
+        try {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          await this.$store.dispatch('DOWNLOAD_USER_VOUCHER', id)
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+        } catch (err) {
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          this.$swal({
+            icon: 'warning',
+            title: 'Achtung!',
+            text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns. ',
+            confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
+          })
+        }
+      },
     }
   }
 </script>
