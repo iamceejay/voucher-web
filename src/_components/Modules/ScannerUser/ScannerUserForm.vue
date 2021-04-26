@@ -36,7 +36,7 @@
           <Button
             class="mr-4"
             type="submit"
-            label="Einlösen"
+            label="Hinzufügen"
             fontWeight="font-normal"
             size="py-4 px-8"
             round="rounded"
@@ -93,7 +93,7 @@
             this.$swal({
               icon: 'success',
               title: 'Erfolgreich!',
-              text: 'Adding new user.',
+              text: 'Neuer User hinzugefügt.',
               allowOutsideClick: false,
               confirmButtonColor: '#48BB78',
               confirmButtonText: 'Bestätigen'
