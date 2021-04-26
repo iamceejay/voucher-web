@@ -28,10 +28,10 @@
               {{
                 `${
                   row.voucher.type == 'quantity'
-                    ? `${row.qty} x ${$helpers.convertCurrency(row.voucher.qty_val) }`
+                    ? `${row.total_qty} x ${$helpers.convertCurrency(row.voucher.qty_val) }`
                     : $route.name == 'wallet'
                       ? $helpers.convertCurrency(row.value)
-                      : `${$helpers.convertCurrency(row.voucher.min || row.voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(row.voucher.max || row.voucher.val_max)}`}`
+                      : `${row.total_qty || 1} x ${$helpers.convertCurrency(parseFloat(row.total_value)) }`}`
               }}
             </span>
             <router-link
