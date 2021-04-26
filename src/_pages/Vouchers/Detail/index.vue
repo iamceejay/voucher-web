@@ -15,7 +15,7 @@
             <span class="block font-medium pb-3 pt-6 text-xl text-center md:text-left border-b md:border-none">
               {{ VOUCHER.title }}
             </span>
-            <span class="block mb-3 w-full border-b pb-4">
+            <span class="md:block mb-3 w-full border-b pb-4 hidden">
               {{ VOUCHER.description }}
             </span>
             <div v-if="VOUCHER.data_json != null" class="w-full hidden md:block">
@@ -231,15 +231,23 @@
                     </span>
                     <span class="text-2xs text-gray-500">inkl. MwSt.</span>
                   </div>
-                  <div v-else class="flex">
+                  <div v-else class="flex items-center">
                     <span class="text-2xs text-gray-500">Wert von {{ $helpers.convertCurrency(VOUCHER.val_min) }} bis {{ $helpers.convertCurrency(VOUCHER.val_max) }}</span>
-                    <input
-                      v-model="form.value"
-                      type="number"
-                      :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
-                      :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
-                      required
-                    />
+                    <div class="mr-2 w-20 ml-1 relative flex ">
+                       <input
+                        class="bg-white"
+                        v-model="form.value"
+                        type="number"
+                        :min="(VOUCHER.type == 'quantity') ? VOUCHER.qty_min : VOUCHER.val_min"
+                        :max="(VOUCHER.type == 'quantity') ? VOUCHER.qty_max : VOUCHER.val_max"
+                        style="
+                          padding-right: 2em;
+                          text-align: right;
+                        "
+                        required
+                      />
+                      <span class="font-medium absolute mt-2" style="right: 15px;">€</span>
+                    </div>
                   </div>
                   <div class="order__form-group mr-2">
                     <input
@@ -339,8 +347,8 @@
           id: null,
           voucher_id: null,
           user_id: null,
-          value: null,
-          qty: null,
+          value: 1,
+          qty: 1,
           total_amount: 0,
         },
         symbol: '',

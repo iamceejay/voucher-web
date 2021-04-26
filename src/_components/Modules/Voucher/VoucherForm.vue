@@ -60,7 +60,7 @@
                 v-model="form.description"
                 class="w-full"
                 label="Kurzbeschreibung"
-                rules="required|max:200"
+                rules="required|max:120"
               />
 
               <TextAreaField

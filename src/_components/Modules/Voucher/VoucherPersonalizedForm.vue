@@ -95,7 +95,7 @@
             v-model="form.note"
             class="w-full"
             label="Persönlichen Nachricht"
-            rules="max:80"
+            rules="max:120"
           />
 
           <span class="font-semibold text-sm mb-1">Preis verstecken</span>
