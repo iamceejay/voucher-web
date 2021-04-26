@@ -34,7 +34,7 @@
                 valueType="format"
                  v-model="date2"
               />
-              <button 
+              <button
                 class="bg-peach px-5 py-2 rounded-md text-sm text-white"
                 v-bind:disabled = "!date1 || !date2 "
                 @click="downloadInvoicesZip()"
@@ -84,7 +84,8 @@
                           <span class="text-sm">{{ formatDate(row.created_at) }}</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm">{{ $helpers.convertCurrency(onGetTotal(row)) }}</span>
+                          <span class="text-sm">{{ $helpers.convertCurrency(parseFloat(row.total_amount)) }}</span>
+                          <!-- <span class="text-sm">{{ $helpers.convertCurrency(onGetTotal(row)) }}</span> -->
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap flex">
                           <button
@@ -341,7 +342,7 @@
               confirmButtonColor: '#48BB78',
               confirmButtonText: 'Bestätigen'
           })
-          
+
         } catch(err) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           console.log('err', err)
