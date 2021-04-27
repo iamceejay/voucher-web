@@ -703,6 +703,7 @@
           const data = await this.$store.dispatch('FETCH_USER_SETTING_BY_USER', {
             user_id: this.AUTH_USER.data.id
           })
+          this.settings = data.user_setting
         } catch (err) {
           console.log('err', err)
         }
