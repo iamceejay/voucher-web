@@ -140,7 +140,7 @@
                       class="mb-4"
                       v-model="form.username"
                       type="text"
-                      :rules="`required|unique:users,username,${form.id}`"
+                      :rules="`required`"
                       :errorMessages="errorMessages.username"
                       :disabled="form.id ? true : false"
                       @input="onChange"
@@ -239,7 +239,7 @@
                       v-model="form.email"
                       type="text"
                       label="Emailadresse "
-                      :rules="`required|email|unique:users,email,${form.id}`"
+                      :rules="`required|email`"
                       :errorMessages="errorMessages.email"
                       @input="onChange"
                     />
