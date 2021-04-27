@@ -21,10 +21,10 @@
         >
           <i class="fa fa-cloud-upload-alt mb-4 text-xl"></i>
           <span v-if="!isMultiple">
-            {{ value ? 'Change selected' : label }}
+            {{ value ? 'Ändern' : label }}
           </span>
           <span v-else>
-            {{ value ? 'Choose another' : label }}
+            {{ value ? 'Ändern' : label }}
           </span>
           <input
             :id="id"

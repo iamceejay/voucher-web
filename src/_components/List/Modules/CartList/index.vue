@@ -52,7 +52,7 @@
                   @click="orderUpdate(row, row[row.total_qty ? 'total_qty' : 'total_amount'] - 1)"
                 >-</div>
               </form>
-              <div class="text-xs">{{ row.voucher.type == 'quantity' ? 'Stück' : 'Warenkorb'}}</div>
+              <div class="text-xs">{{ row.voucher.type == 'quantity' ? 'Stück' : 'Stück'}}</div>
             </div>
             <!-- <span class="font-medium">{{ `${ $helpers.convertCurrency((row.voucher.type == 'quantity') ? row.voucher.price_filter : row.value)}` }}</span> -->
             <span class="font-medium">{{ $helpers.convertCurrency(onGetTotal(row)) }}</span>
