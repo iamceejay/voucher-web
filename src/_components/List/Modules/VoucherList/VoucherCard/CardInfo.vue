@@ -108,7 +108,12 @@
                 >
                   {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
                 </span>
-            </span>
+          </span>
+          <span
+            v-if="!voucher.valid_day"
+            class="text-2xs opacity-50">
+            am: So, Mo, Di, Mi, Do, Fr, Sa, Fei
+          </span>
           <span class="text-2xs opacity-50">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
           <!-- <span class="text-2xs mt-1">Region:</span>
           <span class="text-2xs opacity-50">Tirol</span> -->
