@@ -97,7 +97,7 @@
           </span> -->
         </div>
 
-        <div class="w-1/2 flex flex-col p-3 2xl:p-5 h-32">
+        <div class="w-1/2 flex flex-col p-3 2xl:p-5 h-24 md:h-32">
           <span class="text-2xs">Einlösbar:</span>
           <span
             v-if="voucher.valid_day && voucher.valid_day.length > 0"
