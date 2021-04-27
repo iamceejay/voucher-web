@@ -65,7 +65,7 @@
           <span class="text-xl font-bold" v-if="userVoucher">
             <span v-show="!voucher.price_hidden || typeof voucher.price_hidden == 'undefined'">{{
                 `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency( ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1 ? voucher.price_filter : voucher.qty_val)}`
+                  ? `${$helpers.convertCurrency( ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1 ? order.voucher.price_filter : order.voucher.qty_val)}`
                   : ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1
                   ? $helpers.convertCurrency(order.value)
                   : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
@@ -74,7 +74,7 @@
           <span class="text-xl font-bold" v-else>
               {{
                 `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency(['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1 ? voucher.price_filter : voucher.qty_val)}`
+                  ? `${$helpers.convertCurrency(['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1 ? order.voucher.price_filter : order.voucher.qty_val)}`
                   : ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1
                   ? $helpers.convertCurrency(order.value)
                   :`${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${  ['vouchers-detail', 'cart'].indexOf($route.name) != -1 ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
@@ -162,14 +162,14 @@
             <span v-if="userVoucher || order">
               {{
                 `${(voucher.type == 'quantity')
-                  ? `${(!userVoucher && order) ? order.qty : userVoucher.qty}x${ userVoucher && !userVoucher.price_hidden ? ` (${$helpers.convertCurrency(voucher.price_filter)}/Gutschein)` : '' }`
+                  ? `${(!userVoucher && order) ? order.qty : userVoucher.qty}x${ userVoucher && !userVoucher.price_hidden ? ` (${$helpers.convertCurrency(order.voucher.price_filter)}/Gutschein)` : '' }`
                   : `${$helpers.convertCurrency(order.value)}`}`
               }}
             </span>
             <span v-else>
               {{
                 `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency(voucher.qty_val)}`
+                  ? `${$helpers.convertCurrency(order.voucher.qty_val)}`
                   : `${$helpers.convertCurrency(voucher.val_min)} - ${$helpers.convertCurrency(voucher.val_max)}`}`
               }}
             </span>
