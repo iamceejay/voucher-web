@@ -75,7 +75,7 @@ extend('password', {
   validate(value, { target }) {
     return value === target
   },
-  message: 'Password confirmation does not match.'
+  message: 'Passwort ist unterschiedlich.'
 })
 extend('unique', {
   validate: isUnique,
