@@ -1020,6 +1020,10 @@
                 .map(date => parseInt(moment(date.start).format('x')))
               : []
 
+            this.temp_valid_day = [...this.form.valid_day]
+            this.temp_valid_date = [...this.form.valid_date]
+            this.temp_months = [...this.form.months]
+
             this.form.id = this.$route.name == 'vouchers-update'
               ? this.$route.params.id
               : null;
