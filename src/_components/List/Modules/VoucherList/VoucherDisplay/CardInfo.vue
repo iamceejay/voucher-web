@@ -64,20 +64,12 @@
           <span class="text-2xs">{{ `${(voucher.type == 'quantity') ? 'Produktgutschein' : 'Wertgutschein'}` }}</span>
           <span class="text-xl font-bold" v-if="userVoucher">
             <span v-show="!voucher.price_hidden || typeof voucher.price_hidden == 'undefined'">{{
-                `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency( ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1 ? order ? order.voucher.price_filter : voucher.price_filter : order ? order.voucher.qty_val : voucher.qty_val)}`
-                  : ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1
-                  ? $helpers.convertCurrency(order.value)
-                  : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
+                valueDisplay
             }}</span>
           </span>
           <span class="text-xl font-bold" v-else>
               {{
-                `${(voucher.type == 'quantity')
-                  ? `${$helpers.convertCurrency(['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1 ? order ? order.voucher.price_filter : voucher.price_filter : order ? order.voucher.qty_val : voucher.qty_val)}`
-                  : ['wallet', 'voucher-detail', 'orders'].indexOf($route.name) != -1
-                  ? $helpers.convertCurrency(order.value)
-                  :`${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} ${  ['vouchers-detail', 'cart'].indexOf($route.name) != -1 ? '- ' + $helpers.convertCurrency(voucher.max || voucher.val_max) : ''}`}`
+                valueDisplay
               }}
               <span></span>
             </span>
@@ -251,6 +243,26 @@
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
+      },
+      valueDisplay() {
+        if (this.voucher.type == 'quantity') {
+          if (['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) != -1) {
+            return this.$helpers.convertCurrency(this.order ? this.order.voucher.price_filter : this.voucher.price_filter )
+          } else {
+            return this.$helpers.convertCurrency(this.order ? this.order.voucher.qty_val : this.voucher.qty_val )
+          }
+        } else {
+          if (['orders'].indexOf(this.$route.name) != -1) {
+            return this.$helpers.convertCurrency(this.order.total_value)
+          }
+          if (['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) != -1) {
+            return this.$helpers.convertCurrency(this.order.value)
+          }
+          return `${this.$helpers.convertCurrency(this.voucher.min || this.voucher.val_min).replace('€', '')}
+            ${['vouchers-detail', 'cart'].indexOf(this.$route.name) != -1
+              ? ' - ' + this.$helpers.convertCurrency(this.voucher.max || this.voucher.val_max)
+              : ''}`
+        }
       }
     },
     watch: {
@@ -364,6 +376,14 @@
   .p-5 {
     padding: 1.25em;
   }
+
+  .h-12 {
+    height: 3em;
+  }
+
+  .leading-5 {
+    line-height: 1.25em;
+  }
   .card-description {
     height: 8.4375em;
     background-color: var(--card-description-background, #1D4F55);
@@ -392,7 +412,7 @@
   }
   .card-logo {
     width: auto;
-    height: 32px;
+    height: 2em;
   }
   .card-qr {
     align-self: center;
