@@ -72,6 +72,7 @@
             <a
               href="javascript:void(0)"
               class="flex items-center opacity-75 text-2xs"
+              @click.stop="onClickWishlist(row.voucher)"
             >
               <svg class="h-3 icon mr-1 opacity-75 w-3">
                 <use :xlink:href="`/icons/sprite.svg#heart`"/>
@@ -162,6 +163,16 @@
         await this.onGetTotalPrice()
       }
     },
+    computed: {
+      AUTH_USER()
+      {
+        return this.$store.getters.AUTH_USER
+      },
+      AUTH_USER_VOUCHER_WISHLIST()
+      {
+        return this.$store.getters.AUTH_USER_VOUCHER_WISHLIST
+      }
+    },
     mounted() {
       this.onGetTotalPrice()
     },
@@ -232,6 +243,58 @@
         const data = await this.$store.dispatch('UPDATE_WALLET', form)
 
         console.log(row, value)
+      },
+      async onClickWishlist(voucher)
+      {
+        console.log(voucher)
+        if (!this.AUTH_USER.isAuth) return
+
+        let text;
+        let payload = {
+          user_id: this.AUTH_USER.data.id,
+          voucher_id: voucher.id
+        }
+        const validate = this.AUTH_USER_VOUCHER_WISHLIST.find(_wishlist =>
+          _wishlist.voucher_id == voucher.id
+        )
+        if (validate)
+        {
+          payload = {
+            id: validate.id,
+            ...payload
+          }
+          try {
+            await this.$store.dispatch('DELETE_USER_VOUCHER_WISHLIST', payload)
+
+            await localStorage.removeItem('_userWishlist')
+            await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
+            text = "Gutschein von der Wunschliste entfernt."
+          } catch (err) {
+
+          }
+        } else {
+          try {
+            await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
+
+            const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: this.AUTH_USER.data.id });
+            await localStorage.removeItem('_userWishlist')
+            await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
+            await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
+            text = "Gutschein zur Wunschliste hinzugefügt."
+          } catch (err) {
+
+          }
+        }
+
+        this.$swal({
+          icon: 'success',
+          html: `<div class="px-3"><p>${text}</p></div>`,
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true
+        })
       }
     }
   }

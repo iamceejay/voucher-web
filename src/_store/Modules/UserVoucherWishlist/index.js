@@ -21,7 +21,6 @@ export default {
     async FETCH_VOUCHERS_BY_USER( { commit, state }, payload )
     {
       try {
-        console.log(`${prefix}/user/${payload}`)
         const { data } = await get(`${prefix}/user/${payload}`)
         await commit('SET_AUTH_USER_VOUCHER_WISHLIST', data.user_voucher_wishlist)
         return data
