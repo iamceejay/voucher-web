@@ -316,7 +316,7 @@
 
             // Confirm the PaymentIntent without handling potential next actions (yet).
             this.stripe.confirmCardPayment(
-              paymentIntent.client_secret,
+              data.client_secret,
               {payment_method: ev.paymentMethod.id},
               {handleActions: false}
             ).then((confirmResult) => {
@@ -335,7 +335,7 @@
                 // instead check for: `paymentIntent.status === "requires_source_action"`.
                 if (confirmResult.paymentIntent.status === "requires_action") {
                   // Let Stripe.js handle the rest of the payment flow.
-                  this.stripe.confirmCardPayment(paymentIntent.client_secret).then(function(result) {
+                  this.stripe.confirmCardPayment(data.client_secret).then(function(result) {
                     if (result.error) {
                       // The payment failed -- ask your customer for a new payment method.
                     } else {
