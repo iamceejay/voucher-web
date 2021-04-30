@@ -309,7 +309,7 @@
           });
 
           paymentRequest.on('paymentmethod', async (ev) => {
-            const { data } = await post(`/order/payment/paymentintent`, {
+            const { data } = await post(`order/payment/paymentintent`, {
               amount: this.totalPrice * 100,
             })
             console.log(data)
