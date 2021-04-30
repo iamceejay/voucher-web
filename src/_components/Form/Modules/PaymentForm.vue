@@ -85,7 +85,7 @@
       </div>
     </div>
     <div
-        class="flex flex-col w-full"
+        class="flex flex-col w-full mt-8"
       >
         <form
           id="stripe-google"
@@ -284,7 +284,7 @@
             currency: 'eur',
             total: {
               label: 'Epasnets Voucher(s)',
-              amount: this.totalPrice,
+              amount: this.totalPrice * 100,
             },
             requestPayerName: true,
             requestPayerEmail: true,
@@ -304,13 +304,13 @@
             }
           });
 
-          paymentRequest.on('paymentmethod', function(ev) {
+          paymentRequest.on('paymentmethod', (ev) => {
             // Confirm the PaymentIntent without handling potential next actions (yet).
             this.stripe.confirmCardPayment(
               process.env.VUE_APP_STRIPE_SECRET_KEY,
               {payment_method: ev.paymentMethod.id},
               {handleActions: false}
-            ).then(function(confirmResult) {
+            ).then((confirmResult) => {
               console.log(confirmResult)
               if (confirmResult.error) {
                 // Report to the browser that the payment failed, prompting it to
