@@ -120,6 +120,7 @@
 <script>
   import RadioInputField from '_components/Form/RadioInputField';
   import Button from '_components/Button'
+  import { post, get, del, patch } from '_helpers/ApiService'
 
   export default {
     components: {
@@ -308,11 +309,11 @@
           });
 
           paymentRequest.on('paymentmethod', async (ev) => {
-            const paymentIntent = await this.stripe.paymentIntents.create({
+            const { data } = await post(`/order/payment/paymentintent`, {
               amount: this.totalPrice * 100,
-              currency: 'eur',
-              payment_method_types: ['card'],
-            });
+            })
+            console.log(data)
+
             // Confirm the PaymentIntent without handling potential next actions (yet).
             this.stripe.confirmCardPayment(
               paymentIntent.client_secret,
