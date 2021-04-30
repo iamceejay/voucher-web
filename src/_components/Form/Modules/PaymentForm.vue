@@ -307,7 +307,7 @@
             }
           });
 
-          paymentRequest.on('paymentmethod', (ev) => {
+          paymentRequest.on('paymentmethod', async (ev) => {
             const paymentIntent = await this.stripe.paymentIntents.create({
               amount: this.totalPrice * 100,
               currency: 'eur',
