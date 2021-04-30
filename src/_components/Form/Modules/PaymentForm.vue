@@ -341,11 +341,54 @@
                     } else {
                       // The payment has succeeded.
                       this.onSubmit()
+                      const { data } = await this.$store.dispatch('PAYMENT', {
+                        ...this.paymentForm,
+                        price: this.totalPrice,
+                        payment_type: this.payment_type,
+                        payment_id: confirmResult.id
+                      })
+                      await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                      this.$swal({
+                        icon: 'success',
+                        title: 'Danke!',
+                        text: 'Die Zahlung wurde erfolgreich durchgeführt.',
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#48BB78',
+                        confirmButtonText: 'Bestätigen',
+                        cancelButtonText: 'Abbrechen',
+                      }).then(async (result) => {
+                        if(result.value){
+                          await this.$store.commit('SET_COUNT_CART', 0)
+                          this.$router.push('/wallet')
+                        }
+                      })
                     }
                   });
                 } else {
                   // The payment has succeeded.
-                  this.onSubmit()
+                  const { data } = await this.$store.dispatch('PAYMENT', {
+                      ...this.paymentForm,
+                      price: this.totalPrice,
+                      payment_type: this.payment_type,
+                      payment_id: confirmResult.id
+                    })
+                    await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                    this.$swal({
+                      icon: 'success',
+                      title: 'Danke!',
+                      text: 'Die Zahlung wurde erfolgreich durchgeführt.',
+                      showCancelButton: false,
+                      allowOutsideClick: false,
+                      confirmButtonColor: '#48BB78',
+                      confirmButtonText: 'Bestätigen',
+                      cancelButtonText: 'Abbrechen',
+                    }).then(async (result) => {
+                      if(result.value){
+                        await this.$store.commit('SET_COUNT_CART', 0)
+                        this.$router.push('/wallet')
+                      }
+                    })
                 }
               }
             });
