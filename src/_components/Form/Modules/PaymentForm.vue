@@ -13,16 +13,28 @@
           Kreditkarte
         </RadioInputField>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col mb-5 border-b border-input-border">
         <RadioInputField
           id="sofort_payment_type"
           v-model="payment_type"
-          containerClass="mb-0"
+          containerClass="mb-5"
           name="payment_type"
           data="sofort"
         >
           <img class="h-7 w-auto mx-3" src="/icon_sofort.png"/>
           Sofortüberweisung
+        </RadioInputField>
+      </div>
+      <div class="flex flex-col">
+        <RadioInputField
+          id="googlepay_payment_type"
+          v-model="payment_type"
+          containerClass="mb-0"
+          name="payment_type"
+          data="googlepay"
+        >
+          <img class="h-7 w-auto mx-3" src="/icon_visa.png"/>
+          Google Pay/Apple Pay
         </RadioInputField>
       </div>
     </div>
@@ -72,6 +84,22 @@
         </form>
       </div>
     </div>
+    <div
+        class="flex flex-col w-full"
+      >
+        <form
+          id="stripe-google"
+          class="w-full flex flex-col"
+          :class="{'hidden': payment_type != 'googlepay'}"
+          @submit.prevent=""
+        >
+          <div id="payment-request-button">
+            <!-- A Stripe Element will be inserted here. -->
+          </div>
+          <div id="card-errors" class="mb-3 text-red-500 font-semibold font-body text-sm" />
+        </form>
+    </div>
+
     <div class="border-t-2 border-input-border w-full mt-8"></div>
     <div class="bg-white flex flex-col items-start mt-8 mx-auto pb-8 pt-4 px-8 w-full">
       <div class="flex items-baseline justify-center w-full">
@@ -250,6 +278,69 @@
               if(displayError) displayError.textContent = event.error ? event.error.message : '';
             })
           }
+
+          var paymentRequest = this.stripe.paymentRequest({
+            country: 'AT',
+            currency: 'eur',
+            total: {
+              label: 'Epasnets Voucher(s)',
+              amount: this.totalPrice,
+            },
+            requestPayerName: true,
+            requestPayerEmail: true,
+          });
+
+          this.elements = this.stripe.elements();
+          var prButton = this.elements.create('paymentRequestButton', {
+            paymentRequest: paymentRequest,
+          });
+
+          // Check the availability of the Payment Request API first.
+          paymentRequest.canMakePayment().then(function(result) {
+            if (result) {
+              prButton.mount('#payment-request-button');
+            } else {
+              document.getElementById('payment-request-button').style.display = 'none';
+            }
+          });
+
+          paymentRequest.on('paymentmethod', function(ev) {
+            // Confirm the PaymentIntent without handling potential next actions (yet).
+            this.stripe.confirmCardPayment(
+              process.env.VUE_APP_STRIPE_SECRET_KEY,
+              {payment_method: ev.paymentMethod.id},
+              {handleActions: false}
+            ).then(function(confirmResult) {
+              console.log(confirmResult)
+              if (confirmResult.error) {
+                // Report to the browser that the payment failed, prompting it to
+                // re-show the payment interface, or show an error message and close
+                // the payment interface.
+                ev.complete('fail');
+              } else {
+                // Report to the browser that the confirmation was successful, prompting
+                // it to close the browser payment method collection interface.
+                ev.complete('success');
+                // Check if the PaymentIntent requires any actions and if so let Stripe.js
+                // handle the flow. If using an API version older than "2019-02-11" instead
+                // instead check for: `paymentIntent.status === "requires_source_action"`.
+                if (confirmResult.paymentIntent.status === "requires_action") {
+                  // Let Stripe.js handle the rest of the payment flow.
+                  this.stripe.confirmCardPayment(process.env.VUE_APP_STRIPE_SECRET_KEY).then(function(result) {
+                    if (result.error) {
+                      // The payment failed -- ask your customer for a new payment method.
+                    } else {
+                      // The payment has succeeded.
+                      this.onSubmit()
+                    }
+                  });
+                } else {
+                  // The payment has succeeded.
+                  this.onSubmit()
+                }
+              }
+            });
+          });
         } catch (err) {
           console.log('err', err)
         }
