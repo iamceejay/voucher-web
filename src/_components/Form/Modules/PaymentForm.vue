@@ -319,7 +319,7 @@
               data.client_secret,
               {payment_method: ev.paymentMethod.id},
               {handleActions: false}
-            ).then((confirmResult) => {
+            ).then( async (confirmResult) => {
               console.log(confirmResult)
               if (confirmResult.error) {
                 // Report to the browser that the payment failed, prompting it to
@@ -335,7 +335,7 @@
                 // instead check for: `paymentIntent.status === "requires_source_action"`.
                 if (confirmResult.paymentIntent.status === "requires_action") {
                   // Let Stripe.js handle the rest of the payment flow.
-                  this.stripe.confirmCardPayment(data.client_secret).then( async (result) => {
+                  this.stripe.confirmCardPayment(data.client_secret).then( async(result) => {
                     if (result.error) {
                       // The payment failed -- ask your customer for a new payment method.
                     } else {
