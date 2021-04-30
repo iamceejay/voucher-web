@@ -290,6 +290,9 @@
             requestPayerEmail: true,
           });
 
+
+
+
           this.elements = this.stripe.elements();
           var prButton = this.elements.create('paymentRequestButton', {
             paymentRequest: paymentRequest,
@@ -305,9 +308,14 @@
           });
 
           paymentRequest.on('paymentmethod', (ev) => {
+            const paymentIntent = await this.stripe.paymentIntents.create({
+              amount: this.totalPrice * 100,
+              currency: 'eur',
+              payment_method_types: ['card'],
+            });
             // Confirm the PaymentIntent without handling potential next actions (yet).
             this.stripe.confirmCardPayment(
-              process.env.VUE_APP_STRIPE_SECRET_KEY,
+              paymentIntent.client_secret,
               {payment_method: ev.paymentMethod.id},
               {handleActions: false}
             ).then((confirmResult) => {
@@ -326,7 +334,7 @@
                 // instead check for: `paymentIntent.status === "requires_source_action"`.
                 if (confirmResult.paymentIntent.status === "requires_action") {
                   // Let Stripe.js handle the rest of the payment flow.
-                  this.stripe.confirmCardPayment(process.env.VUE_APP_STRIPE_SECRET_KEY).then(function(result) {
+                  this.stripe.confirmCardPayment(paymentIntent.client_secret).then(function(result) {
                     if (result.error) {
                       // The payment failed -- ask your customer for a new payment method.
                     } else {
