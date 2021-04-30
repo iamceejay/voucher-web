@@ -412,7 +412,7 @@
   }
   .card-logo {
     width: auto;
-    height: 2em;
+    height: 2.8125em;
   }
   .card-qr {
     align-self: center;
