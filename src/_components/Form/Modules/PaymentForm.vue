@@ -335,12 +335,11 @@
                 // instead check for: `paymentIntent.status === "requires_source_action"`.
                 if (confirmResult.paymentIntent.status === "requires_action") {
                   // Let Stripe.js handle the rest of the payment flow.
-                  this.stripe.confirmCardPayment(data.client_secret).then(function(result) {
+                  this.stripe.confirmCardPayment(data.client_secret).then( async function(result) {
                     if (result.error) {
                       // The payment failed -- ask your customer for a new payment method.
                     } else {
                       // The payment has succeeded.
-                      this.onSubmit()
                       const { data } = await this.$store.dispatch('PAYMENT', {
                         ...this.paymentForm,
                         price: this.totalPrice,
