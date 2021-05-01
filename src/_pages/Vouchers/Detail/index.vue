@@ -347,7 +347,7 @@
           id: null,
           voucher_id: null,
           user_id: null,
-          value: 1,
+          value: null,
           qty: 1,
           total_amount: 0,
         },
