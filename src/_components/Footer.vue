@@ -99,6 +99,18 @@
             title: "",
             img: "",
             link: "#"
+          },
+           {
+            icon: "/icon_applepay.png",
+            title: "",
+            img: "",
+            link: "#"
+          },
+           {
+            icon: "/icon_googlepay.png",
+            title: "",
+            img: "",
+            link: "#"
           }
         ]
       }

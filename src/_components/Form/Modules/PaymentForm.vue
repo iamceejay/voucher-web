@@ -33,7 +33,8 @@
           name="payment_type"
           data="googlepay"
         >
-          <img class="h-7 w-auto mx-3" src="/icon_visa.png"/>
+          <img class="h-7 w-auto ml-3 mr-1" src="/icon_googlepay.png"/>
+          <img class="h-7 w-auto mr-3" src="/icon_applepay.png"/>
           Google Pay/Apple Pay
         </RadioInputField>
       </div>
