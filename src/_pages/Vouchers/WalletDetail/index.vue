@@ -74,17 +74,17 @@
               <span>Gutschein einlösen</span>
             </button>
           </div>
-          <div class="flex max-w-lg mt-4 mx-auto relative w-full" v-if="currentButton == 'link'">
+          <div class="block max-w-lg mt-4 mx-auto relative w-full xl:flex" v-if="currentButton == 'link'">
             <input
               id="link"
               name="clipboard"
               type="text"
               :value="`${location.origin}/transfer/${ VOUCHER.transfer_url.url_code }`"
-              class="input-copy flex-1 px-4 py-2 rounded"
+              class="flex-1 input-copy px-4 py-2 rounded w-full"
             />
             <button
               data-clipboard-target="#link"
-              class="bg-black px-5 py-3 rounded text-sm text-white clipboard"
+              class="bg-black clipboard mt-3 px-5 py-3 rounded text-sm text-white w-full xl:mt-0 xl:w-auto"
             >Link kopieren</button>
           </div>
 
