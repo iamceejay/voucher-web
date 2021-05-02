@@ -187,13 +187,13 @@
               <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
                 <span class="text-xs font-bold mb-1">Zeitraum:</span>
                 <div
-                  v-if="VOUCHER.valid_date && VOUCHER.valid_date.length > 0"
+                  v-if="months.length > 0"
                   class="text-xs flex flex-col">
                   <div
-                    v-for="(date, index) in VOUCHER.valid_date"
+                    v-for="(month, index) in months"
                     :key="`date-${index}`"
                   >
-                  {{ `${formatDate(date.start) || '...'} bis ${formatDate(date.end) || '...'}` }}
+                  {{ `${getMonth(parseInt(month))}${ (months.length != (index+1)) ? ',' : '' }` }}
                   </div>
                 </div>
                 <span v-else class="text-xs flex flex-col">
@@ -329,6 +329,7 @@
   import Button from '_components/Button'
   import { slider, slideritem } from 'vue-concise-slider'
   import { formatDate } from '_helpers/CustomFunction'
+  import moment from 'moment'
 
   export default {
     name: 'Vouchers',
@@ -374,9 +375,17 @@
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
+      },
+      months() {
+        return this.VOUCHER && this.VOUCHER.valid_date
+              ? this.VOUCHER.valid_date
+                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .map(date => parseInt(moment(date.start).format('x')))
+              : []
       }
     },
     mounted() {
+
       (async() => {
         try {
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
@@ -385,9 +394,13 @@
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         }
+
       })()
     },
     methods: {
+      getMonth(month) {
+          return moment(+month).format('MMM')
+      },
       formatDate(date)
       {
         return formatDate(date)
