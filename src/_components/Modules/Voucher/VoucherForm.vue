@@ -79,7 +79,7 @@
                     <input
                       type="file"
                       id="file"
-                      accept="'image/*'"
+                      accept="image/*"
                       aria-label="File browser example"
                       @change="(e) => croppie(e, 'croppieRef')"/>
                   <span class="file-custom"></span>
@@ -199,7 +199,7 @@
                         <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
                         <input
                           type="file"
-                          accept="'image/*'"
+                          accept="image/*"
                           aria-label="File browser example"
                           @change="(e) => croppie(e, 'image_1')"
                           />
@@ -237,7 +237,7 @@
                         <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
                         <input
                           type="file"
-                          accept="'image/*'"
+                          accept="image/*"
                           aria-label="File browser example"
                           @change="(e) => croppie(e, 'image_2')"
                           />
@@ -275,7 +275,7 @@
                         <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-base text-center"></i> Bild hochladen
                         <input
                           type="file"
-                          accept="'image/*'"
+                          accept="image/*"
                           aria-label="File browser example"
                           @change="(e) => croppie(e, 'image_3')"
                           />

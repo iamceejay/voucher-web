@@ -48,7 +48,7 @@
             <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 250px x 100px)
             <input
               type="file"
-              accept="'image/*'"
+              accept="image/*"
               aria-label="File browser example"
               @change="(e) => croppie(e, 'logo')"
               />
