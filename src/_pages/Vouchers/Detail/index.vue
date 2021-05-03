@@ -332,7 +332,6 @@
   import moment from 'moment'
 
   export default {
-    name: 'Vouchers',
     components: {
       MainLayout,
       VoucherCard,

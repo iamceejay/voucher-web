@@ -218,6 +218,7 @@
   import InputField from "_components/Form/InputField";
 
   export default {
+    name: 'VouchersSearch',
     components: {
       MainLayout,
       InputField,

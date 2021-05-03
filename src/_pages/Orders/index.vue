@@ -33,7 +33,6 @@
   import ProfileTabs from '../Profile/ProfileTabs'
 
   export default {
-    name: 'Home',
     components: {
       MainLayout,
       StatisticList,

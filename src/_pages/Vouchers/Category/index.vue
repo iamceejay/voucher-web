@@ -212,7 +212,7 @@
   import Header1 from '_components/Headers/Header1';
 
   export default {
-    name: 'Home',
+    name: 'VoucherCategory',
     components: {
       MainLayout,
       VoucherList,
