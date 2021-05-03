@@ -103,14 +103,14 @@
             am: So, Mo, Di, Mi, Do, Fr, Sa, Fei
           </span>
           <span
-            v-if="voucher.data_json.months && voucher.data_json.months.length > 0"
+            v-if="voucher.data_json && voucher.data_json.months && voucher.data_json.months.length > 0"
             class="text-2xs opacity-50">
             im: <span
                 v-for="(month, index) in voucher.data_json.months"
                 :key="`month-${index}`"
               >
                 <span v-if="month">
-                  {{ `${getMonth(parseInt(month))}${ (region.data_json.months.length != (index+1)) ? ',' : '' }` }}
+                  {{ `${getMonth(parseInt(month))}${ (voucher.data_json.months.length != (index+1)) ? ',' : '' }` }}
                 </span>
               </span>
           </span>
@@ -119,7 +119,7 @@
           </span>
           <span class="text-2xs mt-1">Region:</span>
           <span class="text-2xs opacity-50">
-            {{ voucher.seller.company.region || '' }}
+            <!-- {{ voucher.seller.company.region || '' }} -->
           </span>
         </div>
       </div>
