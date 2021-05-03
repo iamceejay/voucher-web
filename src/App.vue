@@ -1,6 +1,8 @@
 <template>
   <div v-if="!isLoading" id="app">
-    <router-view />
+    <keep-alive :include="['Home','VouchersSearch','VoucherCategory']">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 <script>
