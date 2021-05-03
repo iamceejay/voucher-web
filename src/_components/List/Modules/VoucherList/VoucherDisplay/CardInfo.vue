@@ -102,15 +102,15 @@
             am: So, Mo, Di, Mi, Do, Fr, Sa, Fei
           </span>
           <span
-            v-if="voucher.months && voucher.months.length > 0"
+            v-if="months > 0"
             class="text-2xs opacity-50">
             im: <span
-                v-for="(month, index) in voucher.months"
+                v-for="(month, index) in months"
                 :key="`month-${index}`"
 
               >
                 <span v-if="month">
-                  {{ `${getMonth(month)}${ (voucher.months.length != (index+1)) ? ',' : '' }` }}
+                  {{ `${getMonth(month)}${ (months.length != (index+1)) ? ',' : '' }` }}
                 </span>
               </span>
           </span>
@@ -265,6 +265,13 @@
               ? ' - ' + this.$helpers.convertCurrency(this.voucher.max || this.voucher.val_max)
               : ''}`
         }
+      },
+      months() {
+        return this.voucher && this.voucher.valid_date
+              ? this.voucher.valid_date
+                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .map(date => parseInt(moment(date.start).format('x')))
+              : []
       }
     },
     watch: {

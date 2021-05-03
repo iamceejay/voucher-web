@@ -114,7 +114,22 @@
             class="text-2xs opacity-50">
             am: So, Mo, Di, Mi, Do, Fr, Sa, Fei
           </span>
-          <span class="text-2xs opacity-50">im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez</span>
+          <span
+            v-if="months.length > 0"
+            class="text-2xs opacity-50">
+            im: <span
+                v-for="(month, index) in months"
+                :key="`month-${index}`"
+
+              >
+                <span v-if="month">
+                  {{ `${getMonth(month)}${ (months.length != (index+1)) ? ',' : '' }` }}
+                </span>
+              </span>
+          </span>
+          <span v-else class="text-2xs opacity-50">
+            im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez
+          </span>
           <!-- <span class="text-2xs mt-1">Region:</span>
           <span class="text-2xs opacity-50">Tirol</span> -->
         </div>
@@ -248,6 +263,13 @@
       AUTH_USER_VOUCHER_WISHLIST()
       {
         return this.$store.getters.AUTH_USER_VOUCHER_WISHLIST
+      },
+      months() {
+        return this.voucher && this.voucher.valid_date
+              ? this.voucher.valid_date
+                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .map(date => parseInt(moment(date.start).format('x')))
+              : []
       }
     },
     watch: {
@@ -260,6 +282,9 @@
       this.onSetRole()
     },
     methods: {
+      getMonth(month) {
+        return moment(parseInt(+month)).format('MMM')
+      },
       formatDate(date)
       {
         return formatDate(date)
