@@ -345,7 +345,7 @@
     font-size: 0.875em;
   }
   .text-xs {
-    font-size: 0.75em;
+    font-size: 1em;
   }
   .text-2xs {
     font-size: .60em;
@@ -357,6 +357,9 @@
 
   .p-5 {
     padding: 1.25em;
+  }
+  .leading-5 {
+    line-height: 1.5em;
   }
   .card-description {
     height: 8.4375em;
