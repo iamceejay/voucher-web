@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="bg-peach p-6 mb-10">
+      <div class="bg-peach p-6 mb-10" v-if="!AUTH_USER.data.is_payouts_enabled">
         <p class="text-white text-sm">Du musst in <a class="underline" href="/profile-info">Profil &amp; Einstellungen</a> unter "Überprüfung" noch Dokumente hochladen, damit die Auszahlung erfolgen kann.</p>
       </div>
     </div>
