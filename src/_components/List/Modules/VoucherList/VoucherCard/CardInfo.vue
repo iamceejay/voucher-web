@@ -48,8 +48,8 @@
         </div>
         <div v-else>
             <div
-              :style="{ backgroundImage: 'url(' + (voucher.data_json != null ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
-              style="background-size: contain"
+              :style="{ backgroundImage: 'url(' + onSetCustomImage(voucher.data_json != null ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
+              style="background-size: cover"
               class="card-image"
             ></div>
         </div>
@@ -451,7 +451,7 @@
   }
   .card-logo {
     width: auto;
-    height: 45px;
+    max-height: 45px;
   }
   .card-qr {
     align-self: center;

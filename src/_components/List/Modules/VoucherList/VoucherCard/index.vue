@@ -35,7 +35,6 @@
     >
       <CardInfo
         v-if="!isAction"
-        :class="[onGetTextColor()]"
         :voucher="voucher"
         :order="order"
         :qr="qr"

@@ -48,15 +48,15 @@
         </div>
         <div v-else>
             <div
-              :style="{ backgroundImage: 'url(' + (voucher.data_json != null ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
-              style="background-size: contain"
+              :style="{ backgroundImage: 'url(' + onSetCustomImage(voucher.data_json != null ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
+              style="background-size: cover"
               class="card-image"
             ></div>
         </div>
       </div>
       <div class="flex flex-col p-5 break-words card-description">
         <div class="text-xs leading-5">
-          {{ voucher.note || voucher.description || 'Beschreibung' }}
+          {{ (voucher.note || voucher.description).length > 120 ? (voucher.note || voucher.description).slice(0, 120) + "..." : (voucher.note || voucher.description) || 'Beschreibung' }}
         </div>
       </div>
       <div class="flex flex-row card-footer">
@@ -389,7 +389,7 @@
   }
   .card-logo {
     width: auto;
-    height: 32px;
+    max-height: 32px;
   }
   .card-qr {
     align-self: center;
