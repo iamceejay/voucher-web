@@ -429,7 +429,7 @@
 
   .card-description {
     /* height: 8.4375em; */
-    /* background-color: var(--card-description-background, #1D4F55); */
+    /* background-color: var(--card-description-background, #ff5563); */
     /* color: var(--card-description-color, white); */
   }
 
