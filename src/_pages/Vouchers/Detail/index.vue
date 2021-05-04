@@ -87,11 +87,11 @@
                     />
                     <div
                       class="order__form-number order-up"
-                      @click="VOUCHER.type == 'quantity' ? form.value++ : form.qty++"
+                      @click="updateValue(VOUCHER.type == 'quantity' ? 'value' : 'qty', 'add')"
                     >+</div>
                     <div
                       class="order__form-number order-down"
-                      @click="VOUCHER.type == 'quantity' ? form.value-- : form.qty--"
+                      @click="updateValue(VOUCHER.type == 'quantity' ? 'value' : 'qty', 'subtract')"
                     >-</div>
                   </div>
 
@@ -272,11 +272,11 @@
                     />
                     <div
                       class="order__form-number order-up"
-                      @click="VOUCHER.type == 'quantity' ? form.value++ : form.qty++"
+                      @click="updateValue(VOUCHER.type == 'quantity' ? 'value' : 'qty', 'add')"
                     >+</div>
                     <div
                       class="order__form-number order-down"
-                      @click="VOUCHER.type == 'quantity' ? form.value-- : form.qty--"
+                      @click="updateValue(VOUCHER.type == 'quantity' ? 'value' : 'qty', 'subtract')"
                     >-</div>
                   </div>
                   <Button
@@ -551,6 +551,18 @@
           console.log('err', err)
         }
       },
+      updateValue(form, action) {
+        if (this.form[form] <= 1 && action == 'subtract') {
+          return
+        }
+
+        if (action == 'add') {
+          this.form[form]++
+        } else {
+          this.form[form]--
+        }
+
+      }
     }
   }
 </script>
