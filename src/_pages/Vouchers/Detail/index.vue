@@ -133,7 +133,7 @@
             <div
               v-if="VOUCHER.data_json != null"
               class="flex py-6 mb-4 text-xs w-full overflow-hidden"
-              :class="{'h-20 md:h-10 show-more' : !isShowMore}"
+              :class="{'h-16 show-more' : !isShowMore}"
               >
               {{ VOUCHER.data_json.long_description }}
             </div>
