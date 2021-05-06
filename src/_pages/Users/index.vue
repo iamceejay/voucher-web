@@ -15,7 +15,7 @@
             @input="onChangeTab(params.role)"
           />
           <div class="flex flex-row btn-switch m-2 w-full md:w-1/2 lg:w-4/12">
-            <a 
+            <a
               class="btn btn-left"
               :class="(params.role == 'user') ? 'active' : ''"
               href="javascript:void(2)"
@@ -23,7 +23,7 @@
             >
               Users
             </a>
-            <a 
+            <a
               class="btn btn-right"
               :class="(params.role == 'seller') ? 'active' : ''"
               href="javascript:void(2)"
@@ -39,16 +39,16 @@
           >
             <template #customActions="props">
               <div class="flex flex-col">
-                <a 
+                <a
                   v-if="params.role == 'seller' && !props.data.isActivated"
-                  class="text-xs text-indigo-500 underline text-center" 
+                  class="text-xs text-indigo-500 underline text-center"
                   href="javascript:void(0)"
                   @click="onActivateUser(props.data)"
                 >
                   Aktivieren
                 </a>
-                <a 
-                  class="text-xs text-indigo-500 underline text-center" 
+                <a
+                  class="text-xs text-indigo-500 underline text-center"
                   href="javascript:void(0)"
                   @click="onChangeRole(props.data)"
                 >
@@ -57,12 +57,12 @@
                 <router-link
                   v-if="params.role == 'seller'"
                   :to="`/settings/user/${props.data.id}`"
-                  class="text-xs text-indigo-500 underline text-center" 
+                  class="text-xs text-indigo-500 underline text-center"
                 >
                   Payout setings
                 </router-link>
-                <a 
-                  class="text-xs text-indigo-500 underline text-center" 
+                <a
+                  class="text-xs text-indigo-500 underline text-center"
                   href="javascript:void(0)"
                   @click="onDelete(props.data)"
                 >
@@ -106,7 +106,7 @@
             name: 'detail',
             title: 'Vorname',
             dataClass: 'text-center',
-            formatter: val => `${val.firstName} ${val.lastName}`, 
+            formatter: val => `${val.firstName} ${val.lastName}`,
           }, {
             name: 'actions',
             title: 'Actions',
@@ -179,7 +179,7 @@
               await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
               await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-              this.$router.push('/home')
+              window.location = '/home'
             } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
@@ -190,7 +190,7 @@
                 confirmButtonText: 'Bestätigen'
               })
             }
-          }   
+          }
         })
       },
       async onDelete(data)
@@ -226,7 +226,7 @@
                 confirmButtonText: 'Bestätigen'
               })
             }
-          }   
+          }
         })
       },
       async onActivateUser(data)
@@ -262,7 +262,7 @@
                 confirmButtonText: 'Bestätigen'
               })
             }
-          }   
+          }
         })
       },
       async onChangeTab( role )
