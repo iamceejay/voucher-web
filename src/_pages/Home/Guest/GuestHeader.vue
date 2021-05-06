@@ -3,8 +3,8 @@
     <div class="guest-header bg-peach">
       <div class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-24 lg:pb-48 relative">
         <div class="text-center text-white w-11/12 max-w-xl">
-          <h1 class="font-display text-xl md:text-3xl lg:text-4xl mb-1">
-            Geschenk zum Valentinstag?
+          <h1 class="font-body text-xl md:text-3xl lg:text-4xl mb-1">
+            Weil Regionalität auch beim Verschenken den Unterschied macht
           </h1>
           <p class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto">
             Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und oder selber genießen.
