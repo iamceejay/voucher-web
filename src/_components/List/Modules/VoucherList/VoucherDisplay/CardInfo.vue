@@ -102,7 +102,7 @@
             am: So, Mo, Di, Mi, Do, Fr, Sa, Fei
           </span>
           <span
-            v-if="months > 0"
+            v-if="months.length > 0"
             class="text-2xs opacity-50">
             im: <span
                 v-for="(month, index) in months"
@@ -267,9 +267,17 @@
         }
       },
       months() {
+        let filteredMonths = []
         return this.voucher && this.voucher.valid_date
               ? this.voucher.valid_date
-                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .filter(date => {
+                  let month = date.start.split('-')[1]
+                  if (filteredMonths.indexOf(month) == -1) {
+                    filteredMonths.push(month)
+                    return true
+                  }
+                  return false
+                })
                 .map(date => parseInt(moment(date.start).format('x')))
               : []
       }

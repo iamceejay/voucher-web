@@ -265,9 +265,17 @@
         return this.$store.getters.AUTH_USER_VOUCHER_WISHLIST
       },
       months() {
+        let filteredMonths = []
         return this.voucher && this.voucher.valid_date
               ? this.voucher.valid_date
-                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .filter(date => {
+                  let month = date.start.split('-')[1]
+                  if (filteredMonths.indexOf(month) == -1) {
+                    filteredMonths.push(month)
+                    return true
+                  }
+                  return false
+                })
                 .map(date => parseInt(moment(date.start).format('x')))
               : []
       }

@@ -376,9 +376,17 @@
         return this.$store.getters.IS_LOADING
       },
       months() {
+        let filteredMonths = []
         return this.VOUCHER && this.VOUCHER.valid_date
               ? this.VOUCHER.valid_date
-                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .filter(date => {
+                  let month = date.start.split('-')[1]
+                  if (filteredMonths.indexOf(month) == -1) {
+                    filteredMonths.push(month)
+                    return true
+                  }
+                  return false
+                })
                 .map(date => parseInt(moment(date.start).format('x')))
               : []
       }
