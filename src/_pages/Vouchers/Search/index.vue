@@ -21,7 +21,7 @@
             <div class="flex justify-end">
               <button
                 type="button"
-                class="bg-white border flex items-center mb-2 mr-3 px-2 py-2 rounded-md text-black text-xs"
+                class="bg-white border flex items-center mb-2 mr-3 px-4 py-4 rounded-md text-black text-xs"
                 @click="showFilter = true"
                 >
                 <svg class="border border-peach h-4 icon mr-2 rounded-full text-peach w-4">
@@ -60,7 +60,7 @@
                     </svg>
                     Filter
                   </div>
-                  <div class="flex items-center text-sm">
+                  <div @click="showFilter = false" class="flex items-center text-sm">
                     Schließen
                     <svg @click="showFilter = false" class="h-4 icon ml-2 mr-6 w-4 cursor-pointer">
                       <use xlink:href="/icons/sprite.svg#x-circle"/>
