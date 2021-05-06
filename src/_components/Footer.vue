@@ -44,35 +44,35 @@
         menus: [
           {
             title: "Anmelden/Registrieren",
-            link: "#"
+            link: "https://stagingfront.epasnets.com/login"
           },
           {
-            title: "Gutscheine Kategorien",
-            link: "#"
+            title: "Für Verkäufer",
+            link: "https://verkaufen.epasnets.com"
           },
           {
-            title: "FAQ",
-            link: "#"
+            title: "Hilfe für Käufer",
+            link: "https://hilfe.epasnets.com/"
           },
           {
-            title: "Fu&#776;r Verka&#776;ufer",
-            link: "#"
+            title: "Über uns",
+            link: "https://about.epasnets.com/"
           },
           {
             title: "Kontakt",
             link: "#"
           },
           {
-            title: "Impressum",
-            link: "#"
+            title: "AGB",
+            link: "https://about.epasnets.com/agb/"
           },
           {
             title: "Datenschutz",
-            link: "#"
+            link: "https://about.epasnets.com/datenschutz/"
           },
           {
-            title: "AGB",
-            route: "#"
+            title: "Impressum",
+            route: "https://about.epasnets.com/impressum/"
           }
         ],
         paymentMethods: [
