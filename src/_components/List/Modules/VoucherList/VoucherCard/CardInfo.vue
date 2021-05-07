@@ -48,7 +48,7 @@
         </div>
         <div v-else>
             <div
-              :style="{ backgroundImage: 'url(' + onSetCustomImage(voucher.data_json != null ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
+              :style="{ backgroundImage: 'url(' + onSetCustomImage(voucher.data_json != null && voucher.data_json.background_image ? voucher.data_json.background_image : voucher.custom_background_image || voucher.background_image) + ')', backgroundColor: 'white'}"
               style="background-size: cover"
               class="card-image"
             ></div>
