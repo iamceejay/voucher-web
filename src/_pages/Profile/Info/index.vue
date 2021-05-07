@@ -32,7 +32,7 @@ export default {
       showCancelButton: true,
       confirmButtonColor: '#48BB78',
       cancelButtonColor: '#FC8181',
-      confirmButtonText: 'speichern',
+      confirmButtonText: 'Speichern',
       cancelButtonText: 'Verwerfen',
     }).then(async (result) => {
       if(result.value) {

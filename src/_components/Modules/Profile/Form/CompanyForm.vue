@@ -87,7 +87,7 @@
     />
     <div v-if="GLOBAL_SETTING && AUTH_USER.isAuth" class="mt-2 mb-4 text-sm text-center">
       {{
-        `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Verkauf zuzüglich 20% MwSt.`
+        `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Gutscheinverkauf zuzüglich 20% MwSt.`
       }}
     </div>
   </div>

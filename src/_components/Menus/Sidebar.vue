@@ -217,7 +217,7 @@
                 //   link: '/home'
                 // },
                 {
-                  title: 'Mein Wallet',
+                  title: 'Meine Wallet',
                   link: '/wallet',
                   icon: 'wallet',
                 },

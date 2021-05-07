@@ -404,7 +404,7 @@
                   <span class="block font-semibold text-sm mb-4">Kommission Marktplatz</span>
                   <div v-if="GLOBAL_SETTING && AUTH_USER.isAuth" class="mb-4 text-sm">
                     {{
-                      `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Verkauf zuzüglich 20% MwSt.`
+                      `Deine Kommission ist ${ settings ? settings.sales_commission_percentage : '5' }% und ${ settings ? $helpers.convertCurrency(settings.sales_commission_euro) : '5,00 €' } pro Gutscheinverkauf zuzüglich 20% MwSt.`
                     }}
                   </div>
                 </div>
