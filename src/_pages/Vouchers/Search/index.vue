@@ -229,7 +229,7 @@
       return {
         search: '',
         showFilter: false,
-        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer', 'Senioren'],
         seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter'],
         params: {
           keyword: '',

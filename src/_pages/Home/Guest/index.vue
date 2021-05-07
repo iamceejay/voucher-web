@@ -41,7 +41,7 @@
             class="pl-4 sm:px-0"
           >
             <img
-              src="@/_assets/img/placeholder-400px.jpg"
+              :src="gift.img"
               class="shadow rounded-lg mb-2"
             />
             <p class="text-sm" v-html="gift.label"></p>
@@ -299,19 +299,28 @@
         companies: [],
         gifts: [
           {
-            label: "Paare"
+            label: "Paare",
+            img: '/images/Paare.jpeg'
           },
           {
-            label: "Freunde"
+            label: "Freunde",
+            img: '/images/Jugendliche.jpg'
           },
           {
-            label: "Kinder"
+            label: "Kinder",
+            img: '/images/Kinder.jpeg'
           },
           {
-            label: "Frauen"
+            label: "Frauen",
+            img: '/images/Frauen.jpeg'
           },
           {
-            label: "Männer"
+            label: "Männer",
+            img: '/images/Männer.jpeg'
+          },
+          {
+            label: "Senioren",
+            img: '/images/Senioren.jpg'
           }
         ]
       }
