@@ -718,7 +718,7 @@
         valid_date_start: null,
         valid_date_end: null,
         valid_date: [],
-        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer'],
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer', 'Senioren'],
         seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter']
       }
     },
