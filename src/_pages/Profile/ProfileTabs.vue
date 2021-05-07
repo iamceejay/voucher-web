@@ -68,7 +68,7 @@ export default {
       })
       await localStorage.removeItem('_userWishlist')
       await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', [])
-      this.$router.push('/login')
+      window.location = '/login'
     }
   }
 }
