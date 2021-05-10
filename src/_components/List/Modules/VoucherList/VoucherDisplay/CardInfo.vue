@@ -351,6 +351,8 @@
       },
       onSetCustomImage( value)
       {
+        if (!value)
+          return ''
         return (value.search('base64') < 0) ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}` : value
       },
       onSetImage(value)
