@@ -316,7 +316,7 @@
           },
           {
             label: "Männer",
-            img: '/images/Männer.jpeg'
+            img: '/images/Manner.jpeg'
           },
           {
             label: "Senioren",

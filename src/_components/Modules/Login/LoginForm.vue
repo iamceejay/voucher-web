@@ -40,7 +40,7 @@
           label="Login"
         />
         <div class="flex flex-col border-t-2 border-input-border">
-          <p class="font-medium text-center text-lg py-4">Oder anmelden mit:</p>
+          <p class="font-medium text-center text-lg py-4">Oder anmelden als Käufer mit:</p>
           <div class="flex">
              <GoogleLogin class="w-1/2" :params="params" :onSuccess="onSignIn" :onFailure="onFailure">
             <Button

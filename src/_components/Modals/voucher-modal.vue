@@ -86,7 +86,7 @@
 
             <section class="border flex md:w-1/2 mt-3 mx-auto p-4 w-full">
               <i class="fa fa-palette mr-2 mt-1"></i>
-              <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
+              <span class="text-sm">Du kannst den Gutschein nach dem Kauf personalisieren.</span>
             </section>
 
             <span class="block md:w-1/2 mx-auto my-6 w-full">

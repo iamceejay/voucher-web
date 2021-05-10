@@ -64,7 +64,7 @@
       async onSubmit() {
         //  text: `${(this.QR_CODE.user_voucher.voucher.type != 'quantity') ? `Value: ${this.$helpers.convertCurrency(this.form.value)}` : `Quantity: x${this.form.value}` }`,
         this.$swal({
-          title: 'Bestätige die Einlösung der Gutscheine.',
+          title: 'Bestätige die Einlösung des Gutscheins.',
           text: `${(this.QR_CODE.voucher.type != 'quantity') ? `Wert: ${this.$helpers.convertCurrency(this.form.value)}` : `Menge: ${this.form.value}x` }`,
           showCancelButton: true,
           confirmButtonColor: '#48BB78',

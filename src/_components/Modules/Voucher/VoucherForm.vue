@@ -327,7 +327,7 @@
                   id="Gültigkeitsdauer"
                   v-model="form.expiry_date"
                   class="py-1 w-full"
-                  label="Gültigkeitsdauer"
+                  label="Gültigkeitsdauer in Jahren"
                   placeholder="Bitte auswählen"
                   :options="expiry"
                   rules="required"
@@ -384,7 +384,7 @@
               </div>
 
               <div class="bg-white flex flex-row flex-wrap w-full mt-3">
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Reservierung</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Reservierung erwünscht?</span>
                 <div class="py-3">
                   <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
                     <label class="text-sm">nein/ ja</label>

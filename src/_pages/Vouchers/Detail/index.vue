@@ -112,7 +112,7 @@
 
               <section class="border flex mt-3 p-4 w-full mb-6 bg-white block md:hidden">
                 <i class="fa fa-palette mr-2 mt-1"></i>
-                <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
+                <span class="text-sm">Du kannst den Gutschein nach dem Kauf personalisieren.</span>
               </section>
             </ValidationObserver>
             <span class="block mb-3 w-full border-b pb-4 font-medium block md:hidden">
@@ -213,7 +213,7 @@
               class="bg-peach block border-1 focus:outline-none focus:shadow-none font-normal md:px-4 mt-6 px-2 py-4 rounded text-center text-sm text-white w-full block md:hidden"
               :to="`/seller/${VOUCHER.seller_id}`"
             >
-              Weitere Gutscheine von diesem Unternehmen
+              Weitere Informationen zu diesem Unternehmen
             </router-link>
 
             <ValidationObserver
@@ -293,7 +293,7 @@
 
               <section class="border flex mt-3 p-4 w-full">
                 <i class="fa fa-palette mr-2 mt-1"></i>
-                <span class="text-sm">Du kannst den Gutchein nach dem Kauf personalisieren</span>
+                <span class="text-sm">Du kannst den Gutschein nach dem Kauf personalisieren.</span>
               </section>
             </ValidationObserver>
 

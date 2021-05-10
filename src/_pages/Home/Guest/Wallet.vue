@@ -7,7 +7,7 @@
             Meine Wallet
           </h1>
           <p class="text-sm">
-            In der Wallet sind deine Gutschein ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
+            In der Wallet sind deine Gutscheine ein lebenlang gespeichert und du kannst von dort aus deine Gutscheine personalisieren und verschenken
           </p>
           <div class="border-b-2 border-input-border my-8" />
           <p>
