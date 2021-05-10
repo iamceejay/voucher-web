@@ -48,20 +48,7 @@
     methods: {
       onBack()
       {
-        if( !this.show ) {
-          let route = this.$route.meta.back
-          if( route == '' ) {
-            (window.history.length > 1)
-              ? this.$router.go(-1)
-              : this.$router.push('/')
-          } else {
-            this.$router.push(route)
-          }
-        } else {
-          (window.history.length > 1)
-            ? this.$router.go(-1)
-            : this.$router.push('/')
-        }
+        this.$router.go(-1)
       }
     }
   }
