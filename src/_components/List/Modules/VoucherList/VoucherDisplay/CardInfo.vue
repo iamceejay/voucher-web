@@ -99,7 +99,7 @@
               </span>
           </span>
           <span v-else class="text-2xs opacity-50">
-            am: So, Mo, Di, Mi, Do, Fr, Sa, Fei
+            am: So, Mo, Di, Mi, Do, Fr, Sa, Feiertag
           </span>
           <span
             v-if="months.length > 0"

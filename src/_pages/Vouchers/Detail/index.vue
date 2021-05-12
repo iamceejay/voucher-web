@@ -173,7 +173,7 @@
                   </span>
                 </span>
                 <span v-else class="text-xs flex flex-col">
-                  So<br/> Mo<br/> Di<br/> Mi<br/> Do<br/> Fr<br/> Sa<br/> Fei
+                  So<br/> Mo<br/> Di<br/> Mi<br/> Do<br/> Fr<br/> Sa<br/> Feiertag
                 </span>
               </div>
 
