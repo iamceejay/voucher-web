@@ -24,6 +24,7 @@
           :placeholder="placeholder"
           :valueType="valueType"
           @input="onUpdateField"
+          :lang="lang"
         />
         <ErrorMessage class="mx-2 mt-0" :errors="[...errors, ...errorMessages]" />
       </template>
@@ -81,7 +82,14 @@
     },
     data() {
       return {
-        date: ''
+        date: '',
+        lang: {
+          formatLocale: {
+            firstDayOfWeek: 1,
+            monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+          },
+        },
+
       }
     },
     watch: {
