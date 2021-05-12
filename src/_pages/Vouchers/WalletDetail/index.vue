@@ -146,7 +146,7 @@
           </span>
         </section>
 
-        <section class="border-t border-b flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
+        <section class="border-b flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
           <span class="font-medium">{{ WALLET.voucher.description }}</span>
 
           <div v-if="WALLET.voucher.data_json != null" class="mt-6 w-full">
@@ -162,6 +162,71 @@
           </div>
         </section>
 
+        <section class="flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
+          <span class="block mb-3 w-full border-b pb-4 mt-10 font-semibold">
+            Gutschein Info
+          </span>
+
+          <div class="gap-3 grid grid-cols-2 md:grid-cols-4">
+            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
+              <span class="text-xs font-bold mb-1">Einlösbar:</span>
+              <span
+                v-if="WALLET.voucher.valid_day && WALLET.voucher.valid_day.length > 0"
+                class="text-xs flex flex-col">
+                <span
+                  v-for="(day, index) in WALLET.voucher.valid_day"
+                  :key="`day-${index}`"
+                >
+                  {{ `${day.substring(0,3)}` }}
+                </span>
+              </span>
+              <span v-else class="text-xs flex flex-col">
+                So<br/> Mo<br/> Di<br/> Mi<br/> Do<br/> Fr<br/> Sa<br/> Feiertag
+              </span>
+            </div>
+
+            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent" v-if="WALLET.voucher.expiry_date">
+              <span class="text-xs font-bold mb-1">Gültigkeit:</span>
+              <div class="text-xs flex flex-col">
+                {{ WALLET.voucher.expiry_date }} Jahre
+              </div>
+            </div>
+
+            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
+              <span class="text-xs font-bold mb-1">Zeitraum:</span>
+              <div
+                v-if="months.length > 0"
+                class="text-xs flex flex-col">
+                <div
+                  v-for="(month, index) in months"
+                  :key="`date-${index}`"
+                >
+                {{ `${getMonth(parseInt(month))}${ (months.length != (index+1)) ? ',' : '' }` }}
+                </div>
+              </div>
+              <span v-else class="text-xs flex flex-col">
+                Jan<br/> Feb<br/> Mär<br/> Apr<br/> Mai<br/> Jun<br/> Jul<br/> Aug<br/> Sep<br/> Okt<br/> Nov<br/> Dez
+              </span>
+            </div>
+
+            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
+              <span class="text-xs font-bold mb-1">Reservierung:</span>
+              <div class="text-xs flex flex-col">
+                {{ WALLET.voucher.data_json && WALLET.voucher.data_json.isReserve ? 'Ja' : 'nein'}}
+              </div>
+            </div>
+
+            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
+              <span class="text-xs font-bold mb-1">Gültig bis:</span>
+              <div class="text-xs flex flex-col" v-if="valid_date">
+                {{ getExpirationDefault(WALLET.voucher.valid_date[WALLET.voucher.valid_date.length - 1].end) }}
+              </div>
+              <div class="text-xs flex flex-col" v-else>
+                {{ getExpirationDefault(WALLET.voucher.created_at) }}
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </template>
   </MainLayout>
@@ -173,6 +238,7 @@
   import Button from '_components/Button'
   import { slider, slideritem } from 'vue-concise-slider'
   import TextAreaField from '_components/Form/TextAreaField'
+  import moment from 'moment'
 
   export default {
     name: 'Vouchers',
@@ -236,6 +302,21 @@
       IS_LOADING()
       {
         return this.$store.getters.IS_LOADING
+      },
+      months() {
+        let filteredMonths = []
+        return this.WALLET.voucher && this.WALLET.voucher.valid_date
+              ? this.WALLET.voucher.valid_date
+                .filter(date => {
+                  let month = date.start.split('-')[1]
+                  if (filteredMonths.indexOf(month) == -1) {
+                    filteredMonths.push(month)
+                    return true
+                  }
+                  return false
+                })
+                .map(date => parseInt(moment(date.start).format('x')))
+              : []
       }
     },
     mounted() {
@@ -267,6 +348,15 @@
       })()
     },
     methods: {
+      getMonth(month) {
+          return moment(+month).format('MMM')
+      },
+      getExpiration(date) {
+        return moment(date).format('DD.MM.YYYY')
+      },
+      getExpirationDefault(date) {
+        return '31.12.' + moment(date).format('YYYY')
+      },
       getCustomVoucher(row) {
         if (!row.order.voucher.data_json) {
           return row.order.voucher;

@@ -211,7 +211,7 @@
               <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
                 <span class="text-xs font-bold mb-1">Gültig bis:</span>
                 <div class="text-xs flex flex-col" v-if="valid_date">
-                  {{ getExpirationDefault(VOUCHER.valid_date[VOUCHER.valid_date.length - 1].end) }}
+                  {{ getExpiration(VOUCHER.valid_date[VOUCHER.valid_date.length - 1].end) }}
                 </div>
                 <div class="text-xs flex flex-col" v-else>
                   {{ getExpirationDefault(VOUCHER.created_at) }}
