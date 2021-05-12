@@ -207,6 +207,16 @@
                   {{ VOUCHER.data_json && VOUCHER.data_json.isReserve ? 'Ja' : 'nein'}}
                 </div>
               </div>
+
+              <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
+                <span class="text-xs font-bold mb-1">Gültig bis:</span>
+                <div class="text-xs flex flex-col" v-if="valid_date">
+                  {{ getExpirationDefault(VOUCHER.valid_date[VOUCHER.valid_date.length - 1].end) }}
+                </div>
+                <div class="text-xs flex flex-col" v-else>
+                  {{ getExpirationDefault(VOUCHER.created_at) }}
+                </div>
+              </div>
             </div>
 
             <router-link
@@ -407,6 +417,12 @@
     methods: {
       getMonth(month) {
           return moment(+month).format('MMM')
+      },
+      getExpiration(date) {
+        return moment(date).format('DD.MM.YYYY')
+      },
+      getExpirationDefault(date) {
+        return '31.12.' + moment(date).format('YYYY')
       },
       formatDate(date)
       {
