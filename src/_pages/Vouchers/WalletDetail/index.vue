@@ -177,11 +177,11 @@
                   v-for="(day, index) in WALLET.voucher.valid_day"
                   :key="`day-${index}`"
                 >
-                  {{ `${day.substring(0,3)}` }}
+                  {{ getDay(day) }}
                 </span>
               </span>
               <span v-else class="text-xs flex flex-col">
-                So<br/> Mo<br/> Di<br/> Mi<br/> Do<br/> Fr<br/> Sa<br/> Feiertag
+                Sonntag<br/> Montag<br/> Dienstag<br/> Mittwoch<br/> Donnerstag<br/> Freitag<br/> Samstag<br/> Feiertag
               </span>
             </div>
 
@@ -222,7 +222,7 @@
                 {{ getExpirationDefault(WALLET.voucher.valid_date[WALLET.voucher.valid_date.length - 1].end) }}
               </div>
               <div class="text-xs flex flex-col" v-else>
-                {{ getExpirationDefault(WALLET.voucher.created_at) }}
+                {{ getExpiration(VOUCHER.order.expiry_date) }}
               </div>
             </div>
           </div>
@@ -348,6 +348,18 @@
       })()
     },
     methods: {
+      getDay(day) {
+        let long_day = {
+          'So': 'Sonntag',
+          'Mo': 'Montag',
+          'Di': 'Dienstag',
+          'Mi': 'Mittwoch',
+          'Do': 'Donnerstag',
+          'Fr': 'Freitag',
+          'Sa': 'Samstag',
+        }
+        return long_day[day]
+      },
       getMonth(month) {
           return moment(+month).format('MMM')
       },
@@ -355,7 +367,7 @@
         return moment(date).format('DD.MM.YYYY')
       },
       getExpirationDefault(date) {
-        return '31.12.' + moment(date).format('YYYY')
+        return '31.12.' + moment(date).add().format('YYYY')
       },
       getCustomVoucher(row) {
         if (!row.order.voucher.data_json) {
