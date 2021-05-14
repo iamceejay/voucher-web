@@ -112,7 +112,7 @@
           <span
             v-if="!voucher.valid_day"
             class="text-2xs opacity-50">
-            am: So, Mo, Di, Mi, Do, Fr, Sa, Feiertag
+            jederzeit zu den Öffnungszeiten
           </span>
           <span
             v-if="months.length > 0"
@@ -127,7 +127,7 @@
                 </span>
               </span>
           </span>
-          <span v-else class="text-2xs opacity-50">
+          <span v-else class="text-2xs opacity-50 hidden">
             im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez
           </span>
           <!-- <span class="text-2xs mt-1">Region:</span>
