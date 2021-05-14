@@ -361,7 +361,7 @@
         return long_day[day]
       },
       getMonth(month) {
-          return moment(+month).format('MMM')
+          return moment(+month).lang("de").format('MMMM')
       },
       getExpiration(date) {
         return moment(date).format('DD.MM.YYYY')
