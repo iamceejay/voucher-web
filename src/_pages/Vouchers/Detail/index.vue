@@ -197,7 +197,7 @@
                   </div>
                 </div>
                 <span v-else class="text-xs flex flex-col">
-                  Jan<br/> Feb<br/> Mär<br/> Apr<br/> Mai<br/> Jun<br/> Jul<br/> Aug<br/> Sep<br/> Okt<br/> Nov<br/> Dez
+                  Januar<br/> Februar<br/> März<br/> April<br/> Mai<br/> Juni<br/> Juli<br/> August<br/> September<br/> Oktober<br/> November<br/> Dezember
                 </span>
               </div>
 
@@ -428,7 +428,7 @@
         return long_day[day]
       },
       getMonth(month) {
-          return moment(+month).format('MMM')
+          return moment(+month).lang("de").format('MMMM')
       },
       getExpiration(date) {
         return moment(date).format('DD.MM.YYYY')
