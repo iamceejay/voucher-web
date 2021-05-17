@@ -323,7 +323,6 @@
             <div v-show="currentTab == 1">
               <div class="bg-white flex flex-row flex-wrap mt-10 px-8 py-5 w-full">
                 <SelectField
-                  v-if="!form.id"
                   id="Gültigkeitsdauer"
                   v-model="form.expiry_date"
                   class="py-1 w-full"
@@ -1026,9 +1025,17 @@
             this.form.valid_day = this.data.valid_day || []
             this.form.category = this.data.voucher_category.id
             this.form.seller = this.data.seller
+            let filteredMonths = []
             this.form.months =  this.data.valid_date
               ? this.data.valid_date
-                .filter(date => date.start.indexOf(moment().format('Y')) != -1)
+                .filter(date => {
+                  let month = date.start.split('-')[1]
+                  if (filteredMonths.indexOf(month) == -1) {
+                    filteredMonths.push(month)
+                    return true
+                  }
+                  return false
+                })
                 .map(date => parseInt(moment(date.start).format('x')))
               : []
 
