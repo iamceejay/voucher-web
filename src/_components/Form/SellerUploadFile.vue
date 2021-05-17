@@ -20,12 +20,24 @@
           class="file-select flex flex-col p-6 w-full mt-2 justify-center items-center rounded-sm border text-center"
         >
           <i class="fa fa-cloud-upload-alt mb-4 text-xl"></i>
-          <span v-if="!isMultiple">
-            {{ value ? 'Ändern' : label }}
-          </span>
-          <span v-else>
-            {{ value ? 'Ändern' : label }}
-          </span>
+          <template v-if="!isMultiple">
+            <template v-if="value">
+              <span>Ändern</span>
+              <span>{{ label }}</span>
+            </template>
+            <template v-else>
+              <span>{{ label }}</span>
+            </template>
+          </template>
+          <template v-else>
+            <template v-if="value">
+              <span>Ändern</span>
+              <span>{{ label }}</span>
+            </template>
+            <template v-else>
+              <span>{{ label }}</span>
+            </template>
+          </template>
           <input
             :id="id"
             ref="inputField"

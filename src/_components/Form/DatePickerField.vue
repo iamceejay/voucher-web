@@ -51,7 +51,7 @@
         default: ''
       }, placeholder: {
         type: String,
-        default: 'YYYY-MM-DD'
+        default: 'JJJJ-MM-TT'
       }, value: {
         type: [Number, String],
         default: null

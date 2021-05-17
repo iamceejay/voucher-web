@@ -199,7 +199,7 @@
 
               <div class="border-t my-8 block w-full"></div>
 
-              <span class="text-sm mb-1">Weitere Bilder die im Gutschein und in der Produktseite abgebildet sind. (Format 4 x 4)</span>
+              <span class="text-sm mb-1">Weitere Bilder die im PDF Format deines Gutscheins angezeigt werden und Kunden weitere Einblicke in dein Unternehmen geben. (Format 4 x 4)</span>
 
               <section class="gap-4 grid grid-cols-3 mt-3">
                 <div>
