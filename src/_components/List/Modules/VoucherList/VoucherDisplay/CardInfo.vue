@@ -88,39 +88,48 @@
 
         <div class="w-1/2 flex flex-col p-5">
           <span class="text-2xs">Einlösbar:</span>
-          <span
-            v-if="voucher.valid_day && voucher.valid_day.length > 0"
-            class="text-2xs opacity-50">
-            am: <span
-                v-for="(day, index) in voucher.valid_day"
-                :key="`day-${index}`"
-              >
-                {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
-              </span>
-          </span>
-          <span v-else class="text-2xs opacity-50">
-            am: So, Mo, Di, Mi, Do, Fr, Sa, Feiertag
-          </span>
-          <span
-            v-if="months.length > 0"
-            class="text-2xs opacity-50">
-            im: <span
-                v-for="(month, index) in months"
-                :key="`month-${index}`"
-
-              >
-                <span v-if="month">
-                  {{ `${getMonth(month)}${ (months.length != (index+1)) ? ',' : '' }` }}
+          <template
+            v-if="!voucher.valid_day && !voucher.valid_date">
+            <span
+              class="text-2xs opacity-50">
+              jederzeit zu den Öffnungszeiten
+            </span>
+          </template>
+          <template v-else>
+            <span
+              v-if="voucher.valid_day && voucher.valid_day.length > 0"
+              class="text-2xs opacity-50">
+              am: <span
+                  v-for="(day, index) in voucher.valid_day"
+                  :key="`day-${index}`"
+                >
+                  {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
                 </span>
-              </span>
-          </span>
-          <span v-else class="text-2xs opacity-50">
-            im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez
-          </span>
-          <span class="text-2xs mt-1">Region:</span>
-          <span class="text-2xs opacity-50">
-            {{ voucher.seller.company.region || '' }}
-          </span>
+            </span>
+            <span v-else class="text-2xs opacity-50">
+              am: So, Mo, Di, Mi, Do, Fr, Sa, Feiertag
+            </span>
+            <span
+              v-if="months.length > 0"
+              class="text-2xs opacity-50">
+              im: <span
+                  v-for="(month, index) in months"
+                  :key="`month-${index}`"
+
+                >
+                  <span v-if="month">
+                    {{ `${getMonth(month)}${ (months.length != (index+1)) ? ',' : '' }` }}
+                  </span>
+                </span>
+            </span>
+            <span v-else class="text-2xs opacity-50">
+              im: Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez
+            </span>
+            <span class="text-2xs mt-1">Region:</span>
+            <span class="text-2xs opacity-50">
+              {{ voucher.seller.company.region || '' }}
+            </span>
+          </template>
         </div>
       </div>
       <!-- <div class="w-full flex flex-row">
