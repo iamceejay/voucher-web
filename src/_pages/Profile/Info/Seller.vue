@@ -104,8 +104,8 @@
                             ref="header_logo"
                             :enableOrientation="true"
                             :enableResize="false"
-                            :boundary="{ width: 250, height: 141 }"
-                            :viewport="{ width: 250, height: 141, 'type':'square' }"
+                            :boundary="{ width: 384, height: 216 }"
+                            :viewport="{ width: 384, height: 216, 'type':'square' }"
                             @update="update('header_logo', 'header_logo')"
                           />
                         </section>
@@ -762,6 +762,11 @@
           // and set the result to this.cropped which is being
           // used to display the result above.
           let size = { width: 250, height: 100};
+
+          if(form == 'header_logo') {
+            size = { width: 1920, height: 1080};
+          }
+
           let options = {
               type: 'base64',
               format: 'jpeg',
