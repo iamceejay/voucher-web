@@ -193,9 +193,9 @@ export default {
       }
 
       row.order.voucher.data_json = row.data_json;
-      row.order.voucher.data_json.price_hidden = row.price_hidden
-        ? true
-        : false;
+      // row.order.voucher.data_json.price_hidden = row.price_hidden
+      //   ? true
+      //   : false;
       row.order.voucher.data_json.seller = row.order.voucher.seller
 
       return row.order.voucher.data_json;

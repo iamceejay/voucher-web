@@ -708,6 +708,7 @@
           seller: null,
           months: [],
           isReserve: false,
+          price_hidden: false,
         },
         week: getWeek,
         background_image: null,

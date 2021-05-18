@@ -271,7 +271,6 @@
           this.form.image_2_update = true
           this.form.image_3_update = true
           this.form.note = this.data.note
-          this.form.price_hidden = this.data.price_hidden ? true : false
           this.default_background = this.form.background_image
           this.selected_template = this.data.template_id
           this.form.seller = this.data.order.voucher.seller

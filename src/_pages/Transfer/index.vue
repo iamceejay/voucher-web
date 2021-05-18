@@ -105,7 +105,7 @@
         }
 
         row.order.voucher.data_json = row.data_json;
-        row.order.voucher.data_json.price_hidden = row.price_hidden ? true : false
+        // row.order.voucher.data_json.price_hidden = row.price_hidden ? true : false
         return row.order.voucher.data_json
       },
     }
