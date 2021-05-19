@@ -518,7 +518,6 @@
                     </div>
                     <div class="mt-3 text-sm">
                       <a
-                        v-if="form.valid_date.length < 4"
                         href="javascript:void(0)"
                         @click="onActionDate('add')"
                       >
