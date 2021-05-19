@@ -72,6 +72,7 @@
                 v-model="form.description"
                 class="w-full"
                 label="Kurzbeschreibung"
+                tip="Füge hier eine kurze und aussagekräftige Beschreibung der Gutscheinleistungen an. Maximal 120 Zeichen."
                 rules="required|max:120"
               />
 
@@ -80,12 +81,21 @@
                 v-model="form.long_description"
                 class="w-full"
                 label="Ausführliche Beschreibung"
+                tip="Hier hast du die Möglichkeit deine im Gutschein angebotene Leistung detailliert zu beschreiben. Dieser Text erscheint als Zusatzinfo zu deinem Gutschein."
                 rules="required|max:500"
                 rows="5"
               />
 
               <div class="flex flex-col w-full">
-                <div class="text-sm mb-2">Hintergrundbild</div>
+                <div class="text-sm mb-2">
+                  Hintergrundbild
+                  <svg
+                    v-tippy
+                    class="icon h-4 w-4 mr-2 inline"
+                    content="Lade ein Bild hoch und klicke darauf um es zu verschieben. Mit dem darunterliegenden Balken hast du die Möglichkeit das Bild zu vergrößern.">
+                    <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                  </svg>
+                </div>
                 <label class="file input-field px-3 py-2 rounded-sm text-xs mb-3" style="background-color: #F7F7F7">
                     <i class="fa fa-cloud-upload-alt mr-1"></i> Bild hochladen
                     <input
@@ -109,7 +119,15 @@
                 <!-- the result -->
               </div>
 
-              <span class="font-semibold text-sm mb-1">Hintergrundfarbe</span>
+              <span class="font-semibold text-sm mb-1">
+                Hintergrundfarbe
+                <svg
+                  v-tippy
+                  class="icon h-4 w-4 mr-2 inline"
+                  content="Hier hast du die Möglichkeit die Hintergrundfarbe der Kurzbeschreibung & Kopf- und Fußzeile in deiner Wunschfarbe anzupassen. Wir empfehlen die original Farben deiner Webseite zu verwenden zb. HEX Code.">
+                  <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                </svg>
+              </span>
               <colorpicker
                 v-if="AUTH_USER.role.name === 'seller'"
                 v-model="form.background_description_color"
@@ -159,7 +177,15 @@
               </div> -->
               <div class="border-t my-8 block w-full"></div>
 
-              <span class="font-semibold text-sm mb-1">Schriftfarbe</span>
+              <span class="font-semibold text-sm mb-1">
+                Schriftfarbe
+                <svg
+                  v-tippy
+                  class="icon h-4 w-4 mr-2 inline"
+                  content="Hier kannst du die Schriftarten in weiß oder schwarz wählen.">
+                  <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                </svg>
+              </span>
 
               <div v-if="AUTH_USER.role.name === 'seller'" class="grid grid-cols-3 items-end relative w-full mb-1">
                 <label class="text-sm col-span-2">Kurzbeschreibung</label>
@@ -334,7 +360,15 @@
               </div>
 
               <div class="bg-white flex flex-row flex-wrap w-full mt-3">
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Hauptkategorie</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">
+                  Hauptkategorie
+                  <svg
+                    v-tippy
+                    class="icon h-4 w-4 mr-2 inline"
+                    content="Wähle genau eine Hauptkategorie und Unterkategorie, damit der Kunde deinen Gutschein leichter finden kann.">
+                    <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                  </svg>
+                </span>
                 <div class="px-5 py-3 flex flex-col ">
                   <ValidationProvider rules="required" name="Hauptkategorie" v-slot="{ errors }">
                     <label class="flex items-center mb-1" v-for="(category, index) of CATEGORIES" :key="index">
@@ -358,7 +392,15 @@
                 </div>
               </div>
               <div class="bg-white flex flex-row flex-wrap w-full mt-3" >
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Zielgruppe</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">
+                  Zielgruppe
+                  <svg
+                    v-tippy
+                    class="icon h-4 w-4 mr-2 inline"
+                    content="Um deinen Gutschein gezielt bewerben zu können wähle genau eine passende Zielgruppe.">
+                    <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                  </svg>
+                </span>
                 <div class="px-5 py-3 flex flex-col ">
                   <ValidationProvider rules="required" v-slot="{ errors }" name="Zielgruppe">
                     <label class="flex items-center mb-1" v-for="(target, index) of target_group" :key="index">
@@ -370,7 +412,15 @@
                 </div>
               </div>
               <div class="bg-white flex flex-row flex-wrap w-full mt-3">
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Wetter/Saison</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">
+                  Wetter/Saison
+                  <svg
+                    v-tippy
+                    class="icon h-4 w-4 mr-2 inline"
+                    content="Wähle eine Wetterbedingung bzw. zu welcher Jahreszeit der Gutschein zu empfehlen ist.">
+                    <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                  </svg>
+                </span>
                 <div class="px-5 py-3 flex flex-col ">
                   <ValidationProvider rules="required" v-slot="{ errors }" name="Wetter/Saison">
                     <label class="flex items-center mb-1" v-for="(season, index) of seasons" :key="index">
@@ -399,7 +449,15 @@
               </div>
 
               <div class="bg-white flex flex-row flex-wrap w-full mt-3">
-                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Nur an gewissen Tagen und Monaten gültig</span>
+                <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">
+                  Nur an gewissen Tagen und Monaten gültig
+                  <svg
+                    v-tippy
+                    class="icon h-4 w-4 mr-2 inline"
+                    content="Falls dein Gutschein nur an bestimmten Tagen oder Monaten gültig sein soll, dann wähle hier Ja und markiere die gültigen Wochentage und füge gültige Monate hinzu. Wenn der Gutschein während der Gültigkeit immer eingelöst werden kann, dann lass den Button einfach auf Nein.">
+                    <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                  </svg>
+                </span>
                 <div class="py-3">
                   <div class="gap-4 grid items-end mb-1 relative w-full px-5" style="grid-template-columns: auto 1fr;">
                     <label class="text-sm">nein/ ja</label>
@@ -476,7 +534,15 @@
             <!-- Preis & MwSt. -->
             <div v-show="currentTab == 2" class="bg-white flex flex-row flex-wrap w-full p-5 mt-10">
               <div class="grid items-end relative w-full mb-1" style="grid-template-columns: auto 1fr;">
-                <label class="text-sm col-span-2 font-semibold">Gutscheinart</label>
+                <label class="text-sm col-span-2 font-semibold">
+                  Gutscheinart
+                  <svg
+                    v-tippy
+                    class="icon h-4 w-4 mr-2 inline"
+                    content="Wähle hier aus, ob der Gutschein ein Produktgutschein ist, also zu einem Fixpreis für bestimmte Leistungen/Produkte angeboten wird, oder ob der Gutschein ein Wertgutschein ist, bei dem der Kunde zwischen deinen zwei definierten Werten den Betrag frei bestimmen kann">
+                    <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                  </svg>
+                </label>
                 <span>
                   <toggle-button
                     :color="{checked: '#000', unchecked: '#fff', disabled: '#CCCCCC'}"
@@ -534,7 +600,15 @@
                 >
                   <template #label_>
                     <div class="flex flex-row">
-                      <span class="text-sm font-semibold">MwSt.</span>
+                      <span class="text-sm font-semibold">
+                        MwSt.
+                        <svg
+                          v-tippy
+                          class="icon h-4 w-4 mr-2 inline"
+                          content="Wähle hier den passenden Steuersatz aus, damit der Kunde automatisch von dir die korrekte Rechnung bekommen kann. Falls du Fragen zu den Steuersätzen hast, dann schau dir bitte unsere Hilfevideos unter verkaufen.epasnets.com an.">
+                          <use xlink:href="/icons/sprite.svg#info-circle-fill" />
+                        </svg>
+                      </span>
                     </div>
                   </template>
                   <template #note_>

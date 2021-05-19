@@ -8,6 +8,7 @@
         <Header5
           v-if="label != ''"
           :label="label"
+          :tip="tip"
         />
         <textarea
           :id="id"
@@ -60,6 +61,9 @@
           return []
         }
       }, rules: {
+        type: String,
+        default: ''
+      }, tip: {
         type: String,
         default: ''
       },

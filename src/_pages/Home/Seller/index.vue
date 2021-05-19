@@ -12,7 +12,10 @@
             <h2>Auszahlung gesamt</h2>
             <p class="text-sm font-semibold mb-4">{{ $helpers.convertCurrency(wallet.total_seller_earnings) }}</p>
             <p class="text-xs text-custom-gray-2 flex items-center">
-              <svg class="icon h-4 w-4 mr-2">
+              <svg
+                v-tippy
+                class="icon h-4 w-4 mr-2"
+                content="Teile uns hier deinen Firmennamen mit. Dieser Name wird auch auf der Rechnung bei einem Gutscheinverkauf angeführt.">
                 <use xlink:href="/icons/sprite.svg#info-circle-fill" />
               </svg>
               Kommission
