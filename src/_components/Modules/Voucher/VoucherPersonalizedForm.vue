@@ -34,21 +34,6 @@
                     <span class="file-custom"></span>
                   </label>
                 </slideritem>
-                <slideritem v-for="(tem, index) in TEMPLATES" :key="index">
-                  <div
-                    class="w-full h-full"
-                    :style="{ backgroundImage: 'url(' + api_base_url + '/storage/' + tem.image + ')',
-                      backgroundColor: 'white'
-                    }"
-                    style="background-size: cover"
-                  ></div>
-                  <span
-                    class="absolute bg-white bottom-0 flex h-6 items-center justify-center mb-2 mr-2 right-0 rounded-full text-peach text-xs w-6 cursor-pointer"
-                    @click="onSelectTemplate(api_base_url + '/storage/' + tem.image, tem.id)"
-                  >
-                    <i class="fa fa-check" v-if="selected_template == tem.id"></i>
-                  </span>
-                </slideritem>
                 <slideritem >
                   <div
                     class="w-full h-full"
@@ -62,6 +47,21 @@
                     @click="onSetDefault()"
                   >
                     <i class="fa fa-check" v-if="selected_template == 'default'"></i>
+                  </span>
+                </slideritem>
+                <slideritem v-for="(tem, index) in TEMPLATES" :key="index">
+                  <div
+                    class="w-full h-full"
+                    :style="{ backgroundImage: 'url(' + api_base_url + '/storage/' + tem.image + ')',
+                      backgroundColor: 'white'
+                    }"
+                    style="background-size: cover"
+                  ></div>
+                  <span
+                    class="absolute bg-white bottom-0 flex h-6 items-center justify-center mb-2 mr-2 right-0 rounded-full text-peach text-xs w-6 cursor-pointer"
+                    @click="onSelectTemplate(api_base_url + '/storage/' + tem.image, tem.id)"
+                  >
+                    <i class="fa fa-check" v-if="selected_template == tem.id"></i>
                   </span>
                 </slideritem>
                 <!-- Customizable loading -->
