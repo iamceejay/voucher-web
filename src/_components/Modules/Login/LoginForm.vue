@@ -122,7 +122,7 @@
           await this.setLoginAuth(token, user)
           this.submitting = false
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          window.location = '/home'
+          this.$router.go('/home')
         } catch (err) {
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
           this.submitting = false
@@ -191,7 +191,7 @@
                 const { token, user } = await this.$store.dispatch('LOGIN', loginForm)
                 this.setLoginAuth(token, user)
                 localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-                window.location = '/home'
+                this.$router.go('/home')
               } catch (error) {
                 await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
                 let form = {
@@ -212,7 +212,7 @@
                 const { token, user } = await this.$store.dispatch('ADD_USER', form)
                 this.setLoginAuth(token, user)
                 localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-                window.location = '/home'
+                this.$router.go('/home')
               }
           });
       },
@@ -249,7 +249,7 @@
           const { token, user } = await this.$store.dispatch('LOGIN', loginForm)
           this.setLoginAuth(token, user)
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          window.location = '/home'
+          this.$router.go('/home')
         } catch (error) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           let form = {
@@ -270,7 +270,7 @@
           const { token, user } = await this.$store.dispatch('ADD_USER', form)
           this.setLoginAuth(token, user)
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          window.location = '/home'
+          this.$router.go('/home')
         }
       },
       onFailure(error) {
