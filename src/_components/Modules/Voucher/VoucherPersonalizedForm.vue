@@ -52,7 +52,7 @@
                 <slideritem >
                   <div
                     class="w-full h-full"
-                    :style="{ backgroundImage: 'url(' + form.background_image + ')',
+                    :style="{ backgroundImage: 'url(' + onSetCustomImage('set', form.background_image) + ')',
                       backgroundColor: 'white'
                     }"
                     style="background-size: cover"
@@ -188,8 +188,8 @@
         options: {
           currentPage: 0,
           tracking: false,
-          infinite: 2,
-          slidesToScroll: 2,
+          infinite: 3,
+          slidesToScroll: 3,
         },
         selected_template: null,
         default_background: ''
