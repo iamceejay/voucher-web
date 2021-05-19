@@ -96,7 +96,12 @@
                   v-for="(day, index) in voucher.valid_day"
                   :key="`day-${index}`"
                 >
-                  {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
+                  <span v-if="day == 'Feiertag'">
+                    {{ `${day}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
+                  </span>
+                  <span v-else>
+                    {{ `${day.substring(0,3)}${ (voucher.valid_day.length != (index+1)) ? ',' : '' }` }}
+                  </span>
                 </span>
           </span>
           <span v-else class="text-2xs opacity-50">
@@ -119,7 +124,7 @@
           </span>
           <span class="text-2xs mt-1">Region:</span>
           <span class="text-2xs opacity-50">
-            <!-- {{ voucher.seller.company.region || '' }} -->
+            {{ voucher.seller.company.region || '' }}
           </span>
         </div>
       </div>
