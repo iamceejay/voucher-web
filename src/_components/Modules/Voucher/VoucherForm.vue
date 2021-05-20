@@ -834,6 +834,9 @@
           this.form.valid_date = []
           this.form.months = []
         }
+      },
+      'form.category': function(newVal, oldVal){
+        this.$forceUpdate()
       }
     },
     beforeMount() {
