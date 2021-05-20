@@ -379,11 +379,11 @@
                   </ValidationProvider>
                 </div>
               </div>
-              <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-if="form.category && SUBCATEGORIES && SUBCATEGORIES.length">
+              <div class="bg-white flex flex-row flex-wrap w-full mt-3" v-if="form.category && subcategories && subcategories.length">
                 <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Unterkategorie</span>
                 <div class="px-5 py-3 flex flex-col">
                   <ValidationProvider rules="required" v-slot="{ errors }" name="Unterkategorie">
-                    <label class="flex items-center mb-1" v-for="(category, index) of SUBCATEGORIES" :key="`subcategory-${form.category}-${index}`">
+                    <label class="flex items-center mb-1" v-for="(category, index) of subcategories" :key="`subcategory-${form.category}-${index}`">
                       <input type="radio" name="sub-category" :value="category.id" v-model="form.subcategory">
                       <span class="text-xs ml-1">{{ category.name }}</span>
                     </label>
@@ -726,6 +726,7 @@
         isSubmitted: false,
         currentTab: 0,
         isWithLimit: false,
+        subcategories: [],
         temp_valid_day: [],
         temp_valid_date: [],
         temp_months: [],
@@ -836,6 +837,8 @@
         }
       },
       'form.category': function(newVal, oldVal){
+        let selectCategory = this.CATEGORIES.find(category => category.id == newVal)
+        this.subcategories = selectCategory.subcategories
         this.$forceUpdate()
       }
     },
