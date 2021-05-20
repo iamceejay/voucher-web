@@ -372,7 +372,7 @@
                 <div class="px-5 py-3 flex flex-col ">
                   <ValidationProvider rules="required" name="Hauptkategorie" v-slot="{ errors }">
                     <label class="flex items-center mb-1" v-for="(category, index) of CATEGORIES" :key="index">
-                      <input name="category" type="radio" :value="category.id" v-model="form.category">
+                      <input name="category" type="radio" :value="category.id" v-model="form.category" @click="handleSetSubcategories(form.category)">
                       <span class="text-xs ml-1">{{ category.name }}</span>
                     </label>
                     <span class="text-xs text-red-500">{{ errors[0] }}</span>
@@ -820,6 +820,7 @@
     watch: {
       data(newVal)
       {
+        console.log('data')
         this.onSetForm()
       },
       isWithLimit(val) {
@@ -857,6 +858,12 @@
       document.body.classList.add('voucher-builder-page')
     },
     methods: {
+      handleSetSubcategories(id) {
+        this.subcategories = []
+        let selectCategory = this.CATEGORIES.find(category => category.id == id)
+        this.subcategories = selectCategory.subcategories
+        this.$forceUpdate()
+      },
       async onSubmit()
       {
         try {
