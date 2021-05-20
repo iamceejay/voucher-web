@@ -383,7 +383,7 @@
                 <span class="border-b font-semibold pb-3 pt-5 px-5 text-sm w-full">Unterkategorie</span>
                 <div class="px-5 py-3 flex flex-col">
                   <ValidationProvider rules="required" v-slot="{ errors }" name="Unterkategorie">
-                    <label class="flex items-center mb-1" v-for="(category, index) of SUBCATEGORIES" :key="`subcategory-${index}`">
+                    <label class="flex items-center mb-1" v-for="(category, index) of SUBCATEGORIES" :key="`subcategory-${form.category}-${index}`">
                       <input type="radio" name="sub-category" :value="category.id" v-model="form.subcategory">
                       <span class="text-xs ml-1">{{ category.name }}</span>
                     </label>
@@ -791,8 +791,8 @@
         valid_date_start: null,
         valid_date_end: null,
         valid_date: [],
-        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer', 'Senioren'],
-        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter']
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer', 'Senioren', 'Alle'],
+        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter', 'Immer']
       }
     },
     computed: {
