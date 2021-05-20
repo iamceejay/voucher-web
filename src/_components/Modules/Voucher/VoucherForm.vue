@@ -372,7 +372,7 @@
                 <div class="px-5 py-3 flex flex-col ">
                   <ValidationProvider rules="required" name="Hauptkategorie" v-slot="{ errors }">
                     <label class="flex items-center mb-1" v-for="(category, index) of CATEGORIES" :key="index">
-                      <input name="category" type="radio" :value="category.id" v-model="form.category" @click="handleSetSubcategories(form.category)">
+                      <input name="category" type="radio" :value="category.id" v-model="form.category" @click="handleSetSubcategories(category.id)">
                       <span class="text-xs ml-1">{{ category.name }}</span>
                     </label>
                     <span class="text-xs text-red-500">{{ errors[0] }}</span>
@@ -836,12 +836,6 @@
           this.form.valid_date = []
           this.form.months = []
         }
-      },
-      'form.category': function(newVal, oldVal){
-        this.subcategories = []
-        let selectCategory = this.CATEGORIES.find(category => category.id == newVal)
-        this.subcategories = selectCategory.subcategories
-        this.$forceUpdate()
       }
     },
     beforeMount() {
@@ -859,10 +853,12 @@
     },
     methods: {
       handleSetSubcategories(id) {
-        this.subcategories = []
-        let selectCategory = this.CATEGORIES.find(category => category.id == id)
-        this.subcategories = selectCategory.subcategories
-        this.$forceUpdate()
+        this.$nextTick(() => {
+          console.log('click')
+          this.subcategories = []
+          let selectCategory = this.CATEGORIES.find(category => category.id == id)
+          this.subcategories = selectCategory.subcategories
+        })
       },
       async onSubmit()
       {
@@ -1113,6 +1109,9 @@
             this.form.valid_day = this.data.valid_day || []
             this.form.category = this.data.voucher_category.id
             this.form.seller = this.data.seller
+            this.subcategories = []
+            let selectCategory = this.CATEGORIES.find(category => category.id == this.data.voucher_category.id)
+            this.subcategories = selectCategory.subcategories
             let filteredMonths = []
             this.form.months =  this.data.valid_date
               ? this.data.valid_date
