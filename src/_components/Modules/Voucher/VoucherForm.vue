@@ -837,6 +837,7 @@
         }
       },
       'form.category': function(newVal, oldVal){
+        this.subcategories = []
         let selectCategory = this.CATEGORIES.find(category => category.id == newVal)
         this.subcategories = selectCategory.subcategories
         this.$forceUpdate()
