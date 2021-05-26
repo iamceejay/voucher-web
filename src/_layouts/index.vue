@@ -120,7 +120,8 @@
         <div class="w-full">
           <div
             id="infinite-scroll"
-            class="flex flex-col h-full w-full m-c pt-10"
+            class="flex flex-col h-full w-full m-c"
+            :class="AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name !== 'user' ? 'pt-28 lg:pt-10' : 'pt-10'"
           >
             <BackBtn class="px-8" :title="title" v-if="showBackButton" />
             <slot name="content" />

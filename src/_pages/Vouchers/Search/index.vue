@@ -229,8 +229,8 @@
       return {
         search: '',
         showFilter: false,
-        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer', 'Senioren'],
-        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter'],
+        target_group: ['Paare', 'Freunde', 'Kinder', 'Frauen', 'Männer', 'Senioren', 'Alle'],
+        seasons: ['Sommer', 'Winter', 'Schönwetter', 'Schlechtwetter', 'Immer'],
         params: {
           keyword: '',
           page: 1,
