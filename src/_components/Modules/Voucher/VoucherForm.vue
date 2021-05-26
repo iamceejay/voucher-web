@@ -1,6 +1,6 @@
 <template>
   <ValidationObserver ref="observer" tag="form"  @submit.prevent="onSubmit()">
-      <div class="border-b border-gray-400 flex items-center justify-between pb-5 pt-10 lg:pt-0">
+      <div class="border-b border-gray-400 flex items-center justify-between pb-5">
         <span class="text-xl font-medium">Gutschein erstellen</span>
         <button type="submit"  class="bg-peach px-5 py-3 rounded-md text-sm text-white">Speichern</button>
       </div>
