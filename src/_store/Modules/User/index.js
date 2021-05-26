@@ -46,6 +46,15 @@ export default {
         throw err
       }
     },
+    async FETCH_USER_STIPE_STATUS()
+    {
+      try {
+        const { data } = await get(`${prefix}/stipe-status`)
+        return data
+      } catch (err) {
+        throw false
+      }
+    },
     async ADD_USER( { commit, state }, payload )
     {
       try {

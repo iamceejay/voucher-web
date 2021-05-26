@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="bg-peach p-6 mb-10" v-if="!AUTH_USER.data.is_payouts_enabled">
+      <div class="bg-peach p-6 mb-10" v-if="!isPayoutEnabled">
         <p class="text-white text-sm">Du musst in <a class="underline" href="/profile-info">Profil &amp; Einstellungen</a> unter "Überprüfung" noch Dokumente hochladen, damit die Auszahlung erfolgen kann.</p>
       </div>
     </div>
@@ -78,6 +78,7 @@
           status: 'completed',
           with_stat: true,
         },
+        isPayoutEnabled: false
       }
     },
     computed: {
@@ -94,7 +95,10 @@
       (async() => {
         try {
           this.params.seller_id = this.AUTH_USER.data.id
+
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
+          const data = await this.$store.dispatch('FETCH_USER_STIPE_STATUS')
+          this.isPayoutEnabled = data.isPayoutEnabled
           await this.$store.commit('SET_WALLETS', [])
           await this.onFetchWallets()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
