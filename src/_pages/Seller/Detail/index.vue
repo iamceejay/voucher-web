@@ -108,7 +108,7 @@
       },
       VOUCHERS()
       {
-        return this.$store.getters.VOUCHERS
+        return this.$store.getters.SELLER_VOUCHERS
       },
       USER()
       {
@@ -125,7 +125,7 @@
       (async() => {
         try {
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
-          await this.$store.commit('SET_VOUCHERS', [])
+          await this.$store.commit('SET_SELLER_VOUCHERS', [])
           await this.onFetchUser()
           await this.onFetchVouchers()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
@@ -158,7 +158,8 @@
       {
         try {
           await this.$store.dispatch('FETCH_VOUCHERS', {
-            seller_id: this.$route.params.id
+            seller_id: this.$route.params.id,
+            isSeller: true
           })
         } catch (err) {
           console.log('err', err)
