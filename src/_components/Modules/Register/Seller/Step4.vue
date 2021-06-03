@@ -31,7 +31,7 @@
               Ich akzeptiere die
               <a
                 class="text-peach underline"
-                href="https://verkaufen.epasnets.com/datenschutz"
+                href="https://about.epasnets.com/datenschutz/"
                 target="_blank"
               >
                 Datenschutzerklärung.
@@ -51,7 +51,7 @@
               Ich akzeptiere die
               <a
                 class="text-peach underline"
-                href="https://verkaufen.epasnets.com/agb"
+                href="https://about.epasnets.com/agb/"
                 target="_blank"
               >
                 Nutzungsbedingungen.

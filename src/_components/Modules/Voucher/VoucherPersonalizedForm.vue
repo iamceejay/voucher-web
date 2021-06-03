@@ -12,6 +12,7 @@
           :order="data.order"
           :userVoucher="userVoucher"
           :isFlippable="false"
+          :isBought="true"
         />
       </div>
       <div class="w-full flex flex-col mb-10" style="max-width: 368px">

@@ -90,7 +90,7 @@
                       type="file"
                       id="file"
                       accept="image/*"
-                      aria-label="File browser example"
+                      aria-label="File browser"
                       @change="(e) => croppie(e, 'croppieRef')"/>
                   <span class="file-custom"></span>
                 </label>

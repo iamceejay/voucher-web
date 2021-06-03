@@ -32,6 +32,7 @@
         :withQR="withQR"
         :listId="listId"
         :cardId="cardId"
+        :isBought="isBought"
         @onFlip="onFlip()"
       />
       <CardAction
@@ -99,6 +100,10 @@
       }, withQR: {
         type: Boolean,
         default: true
+      },
+      isBought: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

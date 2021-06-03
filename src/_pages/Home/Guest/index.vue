@@ -60,7 +60,7 @@
             class="pl-4 sm:px-0"
           >
             <img
-              src="@/_assets/img/placeholder-400px.jpg"
+              :src="'/images/region-' + (index + 1) + '.jpg'"
               class="shadow rounded-lg mb-2"
             />
             <p class="text-sm">{{ region.label }}</p>
