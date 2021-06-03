@@ -177,11 +177,11 @@
           } else {
             alert("User cancelled login or did not fully authorize.");
           }
-        }, {scope: 'public_profile,email,user_location'});
+        }, {scope: 'public_profile,email'});
         return false;
       },
       async sendUserInfo() {
-          await window.FB.api('/me', {fields: 'last_name,first_name,email,hometown,location'}, async (response) => {
+          await window.FB.api('/me', {fields: 'last_name,first_name,email'}, async (response) => {
               try {
                 await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
                 let loginForm = {
@@ -191,7 +191,8 @@
                 const { token, user } = await this.$store.dispatch('LOGIN', loginForm)
                 this.setLoginAuth(token, user)
                 localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-                this.$router.go('/home')
+                //this.$router.go('/home')
+                window.location.reload()
               } catch (error) {
                 await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
                 let form = {
@@ -212,14 +213,15 @@
                 const { token, user } = await this.$store.dispatch('ADD_USER', form)
                 this.setLoginAuth(token, user)
                 localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-                this.$router.go('/home')
+                //this.$router.go('/home')
+                window.location.reload()
               }
           });
       },
       async initFacebook() {
         window.fbAsyncInit = function() {
           window.FB.init({
-            appId: "171835298011899", //You will need to change this
+            appId: "176924830908211", //You will need to change this
             cookie: true, // This is important, it's not enabled by default
             version: "v2.10"
           });
@@ -249,7 +251,8 @@
           const { token, user } = await this.$store.dispatch('LOGIN', loginForm)
           this.setLoginAuth(token, user)
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          this.$router.go('/home')
+          // this.$router.go('/home')
+          window.location.reload()
         } catch (error) {
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           let form = {
@@ -270,7 +273,8 @@
           const { token, user } = await this.$store.dispatch('ADD_USER', form)
           this.setLoginAuth(token, user)
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          this.$router.go('/home')
+          // this.$router.go('/home')
+          window.location.reload()
         }
       },
       onFailure(error) {

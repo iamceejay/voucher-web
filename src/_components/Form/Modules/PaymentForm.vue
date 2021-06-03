@@ -25,7 +25,7 @@
           Sofortüberweisung
         </RadioInputField>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col hidden">
         <RadioInputField
           id="googlepay_payment_type"
           v-model="payment_type"

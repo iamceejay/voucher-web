@@ -243,6 +243,10 @@
       }, withQR: {
         type: Boolean,
         default: true
+      },
+      isBought: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -263,16 +267,20 @@
             return this.$helpers.convertCurrency(this.order ? this.order.voucher.qty_val : this.voucher.qty_val )
           }
         } else {
-          if (['orders'].indexOf(this.$route.name) != -1) {
-            return this.$helpers.convertCurrency(this.order.total_value)
-          }
-          if (['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) != -1) {
+          if(this.isBought) {
             return this.$helpers.convertCurrency(this.order.value)
+          } else {
+            if (['orders'].indexOf(this.$route.name) != -1) {
+              return this.$helpers.convertCurrency(this.order.total_value)
+            }
+            if (['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) != -1) {
+              return this.$helpers.convertCurrency(this.order.value)
+            }
+            return `${this.$helpers.convertCurrency(this.voucher.min || this.voucher.val_min).replace('€', '')}
+              ${['vouchers-detail', 'cart'].indexOf(this.$route.name) != -1
+                ? ' - ' + this.$helpers.convertCurrency(this.voucher.max || this.voucher.val_max)
+                : ''}`
           }
-          return `${this.$helpers.convertCurrency(this.voucher.min || this.voucher.val_min).replace('€', '')}
-            ${['vouchers-detail', 'cart'].indexOf(this.$route.name) != -1
-              ? ' - ' + this.$helpers.convertCurrency(this.voucher.max || this.voucher.val_max)
-              : ''}`
         }
       },
       months() {

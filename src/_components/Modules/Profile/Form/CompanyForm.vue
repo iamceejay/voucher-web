@@ -49,7 +49,7 @@
             <input
               type="file"
               accept="image/*"
-              aria-label="File browser example"
+              aria-label="File browser"
               @change="(e) => croppie(e, 'logo')"
               />
             <span class="file-custom"></span>

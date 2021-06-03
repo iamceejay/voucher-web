@@ -4,13 +4,14 @@
   </div> -->
   <div class="footer py-8 md:py-10 bg-white">
     <ul class="footer__social">
-      <li><i class="footer__social-icon fab fa-instagram"></i></li>
-      <li><i class="footer__social-icon fab fa-facebook-square"></i></li>
+      <li class="px-3"><i class="footer__social-icon fab fa-instagram"></i></li>
+      <li class="px-3"><i class="footer__social-icon fab fa-facebook-square"></i></li>
     </ul>
     <ul class="footer__menu">
       <li
         v-for="(menuItem, index) in menus"
-        :key="`footer__menu-${index}`">
+        :key="`footer__menu-${index}`"
+        class="px-3">
         <a class="footer__menu-item"
           :href="menuItem.link">
           <span v-html="menuItem.title"></span>
@@ -20,7 +21,8 @@
     <ul class="footer__payments w-11/12 md:w-7/12">
       <li
         v-for="(paymentMethod, index) in paymentMethods"
-        :key="`footer__payments-${index}`">
+        :key="`footer__payments-${index}`"
+        class="px-3">
         <a class="footer__payments-item"
           :href="paymentMethod.link">
           <img class="h-10 w-auto" :src="paymentMethod.icon"/>
@@ -44,7 +46,7 @@
         menus: [
           {
             title: "Anmelden/Registrieren",
-            link: "https://stagingfront.epasnets.com/login"
+            link: "https://www.epasnets.com/login"
           },
           {
             title: "Für Verkäufer",
@@ -72,7 +74,7 @@
           },
           {
             title: "Impressum",
-            route: "https://about.epasnets.com/impressum/"
+            link: "https://about.epasnets.com/impressum/"
           }
         ],
         paymentMethods: [
@@ -129,7 +131,7 @@
   }
 
   :is(.footer__social, .footer__menu, .footer__payments) li {
-    @apply px-2;
+    @apply px-3;
   }
 
   .footer__social-icon, .footer__payments-icon {
