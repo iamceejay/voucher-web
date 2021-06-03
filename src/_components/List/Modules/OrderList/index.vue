@@ -45,6 +45,8 @@
               <i class="fa fa-file-download mr-4 text-peach text-xl"></i>
               Rechnung
             </button>
+
+            <span class="text-xs mt-6" v-if="row.reversed">storniert</span>
           </div>
         </div>
         <!-- <div v-if="data.length <= 0" class="py-2 text-lg">
