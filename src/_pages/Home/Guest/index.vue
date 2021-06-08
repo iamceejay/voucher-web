@@ -89,7 +89,7 @@
         <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
         <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
           <div
-            v-for="(company, index) in companies"
+            v-for="(company, index) in companies.slice(0, 8)"
             :key="`company-${index}`"
             class="flex flex-col p-3 slider-item-custom text-center mb-6"
           >
@@ -181,7 +181,6 @@
   import { get } from '_helpers/ApiService'
   import VueSlickCarousel from 'vue-slick-carousel'
   import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-  // optional style for arrows & dots
   import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
   export default {
@@ -378,7 +377,7 @@
           let { data } = await get('company/all')
           this.companies = data.companies
           await this.onFetchNewestVouchers()
-          await this.onFetchFeaturedVouchers()
+          // await this.onFetchFeaturedVouchers()
           await this.onFetchCategories()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         } catch (err) {
