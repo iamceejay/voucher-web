@@ -564,6 +564,7 @@
     },
     mounted() {
       (async() => {
+        this.currentTab = this.$route.query.currentTab || 0
         try {
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchUser()
@@ -610,7 +611,7 @@
             confirm.close()
             if (!this.isRouteChanged) {
               this.isSubmitted = true;
-              this.$router.push('/home')
+              this.$route.query.currentTabr.push('/home')
             }
 
           }, 1000)

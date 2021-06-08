@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="bg-peach p-6 mb-10" v-if="!isPayoutEnabled">
-        <p class="text-white text-sm">Du musst in <a class="underline" href="/profile-info">Profil &amp; Einstellungen</a> unter "Überprüfung" noch Dokumente hochladen, damit die Auszahlung erfolgen kann.</p>
+        <p class="text-white text-sm">Du musst in <a class="underline" href="/profile-info?currentTab=2">Profil &amp; Einstellungen</a> unter "Überprüfung" noch Dokumente hochladen, damit die Auszahlung erfolgen kann.</p>
       </div>
     </div>
   </div>
