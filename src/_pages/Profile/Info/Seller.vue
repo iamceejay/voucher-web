@@ -298,7 +298,7 @@
                   <div class="gap-4 md:grid grid-cols-3">
                     <div class="mb-4">
                       <div
-                        v-if="verification_front && verification_front != ''"
+                        v-if="verification_front && verification_front != '' && verification.front == undefined"
                         class="flex max-w-xs mx-2 w-full"
                       >
                         <img
@@ -306,6 +306,15 @@
                           :src="onSetImage('set', verification_front)"
                           alt=""
                         />
+                      </div>
+                      <div
+                        v-if="verification.front != undefined"
+                        class="flex mx-2 w-full"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image mx-auto" viewBox="0 0 16 16" style="width: 150px; height: 150px;">
+                          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
                       </div>
                       <SellerUploadFile
                         v-if="AUTH_USER.role.name == 'seller' && AUTH_USER.isAuth"
@@ -324,7 +333,7 @@
                     </div>
                     <div class="mb-4">
                       <div
-                        v-if="verification_back && verification_back != ''"
+                        v-if="verification_back && verification_back != '' && verification.back == undefined"
                         class="flex max-w-xs mx-2 w-full"
                       >
                         <img
@@ -332,6 +341,15 @@
                           :src="onSetImage('set', verification_back)"
                           alt=""
                         />
+                      </div>
+                      <div
+                        v-if="verification.back != undefined"
+                        class="flex mx-2 w-full"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image mx-auto" viewBox="0 0 16 16" style="width: 150px; height: 150px;">
+                          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
                       </div>
                       <SellerUploadFile
                         v-if="AUTH_USER.role.name == 'seller' && AUTH_USER.isAuth"
@@ -350,7 +368,7 @@
                     </div>
                     <div class="mb-4">
                       <div
-                        v-if="additional_identity && additional_identity != ''"
+                        v-if="additional_identity && additional_identity != '' && verification.identity == undefined"
                         class="flex max-w-xs mx-2 w-full"
                       >
                         <img
@@ -358,6 +376,15 @@
                           :src="onSetImage('set', additional_identity)"
                           alt=""
                         />
+                      </div>
+                      <div
+                        v-if="verification.identity != undefined"
+                        class="flex mx-2 w-full"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image mx-auto" viewBox="0 0 16 16" style="width: 150px; height: 150px;">
+                          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                        </svg>
                       </div>
                       <SellerUploadFile
                         v-if="AUTH_USER.role.name == 'seller' && AUTH_USER.isAuth"
@@ -534,9 +561,13 @@
           verification_front: '',
           verification_back: '',
           additional_identity: '',
-
         },
-        settings: null
+        settings: null,
+        verification: {
+          front: undefined,
+          back: undefined,
+          identity: undefined
+        }
       }
     },
     computed: {
@@ -575,6 +606,10 @@
             this.verification_front = this.form.verification_front
             this.verification_back = this.form.verification_back
             this.additional_identity = this.form.additional_identity
+
+            this.verification.front = this.verification_front != '' ? this.verification_front : undefined
+            this.verification.back = this.verification_back != '' ? this.verification_back : undefined
+            this.verification.identity = this.additional_identity != '' ? this.additional_identity : undefined
           }
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
         } catch (err) {
@@ -716,6 +751,7 @@
           reader.onload = () => {
             this.form[field] = data[0];
             this[field] = reader.result;
+            this.verification[field.split('_')[1]] = undefined
             this.onChange();
           };
         } else {
