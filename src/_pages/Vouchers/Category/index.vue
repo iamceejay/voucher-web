@@ -60,9 +60,9 @@
             @onPaginate="onPaginateVouchers($event)"
           />
           <div
-            class="bg-white bottom-0 fixed filter-sidebar transition-all duration-500 shadow-2xl top-0 grid overflow-auto"
+            class="bg-white bottom-0 fixed filter-sidebar transition-all duration-500 shadow-2xl top-0 overflow-auto flex flex-col"
             :class="{'show' : showFilter}"
-            style="grid-template-rows: 1fr;">
+            >
             <div class="p-8 overflow-auto">
               <div class="border-b-2 flex items-center justify-between pb-4 mb-4">
                 <div class="flex font-medium items-center text-xl">
