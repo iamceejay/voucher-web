@@ -206,6 +206,7 @@
           isLowestPrice: false,
           isPrice: null,
           isLoading: false,
+          featured: true,
           seed: new Date().getTime(),
 
         },
