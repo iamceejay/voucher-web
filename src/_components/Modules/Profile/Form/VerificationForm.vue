@@ -1,144 +1,146 @@
 <template>
 
     <div class="flex flex-col w-full">
-      <div class="flex flex-col sm:flex-row">
-        <InputField
-          id="firstName"
-          v-model="form.firstName"
-          type="text"
-          class="w-full sm:w-1/2 sm:mr-2 mb-4"
-          label="Vorname"
-          rules="required"
-          :errorMessages="errorMessages.firstName"
-          @input="onChange"
-        />
-        <InputField
-          id="lastName"
-          v-model="form.lastName"
-          type="text"
-          class="w-full sm:w-1/2 sm:ml-2 mb-4"
-          label="Nachname"
-          rules="required"
-          :errorMessages="errorMessages.lastName"
-          @input="onChange"
-        />
-      </div>
-      <span v-if="type == 'seller'" class="mb-4 text-sm">
-        Bitte gib den Namen vom Inhaber oder Geschäftsführer des Unternehmens an.
-      </span>
+      <span class="block font-semibold text-sm mb-4">Bitte gib den Namen und das Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens an.</span>
+      <InputField
+        id="firstName"
+        v-model="form.firstName"
+        type="text"
+        class="w-full mb-4"
+        label="Vorname"
+        rules="required"
+        :errorMessages="errorMessages.firstName"
+        @input="onChange"
+      />
+      <InputField
+        id="lastName"
+        v-model="form.lastName"
+        type="text"
+        class="w-full mb-4"
+        label="Nachname"
+        rules="required"
+        :errorMessages="errorMessages.lastName"
+        @input="onChange"
+      />
       <DatePicker
         v-if="type == 'seller'"
         id="data"
         class="mb-4"
         v-model="form.bday"
-        label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
+        label="Geburtsdatum"
         :errorMessages="errorMessages.phone_number"
         rules="required"
         @input="onChange"
       />
-        <div
-        v-if="verification_front && verification_front != ''"
-        class="company-logo flex max-w-xs w-full"
-        >
-        <img
-            style="width: 100%; height: auto;"
-            :src="onSetImage('set', verification_front)"
-            alt=""
-        />
+      <span class="block font-semibold text-sm mb-4">Um die ersten Auszahlungen zu erhalten musst du dich mittels den genannten Dokumenten verifizieren.</span>
+               <span class="block text-sm mb-4">(Personalausweis, Führerschein oder Pass. Und ein amtliches Dokument mit der Adresse des Unternehmens zb. Firmenbuchauszug oder Anmeldung. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.)</span>
+      <div class="gap-4 md:grid grid-cols-3">
+        <div class="mb-4">
+          <div
+            v-if="verification_front && verification_front != ''"
+            class="flex max-w-xs mx-2 w-full"
+          >
+            <img
+              style="width: 100%; height: auto;"
+              :src="onSetImage('set', verification_front)"
+              alt=""
+            />
+          </div>
+          <div
+            v-if="!verification_front"
+            class="flex mx-2 w-full"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image mx-auto" viewBox="0 0 16 16" style="width: 150px; height: 150px;">
+              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+            </svg>
+          </div>
+          <SellerUploadFile
+            v-if="type == 'seller'"
+            id="icon"
+            v-model="form.verification_front"
+            class="w-full m-2"
+            inputContainer="py-1 text-xs w-full"
+            label="Vorderseite eines gültigen Ausweise"
+            note=""
+            :isMultiple="false"
+            accept=".jpeg,.png,.jpg"
+            rules="required"
+            :errorMessages="errorMessages.verification_front"
+            @input="(data) => onChangeLogo(data, 'verification_front')"
+          />
         </div>
-        <FileInputField
-        v-if="type == 'seller'"
-        id="icon"
-        v-model="form.verification_front"
-        class="w-full my-2"
-        inputContainer="py-1 text-xs w-full md:w-2/5"
-        label="Lade jetzt oder später ein Foto von der Vorderseite eines gültigen Ausweises hoch"
-        note="(Personalausweis, Führerschein oder Pass. Und ein amtliches Dokument mit der Adresse des Unternehmens zb. Firmenbuchauszug oder Anmeldung. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.)"
-        :isMultiple="false"
-        accept=".jpeg,.png,.jpg"
-        :errorMessages="errorMessages.verification_front"
-        @input="(data) => onChangeLogo(data, 'verification_front')"
-        round="rounded"
-        />
-        <span v-if="type == 'seller'" class="font-bold mb-3 text-xs">
-          Um die ersten Auszahlungen zu erhalten musst du dich mittels den oben genannten Dokumenten verifizieren.
-        </span>
-
-        <div
-        v-if="verification_back && verification_back != ''"
-        class="company-logo flex max-w-xs w-full"
-        >
-        <img
-            style="width: 100%; height: auto;"
-            :src="onSetImage('set', verification_back)"
-            alt=""
-        />
+        <div class="mb-4">
+          <div
+            v-if="verification_back && verification_back != ''"
+            class="flex max-w-xs mx-2 w-full"
+          >
+            <img
+              style="width: 100%; height: auto;"
+              :src="onSetImage('set', verification_back)"
+              alt=""
+            />
+          </div>
+          <div
+            v-if="!verification_back"
+            class="flex mx-2 w-full"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image mx-auto" viewBox="0 0 16 16" style="width: 150px; height: 150px;">
+              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+            </svg>
+          </div>
+          <SellerUploadFile
+            v-if="type == 'seller'"
+            id="icon"
+            v-model="form.verification_back"
+            class="w-full m-2"
+            inputContainer="py-1 text-xs w-full"
+            label="Rückseite des gültigen Ausweises"
+            note=""
+            :isMultiple="false"
+            accept=".jpeg,.png,.jpg"
+            rules="required"
+            :errorMessages="errorMessages.verification_back"
+            @input="(data) => onChangeLogo(data, 'verification_back')"
+          />
         </div>
-        <FileInputField
-        v-if="type == 'seller'"
-        id="icon"
-        v-model="form.verification_back"
-        class="w-full my-2"
-        inputContainer="py-1 text-xs w-full md:w-2/5"
-        label="Lade jetzt oder spät ein Foto von der Rückseite des gültigen Ausweises hoch "
-        note="(Personalausweis, Führerschein oder Pass. Und ein amtliches Dokument mit der Adresse des Unternehmens zb. Firmenbuchauszug oder Anmeldung. Bitte lade eine JPEG oder PNG Datei hoch (keine PDF). Foto sollte im Hochformat und gut lesbar sein.)"
-        :isMultiple="false"
-        accept=".jpeg,.png,.jpg"
-        :errorMessages="errorMessages.verification_back"
-        @input="(data) => onChangeLogo(data, 'verification_back')"
-        round="rounded"
-        />
-        <span v-if="type == 'seller'" class="font-bold mb-3 text-xs">
-          Um die ersten Auszahlungen zu erhalten musst du dich mittels den oben genannten Dokumenten verifizieren.
-        </span>
-
-        <div
-        v-if="additional_identity && additional_identity != ''"
-        class="company-logo flex max-w-xs w-full"
-        >
-        <img
-            style="width: 100%; height: auto;"
-            :src="onSetImage('set', additional_identity)"
-            alt=""
-        />
+        <div class="mb-4">
+          <div
+            v-if="additional_identity && additional_identity != ''"
+            class="flex max-w-xs mx-2 w-full"
+          >
+            <img
+              style="width: 100%; height: auto;"
+              :src="onSetImage('set', additional_identity)"
+              alt=""
+            />
+          </div>
+          <div
+            v-if="!additional_identity"
+            class="flex mx-2 w-full"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image mx-auto" viewBox="0 0 16 16" style="width: 150px; height: 150px;">
+              <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+            </svg>
+          </div>
+          <SellerUploadFile
+            v-if="type == 'seller'"
+            id="icon"
+            v-model="form.additional_identity"
+            class="w-full m-2"
+            inputContainer="py-1 text-xs w-full"
+            label="Amtliches Dokument mit Adresse deines Unternehmens"
+            note=""
+            :isMultiple="false"
+            accept=".jpeg,.png,.jpg"
+            rules="required"
+            :errorMessages="errorMessages.additional_identity"
+            @input="(data) => onChangeLogo(data, 'additional_identity')"
+          />
         </div>
-        <FileInputField
-        v-if="type == 'seller'"
-        id="icon"
-        v-model="form.additional_identity"
-        class="w-full my-2"
-        inputContainer="py-1 text-xs w-full md:w-2/5"
-        label="Lade jetzt oder später ein amtliches Dokument, wo die Adresse deines Unternehmens ersichtlich ist, hoch."
-        note="(Firmenbuchauszug oder Gewerbeanmeldung)"
-        :isMultiple="false"
-        accept=".jpeg,.png,.jpg"
-        :errorMessages="errorMessages.additional_identity"
-        @input="(data) => onChangeLogo(data, 'additional_identity')"
-        round="rounded"
-        />
-        <span v-if="type == 'seller'" class="font-bold mb-3 text-xs">
-          Um die ersten Auszahlungen zu erhalten musst du dich mittels den oben genannten Dokumenten verifizieren.
-        </span>
-        <!-- <InputField
-        id="password"
-        v-model="form.password"
-        type="password"
-        class="my-2"
-        label="Passwort"
-        rules="required|min:8|max:16"
-        :errorMessages="errorMessages.password"
-        @input="onChange"
-        />
-        <InputField
-        id="confirmPassword"
-        v-model="form.confirmPassword"
-        type="password"
-        class="my-2"
-        label="Passwort wiederholen"
-        rules="required|min:8|max:16|password:@password"
-        :errorMessages="errorMessages.confirmPassword"
-        @input="onChange"
-        /> -->
+      </div>
     </div>
 </template>
 <script>
@@ -146,6 +148,7 @@ import InputField from '_components/Form/InputField';
 import Header5 from '_components/Headers/Header5';
 import DatePicker from '_components/Form/DatePickerField';
 import FileInputField from '_components/Form/FileInputField';
+import SellerUploadFile from '_components/Form/SellerUploadFile';
 
 export default {
   components: {
@@ -153,6 +156,7 @@ export default {
     Header5,
     DatePicker,
     FileInputField,
+    SellerUploadFile
   },
   props: {
     type: {
