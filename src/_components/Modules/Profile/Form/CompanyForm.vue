@@ -66,6 +66,37 @@
         </section>
     </div>
 
+    <div>
+      <span class="block mb-1 text-sm">Titelbild</span>
+      <label
+        class="file flex flex-col input-field mb-3 px-3 py-3 rounded-sm text-2xs text-center cursor-pointer" style="background-color: rgb(247, 247, 247);"
+        >
+            <i class="fa fa-cloud-upload-alt mb-2 mr-1 text-3xl text-center"></i> (Ideales Maß ist 1920px x 1080px)
+            <ValidationProvider rules="" name="header_logo">
+            <input
+              type="file"
+              accept="'image/*'"
+              aria-label="File browser example"
+              @change="(e) => croppie(e, 'header_logo')"
+              />
+            </ValidationProvider>
+            <span class="file-custom"></span>
+        </label>
+        <section v-if="header_logo && header_logo != '' && header_logo == form.company.header_logo" class="relative border" style="width: 250px; height: 141px;">
+          <img :src="onSetLogo('set', header_logo)" style="width: auto; height: 100%;"/>
+        </section>
+        <section class="relative hidden">
+          <vue-croppie
+            ref="header_logo"
+            :enableOrientation="true"
+            :enableResize="false"
+            :boundary="{ width: 384, height: 216 }"
+            :viewport="{ width: 384, height: 216, 'type':'square' }"
+            @update="update('header_logo', 'header_logo')"
+          />
+        </section>
+    </div>
+
     <InputField
       id="vat_number"
       v-model="form.company.vat_number"
@@ -124,6 +155,7 @@
     data() {
       return {
         logo: '',
+        header_logo: '',
         // form: {
         //   username: '',
         //   name: '',
@@ -150,6 +182,7 @@
             description: '',
             url: '',
             logo: '',
+            header_logo: '',
             region: '',
             vat_number: ''
           }
@@ -266,6 +299,10 @@
           // and set the result to this.cropped which is being
           // used to display the result above.
           let size = { width: 250, height: 100};
+
+          if(form == 'header_logo') {
+            size = { width: 1920, height: 1080};
+          }
           let options = {
               type: 'base64',
               format: 'jpeg',
@@ -273,7 +310,7 @@
               quality: 1,
           }
           this.$refs[ref].result(options, (output) => {
-            this.form.company.logo = output
+            this.form.company[ref] = output
           });
       },
       update(ref, form) {
