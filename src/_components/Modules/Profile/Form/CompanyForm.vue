@@ -75,7 +75,7 @@
             <ValidationProvider rules="" name="header_logo">
             <input
               type="file"
-              accept="'image/*'"
+              accept="image/*"
               aria-label="File browser example"
               @change="(e) => croppie(e, 'header_logo')"
               />
