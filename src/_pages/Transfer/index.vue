@@ -2,13 +2,6 @@
   <MainLayout>
     <template #content>
       <div class="content-container flex flex-col w-full px-8">
-        <div data-v-6d1a851d="" class="font-medium mb-1 text-2xl text-center">
-          Meine Wallet
-        </div>
-
-        <span class="border-b-2 pb-6 text-center text-sm">
-          Übersicht deiner Gutscheine
-        </span>
 
         <div class="bg-white border-2 border-dashed border-peach flex flex-col max-w-sm mx-auto my-20 p-8 rounded-md w-full" >
           <div class="font-medium text-center text-peach">{{ message }}</div>
