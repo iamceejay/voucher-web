@@ -79,13 +79,13 @@
               id="link"
               name="clipboard"
               type="text"
-              :value="`${location.origin}/transfer/${ VOUCHER.transfer_url.url_code }`"
+              :value="link"
               class="flex-1 input-copy px-4 py-2 rounded w-full"
             />
             <input
               id="copy-text"
               type="text"
-              :value="`Du hast ein Geschenk erhalten! <3  Registriere dich dazu auf www.epasnets.com  dem digitalen Gutscheinmarkt aus Tirol. Klicke im Anschluss auf den Link: ${location.origin}/transfer/${ VOUCHER.transfer_url.url_code } - Der Gutschein wird dann in deiner persönlichen Wallet erscheinen, wo du ihn auch einlösen kannst. Weitere Infos findest du unter hilfe.epasnets.com. Viel Spaß mit deinem Gutschein`"
+              :value="`Du hast ein Geschenk erhalten! <3  Registriere dich dazu auf www.epasnets.com  dem digitalen Gutscheinmarkt aus Tirol. Klicke im Anschluss auf den Link: ${link} - Der Gutschein wird dann in deiner persönlichen Wallet erscheinen, wo du ihn auch einlösen kannst. Weitere Infos findest du unter hilfe.epasnets.com. Viel Spaß mit deinem Gutschein`"
               class="absolute opacity-0"
             />
             <button
@@ -261,6 +261,7 @@
       return {
         location: window.location,
         currentButton: '',
+        link: '',
         form: {
           id: null,
           voucher_id: null,
@@ -329,9 +330,11 @@
       (async() => {
         try {
           this.emailForm.id = this.$route.params.id
-          await this.$store.dispatch('ADD_TRANSFER_URL', {
+          const data = await this.$store.dispatch('ADD_TRANSFER_URL', {
             order_id: this.$route.params.id,
           })
+          this.link = `${process.env.VUE_APP_WEB_URL}/transfer/${ data.transfer_url.url_code }`
+          console.log(this.link)
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchVoucher()
           await this.$store.commit('SET_IS_LOADING', { status: 'close' })
