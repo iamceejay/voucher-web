@@ -84,7 +84,7 @@
                           <span class="text-sm">{{ formatDate(row.created_at) }}</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm">{{ $helpers.convertCurrency(parseFloat(row.total_amount)) }}</span>
+                          <span class="text-sm">{{ row.reversed ? 'storniert' : $helpers.convertCurrency(parseFloat(row.total_amount)) }}</span>
                           <!-- <span class="text-sm">{{ $helpers.convertCurrency(onGetTotal(row)) }}</span> -->
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap flex">
