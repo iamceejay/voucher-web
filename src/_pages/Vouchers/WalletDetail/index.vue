@@ -85,7 +85,7 @@
             <input
               id="copy-text"
               type="text"
-              v-model="link"
+              :value="`Du hast ein Geschenk erhalten! <3 Registriere dich dazu auf www.epasnets.com dem digitalen Gutscheinmarkt aus Tirol. Klicke im Anschluss auf den Link: ${link} - Der Gutschein wird dann in deiner persönlichen Wallet erscheinen, wo du ihn auch einlösen kannst. Weitere Infos findest du unter hilfe.epasnets.com. Viel Spaß mit deinem Gutschein`"
               class="absolute opacity-0"
             />
             <button
