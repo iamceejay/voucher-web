@@ -89,7 +89,7 @@
         <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
         <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
           <div
-            v-for="(company, index) in companies.sort(() => Math.random() - 0.5)"
+            v-for="(company, index) in companies"
             :key="`company-${index}`"
             class="flex flex-col p-3 slider-item-custom text-center mb-6"
           >
@@ -376,7 +376,7 @@
           await this.$store.commit('SET_FEATURED_VOUCHERS', [])
           await this.$store.commit('SET_CATEGORIES', [])
           let { data } = await get('company/all')
-          this.companies = data.companies
+          this.companies = data.companies.sort(() => Math.random() - 0.5)
           await this.onFetchNewestVouchers()
           // await this.onFetchFeaturedVouchers()
           await this.onFetchCategories()
