@@ -20,7 +20,7 @@
             label="Anmelden"
             size="px-12 py-3 mb-3"
             round="rounded"
-            @onClick="() => $router.push('/register/buyer')"
+            @onClick="() => $router.push('/login')"
           />
         </div>
       </div>
