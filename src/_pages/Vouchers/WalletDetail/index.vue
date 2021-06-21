@@ -166,6 +166,21 @@
                 <!-- Customizable loading -->
             </slider>
           </div>
+          <div v-if="WALLET.voucher.data_json != null">
+            <div class="overflow-hidden text-xs" :class="{'h-20 md:h-10 show-more' : !isShowMore}">
+              {{ WALLET.voucher.data_json.long_description }}
+            </div>
+            <div>
+                <button
+                  type="button"
+                  @click="isShowMore = !isShowMore"
+                  class="px-3 py-3 rounded-md text-xs mt-6"
+                  :class="'border border-black text-black'"
+                  >
+                  {{ !isShowMore ? 'Mehr lesen' : 'Lese weniger' }}
+                </button>
+              </div>
+          </div>
         </section>
 
         <section class="flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
@@ -262,6 +277,7 @@
         location: window.location,
         currentButton: '',
         link: '',
+        isShowMore: false,
         form: {
           id: null,
           voucher_id: null,
@@ -548,6 +564,9 @@
   }
 </script>
 <style lang='css' scoped>
+.show-more {
+  -webkit-mask-image: -webkit-gradient(linear, center bottom, center top, color-stop(0.00, rgba(0,0,0,0)), color-stop(1.00, rgba(0,0,0,1)));
+}
 .input-copy {
     color: rgba(0, 0, 0, 0.75);
     -webkit-appearance: none;
