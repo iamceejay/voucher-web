@@ -27,7 +27,7 @@
                 <svg class="border border-peach h-4 icon mr-2 rounded-full text-peach w-4">
                   <use xlink:href="/icons/sprite.svg#filter"/>
                 </svg>
-                Filter
+                Filtern & Sortieren
               </button>
             </div>
 
