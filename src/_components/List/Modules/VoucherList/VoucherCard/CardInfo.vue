@@ -308,7 +308,7 @@
     },
     methods: {
       getMonth(month) {
-        return moment(parseInt(+month)).format('MMM')
+        return moment(parseInt(+month)).lang("de").format('MMM')
       },
       formatDate(date)
       {

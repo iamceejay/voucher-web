@@ -285,6 +285,9 @@
       },
       months() {
         let filteredMonths = []
+        if (this.$route.name == 'vouchers-new') {
+          return this.voucher.months
+        }
         return this.voucher && this.voucher.valid_date
               ? this.voucher.valid_date
                 .filter(date => {
@@ -335,7 +338,7 @@
         return moment(data.created_at).local().add(expire, 'year').format('DD.MM.YYYY')
       },
       getMonth(month) {
-        return moment(parseInt(+month)).format('MMM')
+        return moment(parseInt(+month)).lang("de").format('MMM')
       },
       onClickHeader()
       {
