@@ -15,7 +15,7 @@
         <div class=" flex items-start">
           <input
             :id="id"
-            class="checkbox-input"
+            class="checkbox-input form-checkbox"
             :name="id"
             :value="value"
             type="checkbox"

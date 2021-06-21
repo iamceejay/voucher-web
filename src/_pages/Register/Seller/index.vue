@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div v-if="!IS_LOADING.status" class="content-container flex flex-col w-full h-full items-center">
-        <div class="font-bold py-2 text-2xl md:text-4xl font-display mb-1 text-gray-900">
+        <div id="register-header" class="font-bold py-2 text-2xl md:text-4xl font-display mb-1 text-gray-900">
           Registrieren
         </div>
         <div class="container flex flex-col items-center">

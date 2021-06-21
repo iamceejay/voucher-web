@@ -135,7 +135,7 @@
             note=""
             :isMultiple="false"
             accept=".jpeg,.png,.jpg"
-            rules="required"
+            rules=""
             :errorMessages="errorMessages.additional_identity"
             @input="(data) => onChangeLogo(data, 'additional_identity')"
           />

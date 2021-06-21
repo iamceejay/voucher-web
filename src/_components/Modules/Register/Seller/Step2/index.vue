@@ -89,6 +89,9 @@
     created() {
       this.onSetForm()
     },
+    mounted() {
+      document.getElementById('register-header').scrollIntoView();
+    },
     methods: {
       onSubmit( isValid )
       {
