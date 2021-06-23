@@ -84,7 +84,7 @@
     </div>
     <div
       id="main-layout-component"
-      class="absolute hide-sidebar inset-0 grid h-full"
+      class="absolute hide-sidebar inset-0 h-full"
       :class="{
         'md:block': !AUTH_USER.isAuth || (AUTH_USER.isAuth && AUTH_USER.role.name == 'user'),
         'overflow-hidden': !AUTH_USER.isAuth && categories.length,
@@ -313,9 +313,10 @@
     },
     mounted() {
       (async() => {
-        var doc = document.querySelectorAll('.guest-container')[0];
+        var doc = document.documentElement;
+        var w = window;
 
-        var prevScroll = doc.scrollTop;
+        var prevScroll = w.scrollY || doc.scrollTop;
         var curScroll;
         var direction = 0;
         var prevDirection = 0;
@@ -329,7 +330,7 @@
           ** 0 - initial, 1 - up, 2 - down
           */
 
-          curScroll = doc.scrollTop;
+          curScroll = w.scrollY || doc.scrollTop;
           if (curScroll > prevScroll) {
             //scrolled up
             direction = 2;
@@ -360,7 +361,7 @@
           }
         };
 
-        doc.addEventListener('scroll', checkScroll);
+        window.addEventListener('scroll', checkScroll);
 
         this.onScroll();
       })()
@@ -446,6 +447,7 @@
 
   .guest-container {
     padding-top: 70px;
+    padding-bottom: 70px;
   }
 
   @media only screen and (max-width: 600px) {
@@ -473,9 +475,9 @@
       grid-template-columns: 250px 1fr;
       grid-template-rows: none;
     }
-    /* .guest-container {
-      margin-top: 90px;
-    } */
+    .guest-container {
+      padding-bottom: 0px;
+    }
   }
 
   #mobile-header {
