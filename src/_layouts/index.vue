@@ -84,9 +84,10 @@
     </div>
     <div
       id="main-layout-component"
-      class="absolute hide-sidebar inset-0 h-full"
+      class="absolute hide-sidebar inset-0 h-full "
       :class="{
         'md:block': !AUTH_USER.isAuth || (AUTH_USER.isAuth && AUTH_USER.role.name == 'user'),
+        'grid': AUTH_USER.isAuth && AUTH_USER.role.name != 'user',
         'overflow-hidden': !AUTH_USER.isAuth && categories.length,
       }"
     >
