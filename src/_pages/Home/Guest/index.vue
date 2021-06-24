@@ -31,7 +31,7 @@
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="content-container w-full">
+      <div class="content-container w-full hidden">
         <h2 class="text-center text-3xl mb-10 font-medium">Geschenke f&uuml;r</h2>
         <VueSlickCarousel class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-3" v-bind="giftOptions">
           <router-link

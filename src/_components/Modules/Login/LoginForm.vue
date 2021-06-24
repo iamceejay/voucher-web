@@ -183,6 +183,7 @@
       async sendUserInfo() {
           await window.FB.api('/me', {fields: 'last_name,first_name,email'}, async (response) => {
               try {
+                console.log(response)
                 await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
                 let loginForm = {
                   email: response.email,
@@ -223,7 +224,7 @@
           window.FB.init({
             appId: "176924830908211", //You will need to change this
             cookie: true, // This is important, it's not enabled by default
-            version: "v2.10"
+            version: "v11.0"
           });
           window.FB.logout()
         };
