@@ -24,7 +24,7 @@
       id="text"
       v-model="form.company.description"
       class="my-2"
-      label="Beschreibung"
+      label="Beschreibung deines Unternehmens"
       rules="max:800"
       :errorMessages="errorMessages.description"
       @input="onChange"
