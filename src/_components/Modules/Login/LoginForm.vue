@@ -42,8 +42,9 @@
         <div class="flex flex-col border-t-2 border-input-border">
           <p class="font-medium text-center text-lg py-4">Oder anmelden als Käufer mit:</p>
           <div class="flex">
-             <GoogleLogin class="w-1/2" :params="params" :onSuccess="onSignIn" :onFailure="onFailure">
+            <GoogleLogin class="w-1/2" :params="params" :onSuccess="onSignIn" :onFailure="onFailure">
             <Button
+              type="button"
               class="pr-1"
               size="w-full py-3"
               round="rounded border border-input-border"
@@ -195,27 +196,38 @@
                 //this.$router.go('/home')
                 window.location.reload()
               } catch (error) {
-                await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-                let form = {
-                  role_id: 3,
-                  region_id: null,
-                  address: '',
-                  city: '',
-                  zip_code: '',
-                  phone_number: '',
-                  firstName: response.first_name,
-                  lastName: response.last_name,
-                  username: response.email,
-                  email: response.email,
-                  password: response.id,
-                  confirmPassword: response.id,
-                  isActivated: 1,
+                try {
+                  await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+                  let form = {
+                    role_id: 3,
+                    region_id: null,
+                    address: '',
+                    city: '',
+                    zip_code: '',
+                    phone_number: '',
+                    firstName: response.first_name,
+                    lastName: response.last_name,
+                    username: response.email,
+                    email: response.email,
+                    password: response.id,
+                    confirmPassword: response.id,
+                    isActivated: 1,
+                  }
+                  const { token, user } = await this.$store.dispatch('ADD_USER', form)
+                  this.setLoginAuth(token, user)
+                  localStorage.setItem('cart', this.$store.getters.COUNT_CART)
+                  //this.$router.go('/home')
+                  window.location.reload()
+                } catch (error) {
+                  await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+                  this.$swal({
+                    icon: 'warning',
+                    title: 'Something Went Wrong.',
+                    text: 'Please try again later.',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#48BB78',
+                  })
                 }
-                const { token, user } = await this.$store.dispatch('ADD_USER', form)
-                this.setLoginAuth(token, user)
-                localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-                //this.$router.go('/home')
-                window.location.reload()
               }
           });
       },
@@ -255,27 +267,39 @@
           // this.$router.go('/home')
           window.location.reload()
         } catch (error) {
-          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-          let form = {
-            role_id: 3,
-            region_id: null,
-            address: '',
-            city: '',
-            zip_code: '',
-            phone_number: '',
-            firstName: profile.getGivenName(),
-            lastName: profile.getFamilyName(),
-            username: profile.getEmail(),
-            email: profile.getEmail(),
-            password: profile.getId(),
-            confirmPassword: profile.getId(),
-            isActivated: 1,
+          try {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+            let form = {
+              role_id: 3,
+              region_id: null,
+              address: '',
+              city: '',
+              zip_code: '',
+              phone_number: '',
+              firstName: profile.getGivenName(),
+              lastName: profile.getFamilyName(),
+              username: profile.getEmail(),
+              email: profile.getEmail(),
+              password: profile.getId(),
+              confirmPassword: profile.getId(),
+              isActivated: 1,
+            }
+            const { token, user } = await this.$store.dispatch('ADD_USER', form)
+            this.setLoginAuth(token, user)
+            localStorage.setItem('cart', this.$store.getters.COUNT_CART)
+            // this.$router.go('/home')
+            window.location.reload()
+          } catch (error) {
+            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+            this.$swal({
+                icon: 'warning',
+                title: 'Something Went Wrong.',
+                text: 'Please try again later.',
+                allowOutsideClick: false,
+                confirmButtonColor: '#48BB78',
+              })
           }
-          const { token, user } = await this.$store.dispatch('ADD_USER', form)
-          this.setLoginAuth(token, user)
-          localStorage.setItem('cart', this.$store.getters.COUNT_CART)
-          // this.$router.go('/home')
-          window.location.reload()
+
         }
       },
       onFailure(error) {

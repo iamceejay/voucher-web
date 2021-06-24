@@ -1,5 +1,6 @@
 <template>
   <div
+    id="mobile-footer-menu"
     class="bg-white border-t flex h-full md:hidden overflow-x-auto overflow-y-hidden"
   >
     <div v-if="AUTH_USER && AUTH_USER.admin" class="admin-container w-full text-center text-white text-xs p-1">
@@ -378,6 +379,13 @@
 </script>
 
 <style scoped>
+  #mobile-footer-menu {
+    height: 70px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   .logo {
     width: 140px;
   }
