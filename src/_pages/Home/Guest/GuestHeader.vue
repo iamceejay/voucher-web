@@ -7,7 +7,7 @@
             Weil Regionalität auch beim Verschenken den Unterschied macht
           </h1>
           <p class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto">
-            Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und oder selber genießen.
+            Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und selber genießen.
           </p>
         </div>
         <div class="search-box bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">

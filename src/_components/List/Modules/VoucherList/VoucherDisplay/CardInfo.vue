@@ -8,7 +8,7 @@
     >
       <div class="flex flex-col w-3/5 break-words">
         <div class="text-base font-semibold h-12">
-          {{ voucher.title || 'Gutscheinnname' }}
+          {{ voucher.title || 'Gutscheintitel' }}
         </div>
         <div class="text-sm">
           {{ voucher.seller && voucher.seller.username || 'N/A' }}

@@ -57,8 +57,8 @@
         if( !this.AUTH_USER.isAuth ) {
           this.$swal({
             icon: 'warning',
-            title: 'Warnung!',
-            text: 'Bitte logge dich zuerst ein und öffne dann den Link erneut. Danke!',
+            title: 'Anmelden und Geschenk erhalten!',
+            text: 'Erstell dir einfach einen Account bei epasnets oder logge dich ein, um den Gutschein zu erhalten.',
             showCancelButton: false,
             allowOutsideClick: false,
             confirmButtonColor: '#48BB78',
