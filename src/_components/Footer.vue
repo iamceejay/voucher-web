@@ -13,7 +13,8 @@
         :key="`footer__menu-${index}`"
         class="px-3">
         <a class="footer__menu-item"
-          :href="menuItem.link">
+          :href="menuItem.link"
+          target="_blank">
           <span v-html="menuItem.title"></span>
         </a>
       </li>
