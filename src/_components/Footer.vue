@@ -4,8 +4,18 @@
   </div> -->
   <div class="footer py-8 md:py-10 bg-white">
     <ul class="footer__social">
-      <li class="px-3"><i class="footer__social-icon fab fa-instagram"></i></li>
-      <li class="px-3"><i class="footer__social-icon fab fa-facebook-square"></i></li>
+      <li class="px-3">
+        <a href="https://www.instagram.com/epasnets/?hl=de"
+          target="_blank">
+          <i class="footer__social-icon fab fa-instagram"></i>
+        </a>
+      </li>
+      <li class="px-3">
+        <a href="https://www.facebook.com/epasnets"
+          target="_blank">
+          <i class="footer__social-icon fab fa-facebook-square"></i>
+        </a>
+      </li>
     </ul>
     <ul class="footer__menu">
       <li
