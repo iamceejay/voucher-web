@@ -86,6 +86,8 @@
               <p class="text-xs mt-1">{{ company.name }}</p>
           </div>
         </VueSlickCarousel>
+
+        <div class="border-separator" />
       </div>
 
       <div class="voucher-list__container content-container w-11/12">
@@ -101,7 +103,6 @@
           @onChange="onFetchData"
           @onPaginate="onPaginateVouchers($event)"
         />
-        <div class="border-separator" />
       </div>
     </div>
 
