@@ -69,7 +69,7 @@
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
-      <div class="container w-11/12 mx-auto mb-10">
+      <div class="content-container w-11/12 mx-auto mb-10">
         <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
         <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
           <div
