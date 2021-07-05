@@ -69,6 +69,25 @@
         <div class="border-separator w-11/12 mx-auto sm:w-full" />
       </div>
 
+      <div class="container w-11/12 mx-auto mb-10">
+        <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
+        <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
+          <div
+            v-for="(company, index) in companies"
+            :key="`company-${index}`"
+            class="flex flex-col p-3 slider-item-custom text-center mb-6"
+          >
+              <img
+                v-if="company.logo"
+                class="h-10 mx-auto"
+                :src="onSetImage(company.logo)"
+                :alt="company.name"
+              />
+              <p class="text-xs mt-1">{{ company.name }}</p>
+          </div>
+        </VueSlickCarousel>
+      </div>
+
       <div class="voucher-list__container content-container w-11/12">
         <h2 class="text-center text-3xl mb-10 font-medium">Unsere Lieblinge</h2>
         <VoucherList
@@ -83,31 +102,6 @@
           @onPaginate="onPaginateVouchers($event)"
         />
         <div class="border-separator" />
-      </div>
-
-      <div class="container w-11/12 mx-auto mb-10">
-        <h2 class="text-center text-3xl mb-10 font-medium">Unternehmen die bereits dabei sind</h2>
-        <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
-          <div
-            v-for="(company, index) in companies"
-            :key="`company-${index}`"
-            class="flex flex-col p-3 slider-item-custom text-center mb-6"
-          >
-              <img
-                v-if="company.logo"
-                class="h-10 mx-auto"
-                :src="onSetImage(company.logo)"
-                alt=""
-              />
-              <img
-                v-else
-                class="h-10 mx-auto bg-white"
-                src="@/_assets/img/default-company.png"
-                alt=""
-              />
-              <p class="text-xs mt-1">{{ company.name }}</p>
-          </div>
-        </VueSlickCarousel>
       </div>
     </div>
 
