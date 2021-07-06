@@ -75,15 +75,22 @@
           <div
             v-for="(company, index) in companies"
             :key="`company-${index}`"
-            class="flex flex-col p-3 slider-item-custom text-center mb-6"
           >
-            <div v-if="company.logo">
+            <div
+              class="flex flex-col p-3 slider-item-custom text-center mb-6"
+              v-if="company.logo"
+            >
               <img
                 class="h-10 mx-auto"
                 :src="onSetImage(company.logo)"
                 :alt="company.name"
               />
               <p class="text-xs mt-1">{{ company.name }}</p>
+            </div>
+            <div 
+              v-else
+              class="hidden"  
+            >
             </div>
           </div>
         </VueSlickCarousel>
@@ -111,7 +118,7 @@
       <div class="content-container w-11/12">
         <h2 class="text-center text-3xl mb-10 font-medium">Mit Unterstützung von</h2>
         
-        <div class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-8 grd-cols-8 mb-10">
+        <div class="grid grid-cold-2 lg:grid-cols-4 md:gap-4 lg:gap-7 mb-10">
           <div class="pl-4 sm:px-0">
             <img
               src="/images/partners/epasnets_aplusb.jpg"
@@ -409,6 +416,7 @@
           await this.$store.commit('SET_CATEGORIES', [])
           let { data } = await get('company/all')
           this.companies = data.companies.sort(() => Math.random() - 0.5)
+          this.companies = this.companies.filter((company) => { return company.logo != null })
           await this.onFetchNewestVouchers()
           // await this.onFetchFeaturedVouchers()
           await this.onFetchCategories()
