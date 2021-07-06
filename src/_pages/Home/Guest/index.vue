@@ -77,13 +77,14 @@
             :key="`company-${index}`"
             class="flex flex-col p-3 slider-item-custom text-center mb-6"
           >
+            <div v-if="company.logo">
               <img
-                v-if="company.logo"
                 class="h-10 mx-auto"
                 :src="onSetImage(company.logo)"
                 :alt="company.name"
               />
               <p class="text-xs mt-1">{{ company.name }}</p>
+            </div>
           </div>
         </VueSlickCarousel>
 
@@ -108,9 +109,9 @@
       </div>
 
       <div class="content-container w-11/12">
-        <h2 class="text-center text-3xl mb-10 font-medium">Mit Unterstützung Von</h2>
+        <h2 class="text-center text-3xl mb-10 font-medium">Mit Unterstützung von</h2>
         
-        <div class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4 mb-10">
+        <div class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-8 grd-cols-8 mb-10">
           <div class="pl-4 sm:px-0">
             <img
               src="/images/partners/epasnets_aplusb.jpg"
