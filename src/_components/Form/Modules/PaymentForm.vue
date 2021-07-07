@@ -85,6 +85,17 @@
         </form>
       </div>
     </div>
+    <div class="flex flex-col w-full mt-8" v-show="payment_type == 'sofort'">
+      <SelectField
+        id="country"
+        v-model="paymentForm.country"
+        :options="countries"
+        label="Country"
+        class="my-2"
+        rules="required"
+        @input="onChange"
+      />
+    </div>
     <div
         class="flex flex-col w-full mt-8"
       >
@@ -122,11 +133,13 @@
   import RadioInputField from '_components/Form/RadioInputField';
   import Button from '_components/Button'
   import { post, get, del, patch } from '_helpers/ApiService'
+  import SelectField from '_components/Form/SelectField'
 
   export default {
     components: {
       Button,
       RadioInputField,
+      SelectField
     },
     data() {
       return {
@@ -137,6 +150,10 @@
           is_save: false,
           token: null,
           source: null,
+          country: {
+            label: 'Austria',
+            code: 'AT'
+          }
         },
         stripe_style: {
           base: {
@@ -156,6 +173,25 @@
         stripe: null,
         elements: null,
         card: null,
+        countries: [{
+          label: 'Austria',
+          code: 'AT'
+        }, {
+          label: 'Germany',
+          code: 'DE'
+        }, {
+          label: 'Italy',
+          code: 'IT'
+        }, {
+          label: 'Netherlands',
+          code: 'NL'
+        }, {
+          label: 'Belgium',
+          code: 'BE'
+        }, {
+          label: 'Spain',
+          code: 'ES'
+        }]
       }
     },
     computed: {
@@ -292,9 +328,6 @@
             requestPayerEmail: true,
           });
 
-
-
-
           this.elements = this.stripe.elements();
           var prButton = this.elements.create('paymentRequestButton', {
             paymentRequest: paymentRequest,
@@ -313,7 +346,6 @@
             const { data } = await post(`order/payment/paymentintent`, {
               amount: this.totalPrice * 100,
             })
-            console.log(data)
 
             // Confirm the PaymentIntent without handling potential next actions (yet).
             this.stripe.confirmCardPayment(
@@ -458,6 +490,10 @@
             }
           })
         }
+      },
+      onChange()
+      {
+        this.$emit('onChange', this.paymentForm)
       },
     }
   }
