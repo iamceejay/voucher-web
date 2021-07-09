@@ -118,7 +118,7 @@
       <div class="content-container w-11/12">
         <h2 class="text-center text-3xl mb-10 font-medium">Mit Unterstützung von</h2>
         
-        <div class="grid grid-cold-2 lg:grid-cols-4 md:gap-4 lg:gap-7 mb-10">
+        <div class="grid grid-cols-2 lg:grid-cols-4 md:gap-4 lg:gap-7 mb-10">
           <div class="pl-4 sm:px-0">
             <img
               src="/images/partners/epasnets_aplusb.jpg"

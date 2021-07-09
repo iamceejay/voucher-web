@@ -90,7 +90,7 @@
         id="country"
         v-model="paymentForm.country"
         :options="countries"
-        label="Country"
+        label="Wähle dein Land"
         class="my-2"
         rules="required"
         @input="onChange"
@@ -174,22 +174,22 @@
         elements: null,
         card: null,
         countries: [{
-          label: 'Austria',
+          label: 'Österreich',
           code: 'AT'
         }, {
-          label: 'Germany',
+          label: 'Deutschland',
           code: 'DE'
         }, {
-          label: 'Italy',
+          label: 'Italien',
           code: 'IT'
         }, {
-          label: 'Netherlands',
+          label: 'Niederlanden',
           code: 'NL'
         }, {
-          label: 'Belgium',
+          label: 'Belgien',
           code: 'BE'
         }, {
-          label: 'Spain',
+          label: 'Spanien',
           code: 'ES'
         }]
       }
