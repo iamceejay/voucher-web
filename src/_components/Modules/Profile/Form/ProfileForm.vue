@@ -69,7 +69,18 @@
         @input="onChange"
       />
     </div>
-
+    <span v-if="type == 'seller'" class="mb-3 mx-2 text-sm">
+      Bitte gib den Namen vom Inhaber oder Geschäftsführer des Unternehmens an.
+    </span>
+    <DatePicker
+      v-if="type == 'seller'"
+      id="data"
+      v-model="form.bday"
+      label="Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens"
+      class="m-2"
+      :errorMessages="errorMessages.phone_number"
+      @input="onChange"
+    />
     <InputField
       v-if="type == 'seller'"
       id="address"
