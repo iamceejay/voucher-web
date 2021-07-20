@@ -57,7 +57,7 @@
   </MainLayout>
 </template>
 <script>
-  import MainLayout from '_layouts';
+  import MainLayout from '_layouts/subdomain';
   import Header1 from '_components/Headers/Header1';
   import CartList from '_components/List/Modules/CartList/';
 

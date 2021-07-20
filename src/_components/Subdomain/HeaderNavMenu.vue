@@ -1,167 +1,36 @@
 <template>
   <div
     class="bg-white w-full nav-container hidden md:flex border-b"
-    :id="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'site-header' : 'guest-header'"
+    id="guest-header"
     >
     <div class="content-container mx-auto w-full hidden md:flex"  :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'">
-      <div class="nav-logo flex"  :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'">
-        <a
-          href="javascript:void(0)"
-          :class="`flex flex-col sm:hidden self-center menu-toggle ${!hideSidebar ? 'hide' : ''}`"
-          @click="onHideSidebar()"
-        >
-          <i class="fas fa-bars text-lg text-gray-900" />
-        </a>
-        <router-link class="flex justify-center" to="/">
-          <img
-            class="self-center"
-            src="@/_assets/img/header.svg"
-            alt=""
-          />
-        </router-link>
-        <a
-          v-if="!AUTH_USER.isAuth"
-          href="javascript:void(0)"
-          :class="`flex flex-col sm:hidden self-center ${!hideSidebar ? 'hide' : ''}`"
-          @click="showWallet = true; isRegisterPop = true"
-        >
-          <i class="fa fa-user text-lg text-gray-900" />
-        </a>
-        <!-- <span class="logo-text-1">epas</span><span class="logo-text-2">nets</span> -->
-      </div>
-      <div v-if="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user'" class="border border-black mx-8 opacity-25" style="margin-bottom: 20px"></div>
-      <div v-if="AUTH_USER.isAuth" class="flex flex-1 justify-between mx-8 text-sm"
-        :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'"
-        >
-        <div
-          class="flex"
-          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4' : 'flex-row space-x-4 items-center flex-1 justify-center'">
-            <a
-            v-for="(menu, index) in menus"
-            :key="`menu-${index}`"
-            href="javascript:void(0)"
-            class="menu-item "
-            @click="onSelectMenu(menu, index)"
-          >
-            <span
-              class="hover:text-peach relative z-10 flex items-center"
-              :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-row' : 'flex-col'">
-              <svg
-                v-if="menu.icon"
-                class="icon h-4 w-4"
-                :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'mr-2' : 'text-peach'">
-                <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
-              </svg>
-              {{ menu.title }}
-              <span
-                v-if="menu.child && AUTH_USER.role.name !== 'user'"
-                class="absolute right-0"
-              >
-                <i
-                  :id="`dropdown-${index}`"
-                  class="fas fa-caret-down"
-                />
-              </span>
-            </span>
-            <!-- <div v-if="menu.child && menu.isChildShow" class="fixed inset-0 z-0" /> -->
-            <div
-              v-if="menu.child && menu.isChildShow && AUTH_USER.role.name !== 'user'"
-              class="dropdown-menu flex flex-col"
-            >
-              <a
-                v-for="(child, cIndex) in menu.child"
-                :key="`child-${cIndex}`"
-                href="javascript:void(0)"
-                class="dropdown-item"
-                @click="onSelectMenu(child, cIndex)"
-              >
-                {{ child.title }}
-              </a>
-            </div>
-          </a>
-        </div>
-        <div
-          class="flex"
-          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 mt-8 pb-8 items-start' : 'items-center'">
-          <router-link
-            v-if="AUTH_USER.isAuth && AUTH_USER.role.name == 'user'"
-            href="javascript:void(0)"
-            class="flex flex-col items-center justify-center relative"
-            to="/wish-list"
-          >
-            <span class="hover:text-peach relative z-10 flex flex-col items-center">
-              <svg class="icon h-4 w-4 text-peach">
-                <use :xlink:href="`/icons/sprite.svg#heart`"/>
-              </svg>
-              Meine Wunschliste
-            </span>
-          </router-link>
-          <router-link
-            v-if="hideSidebar && AUTH_USER && AUTH_USER.role && AUTH_USER.role.name && AUTH_USER.role.name === 'user'"
-            class="flex flex-col items-center justify-center relative ml-4"
-              to="/cart"
-            >
-            <div class="relative  h-4 w-4">
-              <svg class="relative icon h-4 w-4 text-peach">
-                <use :xlink:href="`/icons/sprite.svg#bag`"/>
-              </svg>
-              <div class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4">
-                {{ COUNT_CART }}
-              </div>
-            </div>
-
-            <span class="text-sm">Warenkorb</span>
-          </router-link>
-          <a
-            v-if="AUTH_USER.isAuth && AUTH_USER.role.name != 'user'"
-            href="javascript:void(0)"
-            class="flex items-center justify-center relative"
-            :class="AUTH_USER.isAuth && AUTH_USER.role.name == 'user' ? 'flex-col ml-4' : 'space-x-2'"
-            @click="onLogout()"
-            >
-            <div class="relative  h-4 w-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="relative icon h-4 w-4 text-peach" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-              </svg>
-            </div>
-            <span class="text-sm">Ausloggen</span>
-          </a>
-        </div>
-      </div>
       <div
-        v-else
-        class="flex flex-1 justify-between mx-8 text-sm"
-        :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col' : 'flex-row'">
-        <div
-          class="flex"
-          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4' : 'flex-row items-center space-x-4 flex-1 justify-center'">
-          <a
-            v-for="(menu, index) in menus.slice(0, 4)"
-            :key="`menu-${index}`"
-            href="javascript:void(0)"
-            class="menu-item  "
-            @click="onSelectMenu(menu, index)"
-          >
-            <span class="hover:text-peach relative z-10 flex flex-col items-center">
-              <svg v-if="menu.icon" class="icon h-4 w-4 text-peach">
-                <use :xlink:href="`/icons/sprite.svg#${menu.isChildShow ? 'x-circle' : menu.icon}`"/>
-              </svg>
-              {{ menu.title }}
-            </span>
-          </a>
+        class="flex flex-1 justify-between mx-8 text-sm flex-row">
+        <div class="w-1/3"></div>
+        <div class="w-1/3 flex flex-row items-center space-x-4 flex-1 justify-center">
+          <router-link to="/" class="self-center mx-auto">
+            <img
+              v-if="USER && USER.company.logo"
+              class="company-logo h-12"
+              :src="onSetImage(USER.company.logo)"
+              alt=""
+            />
+            <img
+              v-else
+              class="company-logo"
+              src="@/_assets/img/company-default-logo.png"
+              alt=""
+            />
+          </router-link>
         </div>
-        <div
-          class="flex mt-8 pb-8"
-          :class="AUTH_USER.isAuth && AUTH_USER.role.name !== 'user' ? 'flex-col space-y-4 items-start' : 'flex-row items-center space-x-4'"
-          >
+        <div class="w-1/3 flex mt-8 pb-8 flex-row items-center justify-end space-x-4">
           <router-link
             href="javascript:void(0)"
             class="flex flex-col items-center justify-center relative"
             to="/wish-list"
           >
-            <span class="hover:text-peach relative z-10 flex flex-col items-center">
-              <svg class="icon h-4 w-4 text-peach">
+            <span class="hover:text-black relative z-10 flex flex-col items-center text-black">
+              <svg class="icon h-4 w-4 text-black">
                 <use :xlink:href="`/icons/sprite.svg#heart`"/>
               </svg>
               Meine Wunschliste
@@ -172,15 +41,15 @@
               to="/cart"
             >
             <div class="relative  h-4 w-4">
-              <svg class="relative icon h-4 w-4 text-peach">
+              <svg class="relative icon h-4 w-4 text-black">
                 <use :xlink:href="`/icons/sprite.svg#bag`"/>
               </svg>
-              <div class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4">
+              <div class="-m-3 absolute bg-black flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4">
                 {{ COUNT_CART }}
               </div>
             </div>
 
-            <span class="text-sm">Warenkorb</span>
+            <span class="text-sm text-black">Warenkorb</span>
           </router-link>
         </div>
       </div>
@@ -214,6 +83,9 @@
       CATEGORIES()
       {
         return this.$store.getters.CATEGORIES
+      },
+      USER() {
+        return this.$store.getters.COMPANY;
       },
     },
     watch: {
@@ -284,6 +156,11 @@
       {
         await this.$store.dispatch('FETCH_CATEGORIES')
         await this.onSetMenusByRole()
+      },
+      onSetImage(value) {
+        return value.search('base64') < 0
+          ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}`
+          : value;
       },
       onSetMenusByRole()
       {
@@ -380,7 +257,7 @@
                   title: 'Verwalten',
                   link: '/orders-earnings',
                   isChildShow: false,
-                  icon: 'clipboard-data',
+                  icon: 'laptop',
                   // child: [
                   //   {
                   //     title: 'Bestellungen & Verdienste',
@@ -390,12 +267,6 @@
                   //     link: '/redemptions'
                   //   }
                   // ],
-                },
-                {
-                  title: 'Gutschein Webseite',
-                  link: '/website-configuration',
-                  isChildShow: false,
-                  icon: 'laptop',
                 },
               ]
               break;

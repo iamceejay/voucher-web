@@ -7,52 +7,34 @@ import authUser from './_middleware/authUser';
 import authAdmin from './_middleware/authAdmin';
 import authSeller from './_middleware/authSeller';
 import authGU from './_middleware/authGU';
-import authGUS from './_middleware/authGUS';
 import authUS from './_middleware/authUS';
-import authSSU from './_middleware/authSSU';
 import middlewarePipeline from './_middleware/middlewarePipeline';
-import Login from '_pages/Login/';
+import Login from '_pages/Subdomain/Login';
 import ForgotPassword from '_pages/ForgotPassword/';
 import ResetForgotPassword from '_pages/ForgotPassword/ResetPassword';
 import Register from '_pages/Register/';
-import RegisterSeller from '_pages/Register/Seller/';
-import RegisterBuyer from '_pages/Register/Buyer/';
-import Home from '_pages/Home/';
-import GuestWallet from '_pages/Home/Guest/Wallet';
+import RegisterBuyer from '_pages/Subdomain/BuyerRegister';
 import Vouchers from '_pages/Vouchers/';
 import NewVoucher from '_pages/Vouchers/New/';
 import StatisticsVoucher from '_pages/Vouchers/Statistics/';
-import OrdersEarnings from '_pages/OrdersEarnings/';
-import Profile from '_pages/Profile/';
 import ProfileInfo from '_pages/Profile/Info/';
-import WebsiteConfiguration from '_pages/Profile/Info/WebConfig';
 import ProfilePayment from '_pages/Profile/Payment/';
 import ProfileSettings from '_pages/Profile/Settings/';
-import Redemptions from '_pages/Redemptions/';
-import Scanner from '_pages/Scanner/';
-import ScannerUsers from '_pages/ScannerUsers/';
-import ScannerUserNew from '_pages/ScannerUsers/New/';
-import Cart from '_pages/Cart/';
+import Cart from '_pages/Subdomain/Cart';
 import Wallet from '_pages/Wallet/';
 import VoucherCategory from '_pages/Vouchers/Category/';
 import Orders from '_pages/Orders/';
 import VoucherSearch from '_pages/Vouchers/Search/';
 import VoucherSendEmail from '_pages/Vouchers/SendEmail/';
 import VoucherTransfer from '_pages/Vouchers/Transfer/';
-import VoucherDetail from '_pages/Vouchers/Detail/';
+import VoucherDetail from '_pages/Subdomain/VoucherDetail';
 import VoucherWalletDetail from '_pages/Vouchers/WalletDetail/';
 import VoucherPersonalized from '_pages/Vouchers/Personalized/';
-import SellerDetail from '_pages/Seller/Detail/';
-import VoucherManageFeature from '_pages/Vouchers/ManageFeature/';
+import Home from '_pages/Subdomain';
 import Settings from '_pages/Settings/';
 import SettingUser from '_pages/Settings/User/';
-import Category from '_pages/Category/';
-import SubCategory from '_pages/SubCategory/';
-import Payout from '_pages/Payout/';
-import Template from '_pages/Template/';
 import Users from '_pages/Users/';
-import ManageOrders from '_pages/Orders/Manage/';
-import Payment from '_pages/Payment/';
+import Payment from '_pages/Subdomain/Payment';
 import Transfer from '_pages/Transfer/';
 import PageNotFound from '_pages/Errors/PageNotFound';
 import UserNotAllowed from '_pages/Errors/UserNotAllowed';
@@ -102,26 +84,11 @@ const router = new Router({
         middleware: [guest],
       },
     },
-    {
-      path: '/guest-wallet',
-      name: 'guest-wallet',
-      component: GuestWallet,
-      meta: {
-        middleware: [guest],
-      },
-    },
+    ,
     {
       path: '/register',
       name: 'register',
       component: Register,
-      meta: {
-        middleware: [guest],
-      },
-    },
-    {
-      path: '/register/seller',
-      name: 'register-seller',
-      component: RegisterSeller,
       meta: {
         middleware: [guest],
       },
@@ -149,15 +116,6 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/new',
-      name: 'vouchers-new',
-      component: NewVoucher,
-      meta: {
-        back: '/vouchers',
-        middleware: [auth, authSeller],
-      },
-    },
-    {
       path: '/vouchers/update/:id',
       name: 'vouchers-update',
       component: NewVoucher,
@@ -172,38 +130,6 @@ const router = new Router({
       component: StatisticsVoucher,
       meta: {
         back: '/vouchers',
-        middleware: [auth, authSeller],
-      },
-    },
-    {
-      path: '/scanner',
-      name: 'scanner',
-      component: Scanner,
-      meta: {
-        middleware: [auth, authSSU],
-      },
-    },
-    {
-      path: '/orders-earnings',
-      name: 'orders-earnings',
-      component: OrdersEarnings,
-      meta: {
-        middleware: [auth, authSeller],
-      },
-    },
-    {
-      path: '/redemptions',
-      name: 'redemptions',
-      component: Redemptions,
-      meta: {
-        middleware: [auth, authSeller],
-      },
-    },
-    {
-      path: '/website-configuration',
-      name: 'website-configuration',
-      component: WebsiteConfiguration,
-      meta: {
         middleware: [auth, authSeller],
       },
     },
@@ -231,22 +157,6 @@ const router = new Router({
         middleware: [auth, authUS],
       },
     },
-    // {
-    //   path: '/scanner-users',
-    //   name: 'scanner-users',
-    //   component: ScannerUsers,
-    //   meta: {
-    //     middleware: [ auth, authSeller ]
-    //   }
-    // }, {
-    //   path: '/scanner-users/new',
-    //   name: 'scanner-users-new',
-    //   component: ScannerUserNew,
-    //   meta: {
-    //     back: '/scanner-users',
-    //     middleware: [ auth, authSeller ]
-    //   }
-    // },
     {
       path: '/cart',
       name: 'cart',
@@ -336,7 +246,7 @@ const router = new Router({
     {
       path: '/seller/:id',
       name: 'seller-detail',
-      component: SellerDetail,
+      component: Home,
       meta: {
         back: '',
         // middleware: [ authGUS ]
@@ -348,14 +258,6 @@ const router = new Router({
       component: Payment,
       meta: {
         middleware: [auth, authUser],
-      },
-    },
-    {
-      path: '/featured-vouchers',
-      name: 'featured-vouchers',
-      component: VoucherManageFeature,
-      meta: {
-        middleware: [auth, authAdmin],
       },
     },
     {
@@ -374,58 +276,10 @@ const router = new Router({
         middleware: [auth, authAdmin],
       },
     },
-    // , {
-    //   path: '/payment',
-    //   name: 'payment',
-    //   component: Payment,
-    //   meta: {
-    //     middleware: [ auth, authAdmin ]
-    //   }
-    // }
-    {
-      path: '/category',
-      name: 'category',
-      component: Category,
-      meta: {
-        middleware: [auth, authAdmin],
-      },
-    },
-    {
-      path: '/sub-category',
-      name: 'sub-category',
-      component: SubCategory,
-      meta: {
-        middleware: [auth, authAdmin],
-      },
-    },
-    {
-      path: '/payout',
-      name: 'payout',
-      component: Payout,
-      meta: {
-        middleware: [auth, authAdmin],
-      },
-    },
-    {
-      path: '/template',
-      name: 'template',
-      component: Template,
-      meta: {
-        middleware: [auth, authAdmin],
-      },
-    },
     {
       path: '/users',
       name: 'users',
       component: Users,
-      meta: {
-        middleware: [auth, authAdmin],
-      },
-    },
-    {
-      path: '/manage-orders',
-      name: 'manage-orders',
-      component: ManageOrders,
       meta: {
         middleware: [auth, authAdmin],
       },

@@ -7,6 +7,7 @@
       :type="type"
       class="focus:outline-none focus:shadow-none border-1"
       :class="[bg, size, round, fontSize, fontWeight]"
+      :style="variant != 'white' ? 'background-color: var(--company-color, #ff5563)' : ''"
       :disabled="isDisabled"
       @click="$emit('onClick')"
     >

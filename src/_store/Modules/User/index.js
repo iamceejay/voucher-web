@@ -7,11 +7,15 @@ const prefix = 'user'
 export default {
   state: () => ({
     users: [],
+    company: null,
     user: null
   }),
   getters: {
     USER(state) {
       return state.user;
+    },
+    COMPANY(state) {
+      return state.company;
     },
     USERS(state) {
       return state.users;
@@ -20,6 +24,9 @@ export default {
   mutations: {
     SET_USER(state, payload) {
       state.user = payload
+    },
+    SET_COMPANY(state, payload) {
+      state.company = payload
     },
     SET_USERS(state, payload) {
       state.users = payload
@@ -41,6 +48,17 @@ export default {
       try {
         const { data } = await get(`${prefix}/${payload.id}`, payload)
         await commit('SET_USER', data.user)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
+    async FETCH_USER_BY_NAME( { commit, state }, payload )
+    {
+      try {
+        console.log(payload)
+        const { data } = await get(`${prefix}/company/name`, payload)
+        await commit('SET_COMPANY', data.user)
         return data
       } catch (err) {
         throw err
