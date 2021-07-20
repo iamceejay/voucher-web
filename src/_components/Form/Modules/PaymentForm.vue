@@ -151,7 +151,7 @@
           token: null,
           source: null,
           country: {
-            label: 'Austria',
+            label: 'Österreich',
             code: 'AT'
           }
         },
