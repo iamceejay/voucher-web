@@ -288,6 +288,7 @@
         this.WALLETS.map( row => {
           this.totalPrice += this.onGetTotal(row)
         })
+        this.totalPrice = Math.round(this.totalPrice)
       },
       onGetTotal(data)
       {
