@@ -13,7 +13,7 @@
           Kreditkarte
         </RadioInputField>
       </div>
-      <div class="flex flex-col mb-5 border-b border-input-border">
+      <div class="flex flex-col border-input-border">
         <RadioInputField
           id="sofort_payment_type"
           v-model="payment_type"
