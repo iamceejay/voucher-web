@@ -322,7 +322,7 @@
             currency: 'eur',
             total: {
               label: 'Epasnets Voucher(s)',
-              amount: this.totalPrice * 100,
+              amount: Math.round(this.totalPrice * 100),
             },
             requestPayerName: true,
             requestPayerEmail: true,
@@ -401,7 +401,7 @@
                   // The payment has succeeded.
                   const { data } = await this.$store.dispatch('PAYMENT', {
                       ...this.paymentForm,
-                      price: this.totalPrice,
+                      price: Math.round(this.totalPrice),
                       payment_type: this.payment_type,
                       payment_id: confirmResult.id
                     })
