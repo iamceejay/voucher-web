@@ -288,7 +288,7 @@
         this.WALLETS.map( row => {
           this.totalPrice += this.onGetTotal(row)
         })
-        this.totalPrice = Math.round(this.totalPrice)
+        this.totalPrice = this.totalPrice
       },
       onGetTotal(data)
       {
@@ -323,7 +323,7 @@
             currency: 'eur',
             total: {
               label: 'Epasnets Voucher(s)',
-              amount: Math.round(this.totalPrice * 100),
+              amount: this.totalPrice * 100,
             },
             requestPayerName: true,
             requestPayerEmail: true,
@@ -402,7 +402,7 @@
                   // The payment has succeeded.
                   const { data } = await this.$store.dispatch('PAYMENT', {
                       ...this.paymentForm,
-                      price: Math.round(this.totalPrice),
+                      price: this.totalPrice,
                       payment_type: this.payment_type,
                       payment_id: confirmResult.id
                     })
