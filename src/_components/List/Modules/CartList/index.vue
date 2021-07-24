@@ -12,7 +12,7 @@
         style="grid-template-columns: 1fr minmax(0, 190px);"
       >
         <div class="relative">
-          <div class="absolute inset-0 z-10"></div>
+          <!-- <div class="absolute inset-0 z-10"></div> -->
           <VoucherCard
             :cardId="`voucher-card-${index}`"
             :voucher="row.voucher"
