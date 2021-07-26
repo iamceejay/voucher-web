@@ -9,7 +9,7 @@
             <VoucherCard
               v-if="voucher"
               :cardId="`voucher-card-${voucher.id}`"
-              :voucher="getCustomVoucher(voucher)"
+              :voucher="voucher.order.voucher"
               :order="voucher.order"
               :userVoucher="voucher"
               role="user"
@@ -34,7 +34,7 @@
 </template>
 <script>
   import MainLayout from '_layouts';
-  import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/'
+  import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/'
 
   export default {
     components: {
@@ -99,7 +99,7 @@
 
         row.order.voucher.data_json = row.data_json;
         // row.order.voucher.data_json.price_hidden = row.price_hidden ? true : false
-        return row.order.voucher.data_json
+        return row.order.voucher
       },
     }
   }
