@@ -1,5 +1,6 @@
 <template>
   <ValidationObserver
+    ref="observer"
     v-slot="{ handleSubmit, invalid }"
     class="flex flex-col w-full h-full items-center"
   >
@@ -20,7 +21,7 @@
       />
       <div class="flex flex-col w-full md:w-1/2">
         <CheckboxField
-          id="dataPrivacy"
+          id="Datenschutzerklärung"
           v-model="form.dataPrivacy"
           type="text"
           container="mb-0"
@@ -40,7 +41,7 @@
           </template>
         </CheckboxField>
         <CheckboxField
-          id="terms"
+          id="Nutzungsbedingungen"
           v-model="form.terms"
           type="text"
           container="mb-0"
@@ -60,7 +61,7 @@
           </template>
         </CheckboxField>
         <CheckboxField
-          id="commision"
+          id="Kommision"
           v-model="form.commision"
           type="text"
           container="mb-5"
@@ -68,12 +69,20 @@
           :rules="{ required: { allowFalse: false } }"
         />
       </div>
-      <div class="w-full sm:w-1/2">
+      <div class="w-full sm:w-1/2 flex">
         <Button
-          class="flex flex-col items-center w-full"
+          @onClick="back()"
+          class="flex flex-col items-center mr-auto"
+          type="button"
+          label="vorheriger Schritt >"
+          size="px-5 py-4"
+          round="rounded"
+        />
+        <Button
+          class="flex flex-col items-center ml-auto"
           type="submit"
-          label="Registrierung abschließen"
-          size="w-full py-4"
+          label="nächster Schritt >"
+          size="px-5 py-4"
           round="rounded"
         />
       </div>
@@ -129,8 +138,34 @@
       document.getElementById('register-header').scrollIntoView();
     },
     methods: {
-      onSubmit( isValid )
+      back() {
+        this.$emit('onChangeStep', {
+            step: 3,
+            form: this.form
+          })
+      },
+      async onSubmit( isValid )
       {
+
+        const valid = await this.$refs.observer.validate();
+        if (!valid) {
+          let errors = [];
+          for (const [key, value] of Object.entries(this.$refs.observer.errors)){
+            if (value.length) {
+              errors.push(key);
+            }
+          }
+
+          this.$swal({
+            icon: 'warning',
+            title: 'Dieses Feld muss ausgefüllt werden!',
+            text: errors.toString(),
+            confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
+          })
+          return false
+        }
+
         if( !isValid ) {
           this.$emit('onChangeStep', {
             step: 'done',

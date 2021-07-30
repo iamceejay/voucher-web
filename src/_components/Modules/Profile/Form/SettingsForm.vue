@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
     <InputField
-      id="password"
+      id="Passwort"
       class="mb-4"
       v-model="form.password"
       type="password"
@@ -11,12 +11,12 @@
       @input="onChange"
     />
     <InputField
-      id="confirmPassword"
+      id="Passwort wiederholen"
       class="mb-4"
       v-model="form.confirmPassword"
       type="password"
       label="Passwort wiederholen"
-      rules="required|min:8|max:16|password:@password"
+      rules="required|min:8|max:16|password:@Passwort"
       :errorMessages="errorMessages.confirmPassword"
       @input="onChange"
     />

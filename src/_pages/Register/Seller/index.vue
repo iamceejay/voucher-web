@@ -145,6 +145,17 @@
             if( err?.response?.status == 422 ) {
               this.errorMessages = err.response.data.errors
             }
+            if( err?.response?.status == 500 ) {
+              this.errorMessages = err.response.data.message
+              this.$swal({
+                icon: 'error',
+                title: 'Dieses Feld muss ausgefüllt werden!',
+                text: this.errorMessages,
+                confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
+              })
+            }
+
             await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
           }
         }

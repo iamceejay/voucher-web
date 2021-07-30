@@ -107,7 +107,7 @@
       @input="onChange"
     />
     <SelectField
-      id="month"
+      id="Region"
       v-model="form.company.region_id"
       :options="REGIONS"
       class="my-2"
