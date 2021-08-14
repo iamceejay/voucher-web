@@ -6,8 +6,8 @@
 					<div class="relative w-full flex flex-col mb-14">
 						<div class="absolute flex inset-0 items-center justify-center">
 							<div class="p-12" style="background-color: var(--company-color-opacity)">
-								<div class="text-4xl text-center">Entdecke unsere Gutscheine</div>
-								<div class="text-center">Zum personalisiere, verschenken und erleben</div>
+								<div class="text-4xl text-center"> {{  USER.company.header_1 || 'Entdecke unsere Gutscheine' }}</div>
+								<div class="text-center">{{  USER.company.header_1 || 'Zum personalisiere, verschenken und erleben' }}</div>
 							</div>
 						</div>
 						<img

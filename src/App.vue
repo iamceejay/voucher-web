@@ -30,7 +30,11 @@
           const { user } = await this.$store.dispatch('FETCH_USER_BY_NAME', {
             name: this.wildcard
           })
-          console.log(user)
+
+          if (!user) {
+            window.location = window.location.origin.replace(this.wildcard + '.', '')
+            return
+          }
           const bg_color = user.company.background_color ? user.company.background_color : '#1D4F55'
           const text_color = user.company.text_color ? user.company.text_color : '#fff'
           let root = document.documentElement;

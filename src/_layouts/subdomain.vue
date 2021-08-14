@@ -8,12 +8,6 @@
           :src="onSetImage(USER.company.logo)"
           alt=""
         />
-        <img
-          v-else
-          class="company-logo"
-          src="@/_assets/img/company-default-logo.png"
-          alt=""
-        />
       </router-link>
       <div v-if="AUTH_USER.isAuth" class="flex">
         <router-link

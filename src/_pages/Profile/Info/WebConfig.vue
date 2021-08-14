@@ -34,7 +34,7 @@
                         <section v-if="logo && logo != '' && logo == form.company.logo" class="relative border" style="width: 250px; height: 100px;">
                           <img :src="onSetLogo('set', logo)" style="width: auto; height: 100%;"/>
                         </section>
-                        <section class="relative hidden">
+                        <section class="relative reset-hidden hidden">
                           <vue-croppie
                             ref="logo"
                             :enableOrientation="true"
@@ -65,7 +65,7 @@
                         <section v-if="header_logo && header_logo != '' && header_logo == form.company.header_logo" class="relative border" style="width: 250px; height: 141px;">
                           <img :src="onSetLogo('set', header_logo)" style="width: auto; height: 100%;"/>
                         </section>
-                        <section class="relative hidden">
+                        <section class="relative reset-hidden hidden">
                           <vue-croppie
                             ref="header_logo"
                             :enableOrientation="true"
@@ -81,7 +81,7 @@
                      <InputField
                       id="address"
                       class="mb-4"
-                      v-model="form.title_1"
+                      v-model="form.company.header_1"
                       type="text"
                       label="Titel 1"
                       :errorMessages="errorMessages.title_1"
@@ -90,9 +90,9 @@
                     <InputField
                       id="email"
                       class="mb-4"
-                      v-model="form.title_2"
+                      v-model="form.company.header_2"
                       type="text"
-                      label="Titel 1"
+                      label="Titel 2"
                       :errorMessages="errorMessages.title_2"
                       @input="onChange"
                     />
@@ -172,6 +172,8 @@
             header_logo: '',
             region: '',
             vat_number: '',
+            header_1: '',
+            header_2: '',
           },
           verification_front: '',
           verification_back: '',
@@ -250,6 +252,8 @@
 
           const data = await this.$store.dispatch('UPDATE_USER', this.form)
           await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          document.querySelectorAll('.reset-hidden').forEach(el => el.classList.add('hidden'))
+          window.location.reload()
           let confirm = this.$swal({
             icon: 'success',
             title: 'Erfolgreich!',
@@ -263,7 +267,7 @@
               this.isSubmitted = true;
               this.$route.query.currentTabr.push('/home')
             }
-
+            window.location.reload()
           }, 1000)
         } catch (err) {
           console.log(err.response)
@@ -321,6 +325,7 @@
           params = {
             ...params,
             company: {
+              ...user.company,
               name: user.company.name,
               description: user.company.description,
               url: user.company.url,
