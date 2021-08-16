@@ -7,7 +7,7 @@
 						<div class="absolute flex inset-0 items-center justify-center">
 							<div class="p-12" style="background-color: var(--company-color-opacity)">
 								<div class="text-4xl text-center"> {{  USER.company.header_1 || 'Entdecke unsere Gutscheine' }}</div>
-								<div class="text-center">{{  USER.company.header_1 || 'Zum personalisiere, verschenken und erleben' }}</div>
+								<div class="text-center">{{  USER.company.header_2 || 'Zum personalisiere, verschenken und erleben' }}</div>
 							</div>
 						</div>
 						<img
