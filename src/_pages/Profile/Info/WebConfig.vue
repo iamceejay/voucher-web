@@ -117,6 +117,28 @@
                   </div>
                 </div>
               </div>
+              <label class="text-sm col-span-2 mt-5 block">Unterdomäne</label>
+              <div class="block border mt-4 mx-auto relative w-full xl:flex">
+                <input
+                    id="subdomain"
+                    name="clipboard"
+                    type="text"
+                    class="flex-1 input-copy px-4 py-2 rounded w-full"
+                    v-model="form.subdomain"
+                    disabled
+                  />
+                  <input
+                    id="copy-text"
+                    type="text"
+                    v-model="form.subdomain"
+                    class="absolute opacity-0"
+                  />
+                  <button
+                    data-clipboard-target="#copy-text"
+                    type="button"
+                    class="bg-black clipboard mt-3 px-5 py-3 rounded text-sm text-white w-full xl:mt-0 xl:w-auto"
+                  >Link kopieren</button>
+                </div>
             </div>
           </form>
         </ValidationObserver>
@@ -214,6 +236,20 @@
       (async() => {
         this.currentTab = this.$route.query.currentTab || 0
         try {
+          var clipboard = new ClipboardJS('.clipboard');
+          clipboard.on('success', (e) => {
+            let processing = this.$swal({
+              title: 'Erfolgreich!',
+              text: 'Link wurde kopiert',
+              allowOutsideClick: false,
+              showConfirmButton: false
+            })
+            setTimeout( () => {
+              processing.close()
+            }, 2000)
+            e.clearSelection();
+          });
+
           await this.$store.commit('SET_IS_LOADING', { status: 'open' })
           await this.onFetchUser()
           if( this.AUTH_USER.role.name == 'seller' ) {
@@ -318,6 +354,7 @@
             verification_front: user.front_verification_image,
             verification_back: user.back_verification_image,
             additional_identity: user.additional_verification_image,
+            subdomain: user.subdomain + '.' + window.location.hostname,
           }
 
 
