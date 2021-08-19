@@ -37,6 +37,20 @@
           <router-link
             href="javascript:void(0)"
             class="flex flex-col items-center justify-center relative"
+            :to="AUTH_USER.isAuth ? '/wallet' : '/guest-wallet'"
+          >
+            <span
+              class="hover:text-black relative z-10 flex flex-col items-center text-black"
+            >
+              <svg class="icon h-4 w-4 text-black">
+                <use :xlink:href="`/icons/sprite.svg#wallet`" />
+              </svg>
+              Meine Wallet
+            </span>
+          </router-link>
+          <router-link
+            href="javascript:void(0)"
+            class="flex flex-col items-center justify-center relative"
             to="/wish-list"
           >
             <span

@@ -21,7 +21,7 @@ import ProfileInfo from '_pages/Profile/Info/';
 import ProfilePayment from '_pages/Profile/Payment/';
 import ProfileSettings from '_pages/Profile/Settings/';
 import Cart from '_pages/Subdomain/Cart';
-import Wallet from '_pages/Wallet/';
+import Wallet from '_pages/Subdomain/Wallet';
 import VoucherCategory from '_pages/Vouchers/Category/';
 import Orders from '_pages/Orders/';
 import VoucherSearch from '_pages/Vouchers/Search/';
@@ -39,6 +39,7 @@ import Transfer from '_pages/Transfer/';
 import PageNotFound from '_pages/Errors/PageNotFound';
 import UserNotAllowed from '_pages/Errors/UserNotAllowed';
 import WishList from '_pages/WishList';
+import GuestWallet from '_pages/Subdomain/GuestWallet';
 
 Vue.use(Router);
 
@@ -241,6 +242,14 @@ const router = new Router({
       meta: {
         back: '/wallet',
         middleware: [auth, authUser],
+      },
+    },
+    {
+      path: '/guest-wallet',
+      name: 'guest-wallet',
+      component: GuestWallet,
+      meta: {
+        middleware: [guest],
       },
     },
     {
