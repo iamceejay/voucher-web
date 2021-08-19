@@ -3,46 +3,54 @@
     <template #content>
       <div v-if="!IS_LOADING.status && USER" class="flex flex-col w-full">
         <div class="w-full flex flex-col relative bg-white pb-20 -mt-5">
-					<div class="relative w-full flex flex-col mb-14">
-						<div class="absolute flex inset-0 items-center justify-center">
-							<div class="p-12" style="background-color: var(--company-color-opacity)">
-								<div class="text-4xl text-center"> {{  USER.company.header_1 || 'Entdecke unsere Gutscheine' }}</div>
-								<div class="text-center">{{  USER.company.header_2 || 'Zum personalisiere, verschenken und erleben' }}</div>
-							</div>
-						</div>
-						<img
-							v-if="USER && USER.company.header_logo"
-							class="h-64 md:h-96 bg-white mb-6 object-cover"
-							:src="onSetImage(USER.company.header_logo)"
-							alt=""
-						/>
-						<img
-							v-else
-							class="h-64 md:h-96 bg-white mb-6 object-cover"
-							src="@/_assets/img/placeholder-1080.jpg"
-							alt=""
-						/>
-					</div>
-
-					<ul class="content-container gap-4 grid grid-cols-1 lg:grid-cols-3 px-8 sm:grid-cols-2 w-full mb-14">
-						<li
-							v-for="(step, key) in steps"
-							:key="key"
-							class="flex flex-col items-center justify-center py-14 relative"
-							style="background-color: var(--company-color)"
-						>
+          <div class="relative w-full flex flex-col mb-14">
+            <div class="absolute flex inset-0 items-center justify-center">
               <div
-                 class="-mt-4 absolute bg-white border flex h-10 items-center justify-center rounded-full text-black top-0 w-10"
-                style="border-color: var(--company-color)"
-              >{{ key + 1}}</div>
-							<svg
-                class="h-8 icon mb-4">
-                <use :xlink:href="`/icons/sprite.svg#${step.icon}`"/>
-              </svg>
-							<span>{{ step.title }}</span>
-						</li>
-					</ul>
+                class="p-12"
+                style="background-color: var(--company-color-opacity)"
+                v-if="USER.company.header_1 && USER.company.header_2"
+              >
+                <div class="text-4xl text-center">
+                  {{ USER.company.header_1 }}
+                </div>
+                <div class="text-center">{{ USER.company.header_2 }}</div>
+              </div>
+            </div>
+            <img
+              v-if="USER && USER.company.header_logo"
+              class="h-64 md:h-96 bg-white mb-6 object-cover"
+              :src="onSetImage(USER.company.header_logo)"
+              alt=""
+            />
+            <img
+              v-else
+              class="h-64 md:h-96 bg-white mb-6 object-cover"
+              src="@/_assets/img/placeholder-1080.jpg"
+              alt=""
+            />
+          </div>
 
+          <ul
+            class="content-container gap-4 grid grid-cols-1 lg:grid-cols-3 px-8 sm:grid-cols-2 w-full mb-14"
+          >
+            <li
+              v-for="(step, key) in steps"
+              :key="key"
+              class="flex flex-col items-center justify-center py-14 relative"
+              style="background-color: var(--company-color)"
+            >
+              <div
+                class="-mt-4 absolute bg-white border flex h-10 items-center justify-center rounded-full text-black top-0 w-10"
+                style="border-color: var(--company-color)"
+              >
+                {{ key + 1 }}
+              </div>
+              <svg class="h-8 icon mb-4">
+                <use :xlink:href="`/icons/sprite.svg#${step.icon}`" />
+              </svg>
+              <span>{{ step.title }}</span>
+            </li>
+          </ul>
         </div>
 
         <div class="content-container px-8 w-full flex flex-col">
@@ -76,20 +84,20 @@ export default {
     return {
       isLoading: true,
       isShowMore: false,
-			steps: [
-				{
-					icon: 'card-text',
-					title: 'Gutschein wählen'
-				},
-				{
-					icon: 'palette',
-					title: 'Gutschein personalisieren'
-				},
-				{
-					icon: 'gift',
-					title: 'Als Geschenk versenden'
-				},
-			]
+      steps: [
+        {
+          icon: 'card-text',
+          title: 'Gutschein wählen',
+        },
+        {
+          icon: 'palette',
+          title: 'Gutschein personalisieren',
+        },
+        {
+          icon: 'gift',
+          title: 'Als Geschenk versenden',
+        },
+      ],
     };
   },
   computed: {
