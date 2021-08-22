@@ -7,7 +7,11 @@
             <div class="absolute flex inset-0 items-center justify-center">
               <div
                 class="p-12"
-                style="background-color: var(--company-color-opacity)"
+                :style="
+                  USER.company.is_header_show
+                    ? `background-color: var(--company-color-opacity)`
+                    : ''
+                "
                 v-if="USER.company.header_1 && USER.company.header_2"
               >
                 <div class="text-4xl text-center">

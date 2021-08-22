@@ -175,6 +175,29 @@
                         </span>
                       </div>
                     </div>
+                    <div
+                      class="grid grid-cols-3 items-end relative w-full mb-1"
+                    >
+                      <label class="text-sm col-span-1">Feld ausblenden</label>
+                      <span>
+                        <toggle-button
+                          :color="{
+                            checked: '#000',
+                            unchecked: '#fff',
+                            disabled: '#CCCCCC',
+                          }"
+                          :switch-color="{
+                            checked: '#fff',
+                            unchecked: '#000',
+                            disabled: '#CCCCCC',
+                          }"
+                          :value="form.company.is_header_show"
+                          @change="
+                            (e) => (form.company.is_header_show = e.value)
+                          "
+                        />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
