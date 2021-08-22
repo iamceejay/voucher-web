@@ -34,8 +34,6 @@
             class="content-container gap-4 grid grid-cols-1 lg:grid-cols-3 px-8 sm:grid-cols-2 w-full mb-14"
           >
             <li
-              v-for="(step, key) in steps"
-              :key="key"
               class="flex flex-col items-center justify-center py-14 relative"
               style="background-color: var(--company-color)"
             >
@@ -43,12 +41,59 @@
                 class="-mt-4 absolute bg-white border flex h-10 items-center justify-center rounded-full text-black top-0 w-10"
                 style="border-color: var(--company-color)"
               >
-                {{ key + 1 }}
+                1
               </div>
-              <svg class="h-8 icon mb-4">
-                <use :xlink:href="`/icons/sprite.svg#${step.icon}`" />
+              <span
+                v-if="USER.company.icon_1"
+                class="h-8 w-8 mb-4"
+                v-html="USER.company.icon_1"
+              ></span>
+              <svg class="h-8 icon mb-4" v-else>
+                <use :xlink:href="`/icons/sprite.svg#card-text`" />
               </svg>
-              <span>{{ step.title }}</span>
+              <span>{{ USER.company.text_1 || 'Gutschein wählen' }}</span>
+            </li>
+            <li
+              class="flex flex-col items-center justify-center py-14 relative"
+              style="background-color: var(--company-color)"
+            >
+              <div
+                class="-mt-4 absolute bg-white border flex h-10 items-center justify-center rounded-full text-black top-0 w-10"
+                style="border-color: var(--company-color)"
+              >
+                2
+              </div>
+              <span
+                v-if="USER.company.icon_2"
+                class="h-8 w-8 mb-4"
+                v-html="USER.company.icon_2"
+              ></span>
+              <svg class="h-8 icon mb-4" v-else>
+                <use :xlink:href="`/icons/sprite.svg#palette`" />
+              </svg>
+              <span>{{
+                USER.company.text_2 || 'Gutschein personalisieren'
+              }}</span>
+            </li>
+            <li
+              class="flex flex-col items-center justify-center py-14 relative"
+              style="background-color: var(--company-color)"
+            >
+              <div
+                class="-mt-4 absolute bg-white border flex h-10 items-center justify-center rounded-full text-black top-0 w-10"
+                style="border-color: var(--company-color)"
+              >
+                3
+              </div>
+              <span
+                v-if="USER.company.icon_3"
+                class="h-8 w-8 mb-4"
+                v-html="USER.company.icon_3"
+              ></span>
+              <svg class="h-8 icon mb-4" v-else>
+                <use :xlink:href="`/icons/sprite.svg#gift`" />
+              </svg>
+              <span>{{ USER.company.text_3 || 'Als Geschenk versenden' }}</span>
             </li>
           </ul>
         </div>
@@ -84,20 +129,6 @@ export default {
     return {
       isLoading: true,
       isShowMore: false,
-      steps: [
-        {
-          icon: 'card-text',
-          title: 'Gutschein wählen',
-        },
-        {
-          icon: 'palette',
-          title: 'Gutschein personalisieren',
-        },
-        {
-          icon: 'gift',
-          title: 'Als Geschenk versenden',
-        },
-      ],
     };
   },
   computed: {
