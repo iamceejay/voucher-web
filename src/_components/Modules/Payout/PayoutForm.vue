@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
     <ValidationObserver v-slot="{ handleSubmit }">
-      <form 
+      <form
         class="flex flex-col w-full md:w-1/2"
         @submit.prevent="handleSubmit(onSubmit)"
       >
@@ -30,6 +30,22 @@
           rules="required"
         />
         <InputField
+          id="subdomain_sales_commission_percentage"
+          v-model="form.subdomain_sales_commission_percentage"
+          type="text"
+          class="m-2"
+          label="Unterdomäne Kommission in %"
+          rules="required"
+        />
+        <InputField
+          id="subdomain_sales_commission_euro"
+          v-model="form.subdomain_sales_commission_euro"
+          type="text"
+          class="m-2"
+          label="Unterdomäne Kommission in €"
+          rules="required"
+        />
+        <InputField
           id="minimum_voucher_value"
           v-model="form.minimum_voucher_value"
           type="text"
@@ -50,52 +66,50 @@
   </div>
 </template>
 <script>
-  import InputField from '_components/Form/InputField';
-  import Button from '_components/Button'
+import InputField from '_components/Form/InputField';
+import Button from '_components/Button';
 
-  export default {
-    components: {
-      InputField,
-      Button,
+export default {
+  components: {
+    InputField,
+    Button,
+  },
+  props: {
+    data: {
+      type: Object,
+      default: null,
     },
-    props: {
-      data: {
-        type: Object,
-        default: null
+  },
+  data() {
+    return {
+      form: {
+        payout_schedule: '',
+        sales_commission_percentage: '',
+        sales_commission_euro: '',
+        subdomain_sales_commission_percentage: '',
+        subdomain_sales_commission_euro: '',
+        minimum_voucher_value: '',
       },
-    },
+    };
+  },
+  watch: {
     data() {
-      return {
-        form: {
-          payout_schedule: '',
-          sales_commission_percentage: '',
-          sales_commission_euro: '',
-          minimum_voucher_value: '',
-        }
+      this.onSetData();
+    },
+  },
+  mounted() {
+    this.onSetData();
+  },
+  methods: {
+    async onSubmit() {
+      await this.$emit('onSubmit', this.form);
+    },
+    onSetData() {
+      if (this.data) {
+        this.form = this.data;
       }
     },
-    watch: {
-      data()
-      {
-        this.onSetData()
-      }
-    },
-    mounted() {
-      this.onSetData()
-    },
-    methods: {
-      async onSubmit()
-      {
-        await this.$emit('onSubmit', this.form)
-      },
-      onSetData()
-      {
-        if( this.data ) {
-          this.form = this.data
-        }
-      },
-    }
-  }
+  },
+};
 </script>
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>
