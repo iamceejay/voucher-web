@@ -273,6 +273,7 @@ body.modal-active {
   background-color: #fff;
 }
 
+.hover\:company-color:hover,
 .company-color {
   color: var(--company-color, var(--card-description-background, #ff5563));
 }

@@ -14,6 +14,19 @@
       </router-link>
       <div v-if="AUTH_USER.isAuth" class="flex">
         <router-link
+          :to="AUTH_USER.isAuth ? '/wallet' : '/guest-wallet'"
+          class="menu-item  text-xs mr-2"
+        >
+          <span
+            class="hover:company-color relative z-10 flex flex-col items-center"
+          >
+            <svg class="icon h-5 w-5 company-color mb-1">
+              <use :xlink:href="`/icons/sprite.svg#wallet`" />
+            </svg>
+            <span class="text-2xs company-color">Meine Wallet</span>
+          </span>
+        </router-link>
+        <router-link
           v-if="
             AUTH_USER &&
               AUTH_USER.role &&
@@ -24,12 +37,12 @@
           class="menu-item  text-xs mr-2"
         >
           <span
-            class="hover:text-peach relative z-10 flex flex-col items-center"
+            class="hover:company-color relative z-10 flex flex-col items-center"
           >
-            <svg class="icon h-5 w-5 text-peach mb-1">
+            <svg class="icon h-5 w-5 company-color mb-1">
               <use :xlink:href="`/icons/sprite.svg#heart`" />
             </svg>
-            <span class="text-2xs text-peach">Meine Wishlist</span>
+            <span class="text-2xs company-color">Meine Wishlist</span>
           </span>
         </router-link>
         <router-link
@@ -39,13 +52,13 @@
               AUTH_USER.role.name &&
               AUTH_USER.role.name === 'user'
           "
-          class="flex flex-col items-center justify-center text-peach relative"
+          class="flex flex-col items-center justify-center company-color relative"
           to="/cart"
         >
           <div class="-mt-1 absolute mr-2 right-0 text-2xs text-black top-0">
             {{ COUNT_CART }}
           </div>
-          <svg class="icon h-5 w-5 mb-1 text-peach">
+          <svg class="icon h-5 w-5 mb-1 company-color">
             <use :xlink:href="`/icons/sprite.svg#bag`" />
           </svg>
           <span class="text-2xs">Warenkorb</span>
@@ -67,7 +80,7 @@
               width="16"
               height="16"
               fill="currentColor"
-              class="relative icon h-5 w-5 text-peach"
+              class="relative icon h-5 w-5 company-color"
               viewBox="0 0 16 16"
             >
               <path
@@ -80,16 +93,29 @@
               />
             </svg>
           </div>
-          <span class="text-2xs text-peach">Ausloggen</span>
+          <span class="text-2xs company-color">Ausloggen</span>
         </a>
       </div>
 
       <div v-else class="text-sm flex space-x-4">
+        <router-link
+          :to="AUTH_USER.isAuth ? '/wallet' : '/guest-wallet'"
+          class="menu-item  text-xs mr-2"
+        >
+          <span
+            class="hover:company-color relative z-10 flex flex-col items-center"
+          >
+            <svg class="icon h-4 w-4 company-color">
+              <use :xlink:href="`/icons/sprite.svg#wallet`" />
+            </svg>
+            Meine Wallet
+          </span>
+        </router-link>
         <a href="javascript:void(0)" class="menu-item  text-xs">
           <span
-            class="hover:text-peach relative z-10 flex flex-col items-center"
+            class="hover:company-color relative z-10 flex flex-col items-center"
           >
-            <svg class="icon h-4 w-4 text-peach">
+            <svg class="icon h-4 w-4 company-color">
               <use :xlink:href="`/icons/sprite.svg#heart`" />
             </svg>
             Meine Wunschliste
@@ -100,7 +126,7 @@
           to="/cart"
         >
           <div class="relative  h-4 w-4">
-            <svg class="relative icon h-4 w-4 text-peach">
+            <svg class="relative icon h-4 w-4 company-color">
               <use :xlink:href="`/icons/sprite.svg#bag`" />
             </svg>
             <div
@@ -208,7 +234,7 @@
             </p>
             <p class="text-xs">
               <a
-                class="text-peach font-bold"
+                class="company-color font-bold"
                 href="https://verkaufen.epasnets.com/datenschutz"
                 target="_blank"
               >
