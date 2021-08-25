@@ -362,7 +362,7 @@
   </MainLayout>
 </template>
 <script>
-import MainLayout from '_layouts';
+import MainLayout from '_layouts/subdomain';
 import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/';
 import InputField from '_components/Form/InputField';
 import Button from '_components/Button';
@@ -741,11 +741,5 @@ export default {
 }
 .order__form input[type='number']:focus {
   outline: 0;
-}
-.company-color {
-  color: var(--company-color, var(--card-description-background, #ff5563));
-}
-.company-bg-color {
-  background: var(--company-color, var(--card-description-background, #ff5563));
 }
 </style>

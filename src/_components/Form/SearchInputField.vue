@@ -7,10 +7,7 @@
       class="flex w-11/12 mx-auto"
     >
       <template class="test" #default="{ errors }">
-        <Header5
-          v-if="label != ''"
-          :label="label"
-        />
+        <Header5 v-if="label != ''" :label="label" />
         <div class="flex flex-col max-w-md mt-2 mx-auto relative w-full">
           <input
             :id="id"
@@ -19,18 +16,24 @@
             :name="id"
             :type="type"
             class="input-field pr-12 px-3 py-2 rounded-full"
-            :class="[font, { 'text-red-500 border-red-500': errors && errors.length > 0 }]"
+            :class="[
+              font,
+              { 'text-red-500 border-red-500': errors && errors.length > 0 },
+            ]"
             :value="value"
             :placeholder="placeholder"
           />
 
           <svg class="absolute h-5 icon mr-6 mt-3 right-0 text-peach w-5">
-            <use xlink:href="/icons/sprite.svg#search"/>
+            <use xlink:href="/icons/sprite.svg#search" />
           </svg>
-          <a v-if="submitButton"
-            href="javascript:void(0)" class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-3 text-center"
+          <a
+            v-if="submitButton"
+            href="javascript:void(0)"
+            class="company-bg-color px-5 py-3 rounded-md text-sm text-white mt-3 text-center"
             @click="onSearch"
-          >Suchen</a>
+            >Suchen</a
+          >
         </div>
         <ErrorMessage class="mt-1" :errors="[...errors, ...errorMessages]" />
       </template>
@@ -38,94 +41,101 @@
   </div>
 </template>
 <script>
-  import ErrorMessage from './FieldErrorMessage'
-  import Header5 from '_components/Headers/Header5';
+import ErrorMessage from './FieldErrorMessage';
+import Header5 from '_components/Headers/Header5';
 
-  export default {
-    components: {
-      ErrorMessage,
-      Header5
+export default {
+  components: {
+    ErrorMessage,
+    Header5,
+  },
+  props: {
+    id: {
+      type: [Number, String],
+      default: null,
     },
-    props: {
-      id: {
-        type: [Number, String],
-        default: null
-      }, type: {
-        type: String,
-        default: ''
-      }, label: {
-        type: String,
-        default: ''
-      }, placeholder: {
-        type: String,
-        default: ''
-      }, value: {
-        type: [Number, String],
-        default: null
-      }, rules: {
-        type: String,
-        default: ''
-      }, errorMessages: {
-        type: Array,
-        default() {
-          return []
-        }
-      }, submitButton: {
-        type: Boolean,
-        default: true
-      }, font: {
-        type: String,
-        default: 'text-sm'
-      }
+    type: {
+      type: String,
+      default: '',
     },
-    data() {
-      return {
-        keyword: ''
-      }
+    label: {
+      type: String,
+      default: '',
     },
-    watch: {
-      value( newVal )
-      {
-        this.keyword = newVal
-      }
+    placeholder: {
+      type: String,
+      default: '',
     },
-    mounted() {
-      let input = document.getElementById(this.id);
-      let timeout = null;
-      let self = this
-      input.addEventListener('keyup', function (e) {
-        clearTimeout(timeout);
-        timeout = setTimeout(function () {
-          self.$emit('input', e.target.value)
-        }, 1000);
-      });
+    value: {
+      type: [Number, String],
+      default: null,
     },
-    methods: {
-      onUpdateField() {
-        // let input = document.getElementById(this.id);
-        // let timeout = null;
-        // input.addEventListener('keyup', function (e) {
-        //   clearTimeout(timeout);
-        //   timeout = setTimeout(function () {
-        //     console.log('Input Value:', e.target.value);
-        //   }, 3000);
-        // });
-        // this.$emit('input', this.$refs.inputField.value);
+    rules: {
+      type: String,
+      default: '',
+    },
+    errorMessages: {
+      type: Array,
+      default() {
+        return [];
       },
-      onSearch() {
-        if (this.$route.name == 'vouchers-search') {
-          this.$emit('input', this.keyword)
-        } else {
-          this.$router.push('vouchers/search')
-        }
+    },
+    submitButton: {
+      type: Boolean,
+      default: true,
+    },
+    font: {
+      type: String,
+      default: 'text-sm',
+    },
+  },
+  data() {
+    return {
+      keyword: '',
+    };
+  },
+  watch: {
+    value(newVal) {
+      this.keyword = newVal;
+    },
+  },
+  mounted() {
+    let input = document.getElementById(this.id);
+    let timeout = null;
+    let self = this;
+    input.addEventListener('keyup', function(e) {
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        self.$emit('input', e.target.value);
+      }, 1000);
+    });
+  },
+  methods: {
+    onUpdateField() {
+      // let input = document.getElementById(this.id);
+      // let timeout = null;
+      // input.addEventListener('keyup', function (e) {
+      //   clearTimeout(timeout);
+      //   timeout = setTimeout(function () {
+      //     console.log('Input Value:', e.target.value);
+      //   }, 3000);
+      // });
+      // this.$emit('input', this.$refs.inputField.value);
+    },
+    onSearch() {
+      if (this.$route.name == 'vouchers-search') {
+        this.$emit('input', this.keyword);
+      } else {
+        this.$router.push('vouchers/search');
       }
-    }
-  }
+    },
+  },
+};
 </script>
-<style lang='css' scoped>
-  .search-icon {
-    position: absolute;
-    left: 0;
-    padding: 9px 15px;
-  }
+<style lang="css" scoped>
+.search-icon {
+  position: absolute;
+  left: 0;
+  padding: 9px 15px;
+}
 </style>

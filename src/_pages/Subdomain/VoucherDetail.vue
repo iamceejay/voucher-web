@@ -356,7 +356,7 @@
             </div>
 
             <router-link
-              class="bg-peach block border-1 focus:outline-none focus:shadow-none font-normal md:px-4 mt-6 px-2 py-4 rounded text-center text-sm text-white w-full block md:hidden"
+              class="company-bg-color block border-1 focus:outline-none focus:shadow-none font-normal md:px-4 mt-6 px-2 py-4 rounded text-center text-sm text-white w-full block md:hidden"
               :to="`/seller/${VOUCHER.seller_id}`"
             >
               Weitere Informationen zu diesem Unternehmen

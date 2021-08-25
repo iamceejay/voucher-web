@@ -27,15 +27,22 @@
               >{{
                 `${
                   row.order.voucher.type == 'quantity'
-                    ? `${row.qty} x ${$helpers.convertCurrency(row.order.voucher.qty_val) }`
+                    ? `${row.qty} x ${$helpers.convertCurrency(
+                        row.order.voucher.qty_val
+                      )}`
                     : $route.name == 'wallet'
-                      ? $helpers.convertCurrency(row.order.value)
-                      : `${$helpers.convertCurrency(voucher.min || voucher.val_min).replace('€', '')} - ${$helpers.convertCurrency(voucher.max || voucher.val_max)}`}`
+                    ? $helpers.convertCurrency(row.order.value)
+                    : `${$helpers
+                        .convertCurrency(voucher.min || voucher.val_min)
+                        .replace('€', '')} - ${$helpers.convertCurrency(
+                        voucher.max || voucher.val_max
+                      )}`
+                }`
               }}
             </span>
 
             <button
-              class="bg-peach px-5 py-3 rounded-md text-sm text-white mt-4"
+              class="company-bg-color px-5 py-3 rounded-md text-sm text-white mt-4"
               @click="$router.push(`/voucher/${row.id}`)"
             >
               Zum Gutschein
@@ -196,7 +203,7 @@ export default {
       // row.order.voucher.data_json.price_hidden = row.price_hidden
       //   ? true
       //   : false;
-      row.order.voucher.data_json.seller = row.order.voucher.seller
+      row.order.voucher.data_json.seller = row.order.voucher.seller;
 
       return row.order.voucher.data_json;
     },

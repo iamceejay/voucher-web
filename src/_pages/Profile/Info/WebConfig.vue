@@ -16,7 +16,7 @@
               <span class="text-xl font-medium">Gutschein Webseite</span>
               <button
                 type="submit"
-                class="bg-peach px-5 py-3 rounded-md text-sm text-white"
+                class="company-bg-color px-5 py-3 rounded-md text-sm text-white"
               >
                 Speichern
               </button>

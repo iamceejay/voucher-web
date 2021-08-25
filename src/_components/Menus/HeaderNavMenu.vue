@@ -172,7 +172,7 @@
                 <use :xlink:href="`/icons/sprite.svg#bag`" />
               </svg>
               <div
-                class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4"
+                class="-m-3 absolute company-bg-color flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4"
               >
                 {{ COUNT_CART }}
               </div>
@@ -285,7 +285,7 @@
                 <use :xlink:href="`/icons/sprite.svg#bag`" />
               </svg>
               <div
-                class="-m-3 absolute bg-peach flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4"
+                class="-m-3 absolute company-bg-color flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4"
               >
                 {{ COUNT_CART }}
               </div>

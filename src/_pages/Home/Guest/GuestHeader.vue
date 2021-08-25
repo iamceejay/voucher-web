@@ -1,16 +1,23 @@
 <template>
   <div class="-mt-10">
-    <div class="guest-header bg-peach">
-      <div class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-24 lg:pb-48 relative">
+    <div class="guest-header company-bg-color">
+      <div
+        class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-24 lg:pb-48 relative"
+      >
         <div class="text-center text-white w-11/12 max-w-xl">
           <h1 class="font-body text-xl md:text-3xl lg:text-4xl mb-1">
             Weil Regionalität auch beim Verschenken den Unterschied macht
           </h1>
-          <p class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto">
-            Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und selber genießen.
+          <p
+            class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto"
+          >
+            Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und
+            selber genießen.
           </p>
         </div>
-        <div class="search-box bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute">
+        <div
+          class="search-box bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute"
+        >
           <router-link
             class="flex flex-col w-11/12 lg:w-9/12"
             to="/vouchers/search"
@@ -27,9 +34,10 @@
             <div
               v-for="(item, index) in searchBoxItems"
               :key="`item-${index}`"
-              class="search-box__details-item">
+              class="search-box__details-item"
+            >
               <svg class="icon">
-                <use :xlink:href="`/icons/sprite.svg#${item.spriteIcon}`"/>
+                <use :xlink:href="`/icons/sprite.svg#${item.spriteIcon}`" />
               </svg>
               <p class="text-sm">{{ item.label }}</p>
             </div>
@@ -40,53 +48,51 @@
   </div>
 </template>
 <script>
-  import SearchInputField from '_components/Form/SearchInputField'
+import SearchInputField from '_components/Form/SearchInputField';
 
-  export default {
-    components: {
-      SearchInputField,
-    },
-    data() {
-      return {
-        searchBoxItems: [
-          {
-            spriteIcon: 'palette', 
-            label: 'Personalisieren'
-          },
-          {
-            spriteIcon: 'cloud-arrow-down', 
-            label: 'Downloaden'
-          },
-          {
-            spriteIcon: 'gift', 
-            label: 'Verschenken'
-          }
-        ]
-      }
-    },
-    created() {
-    },
-    methods: {
-    }
-  }
+export default {
+  components: {
+    SearchInputField,
+  },
+  data() {
+    return {
+      searchBoxItems: [
+        {
+          spriteIcon: 'palette',
+          label: 'Personalisieren',
+        },
+        {
+          spriteIcon: 'cloud-arrow-down',
+          label: 'Downloaden',
+        },
+        {
+          spriteIcon: 'gift',
+          label: 'Verschenken',
+        },
+      ],
+    };
+  },
+  created() {},
+  methods: {},
+};
 </script>
 <style lang="css" scoped>
-  .guest-header {
-    margin-bottom: calc(var(--bottomSpacing) + 4rem);
-  }
-  .search-box {
-    bottom: calc(var(--bottomSpacing) * -1);
-  }
-  .search-box >>> .input-field {
-    @apply bg-white;
-  }
-  .search-box__details {
-    @apply flex flex-wrap pt-2 justify-around;
-  }
-  .search-box__details-item {
-    @apply flex flex-col items-center;
-  }
-  .icon {
-    @apply h-6 w-6 text-peach mb-1;
-  }
+.guest-header {
+  margin-bottom: calc(var(--bottomSpacing) + 4rem);
+}
+.search-box {
+  bottom: calc(var(--bottomSpacing) * -1);
+}
+.search-box >>> .input-field {
+  @apply bg-white;
+}
+.search-box__details {
+  @apply flex flex-wrap pt-2 justify-around;
+}
+.search-box__details-item {
+  @apply flex flex-col items-center;
+}
+.icon {
+  @apply h-6 w-6 text-peach mb-1;
+}
 </style>
