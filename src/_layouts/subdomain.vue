@@ -65,10 +65,7 @@
         </router-link>
         <a
           v-if="
-            AUTH_USER &&
-              AUTH_USER.role &&
-              AUTH_USER.role.name &&
-              AUTH_USER.role.name !== 'user'
+            AUTH_USER
           "
           href="javascript:void(0)"
           class="flex flex-col items-center justify-center relative ml-2"
@@ -137,6 +134,18 @@
           </div>
 
           <span class="text-xs">Warenkorb</span>
+        </router-link>
+        <router-link
+          class="flex flex-col items-center justify-center relative"
+          to="/login"
+        >
+          <div class="relative  h-4 w-4">
+            <svg class="relative icon h-4 w-4 company-color">
+              <use :xlink:href="`/icons/sprite.svg#person`" />
+            </svg>
+          </div>
+
+          <span class="text-xs">Anmelden</span>
         </router-link>
       </div>
     </div>

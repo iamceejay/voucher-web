@@ -38,7 +38,7 @@ import Payment from '_pages/Subdomain/Payment';
 import Transfer from '_pages/Transfer/';
 import PageNotFound from '_pages/Errors/PageNotFound';
 import UserNotAllowed from '_pages/Errors/UserNotAllowed';
-import WishList from '_pages/WishList';
+import WishList from '_pages/Subdomain/WishList';
 import GuestWallet from '_pages/Subdomain/GuestWallet';
 
 Vue.use(Router);
