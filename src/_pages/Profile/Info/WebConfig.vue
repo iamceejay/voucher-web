@@ -236,6 +236,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
+                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
                   <InputField
                     id="email"
                     class="mb-4"
@@ -255,6 +256,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
+                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
                   <InputField
                     id="email"
                     class="mb-4"
@@ -276,6 +278,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
+                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
                   <InputField
                     id="email"
                     class="mb-4"

@@ -47,11 +47,11 @@
               >
                 1
               </div>
-              <span
+              <i
                 v-if="USER.company.icon_1"
-                class="h-8 w-8 mb-4"
-                v-html="USER.company.icon_1"
-              ></span>
+                class="text-3xl mb-4 bi-"
+                :class="`bi-${USER.company.icon_1}`"
+              ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#card-text`" />
               </svg>
@@ -67,11 +67,11 @@
               >
                 2
               </div>
-              <span
+              <i
                 v-if="USER.company.icon_2"
-                class="h-8 w-8 mb-4"
-                v-html="USER.company.icon_2"
-              ></span>
+                class="text-3xl mb-4 bi-"
+                :class="`bi-${USER.company.icon_1}`"
+              ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#palette`" />
               </svg>
@@ -89,11 +89,11 @@
               >
                 3
               </div>
-              <span
+              <i
                 v-if="USER.company.icon_3"
-                class="h-8 w-8 mb-4"
-                v-html="USER.company.icon_3"
-              ></span>
+                class="text-3xl mb-4 bi-"
+                :class="`bi-${USER.company.icon_1}`"
+              ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#gift`" />
               </svg>
