@@ -14,19 +14,6 @@
       </router-link>
       <div v-if="AUTH_USER.isAuth" class="flex">
         <router-link
-          :to="AUTH_USER.isAuth ? '/wallet' : '/guest-wallet'"
-          class="menu-item  text-xs mr-2"
-        >
-          <span
-            class="hover:company-color relative z-10 flex flex-col items-center"
-          >
-            <svg class="icon h-5 w-5 company-color mb-1">
-              <use :xlink:href="`/icons/sprite.svg#wallet`" />
-            </svg>
-            <span class="text-2xs company-color">Meine Wallet</span>
-          </span>
-        </router-link>
-        <router-link
           v-if="
             AUTH_USER &&
               AUTH_USER.role &&
@@ -42,7 +29,7 @@
             <svg class="icon h-5 w-5 company-color mb-1">
               <use :xlink:href="`/icons/sprite.svg#heart`" />
             </svg>
-            <span class="text-2xs company-color">Meine Wishlist</span>
+            <span class="text-2xs text-black">Meine Wishlist</span>
           </span>
         </router-link>
         <router-link
@@ -61,53 +48,11 @@
           <svg class="icon h-5 w-5 mb-1 company-color">
             <use :xlink:href="`/icons/sprite.svg#bag`" />
           </svg>
-          <span class="text-2xs">Warenkorb</span>
+          <span class="text-2xs text-black">Warenkorb</span>
         </router-link>
-        <a
-          v-if="
-            AUTH_USER
-          "
-          href="javascript:void(0)"
-          class="flex flex-col items-center justify-center relative ml-2"
-          @click="onLogout()"
-        >
-          <div class="relative  h-5 w-5 mb-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="relative icon h-5 w-5 company-color"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-              />
-            </svg>
-          </div>
-          <span class="text-2xs company-color">Ausloggen</span>
-        </a>
       </div>
 
       <div v-else class="text-sm flex space-x-4">
-        <router-link
-          :to="AUTH_USER.isAuth ? '/wallet' : '/guest-wallet'"
-          class="menu-item  text-xs mr-2"
-        >
-          <span
-            class="hover:company-color relative z-10 flex flex-col items-center"
-          >
-            <svg class="icon h-4 w-4 company-color">
-              <use :xlink:href="`/icons/sprite.svg#wallet`" />
-            </svg>
-            Meine Wallet
-          </span>
-        </router-link>
         <a href="javascript:void(0)" class="menu-item  text-xs">
           <span
             class="hover:company-color relative z-10 flex flex-col items-center"
@@ -134,18 +79,6 @@
           </div>
 
           <span class="text-xs">Warenkorb</span>
-        </router-link>
-        <router-link
-          class="flex flex-col items-center justify-center relative"
-          to="/login"
-        >
-          <div class="relative  h-4 w-4">
-            <svg class="relative icon h-4 w-4 company-color">
-              <use :xlink:href="`/icons/sprite.svg#person`" />
-            </svg>
-          </div>
-
-          <span class="text-xs">Anmelden</span>
         </router-link>
       </div>
     </div>
@@ -233,6 +166,75 @@
           v-if="!AUTH_USER.isAuth || AUTH_USER.role.name === 'user'"
           class="mt-8"
         />
+      </div>
+
+      <div
+        id="mobile-footer-menu"
+        class="bg-white border-t flex h-full md:hidden overflow-x-auto overflow-y-hidden"
+      >
+        <ul class="flex justify-around w-full">
+          <li
+            class="flex flex-col justify-center text-center cursor-pointer text-xs"
+          >
+            <router-link
+              :to="AUTH_USER.isAuth ? '/wallet' : '/guest-wallet'"
+              class="menu-item  text-xs mr-2"
+            >
+              <span
+                class="hover:company-color relative z-10 flex flex-col items-center"
+              >
+                <svg class="icon h-5 w-5 company-color mb-1">
+                  <use :xlink:href="`/icons/sprite.svg#wallet`" />
+                </svg>
+                <span class="text-xs text-black">Meine Wallet</span>
+              </span>
+            </router-link>
+          </li>
+          <li
+            class="flex flex-col justify-center text-center cursor-pointer text-xs"
+          >
+            <a
+              v-if="AUTH_USER.isAuth"
+              href="javascript:void(0)"
+              class="flex flex-col items-center justify-center relative ml-2"
+              @click="onLogout()"
+            >
+              <div class="relative  h-5 w-5 mb-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="relative icon h-5 w-5 company-color"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                  />
+                </svg>
+              </div>
+              <span class="text-2xs text-black">Ausloggen</span>
+            </a>
+            <router-link
+              v-else
+              class="flex flex-col items-center justify-center relative"
+              to="/login"
+            >
+              <div class="relative  h-4 w-4 mb-1">
+                <svg class="relative icon h-4 w-4 company-color">
+                  <use :xlink:href="`/icons/sprite.svg#person`" />
+                </svg>
+              </div>
+
+              <span class="text-xs text-black">Anmelden</span>
+            </router-link>
+          </li>
+        </ul>
       </div>
       <CookieLaw class="cookie-container" buttonClass="cookie-btn">
         <template #default="props">
@@ -530,6 +532,15 @@ export default {
 
 .guest-container {
   padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+#mobile-footer-menu {
+  height: 70px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 @media only screen and (max-width: 600px) {
