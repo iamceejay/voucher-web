@@ -589,6 +589,27 @@
                       } pro Gutscheinverkauf zuzüglich 20% MwSt.`
                     }}
                   </div>
+                  <div>
+                    <span class="block font-semibold text-sm mb-4"
+                    >Kommission Gutscheinwebseite</span
+                      >
+                      <div
+                        v-if="AUTH_USER.isAuth"
+                        class="mb-4 text-sm"
+                      >
+                        {{
+                          `Deine Kommission ist ${
+                            settings ? settings.subdomain_sales_commission_percentage : '5'
+                          }% und ${
+                            settings
+                              ? $helpers.convertCurrency(
+                                  settings.subdomain_sales_commission_euro
+                                )
+                              : '5,00 €'
+                          } pro Gutscheinverkauf zuzüglich 20% MwSt.`
+                        }}
+                      </div>
+                  </div>
                 </div>
               </div>
               <div
