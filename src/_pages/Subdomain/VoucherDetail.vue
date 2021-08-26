@@ -258,12 +258,6 @@
               >
                 {{ !isShowMore ? 'Mehr lesen' : 'Lese weniger' }}
               </button>
-              <router-link
-                class="px-3 py-3 rounded-md text-xs border border-black text-black hidden md:inline-block"
-                :to="`/seller/${VOUCHER.seller_id}`"
-              >
-                Verkäufer Info
-              </router-link>
             </div>
 
             <span class="block mb-3 w-full border-b pb-4 mt-10 font-semibold">
