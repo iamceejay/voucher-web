@@ -60,7 +60,7 @@
             <svg class="icon h-4 w-4 company-color">
               <use :xlink:href="`/icons/sprite.svg#heart`" />
             </svg>
-            Meine Wunschliste
+            <span class="text-xs text-black">Meine Wunschliste</span>
           </span>
         </a>
         <router-link
@@ -78,7 +78,7 @@
             </div>
           </div>
 
-          <span class="text-xs">Warenkorb</span>
+          <span class="text-xs text-black">Warenkorb</span>
         </router-link>
       </div>
     </div>
