@@ -227,6 +227,37 @@
               </div>
               <div class="flex md:space-x-6 w-full mt-4">
                 <div class="w-full md:w-1/2">
+
+                  <InputField
+                    id="email"
+                    class="mb-4"
+                    v-model="form.company.text_1"
+                    type="text"
+                    label="Text 1"
+                    :errorMessages="errorMessages.title_2"
+                    @input="onChange"
+                  />
+                  <InputField
+                    id="email"
+                    class="mb-4"
+                    v-model="form.company.text_2"
+                    type="text"
+                    label="Text 2"
+                    :errorMessages="errorMessages.title_2"
+                    @input="onChange"
+                  />
+                  <InputField
+                    id="email"
+                    class="mb-4"
+                    v-model="form.company.text_3"
+                    type="text"
+                    label="Text 3"
+                    :errorMessages="errorMessages.title_3"
+                    @input="onChange"
+                  />
+                </div>
+
+                <div class="w-full md:w-1/2">
                   <InputField
                     id="address"
                     class="mb-4"
@@ -238,16 +269,6 @@
                   />
                   <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
                   <InputField
-                    id="email"
-                    class="mb-4"
-                    v-model="form.company.text_1"
-                    type="text"
-                    label="Text 1"
-                    :errorMessages="errorMessages.title_2"
-                    @input="onChange"
-                  />
-
-                  <InputField
                     id="address"
                     class="mb-4"
                     v-model="form.company.icon_2"
@@ -258,18 +279,6 @@
                   />
                   <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
                   <InputField
-                    id="email"
-                    class="mb-4"
-                    v-model="form.company.text_2"
-                    type="text"
-                    label="Text 2"
-                    :errorMessages="errorMessages.title_2"
-                    @input="onChange"
-                  />
-                </div>
-
-                <div class="w-full md:w-1/2">
-                  <InputField
                     id="address"
                     class="mb-4"
                     v-model="form.company.icon_3"
@@ -279,15 +288,7 @@
                     @input="onChange"
                   />
                   <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
-                  <InputField
-                    id="email"
-                    class="mb-4"
-                    v-model="form.company.text_3"
-                    type="text"
-                    label="Text 3"
-                    :errorMessages="errorMessages.title_3"
-                    @input="onChange"
-                  />
+
                 </div>
               </div>
             </div>

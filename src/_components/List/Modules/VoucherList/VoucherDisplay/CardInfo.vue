@@ -425,7 +425,7 @@
   }
   .card-description {
     height: 8.4375em;
-    background-color: var(--company-color, var(--card-description-background, #ff5563));
+    background-color: var(--card-description-background, #ff5563);
     color: var(--card-description-color, white);
   }
 
