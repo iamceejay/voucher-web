@@ -156,7 +156,7 @@
         <div class="w-full">
           <div
             id="infinite-scroll"
-            class="flex flex-col h-full w-full m-c pt-10"
+            class="flex flex-col h-full w-full m-c md:pt-10"
           >
             <slot name="content" />
           </div>
