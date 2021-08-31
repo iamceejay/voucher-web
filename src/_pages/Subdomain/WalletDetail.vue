@@ -1,6 +1,7 @@
 <template>
   <MainLayout>
     <template #content>
+      <BackBtn class="py-8" />
       <div
         v-if="!IS_LOADING.status && WALLET"
         class="content-container w-full flex flex-col px-8"

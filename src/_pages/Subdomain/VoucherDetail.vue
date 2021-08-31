@@ -1,6 +1,8 @@
 <template>
   <MainLayout>
+
     <template #content>
+      <BackBtn class="py-8" />
       <div
         v-if="!IS_LOADING.status && VOUCHER"
         class="content-container w-full flex flex-col px-8 pb-10"
