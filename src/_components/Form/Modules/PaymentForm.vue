@@ -127,10 +127,32 @@
     <div
       class="bg-white flex flex-col items-start mt-8 mx-auto pb-8 pt-4 px-8 w-full"
     >
-      <div class="flex items-baseline justify-center w-full">
+      <label for="" class="text-sm">Add coupon code (optional)</label>
+      <div class="flex justify-center mt-2 w-full">
+        <input v-model="coupon" type="text" class="input-field px-3 py-1 text-sm uppercase">
+          <button
+            class="company-bg-color py-3 rounded-md text-sm text-white w-full"
+            :disabled="couponButtonText === 'Checking...' || !coupon"
+            :class="{ 'opacity-50': couponButtonText === 'Checking...' || !coupon }"
+            @click="applyCoupon"
+          >
+            {{ couponButtonText }}
+          </button>
+      </div>
+      <span v-if="couponError" class="text-xs mt-1 text-red-500">This coupon does not exist</span>
+      <span v-if="couponDiscount" class="text-xs mt-1">Discount Coupon <span class="font-bold">({{couponDiscount}})</span></span>
+
+
+      <div class="flex items-baseline justify-center w-full mt-8">
         <span class="text-xs mr-3">Summe ({{ WALLETS.length }} Artikel):</span>
-        <span class="border-b border-black font-medium text-xl">{{
+        <span
+          class="border-b border-black font-medium text-xl"
+          :class="{'line-through': discountedPrice}"
+        >{{
           $helpers.convertCurrency(totalPrice)
+        }}</span>
+        <span v-if="discountedPrice" class="border-b border-black font-medium text-xl ml-3">{{
+          $helpers.convertCurrency(discountedPrice)
         }}</span>
       </div>
       <button
@@ -149,18 +171,29 @@ import RadioInputField from '_components/Form/RadioInputField';
 import Button from '_components/Button';
 import { post, get, del, patch } from '_helpers/ApiService';
 import SelectField from '_components/Form/SelectField';
+import InputField from "_components/Form/InputField";
+import moment from 'moment';
 
 export default {
   components: {
     Button,
     RadioInputField,
     SelectField,
+    InputField
   },
   data() {
     return {
       payment_type: 'stripe',
       totalPrice: 0,
       is_save: false,
+      coupon: '',
+      couponButtonText: 'Apply Coupon',
+      couponError: false,
+      couponDiscount: '',
+      discountedPrice: 0,
+      hasLimit: false,
+      couponId: '',
+      limit: 0,
       paymentForm: {
         is_save: false,
         token: null,
@@ -268,6 +301,10 @@ export default {
               ...this.paymentForm,
               price: this.totalPrice,
               payment_type: this.payment_type,
+              discountedPrice: this.discountedPrice,
+              hasLimit: this.hasLimit,
+              limit: this.limit,
+              coupon_id: this.couponId
             });
             if (this.payment_type == 'stripe') {
               await this.$store.commit('SET_IS_PROCESSING', {
@@ -528,6 +565,51 @@ export default {
     onChange() {
       this.$emit('onChange', this.paymentForm);
     },
+    async applyCoupon() {
+      this.couponError = false
+       this.couponButtonText = 'Checking...'
+       const { data } = await post(`check-coupon`, {
+          coupon: this.coupon
+      });
+
+      this.couponButtonText = 'Apply Coupon'
+      if (!data.coupon.length) {
+        this.resetCoupon()
+        return
+      }
+
+      if (data.coupon[0].expires_at && !moment(data.coupon[0].expires_at).isBefore(moment())) {
+        this.resetCoupon()
+        return
+      }
+
+      if (data.coupon[0].coupon.metadata.hasOwnProperty('limit')) {
+        this.hasLimit = true
+        this.limit = data.coupon[0].coupon.metadata.limit
+
+        if (this.limit == 0) {
+          this.resetCoupon()
+          return
+        }
+      }
+      this.couponId = data.coupon[0].coupon.id
+      if (data.coupon[0].coupon.percent_off) {
+        this.discountedPrice = this.totalPrice - (this.totalPrice * (data.coupon[0].coupon.percent_off/100))
+        this.couponDiscount = data.coupon[0].coupon.percent_off + '%'
+      }
+
+      if (data.coupon[0].coupon.amount_off) {
+        this.discountedPrice = this.totalPrice - (data.coupon[0].coupon.amount_off / 100)
+        this.couponDiscount = (data.coupon[0].coupon.amount_off / 100) + '  €'
+      }
+    },
+    resetCoupon() {
+      this.discountedPrice = 0
+      this.couponError = true
+      this.couponDiscount = ''
+      this.hasLimit = false
+      this.limit = 0
+    }
   },
 };
 </script>
