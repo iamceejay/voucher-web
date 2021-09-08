@@ -201,30 +201,46 @@
                   </div>
                 </div>
               </div>
-              <label class="text-sm col-span-2 mt-5 block">Unterdomäne</label>
-              <div class="block border mt-4 mx-auto relative w-full xl:flex">
-                <input
-                  id="subdomain"
-                  name="clipboard"
-                  type="text"
-                  class="flex-1 input-copy px-4 py-2 rounded w-full"
-                  v-model="form.subdomain"
-                  disabled
-                />
-                <input
-                  id="copy-text"
-                  type="text"
-                  v-model="form.subdomain"
-                  class="absolute opacity-0"
-                />
-                <button
-                  data-clipboard-target="#copy-text"
-                  type="button"
-                  class="bg-black clipboard mt-3 px-5 py-3 rounded text-sm text-white w-full xl:mt-0 xl:w-auto"
-                >
-                  Link kopieren
-                </button>
+              <div class="flex md:space-x-6 w-full mt-4">
+                <div class="w-full md:w-1/2">
+                  <label class="text-sm col-span-2 block">Unterdomäne</label>
+                  <div class="block border mt-2 mx-auto relative w-full xl:flex">
+                    <input
+                      id="subdomain"
+                      name="clipboard"
+                      type="text"
+                      class="flex-1 input-copy px-4 py-2 rounded w-full"
+                      v-model="form.subdomain"
+                      disabled
+                    />
+                    <input
+                      id="copy-text"
+                      type="text"
+                      v-model="form.subdomain"
+                      class="absolute opacity-0"
+                    />
+                    <button
+                      data-clipboard-target="#copy-text"
+                      type="button"
+                      class="bg-black clipboard mt-3 px-5 py-3 rounded text-sm text-white w-full xl:mt-0 xl:w-auto"
+                    >
+                      Link kopieren
+                    </button>
+                  </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                  <InputField
+                      id="email"
+                      class="mb-4"
+                      v-model="form.company.link"
+                      type="text"
+                      label="Link zu Impressum"
+                      :errorMessages="errorMessages.link"
+                      @input="onChange"
+                    />
+                </div>
               </div>
+
               <div class="flex md:space-x-6 w-full mt-4">
                 <div class="w-full md:w-1/2">
 
@@ -339,6 +355,7 @@ export default {
         iban: '',
         bic: '',
         company: {
+          link: '',
           name: '',
           description: '',
           url: '',
