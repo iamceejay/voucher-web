@@ -24,7 +24,7 @@
           :errorMessages="errorMessages.password"
           :passwordToggle="true"
         />
-        <router-link to="/register/buyer" class="underline text-center text-xs mx-2 mb-2">
+        <router-link to="/register/buyer" class="underline text-center text-xs mx-2 mb-2 register-btn">
           Registrieren
         </router-link>
         <router-link to="/forgot-password" class="text-center text-xs mx-2 mb-5">
