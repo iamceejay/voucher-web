@@ -131,19 +131,19 @@
           </div>
         </div>
         <div class="content-container flex flex-col md:flex-row w-full gap-6 px-6 mb-10">
-          <form action="" class="form bg-white p-6 my-10 relative text-black w-full md:w-1/2">
+          <form action="" class="form bg-white p-6 my-10 relative text-black w-full md:w-1/2" @submit.prevent="onSubmitForm">
                 <h3 class="text-2xl company-color font-semibold">Kontaktiere uns.</h3>
                 <div class="flex space-x-5 mt-3">
-                    <input type="text" required placeholder="Name" class="border p-2  w-1/2">
-                    <input type="tel" placeholder="Telefonnummer" class="border p-2 w-1/2">
+                    <input name="name" type="text" required placeholder="Name" class="border p-2  w-1/2">
+                    <input name="tel" type="tel" placeholder="Telefonnummer" class="border p-2 w-1/2">
                 </div>
-                <input type="email" required placeholder="Email" class="border p-2 w-full mt-3">
-                <textarea required cols="10" rows="3" placeholder="Tell us about desired property" class="border p-2 mt-3 w-full"></textarea>
+                <input name="email" type="email" required placeholder="Email" class="border p-2 w-full mt-3">
+                <textarea name="content" required cols="10" rows="3" placeholder="Tell us about desired property" class="border p-2 mt-3 w-full"></textarea>
                 <div class="flex items-baseline space-x-2 mt-2">
                     <input type="checkbox" required class="inline-block">
                     <p class="text-gray-600 text-sm">Ich akzeptiere die Verarbeitung meiner Daten zum Zweck der Kontaktanfrage gemäß Datenschutzerklärung.</p>
                 </div>
-                <input type="submit" value="Submit" class="w-full mt-6 company-bg-color px-5 py-3 rounded-md text-sm text-white">
+                <input ref="submit"  type="submit" value="Submit" class="w-full mt-6 company-bg-color px-5 py-3 rounded-md text-sm text-white">
             </form>
             <div class="flex items-center justify-center md:w-1/2 w-full">
               <a class="flex justify-center max-w-xs w-full" :href="appURL">
@@ -158,6 +158,7 @@
 <script>
 import MainLayout from '_layouts/subdomain';
 import VoucherList from '_components/List/Modules/VoucherList/';
+import { post } from '_helpers/ApiService'
 
 export default {
   components: {
@@ -224,6 +225,29 @@ export default {
         ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}`
         : value;
     },
+    async onSubmitForm(evt) {
+      let formData = new FormData(evt.target)
+      this.$refs.submit.value = 'Loading...'
+      this.$refs.submit.disabled = true
+      await post(`contact`, formData)
+      this.$swal({
+        title: 'Form Successfully Submited!',
+        text: '',
+        allowOutsideClick: true,
+        confirmButtonColor: '#48BB78',
+        timer: 2000,
+        timerProgressBar: true,
+      })
+      this.$refs.submit.value = 'Submit'
+      this.$refs.submit.disabled = false
+      evt.target.reset()
+    }
   },
 };
 </script>
+
+<style scoped>
+ [disabled] {
+   @apply opacity-50;
+ }
+</style>
