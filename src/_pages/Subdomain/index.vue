@@ -6,7 +6,7 @@
           <div class="relative w-full flex flex-col mb-14">
             <div class="absolute flex inset-0 items-center justify-center">
               <div
-                class="p-12"
+                class="w-10/12 p-4 md:w-auto md:p-12"
                 :style="
                   USER.company.is_header_show
                     ? `background-color: var(--company-color-opacity)`
@@ -14,7 +14,7 @@
                 "
                 v-if="USER.company.header_1 && USER.company.header_2"
               >
-                <div class="text-4xl text-center">
+                <div class="text-xl md:text-4xl text-center">
                   {{ USER.company.header_1 }}
                 </div>
                 <div class="text-center">{{ USER.company.header_2 }}</div>
@@ -116,6 +116,20 @@
             :withQR="false"
           />
         </div>
+
+        <div class="bg-white flex flex-col items-center px-4 py-10 text-black mt-5">
+          <div class="w-9/12 mx-auto text-center py-5">
+            <div class="font-medium mb-2 text-3xl mb-5">Diese Homepage wird zur Verfügung gestellt von Epasnets GmbH</div>
+            <a href="https://epasnets.com" target="_blank" class="company-bg-color px-5 py-3 rounded-md text-sm text-white">zum Impressum</a>
+          </div>
+        </div>
+        <div class="flex flex-col items-center px-4 py-10 text-black">
+          <div class="w-9/12 mx-auto text-center">
+            <div class="font-medium mb-2 text-3xl">Verantwortlich für den Inhalt</div>
+            <div class="mb-6">{{ USER.company.name }}, {{ USER.detail.address }}, {{ USER.detail.zip_code }}, {{ USER.detail.city }}</div>
+            <a v-if="USER.company.link" :href="USER.company.link" target="_blank" class="company-bg-color px-5 py-3 rounded-md text-sm text-white">zum Impressum</a>
+          </div>
+        </div>
       </div>
     </template>
   </MainLayout>
@@ -168,7 +182,7 @@ export default {
         return '';
       }
       if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-        url = 'http://' + url;
+        url = 'https://' + url;
       }
       return url;
     },
