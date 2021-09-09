@@ -62,19 +62,6 @@
                 </label>
               </template>
             </CheckboxField>
-            <div class="text-sm">
-              <p>
-                Du willst lieber Gutscheine verkaufen?
-                <a
-                  class="text-peach font-bold"
-                  href="http://verkaufen.epasnets.com/"
-                  target="_blank"
-                >
-                  Registiere dich
-                </a>
-                als Verkäufer.
-              </p>
-            </div>
           </div>
           <div class="w-full sm:w-1/2 mb-3">
             <Button
