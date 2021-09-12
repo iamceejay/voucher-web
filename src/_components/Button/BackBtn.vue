@@ -7,7 +7,7 @@
     <button
       @click="onBack()"
       type="button"
-      class="border-1 focus:outline-none focus:shadow-none font-display px-2 py-1 rounded-full text-2xl text-peach w-16">
+      class="border-1 focus:outline-none focus:shadow-none font-display px-2 py-1 rounded-full text-2xl company-color w-16">
         <i class="fa-arrow-left fas"></i>
     </button>
     <h3 class="font-medium text-xl">{{ title }}</h3>
