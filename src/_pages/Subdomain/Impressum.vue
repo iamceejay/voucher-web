@@ -6,7 +6,7 @@
         <div class="bg-white flex flex-col items-center px-4 py-20 text-black -mt-5">
           <div class="w-9/12 mx-auto text-center py-5">
             <div class="font-medium mb-2 text-3xl mb-5">Diese Homepage wird zur Verfügung gestellt von Epasnets GmbH</div>
-            <a href="https://epasnets.com" target="_blank" class="company-bg-color px-5 py-3 rounded-md text-sm text-white">zum Impressum</a>
+            <a href="https://about.epasnets.com/impressum/" target="_blank" class="company-bg-color px-5 py-3 rounded-md text-sm text-white">zum Impressum</a>
           </div>
         </div>
         <div class="bg-white flex flex-col items-center px-4 py-20 text-black">
