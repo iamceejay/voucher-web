@@ -121,6 +121,10 @@
             <span class="text-2xs opacity-50">
               jederzeit zu den Öffnungszeiten
             </span>
+            <span class="text-2xs mt-1">Region:</span>
+            <span class="text-2xs opacity-50">
+              {{ voucher.seller.company.region || '' }}
+            </span>
           </template>
           <template v-else>
             <span
