@@ -3,13 +3,13 @@
     <template #content>
       <div class="flex flex-col w-full">
 
-        <div class="bg-white flex flex-col items-center px-4 py-16 text-black -mt-5">
+        <div class="bg-white flex flex-col items-center px-4 py-20 text-black -mt-5">
           <div class="w-9/12 mx-auto text-center py-5">
             <div class="font-medium mb-2 text-3xl mb-5">Diese Homepage wird zur Verfügung gestellt von Epasnets GmbH</div>
             <a href="https://epasnets.com" target="_blank" class="company-bg-color px-5 py-3 rounded-md text-sm text-white">zum Impressum</a>
           </div>
         </div>
-        <div class="flex flex-col items-center px-4 py-10 text-black">
+        <div class="bg-white flex flex-col items-center px-4 py-20 text-black">
           <div class="w-9/12 mx-auto text-center">
             <div class="font-medium mb-2 text-3xl">Verantwortlich für den Inhalt</div>
             <div class="mb-6">{{ USER.company.name }}, {{ USER.detail.address }}, {{ USER.detail.zip_code }}, {{ USER.detail.city }}</div>
