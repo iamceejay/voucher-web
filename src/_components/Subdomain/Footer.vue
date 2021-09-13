@@ -6,6 +6,14 @@
     <div class="footer py-8 md:py-10" style="background: var(--company-color, #1D4F55); color: var(--text-color, #fff)">
       <ul class="footer__menu">
         <li
+          class="px-3">
+          <router-link class="footer__menu-item"
+            to="/impressum"
+          >
+            <span>Impressum</span>
+          </router-link>
+        </li>
+        <li
           v-for="(menuItem, index) in menus"
           :key="`footer__menu-${index}`"
           class="px-3">
@@ -32,10 +40,6 @@
     data() {
       return {
         menus: [
-          {
-            title: "Impressum",
-            link: "https://about.epasnets.com/impressum/"
-          },
           {
             title: "Datenschutz",
             link: "https://about.epasnets.com/datenschutz/"

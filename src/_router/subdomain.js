@@ -31,6 +31,7 @@ import VoucherDetail from '_pages/Subdomain/VoucherDetail';
 import VoucherWalletDetail from '_pages/Subdomain/WalletDetail';
 import VoucherPersonalized from '_pages/Subdomain/Personalized';
 import Home from '_pages/Subdomain';
+import Impressum from '_pages/Subdomain/Impressum';
 import Settings from '_pages/Settings/';
 import SettingUser from '_pages/Settings/User/';
 import Users from '_pages/Users/';
@@ -106,6 +107,12 @@ const router = new Router({
       path: '/home',
       name: 'home',
       component: Home,
+      meta: {},
+    },
+    {
+      path: '/impressum',
+      name: 'Impressum',
+      component: Impressum,
       meta: {},
     },
     {
