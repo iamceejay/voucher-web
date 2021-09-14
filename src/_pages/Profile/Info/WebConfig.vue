@@ -517,16 +517,13 @@ export default {
           id: this.AUTH_USER.data.id,
         });
 
-        if (!user.subdomain) {
+        if (user.subdomain) {
           this.$swal({
             title: 'Subdomain not found',
             text: 'Subdomain is not registered yet.',
             allowOutsideClick: false,
             confirmButtonColor: '#48BB78',
-            timer: 2000,
-            timerProgressBar: true,
-          }).then((result) => {
-          });
+          })
         }
 
 

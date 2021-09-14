@@ -812,6 +812,8 @@ export default {
           this.form.company.header_logo = this.header_logo;
         }
 
+        this.form.id = this.AUTH_USER.data.id
+
         const data = await this.$store.dispatch('UPDATE_USER', this.form);
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
         let confirm = this.$swal({
