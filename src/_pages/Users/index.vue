@@ -108,6 +108,10 @@
             dataClass: 'text-center',
             formatter: val => `${val.firstName} ${val.lastName}`,
           }, {
+            name: 'origin',
+            title: 'Origin',
+            dataClass: 'text-center',
+          }, {
             name: 'actions',
             title: 'Actions',
           }

@@ -114,6 +114,7 @@
           confirmPassword: '',
           dataPrivacy: false,
           terms: false,
+          subdomain: '',
         }
       }
     },
@@ -134,6 +135,7 @@
           this.errorMessages = []
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
           localStorage.setItem('cart', this.$store.getters.COUNT_CART)
+          this.form.subdomain = this.wildcard
           const { token, user } = await this.$store.dispatch('ADD_USER', this.form)
           console.l
           await this.setLoginAuth(token, user)
