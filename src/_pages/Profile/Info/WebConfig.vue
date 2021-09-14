@@ -517,6 +517,19 @@ export default {
           id: this.AUTH_USER.data.id,
         });
 
+        if (!user.subdomain) {
+          this.$swal({
+            title: 'Subdomain not found',
+            text: 'Subdomain is not registered yet.',
+            allowOutsideClick: false,
+            confirmButtonColor: '#48BB78',
+            timer: 2000,
+            timerProgressBar: true,
+          }).then((result) => {
+          });
+        }
+
+
         let params = {
           id: user.id,
           username: user.username,
@@ -534,7 +547,7 @@ export default {
           verification_front: user.front_verification_image,
           verification_back: user.back_verification_image,
           additional_identity: user.additional_verification_image,
-          subdomain: user.subdomain + '.' + window.location.hostname,
+          subdomain: user.subdomain ? user.subdomain + '.' + window.location.hostname : '',
         };
 
         const region = this.REGIONS.filter(

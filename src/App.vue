@@ -32,17 +32,7 @@
           })
 
           if (!user) {
-            this.$swal({
-              title: 'Subdomain not found',
-              text: 'Subdomain is not registered yet.',
-              allowOutsideClick: false,
-              confirmButtonColor: '#48BB78',
-              timer: 2000,
-              timerProgressBar: true,
-            }).then((result) => {
-              window.location = window.location.origin.replace(this.wildcard + '.', '')
-            });
-
+            window.location = window.location.origin.replace(this.wildcard + '.', '')
             return
           }
           const bg_color = user.company.background_color ? user.company.background_color : '#1D4F55'
