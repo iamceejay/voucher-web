@@ -517,7 +517,7 @@ export default {
           id: this.AUTH_USER.data.id,
         });
 
-        if (user.subdomain) {
+        if (!user.subdomain) {
           this.$swal({
             title: 'Subdomain not found',
             text: 'Subdomain is not registered yet.',
