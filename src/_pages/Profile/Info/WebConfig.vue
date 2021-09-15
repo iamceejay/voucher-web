@@ -519,10 +519,11 @@ export default {
 
         if (!user.subdomain) {
           this.$swal({
-            title: 'Subdomain not found',
-            text: 'Subdomain is not registered yet.',
+            title: 'Verkaufe Gutscheine in deinem Design über die eigene',
+            text: 'Kontaktiere uns für deinen individuellen Webshop',
             allowOutsideClick: false,
-            confirmButtonColor: '#48BB78',
+            confirmButtonColor: '#ff5563',
+            confirmButtonText: 'Jetzt mehr erfahren'
           })
         }
 
