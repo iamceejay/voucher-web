@@ -3,7 +3,7 @@
     <div class="flex flex-col w-full">
       <span class="block font-semibold text-sm mb-4">Bitte gib den Namen und das Geburtsdatum vom Inhaber oder Geschäftsführer des Unternehmens an.</span>
       <InputField
-        id="firstName"
+        id="Vorname"
         v-model="form.firstName"
         type="text"
         class="w-full mb-4"
@@ -13,7 +13,7 @@
         @input="onChange"
       />
       <InputField
-        id="lastName"
+        id="Nachname"
         v-model="form.lastName"
         type="text"
         class="w-full mb-4"
@@ -24,7 +24,7 @@
       />
       <DatePicker
         v-if="type == 'seller'"
-        id="data"
+        id="Geburtsdatum"
         class="mb-4"
         v-model="form.bday"
         label="Geburtsdatum"

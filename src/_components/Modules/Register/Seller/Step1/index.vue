@@ -1,5 +1,6 @@
 <template>
   <ValidationObserver
+    ref="observer"
     v-slot="{ handleSubmit, invalid }"
     class="flex flex-col w-full h-full items-center"
   >
@@ -27,12 +28,12 @@
           @onChange="onChange"
         />
       </div>
-      <div class="w-full sm:w-1/2">
+      <div class="w-full sm:w-1/2 flex">
         <Button
-          class="flex flex-col items-center w-full"
+          class="flex flex-col items-center ml-auto"
           type="submit"
           label="nächster Schritt >"
-          size="w-full py-4"
+          size="px-5 py-4"
           round="rounded"
         />
       </div>
@@ -101,8 +102,27 @@
       this.onSetForm()
     },
     methods: {
-      onSubmit( isValid )
+      async onSubmit( isValid )
       {
+        const valid = await this.$refs.observer.validate();
+        if (!valid) {
+          let errors = [];
+          for (const [key, value] of Object.entries(this.$refs.observer.errors)){
+            if (value.length) {
+              errors.push(key);
+            }
+          }
+
+          this.$swal({
+            icon: 'warning',
+            title: 'Dieses Feld muss ausgefüllt werden!',
+            text: errors.toString(),
+            confirmButtonColor: '#48BB78',
+            confirmButtonText: 'Bestätigen'
+          })
+          return false
+        }
+
         if( !isValid ) {
           this.$emit('onChangeStep', {
             step: 2,

@@ -674,116 +674,56 @@ export default {
             'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
           confirmButtonColor: '#48BB78',
           confirmButtonText: 'Bestätigen',
-        });
+          cancelButtonText: 'Abbrechen',
+        }).then( async (result) => {
+          if(result.value){
+            const newData = this.CARTS.filter( cart => this.form.id != cart.id )
+            await this.$store.commit('SET_CARTS', newData)
+            this.isAdded = false
+            this.form = {
+              id: null,
+              user_id: null,
+              value: null,
+              type: '',
+              voucher: null
+            }
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich!',
+              text: 'Removing the voucher.',
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen'
+            })
+          }
+        })
       }
-      // this.$swal({
-      //   title: 'Im Warenkorb hinzufügen',
-      //   text: `Bist du sicher, dass du diesen Gutschein zum Warenkorb hinzufügen möchtest?`,
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#48BB78',
-      //   cancelButtonColor: '#FC8181',
-      //   confirmButtonText: 'Bestätigen',
-      //   cancelButtonText: 'Abbrechen',
-      // }).then( async (result) => {
-      //   if(result.value){
-      //     try {
-      //       await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
-      //       this.form.total_amount = this.form.value * ( (this.VOUCHER.type != 'quantity') ? 1 : this.VOUCHER.qty_val )
-      //       this.form.user_id = this.AUTH_USER.data.id
-      //       this.form.voucher_id = this.VOUCHER.id
-      //       if( this.VOUCHER.type == 'quantity' ) {
-      //         this.form.qty = this.form.value
-      //         this.form.value = null
-      //       } else {
-      //         this.form.value = this.form.value
-      //       }
-      //       const data = await this.$store.dispatch('ADD_WALLET', this.form)
-      //       this.form = {
-      //         id: null,
-      //         voucher_id: null,
-      //         user_id: null,
-      //         value: null,
-      //         qty: null,
-      //         value: 0,
-      //         total_amount: 0,
-      //       }
-      //       await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-      //       let confirm = this.$swal({
-      //         icon: 'success',
-      //         title: 'Erfolgreich!',
-      //         text: 'Die Gutscheine wurden in den Warenkorb gelegt.',
-      //         allowOutsideClick: false,
-      //         showConfirmButton: false
-      //       })
-      //       setTimeout(() => {
-      //         confirm.close()
-      //         this.$router.push('/cart')
-      //       }, 1000)
-      //     } catch (err) {
-      //       await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
-      //       this.$swal({
-      //         icon: 'warning',
-      //         title: 'Achtung! ',
-      //         text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
-      //         confirmButtonColor: '#48BB78',
-      //         confirmButtonText: 'Bestätigen'
-      //       })
-      //     }
-      //   }
-      // })
     },
-    async onRemoveCart() {
-      this.$swal({
-        title: 'Vom Warenkorb entfernen',
-        text: `Bist du sicher, dass du diesen Gutschein vom Warenkorb entfernen möchtest?`,
-        showCancelButton: true,
-        confirmButtonColor: '#48BB78',
-        cancelButtonColor: '#FC8181',
-        confirmButtonText: 'Bestätigen',
-        cancelButtonText: 'Abbrechen',
-      }).then(async (result) => {
-        if (result.value) {
-          const newData = this.CARTS.filter((cart) => this.form.id != cart.id);
-          await this.$store.commit('SET_CARTS', newData);
-          this.isAdded = false;
-          this.form = {
-            id: null,
-            user_id: null,
-            value: null,
-            type: '',
-            voucher: null,
-          };
-          this.$swal({
-            icon: 'success',
-            title: 'Erfolgreich!',
-            text: 'Removing the voucher.',
-            confirmButtonColor: '#48BB78',
-            confirmButtonText: 'Bestätigen',
-          });
-        }
-      });
-    },
-    async onFetchVoucher() {
+    async onFetchVoucher()
+    {
       try {
         await this.$store.dispatch('FETCH_VOUCHER', {
-          id: this.$route.params.id,
-        });
-        this.symbol = this.VOUCHER.type == 'quantity' ? 'x' : '€';
+          id: this.$route.params.id
+        })
+        this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
+        if (this.VOUCHER.type == 'quantity') {
+          this.form.value = 1
+        }
+
       } catch (err) {
-        console.log('err', err);
+        console.log('err', err)
       }
     },
     updateValue(form, action) {
       if (this.form[form] <= 1 && action == 'subtract') {
-        return;
+        return
       }
 
       if (action == 'add') {
-        this.form[form]++;
+        this.form[form]++
       } else {
-        this.form[form]--;
+        this.form[form]--
       }
-    },
+    }
   },
 };
 </script>

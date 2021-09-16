@@ -22,8 +22,7 @@
               <svg
                 v-tippy
                 class="icon h-4 w-4 mr-2"
-                content="Teile uns hier deinen Firmennamen mit. Dieser Name wird auch auf der Rechnung bei einem Gutscheinverkauf angeführt."
-              >
+                content="Der gesamte Betrag den du mit epasnets verdient hast.">
                 <use xlink:href="/icons/sprite.svg#info-circle-fill" />
               </svg>
               Kommission

@@ -142,12 +142,14 @@
         }
       },
       async setLoginAuth(token, user){
+        user.orders = []
         const auth = {
           isAuth: true,
           token,
           data: user,
           role: user.user_role.role
         }
+        
         await localStorage.removeItem('_auth')
         await localStorage.setItem('_auth', JSON.stringify(auth))
         await this.$store.commit('SET_AUTH_USER', auth)

@@ -178,10 +178,7 @@
                       v-model="form.company.name"
                       type="text"
                       rules="required"
-                      :errorMessages="
-                        errorMessages.company && errorMessages.company.name
-                      "
-                      @input="onChange"
+                      :errorMessages="errorMessages.company && errorMessages.company.name"
                     >
                       <template #label_>
                         <div class="flex flex-row">
@@ -205,7 +202,6 @@
                       :rules="`required`"
                       :errorMessages="errorMessages.username"
                       :disabled="form.id ? true : false"
-                      @input="onChange"
                     >
                       <template #label_>
                         <div class="flex flex-row">
@@ -238,7 +234,6 @@
                       label="Beschreibung deines Unternehmens"
                       rules="max:800"
                       :errorMessages="errorMessages.description"
-                      @input="onChange"
                     />
                     <InputField
                       id="company_web_site"
@@ -248,7 +243,6 @@
                       label="Webseite"
                       rules=""
                       :errorMessages="errorMessages.url"
-                      @input="onChange"
                     />
 
                     <InputField
@@ -258,7 +252,6 @@
                       class="my-2"
                       label="UID Nummer"
                       :errorMessages="errorMessages.vat_number"
-                      @input="onChange"
                     />
                   </div>
                   <div class="w-full md:w-1/2">
@@ -270,7 +263,6 @@
                       label="Region"
                       rules="required"
                       :errorMessages="errorMessages.region_id"
-                      @input="onChange"
                     />
 
                     <div class="flex flex-col sm:flex-row">
@@ -281,7 +273,6 @@
                         class="w-full sm:w-1/2 sm:mr-2 mb-4"
                         label="Stadt"
                         :errorMessages="errorMessages.city"
-                        @input="onChange"
                       />
                       <InputField
                         id="zip_code"
@@ -290,7 +281,6 @@
                         class="w-full sm:w-1/2 sm:ml-2 mb-4"
                         label="Postleitzahl"
                         :errorMessages="errorMessages.zip_code"
-                        @input="onChange"
                       />
                     </div>
                     <InputField
@@ -301,7 +291,6 @@
                       type="text"
                       label="Hausnummer"
                       :errorMessages="errorMessages.address"
-                      @input="onChange"
                     />
                     <InputField
                       id="email"
@@ -311,7 +300,6 @@
                       label="Emailadresse "
                       :rules="`required|email`"
                       :errorMessages="errorMessages.email"
-                      @input="onChange"
                     />
                     <InputField
                       v-if="AUTH_USER.role.name == 'seller'"
@@ -322,7 +310,6 @@
                       label="Telefonnummer"
                       :errorMessages="errorMessages.phone_number"
                       rules="required"
-                      @input="onChange"
                     />
                   </div>
                 </div>
@@ -345,18 +332,16 @@
                   label="Vorname"
                   rules="required"
                   :errorMessages="errorMessages.firstName"
-                  @input="onChange"
                 />
                 <InputField
-                  id="lastName"
-                  v-model="form.lastName"
-                  type="text"
-                  class="w-full mb-4"
-                  label="Nachname"
-                  rules="required"
-                  :errorMessages="errorMessages.lastName"
-                  @input="onChange"
-                />
+                    id="lastName"
+                    v-model="form.lastName"
+                    type="text"
+                    class="w-full mb-4"
+                    label="Nachname"
+                    rules="required"
+                    :errorMessages="errorMessages.lastName"
+                  />
                 <DatePicker
                   v-if="AUTH_USER.role.name == 'seller'"
                   id="data"
@@ -365,7 +350,6 @@
                   label="Geburtsdatum"
                   :errorMessages="errorMessages.phone_number"
                   rules="required"
-                  @input="onChange"
                 />
                 <span class="block font-semibold text-sm mb-4"
                   >Um die ersten Auszahlungen zu erhalten musst du dich mittels
@@ -557,7 +541,6 @@
                     class="my-2"
                     label="IBAN"
                     :errorMessages="errorMessages.lastName"
-                    @input="onChange"
                   />
                   <InputField
                     id="bic"
@@ -566,7 +549,6 @@
                     class="my-2"
                     label="BIC"
                     :errorMessages="errorMessages.lastName"
-                    @input="onChange"
                   />
                 </div>
                 <div class="w-full md:w-1/2 md:px-20  ">

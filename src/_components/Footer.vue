@@ -5,7 +5,7 @@
   <div class="footer py-8 md:py-10 bg-white">
     <ul class="footer__social">
       <li class="px-3">
-        <a href="https://www.instagram.com/epasnets/?hl=de"
+        <a href="https://www.instagram.com/epasnets.schenken/"
           target="_blank">
           <i class="footer__social-icon fab fa-instagram"></i>
         </a>

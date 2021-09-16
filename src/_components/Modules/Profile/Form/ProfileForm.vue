@@ -2,7 +2,7 @@
   <div class="flex flex-col w-full">
     <InputField
       v-if="type == 'seller'"
-      id="company_name"
+      id="Unternehmensname"
       class="mb-4"
       v-model="form.company.name"
       type="text"
@@ -24,7 +24,7 @@
       </template>
     </InputField>
     <InputField
-      id="username"
+      id="Name auf Gutschein"
       class="mb-4"
       v-model="form.username"
       type="text"
@@ -112,7 +112,7 @@
       />
     </div>
     <InputField
-      id="email"
+      id="Emailadresse"
       class="mb-4"
       v-model="form.email"
       type="text"
@@ -123,7 +123,7 @@
     />
     <InputField
       v-if="type == 'seller'"
-      id="phoneNumber"
+      id="Telefonnummer"
       v-model="form.phone_number"
       type="number"
       class="w-full sm:w-1/2 mb-4"

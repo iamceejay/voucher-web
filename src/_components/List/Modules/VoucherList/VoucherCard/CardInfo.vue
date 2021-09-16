@@ -382,7 +382,10 @@
       },
       async onClickWishlist(voucher)
       {
-        if (!this.AUTH_USER.isAuth) return
+        if (!this.AUTH_USER.isAuth) {
+          this.$router.push('/login')
+          return
+        }
 
         let text;
         let payload = {

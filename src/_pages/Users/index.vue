@@ -164,6 +164,7 @@
               const { token, user } = await this.$store.dispatch('CHANGE_ROLE', {
                 user_id: data.id
               })
+              
               const auth = {
                 isAuth: true,
                 token,
@@ -171,6 +172,7 @@
                 role: user.user_role.role,
                 admin: this.AUTH_USER.data
               }
+
               await this.$store.commit('SET_AUTH_USER', auth)
               await localStorage.setItem('_auth', JSON.stringify(auth))
               if( auth.role.name == 'user' ) {
@@ -185,6 +187,7 @@
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               window.location = '/home'
             } catch (err) {
+              console.log(err)
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',
