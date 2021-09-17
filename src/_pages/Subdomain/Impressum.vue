@@ -19,6 +19,7 @@
         <div class="content-container flex flex-col md:flex-row w-full gap-6 px-6 mb-10">
           <form action="" class="form bg-white p-6 my-10 relative text-black w-full md:w-1/2" @submit.prevent="onSubmitForm">
                 <h3 class="text-2xl company-color font-semibold">Kontaktiere uns.</h3>
+                <input name="seller_email" type="hidden" v-model="USER.email">
                 <div class="flex space-x-5 mt-3">
                     <input name="name" type="text" required placeholder="Name" class="border p-2  w-1/2">
                     <input name="tel" type="tel" placeholder="Telefonnummer" class="border p-2 w-1/2">
