@@ -519,11 +519,26 @@ export default {
 
         if (!user.subdomain) {
           this.$swal({
-            title: 'Verkaufe Gutscheine in deinem Design über die eigene',
+            title: 'Verkaufe Gutscheine in deinem Design über die eigene Webseite',
             text: 'Kontaktiere uns für deinen individuellen Webshop',
-            allowOutsideClick: false,
+            allowOutsideClick: true,
             confirmButtonColor: '#ff5563',
-            confirmButtonText: 'Jetzt mehr erfahren'
+            confirmButtonText: 'Jetzt mehr erfahren',
+            showCancelButton: true,
+            cancelButtonText: 'Später',
+            cancelButtonColor: '#cccccc',
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            preConfirm: () => {
+              window.open('https://verkaufen.epasnets.com/kontakt/', '_blank').focus()
+              return false
+            }
+          }).then((result) => {
+            if(result.isConfirmed) {
+
+            } else {
+              window.location.href = 'https://epasnets.com/home'
+            }
           })
         }
 
