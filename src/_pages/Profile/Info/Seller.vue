@@ -798,20 +798,21 @@ export default {
 
         const data = await this.$store.dispatch('UPDATE_USER', this.form);
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
-        let confirm = this.$swal({
-          icon: 'success',
-          title: 'Erfolgreich!',
-          text: 'Info aktualisiert.',
-          allowOutsideClick: false,
-          showConfirmButton: false,
-        });
-        setTimeout(() => {
-          confirm.close();
-          if (!this.isRouteChanged) {
-            this.isSubmitted = true;
-            this.$route.query.currentTabr.push('/home');
-          }
-        }, 1000);
+        this.$swal({
+            icon: 'success',
+            title: 'Erfolgreich!',
+            text: 'Info aktualisiert.',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            confirmButtonColor: '#48BB78',
+            timer: 1000,
+            timerProgressBar: true,
+          }).then((result) => {
+            if (!this.isRouteChanged) {
+              this.isSubmitted = true;
+              this.$router.push('/home')
+            }
+          });
       } catch (err) {
         console.log(err.response);
 
