@@ -154,9 +154,7 @@
                     "
                     @click="onSort(['isLowestPrice'])"
                   >
-                    {{
-                      !params.isLowestPrice ? 'Günstigster' : 'Günstigster'
-                    }}
+                    {{ !params.isLowestPrice ? 'Günstigster' : 'Günstigster' }}
                     Preis
                   </button>
                 </div>

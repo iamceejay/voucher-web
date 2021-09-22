@@ -7,85 +7,113 @@
     }"
   >
     <GuestHeader />
+    <div class="flex items-center justify-center max-w-2xl mx-auto w-11/12">
+      <div class="grid grid-cols-4 md:gap-4 lg:gap-7">
+        <div class="pl-4 sm:px-0">
+          <img src="/images/partners/epasnets_aplusb.jpg" class="mb-2" />
+        </div>
+
+        <div class="pl-4 sm:px-0">
+          <img src="/images/partners/epasnets_aws.jpg" class="mb-2" />
+        </div>
+
+        <div class="pl-4 sm:px-0">
+          <img src="/images/partners/epasnets_land_tirol.jpg" class="mb-2" />
+        </div>
+
+        <div class="pl-4 sm:px-0">
+          <img src="/images/partners/epasnets_tirol.jpg" class="mb-2" />
+        </div>
+      </div>
+    </div>
+
     <div>
-      <div class="content-container w-full">
-        <h2
-          class="voucher-categories__title text-center text-3xl mb-10 font-medium"
-        >
-          Finde Deinen Gutschein
+      <div class="max-w-2xl mx-auto w-11/12">
+        <h2 class="font-medium mb-4">
+          Kategorien
         </h2>
-        <VueSlickCarousel
-          class="voucher-categories__grid sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4"
-          v-bind="voucherCategoriesOptions"
-        >
+        <div class="flex flex-wrap gap-2">
           <router-link
             v-for="(category, index) in CATEGORIES"
             :key="`item-${index}`"
             :to="`/vouchers/category/${$helpers.toSlug(category.name)}`"
-            class="voucher-categories__grid-item pl-4 sm:px-0"
+            class="border border-black flex items-center px-3 py-1"
           >
-            <img
-              v-if="category.icon.indexOf('fas') == -1"
-              :src="onSetImage(category.icon)"
-              class="shadow rounded-lg mb-2"
-            />
-            <img
-              v-else
-              src="@/_assets/img/placeholder-400px.jpg"
-              class="shadow rounded-lg mb-2"
-            />
             <p class="text-sm">{{ category.name }}</p>
           </router-link>
-        </VueSlickCarousel>
-        <div class="border-separator w-11/12 mx-auto sm:w-full" />
+        </div>
       </div>
 
-      <div class="content-container w-full hidden">
-        <h2 class="text-center text-3xl mb-10 font-medium">
-          Geschenke f&uuml;r
-        </h2>
-        <VueSlickCarousel
-          class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-3"
-          v-bind="giftOptions"
-        >
-          <router-link
-            v-for="(gift, index) in gifts"
-            :key="`item-${index}`"
-            :to="{ path: '/vouchers/search', query: { targets: gift.label } }"
-            class="pl-4 sm:px-0"
-          >
-            <img :src="gift.img" class="shadow rounded-lg mb-2" />
-            <p class="text-sm" v-html="gift.label"></p>
-          </router-link>
-        </VueSlickCarousel>
-        <div class="border-separator w-11/12 mx-auto sm:w-full" />
+      <VouchCategory
+        title="Ab in die Berge"
+        description="Wer liebt nicht auch die frische Luft, die Aussicht und das Erlebnis?"
+        category="Sport & Adventure"
+      />
+
+      <VouchCategory
+        title="Wellness"
+        description="Wohlfühlen, Genuss, Erholung, Ruhe, Auszeit und Entspannung-gönn dir!"
+        category="Wellness & Gesundheit"
+        :theme="'peach'"
+      />
+
+      <VouchCategory
+        title="Fitness & Sport"
+        description="Was heute wehtut, macht dich morgen stärker!"
+        category="Sport & Adventure"
+        :theme="'gray'"
+      />
+
+      <div class="content-container w-11/12 py-10">
+        <div class="company-color font-bold md:text-5xl text-3xl text-center">
+          So funktioniert epasnets:
+        </div>
+        <div class="flex flex-col gap-10 items-center md:flex-row">
+          <div class="bg-black bg-opacity-25 h-80 w-full md:w-1/2"></div>
+          <div class="flex flex-col inline-flex justify-center w-full md:w-1/3">
+            <div class="md:text-3xl text-center text-xl">
+              Regionale Geschenke, digital verschicken, vor Ort einlösen
+            </div>
+            <div class="text-center">
+              <router-link
+                :to="`/vouchers/search`"
+                class="inline-block mt-6 px-4 py-2 rounded-md more-button"
+              >
+                Mehr entdecken →
+              </router-link>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="content-container w-full">
-        <h2 class="text-center text-3xl mb-10 font-medium">
-          In deiner Nachbarschaft
-        </h2>
-        <VueSlickCarousel
-          class="sm:grid sm:gap-2 md:gap-4 lg:gap-7 sm:grid-cols-4"
-          v-bind="regionOptions"
+      <VouchCategory
+        title="Essen & Trinken"
+        description="Genieße den perfekten Start in den Tag mit deinen Liebsten!"
+        category="Essen & Trinken"
+        :theme="'peach'"
+      />
+
+      <div class="content-container w-11/12 py-10 px-6">
+        <div
+          class="company-color font-bold lg:text-6xl md:text-5xl text-3xl text-center"
         >
-          <router-link
-            v-for="(region, index) in REGIONS"
-            :key="`item-${index}`"
-            :to="{
-              path: '/vouchers/search',
-              query: { isRegion: region.label },
-            }"
-            class="pl-4 sm:px-0"
+          Werde epasnets Partner!
+        </div>
+        <div class="text-center md:text-2xl">
+          Du willst als Unternehmen bei uns Gutscheine selber gestalten und
+          anbieten? Nichts leichter als das!
+        </div>
+        <div class="text-center md:text-2xl">
+          Erfahre mehr über deine Vorteile als Tiroler Gutschein Anbieter.
+        </div>
+        <div class="text-center">
+          <a
+            href="https://verkaufen.epasnets.com/"
+            class="inline-block mt-6 px-4 py-2 rounded-md more-button"
           >
-            <img
-              :src="'/images/region-' + (index + 1) + '.jpg'"
-              class="shadow rounded-lg mb-2"
-            />
-            <p class="text-sm">{{ region.label }}</p>
-          </router-link>
-        </VueSlickCarousel>
-        <div class="border-separator w-11/12 mx-auto sm:w-full" />
+            Jetzt loslegen! →
+          </a>
+        </div>
       </div>
 
       <div class="content-container w-11/12 mx-auto mb-10">
@@ -112,7 +140,40 @@
         <div class="border-separator" />
       </div>
 
-      <div class="voucher-list__container content-container w-11/12">
+      <VouchCategory
+        title="Kurse"
+        description="Etwas LERNEN und mit der Zeit darin immer geübter werden, ist das nicht auch eine FREUDE!?"
+        category="Kurse"
+        :theme="'gray'"
+      />
+
+      <VouchCategory
+        title="Adventure"
+        description="Jedes Abenteuer ist nur eine Entscheidung von dir entfernt!"
+        category="Sport & Adventure"
+        :theme="'peach'"
+      />
+
+      <VouchCategory
+        title="Kulinarik"
+        description="Essen ist eine Kunst, Genießen ein Glück, Zusammensein ein Geschenk!"
+        category="Essen & Trinken"
+      />
+
+      <VouchCategory
+        title="Tiere"
+        description="Für unsere vierbeinigen Freunde ist natürlich auch gedacht!"
+        category="Tiere"
+        :theme="'gray'"
+      />
+
+      <VouchCategory
+        title="Etwas kniffliges für die Ganze Familie"
+        description=""
+        category="Kurzurlaub"
+      />
+
+      <!-- <div class="voucher-list__container content-container w-11/12 mt-2">
         <h2 class="text-center text-3xl mb-10 font-medium">Unsere Lieblinge</h2>
         <VoucherList
           title=""
@@ -127,43 +188,7 @@
         />
 
         <div class="border-separator" />
-      </div>
-
-      <div class="content-container w-11/12">
-        <h2 class="text-center text-3xl mb-10 font-medium">
-          Mit Unterstützung von
-        </h2>
-
-        <div class="grid grid-cols-2 lg:grid-cols-4 md:gap-4 lg:gap-7 mb-10">
-          <div class="pl-4 sm:px-0">
-            <img
-              src="/images/partners/epasnets_aplusb.jpg"
-              class="shadow rounded-lg mb-2"
-            />
-          </div>
-
-          <div class="pl-4 sm:px-0">
-            <img
-              src="/images/partners/epasnets_aws.jpg"
-              class="shadow rounded-lg mb-2"
-            />
-          </div>
-
-          <div class="pl-4 sm:px-0">
-            <img
-              src="/images/partners/epasnets_land_tirol.jpg"
-              class="shadow rounded-lg mb-2"
-            />
-          </div>
-
-          <div class="pl-4 sm:px-0">
-            <img
-              src="/images/partners/epasnets_tirol.jpg"
-              class="shadow rounded-lg mb-2"
-            />
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- <CategoryList
@@ -264,6 +289,7 @@ import { get } from '_helpers/ApiService';
 import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+import VouchCategory from '_components/VouchCategory';
 
 export default {
   components: {
@@ -276,6 +302,7 @@ export default {
     slider,
     slideritem,
     VueSlickCarousel,
+    VouchCategory,
   },
   data() {
     return {

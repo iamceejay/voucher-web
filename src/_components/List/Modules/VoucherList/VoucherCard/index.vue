@@ -23,9 +23,7 @@
       fontSize: 'clamp(4px, 4.360vw, 16px)',
     }"
   >
-    <div
-      class="flex flex-col w-full bg-aid rounded"
-    >
+    <div class="relative flex flex-col w-full bg-aid rounded">
       <CardInfo
         v-if="!isAction"
         :voucher="voucher"
@@ -51,6 +49,14 @@
         :order="order"
         @onFlip="onFlip()"
       />
+      <div
+        v-if="showRegion"
+        class="-mb-2.5 absolute bottom-0 flex inset-x-0 justify-center"
+      >
+        <div class="bg-white border px-2 rounded-md shadow-sm text-xs">
+          {{ voucher.seller.company.region }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -114,8 +120,12 @@ export default {
     },
     isBought: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    showRegion: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -150,7 +160,13 @@ export default {
   },
   methods: {
     onFlip() {
-      this.$router.push(`/voucher/${this.userVoucher.id}`)
+      console.log(this.voucher);
+      if (this.userVoucher) {
+        this.$router.push(`/voucher/${this.userVoucher.id}`);
+      } else {
+        this.$router.push(`/vouchers/${this.voucher.id}`);
+      }
+
       // if (this.isFlippable) {
       //   this.isFlip = !this.isFlip;
       //   this.isAction = !this.isAction;

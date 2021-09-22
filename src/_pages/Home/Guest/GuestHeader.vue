@@ -2,10 +2,10 @@
   <div class="-mt-10">
     <div class="guest-header company-bg-color">
       <div
-        class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-24 lg:pb-48 relative"
+        class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-16 lg:pb-48 relative"
       >
-        <div class="text-center text-white w-11/12 max-w-xl">
-          <h1 class="font-body text-xl md:text-3xl lg:text-4xl mb-1">
+        <div class="text-center text-white w-11/12 max-w-2xl">
+          <h1 class="font-body text-xl md:text-3xl lg:text-4xl mb-1 font-bold">
             Weil Regionalität auch beim Verschenken den Unterschied macht
           </h1>
           <p
@@ -16,7 +16,7 @@
           </p>
         </div>
         <div
-          class="search-box bg-dirty w-11/12 max-w-2xl flex flex-col items-center rounded-lg py-6 md:py-8 lg:py-10 absolute"
+          class="search-box bg-dirty w-11/12 max-w-lg flex flex-col items-center py-6 md:py-8 lg:py-10 absolute"
         >
           <router-link
             class="flex flex-col w-11/12 lg:w-9/12"
@@ -36,10 +36,10 @@
               :key="`item-${index}`"
               class="search-box__details-item"
             >
-              <svg class="icon">
+              <svg class="icon opacity-75">
                 <use :xlink:href="`/icons/sprite.svg#${item.spriteIcon}`" />
               </svg>
-              <p class="text-sm">{{ item.label }}</p>
+              <p class="text-xs">{{ item.label }}</p>
             </div>
           </div>
         </div>
@@ -78,10 +78,11 @@ export default {
 </script>
 <style lang="css" scoped>
 .guest-header {
-  margin-bottom: calc(var(--bottomSpacing) + 4rem);
+  margin-bottom: calc(var(--bottomSpacing));
 }
 .search-box {
   bottom: calc(var(--bottomSpacing) * -1);
+  border-radius: 20px;
 }
 .search-box >>> .input-field {
   @apply bg-white;
