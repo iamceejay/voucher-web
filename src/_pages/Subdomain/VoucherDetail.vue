@@ -766,6 +766,9 @@ export default {
           id: this.$route.params.id,
         });
         this.symbol = this.VOUCHER.type == 'quantity' ? 'x' : '€';
+        if (this.VOUCHER.type == 'quantity') {
+          this.form.value = 1
+        }
       } catch (err) {
         console.log('err', err);
       }
