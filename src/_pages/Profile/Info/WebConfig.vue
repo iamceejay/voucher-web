@@ -283,7 +283,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
-                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
+                  <span class="block text-xs mb-3">Hier <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">Icons</a> aussuchen und den Namen kopieren</span>
                   <InputField
                     id="address"
                     class="mb-4"
@@ -293,7 +293,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
-                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
+                  <span class="block text-xs mb-3">Hier <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">Icons</a> aussuchen und den Namen kopieren</span>
                   <InputField
                     id="address"
                     class="mb-4"
@@ -303,7 +303,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
-                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
+                  <span class="block text-xs mb-3">Hier <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">Icons</a> aussuchen und den Namen kopieren</span>
 
                 </div>
               </div>
@@ -673,8 +673,8 @@ export default {
 
       let options = {
         type: 'base64',
-        format: 'jpeg',
-        size,
+        format: 'png',
+        size: 'original',
         quality: 1,
       };
       this.$refs[ref].result(options, (output) => {
