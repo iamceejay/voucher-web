@@ -167,10 +167,22 @@
         :theme="'gray'"
       />
 
-      <VouchCategory
+      <TwoColumnVouch
         title="Etwas kniffliges für die Ganze Familie"
         description=""
         category="Kurzurlaub"
+        :firstVouch="211"
+        :firstVouchTitle="'Du willst Spaß, Rätseln und im Team arbeiten?'"
+        :firstVouchDescription="
+          'Dann ist das spektakuläre Escape Room Erlebnis in Innsbruck-Kufstein genau das richtige für dich! Erlebe mit der ganzen Familie ein spannendes Abenteuer mit kniffligen Aufgaben, verzaubernde Räume oder für die Horror liebhabenden schrecklich schöne Überraschungen.'
+        "
+        :secondVouch="75"
+        :secondVouchTitle="
+          'Schaffst Du es ein rätselhaftes Abenteuer in nur 60 Minuten zu lösen?'
+        "
+        :secondVouchDescription="
+          'Escape Room PerrplexxX bietet dir und deiner Familie, Freunden und Bekannten ein unvergessliches Erlebnis voller Spaß, Zusammenarbeit und kniffligen Aufgaben. Es ist für jeden was dabei, für Jung und Alt bis zu Horror Liebhaber und „Langfinger“ die schon immer mal ein Gemälde stehlen wollten.'
+        "
       />
 
       <!-- <div class="voucher-list__container content-container w-11/12 mt-2">
@@ -290,6 +302,7 @@ import VueSlickCarousel from 'vue-slick-carousel';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 import VouchCategory from '_components/VouchCategory';
+import TwoColumnVouch from '_components/TwoColumnVouch';
 
 export default {
   components: {
@@ -303,6 +316,7 @@ export default {
     slideritem,
     VueSlickCarousel,
     VouchCategory,
+    TwoColumnVouch,
   },
   data() {
     return {
