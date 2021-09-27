@@ -48,21 +48,63 @@
         title="Ab in die Berge"
         description="Wer liebt nicht auch die frische Luft, die Aussicht und das Erlebnis?"
         category="Sport & Adventure"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <div style="padding:100% 0 0 0;position:relative;">
+            <iframe
+              src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </VouchCategory>
 
       <VouchCategory
         title="Wellness"
         description="Wohlfühlen, Genuss, Erholung, Ruhe, Auszeit und Entspannung-gönn dir!"
         category="Wellness & Gesundheit"
         :theme="'peach'"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <VueSlickCarousel v-bind="sliderOption">
+            <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 1.jpg" />
+            <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 2.jpg" />
+            <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 3.jpg" />
+            <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 4.jpg" />
+            <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 5.jpg" />
+          </VueSlickCarousel>
+        </div>
+      </VouchCategory>
 
       <VouchCategory
         title="Fitness & Sport"
         description="Was heute wehtut, macht dich morgen stärker!"
         category="Sport & Adventure"
         :theme="'gray'"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <VueSlickCarousel v-bind="sliderOption">
+            <img
+              src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 1.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 2.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 3.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 4.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 5.jpg"
+            />
+          </VueSlickCarousel>
+        </div>
+      </VouchCategory>
 
       <div class="content-container w-11/12 py-10">
         <div class="company-color font-bold md:text-5xl text-3xl text-center">
@@ -87,11 +129,23 @@
       </div>
 
       <VouchCategory
-        title="Essen & Trinken"
+        title="Brunch"
         description="Genieße den perfekten Start in den Tag mit deinen Liebsten!"
         category="Essen & Trinken"
         :theme="'peach'"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/3">
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe
+              src="https://player.vimeo.com/video/574307616?h=4bd2483e9a&title=0&byline=0&portrait=0"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </VouchCategory>
 
       <div class="content-container w-11/12 py-10 px-6">
         <div
@@ -120,7 +174,7 @@
         <h2 class="text-center text-3xl mb-10 font-medium">
           Unternehmen die bereits dabei sind
         </h2>
-        <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
+        <VueSlickCarousel v-bind="sliderOption" v-if="companies.length">
           <div v-for="(company, index) in companies" :key="`company-${index}`">
             <div
               class="flex flex-col p-3 slider-item-custom text-center mb-6"
@@ -145,27 +199,81 @@
         description="Etwas LERNEN und mit der Zeit darin immer geübter werden, ist das nicht auch eine FREUDE!?"
         category="Kurse"
         :theme="'gray'"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <VueSlickCarousel v-bind="sliderOption">
+            <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 1.jpg" />
+            <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 2.jpg" />
+            <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 3.jpg" />
+            <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 4.jpg" />
+            <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 5.jpg" />
+          </VueSlickCarousel>
+        </div>
+      </VouchCategory>
 
       <VouchCategory
         title="Adventure"
         description="Jedes Abenteuer ist nur eine Entscheidung von dir entfernt!"
         category="Sport & Adventure"
         :theme="'peach'"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <div style="padding:100% 0 0 0;position:relative;">
+            <iframe
+              src="https://player.vimeo.com/video/595825713?h=06c3ae2d4c&title=0&byline=0&portrait=0"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </VouchCategory>
 
       <VouchCategory
         title="Kulinarik"
         description="Essen ist eine Kunst, Genießen ein Glück, Zusammensein ein Geschenk!"
         category="Essen & Trinken"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <VueSlickCarousel v-bind="sliderOption">
+            <img
+              src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 1.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 2.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 3.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 4.jpg"
+            />
+            <img
+              src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 5.jpg"
+            />
+          </VueSlickCarousel>
+        </div>
+      </VouchCategory>
 
       <VouchCategory
         title="Tiere"
         description="Für unsere vierbeinigen Freunde ist natürlich auch gedacht!"
         category="Tiere"
         :theme="'gray'"
-      />
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+          <div style="padding:100% 0 0 0;position:relative;">
+            <iframe
+              src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </VouchCategory>
 
       <TwoColumnVouch
         title="Etwas kniffliges für die Ganze Familie"
@@ -203,32 +311,7 @@
       </div> -->
     </div>
 
-    <!-- <CategoryList
-      id="categories"
-      class="content-container mb-3 py-6 px-8"
-      title="Kategorien"
-      :data="CATEGORIES"
-    /> -->
     <SellerContent v-if="AUTH_USER.role.name === null" />
-    <!-- <VoucherList
-      class="content-container mb-3 pb-6 px-8 py-12"
-      title=""
-      :data="VOUCHERS.data"
-      :withPagination="true"
-      :currentPage="VOUCHERS.current_page"
-      :lastPage="VOUCHERS.last_page"
-      sortLabel="Sortieren nach:"
-      :withSort="true"
-      filterLabel="Filtern nach:"
-      :withFilter="true"
-      :withQR="false"
-      listId="search-voucher-list"
-      @onChange="onFetchData"
-      @onFilter="onSearchData($event, 'filter')"
-      @onSort="onSearchData($event, 'sort')"
-      @onPaginate="onPaginateVouchers($event)"
-    /> -->
-    <!-- <GuestFooter /> -->
 
     <div
       v-if="showAnnouncement"
@@ -340,25 +423,16 @@ export default {
         pagination: false,
         centeredSlides: false,
       },
-      companyOptions: {
+      sliderOption: {
         dots: false,
-        focusOnSelect: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        touchThreshold: 5,
-        rows: 2,
+        slidesToShow: 1,
+        rows: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-            },
-          },
-        ],
+        arrows: false,
+        draggable: false,
       },
       voucherCategoriesOptions: {
         dots: false,
@@ -419,30 +493,21 @@ export default {
         ],
       },
       companies: [],
-      gifts: [
+      wellness: [
         {
-          label: 'Paare',
-          img: '/images/Paare.jpeg',
+          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 1.jpg',
         },
         {
-          label: 'Freunde',
-          img: '/images/Jugendliche.jpg',
+          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 2.jpg',
         },
         {
-          label: 'Kinder',
-          img: '/images/Kinder.jpeg',
+          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 3.jpg',
         },
         {
-          label: 'Frauen',
-          img: '/images/Frauen.jpeg',
+          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 4.jpg',
         },
         {
-          label: 'Männer',
-          img: '/images/Manner.jpeg',
-        },
-        {
-          label: 'Senioren',
-          img: '/images/Senioren.jpg',
+          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 5.jpg',
         },
       ],
     };

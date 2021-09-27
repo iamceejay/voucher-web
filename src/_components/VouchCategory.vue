@@ -6,7 +6,7 @@
           <h2 class="font-bold text-5xl" :class="fontColor">{{ title }}</h2>
           <span class="text-xl description">{{ description }}</span>
         </div>
-        <div class="bg-black bg-opacity-25 h-52 mx-10 w-52"></div>
+        <slot></slot>
       </div>
       <div class="vouch-category">
         <span class="block mb-6 text-xl" :class="fontColor"
@@ -30,7 +30,7 @@
     </div>
   </div>
 </template>
-
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
 import VoucherCard from '_components/List/Modules/VoucherList/VoucherCard/';
 import VueSlickCarousel from 'vue-slick-carousel';
