@@ -79,6 +79,36 @@
         </div>
       </VouchCategory>
 
+      <div class="py-10">
+        <div class="content-container mt-10 w-11/12">
+          <div class="flex flex-col gap-6 mb-6 md:flex-row">
+            <div class="flex-1">
+              <h2 class="font-bold text-5xl company-color">
+                Spricht dich das auch an?
+              </h2>
+              <span class="text-xl">Aktuell angesagt</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-6 justify-center">
+            <div
+              class="category-wrapper flex flex-col items-center"
+              v-for="(category, index) in categories"
+              :key="index"
+            >
+              <div class="bg-black bg-opacity-25 catgory-image h-80"></div>
+              <div>
+                <router-link
+                  :to="category.route"
+                  class="inline-block -mt-4 px-4 py-2 rounded-md more-button"
+                >
+                  {{ category.name }}
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <VouchCategory
         title="Fitness & Sport"
         description="Was heute wehtut, macht dich morgen stärker!"
@@ -416,13 +446,6 @@ export default {
         seed: new Date().getTime(),
       },
       showAnnouncement: false,
-      options: {
-        currentPage: 0,
-        loop: true,
-        slidesToScroll: 1,
-        pagination: false,
-        centeredSlides: false,
-      },
       sliderOption: {
         dots: false,
         infinite: true,
@@ -434,81 +457,26 @@ export default {
         arrows: false,
         draggable: false,
       },
-      voucherCategoriesOptions: {
-        dots: false,
-        speed: 500,
-        rows: 2,
-        touchThreshold: 5,
-        responsive: [
-          {
-            breakpoint: 9999,
-            settings: 'unslick',
-          },
-          {
-            breakpoint: 767,
-            settings: {
-              initialSlide: 1,
-              centerMode: true,
-              slidesToShow: 2,
-            },
-          },
-        ],
-      },
-      giftOptions: {
-        dots: false,
-        speed: 500,
-        touchThreshold: 5,
-        responsive: [
-          {
-            breakpoint: 9999,
-            settings: 'unslick',
-          },
-          {
-            breakpoint: 767,
-            settings: {
-              initialSlide: 1,
-              centerMode: true,
-              slidesToShow: 2,
-            },
-          },
-        ],
-      },
-      regionOptions: {
-        dots: false,
-        speed: 500,
-        touchThreshold: 5,
-        responsive: [
-          {
-            breakpoint: 9999,
-            settings: 'unslick',
-          },
-          {
-            breakpoint: 767,
-            settings: {
-              initialSlide: 1,
-              centerMode: true,
-              slidesToShow: 2,
-            },
-          },
-        ],
-      },
       companies: [],
-      wellness: [
+      categories: [
         {
-          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 1.jpg',
+          image: '',
+          route: '/vouchers/category/wellness-&-gesundheit',
+          name: 'Wellness',
         },
         {
-          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 2.jpg',
+          image: '',
+          route: '/vouchers/category/sport-&-adventure',
+          name: 'Adventure',
         },
+        { image: '', route: '/vouchers/category/kurzurlaub', name: 'Genuss' },
         {
-          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 3.jpg',
+          image: '',
+          route: '/vouchers/category/sport-&-adventure',
+          name: 'Fitness',
         },
-        {
-          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 4.jpg',
-        },
-        {
-          img: '@/_assets/img/Startpage/Wellness Bildershow/Bild 5.jpg',
-        },
+        { image: '', route: '/vouchers/category/tiere', name: 'Tiere' },
+        { image: '', route: '/vouchers/category/kurse', name: 'Kurse' },
       ],
     };
   },
@@ -662,6 +630,15 @@ export default {
 }
 .guest-homepage >>> .slick-list[style] {
   padding: 0 20% 0 0 !important;
+}
+
+.category-wrapper {
+  width: 100%;
+  max-width: 180px;
+}
+.catgory-image {
+  width: 100%;
+  max-width: 180px;
 }
 @media only screen and (max-width: 600px) {
   #guest-voucher-list >>> .voucher-card-container {
