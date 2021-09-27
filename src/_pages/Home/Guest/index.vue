@@ -49,7 +49,7 @@
         description="Wer liebt nicht auch die frische Luft, die Aussicht und das Erlebnis?"
         category="Sport & Adventure"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
               src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
@@ -68,7 +68,7 @@
         category="Wellness & Gesundheit"
         :theme="'peach'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <VueSlickCarousel v-bind="sliderOption">
             <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 1.jpg" />
             <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 2.jpg" />
@@ -85,7 +85,7 @@
         category="Sport & Adventure"
         :theme="'gray'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <VueSlickCarousel v-bind="sliderOption">
             <img
               src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 1.jpg"
@@ -200,7 +200,7 @@
         category="Kurse"
         :theme="'gray'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <VueSlickCarousel v-bind="sliderOption">
             <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 1.jpg" />
             <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 2.jpg" />
@@ -217,7 +217,7 @@
         category="Sport & Adventure"
         :theme="'peach'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
               src="https://player.vimeo.com/video/595825713?h=06c3ae2d4c&title=0&byline=0&portrait=0"
@@ -235,7 +235,7 @@
         description="Essen ist eine Kunst, Genießen ein Glück, Zusammensein ein Geschenk!"
         category="Essen & Trinken"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <VueSlickCarousel v-bind="sliderOption">
             <img
               src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 1.jpg"
@@ -262,7 +262,7 @@
         category="Tiere"
         :theme="'gray'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-52">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
               src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
