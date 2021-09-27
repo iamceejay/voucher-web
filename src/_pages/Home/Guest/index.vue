@@ -48,6 +48,7 @@
         title="Ab in die Berge"
         description="Wer liebt nicht auch die frische Luft, die Aussicht und das Erlebnis?"
         category="Sport & Adventure"
+        :ids="section_1"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <div style="padding:100% 0 0 0;position:relative;">
@@ -66,6 +67,7 @@
         title="Wellness"
         description="Wohlfühlen, Genuss, Erholung, Ruhe, Auszeit und Entspannung-gönn dir!"
         category="Wellness & Gesundheit"
+        :ids="section_2"
         :theme="'peach'"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
@@ -89,22 +91,24 @@
               <span class="text-xl">Aktuell angesagt</span>
             </div>
           </div>
-          <div class="flex flex-wrap gap-6 justify-center">
-            <div
-              class="category-wrapper flex flex-col items-center"
-              v-for="(category, index) in categories"
-              :key="index"
-            >
-              <div class="bg-black bg-opacity-25 catgory-image h-80"></div>
-              <div>
-                <router-link
-                  :to="category.route"
-                  class="inline-block -mt-4 px-4 py-2 rounded-md more-button"
-                >
-                  {{ category.name }}
-                </router-link>
+          <div class="text-center vouch-category">
+            <VueSlickCarousel v-bind="categoryOption">
+              <div
+                class="category-wrapper flex flex-col items-center px-5"
+                v-for="(category, index) in categories"
+                :key="index"
+              >
+                <div class="bg-black bg-opacity-25 catgory-image h-80"></div>
+                <div>
+                  <router-link
+                    :to="category.route"
+                    class="inline-block -mt-4 px-4 py-2 rounded-md more-button"
+                  >
+                    {{ category.name }}
+                  </router-link>
+                </div>
               </div>
-            </div>
+            </VueSlickCarousel>
           </div>
         </div>
       </div>
@@ -113,6 +117,7 @@
         title="Fitness & Sport"
         description="Was heute wehtut, macht dich morgen stärker!"
         category="Sport & Adventure"
+        :ids="section_3"
         :theme="'gray'"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
@@ -162,6 +167,7 @@
         title="Brunch"
         description="Genieße den perfekten Start in den Tag mit deinen Liebsten!"
         category="Essen & Trinken"
+        :ids="section_4"
         :theme="'peach'"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/3">
@@ -204,7 +210,7 @@
         <h2 class="text-center text-3xl mb-10 font-medium">
           Unternehmen die bereits dabei sind
         </h2>
-        <VueSlickCarousel v-bind="sliderOption" v-if="companies.length">
+        <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
           <div v-for="(company, index) in companies" :key="`company-${index}`">
             <div
               class="flex flex-col p-3 slider-item-custom text-center mb-6"
@@ -228,6 +234,7 @@
         title="Kurse"
         description="Etwas LERNEN und mit der Zeit darin immer geübter werden, ist das nicht auch eine FREUDE!?"
         category="Kurse"
+        :ids="section_5"
         :theme="'gray'"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
@@ -245,6 +252,7 @@
         title="Adventure"
         description="Jedes Abenteuer ist nur eine Entscheidung von dir entfernt!"
         category="Sport & Adventure"
+        :ids="section_6"
         :theme="'peach'"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
@@ -264,6 +272,7 @@
         title="Kulinarik"
         description="Essen ist eine Kunst, Genießen ein Glück, Zusammensein ein Geschenk!"
         category="Essen & Trinken"
+        :ids="section_7"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
           <VueSlickCarousel v-bind="sliderOption">
@@ -290,6 +299,7 @@
         title="Tiere"
         description="Für unsere vierbeinigen Freunde ist natürlich auch gedacht!"
         category="Tiere"
+        :ids="section_8"
         :theme="'gray'"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
@@ -433,6 +443,14 @@ export default {
   },
   data() {
     return {
+      section_1: process.env.VUE_APP_SECTION_1,
+      section_2: process.env.VUE_APP_SECTION_2,
+      section_3: process.env.VUE_APP_SECTION_3,
+      section_4: process.env.VUE_APP_SECTION_4,
+      section_5: process.env.VUE_APP_SECTION_5,
+      section_6: process.env.VUE_APP_SECTION_6,
+      section_7: process.env.VUE_APP_SECTION_7,
+      section_8: process.env.VUE_APP_SECTION_8,
       params: {
         keyword: '',
         page: 1,
@@ -456,6 +474,56 @@ export default {
         autoplaySpeed: 3000,
         arrows: false,
         draggable: false,
+      },
+      categoryOption: {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 6,
+        rows: 1,
+        autoplay: false,
+        arrows: true,
+        draggable: true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 4,
+            },
+          },
+          {
+            breakpoint: 760,
+            settings: {
+              slidesToShow: 3,
+            },
+          },
+          {
+            breakpoint: 640,
+            settings: {
+              slidesToShow: 1,
+            },
+          },
+        ],
+      },
+      companyOptions: {
+        dots: false,
+        focusOnSelect: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        touchThreshold: 5,
+        rows: 2,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+            },
+          },
+        ],
       },
       companies: [],
       categories: [
@@ -634,11 +702,26 @@ export default {
 
 .category-wrapper {
   width: 100%;
-  max-width: 180px;
+  max-width: 200px;
 }
 .catgory-image {
   width: 100%;
   max-width: 180px;
+}
+.vouch-category .slick-slide {
+  padding: 0 10px;
+}
+.vouch-category .slick-prev:before,
+.vouch-category .slick-next:before {
+  font-family: inherit;
+  font-size: 45px;
+  color: #ff5563;
+}
+.vouch-category .slick-prev:before {
+  margin-left: -15px;
+}
+.vouch-category .slick-list {
+  padding-bottom: 15px;
 }
 @media only screen and (max-width: 600px) {
   #guest-voucher-list >>> .voucher-card-container {

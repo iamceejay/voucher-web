@@ -42,7 +42,7 @@ export default {
     VoucherCard,
     VueSlickCarousel,
   },
-  props: ['title', 'description', 'category', 'theme'],
+  props: ['title', 'description', 'category', 'theme', 'ids'],
   data() {
     return {
       vouchers: [],
@@ -51,7 +51,7 @@ export default {
         arrows: true,
         dots: false,
         focusOnSelect: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -94,19 +94,19 @@ export default {
     },
   },
   async mounted() {
+    let ids = this.ids.split(',');
     let params = {
       page: 1,
-      paginate: 9,
+      paginate: ids.length,
       isNewest: false,
       isLowestPrice: false,
       isMostPopular: false,
-      seed: new Date().getTime(),
-      isCategory: [this.categorySearch],
       isRegion: [],
       isPrice: [],
       targets: [],
       seasons: [],
       subcategory: [],
+      ids: ids,
     };
     const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', params);
     this.vouchers = data.vouchers.data;
