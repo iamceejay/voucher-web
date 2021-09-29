@@ -50,7 +50,7 @@
         category="Sport & Adventure"
         :ids="section_1"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
               src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
@@ -70,7 +70,7 @@
         :ids="section_2"
         :theme="'peach'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
             <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 1.jpg" />
             <img src="@/_assets/img/Startpage/Wellness Bildershow/Bild 2.jpg" />
@@ -120,7 +120,7 @@
         :ids="section_3"
         :theme="'gray'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
             <img
               src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 1.jpg"
@@ -170,7 +170,7 @@
         :ids="section_4"
         :theme="'peach'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/3">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:56.25% 0 0 0;position:relative;">
             <iframe
               src="https://player.vimeo.com/video/574307616?h=4bd2483e9a&title=0&byline=0&portrait=0"
@@ -206,28 +206,41 @@
         </div>
       </div>
 
-      <div class="content-container w-11/12 mx-auto mb-10">
-        <h2 class="text-center text-3xl mb-10 font-medium">
-          Unternehmen die bereits dabei sind
-        </h2>
-        <VueSlickCarousel v-bind="companyOptions" v-if="companies.length">
-          <div v-for="(company, index) in companies" :key="`company-${index}`">
-            <div
-              class="flex flex-col p-3 slider-item-custom text-center mb-6"
-              v-if="company.logo"
-            >
-              <img
-                class="h-10 mx-auto"
-                :src="onSetImage(company.logo)"
-                :alt="company.name"
-              />
-              <p class="text-xs mt-1">{{ company.name }}</p>
+      <div class="py-10 company-bg-color">
+        <div class="content-container w-11/12">
+          <h2 class="text-center text-3xl mb-10 font-medium text-white">
+            Unternehmen die bereits dabei sind
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-1-min.webp">
             </div>
-            <div v-else class="hidden"></div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-2-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-3-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-4-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-5-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-6-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-7-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-8-min.webp">
+            </div>
+            <div class="py-3">
+              <img class="w-1/2 mx-auto" src="/images/companies/company-9-min.webp">
+            </div>
           </div>
-        </VueSlickCarousel>
-
-        <div class="border-separator" />
+        </div>
       </div>
 
       <VouchCategory
@@ -237,7 +250,7 @@
         :ids="section_5"
         :theme="'gray'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
             <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 1.jpg" />
             <img src="@/_assets/img/Startpage/Kurse Bildershow/Bild 2.jpg" />
@@ -255,7 +268,7 @@
         :ids="section_6"
         :theme="'peach'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
               src="https://player.vimeo.com/video/595825713?h=06c3ae2d4c&title=0&byline=0&portrait=0"
@@ -274,7 +287,7 @@
         category="Essen & Trinken"
         :ids="section_7"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
             <img
               src="@/_assets/img/Startpage/Kulinarik Bildershow/Bild 1.jpg"
@@ -302,10 +315,10 @@
         :ids="section_8"
         :theme="'gray'"
       >
-        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-64">
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
+              src="https://player.vimeo.com/video/568860474?h=70fafa6673&title=0&byline=0&portrait=0"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
               allow="autoplay; fullscreen; picture-in-picture"
