@@ -12,7 +12,7 @@
         <span class="block mb-6 text-xl" :class="fontColor"
           >Lust auf mehr?</span
         >
-        <VueSlickCarousel v-bind="voucherOption" v-if="vouchers.length">
+        <VueSlickCarousel v-bind="voucherOption" v-if="vouchers.length && !loading">
           <VoucherCard
             v-for="(voucher, index) in vouchers"
             :key="`voucher-${index}`"
@@ -20,6 +20,17 @@
             :showRegion="true"
           />
         </VueSlickCarousel>
+        <div class="wrapper" v-else>
+          <div class="wrapper-cell">
+            <div class="image"></div>
+            <div class="text">
+              <div class="text-line"> </div>
+              <div class="text-line"></div>
+              <div class="text-line"></div>
+              <div class="text-line"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <router-link
         :to="`/vouchers/category/${$helpers.toSlug('Sport & Adventure')}`"
@@ -45,6 +56,7 @@ export default {
   props: ['title', 'description', 'category', 'theme', 'ids'],
   data() {
     return {
+      loading: true,
       vouchers: [],
       categorySearch: this.category,
       voucherOption: {
@@ -110,6 +122,7 @@ export default {
     };
     const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', params);
     this.vouchers = data.vouchers.data;
+    this.loading = false
   },
 };
 </script>
@@ -151,4 +164,50 @@ export default {
 .vouch-category .slick-list {
   padding-bottom: 15px;
 }
+
+.wrapper-cell {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+.animated-background, .text-line, .image {
+  -webkit-animation-duration: 1.25s;
+          animation-duration: 1.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+          animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  background: #F6F6F6;
+  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  background-size: 800px 104px;
+  height: 96px;
+  position: relative;
+}
+
+.image {
+  height: 400px;
+  width: 100%;
+}
+
 </style>
