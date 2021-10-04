@@ -53,10 +53,9 @@
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/595807760?h=eee6f91b64&title=0&byline=0&portrait=0"
+              src="https://player.vimeo.com/video/595807760?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -94,11 +93,16 @@
           <div class="text-center vouch-category">
             <VueSlickCarousel v-bind="categoryOption">
               <div
-                class="category-wrapper flex flex-col items-center px-5"
+                class="category-wrapper flex flex-col items-center px-0 md:px-5"
                 v-for="(category, index) in categories"
                 :key="index"
               >
-                <div class="bg-black bg-opacity-25 catgory-image h-80"></div>
+                <div class="bg-black bg-opacity-25 catgory-image h-80">
+                  <img
+                    class="object-cover h-80 w-full"
+                    :src="category.image"
+                  >
+                </div>
                 <div>
                   <router-link
                     :to="category.route"
@@ -146,7 +150,8 @@
           So funktioniert epasnets:
         </div>
         <div class="flex flex-col gap-10 items-center md:flex-row">
-          <div class="bg-black bg-opacity-25 h-80 w-full md:w-1/2"></div>
+          <div class="bg-black bg-opacity-25 h-80 w-full md:w-1/2">
+          </div>
           <div class="flex flex-col inline-flex justify-center w-full md:w-1/3">
             <div class="md:text-3xl text-center text-xl">
               Regionale Geschenke, digital verschicken, vor Ort einlösen
@@ -173,10 +178,9 @@
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:56.25% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/574307616?h=4bd2483e9a&title=0&byline=0&portrait=0"
+              src="https://player.vimeo.com/video/574307616?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -271,10 +275,9 @@
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/595825713?h=06c3ae2d4c&title=0&byline=0&portrait=0"
+              src="https://player.vimeo.com/video/595825713?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -318,10 +321,9 @@
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/568860474?h=70fafa6673&title=0&byline=0&portrait=0"
+              src="https://player.vimeo.com/video/568860474?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
@@ -490,12 +492,12 @@ export default {
       },
       categoryOption: {
         dots: false,
-        infinite: false,
+        infinite: true,
         speed: 500,
         slidesToShow: 6,
         rows: 1,
         autoplay: false,
-        arrows: true,
+        arrows: false,
         draggable: true,
         responsive: [
           {
@@ -507,13 +509,16 @@ export default {
           {
             breakpoint: 760,
             settings: {
+              arrows: false,
               slidesToShow: 3,
             },
           },
           {
             breakpoint: 640,
             settings: {
+              arrows: false,
               slidesToShow: 1,
+              centerMode: true
             },
           },
         ],
@@ -541,23 +546,35 @@ export default {
       companies: [],
       categories: [
         {
-          image: '',
+          image: '/categories/wellness.webp',
           route: '/vouchers/category/wellness-&-gesundheit',
           name: 'Wellness',
         },
         {
-          image: '',
+          image: '/categories/adventure.webp',
           route: '/vouchers/category/sport-&-adventure',
           name: 'Adventure',
         },
-        { image: '', route: '/vouchers/category/kurzurlaub', name: 'Genuss' },
         {
-          image: '',
+          image: '/categories/genuss.webp',
+          route: '/vouchers/category/kurzurlaub',
+          name: 'Genuss'
+        },
+        {
+          image: '/categories/fitness.webp',
           route: '/vouchers/category/sport-&-adventure',
           name: 'Fitness',
         },
-        { image: '', route: '/vouchers/category/tiere', name: 'Tiere' },
-        { image: '', route: '/vouchers/category/kurse', name: 'Kurse' },
+        {
+          image: '/categories/tiere.webp',
+          route: '/vouchers/category/tiere',
+          name: 'Tiere'
+        },
+        {
+          image: '/categories/kurse.webp',
+          route: '/vouchers/category/kurse',
+          name: 'Kurse'
+        },
       ],
     };
   },

@@ -1,60 +1,62 @@
 <template>
-  <div
-    class="bg-white flex flex-shrink-0 voucher-card-container border"
-    :class="{ flip: isFlip }"
-    :style="{
-      '--bgColor': !isFlip ? 'transparent' : 'white',
-      '--card-description-background':
-        voucher.data_json != null
-          ? voucher.data_json.background_description_color
-          : voucher.background_description_color,
-      '--card-description-color':
-        voucher.data_json != null
-          ? voucher.data_json.description_color
-          : voucher.description_color,
-      '--card-header-footer-background':
-        voucher.data_json != null
-          ? voucher.data_json.header_and_footer_background_color
-          : voucher.header_and_footer_background_color,
-      '--card-header-footer-color':
-        voucher.data_json != null
-          ? voucher.data_json.header_and_footer_color
-          : voucher.header_and_footer_color,
-      fontSize: 'clamp(4px, 4.360vw, 16px)',
-    }"
-  >
-    <div class="relative flex flex-col w-full bg-aid rounded">
-      <CardInfo
-        v-if="!isAction"
-        :voucher="voucher"
-        :order="order"
-        :qr="qr"
-        :userVoucher="userVoucher"
-        :isFlippable="isFlippable"
-        :withQR="withQR"
-        :listId="listId"
-        :cardId="cardId"
-        :isBought="isBought"
-        @onFlip="onFlip()"
-      />
-      <CardAction
-        v-if="isAction && role === 'seller'"
-        :voucher="voucher"
-        @onFlip="onFlip()"
-      />
-      <CardUserAction
-        v-if="isAction && role === 'user'"
-        :qr="qr"
-        :userVoucher="userVoucher"
-        :order="order"
-        @onFlip="onFlip()"
-      />
-      <div
-        v-if="showRegion"
-        class="-mb-2.5 absolute bottom-0 flex inset-x-0 justify-center"
-      >
-        <div class="bg-white border px-2 rounded-md shadow-sm text-xs">
-          {{ voucher.seller.company.region }}
+  <div style="padding-bottom: 15px">
+    <div
+      class="bg-white flex flex-shrink-0 voucher-card-container border"
+      :class="{ flip: isFlip }"
+      :style="{
+        '--bgColor': !isFlip ? 'transparent' : 'white',
+        '--card-description-background':
+          voucher.data_json != null
+            ? voucher.data_json.background_description_color
+            : voucher.background_description_color,
+        '--card-description-color':
+          voucher.data_json != null
+            ? voucher.data_json.description_color
+            : voucher.description_color,
+        '--card-header-footer-background':
+          voucher.data_json != null
+            ? voucher.data_json.header_and_footer_background_color
+            : voucher.header_and_footer_background_color,
+        '--card-header-footer-color':
+          voucher.data_json != null
+            ? voucher.data_json.header_and_footer_color
+            : voucher.header_and_footer_color,
+        fontSize: 'clamp(4px, 4.360vw, 16px)',
+      }"
+    >
+      <div class="relative flex flex-col w-full bg-aid rounded">
+        <CardInfo
+          v-if="!isAction"
+          :voucher="voucher"
+          :order="order"
+          :qr="qr"
+          :userVoucher="userVoucher"
+          :isFlippable="isFlippable"
+          :withQR="withQR"
+          :listId="listId"
+          :cardId="cardId"
+          :isBought="isBought"
+          @onFlip="onFlip()"
+        />
+        <CardAction
+          v-if="isAction && role === 'seller'"
+          :voucher="voucher"
+          @onFlip="onFlip()"
+        />
+        <CardUserAction
+          v-if="isAction && role === 'user'"
+          :qr="qr"
+          :userVoucher="userVoucher"
+          :order="order"
+          @onFlip="onFlip()"
+        />
+        <div
+          v-if="showRegion"
+          class="-mb-2.5 absolute bottom-0 flex inset-x-0 justify-center"
+        >
+          <div class="bg-white border px-2 rounded-md shadow-sm text-xs">
+            Tiroler {{ voucher.seller.company.region }}
+          </div>
         </div>
       </div>
     </div>

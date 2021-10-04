@@ -63,7 +63,7 @@ export default {
         arrows: true,
         dots: false,
         focusOnSelect: true,
-        infinite: false,
+        infinite: true,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -84,6 +84,8 @@ export default {
             settings: {
               slidesToShow: 1,
               centerMode: true,
+              arrows: false,
+              centerPadding: '20px'
             },
           },
         ],
