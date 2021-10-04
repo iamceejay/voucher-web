@@ -25,12 +25,12 @@
                     <input name="tel" type="tel" placeholder="Telefonnummer" class="border p-2 w-1/2">
                 </div>
                 <input name="email" type="email" required placeholder="Email" class="border p-2 w-full mt-3">
-                <textarea name="content" required cols="10" rows="3" placeholder="Tell us about desired property" class="border p-2 mt-3 w-full"></textarea>
+                <textarea name="content" required cols="10" rows="3" placeholder="Hier ist Platz für das Anliegen / die Nachricht." class="border p-2 mt-3 w-full"></textarea>
                 <div class="flex items-baseline space-x-2 mt-2">
                     <input type="checkbox" required class="inline-block">
                     <p class="text-gray-600 text-sm">Ich akzeptiere die Verarbeitung meiner Daten zum Zweck der Kontaktanfrage gemäß Datenschutzerklärung.</p>
                 </div>
-                <input ref="submit"  type="submit" value="Submit" class="w-full mt-6 company-bg-color px-5 py-3 rounded-md text-sm text-white">
+                <input ref="submit"  type="submit" value="Abschicken" class="w-full mt-6 company-bg-color px-5 py-3 rounded-md text-sm text-white">
             </form>
             <div class="flex items-center justify-center md:w-1/2 w-full">
               <a class="flex justify-center max-w-xs w-full" :href="appURL">
@@ -94,14 +94,14 @@ export default {
       this.$refs.submit.disabled = true
       await post(`contact`, formData)
       this.$swal({
-        title: 'Form Successfully Submited!',
+        title: 'Erfolgreich abgeschickt. Wir melden uns in Kürze!',
         text: '',
         allowOutsideClick: true,
         confirmButtonColor: '#48BB78',
         timer: 2000,
         timerProgressBar: true,
       })
-      this.$refs.submit.value = 'Submit'
+      this.$refs.submit.value = 'Abschicken'
       this.$refs.submit.disabled = false
       evt.target.reset()
     }

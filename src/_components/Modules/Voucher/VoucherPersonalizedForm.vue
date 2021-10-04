@@ -420,8 +420,8 @@ export default {
       // used to display the result above.
       let options = {
         type: 'base64',
-        format: 'jpeg',
-        size: { width: 367, height: 341 },
+        format: 'png',
+        size: 'original',
         quality: 1,
       };
 

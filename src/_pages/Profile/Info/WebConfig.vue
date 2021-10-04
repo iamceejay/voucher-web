@@ -283,7 +283,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
-                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
+                  <span class="block text-xs mb-3">Hier <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">Icons</a> aussuchen und den Namen kopieren</span>
                   <InputField
                     id="address"
                     class="mb-4"
@@ -293,7 +293,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
-                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
+                  <span class="block text-xs mb-3">Hier <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">Icons</a> aussuchen und den Namen kopieren</span>
                   <InputField
                     id="address"
                     class="mb-4"
@@ -303,7 +303,7 @@
                     :errorMessages="errorMessages.title_1"
                     @input="onChange"
                   />
-                  <span class="block text-xs mb-3">Get <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">icons</a> here and copy its name.</span>
+                  <span class="block text-xs mb-3">Hier <a href="https://icons.getbootstrap.com/" class="text-blue-500 font-medium">Icons</a> aussuchen und den Namen kopieren</span>
 
                 </div>
               </div>
@@ -521,17 +521,25 @@ export default {
           this.$swal({
             title: 'Verkaufe Gutscheine in deinem Design über die eigene Webseite',
             text: 'Kontaktiere uns für deinen individuellen Webshop',
-            allowOutsideClick: false,
-            showCancelButton: true,
+            allowOutsideClick: true,
             confirmButtonColor: '#ff5563',
             confirmButtonText: 'Jetzt mehr erfahren',
-            cancelButtonText: 'Jetzt neu'
+            showCancelButton: true,
+            cancelButtonText: 'Später',
+            cancelButtonColor: '#cccccc',
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            preConfirm: () => {
+              window.open('https://verkaufen.epasnets.com/kontakt/', '_blank').focus()
+              return false
+            }
           }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.value) {
-            window.open('https://verkaufen.epasnets.com/kontakt/', '_blank');
-          }
-        })
+            if(result.isConfirmed) {
+
+            } else {
+              window.location.href = 'https://epasnets.com/home'
+            }
+          })
         }
 
 
@@ -665,8 +673,8 @@ export default {
 
       let options = {
         type: 'base64',
-        format: 'jpeg',
-        size,
+        format: 'png',
+        size: 'original',
         quality: 1,
       };
       this.$refs[ref].result(options, (output) => {

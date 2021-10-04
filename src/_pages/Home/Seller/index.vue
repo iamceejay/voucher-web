@@ -146,13 +146,13 @@ export default {
         },
         {
           title: 'Diese Woche',
-          sold: data.voucher_month,
+          sold: data.voucher_week,
           earnings: this.$helpers.convertCurrency(data.seller_weekly_earnings),
           redeemed: '',
         },
         {
           title: 'Diesen Monat',
-          sold: data.voucher_daily,
+          sold: data.voucher_month,
           earnings: this.$helpers.convertCurrency(data.seller_monthly_earnings),
           redeemed: '',
         },
