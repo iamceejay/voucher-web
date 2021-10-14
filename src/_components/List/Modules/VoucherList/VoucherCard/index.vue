@@ -2,7 +2,7 @@
   <div style="padding-bottom: 15px">
     <div
       class="bg-white flex flex-shrink-0 voucher-card-container border"
-      :class="{ flip: isFlip }"
+      :class="{ flip: isFlip, 'truncate-company': showRegion }"
       :style="{
         '--bgColor': !isFlip ? 'transparent' : 'white',
         '--card-description-background':
@@ -55,7 +55,12 @@
           class="-mb-2.5 absolute bottom-0 flex inset-x-0 justify-center"
         >
           <div class="bg-white border px-2 rounded-md shadow-sm text-xs">
-            Tiroler {{ voucher.seller.company.region }}
+            <span v-if="voucher.seller.company.region != 'Innsbruck und Umgebung'">
+              Tiroler {{ voucher.seller.company.region }}
+            </span>
+            <span v-else>
+              {{ voucher.seller.company.region }}
+            </span>
           </div>
         </div>
       </div>
@@ -162,11 +167,10 @@ export default {
   },
   methods: {
     onFlip() {
-      console.log(this.voucher);
       if (this.userVoucher) {
         this.$router.push(`/voucher/${this.userVoucher.id}`);
       } else {
-        this.$router.push(`/vouchers/${this.voucher.id}`);
+        window.location.href = `https://epasnets.com/vouchers/${this.voucher.id}`;
       }
 
       // if (this.isFlippable) {

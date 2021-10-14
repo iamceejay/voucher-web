@@ -46,7 +46,7 @@
               v-bind:disabled="!date1 || !date2"
               @click="downloadInvoicesZip()"
             >
-              CSV herunterladen
+              PDF herunterladen
             </button>
           </div>
           <div class="flex flex-col">
@@ -378,7 +378,12 @@ export default {
     },
     async downloadInvoicesZip() {
       try {
-        const payload = { from: this.date1, to: this.date2, download: 'zip' };
+        const payload = {
+          from: this.date1,
+          to: this.date2,
+          download: 'zip',
+          seller_id: this.AUTH_USER.data.id
+        };
 
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
 

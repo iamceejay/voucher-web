@@ -18,8 +18,14 @@
             />
           </div>
           <div class="order__form flex flex-col w-full ">
-            <span class="text-xs my-8">
+            <span class="text-xs mt-8 mb-1">
               Kaufdatum: {{ formatDate(row.created_at) }}
+            </span>
+            <span
+              class="text-xs mb-7"
+              v-if="row.order_no"
+            >
+              Bestellnummer: {{ row.order_no }}
             </span>
             <span class="font-medium mb-2">
               {{ row.voucher.title }}

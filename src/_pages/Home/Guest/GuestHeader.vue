@@ -5,11 +5,11 @@
         class="content-container header-container flex flex-col items-center px-4 pt-8 pb-32 lg:pt-16 lg:pb-48 relative"
       >
         <div class="text-center text-white w-11/12 max-w-2xl">
-          <h1 class="font-body text-xl md:text-3xl lg:text-4xl mb-1 font-bold">
+          <h1 class="text-xl md:text-3xl lg:text-4xl mb-1 font-bold">
             Weil Regionalität auch beim Verschenken den Unterschied macht
           </h1>
           <p
-            class="font-body text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto"
+            class="text-xs md:text-sm lg:text-lg w-full lg:w-9/12 mx-auto"
           >
             Entdecke Gutscheine von Tiroler Unternehmen zum verschenken und
             selber genießen.

@@ -33,14 +33,14 @@
           Kategorien
         </h2>
         <div class="flex flex-wrap gap-2">
-          <router-link
+          <a
             v-for="(category, index) in CATEGORIES"
             :key="`item-${index}`"
-            :to="`/vouchers/category/${$helpers.toSlug(category.name)}`"
+            :href="`/vouchers/category/${$helpers.toSlug(category.name)}`"
             class="border border-black flex items-center px-3 py-1"
           >
             <p class="text-sm">{{ category.name }}</p>
-          </router-link>
+          </a>
         </div>
       </div>
 
@@ -49,6 +49,7 @@
         description="Wer liebt nicht auch die frische Luft, die Aussicht und das Erlebnis?"
         category="Sport & Adventure"
         :ids="section_1"
+        :showButton="false"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
@@ -68,6 +69,7 @@
         category="Wellness & Gesundheit"
         :ids="section_2"
         :theme="'peach'"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
@@ -104,12 +106,12 @@
                   >
                 </div>
                 <div>
-                  <router-link
-                    :to="category.route"
+                  <a
+                    :href="category.route"
                     class="inline-block -mt-4 px-4 py-2 rounded-md more-button"
                   >
                     {{ category.name }}
-                  </router-link>
+                  </a>
                 </div>
               </div>
             </VueSlickCarousel>
@@ -123,6 +125,7 @@
         category="Sport & Adventure"
         :ids="section_3"
         :theme="'gray'"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
@@ -150,19 +153,27 @@
           So funktioniert epasnets:
         </div>
         <div class="flex flex-col gap-10 items-center md:flex-row">
-          <div class="bg-black bg-opacity-25 h-80 w-full md:w-1/2">
+          <div class="bg-white bg-opacity-25 pt-10 w-full md:w-1/2">
+            <div style="padding:90.25% 0 0 0;position:relative;">
+              <iframe
+                src="https://player.vimeo.com/video/622593212?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
+                style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+          </div>
           </div>
           <div class="flex flex-col inline-flex justify-center w-full md:w-1/3">
             <div class="md:text-3xl text-center text-xl">
               Regionale Geschenke, digital verschicken, vor Ort einlösen
             </div>
             <div class="text-center">
-              <router-link
-                :to="`/vouchers/search`"
+              <a
+                :href="`/vouchers/search`"
                 class="inline-block mt-6 px-4 py-2 rounded-md more-button"
               >
                 Mehr entdecken →
-              </router-link>
+              </a>
             </div>
           </div>
         </div>
@@ -174,11 +185,12 @@
         category="Essen & Trinken"
         :ids="section_4"
         :theme="'peach'"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
-          <div style="padding:56.25% 0 0 0;position:relative;">
+          <div style="padding:99.25% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/574307616?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
+              src="https://player.vimeo.com/video/595810680?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
               allowfullscreen
@@ -253,6 +265,7 @@
         category="Kurse"
         :ids="section_5"
         :theme="'gray'"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
@@ -271,6 +284,7 @@
         category="Sport & Adventure"
         :ids="section_6"
         :theme="'peach'"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
@@ -289,6 +303,7 @@
         description="Essen ist eine Kunst, Genießen ein Glück, Zusammensein ein Geschenk!"
         category="Essen & Trinken"
         :ids="section_7"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <VueSlickCarousel v-bind="sliderOption">
@@ -317,11 +332,12 @@
         category="Tiere"
         :ids="section_8"
         :theme="'gray'"
+        :showButton="true"
       >
         <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
           <div style="padding:100% 0 0 0;position:relative;">
             <iframe
-              src="https://player.vimeo.com/video/568860474?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
+              src="https://player.vimeo.com/video/618703269?autoplay=1&autopause=0&controls=0&muted=1&loop=1"
               style="position:absolute;top:0;left:0;width:100%;height:100%;"
               frameborder="0"
               allowfullscreen
@@ -348,6 +364,25 @@
         "
       />
 
+      <VouchCategory
+        title="Für die ganze familie"
+        description="Die besten Momente erlebt man nur mit der ganzen Familie."
+        category="Sport & Adventure"
+        :ids="section_9"
+        :theme="'peach'"
+        :showButton="false"
+      >
+        <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
+          <VueSlickCarousel v-bind="sliderOption">
+            <img src="@/_assets/img/Startpage/Family/Bild 1.jpg" />
+            <img src="@/_assets/img/Startpage/Family/Bild 2.jpg" />
+            <img src="@/_assets/img/Startpage/Family/Bild 3.jpg" />
+            <img src="@/_assets/img/Startpage/Family/Bild 4.jpg" />
+            <img src="@/_assets/img/Startpage/Family/Bild 5.jpg" />
+          </VueSlickCarousel>
+        </div>
+      </VouchCategory>
+
       <!-- <div class="voucher-list__container content-container w-11/12 mt-2">
         <h2 class="text-center text-3xl mb-10 font-medium">Unsere Lieblinge</h2>
         <VoucherList
@@ -366,7 +401,7 @@
       </div> -->
     </div>
 
-    <SellerContent v-if="AUTH_USER.role.name === null" />
+    <!-- <SellerContent v-if="AUTH_USER.role.name === null" /> -->
 
     <div
       v-if="showAnnouncement"
@@ -466,6 +501,7 @@ export default {
       section_6: process.env.VUE_APP_SECTION_6,
       section_7: process.env.VUE_APP_SECTION_7,
       section_8: process.env.VUE_APP_SECTION_8,
+      section_9: process.env.VUE_APP_SECTION_9,
       params: {
         keyword: '',
         page: 1,

@@ -32,12 +32,13 @@
           </div>
         </div>
       </div>
-      <router-link
-        :to="`/vouchers/category/${$helpers.toSlug('Sport & Adventure')}`"
+      <a
+        v-if="showButton"
+        :href="`/vouchers/category/${$helpers.toSlug(category)}`"
         class="inline-block mt-6 px-4 py-2 rounded-md more-button"
       >
         Mehr entdecken →
-      </router-link>
+      </a>
     </div>
   </div>
 </template>
@@ -53,7 +54,14 @@ export default {
     VoucherCard,
     VueSlickCarousel,
   },
-  props: ['title', 'description', 'category', 'theme', 'ids'],
+  props: [
+    'title',
+    'description',
+    'category',
+    'theme',
+    'ids',
+    'showButton'
+  ],
   data() {
     return {
       loading: true,

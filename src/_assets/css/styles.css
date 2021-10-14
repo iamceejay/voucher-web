@@ -282,3 +282,9 @@ body.modal-active {
 .company-bg-color {
   background: var(--company-color, var(--card-description-background, #ff5563));
 }
+
+.truncate-company .card-header .text-sm {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

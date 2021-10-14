@@ -16,16 +16,20 @@
               AUTH_USER.role.name === 'user'
           "
           to="/wish-list"
-          class="menu-item  text-xs mr-2"
+          class="flex flex-col items-center justify-center relative"
         >
-          <span
-            class="hover:text-peach relative z-10 flex flex-col items-center"
-          >
-            <svg class="icon h-5 w-5 text-peach mb-1">
+          <div class="relative h-4 w-4">
+            <svg class="icon h-4 w-4 text-peach">
               <use :xlink:href="`/icons/sprite.svg#heart`" />
             </svg>
-            <span class="text-2xs text-peach">Meine Wishlist</span>
-          </span>
+            <div
+              class="-m-3 absolute company-bg-color flex h-4 items-center justify-center right-0 rounded-full text-2xs text-white top-0 w-4"
+            >
+              {{ COUNT_WISHLIST }}
+            </div>
+          </div>
+
+          <span class="text-xs">Meine Wunschliste</span>
         </router-link>
         <router-link
           v-if="
@@ -80,21 +84,29 @@
       </div>
 
       <div v-else class="text-sm flex space-x-4">
-        <a href="javascript:void(0)" class="menu-item  text-xs">
-          <span
-            class="hover:text-peach relative z-10 flex flex-col items-center"
-          >
+        <router-link
+          href="javascript:void(0)"
+          class="flex flex-col items-center justify-center relative"
+          to="/wish-list"
+        >
+          <div class="relative h-4 w-4">
             <svg class="icon h-4 w-4 text-peach">
               <use :xlink:href="`/icons/sprite.svg#heart`" />
             </svg>
-            Meine Wunschliste
-          </span>
-        </a>
+            <div
+              class="-m-3 absolute company-bg-color flex h-4 items-center justify-center right-0 rounded-full text-2xs text-white top-0 w-4"
+            >
+              {{ COUNT_WISHLIST }}
+            </div>
+          </div>
+
+          <span class="text-xs">Meine Wunschliste</span>
+        </router-link>
         <router-link
           class="flex flex-col items-center justify-center relative"
           to="/cart"
         >
-          <div class="relative  h-4 w-4">
+          <div class="relative h-4 w-4">
             <svg class="relative icon h-4 w-4 text-peach">
               <use :xlink:href="`/icons/sprite.svg#bag`" />
             </svg>
@@ -293,6 +305,9 @@ export default {
     COUNT_CART() {
       return this.$store.getters.COUNT_CART;
     },
+    COUNT_WISHLIST() {
+      return this.$store.getters.COUNT_WISHLIST;
+    }
   },
   watch: {
     async IS_LOADING(newVal) {
