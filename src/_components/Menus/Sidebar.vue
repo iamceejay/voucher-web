@@ -173,6 +173,10 @@ export default {
                     title: 'Subdomain',
                     link: '/subdomain',
                   },
+                  {
+                    title: 'Redemptions',
+                    link: '/voucher-redemptions',
+                  },
                 ],
               },
               {

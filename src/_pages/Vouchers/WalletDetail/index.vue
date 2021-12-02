@@ -660,6 +660,7 @@ export default {
         await this.$store.dispatch('DOWNLOAD_USER_VOUCHER', id);
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
       } catch (err) {
+        console.log(err)
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
         this.$swal({
           icon: 'warning',

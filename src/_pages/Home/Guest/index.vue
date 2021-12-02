@@ -621,9 +621,9 @@ export default {
     CATEGORIES() {
       return this.$store.getters.CATEGORIES;
     },
-    FEATURED_VOUCHERS() {
-      return this.$store.getters.FEATURED_VOUCHERS;
-    },
+    // FEATURED_VOUCHERS() {
+    //   return this.$store.getters.FEATURED_VOUCHERS;
+    // },
     VOUCHERS() {
       return this.$store.getters.VOUCHERS;
     },
@@ -656,14 +656,14 @@ export default {
         // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
         await this.$store.commit('SET_VOUCHERS', []);
-        await this.$store.commit('SET_FEATURED_VOUCHERS', []);
+        // await this.$store.commit('SET_FEATURED_VOUCHERS', []);
         await this.$store.commit('SET_CATEGORIES', []);
         let { data } = await get('company/all');
         this.companies = data.companies.sort(() => Math.random() - 0.5);
         this.companies = this.companies.filter((company) => {
           return company.logo != null;
         });
-        await this.onFetchNewestVouchers();
+        // await this.onFetchNewestVouchers();
         // await this.onFetchFeaturedVouchers()
         await this.onFetchCategories();
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
@@ -743,13 +743,13 @@ export default {
         console.log('err', err);
       }
     },
-    async onFetchFeaturedVouchers() {
-      try {
-        await this.$store.dispatch('FETCH_FEATURED_VOUCHERS');
-      } catch (err) {
-        console.log('err', err);
-      }
-    },
+    // async onFetchFeaturedVouchers() {
+    //   try {
+    //     await this.$store.dispatch('FETCH_FEATURED_VOUCHERS');
+    //   } catch (err) {
+    //     console.log('err', err);
+    //   }
+    // },
     onSetImage(value) {
       return value.search('base64') < 0
         ? `${process.env.VUE_APP_API_BASE_URL}/storage/${value}`

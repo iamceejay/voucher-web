@@ -127,16 +127,18 @@ export default {
         link.download = `Gutschein-${date}.pdf`
         link.click()
 
-        const newList = state.userVouchers.data.map( row => {
-          if(row.id == payload) {
-            row.sent_via = 'voucher_download'
-          }
-          return row
-        })
-        await commit('SET_WALLETS', {
-          ...state.userVouchers,
-          data: newList
-        })
+        if(state.userVouchers.data) {
+          const newList = state.userVouchers.data.map( row => {
+            if(row.id == payload) {
+              row.sent_via = 'voucher_download'
+            }
+            return row
+          })
+          await commit('SET_WALLETS', {
+            ...state.userVouchers,
+            data: newList
+          })
+        }
       } catch (err) {
         throw err
       }

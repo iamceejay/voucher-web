@@ -407,6 +407,20 @@
             await localStorage.removeItem('_userWishlist')
             await localStorage.setItem('_userWishlist', JSON.stringify(this.AUTH_USER_VOUCHER_WISHLIST))
             text = "Gutschein von der Wunschliste entfernt."
+
+            this.$swal({
+              icon: 'success',
+              html: `<div class="px-3"><p>${text}</p></div>`,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2500,
+              timerProgressBar: true
+            })
+
+            setTimeout(() => {
+              location.reload()
+            }, 2000);
           } catch (err) {
 
           }
@@ -414,25 +428,25 @@
           try {
             await this.$store.dispatch('ADD_USER_VOUCHER_WISHLIST', payload)
 
-            const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', { user_id: this.AUTH_USER.data.id });
+            const { user_voucher_wishlist } = await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', this.AUTH_USER.data.id);
             await localStorage.removeItem('_userWishlist')
             await localStorage.setItem('_userWishlist', JSON.stringify(user_voucher_wishlist))
             await this.$store.commit('SET_AUTH_USER_VOUCHER_WISHLIST', user_voucher_wishlist)
             text = "Gutschein zur Wunschliste hinzugefügt."
+
+            this.$swal({
+              icon: 'success',
+              html: `<div class="px-3"><p>${text}</p></div>`,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2500,
+              timerProgressBar: true
+            })
           } catch (err) {
 
           }
         }
-
-        this.$swal({
-          icon: 'success',
-          html: `<div class="px-3"><p>${text}</p></div>`,
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2500,
-          timerProgressBar: true
-        })
       }
     }
   }

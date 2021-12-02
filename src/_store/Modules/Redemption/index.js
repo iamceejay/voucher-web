@@ -78,5 +78,19 @@ export default {
         throw err
       }
     },
+    async DOWNLOAD_REDEMPTION_PDF( { commit, state }, payload ) {
+      try {
+        const { data } = await post(`${prefix}/download-pdf`, {
+          redemption: payload
+        }, {}, {responseType: 'arraybuffer'})
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `${payload.redemption.redemption_no}.pdf`
+        link.click()
+      } catch(err) {
+        throw err
+      }
+    }
   },
 }

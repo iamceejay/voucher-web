@@ -18,9 +18,9 @@
         <div
           class="search-box bg-dirty w-11/12 max-w-lg flex flex-col items-center py-6 md:py-8 lg:py-10 absolute"
         >
-          <router-link
+          <a
             class="flex flex-col w-11/12 lg:w-9/12"
-            to="/vouchers/search"
+            href="/vouchers/search"
           >
             <SearchInputField
               id="search-voucher"
@@ -29,7 +29,7 @@
               placeholder="Suche nach Aktivitäten oder Unternehmen"
               :submitButton="false"
             />
-          </router-link>
+          </a>
           <div class="search-box__details w-11/12 md:9/12 lg:w-8/12">
             <div
               v-for="(item, index) in searchBoxItems"

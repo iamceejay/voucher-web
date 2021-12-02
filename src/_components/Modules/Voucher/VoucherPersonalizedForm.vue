@@ -420,9 +420,9 @@ export default {
       // used to display the result above.
       let options = {
         type: 'base64',
-        format: 'png',
-        size: 'original',
-        quality: 1,
+        format: 'jpeg',
+        size: { width: 730, height: 676.34 },
+        quality: 0.7,
       };
 
       this.$refs[ref].result(options, (output) => {

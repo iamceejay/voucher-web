@@ -192,14 +192,14 @@ const router = new Router({
         middleware: [auth, authSeller],
       },
     },
-    {
-      path: '/redemptions',
-      name: 'redemptions',
-      component: Redemptions,
-      meta: {
-        middleware: [auth, authSeller],
-      },
-    },
+    // {
+    //   path: '/redemptions',
+    //   name: 'redemptions',
+    //   component: Redemptions,
+    //   meta: {
+    //     middleware: [auth, authAdmin],
+    //   },
+    // },
     {
       path: '/website-configuration',
       name: 'website-configuration',
@@ -470,6 +470,14 @@ const router = new Router({
       component: WishList,
       meta: {
         middleware: [auth, authUser],
+      },
+    },
+    {
+      path: '/voucher-redemptions',
+      name: 'voucher-redemptions',
+      component: Redemptions,
+      meta: {
+        middleware: [auth, authAdmin],
       },
     },
   ],

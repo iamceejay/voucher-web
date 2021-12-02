@@ -1473,6 +1473,19 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
 
+      if (files[0].size > 1000000) {
+        this.$swal({
+            title: 'Achtung: Fotos zu groß!',
+            html: 'Damit du deinen Gutschein speichern kannst, musst du die Größe deiner Fotos reduzieren.' +
+            '<div class="my-5 text-2xl">Hierzu empfehlen wir <b><a href="https://www.resizepixel.com/de" target="_blank">das Tool</a></b>.</div>'
+            + 'Dort kannst du das Foto komprimieren. Maximale Fotogröße ist <b>1 MB.</b>',
+            confirmButtonColor: '#EA5666',
+            confirmButtonText: 'Okay',
+          });
+
+        return;
+      }
+
       var reader = new FileReader();
       reader.onload = (e) => {
         this.$refs[ref].$vnode.elm.parentElement.classList.remove('hidden');
@@ -1490,13 +1503,13 @@ export default {
       // used to display the result above.
       let size =
         form == 'background_image'
-          ? { width: 367, height: 341 }
-          : { width: 200, height: 200 };
+          ? { width: 730, height: 676.34 }
+          : { width: 300, height: 300 };
       let options = {
         type: 'base64',
-        format: 'png',
-        size: 'original',
-        quality: 1,
+        format: 'jpeg',
+        size: size,
+        quality: 0.7,
       };
       this.$refs[ref].result(options, (output) => {
         this.form[form] = output;
