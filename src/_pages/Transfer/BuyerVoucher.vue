@@ -10,7 +10,7 @@
             <VoucherCard
               v-if="voucher"
               :cardId="`voucher-card-${voucher.id}`"
-              :voucher="voucher"
+              :voucher="voucher.data_json"
               :userVoucher="voucher"
               role="user"
             />
