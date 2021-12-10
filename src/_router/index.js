@@ -43,6 +43,7 @@ import VoucherSendEmail from '_pages/Vouchers/SendEmail/';
 import VoucherTransfer from '_pages/Vouchers/Transfer/';
 import VoucherDetail from '_pages/Vouchers/Detail/';
 import VoucherWalletDetail from '_pages/Vouchers/WalletDetail/';
+import BuyerVoucherWalletDetail from '_pages/Vouchers/WalletDetail/BuyerVoucher';
 import VoucherPersonalized from '_pages/Vouchers/Personalized/';
 import SellerDetail from '_pages/Seller/Detail/';
 import VoucherManageFeature from '_pages/Vouchers/ManageFeature/';
@@ -57,6 +58,7 @@ import Users from '_pages/Users/';
 import ManageOrders from '_pages/Orders/Manage/';
 import Payment from '_pages/Payment/';
 import Transfer from '_pages/Transfer/';
+import BuyerVoucherTransfer from '_pages/Transfer/BuyerVoucher';
 import PageNotFound from '_pages/Errors/PageNotFound';
 import UserNotAllowed from '_pages/Errors/UserNotAllowed';
 import WishList from '_pages/WishList';
@@ -302,6 +304,15 @@ const router = new Router({
       },
     },
     {
+      path: '/buyer/voucher/:id',
+      name: 'buyer-voucher-detail',
+      component: BuyerVoucherWalletDetail,
+      meta: {
+        back: '/wallet',
+        // middleware: [ authGUS ]
+      },
+    },
+    {
       path: '/vouchers/category/:slug',
       name: 'vouchers-category',
       component: VoucherCategory,
@@ -462,6 +473,14 @@ const router = new Router({
       path: '/transfer/:id',
       name: 'transfer',
       component: Transfer,
+      // meta: {
+      //   middleware: [ auth, authAdmin ]
+      // }
+    },
+    {
+      path: '/buyer-voucher/transfer/:id',
+      name: 'buyer-transfer',
+      component: BuyerVoucherTransfer,
       // meta: {
       //   middleware: [ auth, authAdmin ]
       // }

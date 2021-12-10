@@ -541,25 +541,11 @@ export default {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
 
         this.form.valid_date = [];
-        let x;
-        for (x = 0; x < this.form.expiry_date; x++) {
-          let map = this.form.months.map((date) => {
-            return {
-              start: moment(date)
-                .add(x, 'y')
-                .format('YYYY-MM-DD'),
-              end: moment(date)
-                .add(x, 'y')
-                .endOf('month')
-                .format('YYYY-MM-DD'),
-            };
-          });
-          this.form.valid_date = [...this.form.valid_date, ...map];
-        }
-
         this.form.seller_id = this.AUTH_USER.data.id;
         this.form.voucher_category_id = this.form.category.id;
         this.form.type = 'buyer'
+        this.form.token = Date.now().toString(36) +  Math.random().toString(36).substr(2);
+        this.form.from = this.AUTH_USER.data.detail.fullname
 
         const url = this.form.id ? 'UPDATE_VOUCHER' : 'ADD_VOUCHER';
 
@@ -569,7 +555,7 @@ export default {
 
         if (!this.isRouteChanged) {
           this.isSubmitted = true;
-          this.$router.push('/wallet');
+          this.$router.push('/wallet/vouchers');
         }
 
         return true;

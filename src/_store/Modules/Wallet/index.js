@@ -222,5 +222,15 @@ export default {
         throw err
       }
     },
+    async TRANSFERRING_BUYER_WALLET( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`buyer-transfer`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
+
 }

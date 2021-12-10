@@ -135,6 +135,16 @@ export default {
         console.log('err', err)
       }
     },
+    async FETCH_BUYER_VOUCHER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}/${payload}`, {})
+        await commit('SET_VOUCHER', data.voucher)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async FETCH_FEATURED_VOUCHERS( { commit, state }, payload )
     {
       try {
