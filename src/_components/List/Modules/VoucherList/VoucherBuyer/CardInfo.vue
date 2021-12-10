@@ -9,7 +9,7 @@
           {{ voucher.title || 'Gutscheintitel' }}
         </div>
         <div class="text-sm">
-          Von {{ AUTH_USER.data.detail.fullname }}
+          Von {{ voucher.from ? voucher.from : AUTH_USER.data.detail.fullname }}
         </div>
       </div>
       <div class="self-center w-2/5">

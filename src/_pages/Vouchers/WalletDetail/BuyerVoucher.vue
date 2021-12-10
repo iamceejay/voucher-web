@@ -467,7 +467,7 @@ export default {
     async onGenerateVoucher(id) {
       try {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
-        await this.$store.dispatch('DOWNLOAD_USER_VOUCHER', id);
+        await this.$store.dispatch('DOWNLOAD_BUYER_VOUCHER', id);
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
       } catch (err) {
         console.log(err)

@@ -79,7 +79,7 @@ export default {
         formData.set('id', payload.id)
         formData.set('custom_image', payload.custom_image, `${payload.file_name}.part`)
         formData.set('is_last', payload.is_last)
-        
+
         const { data } = await post(`${prefix}/upload-custom-image/${payload.id}`, formData, {
           'Content-Type': 'application/octet-stream'
         })
@@ -118,6 +118,35 @@ export default {
     {
       try {
         const { data } = await post(`order/download-voucher`, {
+          id: payload
+        }, {}, {responseType: 'arraybuffer'})
+        const date = moment().local().format('Y-m-d')
+        let blob = new Blob([data], { type: 'application/pdf' })
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = `Gutschein-${date}.pdf`
+        link.click()
+
+        if(state.userVouchers.data) {
+          const newList = state.userVouchers.data.map( row => {
+            if(row.id == payload) {
+              row.sent_via = 'voucher_download'
+            }
+            return row
+          })
+          await commit('SET_WALLETS', {
+            ...state.userVouchers,
+            data: newList
+          })
+        }
+      } catch (err) {
+        throw err
+      }
+    },
+    async DOWNLOAD_BUYER_VOUCHER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`order/download-buyer-voucher`, {
           id: payload
         }, {}, {responseType: 'arraybuffer'})
         const date = moment().local().format('Y-m-d')
