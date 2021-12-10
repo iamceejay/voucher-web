@@ -36,27 +36,20 @@
 
         <div class="flex items-center mt-6">
             <span
-              class="px-3 py-1 rounded-md text-xs border border-black mr-2 mb-2 router-link-exact-active bg-black text-white"
+            class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+
+              @click="$router.push('/wallet')"
             >
               Gutschein von Unternehmen
             </span>
             <button
-              class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
-              @click="$router.push('/wallet/vouchers')"
+               class="px-3 py-1 rounded-md text-xs border border-black mr-2 mb-2 router-link-exact-active bg-black text-white"
             >
               Selbstgemachte Gutscheine
             </button>
           </div>
 
-
-        <!-- <SearchInputField
-          id="search-here"
-          v-model="params.keyword"
-          class="my-2"
-          placeholder="Suche nach Gutscheinen"
-          @input="onLoadData($event, true)"
-        /> -->
-        <WalletList
+        <VouchersWalletList
           class="mb-3 mt-4"
           :role="AUTH_USER.role.name"
           :data="USER_VOUCHERS.data"
@@ -76,13 +69,13 @@
 import MainLayout from '_layouts';
 import Header1 from '_components/Headers/Header1';
 import SearchInputField from '_components/Form/SearchInputField';
-import WalletList from '_components/List/Modules/WalletList/';
+import VouchersWalletList from '_components/List/Modules/WalletList/Vouchers';
 
 export default {
   components: {
     MainLayout,
     SearchInputField,
-    WalletList,
+    VouchersWalletList,
   },
   data() {
     return {
@@ -93,6 +86,7 @@ export default {
         paginate: 9,
         user_id: null,
         status: 'completed',
+        type: 'buyer'
       },
     };
   },
@@ -101,32 +95,16 @@ export default {
       return this.$store.getters.AUTH_USER;
     },
     USER_VOUCHERS() {
-      return this.$store.getters.USER_VOUCHERS;
+      return this.$store.getters.VOUCHERS;
     },
     IS_LOADING() {
       return this.$store.getters.IS_LOADING;
     },
-    // IS_LOAD_MORE()
-    // {
-    //   return this.$store.getters.IS_LOAD_MORE
-    // },
   },
-  // watch: {
-  //   async IS_LOAD_MORE(newVal)
-  //   {
-  //     if( newVal ) {
-  //       await this.onLoadData({
-  //         ...this.params,
-  //         page: this.params.page + 1
-  //       })
-  //       await this.$store.commit('SET_IS_LOAD_MORE', false)
-  //     }
-  //   },
-  // },
   mounted() {
     (async () => {
       try {
-        await this.$store.commit('SET_USER_VOUCHERS', []);
+        await this.$store.commit('SET_VOUCHERS', []);
         // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         this.params.user_id = this.AUTH_USER.data.id;
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
@@ -148,7 +126,7 @@ export default {
         ...this.params,
         page: action === 'prev' ? this.params.page - 1 : this.params.page + 1,
       };
-      await this.$store.commit('SET_USER_VOUCHERS', []);
+      await this.$store.commit('SET_VOUCHERS', []);
       await this.onLoadData(params);
     },
     async onLoadData(data, fromSearch = false) {
@@ -159,7 +137,7 @@ export default {
         page: this.params.keyword != '' ? 1 : data.page,
       };
       if (fromSearch) {
-        await this.$store.commit('SET_USER_VOUCHERS', []);
+        await this.$store.commit('SET_VOUCHERS', []);
       }
       await this.onFetchSearchUserVouchers();
       await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
@@ -167,10 +145,10 @@ export default {
     async onFetchSearchUserVouchers() {
       try {
         const data = await this.$store.dispatch(
-          'FETCH_SEARCH_USER_VOUCHERS',
+          'FETCH_BUYER_VOUCHERS',
           this.params
         );
-        if (data.user_vouchers.next_page_url == null) {
+        if (data.vouchers.next_page_url == null) {
           await this.$store.commit('SET_IS_INFINITE_LOAD', false);
         }
       } catch (err) {

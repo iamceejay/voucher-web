@@ -21,6 +21,7 @@ import Home from '_pages/Home/';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
 import NewVoucher from '_pages/Vouchers/New/';
+import BuyerNewVoucher from '_pages/Vouchers/New/Buyer';
 import StatisticsVoucher from '_pages/Vouchers/Statistics/';
 import OrdersEarnings from '_pages/OrdersEarnings/';
 import Profile from '_pages/Profile/';
@@ -34,6 +35,7 @@ import ScannerUsers from '_pages/ScannerUsers/';
 import ScannerUserNew from '_pages/ScannerUsers/New/';
 import Cart from '_pages/Cart/';
 import Wallet from '_pages/Wallet/';
+import WalletVouchers from '_pages/Wallet/Vouchers';
 import VoucherCategory from '_pages/Vouchers/Category/';
 import Orders from '_pages/Orders/';
 import VoucherSearch from '_pages/Vouchers/Search/';
@@ -159,6 +161,15 @@ const router = new Router({
       },
     },
     {
+      path: '/wallet/vouchers/new',
+      name: 'buyers-vouchers-new',
+      component: BuyerNewVoucher,
+      meta: {
+        back: '/wallet',
+        middleware: [auth],
+      },
+    },
+    {
       path: '/vouchers/update/:id',
       name: 'vouchers-update',
       component: NewVoucher,
@@ -261,6 +272,14 @@ const router = new Router({
       path: '/wallet',
       name: 'wallet',
       component: Wallet,
+      meta: {
+        middleware: [auth, authUser],
+      },
+    },
+    {
+      path: '/wallet/vouchers',
+      name: 'wallet-vouchers',
+      component: WalletVouchers,
       meta: {
         middleware: [auth, authUser],
       },
