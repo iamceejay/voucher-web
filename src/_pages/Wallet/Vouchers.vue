@@ -35,13 +35,13 @@
         </div>
 
         <div class="flex items-center mt-6">
-            <span
+            <button
             class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
 
               @click="$router.push('/wallet')"
             >
               Gutschein von Unternehmen
-            </span>
+            </button>
             <button
                class="px-3 py-1 rounded-md text-xs border border-black mr-2 mb-2 router-link-exact-active bg-black text-white"
             >
