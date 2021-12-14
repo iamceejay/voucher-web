@@ -69,6 +69,18 @@ export default {
         throw err
       }
     },
+    async UPDATE_BUYER_VOUCHER( { commit, state }, payload )
+    {
+      // payload id is order id
+      try {
+        const formData = toFormData(payload)
+        const { data } = await post(`buyer-voucher/${payload.id}`, formData)
+        // await commit('SET_WALLET', data.order)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async UPLOAD_CUSTOM_IMAGE_USER_VOUCHER( { commit, state }, payload )
     {
       // payload id is order id

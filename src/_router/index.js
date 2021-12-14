@@ -45,6 +45,7 @@ import VoucherDetail from '_pages/Vouchers/Detail/';
 import VoucherWalletDetail from '_pages/Vouchers/WalletDetail/';
 import BuyerVoucherWalletDetail from '_pages/Vouchers/WalletDetail/BuyerVoucher';
 import VoucherPersonalized from '_pages/Vouchers/Personalized/';
+import BuyerVoucherPersonalized from '_pages/Vouchers/Personalized/BuyerVoucher';
 import SellerDetail from '_pages/Seller/Detail/';
 import VoucherManageFeature from '_pages/Vouchers/ManageFeature/';
 import Settings from '_pages/Settings/';
@@ -359,6 +360,15 @@ const router = new Router({
       path: '/vouchers/personalized/:id',
       name: 'vouchers-personalized',
       component: VoucherPersonalized,
+      meta: {
+        back: '/wallet',
+        middleware: [auth, authUser],
+      },
+    },
+    {
+      path: '/buyer/vouchers/personalized/:id',
+      name: 'buyer-vouchers-personalized',
+      component: BuyerVoucherPersonalized,
       meta: {
         back: '/wallet',
         middleware: [auth, authUser],

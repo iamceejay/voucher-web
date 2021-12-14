@@ -23,7 +23,7 @@
     <div class="card-content">
       <div class="w-full flex flex-col break-words">
         <div
-          v-if="order && userVoucher && userVoucher.custom_image"
+          v-if="userVoucher && userVoucher.custom_image"
           class="w-2/5 p-1"
         >
           <img
@@ -124,48 +124,6 @@ export default {
     AUTH_USER() {
       return this.$store.getters.AUTH_USER;
     },
-    valueDisplay() {
-      if (this.voucher.type == 'quantity') {
-        if (
-          ['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) != -1
-        ) {
-          return this.$helpers.convertCurrency(
-            this.order
-              ? this.order.voucher.price_filter
-              : this.voucher.price_filter
-          );
-        } else {
-          return this.$helpers.convertCurrency(
-            this.order ? this.order.voucher.qty_val : this.voucher.qty_val
-          );
-        }
-      } else {
-        if (this.isBought) {
-          return this.$helpers.convertCurrency(this.order.value);
-        } else {
-          if (['orders'].indexOf(this.$route.name) != -1) {
-            return this.$helpers.convertCurrency(this.order.total_value);
-          }
-          if (
-            ['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) !=
-            -1
-          ) {
-            return this.$helpers.convertCurrency(this.order.value);
-          }
-          return `${this.$helpers
-            .convertCurrency(this.voucher.min || this.voucher.val_min)
-            .replace('€', '')}
-              ${
-                ['vouchers-detail', 'cart'].indexOf(this.$route.name) != -1
-                  ? ' - ' +
-                    this.$helpers.convertCurrency(
-                      this.voucher.max || this.voucher.val_max
-                    )
-                  : ''
-              }`;
-        }
-      }
-    },
     months() {
       let filteredMonths = [];
       if (this.$route.name == 'vouchers-new') {
@@ -227,9 +185,7 @@ export default {
     onClickHeader() {
       if (this.role === 'user' || !this.role) {
         if (this.withQR) {
-          // if( (!this.order || (this.order && !this.order.sent_via)) ) {
           this.$emit('onFlip');
-          // }
         } else {
           this.$router.push(`/vouchers/${this.voucher.id}`);
           // this.$store.commit('SET_VOUCHER_ID', this.voucher.id)

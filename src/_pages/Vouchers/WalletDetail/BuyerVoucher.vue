@@ -27,7 +27,7 @@
           <div class="mt-8 gap-4 grid grid-cols-2 max-w-lg mx-auto w-full">
             <router-link
               class="bg-white border flex items-center justify-center text-sm px-3 py-4"
-              :to="`/vouchers/personalized/${$route.params.id}`"
+              :to="`/buyer/vouchers/personalized/${$route.params.id}`"
             >
               <svg class="icon h-5 w-5 company-color mr-2">
                 <use :xlink:href="`/icons/sprite.svg#palette`" />
