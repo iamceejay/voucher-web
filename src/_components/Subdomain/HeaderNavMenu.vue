@@ -211,7 +211,9 @@ export default {
   methods: {
     async onFetchData() {
       await this.$store.dispatch('FETCH_CATEGORIES');
-      await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', this.AUTH_USER.data.id)
+      if (this.AUTH_USER.data) {
+        await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', this.AUTH_USER.data.id)
+      }
       await this.onSetMenusByRole();
     },
     onSetImage(value) {
