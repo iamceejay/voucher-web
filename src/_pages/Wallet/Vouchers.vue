@@ -95,7 +95,7 @@ export default {
       return this.$store.getters.AUTH_USER;
     },
     USER_VOUCHERS() {
-      return this.$store.getters.VOUCHERS;
+      return this.$store.getters.BUYER_VOUCHERS;
     },
     IS_LOADING() {
       return this.$store.getters.IS_LOADING;
@@ -104,7 +104,7 @@ export default {
   mounted() {
     (async () => {
       try {
-        await this.$store.commit('SET_VOUCHERS', []);
+        await this.$store.commit('SET_BUYER_VOUCHERS', []);
         // await this.$store.commit('SET_IS_INFINITE_LOAD', true)
         this.params.user_id = this.AUTH_USER.data.id;
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
@@ -126,7 +126,7 @@ export default {
         ...this.params,
         page: action === 'prev' ? this.params.page - 1 : this.params.page + 1,
       };
-      await this.$store.commit('SET_VOUCHERS', []);
+      await this.$store.commit('SET_BUYER_VOUCHERS', []);
       await this.onLoadData(params);
     },
     async onLoadData(data, fromSearch = false) {
@@ -137,7 +137,7 @@ export default {
         page: this.params.keyword != '' ? 1 : data.page,
       };
       if (fromSearch) {
-        await this.$store.commit('SET_VOUCHERS', []);
+        await this.$store.commit('SET_BUYER_VOUCHERS', []);
       }
       await this.onFetchSearchUserVouchers();
       await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
