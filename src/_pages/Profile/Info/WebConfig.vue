@@ -673,8 +673,8 @@ export default {
 
       let options = {
         type: 'base64',
-        format: 'png',
-        size: 'original',
+        format: 'jpeg',
+        size: size,
         quality: 1,
       };
       this.$refs[ref].result(options, (output) => {

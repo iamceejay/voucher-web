@@ -149,7 +149,7 @@
           >
             <div class="relative  h-4 w-4">
               <svg class="relative icon h-4 w-4 text-peach">
-                <use :xlink:href="`/icons/sprite.svg#bag`" />
+                <use :xlink:href="`/icons/sprite.svg#heart`" />
               </svg>
               <div
                 class="-m-3 absolute company-bg-color flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4"
@@ -273,7 +273,7 @@
           >
             <div class="relative  h-4 w-4">
               <svg class="relative icon h-4 w-4 text-peach">
-                <use :xlink:href="`/icons/sprite.svg#bag`" />
+                <use :xlink:href="`/icons/sprite.svg#heart`" />
               </svg>
               <div
                 class="-m-3 absolute company-bg-color flex h-4 items-center justify-center right-0 rounded-full text-2xs  text-white top-0 w-4"
@@ -394,6 +394,9 @@ export default {
   methods: {
     async onFetchData() {
       await this.$store.dispatch('FETCH_CATEGORIES');
+      if (this.AUTH_USER.data) {
+        await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', this.AUTH_USER.data.id)
+      }
       await this.onSetMenusByRole();
     },
     onSetMenusByRole() {

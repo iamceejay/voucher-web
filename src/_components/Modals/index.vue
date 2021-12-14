@@ -1,8 +1,8 @@
 <template>
   <Transition name="fade">
-    <div 
+    <div
       v-if="show"
-      class="fixed inset-0 w-full h-screen flex items-center justify-center modal-bg"
+      class="fixed inset-0 w-full h-screen flex items-center justify-center modal-bg z-10"
       @click.self="close"
     >
       <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg p-8">

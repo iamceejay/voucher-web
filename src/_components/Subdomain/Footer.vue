@@ -24,7 +24,7 @@
           </a>
         </li>
       </ul>
-      <a href="https://epasnets.com" class="flex items-center justify-center">
+      <a href="https://epasnets.com" target="_blank" class="flex items-center justify-center">
         <span class="text-sm mr-1">Powered by</span>
         <img class="h-4 mt-0.5" src="@/_assets/img/footer.svg">
       </a>

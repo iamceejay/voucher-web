@@ -73,7 +73,7 @@
           },
           {
             title: "Kontakt",
-            link: "#"
+            link: "https://verkaufen.epasnets.com/kontakt/"
           },
           {
             title: "AGB",

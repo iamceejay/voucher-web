@@ -1504,7 +1504,7 @@ export default {
       let size =
         form == 'background_image'
           ? { width: 730, height: 676.34 }
-          : { width: 300, height: 300 };
+          : { width: 200, height: 200 };
       let options = {
         type: 'base64',
         format: 'jpeg',

@@ -7,12 +7,12 @@
           <div class="flex flex-wrap justify-between">
             <div class="w-full sm:w-1/2 sm:pr-4 mb-8">
               <div class="bg-white w-full p-6">
-                <VoucherScanner 
+                <VoucherScanner
                   v-if="!QR_CODE"
                   :key="`s-${sIndex}`"
                   @onSetVoucher="onSetVoucher"
                 />
-                <VoucherRedemption 
+                <VoucherRedemption
                   v-if="QR_CODE"
                   @onSetVoucher="onSetVoucher"
                 />
@@ -37,38 +37,38 @@
                           scope="col"
                           class="px-6 py-3 text-left text-sm font-semibold text-peach"
                         >
-                          Name
+                          Gutschein
                         </th>
                         <th
                           scope="col"
                           class="px-6 py-3 text-left text-sm font-semibold text-peach"
                         >
-                          Order Number
+                          Bestellnummer
                         </th>
                         <th
                           scope="col"
                           class="px-6 py-3 text-left text-sm font-semibold text-peach"
                         >
-                          Sales Date
+                          Verkaufsdatum
                         </th>
-                        <th
+                        <!-- <th
                           scope="col"
                           class="px-6 py-3 text-left text-sm font-semibold text-peach"
                         >
                           Redemption Date
-                        </th>
+                        </th> -->
                         <th
                           scope="col"
                           class="px-6 py-3 text-left text-sm font-semibold text-peach"
                         >
-                          Amount / Qty
+                          Atuelle Menge/Wert
                         </th>
-                        <th
+                        <!-- <th
                           scope="col"
                           class="px-6 py-3 text-left text-sm font-semibold text-peach"
                         >
                           Download
-                        </th>
+                        </th> -->
                       </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -77,23 +77,25 @@
                           <span class="text-sm">{{ row.order.voucher.title }}</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm font-bold">{{ row.order.order_no }}</span>
+                          <button @click="fetchOrderHistory(row)">
+                            <span class="text-sm font-bold">{{ row.order.order_no }}</span>
+                          </button>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm">{{ formatDate(row.order.updated_at) }}</span>
+                          <span class="text-sm">{{ formatDate(row.order.created_at) }}</span>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">
                           <span class="text-sm">{{ formatDate(row.created_at) }}</span>
-                        </td>
+                        </td> -->
                         <td class="px-6 py-4 whitespace-nowrap">
                           <span class="text-sm font-bold" v-if="row.order.voucher.type === 'quantity'">
-                            {{ `${Math.floor(parseFloat(row.value))} x` }}
+                            {{ `${Math.floor(parseFloat(row.order.qty))} x` }}
                           </span>
                           <span class="text-sm font-bold" v-else>
-                            {{ `${$helpers.convertCurrency(row.value)}` }}
+                            {{ `${$helpers.convertCurrency(row.order.value)}` }}
                           </span>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap flex">
+                        <!-- <td class="px-6 py-4 whitespace-nowrap flex">
                           <button
                             class="hover:text-peach relative text-sm z-10 ml-5"
                             @click="onDownloadPDF(row)"
@@ -114,7 +116,7 @@
                               />
                             </svg>
                           </button>
-                        </td>
+                        </td> -->
                       </tr>
                     </tbody>
                   </table>
@@ -145,6 +147,98 @@
 
         </div>
       </div>
+
+      <Modal :show="modal" @close="modal = false">
+        <template>
+            <div class="flex flex-col">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="overflow-hidden border">
+                  <table class="min-w-full divide-y">
+                    <thead class="bg-white">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-sm font-semibold text-peach"
+                        >
+                          Gutschein
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-sm font-semibold text-peach"
+                        >
+                          Redemtion #
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-sm font-semibold text-peach"
+                        >
+                          Eingelöst am
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-sm font-semibold text-peach"
+                        >
+                          Menge/Wert
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-left text-sm font-semibold text-peach"
+                        >
+                          Download
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" v-if="redemption">
+                      <tr v-for="(row, index) in redemption.order.redemptions" :key="index">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span class="text-sm">{{ redemption.order.voucher.title }}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-sm font-bold">{{ row.redemption_no }}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span class="text-sm">{{ formatDate(row.created_at) }}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span class="text-sm font-bold" v-if="redemption.order.voucher.type === 'quantity'">
+                            {{ `${Math.floor(parseFloat(row.value))} x` }}
+                          </span>
+                          <span class="text-sm font-bold" v-else>
+                            {{ `${$helpers.convertCurrency(row.value)}` }}
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap flex">
+                          <button
+                            class="hover:text-peach relative text-sm z-10 ml-5"
+                            @click="onDownloadPDF(redemption)"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="w-6 h-6 mx-auto text-peach"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"
+                              />
+                              <path
+                                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"
+                              />
+                            </svg>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </Modal>
     </template>
   </MainLayout>
 </template>
@@ -156,7 +250,8 @@
   import ScannerUsers from '_pages/ScannerUsers/'
   import ScannerUserNew from '_pages/ScannerUsers/New/'
   import { formatDate } from '_helpers/CustomFunction'
-  
+  import Modal from '_components/Modals/'
+
   export default {
     name: 'Dashboard',
     components: {
@@ -165,10 +260,13 @@
       VoucherRedemption,
       Header,
       ScannerUsers,
-      ScannerUserNew
+      ScannerUserNew,
+      Modal
     },
     data() {
       return {
+        modal: false,
+        redemption: '',
         sIndex: 0,
         qr: null,
         newUser: false,
@@ -296,6 +394,16 @@
           console.log('err', err)
         }
       },
+      async fetchOrderHistory(redemption) {
+        try {
+          this.redemption = redemption
+          console.log(this.redemption)
+          this.modal = true
+          // const { data } = await get(`order/${id}`)
+        } catch (error) {
+          console.log('error', error)
+        }
+      }
     }
   }
 </script>
