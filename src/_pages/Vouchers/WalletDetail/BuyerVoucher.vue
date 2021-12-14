@@ -291,7 +291,7 @@ export default {
   },
   computed: {
     VOUCHER() {
-      return this.$store.getters.VOUCHER;
+      return this.$store.getters.BUYER_VOUCHER;
     },
     WALLET() {
       return this.$store.getters.WALLET;
@@ -309,7 +309,6 @@ export default {
   mounted() {
     (async () => {
       try {
-        this.emailForm.id = this.$route.params.id;
         // const data = await this.$store.dispatch('ADD_TRANSFER_URL', {
         //   order_id: this.$route.params.id,
         // });
@@ -436,6 +435,7 @@ export default {
       try {
         await this.$store.dispatch('FETCH_BUYER_VOUCHER', this.$route.params.id);
         this.link = `${process.env.VUE_APP_WEB_URL}/buyer-voucher/transfer/${this.VOUCHER.token}`;
+        this.emailForm.id = this.VOUCHER.token;
         // this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
       } catch (err) {
         console.log('err', err);
@@ -444,7 +444,7 @@ export default {
     async onEmail() {
       try {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
-        await this.$store.dispatch('SEND_WALLET', this.emailForm);
+        await this.$store.dispatch('SEND_BUYER_VOUCHER', this.emailForm);
         this.$swal({
           icon: 'success',
           title: 'Erfolgreich!',

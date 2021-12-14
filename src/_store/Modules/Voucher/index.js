@@ -9,6 +9,7 @@ export default {
   state: () => ({
     voucher: null,
     vouchers: [],
+    buyerVoucher: null,
     buyerVouchers: [],
     featuredVouchers: [],
     newestVouchers: [],
@@ -22,6 +23,9 @@ export default {
     },
     VOUCHERS(state) {
       return state.vouchers;
+    },
+    BUYER_VOUCHER(state) {
+      return state.buyerVoucher;
     },
     BUYER_VOUCHERS(state) {
       return state.buyerVouchers;
@@ -48,6 +52,9 @@ export default {
     },
     SET_VOUCHERS(state, payload) {
       state.vouchers = payload;
+    },
+    SET_BUYER_VOUCHER(state, payload) {
+      state.buyerVoucher = payload;
     },
     SET_BUYER_VOUCHERS(state, payload) {
       state.buyerVouchers = payload;
@@ -146,7 +153,7 @@ export default {
     {
       try {
         const { data } = await get(`${prefix}/${payload}`, {})
-        await commit('SET_VOUCHER', data.voucher)
+        await commit('SET_BUYER_VOUCHER', data.voucher)
         return data
       } catch (err) {
         throw err

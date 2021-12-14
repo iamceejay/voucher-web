@@ -204,6 +204,15 @@ export default {
         throw err
       }
     },
+    async SEND_BUYER_VOUCHER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/send-buyer-voucher-pdf`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async TRANSFER_WALLET( { commit, state }, payload )
     {
       try {
