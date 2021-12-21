@@ -350,12 +350,12 @@
         title="Etwas kniffliges für die Ganze Familie"
         description=""
         category="Kurzurlaub"
-        :firstVouch="211"
+        :firstVouch="2"
         :firstVouchTitle="'Du willst Spaß, Rätseln und im Team arbeiten?'"
         :firstVouchDescription="
           'Dann ist das spektakuläre Escape Room Erlebnis in Innsbruck-Kufstein genau das richtige für dich! Erlebe mit der ganzen Familie ein spannendes Abenteuer mit kniffligen Aufgaben, verzaubernde Räume oder für die Horror liebhabenden schrecklich schöne Überraschungen.'
         "
-        :secondVouch="75"
+        :secondVouch="2"
         :secondVouchTitle="
           'Schaffst Du es ein rätselhaftes Abenteuer in nur 60 Minuten zu lösen?'
         "

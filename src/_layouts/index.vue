@@ -390,7 +390,7 @@ export default {
   },
   mounted() {
     const browser = detect();
-    console.log(browser)
+    // console.log(browser)
     (async () => {
       var doc = document.documentElement;
       var w = window;
