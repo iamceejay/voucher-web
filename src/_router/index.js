@@ -18,6 +18,7 @@ import Register from '_pages/Register/';
 import RegisterSeller from '_pages/Register/Seller/';
 import RegisterBuyer from '_pages/Register/Buyer/';
 import Home from '_pages/Home/';
+import Valentines from '_pages/Home/Valentines';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
 import NewVoucher from '_pages/Vouchers/New/';
@@ -107,6 +108,11 @@ const router = new Router({
       meta: {
         middleware: [guest],
       },
+    },
+    {
+      path: '/valentines',
+      name: 'valentines',
+      component: Valentines,
     },
     {
       path: '/guest-wallet',

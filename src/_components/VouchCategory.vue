@@ -3,16 +3,25 @@
     <div class="content-container mt-10 w-11/12">
       <div class="flex flex-col gap-6 mb-6 md:flex-row">
         <div class="flex-1">
-          <h2 class="font-bold text-5xl" :class="fontColor">{{ title }}</h2>
-          <span class="text-xl description">{{ description }}</span>
+          <h2 class="font-bold text-5xl" :class="titleClass || fontColor">
+            {{ title }}
+          </h2>
+          <span
+            class="text-xl inline-block"
+            :class="descriptionClass || 'description'"
+            >{{ description }}</span
+          >
         </div>
         <slot></slot>
       </div>
       <div class="vouch-category">
-        <span class="block mb-6 text-xl" :class="fontColor"
-          >Lust auf mehr?</span
+        <span class="block mb-6 text-xl" :class="fontColor">{{
+          preTitle || 'Lust auf mehr?'
+        }}</span>
+        <VueSlickCarousel
+          v-bind="voucherOption"
+          v-if="vouchers.length && !loading"
         >
-        <VueSlickCarousel v-bind="voucherOption" v-if="vouchers.length && !loading">
           <VoucherCard
             v-for="(voucher, index) in vouchers"
             :key="`voucher-${index}`"
@@ -24,7 +33,7 @@
           <div class="wrapper-cell">
             <div class="image"></div>
             <div class="text">
-              <div class="text-line"> </div>
+              <div class="text-line"></div>
               <div class="text-line"></div>
               <div class="text-line"></div>
               <div class="text-line"></div>
@@ -60,7 +69,10 @@ export default {
     'category',
     'theme',
     'ids',
-    'showButton'
+    'showButton',
+    'preTitle',
+    'titleClass',
+    'descriptionClass',
   ],
   data() {
     return {
@@ -93,7 +105,7 @@ export default {
               slidesToShow: 1,
               centerMode: true,
               arrows: false,
-              centerPadding: '20px'
+              centerPadding: '20px',
             },
           },
         ],
@@ -132,7 +144,7 @@ export default {
     };
     const data = await this.$store.dispatch('FETCH_SEARCH_VOUCHERS', params);
     this.vouchers = data.vouchers.data;
-    this.loading = false
+    this.loading = false;
   },
 };
 </script>
@@ -197,19 +209,21 @@ export default {
     background-position: 468px 0;
   }
 }
-.animated-background, .text-line, .image {
+.animated-background,
+.text-line,
+.image {
   -webkit-animation-duration: 1.25s;
-          animation-duration: 1.25s;
+  animation-duration: 1.25s;
   -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
   -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
   -webkit-animation-name: placeHolderShimmer;
-          animation-name: placeHolderShimmer;
+  animation-name: placeHolderShimmer;
   -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
-  background: #F6F6F6;
-  background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+  animation-timing-function: linear;
+  background: #f6f6f6;
+  background: linear-gradient(to right, #f6f6f6 8%, #f0f0f0 18%, #f6f6f6 33%);
   background-size: 800px 104px;
   height: 96px;
   position: relative;
@@ -219,5 +233,4 @@ export default {
   height: 400px;
   width: 100%;
 }
-
 </style>
