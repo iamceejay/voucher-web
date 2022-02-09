@@ -18,9 +18,11 @@ import Register from '_pages/Register/';
 import RegisterSeller from '_pages/Register/Seller/';
 import RegisterBuyer from '_pages/Register/Buyer/';
 import Home from '_pages/Home/';
+import Valentines from '_pages/Home/Valentines';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
 import NewVoucher from '_pages/Vouchers/New/';
+import BuyerNewVoucher from '_pages/Vouchers/New/Buyer';
 import StatisticsVoucher from '_pages/Vouchers/Statistics/';
 import OrdersEarnings from '_pages/OrdersEarnings/';
 import Profile from '_pages/Profile/';
@@ -34,6 +36,7 @@ import ScannerUsers from '_pages/ScannerUsers/';
 import ScannerUserNew from '_pages/ScannerUsers/New/';
 import Cart from '_pages/Cart/';
 import Wallet from '_pages/Wallet/';
+import WalletVouchers from '_pages/Wallet/Vouchers';
 import VoucherCategory from '_pages/Vouchers/Category/';
 import Orders from '_pages/Orders/';
 import VoucherSearch from '_pages/Vouchers/Search/';
@@ -41,7 +44,9 @@ import VoucherSendEmail from '_pages/Vouchers/SendEmail/';
 import VoucherTransfer from '_pages/Vouchers/Transfer/';
 import VoucherDetail from '_pages/Vouchers/Detail/';
 import VoucherWalletDetail from '_pages/Vouchers/WalletDetail/';
+import BuyerVoucherWalletDetail from '_pages/Vouchers/WalletDetail/BuyerVoucher';
 import VoucherPersonalized from '_pages/Vouchers/Personalized/';
+import BuyerVoucherPersonalized from '_pages/Vouchers/Personalized/BuyerVoucher';
 import SellerDetail from '_pages/Seller/Detail/';
 import VoucherManageFeature from '_pages/Vouchers/ManageFeature/';
 import Settings from '_pages/Settings/';
@@ -55,6 +60,7 @@ import Users from '_pages/Users/';
 import ManageOrders from '_pages/Orders/Manage/';
 import Payment from '_pages/Payment/';
 import Transfer from '_pages/Transfer/';
+import BuyerVoucherTransfer from '_pages/Transfer/BuyerVoucher';
 import PageNotFound from '_pages/Errors/PageNotFound';
 import UserNotAllowed from '_pages/Errors/UserNotAllowed';
 import WishList from '_pages/WishList';
@@ -102,6 +108,11 @@ const router = new Router({
       meta: {
         middleware: [guest],
       },
+    },
+    {
+      path: '/valentines',
+      name: 'valentines',
+      component: Valentines,
     },
     {
       path: '/guest-wallet',
@@ -156,6 +167,15 @@ const router = new Router({
       meta: {
         back: '/vouchers',
         middleware: [auth, authSeller],
+      },
+    },
+    {
+      path: '/wallet/vouchers/new',
+      name: 'buyers-vouchers-new',
+      component: BuyerNewVoucher,
+      meta: {
+        back: '/wallet',
+        middleware: [auth],
       },
     },
     {
@@ -266,6 +286,14 @@ const router = new Router({
       },
     },
     {
+      path: '/wallet/vouchers',
+      name: 'wallet-vouchers',
+      component: WalletVouchers,
+      meta: {
+        middleware: [auth, authUser],
+      },
+    },
+    {
       path: '/orders',
       name: 'orders',
       component: Orders,
@@ -277,6 +305,15 @@ const router = new Router({
       path: '/voucher/:id',
       name: 'voucher-detail',
       component: VoucherWalletDetail,
+      meta: {
+        back: '/wallet',
+        // middleware: [ authGUS ]
+      },
+    },
+    {
+      path: '/buyer/voucher/:id',
+      name: 'buyer-voucher-detail',
+      component: BuyerVoucherWalletDetail,
       meta: {
         back: '/wallet',
         // middleware: [ authGUS ]
@@ -329,6 +366,15 @@ const router = new Router({
       path: '/vouchers/personalized/:id',
       name: 'vouchers-personalized',
       component: VoucherPersonalized,
+      meta: {
+        back: '/wallet',
+        middleware: [auth, authUser],
+      },
+    },
+    {
+      path: '/buyer/vouchers/personalized/:id',
+      name: 'buyer-vouchers-personalized',
+      component: BuyerVoucherPersonalized,
       meta: {
         back: '/wallet',
         middleware: [auth, authUser],
@@ -443,6 +489,14 @@ const router = new Router({
       path: '/transfer/:id',
       name: 'transfer',
       component: Transfer,
+      // meta: {
+      //   middleware: [ auth, authAdmin ]
+      // }
+    },
+    {
+      path: '/buyer-voucher/transfer/:id',
+      name: 'buyer-transfer',
+      component: BuyerVoucherTransfer,
       // meta: {
       //   middleware: [ auth, authAdmin ]
       // }

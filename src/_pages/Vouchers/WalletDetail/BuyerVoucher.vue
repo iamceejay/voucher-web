@@ -2,7 +2,7 @@
   <MainLayout>
     <template #content>
       <div
-        v-if="!IS_LOADING.status && WALLET"
+        v-if="!IS_LOADING.status && VOUCHER"
         class="content-container w-full flex flex-col px-8"
       >
         <div class="flex flex-col w-full">
@@ -20,16 +20,14 @@
             />
           </div>
           <span class="block font-medium pb-3 pt-6 text-lg text-center">
-            <span>{{ WALLET.voucher.title }}</span>
+            <span>{{ VOUCHER.title }}</span>
             <span class="border-r mx-3"></span>
-            <span class="font-medium">{{
-              $helpers.convertCurrency(onGetTotal(WALLET))
-            }}</span>
+
           </span>
           <div class="mt-8 gap-4 grid grid-cols-2 max-w-lg mx-auto w-full">
             <router-link
               class="bg-white border flex items-center justify-center text-sm px-3 py-4"
-              :to="`/vouchers/personalized/${$route.params.id}`"
+              :to="`/buyer/vouchers/personalized/${$route.params.id}`"
             >
               <svg class="icon h-5 w-5 company-color mr-2">
                 <use :xlink:href="`/icons/sprite.svg#palette`" />
@@ -182,34 +180,11 @@
         </div>
 
         <section
-          class="border-t border-b flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full"
-        >
-          <span class="font-medium">Verkäuferinfo</span>
-          <span class="text-xs flex flex-col mt-3">
-            <span class="font-medium">{{
-              WALLET.voucher.seller.company.name
-            }}</span>
-            <span>{{ WALLET.voucher.seller.detail.address }} </span>
-            <span
-              >{{ WALLET.voucher.seller.detail.zip_code }}
-              {{ WALLET.voucher.seller.detail.city }}</span
-            >
-            <span>{{ WALLET.voucher.seller.company.region }}</span>
-          </span>
-
-          <span class="text-xs flex flex-col mt-3">
-            <span>Tel: {{ WALLET.voucher.seller.detail.phone_number }} </span>
-            <span>E-Mail: {{ WALLET.voucher.seller.email }}</span>
-            <span>{{ WALLET.voucher.seller.company.url }}</span>
-          </span>
-        </section>
-
-        <section
           class="border-b flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full"
         >
-          <span class="font-medium">{{ WALLET.voucher.description }}</span>
+          <span class="font-medium">{{ VOUCHER.description }}</span>
 
-          <div v-if="WALLET.voucher.data_json != null" class="mt-6 w-full">
+          <div v-if="VOUCHER.data_json != null" class="mt-6 w-full">
             <slider ref="slider" :options="options">
               <!-- slideritem wrapped package with the components you need -->
               <slideritem>
@@ -238,12 +213,12 @@
               <!-- Customizable loading -->
             </slider>
           </div>
-          <div v-if="WALLET.voucher.data_json != null">
+          <div v-if="VOUCHER.data_json != null">
             <div
               class="overflow-hidden text-xs"
               :class="{ 'h-20 md:h-10 show-more': !isShowMore }"
             >
-              {{ WALLET.voucher.data_json.long_description }}
+              {{ VOUCHER.data_json.long_description }}
             </div>
             <div>
               <button
@@ -257,113 +232,13 @@
             </div>
           </div>
         </section>
-
-        <section class="flex flex-col max-w-lg mt-6 mx-auto px-4 py-6 w-full">
-          <span class="block mb-3 w-full border-b pb-4 mt-10 font-semibold">
-            Gutschein Info
-          </span>
-
-          <div class="gap-3 grid grid-cols-2 md:grid-cols-4">
-            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
-              <span class="text-xs font-bold mb-1">Einlösbar:</span>
-              <span
-                v-if="
-                  WALLET.voucher.valid_day &&
-                    WALLET.voucher.valid_day.length > 0
-                "
-                class="text-xs flex flex-col"
-              >
-                <span
-                  v-for="(day, index) in WALLET.voucher.valid_day"
-                  :key="`day-${index}`"
-                >
-                  {{ getDay(day) }}
-                </span>
-              </span>
-              <span v-else class="text-xs flex flex-col">
-                Sonntag<br />
-                Montag<br />
-                Dienstag<br />
-                Mittwoch<br />
-                Donnerstag<br />
-                Freitag<br />
-                Samstag<br />
-                Feiertag
-              </span>
-            </div>
-
-            <div
-              class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent"
-              v-if="WALLET.voucher.expiry_date"
-            >
-              <span class="text-xs font-bold mb-1">Gültigkeit:</span>
-              <div class="text-xs flex flex-col">
-                {{ WALLET.voucher.expiry_date }} Jahre
-              </div>
-            </div>
-
-            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
-              <span class="text-xs font-bold mb-1">Zeitraum:</span>
-              <div v-if="months.length > 0" class="text-xs flex flex-col">
-                <div v-for="(month, index) in months" :key="`date-${index}`">
-                  {{
-                    `${getMonth(parseInt(month))}${
-                      months.length != index + 1 ? ',' : ''
-                    }`
-                  }}
-                </div>
-              </div>
-              <span v-else class="text-xs flex flex-col">
-                Januar<br />
-                Februar<br />
-                März<br />
-                April<br />
-                Mai<br />
-                Juni<br />
-                Juli<br />
-                August<br />
-                September<br />
-                Oktober<br />
-                November<br />
-                Dezember
-              </span>
-            </div>
-
-            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
-              <span class="text-xs font-bold mb-1">Reservierung:</span>
-              <div class="text-xs flex flex-col">
-                {{
-                  WALLET.voucher.data_json && WALLET.voucher.data_json.isReserve
-                    ? 'Ja'
-                    : 'nein'
-                }}
-              </div>
-            </div>
-
-            <div class="flex flex-col bg-white p-4 md:p-0 md:bg-transparent">
-              <span class="text-xs font-bold mb-1">Gültig bis:</span>
-              <div class="text-xs flex flex-col" v-if="valid_date">
-                {{
-                  getExpirationDefault(
-                    WALLET.voucher.valid_date[
-                      WALLET.voucher.valid_date.length - 1
-                    ].end
-                  )
-                }}
-              </div>
-              <div class="text-xs flex flex-col" v-else>
-                {{ getExpiration(VOUCHER.order.expiry_date) }}
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </template>
   </MainLayout>
 </template>
 <script>
 import MainLayout from '_layouts';
-import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/';
+import VoucherCard from '_components/List/Modules/VoucherList/VoucherBuyer/';
 import InputField from '_components/Form/InputField';
 import Button from '_components/Button';
 import { slider, slideritem } from 'vue-concise-slider';
@@ -416,7 +291,7 @@ export default {
   },
   computed: {
     VOUCHER() {
-      return this.$store.getters.USER_VOUCHER;
+      return this.$store.getters.BUYER_VOUCHER;
     },
     WALLET() {
       return this.$store.getters.WALLET;
@@ -430,30 +305,13 @@ export default {
     IS_LOADING() {
       return this.$store.getters.IS_LOADING;
     },
-    months() {
-      let filteredMonths = [];
-      return this.WALLET.voucher && this.WALLET.voucher.valid_date
-        ? this.WALLET.voucher.valid_date
-            .filter((date) => {
-              let month = date.start.split('-')[1];
-              if (filteredMonths.indexOf(month) == -1) {
-                filteredMonths.push(month);
-                return true;
-              }
-              return false;
-            })
-            .map((date) => parseInt(moment(date.start).format('x')))
-        : [];
-    },
   },
   mounted() {
     (async () => {
       try {
-        this.emailForm.id = this.$route.params.id;
-        const data = await this.$store.dispatch('ADD_TRANSFER_URL', {
-          order_id: this.$route.params.id,
-        });
-        this.link = `${process.env.VUE_APP_WEB_URL}/transfer/${data.transfer_url.url_code}`;
+        // const data = await this.$store.dispatch('ADD_TRANSFER_URL', {
+        //   order_id: this.$route.params.id,
+        // });
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
         await this.onFetchVoucher();
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
@@ -476,46 +334,8 @@ export default {
     })();
   },
   methods: {
-    getDay(day) {
-      let long_day = {
-        So: 'Sonntag',
-        Mo: 'Montag',
-        Di: 'Dienstag',
-        Mi: 'Mittwoch',
-        Do: 'Donnerstag',
-        Fr: 'Freitag',
-        Sa: 'Samstag',
-      };
-      return long_day[day];
-    },
-    getMonth(month) {
-      return moment(+month)
-        .lang('de')
-        .format('MMMM');
-    },
-    getExpiration(date) {
-      return moment(date).format('DD.MM.YYYY');
-    },
-    getExpirationDefault(date) {
-      return (
-        '31.12.' +
-        moment(date)
-          .add()
-          .format('YYYY')
-      );
-    },
     getCustomVoucher(row) {
-      if (!row.order.voucher.data_json) {
-        return row.order.voucher;
-      }
-
-      row.order.voucher.data_json = row.data_json;
-      // row.order.voucher.data_json.price_hidden = row.price_hidden
-      //   ? true
-      //   : false;
-      row.order.voucher.data_json.seller = row.order.voucher.seller;
-
-      return row.order.voucher.data_json;
+      return row.data_json;
     },
     async onSubmit() {
       this.form.total_amount =
@@ -613,27 +433,18 @@ export default {
     },
     async onFetchVoucher() {
       try {
-        await this.$store.dispatch('FETCH_USER_VOUCHER', this.$route.params.id);
-        await this.$store.dispatch('FETCH_WALLET', this.VOUCHER.order_id);
+        await this.$store.dispatch('FETCH_BUYER_VOUCHER', this.$route.params.id);
+        this.link = `${process.env.VUE_APP_WEB_URL}/buyer-voucher/transfer/${this.VOUCHER.token}`;
+        this.emailForm.id = this.VOUCHER.token;
         // this.symbol = (this.VOUCHER.type == 'quantity') ? 'x' : '€'
       } catch (err) {
         console.log('err', err);
       }
     },
-    onGetTotal(data) {
-      let value = data.voucher.type == 'quantity' ? data.qty : data.value;
-      let total = value;
-
-      if (data.voucher.type == 'quantity') {
-        total = value * data.voucher.price_filter;
-      }
-
-      return total;
-    },
     async onEmail() {
       try {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
-        await this.$store.dispatch('SEND_WALLET', this.emailForm);
+        await this.$store.dispatch('SEND_BUYER_VOUCHER', this.emailForm);
         this.$swal({
           icon: 'success',
           title: 'Erfolgreich!',
@@ -656,7 +467,7 @@ export default {
     async onGenerateVoucher(id) {
       try {
         await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
-        await this.$store.dispatch('DOWNLOAD_USER_VOUCHER', id);
+        await this.$store.dispatch('DOWNLOAD_BUYER_VOUCHER', id);
         await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
       } catch (err) {
         console.log(err)

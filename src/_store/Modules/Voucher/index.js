@@ -9,6 +9,8 @@ export default {
   state: () => ({
     voucher: null,
     vouchers: [],
+    buyerVoucher: null,
+    buyerVouchers: [],
     featuredVouchers: [],
     newestVouchers: [],
     modal: false,
@@ -21,6 +23,12 @@ export default {
     },
     VOUCHERS(state) {
       return state.vouchers;
+    },
+    BUYER_VOUCHER(state) {
+      return state.buyerVoucher;
+    },
+    BUYER_VOUCHERS(state) {
+      return state.buyerVouchers;
     },
     SELLER_VOUCHERS(state) {
       return state.seller_vouchers;
@@ -44,6 +52,12 @@ export default {
     },
     SET_VOUCHERS(state, payload) {
       state.vouchers = payload;
+    },
+    SET_BUYER_VOUCHER(state, payload) {
+      state.buyerVoucher = payload;
+    },
+    SET_BUYER_VOUCHERS(state, payload) {
+      state.buyerVouchers = payload;
     },
     SET_SELLER_VOUCHERS(state, payload) {
       state.seller_vouchers = payload;
@@ -121,6 +135,28 @@ export default {
 
       } catch (err) {
         console.log('err', err)
+      }
+    },
+    async FETCH_BUYER_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/buyer-voucher`, payload)
+
+        await commit('SET_BUYER_VOUCHERS', data.vouchers)
+        return data
+
+      } catch (err) {
+        console.log('err', err)
+      }
+    },
+    async FETCH_BUYER_VOUCHER( { commit, state }, payload )
+    {
+      try {
+        const { data } = await get(`${prefix}/${payload}`, {})
+        await commit('SET_BUYER_VOUCHER', data.voucher)
+        return data
+      } catch (err) {
+        throw err
       }
     },
     async FETCH_FEATURED_VOUCHERS( { commit, state }, payload )

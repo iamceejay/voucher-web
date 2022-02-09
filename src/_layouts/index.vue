@@ -251,6 +251,7 @@ import VoucherModal from '_components/Modals/voucher-modal';
 import SellerModal from '_components/Modals/seller-modal';
 import Footer from '_components/Footer';
 import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue';
+import { detect } from 'detect-browser';
 
 export default {
   components: {
@@ -388,6 +389,8 @@ export default {
     },
   },
   mounted() {
+    const browser = detect();
+    // console.log(browser)
     (async () => {
       var doc = document.documentElement;
       var w = window;
