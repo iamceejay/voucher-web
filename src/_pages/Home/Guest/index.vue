@@ -54,7 +54,7 @@
             <p class="font-bold mb-6 mx-auto text-logo text-center max-w-sm md:max-w-2xl">
               Tiroler Momente zum Valentinstag
             </p>
-            <button class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
+            <button @click="$router.push('/liebe')" class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
               <svg class="bi bi-heart-fill h-10 w-10" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
               </svg>
