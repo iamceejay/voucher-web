@@ -1,8 +1,10 @@
 <template>
   <div class="-mt-10">
-    <div class="valentines">
+    <div class="overflow-hidden relative valentines">
+      <img class="hidden md:block absolute bottom-0 inset-x-0 max-h-full mx-auto object-center object-cover" src="@/_assets/img/header-desktop-min.jpg">
+      <img class="absolute block inset-x-0 max-h-full md:hidden mt-4 mx-auto object-center object-cover top-0" src="@/_assets/img/header-mobile-min.jpg">
       <div
-        class="content-container header-container flex flex-col items-center px-4 pt-8 pb-28 lg:pt-28 relative"
+        class="content-container header-container flex flex-col items-center px-4 pt-20 pb-60 l lg:py-28 relative z-1"
       >
         <div class="text-center text-white w-11/12 max-w-2xl">
           <p class="text-2xl md:text-4xl font-bold mb-3">

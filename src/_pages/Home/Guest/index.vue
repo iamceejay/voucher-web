@@ -44,6 +44,26 @@
         </div>
       </div>
 
+      <div class="overflow-hidden relative valentines mt-10">
+        <img class="hidden md:block absolute bottom-0 inset-x-0 max-h-full mx-auto object-center object-cover" src="@/_assets/img/header-desktop-min.jpg">
+        <img class="absolute block inset-x-0 max-h-full md:hidden mt-4 mx-auto object-center object-cover top-0" src="@/_assets/img/header-mobile-min.jpg">
+        <div
+          class="content-container header-container flex flex-col items-center px-4 pt-20 pb-60 l lg:py-28 relative z-1"
+        >
+          <div class="text-center text-white w-11/12 max-w-2xl">
+            <p class="font-bold mb-6 mx-auto text-logo text-center max-w-sm md:max-w-2xl">
+              Tiroler Momente zum Valentinstag
+            </p>
+            <button class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
+              <svg class="bi bi-heart-fill h-10 w-10" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+              </svg>
+              Jetzt die besten Geschenke entdecken
+            </button>
+          </div>
+        </div>
+      </div>
+
       <VouchCategory
         title="Ab in die Berge"
         description="Wer liebt nicht auch die frische Luft, die Aussicht und das Erlebnis?"
@@ -759,6 +779,18 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.valentines {
+  background: #fcb6be 0% 0% no-repeat padding-box;
+}
+.text-logo {
+  font-size: 25px;
+}
+
+@screen lg {
+  .text-logo {
+    font-size: 55px;
+  }
+}
 .border-separator {
   @apply border-b border-input-border my-16;
 }
