@@ -17,14 +17,16 @@
           </div>
           <div class="flex items-center">
             <button
-              class="company-bg-color px-5 py-3 rounded-full text-sm text-white flex items-center"
+              class="company-bg-color px-5 py-3 rounded-full text-sm text-white flex items-center opacity-75 cursor-not-allowed"
               @click="$router.push('/wallet/vouchers/new')"
+              :disabled="true"
             >
               Gutschein erstellen
             </button>
             <button
-              class="company-bg-color px-5 py-3 rounded-full text-sm text-white ml-4 flex items-center"
+              class="company-bg-color px-5 py-3 rounded-full text-sm text-white ml-4 flex items-center opacity-75 cursor-not-allowed"
               @click="$router.push('/vouchers/search')"
+              :disabled="true"
             >
               <svg class="icon h-4 w-4 mr-2">
                 <use xlink:href="/icons/sprite.svg#search" />
@@ -41,8 +43,9 @@
               Gutschein von Unternehmen
             </button>
             <button
-              class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2"
+              class="px-3 py-1 rounded-md text-xs border border-black text-black mr-2 mb-2 opacity-75 cursor-not-allowed"
               @click="$router.push('/wallet/vouchers')"
+              :disabled="true"
             >
               Selbstgemachte Gutscheine
             </button>

@@ -110,7 +110,7 @@ const router = new Router({
       },
     },
     {
-      path: '/valentines',
+      path: '/liebe',
       name: 'valentines',
       component: Valentines,
     },

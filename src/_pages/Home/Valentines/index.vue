@@ -36,19 +36,19 @@
             <div class="bg-black bg-opacity-25 w-full md:mx-10 md:w-1/2">
               <VueSlickCarousel v-bind="sliderOption">
                 <img
-                  src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 1.jpg"
+                  src="@/_assets/img/valentines/val-1-min.jpg"
                 />
                 <img
-                  src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 2.jpg"
+                  src="@/_assets/img/valentines/val-2-min.jpg"
                 />
                 <img
-                  src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 3.jpg"
+                  src="@/_assets/img/valentines/val-3-min.jpg"
                 />
                 <img
-                  src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 4.jpg"
+                  src="@/_assets/img/valentines/val-4-min.jpg"
                 />
                 <img
-                  src="@/_assets/img/Startpage/Fitness&Sport Bildershow/Bild 5.jpg"
+                  src="@/_assets/img/valentines/val-5-min.jpg"
                 />
               </VueSlickCarousel>
             </div>
@@ -123,19 +123,19 @@
           >
             <img
               class="w-full mx-auto"
-              src="@/_assets/img/epasnets-heart-light.png"
+              src="@/_assets/img/valentines/heart-1-min.jpg"
             />
             <img
               class="w-full mx-auto"
-              src="@/_assets/img/epasnets-heart-light.png"
+              src="@/_assets/img/valentines/heart-2-min.jpg"
             />
             <img
               class="w-full mx-auto"
-              src="@/_assets/img/epasnets-heart-light.png"
+              src="@/_assets/img/valentines/heart-3-min.jpg"
             />
             <img
               class="w-full mx-auto"
-              src="@/_assets/img/epasnets-heart-light.png"
+              src="@/_assets/img/valentines/heart-4-min.jpg"
             />
           </div>
         </div>
