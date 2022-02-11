@@ -149,6 +149,7 @@ export default {
     async onFetchWallets() {
       await this.$store.dispatch('FETCH_WALLETS', {
         user_id: this.AUTH_USER.data ? this.AUTH_USER.data.id : null,
+        subdomain: this.wildcard,
         status: 'pending',
       });
     },
