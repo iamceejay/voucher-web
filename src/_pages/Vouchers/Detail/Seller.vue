@@ -61,6 +61,7 @@
                           <label class="ml-2" for="wallet">Wallet</label>
                         </div>
                         <v-select
+                          v-if="type == 'wallet'"
                           class="w-full"
                           label="name"
                           :filterable="false"
