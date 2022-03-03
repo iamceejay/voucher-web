@@ -395,7 +395,10 @@ export default {
     async onFetchData() {
       await this.$store.dispatch('FETCH_CATEGORIES');
       if (this.AUTH_USER.data) {
-        await this.$store.dispatch('FETCH_VOUCHERS_BY_USER', this.AUTH_USER.data.id)
+        await this.$store.dispatch(
+          'FETCH_VOUCHERS_BY_USER',
+          this.AUTH_USER.data.id
+        );
       }
       await this.onSetMenusByRole();
     },
@@ -508,6 +511,11 @@ export default {
                 title: 'Meine Gutscheine',
                 link: '/vouchers',
                 icon: 'wallet',
+              },
+              {
+                title: 'Gutscheine Spender',
+                link: '/vouchers-gift',
+                icon: 'gift',
               },
               {
                 title: 'Verwalten',

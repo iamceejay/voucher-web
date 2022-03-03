@@ -55,7 +55,9 @@
           class="-mb-2.5 absolute bottom-0 flex inset-x-0 justify-center"
         >
           <div class="bg-white border px-2 rounded-md shadow-sm text-xs">
-            <span v-if="voucher.seller.company.region != 'Innsbruck und Umgebung'">
+            <span
+              v-if="voucher.seller.company.region != 'Innsbruck und Umgebung'"
+            >
               Tiroler {{ voucher.seller.company.region }}
             </span>
             <span v-else>
@@ -65,6 +67,13 @@
         </div>
       </div>
     </div>
+    <button
+      v-if="role == 'seller'"
+      class="border flex items-center justify-center text-sm w-full px-3 py-4 company-bg-color text-white mt-4"
+      @click="$router.push(`/vouchers/${voucher.id}`)"
+    >
+      In den Einkausfwagen
+    </button>
   </div>
 </template>
 <script>

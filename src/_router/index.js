@@ -21,6 +21,7 @@ import Home from '_pages/Home/';
 import Valentines from '_pages/Home/Valentines';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
+import VouchersGift from '_pages/Vouchers/Gift';
 import NewVoucher from '_pages/Vouchers/New/';
 import BuyerNewVoucher from '_pages/Vouchers/New/Buyer';
 import StatisticsVoucher from '_pages/Vouchers/Statistics/';
@@ -156,6 +157,14 @@ const router = new Router({
       path: '/vouchers',
       name: 'vouchers',
       component: Vouchers,
+      meta: {
+        middleware: [auth, authSeller],
+      },
+    },
+    {
+      path: '/vouchers-gift',
+      name: 'vouchers-gift',
+      component: VouchersGift,
       meta: {
         middleware: [auth, authSeller],
       },
