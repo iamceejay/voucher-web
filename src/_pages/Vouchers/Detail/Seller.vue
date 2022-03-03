@@ -36,43 +36,60 @@
                         <div class="flex items-center">
                           <input
                             id="email"
+                            v-model="type"
                             class="form-radio radio-input"
                             name="gift_type"
                             type="radio"
                             value="email"
-                            v-model="type"
                           />
                           <label class="ml-2" for="email">Email</label>
                         </div>
                         <input
                           v-if="type == 'email'"
                           type="text"
-                          class="input-field py-1 text-sm"
+                          class="input-field px-3 py-1 text-sm"
                         />
                         <div class="flex items-center">
                           <input
                             id="wallet"
+                            v-model="type"
                             class="form-radio radio-input"
                             name="gift_type"
                             type="radio"
                             value="wallet"
-                            v-model="type"
                           />
                           <label class="ml-2" for="wallet">Wallet</label>
                         </div>
-                        <input
-                          v-if="type == 'wallet'"
-                          type="text"
-                          class="input-field py-1 text-sm my-3"
-                        />
+                        <v-select
+                          class="w-full"
+                          label="name"
+                          :filterable="false"
+                          :options="options"
+                          @search="onSearch"
+                          v-model="selected"
+                        >
+                          <template v-slot:no-optoins>
+                            type to search users..
+                          </template>
+                          <template v-slot:option="option">
+                            <div class="d-center">
+                              {{ option.detail.fullname }}
+                            </div>
+                          </template>
+                          <template v-slot:selected-option="option">
+                            <div class="selected d-center">
+                              {{ option.detail.fullname }}
+                            </div>
+                          </template>
+                        </v-select>
                         <div class="flex items-center">
                           <input
                             id="pdf"
+                            v-model="type"
                             class="form-radio radio-input"
                             name="gift_type"
                             type="radio"
                             value="pdf"
-                            v-model="type"
                           />
                           <label class="ml-2" for="pdf">Ausgedruckt</label>
                         </div>
@@ -99,44 +116,31 @@
 <script>
 import MainLayout from '_layouts';
 import VoucherCard from '_components/List/Modules/VoucherList/VoucherDisplay/';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
 
 export default {
   components: {
     MainLayout,
     VoucherCard,
+    vSelect,
   },
   data() {
     return {
       type: null,
+      options: [],
+      selected: null,
     };
   },
   computed: {
     VOUCHER() {
       return this.$store.getters.VOUCHER;
     },
-    CARTS() {
-      return this.$store.getters.CARTS;
-    },
     AUTH_USER() {
       return this.$store.getters.AUTH_USER;
     },
     IS_LOADING() {
       return this.$store.getters.IS_LOADING;
-    },
-    months() {
-      let filteredMonths = [];
-      return this.VOUCHER && this.VOUCHER.valid_date
-        ? this.VOUCHER.valid_date
-            .filter((date) => {
-              let month = date.start.split('-')[1];
-              if (filteredMonths.indexOf(month) == -1) {
-                filteredMonths.push(month);
-                return true;
-              }
-              return false;
-            })
-            .map((date) => parseInt(moment(date.start).format('x')))
-        : [];
     },
   },
   mounted() {
@@ -164,6 +168,24 @@ export default {
         console.log('err', err);
       }
     },
+    onSearch(search, loading) {
+      if (search.length) {
+        loading(true);
+        this.search(loading, search, this);
+      }
+    },
+    search: _.debounce((loading, search, vm) => {
+      vm.$store
+        .dispatch('FETCH_USER_FILTER', {
+          role: 'user',
+          keyword: search,
+        })
+        .then((res) => {
+          console.log(res);
+          vm.options = res.users;
+          loading(false);
+        });
+    }, 350),
   },
 };
 </script>
