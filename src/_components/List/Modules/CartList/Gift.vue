@@ -87,6 +87,7 @@
                 v-if="giftType == 'email'"
                 type="text"
                 class="input-field px-3 py-1 text-sm"
+                v-model="email"
               />
               <div class="flex items-center">
                 <input
@@ -184,6 +185,7 @@ export default {
   },
   data() {
     return {
+      email: '',
       giftType: null,
       options: [],
       selected: null,

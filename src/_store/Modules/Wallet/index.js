@@ -204,6 +204,15 @@ export default {
         throw err
       }
     },
+    async SEND_GIFT( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post(`${prefix}/gift-voucher`, payload)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
     async SEND_BUYER_VOUCHER( { commit, state }, payload )
     {
       try {
