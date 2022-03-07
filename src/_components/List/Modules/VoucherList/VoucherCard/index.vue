@@ -67,13 +67,108 @@
         </div>
       </div>
     </div>
-    <button
-      v-if="role == 'seller'"
-      class="border flex items-center justify-center text-sm w-full px-3 py-4 company-bg-color text-white mt-4"
-      @click="$router.push(`/vouchers/${voucher.id}`)"
-    >
-      In den Einkausfwagen
-    </button>
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form
+        v-if="AUTH_USER.role.name == 'seller'"
+        class="flex flex-col w-full mt-4 order__form"
+        @submit.prevent="handleSubmit(onSubmit)"
+      >
+        <section class="flex items-center justify-center">
+          <div
+            v-if="voucher.type == 'quantity'"
+            class="flex flex-col items-end mr-3 md:mr-12"
+          >
+            <span class="font-medium text-xl">
+              {{
+                $helpers.convertCurrency(
+                  form.value *
+                    (voucher.type != 'quantity' ? 1 : voucher.qty_val)
+                )
+              }}
+            </span>
+          </div>
+          <template v-else>
+            <div class="mr-2 w-28 relative">
+              <input
+                v-model="form.value"
+                class="bg-white"
+                type="number"
+                :min="
+                  voucher.type == 'quantity' ? voucher.qty_min : voucher.val_min
+                "
+                :max="
+                  voucher.type == 'quantity' ? voucher.qty_max : voucher.val_max
+                "
+                style="
+                          padding-right: 2em;
+                          text-align: right;
+                        "
+                required
+              />
+              <span class="font-medium absolute mt-2" style="right: 15px;"
+                >€</span
+              >
+            </div>
+          </template>
+
+          <div class="order__form-group mr-2">
+            <input
+              v-if="voucher.type == 'quantity'"
+              v-model="form.value"
+              class="bg-white"
+              type="number"
+              disabled
+              :min="
+                voucher.type == 'quantity' ? voucher.qty_min : voucher.val_min
+              "
+              :max="
+                voucher.type == 'quantity' ? voucher.qty_max : voucher.val_max
+              "
+              required
+            />
+            <input
+              v-else
+              v-model="form.qty"
+              class="bg-white"
+              type="number"
+              disabled
+              :min="
+                voucher.type == 'quantity' ? voucher.qty_min : voucher.val_min
+              "
+              :max="
+                voucher.type == 'quantity' ? voucher.qty_max : voucher.val_max
+              "
+              required
+            />
+            <div
+              class="order__form-number order-up"
+              @click="
+                updateValue(voucher.type == 'quantity' ? 'value' : 'qty', 'add')
+              "
+            >
+              +
+            </div>
+            <div
+              class="order__form-number order-down"
+              @click="
+                updateValue(
+                  voucher.type == 'quantity' ? 'value' : 'qty',
+                  'subtract'
+                )
+              "
+            >
+              -
+            </div>
+          </div>
+        </section>
+        <button
+          type="submit"
+          class="border flex items-center justify-center text-sm w-full px-3 py-4 company-bg-color text-white mt-4"
+        >
+          In den Einkausfwagen
+        </button>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 <script>
@@ -145,10 +240,23 @@ export default {
   },
   data() {
     return {
+      form: {
+        id: null,
+        voucher_id: null,
+        user_id: null,
+        value: null,
+        qty: 1,
+        total_amount: 0,
+      },
       isAction: false,
       isFlip: false,
       vIndex: 0,
     };
+  },
+  computed: {
+    AUTH_USER() {
+      return this.$store.getters.AUTH_USER;
+    },
   },
   watch: {
     'voucher.background_image'(newVal, oldVal) {
@@ -169,7 +277,8 @@ export default {
     },
   },
   mounted() {
-    this.onSetBgImage(this.onGetBg());
+    (this.form.value = this.voucher.type !== 'quantity' ? null : 1),
+      this.onSetBgImage(this.onGetBg());
   },
   activated() {
     this.onSetBgImage(this.onGetBg());
@@ -219,6 +328,93 @@ export default {
             : value;
         card.style.backgroundImage = `url('${bg}')`;
         card.style.backgroundSize = `cover`;
+      }
+    },
+    updateValue(form, action) {
+      if (this.form[form] <= 1 && action == 'subtract') {
+        return;
+      }
+
+      if (action == 'add') {
+        this.form[form]++;
+      } else {
+        this.form[form]--;
+      }
+    },
+    async onSubmit() {
+      this.form.total_amount =
+        this.form.value *
+        (this.voucher.type != 'quantity' ? 1 : this.voucher.qty_val);
+      try {
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
+        this.form.total_amount =
+          this.form.value *
+          (this.voucher.type != 'quantity' ? 1 : this.voucher.qty_val);
+        this.form.user_id = this.AUTH_USER.data ? this.AUTH_USER.data.id : null;
+        this.form.voucher_id = this.voucher.id;
+        if (this.voucher.type == 'quantity') {
+          this.form.qty = this.form.value;
+          this.form.value = null;
+        } else {
+          this.form.value = this.form.value;
+          this.form.total_amount = this.form.qty * this.form.value;
+        }
+        const data = await this.$store.dispatch('ADD_WALLET', this.form);
+        this.form = {
+          id: null,
+          voucher_id: null,
+          user_id: null,
+          value: null,
+          qty: null,
+          value: 0,
+          total_amount: 0,
+        };
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
+        let confirm = this.$swal({
+          icon: 'success',
+          title: 'Erfolgreich!',
+          text: 'Die Gutscheine wurden in den Warenkorb gelegt.',
+          allowOutsideClick: false,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          confirm.close();
+          this.$router.push(`/vouchers-gift/${data.order.id}`);
+        }, 1000);
+      } catch (err) {
+        console.log(err);
+        await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
+        this.$swal({
+          icon: 'warning',
+          title: 'Achtung! ',
+          text:
+            'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
+          confirmButtonColor: '#48BB78',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then(async (result) => {
+          if (result.value) {
+            const newData = this.CARTS.filter(
+              (cart) => this.form.id != cart.id
+            );
+            await this.$store.commit('SET_CARTS', newData);
+            this.isAdded = false;
+            this.form = {
+              id: null,
+              user_id: null,
+              value: null,
+              type: '',
+              voucher: null,
+            };
+            this.$swal({
+              icon: 'success',
+              title: 'Erfolgreich!',
+              text: 'Removing the voucher.',
+              confirmButtonColor: '#48BB78',
+              confirmButtonText: 'Bestätigen',
+            });
+          }
+        });
       }
     },
   },
@@ -274,5 +470,62 @@ export default {
     width: 99%;
     /* max-width: 330px; */
   }
+}
+.show-more {
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    center bottom,
+    center top,
+    color-stop(0, rgba(0, 0, 0, 0)),
+    color-stop(1, rgba(0, 0, 0, 1))
+  );
+}
+.order__form-number {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.order__form .order__form-number.order-up {
+  position: absolute;
+  top: 10px;
+  right: 4px;
+}
+.order__form .order__form-number.order-down {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+.order__form-group {
+  width: 80px;
+  position: relative;
+}
+.order__form input[type='number']::-webkit-inner-spin-button,
+.order__form input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.order__form input[type='number'] {
+  -moz-appearance: textfield;
+  width: 100%;
+  padding-right: 5px;
+  text-align: center;
+  color: #45434a;
+  padding-top: 7px;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  border: 2px solid #e3e3e3;
+}
+.order__form input[type='number']:focus {
+  outline: 0;
 }
 </style>

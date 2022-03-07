@@ -36,6 +36,7 @@ import Scanner from '_pages/Scanner/';
 import ScannerUsers from '_pages/ScannerUsers/';
 import ScannerUserNew from '_pages/ScannerUsers/New/';
 import Cart from '_pages/Cart/';
+import VoucherGiftCart from '_pages/Cart/Gift';
 import Wallet from '_pages/Wallet/';
 import WalletVouchers from '_pages/Wallet/Vouchers';
 import VoucherCategory from '_pages/Vouchers/Category/';
@@ -277,6 +278,14 @@ const router = new Router({
     //     middleware: [ auth, authSeller ]
     //   }
     // },
+    {
+      path: '/vouchers-gift/:id',
+      name: 'vouchers-gift-details',
+      component: VoucherGiftCart,
+      meta: {
+        middleware: [auth, authSeller],
+      },
+    },
     {
       path: '/cart',
       name: 'cart',
