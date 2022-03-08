@@ -162,9 +162,9 @@ export default {
     },
     async handleSubmit() {
       if (!this.$refs.gift.giftType) {
-        return
+        return;
       }
-       this.$swal({
+      this.$swal({
         title: 'Bestellung bestätigen?',
         showCancelButton: true,
         confirmButtonColor: '#48BB78',
@@ -173,36 +173,43 @@ export default {
         cancelButtonText: 'abbrechen',
       }).then(async (result) => {
         if (result.value) {
-            console.log(this.$refs.gift);
-            let data = await this.$store.dispatch('SEND_GIFT', {
-              order_id: this.$route.params.id,
-              user_id: this.$refs.gift.selected ? this.$refs.gift.selected.id : '',
-              email: this.$refs.gift.email
-            });
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+          let data = await this.$store.dispatch('SEND_GIFT', {
+            order_id: this.$route.params.id,
+            user_id: this.$refs.gift.selected
+              ? this.$refs.gift.selected.id
+              : '',
+            email: this.$refs.gift.email,
+          });
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
 
-            if (this.$refs.gift.giftType === 'pdf') {
-              await this.$store.dispatch('DOWNLOAD_USER_VOUCHER', data.user_voucher.id)
+          if (this.$refs.gift.giftType === 'pdf') {
+            for (let index = 0; index < this.$refs.gift.data[0].qty; index++) {
+              await this.$store.dispatch(
+                'DOWNLOAD_USER_VOUCHER',
+                data.user_voucher.id
+              );
             }
+          }
 
-            if (this.$refs.gift.giftType === 'email') {
+          if (this.$refs.gift.giftType === 'email') {
+            for (let index = 0; index < this.$refs.gift.data[0].qty; index++) {
               await this.$store.dispatch('SEND_WALLET', {
                 id: data.user_voucher.id,
                 email: this.$refs.gift.email,
                 subject: 'Gift Voucher.',
                 text: 'Gift Voucher.',
                 sent_via: 'email',
-              })
+              });
             }
+          }
 
-            await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+          await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
 
-            this.$swal({
-              icon: 'success',
-              title: 'Erledigt!',
-              text: 'Gutschein wurde übermittelt.',
-              html:
-                `<ul class="flex flex-col gap-4">
+          this.$swal({
+            icon: 'success',
+            title: 'Erledigt!',
+            text: 'Gutschein wurde übermittelt.',
+            html: `<ul class="flex flex-col gap-4">
                   <li class="flex gap-3 text-left">
                     <i class="fa-check-circle fas mt-0.5 text-green-500 text-xl"></i>
                     <span>Gutschein wurde erfolgreich an die E-mail versendet.</span>
@@ -218,15 +225,14 @@ export default {
                     Bei Fragen oder Beschwerden kontaktiere uns auf <a href="mailto:hallo@epasnets.com" class="company-color">hallo@epasnets.com</a>.
                   </li>
                 </ul>`,
-              confirmButtonColor: '#48BB78',
-              allowOutsideClick: false,
-              showConfirmButton: true,
-            }).then(() => {
-              this.$router.push(`/vouchers-gift`);
-            });
+            confirmButtonColor: '#48BB78',
+            allowOutsideClick: false,
+            showConfirmButton: true,
+          }).then(() => {
+            this.$router.push(`/vouchers-gift`);
+          });
         }
       });
-
     },
   },
 };

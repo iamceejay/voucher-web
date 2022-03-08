@@ -252,7 +252,6 @@ export default {
         (row.voucher.type == 'quantity' ? row.voucher.price_filter : row.value);
 
       this.totalPrice = 0;
-      console.log(row);
       let form = {
         id: row.id,
         user_id: row.user_id,
@@ -265,8 +264,6 @@ export default {
       };
 
       const data = await this.$store.dispatch('UPDATE_WALLET', form);
-
-      console.log(row, value);
     },
     onSearch(search, loading) {
       if (search.length) {
@@ -281,7 +278,6 @@ export default {
           keyword: search,
         })
         .then((res) => {
-          console.log(res);
           vm.options = res.users;
           loading(false);
         });
