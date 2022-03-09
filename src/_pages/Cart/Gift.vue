@@ -166,11 +166,13 @@ export default {
       }
       this.$swal({
         title: 'Bestellung bestätigen?',
+        html: '<style>.swal2-popup{border: 5px solid #FF5563!important; border-radius: 0!important; } .swal2-confirm,.swal2-cancel{font-size:1.3em!important;border-radius:25px!important;font-weight:900!important;} .swal2-title{font-size:2em!important;color:#FF5563!important;}</style>',
         showCancelButton: true,
-        confirmButtonColor: '#48BB78',
-        cancelButtonColor: '#FC8181',
+        confirmButtonColor: '#FF5563',
+        cancelButtonColor: '#FF5563',
         confirmButtonText: 'Ja',
         cancelButtonText: 'abbrechen',
+        className: 'custom-swal-gift'
       }).then(async (result) => {
         if (result.value) {
           let data = await this.$store.dispatch('SEND_GIFT', {
@@ -212,7 +214,8 @@ export default {
             icon: 'success',
             title: 'Erledigt!',
             text: 'Gutschein wurde übermittelt.',
-            html: `<ul class="flex flex-col gap-4">
+            html: `<style>.swal2-popup{border: 5px solid #FF5563!important; border-radius: 0!important; }</style>
+                  <ul class="flex flex-col gap-4">
                   <li class="flex gap-3 text-left">
                     <i class="fa-check-circle fas mt-0.5 text-green-500 text-xl"></i>
                     <span>Gutschein wurde erfolgreich an die E-mail versendet.</span>
@@ -230,7 +233,8 @@ export default {
                 </ul>`,
             confirmButtonColor: '#48BB78',
             allowOutsideClick: false,
-            showConfirmButton: true,
+            showConfirmButton: false,
+            showCloseButton: true,
           }).then(() => {
             this.$router.push(`/vouchers-gift`);
           });
