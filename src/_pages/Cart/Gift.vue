@@ -161,7 +161,7 @@ export default {
       return total;
     },
     async handleSubmit() {
-      if (!this.$refs.gift.giftType) {
+      if (!this.$refs.gift.giftType.length) {
         return;
       }
       this.$swal({
@@ -182,16 +182,10 @@ export default {
           });
           await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
 
-          if (this.$refs.gift.giftType === 'pdf') {
-            for (let index = 0; index < this.$refs.gift.data[0].qty; index++) {
-              await this.$store.dispatch(
-                'DOWNLOAD_USER_VOUCHER',
-                data.user_voucher.id
-              );
-            }
-          }
-
-          if (this.$refs.gift.giftType === 'email') {
+          if (
+            this.$refs.gift.giftType.includes('email') &&
+            this.$refs.gift.email
+          ) {
             for (let index = 0; index < this.$refs.gift.data[0].qty; index++) {
               await this.$store.dispatch('SEND_WALLET', {
                 id: data.user_voucher.id,
@@ -200,6 +194,15 @@ export default {
                 text: 'Gift Voucher.',
                 sent_via: 'email',
               });
+            }
+          }
+
+          if (this.$refs.gift.giftType.includes('pdf')) {
+            for (let index = 0; index < this.$refs.gift.data[0].qty; index++) {
+              await this.$store.dispatch(
+                'DOWNLOAD_USER_VOUCHER',
+                data.user_voucher.id
+              );
             }
           }
 

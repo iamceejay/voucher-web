@@ -11,6 +11,7 @@
           <!-- <div class="absolute inset-0 z-10"></div> -->
           <VoucherCard
             :cardId="`voucher-card-${index}`"
+            :order="row"
             :voucher="row.voucher"
             :isFlippable="false"
             :withQR="false"
@@ -76,15 +77,15 @@
                 <input
                   id="email"
                   v-model="giftType"
-                  class="form-radio radio-input"
-                  name="gift_type"
-                  type="radio"
+                  :disabled="giftType.includes('wallet')"
+                  class="form-checkbox checkbox-input"
+                  type="checkbox"
                   value="email"
                 />
                 <label class="ml-2" for="email">Email</label>
               </div>
               <input
-                v-if="giftType == 'email'"
+                v-if="giftType.includes('email')"
                 type="text"
                 class="input-field px-3 py-1 text-sm"
                 v-model="email"
@@ -93,15 +94,17 @@
                 <input
                   id="wallet"
                   v-model="giftType"
-                  class="form-radio radio-input"
-                  name="gift_type"
-                  type="radio"
+                  :disabled="
+                    giftType.includes('email') || giftType.includes('pdf')
+                  "
+                  class="form-checkbox checkbox-input"
+                  type="checkbox"
                   value="wallet"
                 />
                 <label class="ml-2" for="wallet">Wallet</label>
               </div>
               <v-select
-                v-if="giftType == 'wallet'"
+                v-if="giftType.includes('wallet')"
                 class="w-full"
                 label="name"
                 :filterable="false"
@@ -125,11 +128,11 @@
               </v-select>
               <div class="flex items-center">
                 <input
+                  :disabled="giftType.includes('wallet')"
                   id="pdf"
                   v-model="giftType"
-                  class="form-radio radio-input"
-                  name="gift_type"
-                  type="radio"
+                  class="form-checkbox checkbox-input"
+                  type="checkbox"
                   value="pdf"
                 />
                 <label class="ml-2" for="pdf">Ausgedruckt</label>
@@ -186,7 +189,7 @@ export default {
   data() {
     return {
       email: '',
-      giftType: null,
+      giftType: [],
       options: [],
       selected: null,
       listIndex: 0,
