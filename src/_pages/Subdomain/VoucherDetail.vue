@@ -546,6 +546,7 @@ export default {
         qty: 1,
         total_amount: 0,
         isSubdomain: true,
+        subdomain: '',
       },
       symbol: '',
       isAdded: false,
@@ -639,6 +640,7 @@ export default {
           this.form.value = this.form.value;
           this.form.total_amount = this.form.qty * this.form.value;
         }
+        this.form.subdomain = this.wildcard
         const data = await this.$store.dispatch('ADD_WALLET', this.form);
         this.form = {
           id: null,

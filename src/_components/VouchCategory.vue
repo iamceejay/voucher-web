@@ -1,13 +1,13 @@
 <template>
-  <div class="py-10" :class="[bgColor, theme]">
-    <div class="content-container mt-10 w-11/12">
+  <div class="py-5 md:py-10" :class="[bgColor, theme]">
+    <div class="content-container mt-5 md:mt-10 w-11/12">
       <div class="flex flex-col gap-6 mb-6 md:flex-row">
         <div class="flex-1">
-          <h2 class="font-bold text-5xl" :class="titleClass || fontColor">
+          <h2 class="font-bold text-3xl md:text-5xl" :class="titleClass || fontColor">
             {{ title }}
           </h2>
           <span
-            class="text-xl inline-block"
+            class="text-lg md:text-xl inline-block"
             :class="descriptionClass || 'description'"
             >{{ description }}</span
           >

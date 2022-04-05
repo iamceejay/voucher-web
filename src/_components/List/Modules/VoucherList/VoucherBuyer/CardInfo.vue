@@ -63,7 +63,7 @@
       </div>
       <div class="flex flex-col p-5 bg-white">
         <div class="text-center w-full mb-2">epasnets... mit Liebe verschenkt!</div>
-        <div class="text-2xs opacity-50">*Durch die Gestaltung dieses Gutscheins wurde ein Fixbetrag an soziale Projekte in unserer Epasnets-Region gespendet.</div>
+        <div class="text-2xs" style="color: #ff5563 !important">* Durch die Gestaltung dieses Gutscheins wurde ein Fixbetrag an von epasnets unterstützte Sozialprojekte in Tirol gespendet. </div>
       </div>
     </div>
   </div>

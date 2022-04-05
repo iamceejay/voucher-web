@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="`cursor-pointer flex flex-col text-black w-full border`"
+    class="cursor-pointer flex flex-col text-black w-full border"
+    :class="{'mb-5': userVoucher && userVoucher.sent_via !== null}"
     @click="onClickHeader()"
   >
     <div class="card-header  p-5">
@@ -165,6 +166,12 @@
             </span>
           </template>
         </div>
+      </div>
+      <div
+        class="absolute bg-gray-300 bg-opacity-50 bottom-0 left-0 ml-auto mr-auto px-5 py-4 right-0 rounded-lg text-2xs text-center w-9/12 text-gray-500 font-semibold" style="margin-bottom: -15px;"
+        v-if="userVoucher && userVoucher.sent_via !== null"
+      >
+        <span class="font-bold italic text-peach">Achtung!</span> Ist dieser Gutschein schon verschenkt? Dieser Gutschein könnte schon ausgedruckt bzw. verschenkt sein.
       </div>
       <!-- <div class="w-full flex flex-row">
         <div class="w-9/12 flex flex-col">

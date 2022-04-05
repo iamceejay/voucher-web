@@ -4,20 +4,20 @@
       <div class="-mt-10">
         <div class="bg-custom-gray text-center py-24 voucher-search">
           <h1 class="font-medium md:text-4xl text-2xl mb-6">
-            Entdecke Gutscheine
+            Gutscheine entdecken
           </h1>
           <SearchInputField
             id="search-here"
             v-model="params.keyword"
             :value="params.keyword"
             class="m-2"
-            placeholder="Suche nach Gutscheinen"
+            placeholder="Finde den für dich passenden Gutschein"
             @input="onSearchData($event, 'search')"
           />
         </div>
         <div class="bg-white">
           <div class="content-container w-11/12">
-            <h2 class="text-center text-3xl py-8 font-medium">Gutscheine</h2>
+            <h2 class="text-center text-3xl py-8 font-medium">Hier siehst du die Auflistung der epasnets Gutscheine</h2>
             <div class="flex justify-end">
               <button
                 type="button"

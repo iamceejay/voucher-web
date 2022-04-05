@@ -530,7 +530,7 @@ export default {
             allowEscapeKey: false,
             allowEnterKey: false,
             preConfirm: () => {
-              window.open('https://verkaufen.epasnets.com/kontakt/', '_blank').focus()
+              window.open('https://shop.epasnets.com', '_blank').focus()
               return false
             }
           }).then((result) => {

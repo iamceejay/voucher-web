@@ -19,6 +19,7 @@ import RegisterSeller from '_pages/Register/Seller/';
 import RegisterBuyer from '_pages/Register/Buyer/';
 import Home from '_pages/Home/';
 import Valentines from '_pages/Home/Valentines';
+import Easter from '_pages/Home/Easter';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
 import NewVoucher from '_pages/Vouchers/New/';
@@ -113,6 +114,11 @@ const router = new Router({
       path: '/liebe',
       name: 'valentines',
       component: Valentines,
+    },
+    {
+      path: '/ostern',
+      name: 'easter',
+      component: Easter,
     },
     {
       path: '/guest-wallet',
@@ -486,9 +492,16 @@ const router = new Router({
       },
     },
     {
-      path: '/transfer/:id',
+      path: '/ein-liebevolles-geschenk/:id',
       name: 'transfer',
       component: Transfer,
+      // meta: {
+      //   middleware: [ auth, authAdmin ]
+      // }
+    },
+    {
+      path: '/transfer/:id',
+      redirect: { name: 'transfer' }
       // meta: {
       //   middleware: [ auth, authAdmin ]
       // }

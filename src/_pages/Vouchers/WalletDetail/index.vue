@@ -453,7 +453,7 @@ export default {
         const data = await this.$store.dispatch('ADD_TRANSFER_URL', {
           order_id: this.$route.params.id,
         });
-        this.link = `${process.env.VUE_APP_WEB_URL}/transfer/${data.transfer_url.url_code}`;
+        this.link = `${process.env.VUE_APP_WEB_URL}/ein-liebevolles-geschenk/${data.transfer_url.url_code}`;
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
         await this.onFetchVoucher();
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
