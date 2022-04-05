@@ -3,7 +3,7 @@
     <div
       class="border-b border-gray-400 flex items-center justify-between pb-5"
     >
-      <span class="text-xl font-medium">Gutschein erstellen</span>
+      <span class="text-xl font-medium">Deinen Gutschein erstellen</span>
       <button
         type="submit"
         class="company-bg-color px-5 py-3 rounded-md text-sm text-white"
@@ -15,7 +15,7 @@
       class="flex flex-col gap-4 md:grid justify-center md:grid-cols-2 pt-12 w-full"
     >
       <div class="flex flex-col">
-        <span class="mb-8 py-3 text-xl">Gutschein Vorschau</span>
+        <span class="mb-8 py-3 text-xl">Hier siehst du die Vorschau deines selbstgestalteten Gutscheins</span>
         <VoucherCard
           :key="`vform-${formIndex}`"
           :voucher="form"
@@ -32,7 +32,7 @@
               id="Gutscheintitel"
               v-model="form.title"
               type="text"
-              label="Gutscheintitel"
+              label="Gib deinem Gutschein einen individuellen Titel"
               class="w-full"
               rules="required|max:30"
             />
@@ -122,7 +122,7 @@
               <svg
                 v-tippy
                 class="icon h-4 w-4 mr-2 inline"
-                content="Hier kannst du die Schriftarten in weiß oder schwarz wählen."
+                content="Hier kannst du zwischen den Schriftfarben Weiß oder Schwarz wählen."
               >
                 <use xlink:href="/icons/sprite.svg#info-circle-fill" />
               </svg>
@@ -178,9 +178,7 @@
             <div class="border-t my-8 block w-full"></div>
 
             <span class="text-sm mb-1"
-              >Weitere Bilder die im PDF Format deines Gutscheins angezeigt
-              werden und Kunden weitere Einblicke in dein Unternehmen geben.
-              (Format 4 x 4)</span
+              >Hier hast du die Möglichkeit weitere Bilder, die im Druck-PDF deines Gutscheins angezeigt werden und somit zusätzliche Einblicke in dein Unternehmen geben, hochzuladen. Die Bilddateien für deinen Gutschein dürfen eine Gesamtgröße von 2 MB nicht überschreiten. (Format 4 x 4)</span
             >
 
             <section class="gap-4 grid grid-cols-3 mt-3">
@@ -338,6 +336,7 @@ import Vue from 'vue';
 import VueCroppie from 'vue-croppie';
 import 'croppie/croppie.css'; // import the croppie css manually
 import DatePicker from 'vue2-datepicker';
+import whiteLogo from '_assets/img/epasnets-white.png';
 
 Vue.use(VueCroppie);
 
@@ -492,6 +491,35 @@ export default {
     },
   },
   beforeMount() {
+    this.$swal({
+      title: '',
+      html: '<link href="https://cdn-images.mailchimp.com/embedcode/classic-10_7_dtp.css" rel="stylesheet" type="text/css"><style type="text/css">#mc_embed_signup{background:transparent; clear:left; font-size:14px;}</style><style type="text/css">#mc-embedded-subscribe-form input[type=checkbox]{display: inline; width: auto;margin-right: 10px;}#mergeRow-gdpr{margin-top: 20px;}#mergeRow-gdpr fieldset label{font-weight: normal;}#mc-embedded-subscribe-form .mc_fieldset{border:none;min-height: 0px;padding-bottom:0px;}.swal2-content, .swal2-popup{background-color: #ff5563 !important; color: #fff !important; font-family: Poppins,sans-serif !important;}#mc_embed_signup .foot{display: inline-block !important; width: 96% !important;}#mc_embed_signup .button{margin: 10px auto 15px auto !important; background-color: #fff !important; border: 1px solid #fff !important; padding: 20px 60px !important; line-height: 0px !important; color: #ff5563 !important; font-weight: 600 !important; border-radius: 25px !important; display: block !important;}#mc_embed_signup .mc-field-group input{border: 1px solid rgba(255,255,255,0.5) !important; background-color: rgba(255,255,255,0.5) !important; margin-top: 30px !important;}#mc_embed_signup .mc-field-group input::placeholder{color: #fff !important;}#mc_embed_signup .mc-field-group input:focus-visible{outline: none !important;}#mc_embed_signup h2{font-size: 2.3em !important; padding: 0 15px 0 0 !important;}#mc-embedded-subscribe-form input[type=checkbox]{margin-top: 0px !important; font-size: 12px !important;}.button:disabled{opacity: 0.7!important}</style><div id="mc_embed_signup"> <form action="https://epasnets.us2.list-manage.com/subscribe/post?u=6ffee614a5f7fb7c764a7c404&amp;id=ecc961c87b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate> <div id="mc_embed_signup_scroll"> <img src="' + whiteLogo + '" style="margin: 0 auto; padding-right: 20px; width: 120px;"> <h2 class="text-center">Wir spenden für DICH!</h2> <p class="text-center" style="padding: 0 20px 0 0;">Melde dich dazu einfach für unseren epasnets-Newsletter an</p><div class="mc-field-group"> <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Deine E-Mail"> </div><div class="mc-field-group"> <input type="text" value="" name="FNAME" class="fname" id="mce-FNAME" placeholder="Vorname" style="margin-top: 10px !important;"> </div><div class="mc-field-group"> <input type="text" value="" name="LNAME" class="lname" id="mce-LNAME" placeholder="Nachname" style="margin-top: 10px !important;"> </div><div class="content__gdpr"> <fieldset class="mc_fieldset gdprRequired mc-field-group" name="interestgroup_field"> <label class="checkbox subfield" for="gdpr_24568"><input type="checkbox" id="gdpr_24568" name="gdpr[24568]" value="Y" class="av-checkbox gdpr agree"><span>Ich bestätigte hiermit die Verarbeitung meiner Daten gemäß Datenschutzerklärung zum Zweck der Newsletter-Anmeldung.</span> </label> </fieldset> <p style="margin-bottom: 20px; margin-top: 20px;">Unsere Datenschutzerklärung findest du unter folgendem Link: <strong><a href="https://about.epasnets.com/datenschutz/" target="_blank">Datenschutz</a></strong> </p></div><div id="mce-responses" class="clear foot"> <div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_6ffee614a5f7fb7c764a7c404_ecc961c87b" tabindex="-1" value=""></div><div class="optionalParent"> <div class="clear foot"> <input type="submit" value="Absenden" name="subscribe" id="mc-embedded-subscribe" class="button"> <p class="text-center" style="font-size: 12px; margin-top: 50px;"> Weil Regionalität auch beim Verschenken den Unterschied macht, spenden wir, wie bei jedem verkauften Gutschein, auch 1 Euro für jede Newsletter-Anmeldung an soziale Projekte in der Region. </p></div></div></div></form></div>',
+      showCloseButton: true,
+      showConfirmButton: false,
+      onOpen: () => {
+        let email=document.querySelector(".email");
+        let fname=document.querySelector(".fname");
+        let lname=document.querySelector(".lname");
+        let agree=document.querySelector(".agree");
+        let button=document.querySelector(".button");
+        
+        button.disabled=true;
+        
+        email.addEventListener("change", stateHandle);
+        fname.addEventListener("change", stateHandle);
+        lname.addEventListener("change", stateHandle);
+        agree.addEventListener("change", stateHandle);
+        
+        function stateHandle(){
+          if(email.value=="" || fname.value=="" || lname.value=="" || !agree.checked){
+            button.disabled=true;
+          }else{
+            button.disabled=false;
+          }
+        }
+      }
+    })
+
     this.onSetForm();
     this.categories = this.CATEGORIES.map((row) => {
       return {

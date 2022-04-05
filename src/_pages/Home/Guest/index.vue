@@ -45,20 +45,20 @@
       </div>
 
       <div class="overflow-hidden relative valentines mt-10">
-        <img class="hidden md:block absolute bottom-0 inset-x-0 max-h-full mx-auto object-center object-cover" src="@/_assets/img/header-desktop-min.jpg">
-        <img class="absolute block inset-x-0 max-h-full md:hidden mt-4 mx-auto object-center object-cover top-0" src="@/_assets/img/header-mobile-min.jpg">
+        <img class="hidden md:block absolute bottom-0 inset-x-0 max-h-full mx-auto object-center object-cover" src="@/_assets/img/easter/easter_header-min.jpg">
+        <img class="absolute block inset-x-0 max-h-full md:hidden mt-4 mx-auto object-center object-cover top-0" src="@/_assets/img/easter/easter_header_mobile-min.jpg">
         <div
           class="content-container header-container flex flex-col items-center px-4 pt-20 pb-60 l lg:py-28 relative z-1"
         >
           <div class="text-center text-white w-11/12 max-w-2xl">
             <p class="font-bold mb-6 mx-auto text-logo text-center max-w-sm md:max-w-2xl">
-              Tiroler Momente zum Valentinstag
+              Tiroler Momente zu Ostern schenken
             </p>
-            <button @click="$router.push('/liebe')" class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
+            <button @click="$router.push('/ostern')" class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
               <svg class="bi bi-heart-fill h-10 w-10" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
               </svg>
-              Jetzt die besten Geschenke entdecken
+              Entdecke die besten Angebote
             </button>
           </div>
         </div>
@@ -370,12 +370,12 @@
         title="Etwas kniffliges für die Ganze Familie"
         description=""
         category="Kurzurlaub"
-        :firstVouch="2"
+        :firstVouch="211"
         :firstVouchTitle="'Du willst Spaß, Rätseln und im Team arbeiten?'"
         :firstVouchDescription="
           'Dann ist das spektakuläre Escape Room Erlebnis in Innsbruck-Kufstein genau das richtige für dich! Erlebe mit der ganzen Familie ein spannendes Abenteuer mit kniffligen Aufgaben, verzaubernde Räume oder für die Horror liebhabenden schrecklich schöne Überraschungen.'
         "
-        :secondVouch="2"
+        :secondVouch="75"
         :secondVouchTitle="
           'Schaffst Du es ein rätselhaftes Abenteuer in nur 60 Minuten zu lösen?'
         "
@@ -780,7 +780,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .valentines {
-  background: #fcb6be 0% 0% no-repeat padding-box;
+  background: #A5D7EA 0% 0% no-repeat padding-box;
 }
 .text-logo {
   font-size: 25px;

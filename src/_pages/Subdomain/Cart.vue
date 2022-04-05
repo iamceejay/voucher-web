@@ -151,6 +151,7 @@ export default {
         user_id: this.AUTH_USER.data ? this.AUTH_USER.data.id : null,
         subdomain: this.wildcard,
         status: 'pending',
+        subdomain: this.wildcard,
       });
     },
     async onDelete(data) {

@@ -70,7 +70,7 @@
               <i
                 v-if="USER.company.icon_2"
                 class="text-3xl mb-4 bi-"
-                :class="`bi-${USER.company.icon_1}`"
+                :class="`bi-${USER.company.icon_2}`"
               ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#palette`" />
@@ -92,7 +92,7 @@
               <i
                 v-if="USER.company.icon_3"
                 class="text-3xl mb-4 bi-"
-                :class="`bi-${USER.company.icon_1}`"
+                :class="`bi-${USER.company.icon_3}`"
               ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#gift`" />
