@@ -143,5 +143,21 @@ export default {
         throw err
       }
     },
+    async TOGGLE_USER_GIFT_STATUS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await put(`${prefix}/user-gift-status/${payload.id}`, payload)
+        const newData = state.users.map( row => {
+          if( row.id == payload.id ) {
+            row.isActivated = !row.isActivated
+          }
+          return row
+        })
+        await commit('SET_USERS', newData)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

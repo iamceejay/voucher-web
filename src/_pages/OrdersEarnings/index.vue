@@ -100,6 +100,7 @@
                       <tr v-for="(row, index) in WALLETS.data" :key="index">
                         <td class="px-6 py-4 whitespace-nowrap">
                           <span v-if="row.channel == 'subdomain'" class="text-sm">epasnets Website</span>
+                          <span v-else-if="row.channel == 'direktverkauf'" class="text-sm">Direktverkauf</span>
                           <span v-else class="text-sm">epasnets Marktplatz</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -125,6 +126,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap flex">
                           <button
+                            v-if="row.channel !== 'direktverkauf'"
                             class=" hover:text-peach relative text-sm z-10 ml-5"
                             @click="onGenerateInvoice(row)"
                           >

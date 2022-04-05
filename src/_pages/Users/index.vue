@@ -62,6 +62,22 @@
                   Payout setings
                 </router-link>
                 <a
+                  v-if="params.role == 'seller' && props.data.gift_locked"
+                  class="text-xs text-indigo-500 underline text-center"
+                  href="javascript:void(0)"
+                  @click="onToggleGift(props.data)"
+                >
+                  Unlock Gift
+                </a>
+                <a
+                  v-if="params.role == 'seller' && !props.data.gift_locked"
+                  class="text-xs text-indigo-500 underline text-center"
+                  href="javascript:void(0)"
+                  @click="onToggleGift(props.data)"
+                >
+                  Lock Gift
+                </a>
+                <a
                   class="text-xs text-indigo-500 underline text-center"
                   href="javascript:void(0)"
                   @click="onDelete(props.data)"
@@ -188,6 +204,43 @@
               window.location = '/home'
             } catch (err) {
               console.log(err)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'warning',
+                title: 'Achtung! ',
+                text: 'Etwas ist schief gelaufen. Versuche es nochmal oder kontaktiere uns.',
+                confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
+              })
+            }
+          }
+        })
+      },
+      async onToggleGift(data)
+      {
+        this.$swal({
+          title: 'Gift Voucher',
+          text: `Toggle seller's gift voucher feature status?`,
+          showCancelButton: true,
+          confirmButtonColor: '#48BB78',
+          cancelButtonColor: '#FC8181',
+          confirmButtonText: 'Bestätigen',
+          cancelButtonText: 'Abbrechen',
+        }).then( async (result) => {
+          if(result.value){
+            try {
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'open' })
+              await this.$store.dispatch('TOGGLE_USER_GIFT_STATUS', data)
+              await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
+              this.$swal({
+                icon: 'success',
+                title: 'Erfolgreich!',
+                text: 'Status updated',
+                confirmButtonColor: '#48BB78',
+                confirmButtonText: 'Bestätigen'
+              });
+              window.location.reload()
+            } catch (err) {
               await this.$store.commit('SET_IS_PROCESSING', { status: 'close' })
               this.$swal({
                 icon: 'warning',

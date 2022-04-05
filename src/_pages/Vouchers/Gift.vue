@@ -7,7 +7,7 @@
           class="content-container flex flex-col w-full px-8"
         >
           <Header
-            title="Gutscheine Spender"
+            title="Direkt Verkauf"
             containerClass="items-center justify-between"
           >
           </Header>
@@ -16,6 +16,7 @@
             :withPagination="true"
             :currentPage="VOUCHERS.current_page"
             :lastPage="VOUCHERS.last_page"
+            :openNewTab="true"
             @onPaginate="onPaginateVouchers($event)"
           />
         </div>
@@ -72,6 +73,9 @@ export default {
           await this.$store.commit('SET_VOUCHERS', []);
           await this.onFetchVouchers(this.AUTH_USER.data.id);
         }
+
+        await this.onFetchGiftStatus();
+        
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
       } catch (err) {
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
@@ -99,14 +103,64 @@ export default {
     },
     async onFetchVouchers(id) {
       try {
+        const { user } = await this.$store.dispatch('FETCH_USER', {
+          id: this.AUTH_USER.data.id,
+        });
+        let isScanner = false;
+        let scannerSellerId = null;
+
+        if(user.user_role.role_id === 4) {
+          isScanner = true;
+          scannerSellerId = user.scanner_user.seller_id; 
+        }
+
         await this.$store.dispatch('FETCH_SELLER_VOUCHERS', {
           ...this.params,
-          seller_id: id,
+          seller_id: isScanner ? scannerSellerId : id,
         });
       } catch (err) {
         console.log('err', err);
       }
     },
+    async onFetchGiftStatus() {
+      try {
+        const { user } = await this.$store.dispatch('FETCH_USER', {
+          id: this.AUTH_USER.data.id,
+        });
+        let giftLocked = true;
+
+        if(user.scanner_user) {
+          giftLocked = user.scanner_user.seller.gift_locked;
+        }
+
+        if(user.gift_locked && giftLocked) {
+          this.$swal({
+            title: 'Verkaufe deine Gutscheine direkt vor Ort',
+            text: 'Direkt an der Rezeption, Kassa oder in deinem Geschäft Gutscheine provisionsfrei verkaufen und ausstellen.',
+            allowOutsideClick: true,
+            confirmButtonColor: '#ff5563',
+            confirmButtonText: 'Jetzt mehr erfahren',
+            showCancelButton: true,
+            cancelButtonText: 'Später',
+            cancelButtonColor: '#cccccc',
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            preConfirm: () => {
+              window.open('https://verkaufen.epasnets.com/kontakt/', '_blank').focus()
+              return false
+            }
+          }).then((result) => {
+            if(result.isConfirmed) {
+
+            } else {
+              window.location.href = 'https://epasnets.com/home'
+            }
+          })
+        }
+      } catch(e) {
+        console.log('err', e)
+      }
+    }
   },
 };
 </script>

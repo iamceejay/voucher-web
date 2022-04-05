@@ -69,7 +69,7 @@
     </div>
     <ValidationObserver v-slot="{ handleSubmit }">
       <form
-        v-if="AUTH_USER.role.name == 'seller'"
+        v-if="AUTH_USER.role.name == 'seller' || AUTH_USER.role.name == 'scanner'"
         class="flex flex-col w-full mt-4 order__form"
         @submit.prevent="handleSubmit(onSubmit)"
       >
@@ -237,6 +237,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    openNewTab: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -287,6 +291,8 @@ export default {
     onFlip() {
       if (this.userVoucher) {
         this.$router.push(`/voucher/${this.userVoucher.id}`);
+      } else if(this.openNewTab) {
+        window.open(`https://epasnets.com/vouchers/${this.voucher.id}`, '_blank')
       } else {
         window.location.href = `https://epasnets.com/vouchers/${this.voucher.id}`;
       }

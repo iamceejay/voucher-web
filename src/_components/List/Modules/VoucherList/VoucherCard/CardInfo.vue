@@ -71,7 +71,7 @@
           ></div>
         </div>
         <a
-          v-if="isShowWishlist && role != 'seller'"
+          v-if="isShowWishlist && !roleFilters.includes(role)"
           class="wishlist-btn"
           @click.stop="onClickWishlist(voucher)"
         >
@@ -257,6 +257,7 @@ export default {
   data() {
     return {
       role: null,
+      roleFilters: ['seller', 'scanner']
     };
   },
   computed: {

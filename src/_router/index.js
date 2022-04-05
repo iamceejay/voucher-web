@@ -7,7 +7,7 @@ import authUser from './_middleware/authUser';
 import authAdmin from './_middleware/authAdmin';
 import authSeller from './_middleware/authSeller';
 import authGU from './_middleware/authGU';
-import authGUS from './_middleware/authGUS';
+// import authGUS from './_middleware/authGUS';
 import authUS from './_middleware/authUS';
 import authSSU from './_middleware/authSSU';
 import middlewarePipeline from './_middleware/middlewarePipeline';
@@ -26,15 +26,15 @@ import NewVoucher from '_pages/Vouchers/New/';
 import BuyerNewVoucher from '_pages/Vouchers/New/Buyer';
 import StatisticsVoucher from '_pages/Vouchers/Statistics/';
 import OrdersEarnings from '_pages/OrdersEarnings/';
-import Profile from '_pages/Profile/';
+// import Profile from '_pages/Profile/';
 import ProfileInfo from '_pages/Profile/Info/';
 import WebsiteConfiguration from '_pages/Profile/Info/WebConfig';
 import ProfilePayment from '_pages/Profile/Payment/';
 import ProfileSettings from '_pages/Profile/Settings/';
 import Redemptions from '_pages/Redemptions/';
 import Scanner from '_pages/Scanner/';
-import ScannerUsers from '_pages/ScannerUsers/';
-import ScannerUserNew from '_pages/ScannerUsers/New/';
+// import ScannerUsers from '_pages/ScannerUsers/';
+// import ScannerUserNew from '_pages/ScannerUsers/New/';
 import Cart from '_pages/Cart/';
 import VoucherGiftCart from '_pages/Cart/Gift';
 import Wallet from '_pages/Wallet/';
@@ -167,7 +167,7 @@ const router = new Router({
       name: 'vouchers-gift',
       component: VouchersGift,
       meta: {
-        middleware: [auth, authSeller],
+        middleware: [auth, authSeller, authSSU],
       },
     },
     {
@@ -283,7 +283,7 @@ const router = new Router({
       name: 'vouchers-gift-details',
       component: VoucherGiftCart,
       meta: {
-        middleware: [auth, authSeller],
+        middleware: [auth, authSeller, authSSU],
       },
     },
     {

@@ -37,6 +37,7 @@
         :voucher="voucher"
         :role="role"
         :withQR="withQR"
+        :openNewTab="openNewTab"
       />
       <div v-if="tempData.length <= 0 && !hideIfEmpty" class="py-2 text-lg">
         Noch keine Daten vorhanden.
@@ -171,6 +172,10 @@
         default: true
       },
       hideIfEmpty: {
+        type: Boolean,
+        default: false
+      },
+      openNewTab: {
         type: Boolean,
         default: false
       }

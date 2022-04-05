@@ -215,7 +215,7 @@ export default {
                 icon: 'wallet',
               },
               {
-                title: 'Gutscheine Spender',
+                title: 'Direkt Verkauf',
                 link: '/vouchers-gift',
                 icon: 'gift',
               },
@@ -286,6 +286,11 @@ export default {
                 title: 'Home',
                 link: '/home',
                 icon: 'grid-3x3-gap-fill',
+              },
+              {
+                title: 'Direkt Verkauf',
+                link: '/vouchers-gift',
+                icon: 'gift',
               },
             ];
             break;
