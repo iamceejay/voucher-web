@@ -215,6 +215,11 @@ export default {
                 icon: 'wallet',
               },
               {
+                title: 'Gutscheine Spender',
+                link: '/vouchers-gift',
+                icon: 'gift',
+              },
+              {
                 title: 'Verwalten',
                 link: '/orders-earnings',
                 isChildShow: false,

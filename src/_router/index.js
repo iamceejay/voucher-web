@@ -22,6 +22,7 @@ import Valentines from '_pages/Home/Valentines';
 import Easter from '_pages/Home/Easter';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
+import VouchersGift from '_pages/Vouchers/Gift';
 import NewVoucher from '_pages/Vouchers/New/';
 import BuyerNewVoucher from '_pages/Vouchers/New/Buyer';
 import StatisticsVoucher from '_pages/Vouchers/Statistics/';
@@ -36,6 +37,7 @@ import Scanner from '_pages/Scanner/';
 import ScannerUsers from '_pages/ScannerUsers/';
 import ScannerUserNew from '_pages/ScannerUsers/New/';
 import Cart from '_pages/Cart/';
+import VoucherGiftCart from '_pages/Cart/Gift';
 import Wallet from '_pages/Wallet/';
 import WalletVouchers from '_pages/Wallet/Vouchers';
 import VoucherCategory from '_pages/Vouchers/Category/';
@@ -167,6 +169,14 @@ const router = new Router({
       },
     },
     {
+      path: '/vouchers-gift',
+      name: 'vouchers-gift',
+      component: VouchersGift,
+      meta: {
+        middleware: [auth, authSeller],
+      },
+    },
+    {
       path: '/vouchers/new',
       name: 'vouchers-new',
       component: NewVoucher,
@@ -274,6 +284,14 @@ const router = new Router({
     //     middleware: [ auth, authSeller ]
     //   }
     // },
+    {
+      path: '/vouchers-gift/:id',
+      name: 'vouchers-gift-details',
+      component: VoucherGiftCart,
+      meta: {
+        middleware: [auth, authSeller],
+      },
+    },
     {
       path: '/cart',
       name: 'cart',

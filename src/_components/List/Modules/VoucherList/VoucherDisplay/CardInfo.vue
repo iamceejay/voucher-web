@@ -327,8 +327,12 @@ export default {
             return this.$helpers.convertCurrency(this.order.total_value);
           }
           if (
-            ['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) !=
-            -1
+            [
+              'wallet',
+              'voucher-detail',
+              'orders',
+              'vouchers-gift-details',
+            ].indexOf(this.$route.name) != -1
           ) {
             return this.$helpers.convertCurrency(this.order.value);
           }
