@@ -117,6 +117,7 @@ export default {
         await this.$store.dispatch('FETCH_SELLER_VOUCHERS', {
           ...this.params,
           seller_id: isScanner ? scannerSellerId : id,
+          seller_gift: true
         });
       } catch (err) {
         console.log('err', err);
