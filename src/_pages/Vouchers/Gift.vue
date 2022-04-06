@@ -51,6 +51,7 @@ export default {
         isPrice: null,
         isLoading: false,
         seed: new Date().getTime(),
+        seller_gift: true
       },
     };
   },
@@ -116,7 +117,7 @@ export default {
 
         await this.$store.dispatch('FETCH_SELLER_VOUCHERS', {
           ...this.params,
-          seller_id: isScanner ? scannerSellerId : id,
+          seller_id: isScanner ? scannerSellerId : id
         });
       } catch (err) {
         console.log('err', err);
