@@ -27,6 +27,7 @@
             :key="`voucher-${index}`"
             :voucher="voucher"
             :showRegion="true"
+            :openNewTab="true"
           />
         </VueSlickCarousel>
         <div class="wrapper" v-else>

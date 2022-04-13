@@ -22,9 +22,8 @@
           <span class="block font-medium pb-3 pt-6 text-lg text-center">
             <span>{{ WALLET.voucher.title }}</span>
             <span class="border-r mx-3"></span>
-            <span class="font-medium">{{
-              $helpers.convertCurrency(onGetTotal(WALLET))
-            }}</span>
+            <span class="font-medium">
+              {{ $helpers.convertCurrency(onGetTotal(WALLET)) }}</span>
           </span>
           <div class="mt-8 gap-4 grid grid-cols-2 max-w-lg mx-auto w-full">
             <router-link
@@ -625,7 +624,7 @@ export default {
       let total = value;
 
       if (data.voucher.type == 'quantity') {
-        total = value * data.voucher.price_filter;
+        total = data.voucher.price_filter;
       }
 
       return total;

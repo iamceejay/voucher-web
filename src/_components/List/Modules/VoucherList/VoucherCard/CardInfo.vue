@@ -323,8 +323,8 @@ export default {
         .format('DD.MM.YYYY');
     },
     onClickHeader() {
-      if (this.role === 'selle  r') {
-        this.$router.push(`/vouchers/${this.voucher.id}`);
+      if (this.role === 'seller') {
+        window.open(`https://epasnets.com/vouchers/${this.voucher.id}`, '_blank');
         return;
       }
 
@@ -334,7 +334,7 @@ export default {
           this.$emit('onFlip');
           // }
         } else {
-          this.$router.push(`/vouchers/${this.voucher.id}`);
+          window.open(`https://epasnets.com/vouchers/${this.voucher.id}`, '_blank');
           // this.$store.commit('SET_VOUCHER_ID', this.voucher.id)
           // this.$store.commit('SET_MODAL', true)
 
