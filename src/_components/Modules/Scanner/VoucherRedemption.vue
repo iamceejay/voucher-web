@@ -1,6 +1,26 @@
 <template>
   <div class="flex flex-col self-center w-full">
-    <h2 class="font-semibold text-peach mb-4">Gutschein einlösen</h2>
+    <h2 class="font-semibold text-peach mb-4">
+      Gutschein einlösen
+    </h2>
+
+    <span class="mt-3 text-md">Details des Gutscheins</span>
+    <span class="font-semibold text-peach text-2xl">
+      {{ QR_CODE.voucher.title }}
+    </span>
+    <span
+      v-if="QR_CODE.voucher.type == 'quantity'"
+      class="mb-6 font-semibold"
+    >
+      1x {{ $helpers.convertCurrency(QR_CODE.user_voucher.order.total_amount / QR_CODE.user_voucher.order.total_qty) }}
+    </span>
+    <span
+      v-else
+      class="mb-6 font-semibold"
+    >
+    {{ $helpers.convertCurrency(QR_CODE.user_voucher.order.value) }}
+    </span>
+
     <ValidationObserver v-slot="{ handleSubmit }">
       <form
         class="w-full flex flex-col"
@@ -12,13 +32,13 @@
           v-model="form.value"
           type="number"
           class="w-full mb-5"
-          :label="`Gib die einzulösende ${(QR_CODE.voucher.type != 'quantity') ? 'Wert' : 'Menge' } an`"
+          :label="QR_CODE.voucher.type != 'quantity' ? 'Gib den einzulösenden Wert an' : 'Gib die einzulösende Menge an'"
           rules="required|min_value:1"
         />
         <div class="flex flex-wrap">
           <Button
             class="mr-4"
-            label="Speichern"
+            label="Bestätigen"
             fontWeight="font-normal"
             size="py-4 px-8"
             round="rounded"
