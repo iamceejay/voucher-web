@@ -51,6 +51,7 @@ export default {
         isPrice: null,
         isLoading: false,
         seed: new Date().getTime(),
+        seller_gift: true
       },
     };
   },
