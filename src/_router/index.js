@@ -20,6 +20,7 @@ import RegisterBuyer from '_pages/Register/Buyer/';
 import Home from '_pages/Home/';
 import Valentines from '_pages/Home/Valentines';
 import Easter from '_pages/Home/Easter';
+import Mother from '_pages/Home/Mother';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
 import VouchersGift from '_pages/Vouchers/Gift';
@@ -121,6 +122,11 @@ const router = new Router({
       path: '/ostern',
       name: 'easter',
       component: Easter,
+    },
+    {
+      path: '/muttertag',
+      name: 'muttertag',
+      component: Mother,
     },
     {
       path: '/guest-wallet',

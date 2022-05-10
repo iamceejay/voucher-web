@@ -115,7 +115,10 @@
                           }}</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                          <span class="text-sm">{{
+                          <span 
+                            class="text-sm"
+                            v-if="!row.is_gift"
+                          >{{
                             row.reversed
                               ? 'storniert'
                               : $helpers.convertCurrency(
@@ -126,7 +129,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap flex">
                           <button
-                            v-if="row.channel !== 'direktverkauf'"
+                            v-if="row.channel !== 'direktverkauf' && !row.is_gift"
                             class=" hover:text-peach relative text-sm z-10 ml-5"
                             @click="onGenerateInvoice(row)"
                           >

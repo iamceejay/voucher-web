@@ -18,7 +18,9 @@
             />
           </div>
           <div class="order__form flex flex-col w-full ">
-            <span class="text-xs mt-8 mb-1">
+            <span 
+              class="text-xs mt-8 mb-1"
+            >
               Kaufdatum: {{ formatDate(row.created_at) }}
             </span>
             <span
@@ -54,6 +56,7 @@
             <button
               class="flex hover:text-peach items-center relative text-sm z-10"
               @click="onGenerateInvoice(row)"
+              v-if="!row.is_gift"
             >
               <i class="fa fa-file-download mr-4 text-peach text-xl"></i>
               Rechnung
