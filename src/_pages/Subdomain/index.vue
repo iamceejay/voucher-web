@@ -12,7 +12,7 @@
                     ? `background-color: var(--company-color-opacity)`
                     : ''
                 "
-                v-if="USER.company.header_1 && USER.company.header_2"
+                v-if="USER.company && USER.company.header_1 && USER.company.header_2"
               >
                 <div class="text-xl md:text-4xl text-center">
                   {{ USER.company.header_1 }}
@@ -21,7 +21,7 @@
               </div>
             </div>
             <img
-              v-if="USER && USER.company.header_logo"
+              v-if="USER && USER.company && USER.company.header_logo"
               class="h-64 md:h-96 bg-white mb-6 object-cover"
               :src="onSetImage(USER.company.header_logo)"
               alt=""
@@ -29,7 +29,7 @@
             <img
               v-else
               class="h-64 md:h-96 bg-white mb-6 object-cover"
-              src="@/_assets/img/placeholder-1080.jpg"
+              src="@/_assets/img/subdomain-header.jpg"
               alt=""
             />
           </div>
@@ -48,14 +48,14 @@
                 1
               </div>
               <i
-                v-if="USER.company.icon_1"
+                v-if="USER.company && USER.company.icon_1"
                 class="text-3xl mb-4 bi-"
                 :class="`bi-${USER.company.icon_1}`"
               ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#card-text`" />
               </svg>
-              <span>{{ USER.company.text_1 || 'Gutschein wählen' }}</span>
+              <span>{{ USER.compan && USER.company.text_1  ? USER.company.text_1 : 'Gutschein wählen' }}</span>
             </li>
             <li
               class="flex flex-col items-center justify-center py-14 relative"
@@ -68,16 +68,14 @@
                 2
               </div>
               <i
-                v-if="USER.company.icon_2"
+                v-if="USER.company && USER.company.icon_2"
                 class="text-3xl mb-4 bi-"
                 :class="`bi-${USER.company.icon_2}`"
               ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#palette`" />
               </svg>
-              <span>{{
-                USER.company.text_2 || 'Gutschein personalisieren'
-              }}</span>
+              <span>{{ USER.compan && USER.company.text_2 ? USER.company.text_2 : 'Gutschein personalisieren' }}</span>
             </li>
             <li
               class="flex flex-col items-center justify-center py-14 relative"
@@ -90,14 +88,14 @@
                 3
               </div>
               <i
-                v-if="USER.company.icon_3"
+                v-if="USER.company && USER.company.icon_3"
                 class="text-3xl mb-4 bi-"
                 :class="`bi-${USER.company.icon_3}`"
               ></i>
               <svg class="h-8 icon mb-4" v-else>
                 <use :xlink:href="`/icons/sprite.svg#gift`" />
               </svg>
-              <span>{{ USER.company.text_3 || 'Als Geschenk versenden' }}</span>
+              <span>{{ USER.compan && USER.company.text_3 ? USER.company.text_3 : 'Als Geschenk versenden' }}</span>
             </li>
           </ul>
         </div>
@@ -110,10 +108,25 @@
             Unsere Gutscheine
           </div>
           <VoucherList
+            v-if="USER && USER.company"
             title=""
             class="mb-3"
             :data="VOUCHERS.data"
             :withQR="false"
+          />
+          <WalletList
+            v-else
+            class="mb-3 mt-4"
+            :role="'user'"
+            :data="USER_VOUCHERS.data"
+            :withPagination="true"
+            :currentPage="USER_VOUCHERS.current_page"
+            :lastPage="USER_VOUCHERS.last_page"
+            :isCart="false"
+            :withQR="true"
+            :withCartDetail="false"
+            :asGift="true"
+            @onPaginate="onPaginateVouchers($event)"
           />
         </div>
       </div>
@@ -123,18 +136,28 @@
 <script>
 import MainLayout from '_layouts/subdomain';
 import VoucherList from '_components/List/Modules/VoucherList/';
+import WalletList from '_components/List/Modules/WalletList/';
 import { post } from '_helpers/ApiService'
 
 export default {
   components: {
     MainLayout,
     VoucherList,
+    WalletList
   },
   data() {
     return {
       isLoading: true,
       isShowMore: false,
       appURL: '',
+      params: {
+        keyword: '',
+        page: 1,
+        paginate: 9,
+        user_id: null,
+        status: 'completed',
+        asGift: true
+      },
     };
   },
   computed: {
@@ -150,6 +173,9 @@ export default {
     IS_LOADING() {
       return this.$store.getters.IS_LOADING;
     },
+    USER_VOUCHERS() {
+      return this.$store.getters.USER_VOUCHERS;
+    },
   },
   watch: {},
   mounted() {
@@ -157,8 +183,15 @@ export default {
       this.appURL = process.env.VUE_APP_WEB_URL
       try {
         await this.$store.commit('SET_IS_LOADING', { status: 'open' });
-        await this.$store.commit('SET_SELLER_VOUCHERS', []);
-        await this.onFetchVouchers();
+
+        if(this.USER && this.USER.company) {
+          await this.$store.commit('SET_SELLER_VOUCHERS', []);
+          await this.onFetchVouchers();
+        } else {
+          this.params.user_id = this.USER.id;
+          await this.onFetchSearchUserVouchers();
+        }
+
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
       } catch (err) {
         await this.$store.commit('SET_IS_LOADING', { status: 'close' });
@@ -206,7 +239,41 @@ export default {
       this.$refs.submit.value = 'Submit'
       this.$refs.submit.disabled = false
       evt.target.reset()
-    }
+    },
+    async onFetchSearchUserVouchers() {
+      try {
+        const data = await this.$store.dispatch(
+          'FETCH_SEARCH_GIFT_USER_VOUCHERS',
+          this.params
+        );
+        if (data.user_vouchers.next_page_url == null) {
+          await this.$store.commit('SET_IS_INFINITE_LOAD', false);
+        }
+      } catch (err) {
+        console.log('err', err);
+      }
+    },
+    async onPaginateVouchers(action) {
+      let params = {
+        ...this.params,
+        page: action === 'prev' ? this.params.page - 1 : this.params.page + 1,
+      };
+      await this.$store.commit('SET_USER_VOUCHERS', []);
+      await this.onLoadData(params);
+    },
+    async onLoadData(data, fromSearch = false) {
+      await this.$store.commit('SET_IS_PROCESSING', { status: 'open' });
+      this.params = {
+        ...this.params,
+        ...data,
+        page: this.params.keyword != '' ? 1 : data.page,
+      };
+      if (fromSearch) {
+        await this.$store.commit('SET_USER_VOUCHERS', []);
+      }
+      await this.onFetchSearchUserVouchers();
+      await this.$store.commit('SET_IS_PROCESSING', { status: 'close' });
+    },
   },
 };
 </script>

@@ -518,6 +518,18 @@
           </div>
         </div>
       </div>
+      <VouchCategory
+        title="Related Vouchers"
+        description=""
+        category=""
+        :ids="ids"
+        :theme="'gray'"
+        :showButton="false"
+        preTitle=""
+        titleClass="company-color text-center"
+        descriptionClass="!text-black text-center"
+      >
+    </VouchCategory>
     </template>
   </MainLayout>
 </template>
@@ -529,6 +541,7 @@ import Button from '_components/Button';
 import { slider, slideritem } from 'vue-concise-slider';
 import { formatDate } from '_helpers/CustomFunction';
 import moment from 'moment';
+import VouchCategory from '_components/VouchCategory';
 
 export default {
   components: {
@@ -538,6 +551,7 @@ export default {
     Button,
     slider,
     slideritem,
+    VouchCategory
   },
   data() {
     return {
@@ -555,6 +569,7 @@ export default {
       options: {
         pagination: false,
       },
+      ids: '1,3'
     };
   },
   computed: {

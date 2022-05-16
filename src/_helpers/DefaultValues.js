@@ -86,7 +86,39 @@ export const regions = [
     id: 4,
     label: 'Außerfern',
     status: 1
-  }, 
+  }, {
+    id: 5,
+    label: 'Tirol',
+    status: 1
+  }, {
+    id: 6,
+    label: 'Vorarlberg',
+    status: 1
+  }, {
+    id: 7,
+    label: 'Wien',
+    status: 1
+  }, {
+    id: 8,
+    label: 'Niederösterreich',
+    status: 1
+  }, {
+    id: 9,
+    label: 'Oberösterreich',
+    status: 1
+  }, {
+    id: 10,
+    label: 'Kärnten',
+    status: 1
+  }, {
+    id: 11,
+    label: 'Steiermark',
+    status: 1
+  }, {
+    id: 12,
+    label: 'Burgenland',
+    status: 1
+  }
 ]
 
 export const templates = [

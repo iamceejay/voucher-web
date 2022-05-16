@@ -292,9 +292,9 @@ export default {
       if (this.userVoucher) {
         this.$router.push(`/voucher/${this.userVoucher.id}`);
       } else if(this.openNewTab) {
-        window.open(`https://epasnets.com/vouchers/${this.voucher.id}`, '_blank')
+        window.open(`https://epasnets.de/gutscheine/${this.voucher.id}`, '_blank')
       } else {
-        window.location.href = `https://epasnets.com/vouchers/${this.voucher.id}`;
+        window.location.href = `https://epasnets.de/gutscheine/${this.voucher.id}`;
       }
 
       // if (this.isFlippable) {
@@ -385,7 +385,7 @@ export default {
         });
         setTimeout(() => {
           confirm.close();
-          this.$router.push(`/vouchers-gift/${data.order.id}`);
+          this.$router.push(`/gutschein-geschenk/${data.order.id}`);
         }, 1000);
       } catch (err) {
         console.log(err);

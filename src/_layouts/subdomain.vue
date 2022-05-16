@@ -6,7 +6,7 @@
     >
       <router-link to="/">
         <img
-          v-if="USER && USER.company.logo"
+          v-if="USER && USER.company && USER.company.logo"
           class="company-logo h-12"
           :src="onSetImage(USER.company.logo)"
           alt=""

@@ -15,6 +15,7 @@
         class="w-full md:w-1/2 my-5"
         :data="form"
         :errorMessages="errorMessages"
+        :isDefaultRegions="isDefaultRegions"
         @onChange="onChange"
       />
       <div class="w-full sm:w-1/2 flex">
@@ -60,6 +61,10 @@
         default() {
           return []
         }
+      },
+      isDefaultRegions: {
+        type: Boolean,
+        default: true
       }
     },
     data() {

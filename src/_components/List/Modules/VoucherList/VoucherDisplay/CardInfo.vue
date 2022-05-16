@@ -102,17 +102,30 @@
             <span></span>
           </span>
           <span class="mt-3 flex items-center">
-            <QrcodeVue
-              class="card-qr"
-              :value="withQR && qr ? qr.url : ''"
-              level="H"
-            />
-            <div class="flex flex-col text-2xs ml-2">
-              <span>Gutscheincode:</span>
-              <span class="font-bold">{{
-                withQR && qr ? qr.url : '123456789'
-              }}</span>
-            </div>
+            <template v-if="!asGift">
+              <QrcodeVue
+                class="card-qr"
+                :value="withQR && qr ? qr.url : ''"
+                level="H"
+              />
+              <div class="flex flex-col text-2xs ml-2">
+                <span>Gutscheincode:</span>
+                <span class="font-bold">{{
+                  withQR && qr ? qr.url : '123456789'
+                }}</span>
+              </div>
+            </template>
+            <template v-else>
+              <QrcodeVue
+                class="card-qr"
+                :value="'https://epasnets.com/login'"
+                level="H"
+              />
+              <div class="flex flex-col text-2xs ml-2">
+                <span>Gutscheincode:</span>
+                <span class="font-bold">123456789</span>
+              </div>
+            </template>
           </span>
         </div>
 
@@ -169,7 +182,7 @@
       </div>
       <div
         class="absolute bg-gray-300 bg-opacity-50 bottom-0 left-0 ml-auto mr-auto px-5 py-4 right-0 rounded-lg text-2xs text-center w-9/12 text-gray-500 font-semibold" style="margin-bottom: -15px;"
-        v-if="userVoucher && userVoucher.sent_via !== null"
+        v-if="userVoucher && userVoucher.sent_via !== null && !asGift"
       >
         <span class="font-bold italic text-peach">Achtung!</span> Ist dieser Gutschein schon verschenkt? Dieser Gutschein könnte schon ausgedruckt bzw. verschenkt sein.
       </div>
@@ -294,6 +307,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    asGift: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

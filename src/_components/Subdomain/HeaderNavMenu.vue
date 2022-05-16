@@ -18,15 +18,15 @@
         >
           <router-link to="/" class="self-center mx-auto">
             <img
-              v-if="USER && USER.company.logo"
+              v-if="USER && USER.company && USER.company.logo"
               class="company-logo h-12"
               :src="onSetImage(USER.company.logo)"
               alt=""
             />
             <img
               v-else
-              class="company-logo"
-              src="@/_assets/img/company-default-logo.png"
+              class="company-logo h-12"
+              src="@/_assets/img/logo.png"
               alt=""
             />
           </router-link>

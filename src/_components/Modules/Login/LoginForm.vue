@@ -25,9 +25,11 @@
           :passwordToggle="true"
         />
         <router-link
-        to="/register/buyer"
-        class="underline text-center mx-2 mb-2"
-        :class="wildcard ? 'text-3xl' : 'text-xs'">
+          v-if="!giftPage"
+          to="/register/buyer"
+          class="underline text-center mx-2 mb-2"
+          :class="wildcard ? 'text-3xl' : 'text-xs'"
+        >
           Registrieren
         </router-link>
         <router-link to="/forgot-password" class="text-center text-xs mx-2 mb-5">
@@ -42,7 +44,10 @@
           :isLoading="submitting"
           label="Login"
         />
-        <div class="flex flex-col border-t-2 border-input-border">
+        <div
+          v-if="!giftPage"
+          class="flex flex-col border-t-2 border-input-border"
+        >
 
           <p class="font-medium text-center text-lg py-4" v-if="wildcard">weiter mit</p>
           <p class="font-medium text-center text-lg py-4" v-else>Oder anmelden als Käufer mit:</p>
@@ -92,6 +97,12 @@
       InputField,
       Button,
       GoogleLogin
+    },
+    props: {
+      giftPage: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {

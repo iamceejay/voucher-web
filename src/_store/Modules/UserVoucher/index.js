@@ -184,5 +184,16 @@ export default {
         throw err
       }
     },
+    async FETCH_SEARCH_GIFT_USER_VOUCHERS( { commit, state }, payload )
+    {
+      try {
+        const { data } = await post('gift/search/user-vouchers', payload)
+        const newList = (payload.paginate) ? mergeList( state.userVouchers, data.user_vouchers ) : data.user_vouchers
+        await commit('SET_USER_VOUCHERS', newList)
+        return data
+      } catch (err) {
+        throw err
+      }
+    },
   },
 }

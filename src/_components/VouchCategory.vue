@@ -1,5 +1,8 @@
 <template>
-  <div class="py-5 md:py-10" :class="[bgColor, theme]">
+  <div
+    class="py-5 md:py-10"
+    :class="[bgColor, theme]"
+  >
     <div class="content-container mt-5 md:mt-10 w-11/12">
       <div class="flex flex-col gap-6 mb-6 md:flex-row">
         <div class="flex-1">
@@ -44,7 +47,7 @@
       </div>
       <a
         v-if="showButton"
-        :href="`/vouchers/category/${$helpers.toSlug(category)}`"
+        :href="`/gutscheine/category/${$helpers.toSlug(category)}`"
         class="inline-block mt-6 px-4 py-2 rounded-md more-button"
       >
         Mehr entdecken →
@@ -73,7 +76,7 @@ export default {
     'showButton',
     'preTitle',
     'titleClass',
-    'descriptionClass',
+    'descriptionClass'
   ],
   data() {
     return {

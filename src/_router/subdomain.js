@@ -116,7 +116,7 @@ const router = new Router({
       meta: {},
     },
     {
-      path: '/vouchers',
+      path: '/gutscheine',
       name: 'vouchers',
       component: Vouchers,
       meta: {
@@ -124,7 +124,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/update/:id',
+      path: '/gutscheine/update/:id',
       name: 'vouchers-update',
       component: NewVoucher,
       meta: {
@@ -133,7 +133,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/statistic/:id',
+      path: '/gutscheine/statistic/:id',
       name: 'vouchers-statistic',
       component: StatisticsVoucher,
       meta: {
@@ -191,7 +191,7 @@ const router = new Router({
       },
     },
     {
-      path: '/voucher/:id',
+      path: '/gutscheine/:id',
       name: 'voucher-detail',
       component: VoucherWalletDetail,
       meta: {
@@ -200,7 +200,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/category/:slug',
+      path: '/gutscheine/category/:slug',
       name: 'vouchers-category',
       component: VoucherCategory,
       meta: {
@@ -208,7 +208,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/search',
+      path: '/gutscheine/search',
       name: 'vouchers-search',
       component: VoucherSearch,
       meta: {
@@ -216,7 +216,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/send-email/:id',
+      path: '/gutscheine/send-email/:id',
       name: 'vouchers-send-email',
       component: VoucherSendEmail,
       meta: {
@@ -225,7 +225,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/transfer/:id',
+      path: '/gutscheine/transfer/:id',
       name: 'vouchers-transfer',
       component: VoucherTransfer,
       meta: {
@@ -234,7 +234,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/:id',
+      path: '/gutscheine/:id',
       name: 'vouchers-detail',
       component: VoucherDetail,
       meta: {
@@ -243,7 +243,7 @@ const router = new Router({
       },
     },
     {
-      path: '/vouchers/personalized/:id',
+      path: '/gutscheine/personalized/:id',
       name: 'vouchers-personalized',
       component: VoucherPersonalized,
       meta: {

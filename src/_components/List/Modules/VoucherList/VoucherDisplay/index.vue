@@ -33,6 +33,7 @@
         :listId="listId"
         :cardId="cardId"
         :isBought="isBought"
+        :asGift="asGift"
         @onFlip="onFlip()"
       />
       <CardAction
@@ -104,6 +105,10 @@
       isBought: {
         type: Boolean,
         default: false
+      },
+      asGift: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -112,6 +117,11 @@
         isFlip: false,
         vIndex: 0,
       };
+    },
+    computed: {
+      AUTH_USER() {
+        return this.$store.getters.AUTH_USER;
+      },
     },
     watch: {
       'voucher.background_image'(newVal, oldVal)
@@ -143,13 +153,43 @@
     methods: {
       onFlip(walletDetails = null)
       {
-        if(this.isFlippable) {
+        if(this.isFlippable && !this.asGift) {
           this.$router.push(`/voucher/${this.userVoucher.id}`)
           //  if (this.isFlippable) {
               // this.isFlip = !this.isFlip;
               // this.isAction = !this.isAction;
               // this.onSetBgImage(this.isFlip ? '' : this.onGetBg());
           //   }
+        }
+
+        if(this.asGift) {
+          const auth = this.AUTH_USER;
+
+          if(auth.isAuth) {
+            if(auth.data.user_role.role.name == 'user') {
+              const email = {
+                'subject': `${this.order.voucher.title} - Voucher Request`,
+                'from': `Username: ${auth.data.username} (${auth.data.email})`,
+                'voucher_info': this.order
+              }
+
+              this.$swal({
+                title: 'Voucher Request',
+                text: `Do you want to make a request for this voucher?`,
+                showCancelButton: true,
+                confirmButtonColor: '#48BB78',
+                cancelButtonColor: '#FC8181',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+              }).then((result) => {
+                if (result.value) {
+                  console.log(email)
+                }
+              });
+            }
+          } else {
+            this.$router.push(`https://epasnets.com/login`);
+          }
         }
       },
       flip() {

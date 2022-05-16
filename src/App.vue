@@ -35,8 +35,16 @@
             window.location = window.location.origin.replace(this.wildcard + '.', '')
             return
           }
-          const bg_color = user.company.background_color ? user.company.background_color : '#1D4F55'
-          const text_color = user.company.text_color ? user.company.text_color : '#fff'
+
+          let bg_color = '#1D4F55'
+          let text_color = '#fff'
+
+          if(user.company !== null) {
+            bg_color = user.company.background_color ? user.company.background_color : '#1D4F55'
+
+            text_color = user.company.text_color ? user.company.text_color : '#fff'
+          }
+
           let root = document.documentElement;
           root.style.setProperty('--company-color', bg_color)
           root.style.setProperty('--text-color', text_color)

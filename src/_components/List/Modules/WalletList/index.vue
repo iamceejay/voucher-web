@@ -16,8 +16,12 @@
             :userVoucher="row"
             :role="role"
             :withQR="withQR"
+            :asGift="asGift"
           />
-          <section class="flex flex-col items-center w-full mt-4">
+          <section
+            v-if="!asGift"
+            class="flex flex-col items-center w-full mt-4"
+          >
             <span class="font-medium">{{ row.order.voucher.title }}</span>
             <span class="text-sm mb-2">{{
               (row.order.voucher.seller && row.order.voucher.seller.username) ||
@@ -30,7 +34,7 @@
                     ? `${row.qty} x ${$helpers.convertCurrency(
                         row.order.voucher.qty_val
                       )}`
-                    : $route.name == 'wallet'
+                    : $route.name == 'wallet' || asGift
                     ? $helpers.convertCurrency(row.order.value)
                     : `${$helpers
                         .convertCurrency(voucher.min || voucher.val_min)
@@ -177,6 +181,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    asGift: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

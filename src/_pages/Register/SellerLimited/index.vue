@@ -23,6 +23,7 @@
           <RegisterStep3
             v-if="step == 3"
             :data="form"
+            :isDefaultRegions="false"
             @onChangeStep="onChangeStep"
           />
           <ReigsterStep4
@@ -75,7 +76,7 @@
             region: '',
             vat_number: ''
           },
-          isLimited: 0
+          isLimited: 1
         }
       }
     },

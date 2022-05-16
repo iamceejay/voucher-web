@@ -109,7 +109,7 @@
     <SelectField
       id="Region"
       v-model="form.company.region_id"
-      :options="REGIONS"
+      :options="regions"
       class="my-2"
       label="Region"
       rules="required"
@@ -150,6 +150,10 @@
         default() {
           return null
         }
+      },
+      isDefaultRegions: {
+        type: Boolean,
+        default: true
       }
     },
     data() {
@@ -187,7 +191,8 @@
             vat_number: ''
           }
         },
-        settings: null
+        settings: null,
+        regions: null
       }
     },
     computed: {
@@ -225,6 +230,14 @@
     mounted() {
       this.onSetForm()
       this.onSetSettings()
+
+      if(this.isDefaultRegions) {
+        const ids = [1, 2, 3, 4]
+        this.regions = this.REGIONS.filter(data => ids.includes(data.id))
+      } else {
+        const ids = [5, 6, 7, 8, 9, 10, 11, 12]
+        this.regions = this.REGIONS.filter(data => ids.includes(data.id))
+      }
     },
     methods: {
       onSetSettings()

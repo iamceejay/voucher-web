@@ -7,7 +7,9 @@
             Anmelden
           </div>
           <div class="content-container">
-            <LoginForm />
+            <LoginForm
+              :giftPage="giftPage"
+            />
           </div>
         </div>
       </div>
@@ -24,14 +26,23 @@
       MainLayout,
       LoginForm
     },
+    data() {
+      return {
+        giftPage: false
+      }
+    },
     computed: {
       AUTH_USER()
       {
         return this.$store.getters.AUTH_USER
-      }
+      }, USER() {
+        return this.$store.getters.COMPANY;
+      },
     },
     mounted() {
       (async () => {
+        this.giftPage = this.USER.user_role.role.name == 'user' ? true : false;
+
         await this.$store.commit('SET_COUNT_CART', 0)
         if( this.$route.query?.status ) {
           this.$swal({
