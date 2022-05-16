@@ -45,20 +45,20 @@
       </div>
 
       <div class="overflow-hidden relative valentines mt-10">
-        <img class="hidden md:block absolute bottom-0 inset-x-0 max-h-full mx-auto object-center object-cover" src="@/_assets/img/easter/easter_header-min.jpg">
-        <img class="absolute block inset-x-0 max-h-full md:hidden mt-4 mx-auto object-center object-cover top-0" src="@/_assets/img/easter/easter_header_mobile-min.jpg">
+        <img class="hidden md:block absolute bottom-0 inset-x-0 max-h-full mx-auto object-center object-cover" src="@/_assets/img/header-desktop-min.jpg">
+        <img class="absolute block inset-x-0 max-h-full md:hidden mt-4 mx-auto object-center object-cover top-0" src="@/_assets/img/header-mobile-min.jpg">
         <div
           class="content-container header-container flex flex-col items-center px-4 pt-20 pb-60 l lg:py-28 relative z-1"
         >
           <div class="text-center text-white w-11/12 max-w-2xl">
             <p class="font-bold mb-6 mx-auto text-logo text-center max-w-sm md:max-w-2xl">
-              Tiroler Momente zu Ostern schenken
+              Für den Muttertag
             </p>
-            <button @click="$router.push('/ostern')" class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
-              <svg class="bi bi-heart-fill h-10 w-10" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <button @click="$router.push('/muttertag')" class="bg-company company-bg-color inline-flex items-center px-4 py-2 rounded-md text-white w-64">
+              <svg class="bi bi-heart-fill h-10 w-1/12 mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
               </svg>
-              Entdecke die besten Angebote
+              Gutscheine entdecken
             </button>
           </div>
         </div>
@@ -367,25 +367,25 @@
       </VouchCategory>
 
       <TwoColumnVouch
-        title="Etwas kniffliges für die Ganze Familie"
+        title="Etwas Kniffliges für die ganze Familie"
         description=""
         category="Kurzurlaub"
         :firstVouch="211"
         :firstVouchTitle="'Du willst Spaß, Rätseln und im Team arbeiten?'"
         :firstVouchDescription="
-          'Dann ist das spektakuläre Escape Room Erlebnis in Innsbruck-Kufstein genau das richtige für dich! Erlebe mit der ganzen Familie ein spannendes Abenteuer mit kniffligen Aufgaben, verzaubernde Räume oder für die Horror liebhabenden schrecklich schöne Überraschungen.'
+          'Dann ist das spektakuläre Escape Room Erlebnis in Innsbruck &#8212; Kufstein genau das richtige für dich! Erlebe ein spannendes Abenteuer mit der ganzen Familie, mit kniffligen Aufgaben, spannende Räume oder für die Horror-Liebhabenden unter euch, schrecklich schöne Überraschungen.'
         "
         :secondVouch="75"
         :secondVouchTitle="
           'Schaffst Du es ein rätselhaftes Abenteuer in nur 60 Minuten zu lösen?'
         "
         :secondVouchDescription="
-          'Escape Room PerrplexxX bietet dir und deiner Familie, Freunden und Bekannten ein unvergessliches Erlebnis voller Spaß, Zusammenarbeit und kniffligen Aufgaben. Es ist für jeden was dabei, für Jung und Alt bis zu Horror Liebhaber und „Langfinger“ die schon immer mal ein Gemälde stehlen wollten.'
+          'Escape Room PerrplexxX bietet dir und deiner Familie sowie Freunden und Bekannten ein unvergessliches Erlebnis voller Spaß, Action und kniffligen Aufgaben. Es ist für jeden etwas dabei &#8212; von Jung bis Alt, für Horror-Liebhaber und Langfinger, die schon immer mal ein Gemälde stehlen wollten.'
         "
       />
 
       <VouchCategory
-        title="Für die ganze familie"
+        title="Für die ganze Familie"
         description="Die besten Momente erlebt man nur mit der ganzen Familie."
         category="Sport & Adventure"
         :ids="section_9"
@@ -780,7 +780,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .valentines {
-  background: #A5D7EA 0% 0% no-repeat padding-box;
+  background: #fcb6be 0% 0% no-repeat padding-box;
 }
 .text-logo {
   font-size: 25px;

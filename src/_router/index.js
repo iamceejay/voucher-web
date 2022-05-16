@@ -20,6 +20,7 @@ import RegisterBuyer from '_pages/Register/Buyer/';
 import Home from '_pages/Home/';
 import Valentines from '_pages/Home/Valentines';
 import Easter from '_pages/Home/Easter';
+import Mother from '_pages/Home/Mother';
 import GuestWallet from '_pages/Home/Guest/Wallet';
 import Vouchers from '_pages/Vouchers/';
 import VouchersGift from '_pages/Vouchers/Gift';
@@ -67,7 +68,6 @@ import BuyerVoucherTransfer from '_pages/Transfer/BuyerVoucher';
 import PageNotFound from '_pages/Errors/PageNotFound';
 import UserNotAllowed from '_pages/Errors/UserNotAllowed';
 import WishList from '_pages/WishList';
-import RegisterLimited from '_pages/Register/SellerLimited/';
 
 Vue.use(Router);
 
@@ -124,6 +124,11 @@ const router = new Router({
       component: Easter,
     },
     {
+      path: '/muttertag',
+      name: 'muttertag',
+      component: Mother,
+    },
+    {
       path: '/guest-wallet',
       name: 'guest-wallet',
       component: GuestWallet,
@@ -162,7 +167,7 @@ const router = new Router({
       meta: {},
     },
     {
-      path: '/gutscheine',
+      path: '/vouchers',
       name: 'vouchers',
       component: Vouchers,
       meta: {
@@ -170,7 +175,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutschein-geschenk',
+      path: '/vouchers-gift',
       name: 'vouchers-gift',
       component: VouchersGift,
       meta: {
@@ -178,7 +183,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/new',
+      path: '/vouchers/new',
       name: 'vouchers-new',
       component: NewVoucher,
       meta: {
@@ -187,7 +192,7 @@ const router = new Router({
       },
     },
     {
-      path: '/wallet/gutscheine/new',
+      path: '/wallet/vouchers/new',
       name: 'buyers-vouchers-new',
       component: BuyerNewVoucher,
       meta: {
@@ -196,7 +201,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/update/:id',
+      path: '/vouchers/update/:id',
       name: 'vouchers-update',
       component: NewVoucher,
       meta: {
@@ -205,7 +210,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/statistic/:id',
+      path: '/vouchers/statistic/:id',
       name: 'vouchers-statistic',
       component: StatisticsVoucher,
       meta: {
@@ -229,6 +234,14 @@ const router = new Router({
         middleware: [auth, authSeller],
       },
     },
+    // {
+    //   path: '/redemptions',
+    //   name: 'redemptions',
+    //   component: Redemptions,
+    //   meta: {
+    //     middleware: [auth, authAdmin],
+    //   },
+    // },
     {
       path: '/website-configuration',
       name: 'website-configuration',
@@ -261,8 +274,24 @@ const router = new Router({
         middleware: [auth, authUS],
       },
     },
+    // {
+    //   path: '/scanner-users',
+    //   name: 'scanner-users',
+    //   component: ScannerUsers,
+    //   meta: {
+    //     middleware: [ auth, authSeller ]
+    //   }
+    // }, {
+    //   path: '/scanner-users/new',
+    //   name: 'scanner-users-new',
+    //   component: ScannerUserNew,
+    //   meta: {
+    //     back: '/scanner-users',
+    //     middleware: [ auth, authSeller ]
+    //   }
+    // },
     {
-      path: '/gutschein-geschenk/:id',
+      path: '/vouchers-gift/:id',
       name: 'vouchers-gift-details',
       component: VoucherGiftCart,
       meta: {
@@ -287,7 +316,7 @@ const router = new Router({
       },
     },
     {
-      path: '/wallet/gutscheine',
+      path: '/wallet/vouchers',
       name: 'wallet-vouchers',
       component: WalletVouchers,
       meta: {
@@ -303,7 +332,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutschein/:id',
+      path: '/voucher/:id',
       name: 'voucher-detail',
       component: VoucherWalletDetail,
       meta: {
@@ -312,7 +341,7 @@ const router = new Router({
       },
     },
     {
-      path: '/buyer/gutschein/:id',
+      path: '/buyer/voucher/:id',
       name: 'buyer-voucher-detail',
       component: BuyerVoucherWalletDetail,
       meta: {
@@ -321,7 +350,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/category/:slug',
+      path: '/vouchers/category/:slug',
       name: 'vouchers-category',
       component: VoucherCategory,
       meta: {
@@ -329,7 +358,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/search',
+      path: '/vouchers/search',
       name: 'vouchers-search',
       component: VoucherSearch,
       meta: {
@@ -337,7 +366,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/send-email/:id',
+      path: '/vouchers/send-email/:id',
       name: 'vouchers-send-email',
       component: VoucherSendEmail,
       meta: {
@@ -346,7 +375,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/transfer/:id',
+      path: '/vouchers/transfer/:id',
       name: 'vouchers-transfer',
       component: VoucherTransfer,
       meta: {
@@ -355,7 +384,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/:id',
+      path: '/vouchers/:id',
       name: 'vouchers-detail',
       component: VoucherDetail,
       meta: {
@@ -364,7 +393,7 @@ const router = new Router({
       },
     },
     {
-      path: '/gutscheine/personalized/:id',
+      path: '/vouchers/personalized/:id',
       name: 'vouchers-personalized',
       component: VoucherPersonalized,
       meta: {
@@ -373,7 +402,7 @@ const router = new Router({
       },
     },
     {
-      path: '/buyer/gutscheine/personalized/:id',
+      path: '/buyer/vouchers/personalized/:id',
       name: 'buyer-vouchers-personalized',
       component: BuyerVoucherPersonalized,
       meta: {
@@ -399,7 +428,7 @@ const router = new Router({
       },
     },
     {
-      path: '/featured-gutscheine',
+      path: '/featured-vouchers',
       name: 'featured-vouchers',
       component: VoucherManageFeature,
       meta: {
@@ -422,6 +451,14 @@ const router = new Router({
         middleware: [auth, authAdmin],
       },
     },
+    // , {
+    //   path: '/payment',
+    //   name: 'payment',
+    //   component: Payment,
+    //   meta: {
+    //     middleware: [ auth, authAdmin ]
+    //   }
+    // }
     {
       path: '/category',
       name: 'category',
@@ -479,7 +516,7 @@ const router = new Router({
       },
     },
     {
-      path: '/transfer/:id',
+      path: '/ein-liebevolles-geschenk/:id',
       name: 'transfer',
       component: Transfer,
       // meta: {
@@ -487,7 +524,14 @@ const router = new Router({
       // }
     },
     {
-      path: '/buyer-gutscheine/transfer/:id',
+      path: '/transfer/:id',
+      redirect: { name: 'transfer' }
+      // meta: {
+      //   middleware: [ auth, authAdmin ]
+      // }
+    },
+    {
+      path: '/buyer-voucher/transfer/:id',
       name: 'buyer-transfer',
       component: BuyerVoucherTransfer,
       // meta: {
@@ -520,19 +564,11 @@ const router = new Router({
       },
     },
     {
-      path: '/gutschein-redemptions',
+      path: '/voucher-redemptions',
       name: 'voucher-redemptions',
       component: Redemptions,
       meta: {
         middleware: [auth, authAdmin],
-      },
-    },
-    {
-      path: '/shop-registrierung',
-      name: 'shop-registrierung',
-      component: RegisterLimited,
-      meta: {
-        middleware: [guest],
       },
     },
   ],
