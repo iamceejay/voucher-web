@@ -323,6 +323,12 @@ export default {
     },
     valueDisplay() {
       if (this.voucher.type == 'quantity') {
+        if(this.asGift) {
+          return this.$helpers.convertCurrency(
+            this.order ? this.order.voucher.qty_val : this.voucher.qty_val
+          );
+        }
+
         if (
           ['wallet', 'voucher-detail', 'orders'].indexOf(this.$route.name) != -1
         ) {
@@ -337,7 +343,7 @@ export default {
           );
         }
       } else {
-        if (this.isBought) {
+        if (this.isBought || this.asGift) {
           return this.$helpers.convertCurrency(this.order.value);
         } else {
           if (['orders'].indexOf(this.$route.name) != -1) {

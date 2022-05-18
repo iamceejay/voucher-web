@@ -55,6 +55,7 @@
   import CardInfo from './CardInfo'
   import CardAction from './CardAction'
   import CardUserAction from './CardUserAction'
+  import { post } from '_helpers/ApiService'
 
   export default {
     components: {
@@ -170,7 +171,8 @@
               const email = {
                 'subject': `${this.order.voucher.title} - Voucher Request`,
                 'from': `Username: ${auth.data.username} (${auth.data.email})`,
-                'voucher_info': this.order
+                'order_info': this.order,
+                'voucher_info': this.userVoucher
               }
 
               this.$swal({
@@ -183,7 +185,7 @@
                 cancelButtonText: 'No',
               }).then((result) => {
                 if (result.value) {
-                  console.log(email)
+                  this.sendGiftRequest(email)
                 }
               });
             }
@@ -228,6 +230,9 @@
           card.style.backgroundImage = `url('${bg}')`
           card.style.backgroundSize = `cover`
         }
+      },
+      async sendGiftRequest(email) {
+        await post(`gift-request`, email)
       }
     }
   }
